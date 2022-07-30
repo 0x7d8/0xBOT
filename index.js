@@ -7,7 +7,7 @@ const { EmbedBuilder } = require('@discordjs/builders');
 
 // MongoDB
 const mongoose = require('mongoose')
-mongoose.connect('mongodb://root:gJuDVCE98hypjN5bi3pMSq54Q2G2Y@DE-EHP-01.PAPERSTUDIOS.DE:27017/0xBOT', {
+mongoose.connect('mongodb://root:gJuDVCE98hypjN5bi3pMSq54Q2G2Y@DE-01.PAPERSTUDIOS.DE:27017/0xBOT', {
     useUnifiedTopology: true,
     useNewUrlParser: true
 }).then(console.log('\n[0xBOT] [i] LADE BOT VERSION ' + version + '\n[0xBOT] [!] ZU MONGODB VERBUNDEN\n\n[0xBOT] [i] LADE BEFEHLE UND EVENTS...'))
