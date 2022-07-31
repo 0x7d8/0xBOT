@@ -5,7 +5,7 @@ var generator = require('generate-password');
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('password')
+        .setName('passwort')
     	.setDMPermission(false)
         .setDescription('GENERIERE EIN PASSWORT')
         .addIntegerOption(option =>
@@ -48,7 +48,7 @@ module.exports = {
             return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
 
         }
-        if (lenght > 4) {
+        if (lenght < 4) {
 
             // Create Embed
             var err = new EmbedBuilder()
