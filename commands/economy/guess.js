@@ -53,6 +53,17 @@ module.exports = {
             
             return interaction.reply({ embeds: [mterr.toJSON()], ephemeral: true })
         }
+
+        // Check if Balance is Minus
+        if (wette < 0) {
+            // Create Embed
+            var err = new EmbedBuilder()
+        		.setTitle('» FEHLER')
+        		.setDescription('» Du kannst keine negativen Einsätze spielen!')
+        		.setFooter({ text: '» ' + version });
+            
+            return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
+        }
         
        	// Check for enough Money
         if (money >= wette) {
