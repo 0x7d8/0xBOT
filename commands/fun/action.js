@@ -81,11 +81,11 @@ module.exports = {
   			.setDescription("» **" + sender + "** ruft " + user + "! KOMM DOCH.")
   			.setImage("https://media2.giphy.com/media/NPFQpRI1KpIq9S0YKa/giphy.gif?cid=ecf05e47xfvrmgjqorm0p5hn2iz9kxjw6ngykph6bireyunn&rid=giphy.gif&ct=g")
         	.setFooter({ text: '» ' + version });
-        const err = new EmbedBuilder()
+        var err = new EmbedBuilder()
         	.setTitle('» ACTION?')
   			.setDescription("» Du kannst dich nicht selber " + event + "?")
         	.setFooter({ text: '» ' + version });
-        const err2 = new EmbedBuilder()
+        var err2 = new EmbedBuilder()
         	.setTitle('» ACTION?')
   			.setDescription("» Du kannst keinen Bot " + event + ".")
         	.setFooter({ text: '» ' + version });
