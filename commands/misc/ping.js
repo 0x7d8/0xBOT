@@ -17,7 +17,7 @@ module.exports = {
         addcmd('u-' + interaction.user.id, 1)
         
         // Set Variables
-        const botping = Math.floor(Math.random() * (70 - 20 + 1)) + 20;
+        const botping = Math.floor(Math.random() * (60 - 20 + 1)) + 20;
         
         // Check Maintenance
         const { maintenance } = require('../../config.json');
