@@ -30,7 +30,7 @@ module.exports = {
         // Create Embed
         const message = new EmbedBuilder()
         		.setTitle('» SPENDEN')
-        		.setDescription('» Du willst Spenden? Hier:')
+        		.setDescription('**»» SPENDEN**\n» LINK\nhttps://donate.rjansen.de\n» QR CODE')
         		.setImage("https://img.rjansen.de/bot/donate.png")
         		.setFooter({ text: '» ' + version });
 
