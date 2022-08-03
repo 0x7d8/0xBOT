@@ -91,7 +91,7 @@ module.exports = {
         } else {
             var message = new EmbedBuilder()
         	    .setTitle('» COINFLIP')
-  			    .setDescription('» KÖPFE\n`' + heads + '`\n» ZAHLEN\n`' + tails + '`')
+  			    .setDescription('» KÖPFE\n`' + heads + '`\n\n» ZAHLEN\n`' + tails + '`')
         	    .setFooter({ text: '» ' + version });
         }
 

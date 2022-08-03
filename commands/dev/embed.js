@@ -30,12 +30,12 @@ module.exports = {
         // Check for Perms
         if (interaction.user.id != '745619551865012274') {
             // Create Embed
-            var mterr = new EmbedBuilder()
+            var err = new EmbedBuilder()
         		.setTitle('» FEHLER')
         		.setDescription('» Du kannst das leider nicht machen!')
         		.setFooter({ text: '» ' + version });
             
-            return interaction.reply({ embeds: [mterr.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
         
         // Create Embed

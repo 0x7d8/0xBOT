@@ -33,12 +33,12 @@ module.exports = {
         const { maintenance } = require('../../config.json');
         if (maintenance == 'yes' && interaction.user.id != '745619551865012274') {
             // Create Embed
-            var mterr = new EmbedBuilder()
+            var err = new EmbedBuilder()
         		.setTitle('» FEHLER')
         		.setDescription('» Der Bot ist aktuell unter Wartungsarbeiten!')
         		.setFooter({ text: '» ' + version });
             
-            return interaction.reply({ embeds: [mterr.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
         
         // Create Embed
@@ -51,13 +51,13 @@ module.exports = {
         if (interaction.user.id != '745619551865012274') {
             
             // Create Embed
-            var error = new EmbedBuilder()
+            var err = new EmbedBuilder()
             	.setTitle('» GELD GEBEN')
   				.setDescription('» Du bist nicht der Bot Besitzer! :P')
         		.setFooter({ text: '» ' + version });
             
             console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] ADDBAL : NOTOWNER')
-            return interaction.reply({ embeds: [error.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
         
         // Add Money
