@@ -45,6 +45,6 @@ module.exports = {
         
         // Send Message
         console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] TOPGG')
-        interaction.reply({ embeds: [message.toJSON()], components: [topgg] })
+        interaction.reply({ embeds: [message.toJSON()], components: [topgg], ephemeral: true })
     },
 };
