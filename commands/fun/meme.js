@@ -19,6 +19,7 @@ module.exports = {
         // Set Variables
         const url = await fetch("https://www.reddit.com/r/memes/random/.json");
         const random = await url.json();
+        const [list] = JSON.parse(response.body);
         
         // Check Maintenance
         const { maintenance } = require('../../config.json');
@@ -35,6 +36,7 @@ module.exports = {
         // Create Embed
         var message = new EmbedBuilder()
             .setTitle(`» ${random[0].data.children[0].data.title.toUpperCase()}`)
+            .setDescription('» Meme von **r/memes**!')
             .setImage(random[0].data.children[0].data.url)
         	.setFooter({ text: '» ' + version });
         
