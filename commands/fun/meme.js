@@ -75,12 +75,12 @@ module.exports = {
         // Create Embed
         var message = new EmbedBuilder()
             .setTitle(`» ${random[0].data.children[0].data.title.toUpperCase()}`)
-            .setDescription('» SUBREDDIT:\n`r/memes`\n» UPVOTES:\n`' + upvotes + '`\n» KOMMENTARE:\n`' + comments + '`')
+            .setDescription('» SUBREDDIT:\n`r/memes`\n\n» UPVOTES:\n`' + upvotes + '`\n\n» KOMMENTARE:\n`' + comments + '`')
             .setImage(random[0].data.children[0].data.url)
         	.setFooter({ text: '» ' + version });
         
         // Send Message
-        console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] MEME')
+        console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] MEME : ' + upvotes + '^ : ' + comments)
         return interaction.reply({ embeds: [message.toJSON()] })
     },
 };
