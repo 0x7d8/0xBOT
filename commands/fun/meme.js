@@ -34,7 +34,7 @@ module.exports = {
         
         // Create Embed
         var message = new EmbedBuilder()
-            .setTitle(`» ${random[0].data.children[0].data.title}`)
+            .setTitle(`» ${random[0].data.children[0].data.title.toUpperCase()}`)
             .setImage(random[0].data.children[0].data.url)
         	.setFooter({ text: '» ' + version });
         
