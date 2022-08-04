@@ -23,6 +23,7 @@ module.exports = {
         
         // Set Variables
         const user = interaction.options.getUser("user")
+        const guild = interaction.guild.id
         
         // Check Maintenance
         const { maintenance } = require('../../config.json');
