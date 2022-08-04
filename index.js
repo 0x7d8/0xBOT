@@ -89,7 +89,7 @@ client.on('interactionCreate', async interaction => {
         // Create Error Embed
         var err = new EmbedBuilder()
             .setTitle('» FEHLER')
-  			.setDescription('» Ein Fehler ist beim ausführen dieses Befehls aufgetreten! Dieser Befehl wurde geloggt und sollte bald behoben werden!')
+  			.setDescription('» Ein Fehler ist beim ausführen dieses Befehls aufgetreten!\nDieser Fehler wurde gespeichert und sollte bald behoben werden!')
         	.setFooter({ text: '» ' + version });
 
 		await interaction.reply({ embeds: [err.toJSON()], ephemeral: true });

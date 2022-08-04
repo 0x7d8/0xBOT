@@ -1,5 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { EmbedBuilder } = require('@discordjs/builders');
+const { PermissionFlagsBits } = require('discord-api-types/v10');
 const { version } = require('../../config.json');
 
 module.exports = {
@@ -15,7 +16,7 @@ module.exports = {
             option.setName('nachricht')
                 .setDescription('DIE NACHRICHT')
                 .setRequired(true))
-        .setDefaultMemberPermissions(PermissionFlagsBits.Admin),
+        .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
     async execute(interaction) {
         // Count to Global Commands
         addcmd('t-all', 1)
