@@ -37,7 +37,7 @@ module.exports = {
         // Create Embed
         var message = new EmbedBuilder()
             .setTitle(`» ${random[0].data.children[0].data.title.toUpperCase()}`)
-            .setDescription('» Meme von **r/memes**!\n» Upvotes: **' + upvotes + '**')
+            .setDescription('» Von:\n`r/memes`\n» Upvotes:\n`' + upvotes + '`')
             .setImage(random[0].data.children[0].data.url)
         	.setFooter({ text: '» ' + version });
         
