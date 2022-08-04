@@ -21,6 +21,7 @@ module.exports = {
         const random = await url.json();
         
         const upvotes = random[0].data.children[0].data.ups;
+        const comments = random[0].data.children[0].data.num_comments;
         
         // Check Maintenance
         const { maintenance } = require('../../config.json');
@@ -37,7 +38,7 @@ module.exports = {
         // Create Embed
         var message = new EmbedBuilder()
             .setTitle(`» ${random[0].data.children[0].data.title.toUpperCase()}`)
-            .setDescription('» Von:\n`r/memes`\n» Upvotes:\n`' + upvotes + '`')
+            .setDescription('» SUBREDDIT:\n`r/memes`\n» UPVOTES:\n`' + upvotes + '`\n» KOMMENTARE:\n`' + comments + '`')
             .setImage(random[0].data.children[0].data.url)
         	.setFooter({ text: '» ' + version });
         
