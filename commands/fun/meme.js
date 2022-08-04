@@ -20,8 +20,8 @@ module.exports = {
         const url = await fetch("https://www.reddit.com/r/memes/random/.json");
         const random = await url.json();
         
-        const upvotes = random[0].data.children[0].data.ups;
-        const comments = random[0].data.children[0].data.num_comments;
+        var upvotes = random[0].data.children[0].data.ups;
+        var comments = random[0].data.children[0].data.num_comments;
         
         // Check Maintenance
         const { maintenance } = require('../../config.json');
@@ -34,6 +34,10 @@ module.exports = {
             
             return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
+
+        // 187 Easter Egg
+        if (upvotes == 187) { var upvotes = upvotes + ' 🐊' }
+        if (comments == 187) { var comments = comments + ' 🐊' }
         
         // Create Embed
         var message = new EmbedBuilder()
