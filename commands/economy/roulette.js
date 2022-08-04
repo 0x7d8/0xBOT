@@ -56,6 +56,8 @@ module.exports = {
         		.setDescription('» Du kannst keine negativen Einsätze spielen!')
         		.setFooter({ text: '» ' + version });
             
+            // Send Message
+            console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] ROULETTE : NEGATIVEMONEY : ' + wette + '€')
             return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
         
@@ -128,7 +130,7 @@ module.exports = {
             	.setFooter({ text: '» ' + version });
             
             // Send Message
-            console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] ROULETTE : NOTENOUGHMONEY')
+            console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] GUESS : NOTENOUGHMONEY : ' + missing + '€')
         	return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
     },

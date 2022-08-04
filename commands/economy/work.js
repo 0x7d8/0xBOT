@@ -47,6 +47,7 @@ module.exports = {
   				.setDescription('» Du hast leider noch einen Cooldown von **' + cdown.toFixed(0) + use + '**!')
             	.setFooter({ text: '» ' + version });
             
+            // Send Message
             console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] WORK : ONCOOLDOWN : ' + cdown.toFixed(0) + use);
             return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         } else {

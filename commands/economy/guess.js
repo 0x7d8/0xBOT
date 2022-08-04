@@ -62,6 +62,8 @@ module.exports = {
         		.setDescription('» Du kannst keine negativen Einsätze spielen!')
         		.setFooter({ text: '» ' + version });
             
+            // Send Message
+            console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] GUESS : NEGATIVEMONEY : ' + wette + '€')
             return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
         
@@ -76,7 +78,7 @@ module.exports = {
             		.setFooter({ text: '» ' + version });
                 
                 // Send Message
-            	console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] ROULETTE : TOOMUCHMONEY : ' + wette + '€')
+            	console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] GUESS : TOOMUCHMONEY : ' + wette + '€')
         		return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
             }
             
@@ -93,6 +95,9 @@ module.exports = {
             	.setTitle('» RATEN')
   				.setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
             	.setFooter({ text: '» ' + version });
+
+            // Send Message
+            console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] GUESS : NOTENOUGHMONEY : ' + missing + '€')
             return interaction.reply({ embeds: [notenoughmoney.toJSON()], ephemeral: true })
         }
         

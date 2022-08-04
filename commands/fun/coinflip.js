@@ -50,6 +50,8 @@ module.exports = {
         		.setDescription('» Du musst schon mindestens eine Münze werfen!')
         		.setFooter({ text: '» ' + version });
             
+            // Send Message
+            console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] COINFLIP : NOTENOUGHCOINS : ' + anzahl)
             return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
 
@@ -61,6 +63,8 @@ module.exports = {
         		.setDescription('» Du darfst nicht mehr als **1000** Münzen werfen!')
         		.setFooter({ text: '» ' + version });
             
+            // Send Message
+            console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] COINFLIP : TOOMANYCOINS : ' + anzahl)
             return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
 

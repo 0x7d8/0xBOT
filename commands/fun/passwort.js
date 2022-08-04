@@ -44,7 +44,7 @@ module.exports = {
         		.setDescription('» Die Maximale Größe ist **128**!')
         		.setFooter({ text: '» ' + version });
             
-            console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] PASSWORD : ' + lenght + ' : TOOBIG')
+            console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] PASSWORD : TOOBIG : ' + lenght)
             return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
 
         }
@@ -56,7 +56,7 @@ module.exports = {
         		.setDescription('» Dein Password sollte schon mehr als **4** Buchstaben haben!')
         		.setFooter({ text: '» ' + version });
             
-            console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] PASSWORD : ' + lenght + ' : TOOSMALL')
+            console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] PASSWORD : TOOSMALL : ' + lenght)
             return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
 
         }

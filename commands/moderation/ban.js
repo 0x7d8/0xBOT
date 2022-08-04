@@ -44,6 +44,8 @@ module.exports = {
                 .setDescription('» Du kannst dich nicht selber Bannen?!')
                 .setFooter({ text: '» ' + version });
                     
+            // Send Message
+            console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] BAN : SAMEPERSON : ' + user)
             return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
         

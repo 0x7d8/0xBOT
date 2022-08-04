@@ -92,6 +92,7 @@ module.exports = {
         
         // Check if User is Sender
         if (sender == user) {
+            console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] ACTION : SAMEPERSON : ' + user)
             return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
         
