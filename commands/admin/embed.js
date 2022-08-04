@@ -14,7 +14,8 @@ module.exports = {
     	.addStringOption(option =>
             option.setName('nachricht')
                 .setDescription('DIE NACHRICHT')
-                .setRequired(true)),
+                .setRequired(true))
+        .setDefaultMemberPermissions(PermissionFlagsBits.Admin),
     async execute(interaction) {
         // Count to Global Commands
         addcmd('t-all', 1)
@@ -27,22 +28,30 @@ module.exports = {
         const titel = interaction.options.getString("titel")
         const nachricht = interaction.options.getString("nachricht")
         
-        // Check for Perms
-        if (interaction.user.id != '745619551865012274') {
+        // Check Maintenance
+        const { maintenance } = require('../../config.json');
+        if (maintenance == 'yes' && interaction.user.id != '745619551865012274') {
             // Create Embed
             var err = new EmbedBuilder()
         		.setTitle('» FEHLER')
-        		.setDescription('» Du kannst das leider nicht machen!')
+        		.setDescription('» Der Bot ist aktuell unter Wartungsarbeiten!')
         		.setFooter({ text: '» ' + version });
             
             return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
         
         // Create Embed
-        var message = new EmbedBuilder()
-            .setTitle(titel)
-  			.setDescription(nachricht)
-        	.setFooter({ text: '» ' + version });
+        if (interaction.user.id != '745619551865012274') {
+            var message = new EmbedBuilder()
+                .setTitle(titel)
+  			    .setDescription(nachricht)
+        	    .setFooter({ text: '» ' + version + ' » NICHT OFFIZIELL' });
+        } else {
+            var message = new EmbedBuilder()
+                .setTitle(titel)
+  			    .setDescription(nachricht)
+        	    .setFooter({ text: '» ' + version });
+        }
 
         // Send Message
         console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] EMBED : ' + titel.toUpperCase() + ' : ' + nachricht.toUpperCase())
