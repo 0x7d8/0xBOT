@@ -1,16 +1,17 @@
 const { Client, Intents, Collection } = require('discord.js');
-const { token, clientId } = require('./config.json');
+const { token, clientId, mongo } = require('./config.json');
 const { getAllFilesFilter } = require('./utils/getAllFiles.js');
-const { Discord } = require('discord.js')
 const { version, maintenance } = require('./config.json');
 const { EmbedBuilder } = require('@discordjs/builders');
 
 // MongoDB
 const mongoose = require('mongoose')
-mongoose.connect('mongodb://root:gJuDVCE98hypjN5bi3pMSq54Q2G2Y@DE-01.PAPERSTUDIOS.DE:27017/0xBOT', {
+mongoose.connect(mongo, {
     useUnifiedTopology: true,
     useNewUrlParser: true
 }).then(console.log('\n[0xBOT] [i] LADE BOT VERSION ' + version + '\n[0xBOT] [!] ZU MONGODB VERBUNDEN\n\n[0xBOT] [i] LADE BEFEHLE UND EVENTS...'))
+
+// Log if Maintenance or not
 if (maintenance == 'yes') {
     console.log('[0xBOT] [!] LADE BOT IN WARTUNGSMODUS\n')
 } else {
@@ -86,12 +87,12 @@ client.on('interactionCreate', async interaction => {
 		console.error(error);
         
         // Create Error Embed
-        var errorbed = new EmbedBuilder()
+        var err = new EmbedBuilder()
             .setTitle('» FEHLER')
   			.setDescription('» Ein Fehler ist beim ausführen dieses Befehls aufgetreten!')
         	.setFooter({ text: '» ' + version });
 
-		await interaction.reply({ embeds: [errorbed.toJSON()], ephemeral: true });
+		await interaction.reply({ embeds: [err.toJSON()], ephemeral: true });
 	}
 });
 
@@ -268,4 +269,5 @@ rest.put(
 
 console.log('\n[0xBOT] [!] BEFEHLE REGISTRIERT')
 
+// Login
 client.login(token);
