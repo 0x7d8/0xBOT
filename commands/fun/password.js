@@ -5,7 +5,7 @@ var generator = require('generate-password');
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('passwort')
+        .setName('password')
     	.setDMPermission(false)
         .setDescription('GENERIERE EIN PASSWORT')
         .addIntegerOption(option =>
