@@ -30,8 +30,28 @@ module.exports = {
         addcmd('g-' + interaction.guild.id, 1)
         addcmd('u-' + interaction.user.id, 1)
 
+        // Check Maintenance
+        const { maintenance } = require('../../config.json');
+        if (maintenance == 'yes' && interaction.user.id != '745619551865012274') {
+            // Create Embed
+            var err = new EmbedBuilder()
+        		.setTitle('» FEHLER')
+        		.setDescription('» Der Bot ist aktuell unter Wartungsarbeiten!')
+        		.setFooter({ text: '» ' + version });
+            
+            return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
+        }
+
+        // Set Variables
+        const res = Math.floor(Math.random() * (3 - 1 + 1)) + 1;
+
+        // Set Subreddit
+        if (res == 1) { var subreddit = "memes" }
+        if (res == 2) { var subreddit = "me_irl" }
+        if (res == 3) { var subreddit = "CrappyDesign" }
+
         // Get Initial Meme
-        var url = await fetch("https://www.reddit.com/r/memes/random/.json");
+        var url = await fetch("https://www.reddit.com/r/" + subreddit + "/random/.json");
         var random = await url.json();
 
         var upvotes = random[0].data.children[0].data.ups;
@@ -55,18 +75,6 @@ module.exports = {
             }
         }
         */
-        
-        // Check Maintenance
-        const { maintenance } = require('../../config.json');
-        if (maintenance == 'yes' && interaction.user.id != '745619551865012274') {
-            // Create Embed
-            var err = new EmbedBuilder()
-        		.setTitle('» FEHLER')
-        		.setDescription('» Der Bot ist aktuell unter Wartungsarbeiten!')
-        		.setFooter({ text: '» ' + version });
-            
-            return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
-        }
 
         // 187 Easter Egg
         if (upvotes == 187) { var upvotes = upvotes + ' 🐊' }
@@ -75,7 +83,7 @@ module.exports = {
         // Create Embed
         var message = new EmbedBuilder()
             .setTitle(`» ${random[0].data.children[0].data.title.toUpperCase()}`)
-            .setDescription('» SUBREDDIT:\n`r/memes`\n\n» UPVOTES:\n`' + upvotes + '`\n\n» KOMMENTARE:\n`' + comments + '`')
+            .setDescription('» SUBREDDIT:\n`r/' + subreddit + '`\n\n» UPVOTES:\n`' + upvotes + '`\n\n» KOMMENTARE:\n`' + comments + '`')
             .setImage(random[0].data.children[0].data.url)
         	.setFooter({ text: '» ' + version });
         
