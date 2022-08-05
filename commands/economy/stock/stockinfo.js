@@ -51,13 +51,13 @@ module.exports = {
 
         // Calculate Refresh
         var serverunix = await fetch("https://api.paperstudios.de/time/unix");
-        var unix = serverunix + 60
+        var unix = serverunix.text() + 60
         var refresh = "<t:" + unix + ":R>"
         
         // Create Embed
         var message = new EmbedBuilder()
             .setTitle('» ' + emoji + ' AKTIEN INFO')
-  			.setDescription('» NÄCHSTER PREIS\n`' + refresh + '`\n\n» PREIS\n`' + price + '€`')
+  			.setDescription('» NÄCHSTER PREIS\n' + refresh + '\n\n» PREIS\n`' + price.text() + '€`')
             .setFooter({ text: '» ' + version });
 
         // Send Message
