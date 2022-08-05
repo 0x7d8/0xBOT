@@ -95,12 +95,12 @@ module.exports = {
         if (stock == 'red') { var short = 'red' }
 
         // Get Stock Amount
-        const stockgrab = 'const curstock = get' + short + '(<@' + interaction.user.id + '>)'
+        const stockgrab = 'const curstock = get' + short + '(' + interaction.user.id + ')'
         eval(stockgrab)
 
         // Set Stock Amount
         const newstock = curstock + amount
-        const stockadd = 'set' + short + '(<@' + interaction.user.id + '>, ' + newstock + ')'
+        const stockadd = 'set' + short + '(' + interaction.user.id + ', ' + newstock + ')'
         eval(stockadd)
 
         // Create Embed
