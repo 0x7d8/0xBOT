@@ -1,6 +1,7 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { EmbedBuilder } = require('@discordjs/builders');
 const { MessageActionRow, MessageButton } = require('discord.js');
+const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 const { version } = require('../../config.json');
 
 module.exports = {
@@ -46,31 +47,31 @@ module.exports = {
 		const slfB = new ActionRowBuilder()
 			.addComponents(
 				new ButtonBuilder()
-					.setLabel('Primary')
+					.setLabel('LOBBY ERSTELLEN')
 					.setURL('https://stopots.com/de/')
 					.setStyle(ButtonStyle.Link),
 			);
-        const sioB = new MessageActionRow()
+		const sioB = new ActionRowBuilder()
 			.addComponents(
-				new MessageButton()
-    				.setLabel('LOBBY ERSTELLEN')
-    				.setURL("https://skribbl.io/")
-    				.setStyle('LINK'),
-		);
-        const gtfB = new MessageActionRow()
+				new ButtonBuilder()
+					.setLabel('LOBBY ERSTELLEN')
+					.setURL('https://skribbl.io/')
+					.setStyle(ButtonStyle.Link),
+			);
+		const gtfB = new ActionRowBuilder()
 			.addComponents(
-				new MessageButton()
-    				.setLabel('LOBBY ERSTELLEN')
-    				.setURL("https://garticphone.com/de")
-    				.setStyle('LINK'),
-		);
-        const jklB = new MessageActionRow()
+				new ButtonBuilder()
+					.setLabel('LOBBY ERSTELLEN')
+					.setURL('https://garticphone.com/de')
+					.setStyle(ButtonStyle.Link),
+			);
+		const jklB = new ActionRowBuilder()
 			.addComponents(
-				new MessageButton()
-    				.setLabel('LOBBY ERSTELLEN')
-    				.setURL("https://jklm.fun/")
-    				.setStyle('LINK'),
-		);
+				new ButtonBuilder()
+					.setLabel('LOBBY ERSTELLEN')
+					.setURL('https://jklm.fun/')
+					.setStyle(ButtonStyle.Link),
+			);
         // Create Embeds
         const slf = new EmbedBuilder()
         		.setTitle('» STADT LAND FLUSS REGELN')
