@@ -14,9 +14,9 @@ module.exports = {
                 .setRequired(true)
     			.addChoices(
                     // Setup Choices
-            		{ name: '🔵 [250-0500] BLAUE AKTIE', value: 'blue' },
-                    { name: '🟡 [200-0750] GELBE AKTIE', value: 'yellow' },
-                    { name: '🔴 [150-1000] ROTE AKTIE', value: 'red' },
+            		{ name: '🔵 BLAUE AKTIE', value: 'blue' },
+                    { name: '🟡 GELBE AKTIE', value: 'yellow' },
+                    { name: '🔴 ROTE AKTIE', value: 'red' },
 				)),
     async execute(interaction) {
         // Count to Global Commands
