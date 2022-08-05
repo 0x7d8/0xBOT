@@ -1,4 +1,4 @@
-const { Client, Intents, Collection } = require('discord.js');
+const { Client, Intents, Collection, GatewayIntentBits } = require('discord.js');
 const { token, clientId, mongo } = require('./config.json');
 const { getAllFilesFilter } = require('./utils/getAllFiles.js');
 const { version, maintenance } = require('./config.json');
@@ -18,11 +18,14 @@ if (maintenance == 'yes') {
     console.log('[0xBOT] [i] LADE BOT IN NORMALEN MODUS\n')
 }
 
-// Deploy commands
+// Deploy Commands
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
 
-// Create client
+// Create Client
+const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+
+/* Create client
 const client = new Client({
 	intents: [
 		Intents.FLAGS.GUILDS,
@@ -43,6 +46,7 @@ const client = new Client({
 		Intents.FLAGS.GUILD_SCHEDULED_EVENTS
 	]
 });
+*/
 
 // Load all events
 const eventFiles = getAllFilesFilter('./events', '.js');

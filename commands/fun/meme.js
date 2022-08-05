@@ -83,7 +83,7 @@ module.exports = {
         // Create Embed
         var message = new EmbedBuilder()
             .setTitle(`» ${random[0].data.children[0].data.title.toUpperCase()}`)
-            .setDescription('» SUBREDDIT:\n`r/' + subreddit + '`\n\n» UPVOTES:\n`' + upvotes + '^`\n\n» KOMMENTARE:\n`' + comments + '`')
+            .setDescription('» SUBREDDIT:\n`r/' + subreddit + '`\n\n» UPVOTES:\n`' + upvotes + '`\n\n» KOMMENTARE:\n`' + comments + '`')
             .setImage(random[0].data.children[0].data.url)
         	.setFooter({ text: '» ' + version });
         
