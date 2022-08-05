@@ -99,14 +99,12 @@ module.exports = {
             return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
 
+        // Add Money
+        addbal('<@' + interaction.user.id + '>', cash)
+        
         // Remove Stock Amount
         const stockrem = 'rem' + short + '(' + interaction.user.id + ', ' + amount + ')'
         eval(stockrem)
-
-        // Add Money
-        if (true) {
-            addbal('<@' + interaction.user.id + '>', cash)
-        }
 
         // Create Embed
         const message = new EmbedBuilder()

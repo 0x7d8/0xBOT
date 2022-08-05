@@ -99,9 +99,7 @@ module.exports = {
         eval(stockadd)
 
         // Remove Money
-        if (true) {
-            rembal('<@' + interaction.user.id + '>', cost)
-        }
+        rembal('<@' + interaction.user.id + '>', cost)
 
         // Create Embed
         const message = new EmbedBuilder()
