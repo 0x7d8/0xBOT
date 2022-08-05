@@ -69,19 +69,21 @@ module.exports = {
         // Calculate Cost
         const cash = amount * priceText
 
-        // Transform Stock to Short
-        if (stock == 'blue') { var short = 'blu' }
-        if (stock == 'yellow') { var short = 'yll' }
-        if (stock == 'red') { var short = 'red' }
+        // Get Stocks Available
+        if (stock == 'blue') {
+            var stocks = await getblu(interaction.user.id)
+        }
+        if (stock == 'yellow') { 
+            var stocks = await getyll(interaction.user.id)
+        }
+        if (stock == 'red') {
+            var stocks = await getred(interaction.user.id)
+        }
 
         // Set Emoji
         if (stock == 'blue') { var emoji = '🔵' }
         if (stock == 'yellow') { var emoji = '🟡' }
         if (stock == 'red') { var emoji = '🔴' }
-
-        // Get Stocks Available
-        const stockget = 'var stocks = get' + short + '(' + interaction.user.id + ', ' + amount + ')'
-        eval(stockget)
 
         // Check for enough Stocks
         if (stocks < amount) {
@@ -102,8 +104,15 @@ module.exports = {
         addbal('<@' + interaction.user.id + '>', cash)
 
         // Remove Stock Amount
-        const stockrem = 'rem' + short + '(' + interaction.user.id + ', ' + amount + ')'
-        eval(stockrem)
+        if (stock == 'blue') {
+            remblu(interaction.user.id, amount)
+        }
+        if (stock == 'yellow') { 
+            remyll(interaction.user.id, amount)
+        }
+        if (stock == 'red') {
+            remred(interaction.user.id, amount)
+        }
 
         // Create Embed
         const message = new EmbedBuilder()

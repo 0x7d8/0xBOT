@@ -95,8 +95,15 @@ module.exports = {
         if (stock == 'red') { var short = 'red' }
 
         // Add Stock Amount
-        const stockadd = 'add' + short + '(' + interaction.user.id + ', ' + amount + ')'
-        eval(stockadd)
+        if (stock == 'blue') {
+            addblu(interaction.user.id, amount)
+        }
+        if (stock == 'yellow') { 
+            addyll(interaction.user.id, amount)
+        }
+        if (stock == 'red') {
+            addred(interaction.user.id, amount)
+        }
 
         // Remove Money
         rembal('<@' + interaction.user.id + '>', cost)
