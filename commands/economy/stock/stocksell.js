@@ -100,11 +100,13 @@ module.exports = {
         }
 
         // Remove Stock Amount
-        const stockadd = 'rem' + short + '(' + interaction.user.id + ', ' + amount + ')'
-        eval(stockadd)
+        const stockrem = 'rem' + short + '(' + interaction.user.id + ', ' + amount + ')'
+        eval(stockrem)
 
         // Add Money
-        addbal('<@' + interaction.user.id + '>', cash)
+        if (true) {
+            addbal('<@' + interaction.user.id + '>', cash)
+        }
 
         // Create Embed
         const message = new EmbedBuilder()

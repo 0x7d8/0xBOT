@@ -98,6 +98,11 @@ module.exports = {
         const stockadd = 'add' + short + '(' + interaction.user.id + ', ' + amount + ')'
         eval(stockadd)
 
+        // Remove Money
+        if (true) {
+            rembal('<@' + interaction.user.id + '>', cost)
+        }
+
         // Create Embed
         const message = new EmbedBuilder()
             .setTitle('» ' + emoji + ' AKTIE KAUFEN')
