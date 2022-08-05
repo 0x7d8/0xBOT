@@ -33,8 +33,6 @@ module.exports = {
         // Set Variables
         const stock = interaction.options.getString("aktie")
         const amount = interaction.options.getInteger("anzahl")
-
-        const balance = await getbal('<@' + interaction.user.id + '>');
         
         // Check Maintenance
         const { maintenance } = require('../../../config.json');
@@ -71,13 +69,13 @@ module.exports = {
 
         // Get Stocks Available
         if (stock == 'blue') {
-            var stocks = await getblu(interaction.user.id)
+            var stocks = await getblu('<@' + interaction.user.id + '>')
         }
         if (stock == 'yellow') { 
-            var stocks = await getyll(interaction.user.id)
+            var stocks = await getyll('<@' + interaction.user.id + '>')
         }
         if (stock == 'red') {
-            var stocks = await getred(interaction.user.id)
+            var stocks = await getred('<@' + interaction.user.id + '>')
         }
 
         // Set Emoji
@@ -92,7 +90,7 @@ module.exports = {
             // Create Embed
             var err = new EmbedBuilder()
             	.setTitle('» FEHLER')
-  				.setDescription('» Du hast dafür nicht genug Aktien, dir fehlen **' + missing + '**' + emoji + '!')
+  				.setDescription('» Du hast dafür nicht genug Aktien, dir fehlen **' + missing + '**' + emoji + ' !')
             	.setFooter({ text: '» ' + version });
             
             // Send Message
@@ -105,13 +103,13 @@ module.exports = {
 
         // Remove Stock Amount
         if (stock == 'blue') {
-            remblu(interaction.user.id, amount)
+            remblu('<@' + interaction.user.id + '>', amount)
         }
         if (stock == 'yellow') { 
-            remyll(interaction.user.id, amount)
+            remyll('<@' + interaction.user.id + '>', amount)
         }
         if (stock == 'red') {
-            remred(interaction.user.id, amount)
+            remred('<@' + interaction.user.id + '>', amount)
         }
 
         // Create Embed

@@ -96,13 +96,13 @@ module.exports = {
 
         // Add Stock Amount
         if (stock == 'blue') {
-            addblu(interaction.user.id, amount)
+            addblu('<@' + interaction.user.id + '>', amount)
         }
         if (stock == 'yellow') { 
-            addyll(interaction.user.id, amount)
+            addyll('<@' + interaction.user.id + '>', amount)
         }
         if (stock == 'red') {
-            addred(interaction.user.id, amount)
+            addred('<@' + interaction.user.id + '>', amount)
         }
 
         // Remove Money
