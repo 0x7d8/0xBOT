@@ -52,7 +52,7 @@ module.exports = {
         // Calculate Refresh
         const serverunix = await fetch("https://api.paperstudios.de/time/unix");
         let unix = await serverunix.text();
-        var unixtime = parseInt(serverunix) + 60
+        var unixtime = parseInt(unix) + 60
         const refreshtransformed = "<t:" + unixtime + ":R>"
         var refresh = refreshtransformed.replace(/(\r\n|\n|\r)/gm, "");
         const pricetransformed = await price.text();
