@@ -115,7 +115,7 @@ module.exports = {
         // Create Embed
         const message = new EmbedBuilder()
             .setTitle('» ' + emoji + ' AKTIE KAUFEN')
-            .setDescription('» Du hast erfolgreich **' + amount + '** ' + emoji + ' für **' + cost + '€** gekauft!')
+            .setDescription('» Du hast erfolgreich **' + amount + '** ' + emoji + ' für **' + cash + '€** gekauft!')
             .setFooter({ text: '» ' + version });
 
         // Send Message
