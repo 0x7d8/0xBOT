@@ -52,11 +52,11 @@ module.exports = {
         // Calculate Refresh
         const serverunix = await fetch("https://api.paperstudios.de/time/unix");
         let unix = await serverunix.text();
-        var unixtime = parseInt(unix) + 60
+        let unixtime = parseInt(unix) + 60
         const refreshtransformed = "<t:" + unixtime + ":R>"
-        var refresh = refreshtransformed.replace(/(\r\n|\n|\r)/gm, "");
+        const refresh = refreshtransformed.replace(/(\r\n|\n|\r)/gm, "");
         const pricetransformed = await price.text();
-        var priceText = pricetransformed.replace(/(\r\n|\n|\r)/gm, "");
+        const priceText = pricetransformed.replace(/(\r\n|\n|\r)/gm, "");
 
         // Create Embed
         const message = new EmbedBuilder()
@@ -65,6 +65,7 @@ module.exports = {
             .setFooter({ text: '» ' + version });
 
         // Send Message
+        console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] STOCKINFO : ' + stock.toUpperCase() + ' : ' + priceText + '€')
         return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
     },
 };

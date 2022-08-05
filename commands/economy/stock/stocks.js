@@ -40,6 +40,7 @@ module.exports = {
             .setFooter({ text: '» ' + version });
 
         // Send Message
+        console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] STOCKS : ' + blue + ' : ' + yellow + ' : ' + red)
         return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
     },
 };
