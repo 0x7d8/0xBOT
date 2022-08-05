@@ -32,7 +32,7 @@ module.exports = {
         
         // Set Variables
         const stock = interaction.options.getString("aktie")
-        const amount = interaction.options.getString("anzahl")
+        const amount = interaction.options.getInteger("anzahl")
 
         const balance = await getbal('<@' + interaction.user.id + '>');
         
