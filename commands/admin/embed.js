@@ -7,31 +7,31 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('embed')
         .setNameLocalizations({
-            de: 'embed',
+            de: 'embed'
         })
         .setDescription('SEND AN EMBED')
         .setDescriptionLocalizations({
-            de: 'SENDE EINE EMBED',
+            de: 'SENDE EINE EMBED'
         })
     	.setDMPermission(false)
         .addStringOption(option =>
             option.setName('title')
                 .setNameLocalizations({
-                    de: 'titel',
+                    de: 'titel'
                 })
                 .setDescription('THE TITLE')
                 .setDescriptionLocalizations({
-                    de: 'DER TITEL',
+                    de: 'DER TITEL'
                 })
                 .setRequired(true))
     	.addStringOption(option =>
             option.setName('message')
                 .setNameLocalizations({
-                    de: 'nachricht',
+                    de: 'nachricht'
                 })
                 .setDescription('THE MESSAGE')
                 .setDescriptionLocalizations({
-                    de: 'DIE NACHRICHT',
+                    de: 'DIE NACHRICHT'
                 })
                 .setRequired(true))
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
@@ -44,8 +44,8 @@ module.exports = {
         addcmd('u-' + interaction.user.id, 1)
         
         // Set Variables
-        const titel = interaction.options.getString("titel")
-        const nachricht = interaction.options.getString("nachricht")
+        const titel = interaction.options.getString("title")
+        const nachricht = interaction.options.getString("message")
         
         // Check Maintenance
         const { maintenance } = require('../../config.json');
