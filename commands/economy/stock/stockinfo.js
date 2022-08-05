@@ -47,17 +47,19 @@ module.exports = {
         if (stock == 'red') { var emoji = '🔴' }
 
         // Fetch Stock
-        var price = await fetch("https://api.paperstudios.de/bot/stocks/" + stock);
+        const price = await fetch("https://api.paperstudios.de/bot/stocks/" + stock);
 
         // Calculate Refresh
-        var serverunix = await fetch("https://api.paperstudios.de/time/unix");
-        var unix = await serverunix.text() + 60
-        var refresh = "<t:" + unix + ":R>"
-        
+        const serverunix = await fetch("https://api.paperstudios.de/time/unix");
+        let unix = await serverunix.text();
+        unix = parseInt(serverunix) + 60
+        const refresh = "<t:" + unix + ":R>"
+        const priceText = await price.text();
+
         // Create Embed
-        var message = new EmbedBuilder()
+        const message = new EmbedBuilder()
             .setTitle('» ' + emoji + ' AKTIEN INFO')
-  			.setDescription('» NÄCHSTER PREIS\n' + refresh + '\n\n» PREIS\n`' + await price.text() + '€`')
+            .setDescription('» NÄCHSTER PREIS\n' + refresh + '\n\n» PREIS\n`' + priceText + '€`')
             .setFooter({ text: '» ' + version });
 
         // Send Message
