@@ -2,7 +2,6 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const { EmbedBuilder } = require('@discordjs/builders');
 const { version } = require('../../../config.json');
 const fetch = require("node-fetch");
-const addbal = require('../addbal');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -101,7 +100,7 @@ module.exports = {
 
         // Add Money
         addbal('<@' + interaction.user.id + '>', cash)
-        
+
         // Remove Stock Amount
         const stockrem = 'rem' + short + '(' + interaction.user.id + ', ' + amount + ')'
         eval(stockrem)
