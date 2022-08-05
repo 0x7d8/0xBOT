@@ -16,9 +16,9 @@ module.exports = {
         addcmd('u-' + interaction.user.id, 1)
         
         // Set Variables
-        const blue = await getblu('<@' + interaction.user.id + '>');
-        const yellow = await getyll('<@' + interaction.user.id + '>');
-        const red = await getred('<@' + interaction.user.id + '>');
+        var blue = await getblu('<@' + interaction.user.id + '>');
+        var yellow = await getyll('<@' + interaction.user.id + '>');
+        var red = await getred('<@' + interaction.user.id + '>');
         
         // Check Maintenance
         const { maintenance } = require('../../../config.json');
