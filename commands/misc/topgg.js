@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { EmbedBuilder } = require('@discordjs/builders');
-const { MessageActionRow, MessageButton } = require('discord.js');
+const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 const { version } = require('../../config.json');
 
 module.exports = {
@@ -29,13 +29,13 @@ module.exports = {
         }
         
         // Create Button
-		const topgg = new MessageActionRow()
+        const topgg = new ActionRowBuilder()
 			.addComponents(
-				new MessageButton()
-    				.setLabel('ANSCHAUEN')
-    				.setURL("https://top.gg/bot/1001944224545128588")
-    				.setStyle('LINK'),
-		);
+				new ButtonBuilder()
+					.setLabel('ANSCHAUEN')
+					.setURL('https://top.gg/bot/1001944224545128588')
+					.setStyle(ButtonStyle.Link),
+			);
         
         // Create Embed
        	const message = new EmbedBuilder()
