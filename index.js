@@ -256,6 +256,129 @@ remcmd = (userId, cmds) => {
     })
 }
 
+/* Stock Functions
+Blue */
+
+const stockblueschema = require('./schema/stockblue');
+
+getblu = (userId) => new Promise(async ful => {
+    const data = await stockblueschema.findOne({ userId });
+    if(!data) return ful(0);
+    ful(data.stockblue);
+})
+
+addblu = (userId, stockblue) => {
+    stockblueschema.findOne({ userId }, async (err, data) => {
+        if(err) throw err;
+        if(data) {
+            data.stockblue += stockblue;
+        } else {
+            data = new stockblueschema({
+                userId,
+                stockblue
+            })
+        }
+        data.save();
+    })
+}
+
+remblu = (userId, stockblue) => {
+    stockblueschema.findOne({ userId }, async (err, data) => {
+        if(err) throw err;
+        if(data) {
+            data.stockblue -= stockblue;
+        } else {
+            data = new stockblueschema({
+                userId,
+                stockblue: -stockblue
+            })
+        }
+        data.save();
+    })
+}
+
+/* Stock Functions
+Yellow */
+
+const stockyellowschema = require('./schema/stockyellow');
+
+getyll = (userId) => new Promise(async ful => {
+    const data = await stockyellowschema.findOne({ userId });
+    if(!data) return ful(0);
+    ful(data.stockyellow);
+})
+
+addyll = (userId, stockyellow) => {
+    stockyellowschema.findOne({ userId }, async (err, data) => {
+        if(err) throw err;
+        if(data) {
+            data.stockyellow += stockyellow;
+        } else {
+            data = new stockyellowschema({
+                userId,
+                stockyellow
+            })
+        }
+        data.save();
+    })
+}
+
+remyll = (userId, stockyellow) => {
+    stockyellowschema.findOne({ userId }, async (err, data) => {
+        if(err) throw err;
+        if(data) {
+            data.stockyellow -= stockyellow;
+        } else {
+            data = new stockyellowschema({
+                userId,
+                stockyellow: -stockyellow
+            })
+        }
+        data.save();
+    })
+}
+
+/* Stock Functions
+Red */
+
+const stockredschema = require('./schema/stockred');
+
+getred = (userId) => new Promise(async ful => {
+    const data = await stockredschema.findOne({ userId });
+    if(!data) return ful(0);
+    ful(data.stockred);
+})
+
+addred = (userId, stockred) => {
+    stockredschema.findOne({ userId }, async (err, data) => {
+        if(err) throw err;
+        if(data) {
+            data.stockred += stockred;
+        } else {
+            data = new stockredschema({
+                userId,
+                stockred
+            })
+        }
+        data.save();
+    })
+}
+
+remred = (userId, stockred) => {
+    stockredschema.findOne({ userId }, async (err, data) => {
+        if(err) throw err;
+        if(data) {
+            data.stockred -= stockred;
+        } else {
+            data = new stockredschema({
+                userId,
+                stockred: -stockred
+            })
+        }
+        data.save();
+    })
+}
+
 // Deploy Commands
 const commands = [];
 
