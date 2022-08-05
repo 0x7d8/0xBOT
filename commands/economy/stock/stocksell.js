@@ -2,6 +2,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const { EmbedBuilder } = require('@discordjs/builders');
 const { version } = require('../../../config.json');
 const fetch = require("node-fetch");
+const addbal = require('../addbal');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -67,36 +68,43 @@ module.exports = {
         const priceText = pricetransformed.replace(/(\r\n|\n|\r)/gm, "");
 
         // Calculate Cost
-        const cost = amount * priceText
-
-        // Check for enough Money
-        if (balance < cost) {
-            var missing = cost - money
-            
-            // Create Embed
-            var err = new EmbedBuilder()
-            	.setTitle('» FEHLER')
-  				.setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
-            	.setFooter({ text: '» ' + version });
-            
-            // Send Message
-            console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] STOCKBUY : ' + stock.toUpperCase() + ' : ' + amount + ' : ' + cost + '€ : NOTENOUGHMONEY')
-            return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
-        }
-
-        // Set Emoji
-        if (stock == 'blue') { var emoji = '🔵' }
-        if (stock == 'yellow') { var emoji = '🟡' }
-        if (stock == 'red') { var emoji = '🔴' }
+        const cash = amount * priceText
 
         // Transform Stock to Short
         if (stock == 'blue') { var short = 'blu' }
         if (stock == 'yellow') { var short = 'yll' }
         if (stock == 'red') { var short = 'red' }
 
-        // Add Stock Amount
-        const stockadd = 'add' + short + '(' + interaction.user.id + ', ' + amount + ')'
+        // Set Emoji
+        if (stock == 'blue') { var emoji = '🔵' }
+        if (stock == 'yellow') { var emoji = '🟡' }
+        if (stock == 'red') { var emoji = '🔴' }
+
+        // Get Stocks Available
+        const stockget = 'var stocks = get' + short + '(' + interaction.user.id + ', ' + amount + ')'
+        eval(stockget)
+
+        // Check for enough Stocks
+        if (stocks < amount) {
+            var missing = amount - stocks
+            
+            // Create Embed
+            var err = new EmbedBuilder()
+            	.setTitle('» FEHLER')
+  				.setDescription('» Du hast dafür nicht genug Aktien, dir fehlen **' + missing + '**' + emoji + '!')
+            	.setFooter({ text: '» ' + version });
+            
+            // Send Message
+            console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] STOCKBUY : ' + stock.toUpperCase() + ' : ' + amount + ' : ' + cash + '€ : NOTENOUGHMONEY')
+            return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
+        }
+
+        // Remove Stock Amount
+        const stockadd = 'rem' + short + '(' + interaction.user.id + ', ' + amount + ')'
         eval(stockadd)
+
+        // Add Money
+        addbal('<@' + interaction.user.id + '>', cash)
 
         // Create Embed
         const message = new EmbedBuilder()
@@ -105,7 +113,7 @@ module.exports = {
             .setFooter({ text: '» ' + version });
 
         // Send Message
-        console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] STOCKBUY : ' + stock.toUpperCase() + ' : ' + amount + ' : ' + cost + '€')
+        console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] STOCKBUY : ' + stock.toUpperCase() + ' : ' + amount + ' : ' + cash + '€')
         return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
     },
 };
