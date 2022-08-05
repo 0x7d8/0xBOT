@@ -53,8 +53,10 @@ module.exports = {
         const serverunix = await fetch("https://api.paperstudios.de/time/unix");
         let unix = await serverunix.text();
         unix = parseInt(serverunix) + 60
-        const refresh = "<t:" + unix + ":R>"
-        const priceText = await price.text();
+        const refreshtransformed = "<t:" + unix + ":R>"
+        var refresh = refreshtransformed.replace(/(\r\n|\n|\r)/gm, "");
+        const pricetransformed = await price.text();
+        var priceText = pricetransformed.replace(/(\r\n|\n|\r)/gm, "");
 
         // Create Embed
         const message = new EmbedBuilder()
