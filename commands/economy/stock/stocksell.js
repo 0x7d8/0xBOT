@@ -6,7 +6,7 @@ const addbal = require('../addbal');
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('stockbuy')
+        .setName('stocksell')
     	.setDMPermission(false)
         .setDescription('KAUFE AKTIEN')
         .addStringOption(option =>
