@@ -48,8 +48,8 @@ module.exports = {
             return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
 
-        // Check if Balance is Minus
-        if (anzahl < 0) {
+        // Check if Amount is Minus
+        if (amount < 0) {
             // Create Embed
             var err = new EmbedBuilder()
         		.setTitle('» FEHLER')
