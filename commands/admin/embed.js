@@ -6,15 +6,33 @@ const { version } = require('../../config.json');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('embed')
-        .setDescription('SENDE EINE EMBED')
+        .setNameLocalizations({
+            de: 'embed',
+        })
+        .setDescription('SEND AN EMBED')
+        .setDescriptionLocalizations({
+            de: 'SENDE EINE EMBED',
+        })
     	.setDMPermission(false)
         .addStringOption(option =>
-            option.setName('titel')
-                .setDescription('DER TITEL')
+            option.setName('title')
+                .setNameLocalizations({
+                    de: 'titel',
+                })
+                .setDescription('THE TITLE')
+                .setDescriptionLocalizations({
+                    de: 'DER TITEL',
+                })
                 .setRequired(true))
     	.addStringOption(option =>
-            option.setName('nachricht')
-                .setDescription('DIE NACHRICHT')
+            option.setName('message')
+                .setNameLocalizations({
+                    de: 'nachricht',
+                })
+                .setDescription('THE MESSAGE')
+                .setDescriptionLocalizations({
+                    de: 'DIE NACHRICHT',
+                })
                 .setRequired(true))
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
     async execute(interaction) {
