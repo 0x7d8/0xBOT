@@ -43,13 +43,13 @@ module.exports = {
         }
         
         // Create Buttons
-		const slfB = new MessageActionRow()
+		const slfB = new ActionRowBuilder()
 			.addComponents(
-				new MessageButton()
-    				.setLabel('LOBBY ERSTELLEN')
-    				.setURL("https://stopots.com/de/")
-    				.setStyle('LINK'),
-		);
+				new ButtonBuilder()
+					.setLabel('Primary')
+					.setURL('https://stopots.com/de/')
+					.setStyle(ButtonStyle.Link),
+			);
         const sioB = new MessageActionRow()
 			.addComponents(
 				new MessageButton()
