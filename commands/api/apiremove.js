@@ -31,10 +31,10 @@ module.exports = {
         // Set Variables
         const name = interaction.options.getString("name")
         const amount = await getapi('<@' + interaction.user.id + '>');
-        var newamount = amount - 1
+        const newamount = amount - 1
 
        	// Check if API even exists
-        var path = '/paper-api/' + interaction.user.id + '/' + name
+        const path = '/paper-api/' + interaction.user.id + '/' + name
         try {
         	// Create Embed
         	const message = new EmbedBuilder()

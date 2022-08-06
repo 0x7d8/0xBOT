@@ -36,10 +36,10 @@ module.exports = {
         const name = interaction.options.getString("name")
         const inhalt = interaction.options.getString("inhalt")
         const amount = await getapi('<@' + interaction.user.id + '>');
-        var newamount = amount + 1
+        const newamount = amount + 1
 
         // Check if API exists
-        var path = '/paper-api/' + interaction.user.id + '/' + name
+        const path = '/paper-api/' + interaction.user.id + '/' + name
   		if (fs.existsSync(path)) {
             // Create Embed
             const err = new EmbedBuilder()

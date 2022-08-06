@@ -33,7 +33,7 @@ module.exports = {
         const amount = await getapi('<@' + interaction.user.id + '>');
 
        	// Check if API even exists
-        var path = '/paper-api/' + interaction.user.id + '/' + name
+        const path = '/paper-api/' + interaction.user.id + '/' + name
         try {
         	
             // Read File
