@@ -38,11 +38,11 @@ module.exports = {
         const amount = await getapi('<@' + interaction.user.id + '>');
 
        	// Check if API even exists
-        const path = '/paper-api/' + interaction.user.id + '/' + name
+        const path = '/paper-api/user/' + interaction.user.id + '/' + name
         if (fs.existsSync(path)) {
         
             // Edit File
-        	fs.writeFile('/paper-api/' + interaction.user.id + '/' + name, inhalt, function(err) {})
+        	fs.writeFile('/paper-api/user/' + interaction.user.id + '/' + name, inhalt, function(err) {})
             
         	// Create Embed
         	const message = new EmbedBuilder()

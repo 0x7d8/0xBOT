@@ -35,13 +35,14 @@ module.exports = {
         if (stock == 'yellow') { emoji = '🟡' }
         if (stock == 'red') { emoji = '🔴' }
 
-        // Fetch Stock
-        const price = await fetch("https://api.paperstudios.de/bot/stocks/" + stock);
+        // Fetch Data
+        const stockpath = '/paper-api/bot/stocks/' + stock
+        const price = fs.readFileSync(stockpath, "utf8");
+        const unixpath = '/paper-api/time/unix'
+        const serverunix = fs.readFileSync(unixpath, "utf8");
 
         // Calculate Refresh
-        const serverunix = await fetch("https://api.paperstudios.de/time/unix");
-        const unix = await serverunix.text();
-        const unixtime = parseInt(unix) + 60
+        const unixtime = parseInt(serverunix) + 60
         const refreshtransformed = "<t:" + unixtime + ":R>"
         const refresh = refreshtransformed.replace(/(\r\n|\n|\r)/gm, "");
         const pricetransformed = await price.text();

@@ -39,7 +39,7 @@ module.exports = {
         const newamount = amount + 1
 
         // Check if API exists
-        const path = '/paper-api/' + interaction.user.id + '/' + name
+        const path = '/paper-api/user/' + interaction.user.id + '/' + name
   		if (fs.existsSync(path)) {
             // Create Embed
             const err = new EmbedBuilder()
@@ -70,7 +70,7 @@ module.exports = {
         	.setFooter({ text: '» ' + version + ' » SLOTS ' + newamount + '/5'});
         
         // Write File
-        fs.writeFile('/paper-api/' + interaction.user.id + '/' + name, inhalt, function(err) {})
+        fs.writeFile('/paper-api/user/' + interaction.user.id + '/' + name, inhalt, function(err) {})
 
         // Send Message
         addapi('<@' + interaction.user.id + '>', 1)
