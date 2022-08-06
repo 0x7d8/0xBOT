@@ -2,6 +2,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const { EmbedBuilder } = require('@discordjs/builders');
 const { version } = require('../../../config.json');
 const fetch = require("node-fetch");
+const fs = require('file-system');
 
 module.exports = {
     data: new SlashCommandBuilder()
