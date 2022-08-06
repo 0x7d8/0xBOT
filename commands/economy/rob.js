@@ -37,19 +37,7 @@ module.exports = {
         const geld = interaction.options.getString("geld")
         const moneysnd = await getbal('<@' + interaction.user.id + '>');
         const moneytar = await getbal('<@' + user + '>');
-        
-        // Check Maintenance
-        const { maintenance } = require('../../config.json');
-        if (maintenance == 'yes' && interaction.user.id != '745619551865012274') {
-            // Create Embed
-            var err = new EmbedBuilder()
-        		.setTitle('» FEHLER')
-        		.setDescription('» Der Bot ist aktuell unter Wartungsarbeiten!')
-        		.setFooter({ text: '» ' + version });
-            
-            return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
-        }
-        
+
         // Cooldown
         if (cooldown.get(interaction.user.id) - Date.now() > 0) {
             // Translate Vars

@@ -19,18 +19,6 @@ module.exports = {
         var blue = await getblu('<@' + interaction.user.id + '>');
         var yellow = await getyll('<@' + interaction.user.id + '>');
         var red = await getred('<@' + interaction.user.id + '>');
-        
-        // Check Maintenance
-        const { maintenance } = require('../../../config.json');
-        if (maintenance == 'yes' && interaction.user.id != '745619551865012274') {
-            // Create Embed
-            var err = new EmbedBuilder()
-        		.setTitle('» FEHLER')
-        		.setDescription('» Der Bot ist aktuell unter Wartungsarbeiten!')
-        		.setFooter({ text: '» ' + version });
-            
-            return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
-        }
 
         // Create Embed
         const message = new EmbedBuilder()

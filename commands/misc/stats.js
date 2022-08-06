@@ -12,19 +12,7 @@ module.exports = {
         var totalcmd = await getcmd('t-all');
         var guildcmd = await getcmd('g-' + interaction.guild.id);
         var usercmd = await getcmd('u-' + interaction.user.id);
-        
-         // Check Maintenance
-        const { maintenance } = require('../../config.json');
-        if (maintenance == 'yes' && interaction.user.id != '745619551865012274') {
-            // Create Embed
-            var err = new EmbedBuilder()
-        		.setTitle('» FEHLER')
-        		.setDescription('» Der Bot ist aktuell unter Wartungsarbeiten!')
-        		.setFooter({ text: '» ' + version });
-            
-            return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
-        }
-        
+
         // Create Embed
         const message = new EmbedBuilder()
         		.setTitle('» BOT STATISTIKEN')

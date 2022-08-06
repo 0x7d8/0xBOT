@@ -46,19 +46,7 @@ module.exports = {
         // Set Variables
         const titel = interaction.options.getString("title")
         const nachricht = interaction.options.getString("message")
-        
-        // Check Maintenance
-        const { maintenance } = require('../../config.json');
-        if (maintenance == 'yes' && interaction.user.id != '745619551865012274') {
-            // Create Embed
-            var err = new EmbedBuilder()
-        		.setTitle('» FEHLER')
-        		.setDescription('» Der Bot ist aktuell unter Wartungsarbeiten!')
-        		.setFooter({ text: '» ' + version });
-            
-            return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
-        }
-        
+
         // Create Embed
         if (interaction.user.id != '745619551865012274') {
             var message = new EmbedBuilder()

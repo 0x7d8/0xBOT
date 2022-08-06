@@ -15,19 +15,7 @@ module.exports = {
         // Count Guild Commands and User
         addcmd('g-' + interaction.guild.id, 1)
         addcmd('u-' + interaction.user.id, 1)
-        
-        // Check Maintenance
-        const { maintenance } = require('../../config.json');
-        if (maintenance == 'yes' && interaction.user.id != '745619551865012274') {
-            // Create Embed
-            var err = new EmbedBuilder()
-        		.setTitle('» FEHLER')
-        		.setDescription('» Der Bot ist aktuell unter Wartungsarbeiten!')
-        		.setFooter({ text: '» ' + version });
-            
-            return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
-        }
-        
+
         // Create Button
         const topgg = new ActionRowBuilder()
 			.addComponents(
