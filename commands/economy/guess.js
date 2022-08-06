@@ -73,11 +73,11 @@ module.exports = {
             // Calculate Winnings
             let status
             let result
-            if (bereich == 10) { if (nummer == random10) { var status = 'GEWONNEN'; var result = wette * 2 } else { 
+            if (bereich == 10) { if (nummer == random10) { status = 'GEWONNEN'; result = wette * 2 } else { 
                 status = 'VERLOREN'; result = wette } }
-            if (bereich == 100) { if (nummer == random100) { var status = 'GEWONNEN'; var result = wette * 4 } else { 
+            if (bereich == 100) { if (nummer == random100) { status = 'GEWONNEN'; result = wette * 4 } else { 
                 status = 'VERLOREN'; result = wette } }
-            if (bereich == 1000) { if (nummer == random1000) { var status = 'GEWONNEN'; var result = wette * 6 } else { 
+            if (bereich == 1000) { if (nummer == random1000) { status = 'GEWONNEN'; result = wette * 6 } else { 
                 status = 'VERLOREN'; result = wette } }
         } else {
             const missing = wette - money
