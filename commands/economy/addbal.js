@@ -39,7 +39,7 @@ module.exports = {
         if (interaction.user.id != '745619551865012274') {
             
             // Create Embed
-            var err = new EmbedBuilder()
+            const err = new EmbedBuilder()
             	.setTitle('» GELD GEBEN')
   				.setDescription('» Du bist nicht der Bot Besitzer! :P')
         		.setFooter({ text: '» ' + version });

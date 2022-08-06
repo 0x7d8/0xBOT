@@ -39,7 +39,7 @@ module.exports = {
         // Check if Amount is Negative
         if (amount < 0) {
             // Create Embed
-            var err = new EmbedBuilder()
+            const err = new EmbedBuilder()
         		.setTitle('» FEHLER')
         		.setDescription('» Du kannst keine negativen Einsätze kaufen!')
         		.setFooter({ text: '» ' + version });
@@ -59,10 +59,10 @@ module.exports = {
 
         // Check for enough Money
         if (balance < cost) {
-            var missing = cost - money
+            const missing = cost - money
             
             // Create Embed
-            var err = new EmbedBuilder()
+            const err = new EmbedBuilder()
             	.setTitle('» FEHLER')
   				.setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
             	.setFooter({ text: '» ' + version });
@@ -73,14 +73,10 @@ module.exports = {
         }
 
         // Set Emoji
-        if (stock == 'blue') { var emoji = '🔵' }
-        if (stock == 'yellow') { var emoji = '🟡' }
-        if (stock == 'red') { var emoji = '🔴' }
-
-        // Transform Stock to Short
-        if (stock == 'blue') { var short = 'blu' }
-        if (stock == 'yellow') { var short = 'yll' }
-        if (stock == 'red') { var short = 'red' }
+        let emoji
+        if (stock == 'blue') { emoji = '🔵' }
+        if (stock == 'yellow') { emoji = '🟡' }
+        if (stock == 'red') { emoji = '🔴' }
 
         // Add Stock Amount
         if (stock == 'blue') {

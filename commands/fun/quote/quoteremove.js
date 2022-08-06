@@ -30,16 +30,16 @@ module.exports = {
         // Set Variables
         const anzahl = interaction.options.getString("anzahl")
         
-        var cost = anzahl * 100
+        const cost = anzahl * 100
 
         // Get User Balances
-        var quotes = await getqut('<@' + interaction.user.id + '>');
-        var money = await getbal('<@' + interaction.user.id + '>');
+        const quotes = await getqut('<@' + interaction.user.id + '>');
+        const money = await getbal('<@' + interaction.user.id + '>');
         
         // Check if not in Minus Quotes
         if (quotes - anzahl < 0) {
             // Create Embed
-            var err = new EmbedBuilder()
+            const err = new EmbedBuilder()
             	.setTitle('» QUOTES ENTFERNEN')
   				.setDescription('» Du hast garnicht so viele Quotes, du hast nur **' + quotes + '**!')
             	.setFooter({ text: '» ' + version });
@@ -51,10 +51,10 @@ module.exports = {
         
         // Check for enough Money
         if (money < cost) {
-            var missing = cost - money
+            const missing = cost - money
             
             // Create Embed
-            var err = new EmbedBuilder()
+            const err = new EmbedBuilder()
             	.setTitle('» QUOTES ENTFERNEN')
   				.setDescription('» Du hast nicht genug Geld dafür, dir fehlen **' + missing + '€**!')
             	.setFooter({ text: '» ' + version + ' » QUOTES: ' + quotes});
@@ -65,15 +65,16 @@ module.exports = {
         }
         
         // Check if Plural or not
+        let word
         if (anzahl > 1) {
-            var word = "Quotes";
+            word = "Quotes";
         } else {
-            var word = "Quote";
+            word = "Quote";
         }
         
         // Create Embed
-        var newquotes = quotes - 1
-        var message = new EmbedBuilder()
+        const newquotes = quotes - 1
+        const message = new EmbedBuilder()
             .setTitle('» QUOTES ENTFERNEN')
   			.setDescription('» Du hast erfolgreich **' + anzahl + '** ' + word + ' für **' + cost + '€** entfernt!')
             .setFooter({ text: '» ' + version + ' » QUOTES: ' + newquotes});

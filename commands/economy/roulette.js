@@ -39,7 +39,7 @@ module.exports = {
         // Check if Balance is Minus
         if (wette < 0) {
             // Create Embed
-            var err = new EmbedBuilder()
+            const err = new EmbedBuilder()
         		.setTitle('» FEHLER')
         		.setDescription('» Du kannst keine negativen Einsätze spielen!')
         		.setFooter({ text: '» ' + version });
@@ -50,20 +50,22 @@ module.exports = {
         }
         
         // Calculate Color
-        if (random == 1) { var color = 'grün' }
-        if (random >= 2) { var color = 'schwarz' }
-        if (random >= 11) { var color = 'rot' }
+        let color
+        if (random == 1) { color = 'grün' }
+        if (random >= 2) { color = 'schwarz' }
+        if (random >= 11) { color = 'rot' }
         
         // Calculate Status
-        if (color == farbe) { var status = 'GEWONNEN' }
-        if (color != farbe) { var status = 'VERLOREN' }
+        let status
+        if (color == farbe) { status = 'GEWONNEN' }
+        if (color != farbe) { status = 'VERLOREN' }
         
         // Check for enough Money
         if (money >= wette) {
             // Check for Max Amount
             if (wette > 5000) {
                 // Create Embed
-                var err = new EmbedBuilder()
+                const err = new EmbedBuilder()
             		.setTitle('» ROULETTE')
   					.setDescription('» Du kannst nicht soviel Wetten! **5000€** ist das Maximum.')
             		.setFooter({ text: '» ' + version });
@@ -74,21 +76,23 @@ module.exports = {
             }
             
         	// Set Money
+            let resultmul
             if (color == farbe && color == 'grün') {
-                var resultmul = 4
+                resultmul = 4
             }
             if (color == farbe && color != 'grün') {
-                var resultmul = 2
+                resultmul = 2
             }
             if (color != farbe) {
-                var resultmul = 0
+                resultmul = 0
             }
             const result = wette * resultmul
             const resultadd = result - wette
+            let resultdis
             if (result == 0) {
-                var resultdis = wette
+                resultdis = wette
             } else {
-                var resultdis = result
+                resultdis = result
             }
         
         	// Create Embed
@@ -109,10 +113,10 @@ module.exports = {
         	console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] ROULETTE : ' + farbe.toUpperCase() + '[W:' + color.toUpperCase() + '] : ' + status + ' : ' + resultdis + '€')
         	return interaction.reply({ embeds: [message.toJSON()] })
         } else {
-            var missing = wette - money
+            const missing = wette - money
             
             // Create Embed
-            var err = new EmbedBuilder()
+            const err = new EmbedBuilder()
             	.setTitle('» ROULETTE')
   				.setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
             	.setFooter({ text: '» ' + version });

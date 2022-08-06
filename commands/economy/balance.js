@@ -22,23 +22,25 @@ module.exports = {
         // Set Variables
         const user = interaction.options.getUser("user")
 
-        // Set User ID
+        // Get Money
+        let money
         if (user == null) {
-            var money = await getbal('<@' + interaction.user.id + '>');
+            money = await getbal('<@' + interaction.user.id + '>');
             console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] BALANCE : ' + money + '€');
         } else {
-            var money = await getbal('<@' + user + '>');
+            money = await getbal('<@' + user + '>');
             console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] BALANCE : ' + user + ' : ' + money + '€');
         }
         
         // Create Embed
+        let message
         if (user == null) {
-        	var message = new EmbedBuilder()
+        	message = new EmbedBuilder()
             	.setTitle('» DEIN GELDSTAND')
   				.setDescription('» Dein Geldstand beträgt **' + money + '€**!')
             	.setFooter({ text: '» ' + version });
         } else {
-            var message = new EmbedBuilder()
+            message = new EmbedBuilder()
             	.setTitle('» DER GELDSTAND')
   				.setDescription('» Der Geldstand von <@' + user + '> ist **' + money + '€**!')
             	.setFooter({ text: '» ' + version });

@@ -28,7 +28,7 @@ module.exports = {
         // Check Guild
         if (interaction.guild.id != '745635382766600202') {
             // Create Embed
-            var err = new EmbedBuilder()
+            const err = new EmbedBuilder()
         		.setTitle('» FEHLER')
         		.setDescription('» Dieser Befehl ist auf **' + interaction.guild.id + '** nicht erlaubt!\nDas ist kein Bug.')
         		.setFooter({ text: '» ' + version });

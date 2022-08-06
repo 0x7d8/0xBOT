@@ -30,17 +30,18 @@ module.exports = {
         const stock = interaction.options.getString("aktie")
 
         // Set Emoji
-        if (stock == 'blue') { var emoji = '🔵' }
-        if (stock == 'yellow') { var emoji = '🟡' }
-        if (stock == 'red') { var emoji = '🔴' }
+        let emoji
+        if (stock == 'blue') { emoji = '🔵' }
+        if (stock == 'yellow') { emoji = '🟡' }
+        if (stock == 'red') { emoji = '🔴' }
 
         // Fetch Stock
         const price = await fetch("https://api.paperstudios.de/bot/stocks/" + stock);
 
         // Calculate Refresh
         const serverunix = await fetch("https://api.paperstudios.de/time/unix");
-        let unix = await serverunix.text();
-        let unixtime = parseInt(unix) + 60
+        const unix = await serverunix.text();
+        const unixtime = parseInt(unix) + 60
         const refreshtransformed = "<t:" + unixtime + ":R>"
         const refresh = refreshtransformed.replace(/(\r\n|\n|\r)/gm, "");
         const pricetransformed = await price.text();

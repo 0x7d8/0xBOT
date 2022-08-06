@@ -20,20 +20,20 @@ module.exports = {
         addcmd('u-' + interaction.user.id, 1)
         
         // Set Variables
-        var anzahl = interaction.options.getInteger("anzahl")
-        var heads = 0
-        var tails = 0
-        var tries = 0
+        let anzahl = interaction.options.getInteger("anzahl")
+        let heads = 0
+        let tails = 0
+        let tries = 0
 
         // Check if Number is empty
         if (anzahl == null) {
-            var anzahl = 1
+            anzahl = 1
         }
         
         // Check if Number is negative
         if (anzahl < 1) {
             // Create Embed
-            var err = new EmbedBuilder()
+            const err = new EmbedBuilder()
         		.setTitle('» FEHLER')
         		.setDescription('» Du musst schon mindestens eine Münze werfen!')
         		.setFooter({ text: '» ' + version });
@@ -46,7 +46,7 @@ module.exports = {
         // Check if Number is too Big
         if (anzahl > 1000) {
             // Create Embed
-            var err = new EmbedBuilder()
+            const err = new EmbedBuilder()
         		.setTitle('» FEHLER')
         		.setDescription('» Du darfst nicht mehr als **1000** Münzen werfen!')
         		.setFooter({ text: '» ' + version });
@@ -57,31 +57,33 @@ module.exports = {
         }
 
         // Loop
+        let coin
         loop:
         while (anzahl != tries) {
-            var random = Math.floor(Math.random() * (2 - 1 + 1)) + 1;
+            const random = Math.floor(Math.random() * (2 - 1 + 1)) + 1;
 
-            if (random == 1) { var coin = 'KOPF'; var heads = heads + 1 }
-            if (random == 2) { var coin = 'ZAHL'; var tails = tails + 1 }
+            if (random == 1) { coin = 'KOPF'; heads = heads + 1 }
+            if (random == 2) { coin = 'ZAHL'; tails = tails + 1 }
 
-            var tries = tries + 1
+            tries = tries + 1
             continue loop;
         }
 
         // Add Zeros
-        if (heads < 10) { var heads = '0' + heads}
-        if (heads < 100) { var heads = '0' + heads}
-        if (tails < 10) { var tails = '0' + tails}
-        if (tails < 100) { var tails = '0' + tails}
+        if (heads < 10) { heads = '0' + heads}
+        if (heads < 100) { heads = '0' + heads}
+        if (tails < 10) { tails = '0' + tails}
+        if (tails < 100) { tails = '0' + tails}
         
         // Create Embed
+        let message
         if (anzahl == 1) {
-            var message = new EmbedBuilder()
+            message = new EmbedBuilder()
         	    .setTitle('» COINFLIP')
   			    .setDescription('» Die Münze ist auf **' + coin + '** gelandet!')
         	    .setFooter({ text: '» ' + version });
         } else {
-            var message = new EmbedBuilder()
+            message = new EmbedBuilder()
         	    .setTitle('» COINFLIP')
   			    .setDescription('» KÖPFE\n`' + heads + '`\n\n» ZAHLEN\n`' + tails + '`')
         	    .setFooter({ text: '» ' + version });

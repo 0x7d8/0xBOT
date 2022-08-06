@@ -39,13 +39,13 @@ module.exports = {
         if (interaction.user.id != '745619551865012274') {
             
             // Create Embed
-            var error = new EmbedBuilder()
+            const err = new EmbedBuilder()
             	.setTitle('» GELD ENTFERNEN')
   				.setDescription('» Du bist nicht der Bot Besitzer! :P')
         		.setFooter({ text: '» ' + version });
             
             console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] REMBAL : NOTOWNER')
-            return interaction.reply({ embeds: [error.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
         
         // Remove Money

@@ -39,11 +39,11 @@ module.exports = {
         if (res == 3) { var subreddit = "CrappyDesign" }
 
         // Get Initial Meme
-        var url = await fetch("https://www.reddit.com/r/" + subreddit + "/random/.json");
-        var random = await url.json();
+        const url = await fetch("https://www.reddit.com/r/" + subreddit + "/random/.json");
+        const random = await url.json();
 
-        var upvotes = random[0].data.children[0].data.ups;
-        var comments = random[0].data.children[0].data.num_comments;
+        let upvotes = random[0].data.children[0].data.ups;
+        let comments = random[0].data.children[0].data.num_comments;
 
         /* Set Variables
         var upvote = interaction.options.getString("upvotes")
@@ -65,11 +65,11 @@ module.exports = {
         */
 
         // 187 Easter Egg
-        if (upvotes == 187) { var upvotes = upvotes + ' 🐊' }
-        if (comments == 187) { var comments = comments + ' 🐊' }
+        if (upvotes == 187) { upvotes = upvotes + ' 🐊' }
+        if (comments == 187) { comments = comments + ' 🐊' }
         
         // Create Embed
-        var message = new EmbedBuilder()
+        const message = new EmbedBuilder()
             .setTitle(`» ${random[0].data.children[0].data.title.toUpperCase()}`)
             .setDescription('» SUBREDDIT:\n`r/' + subreddit + '`\n\n» UPVOTES:\n`' + upvotes + '`\n\n» KOMMENTARE:\n`' + comments + '`')
             .setImage(random[0].data.children[0].data.url)

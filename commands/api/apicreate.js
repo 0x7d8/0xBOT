@@ -42,7 +42,7 @@ module.exports = {
         var path = '/paper-api/' + interaction.user.id + '/' + name
   		if (fs.existsSync(path)) {
             // Create Embed
-            var err = new EmbedBuilder()
+            const err = new EmbedBuilder()
         		.setTitle('» PAPER API CREATE')
         		.setDescription('» Diese API existiert schon!\n</apiedit:1000335179585441862> um sie zu ändern\n</apiremove:1000327305220071464> um sie zu löschen')
         		.setFooter({ text: '» ' + version + ' » SLOTS ' + amount + '/5'});
@@ -54,7 +54,7 @@ module.exports = {
         // Check if Slots are Free
         if (amount > '4') {
             // Create Embed
-            var err = new EmbedBuilder()
+            const err = new EmbedBuilder()
         		.setTitle('» PAPER API CREATE')
         		.setDescription('» Du hast alle deiner **5** API Slots genutzt!')
         		.setFooter({ text: '» ' + version });
@@ -64,7 +64,7 @@ module.exports = {
         } 
         
         // Create Embed
-        var message = new EmbedBuilder()
+        const message = new EmbedBuilder()
             .setTitle('» PAPER API EDIT')
   			.setDescription('Du hast eine neue API erstellt!\nSie ist hier verfügbar:\n**`https://api.paperstudios.de/user/' + interaction.user.id + '/' + name + '`**!')
         	.setFooter({ text: '» ' + version + ' » SLOTS ' + newamount + '/5'});

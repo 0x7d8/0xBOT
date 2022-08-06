@@ -23,29 +23,32 @@ module.exports = {
         const user = interaction.options.getUser("user")
 
         // Set User ID
+        let money
         if (user == null) {
-            var money = await getqut('<@' + interaction.user.id + '>');
+            money = await getqut('<@' + interaction.user.id + '>');
             console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] QUOTES : ' + money);
         } else {
-            var money = await getqut('<@' + user + '>');
+            money = await getqut('<@' + user + '>');
             console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] QUOTES : ' + user + ' : ' + money);
         }
         
         // Check if Plural or not
+        let word
         if (money > 1) {
-            var word = "Quotes";
+            word = "Quotes";
         } else {
-            var word = "Quote";
+            word = "Quote";
         }
         
         // Create Embed
+        let message
         if (user == null) {
-        	var message = new EmbedBuilder()
+        	message = new EmbedBuilder()
             	.setTitle('» DEINE QUOTES')
   				.setDescription('» Du hast **' + money + '** ' + word + '!')
             	.setFooter({ text: '» ' + version });
         } else {
-            var message = new EmbedBuilder()
+            message = new EmbedBuilder()
             	.setTitle('» DIE QUOTES')
   				.setDescription('» <@' + user + '> hat **' + money + '** ' + word + '!')
             	.setFooter({ text: '» ' + version });

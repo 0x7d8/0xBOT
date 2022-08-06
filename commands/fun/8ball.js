@@ -24,32 +24,34 @@ module.exports = {
         const random = Math.floor(Math.random() * (20 - 1 + 1)) + 1;
 
         // Translate to Word
-        if (random == '1') { var result = 'Sicherlich.' } 
-        if (random == '2') { var result = 'Es ist Garantiert!' } 
-        if (random == '3') { var result = 'Ohne Frage!' } 
-        if (random == '4') { var result = 'Definitiv ja!' }
-        if (random == '5') { var result = 'Da kannst du drauf wetten!' }
-        if (random == '6') { var result = 'Wie ich das sehe, ja!' }
-        if (random == '7') { var result = 'Höchstwahrscheinlich.' }
-        if (random == '8') { var result = 'Sieht gut aus!' }
-        if (random == '9') { var result = 'Ja!' }
-        if (random == '10') { var result = 'Sieht ganz so aus.' }
-        if (random == '11') { var result = 'Ich bin mir nicht sicher, frag nochmal.' }
-        if (random == '12') { var result = 'Frag mich später nochmal.' }
-        if (random == '13') { var result = 'Das würde ich jetzt lieber nicht beantworten.' }
-        if (random == '14') { var result = 'Kann ich dir garnicht sagen.' }
-        if (random == '15') { var result = 'Konzentrier dich und frag nochmal!' }
-        if (random == '16') { var result = 'Ich würde nicht darauf zählen!' } 
-        if (random == '17') { var result = 'Computer sagt nein.' }
-        if (random == '18') { var result = 'Nach reichlicher Überlegung würde ich nein sagen.' }
-        if (random == '19') { var result = 'Ich glaube nicht!' }
-        if (random == '20') { var result = 'Ich bezweifle es.' }
+        let result
+        if (random == '1') { result = 'Sicherlich.' } 
+        if (random == '2') { result = 'Es ist Garantiert!' } 
+        if (random == '3') { result = 'Ohne Frage!' } 
+        if (random == '4') { result = 'Definitiv ja!' }
+        if (random == '5') { result = 'Da kannst du drauf wetten!' }
+        if (random == '6') { result = 'Wie ich das sehe, ja!' }
+        if (random == '7') { result = 'Höchstwahrscheinlich.' }
+        if (random == '8') { result = 'Sieht gut aus!' }
+        if (random == '9') { result = 'Ja!' }
+        if (random == '10') { result = 'Sieht ganz so aus.' }
+        if (random == '11') { result = 'Ich bin mir nicht sicher, frag nochmal.' }
+        if (random == '12') { result = 'Frag mich später nochmal.' }
+        if (random == '13') { result = 'Das würde ich jetzt lieber nicht beantworten.' }
+        if (random == '14') { result = 'Kann ich dir garnicht sagen.' }
+        if (random == '15') { result = 'Konzentrier dich und frag nochmal!' }
+        if (random == '16') { result = 'Ich würde nicht darauf zählen!' } 
+        if (random == '17') { result = 'Computer sagt nein.' }
+        if (random == '18') { result = 'Nach reichlicher Überlegung würde ich nein sagen.' }
+        if (random == '19') { result = 'Ich glaube nicht!' }
+        if (random == '20') { result = 'Ich bezweifle es.' }
         
 		// Add ? if there is none
+        let formatted
         if (frage.slice(-1) == '?') {
-            var formatted = frage
+            formatted = frage
         } else {
-            var formatted = frage + '?'
+            formatted = frage + '?'
         }
         
         // Create Embeds

@@ -45,20 +45,20 @@ module.exports = {
             const cdown = timeLeft / 1000;
             
             // Create Embed
-            var cooldownt = new EmbedBuilder()
+            const err = new EmbedBuilder()
             	.setTitle('» AUSRAUBEN')
   				.setDescription('» Du hast leider noch einen Cooldown von **' + cdown.toFixed(0) + 's**!')
             	.setFooter({ text: '» ' + version });
             
             console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] ROB : ONCOOLDOWN : ' + cdown.toFixed(0) + 's');
-            return interaction.reply({ embeds: [cooldownt.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
         
         // Check if User is Author
         if (interaction.user.id == user) {
             
             // Create Embed
-            var err = new EmbedBuilder()
+            const err = new EmbedBuilder()
             	.setTitle('» AUSRAUBEN')
   				.setDescription('» Du kannst dich nicht selber ausrauben?!')
             	.setFooter({ text: '» ' + version });
@@ -118,23 +118,26 @@ module.exports = {
         const random20 = Math.floor(Math.random() * (5 - 1 + 1)) + 1;
         const random05 = Math.floor(Math.random() * (20 - 1 + 1)) + 1;
         
+        let status
+        let anzahl
         if (geld == 35) {
-        	if (random35 == 1) { var status = true; var anzahl = Math.floor(Math.random() * (20 - 10 + 1)) + 10; } else { 
-                var status = false; var anzahl = Math.floor(Math.random() * (20 - 15 + 1)) + 10; }
+        	if (random35 == 1) { status = true; anzahl = Math.floor(Math.random() * (20 - 10 + 1)) + 10; } else { 
+                status = false; anzahl = Math.floor(Math.random() * (20 - 15 + 1)) + 10; }
         } else if (geld == 20) {
-            if (random20 == 1) { var status = true; var anzahl = Math.floor(Math.random() * (50 - 30 + 1)) + 30; } else {
-                var status = false; var anzahl = Math.floor(Math.random() * (50 - 40 + 1)) + 30; }
+            if (random20 == 1) { status = true; anzahl = Math.floor(Math.random() * (50 - 30 + 1)) + 30; } else {
+                status = false; anzahl = Math.floor(Math.random() * (50 - 40 + 1)) + 30; }
         } else {
-            if (random05 == 1) { var status = true; var anzahl = Math.floor(Math.random() * (100 - 50 + 1)) + 50; } else {
-                var status = false; var anzahl = Math.floor(Math.random() * (100 - 80 + 1)) + 60; }
+            if (random05 == 1) { status = true; anzahl = Math.floor(Math.random() * (100 - 50 + 1)) + 50; } else {
+                status = false; anzahl = Math.floor(Math.random() * (100 - 80 + 1)) + 60; }
         }
         
         // Set Extra Text
-        if (anzahl < 20) { var extra = 'NAJA.'}
-        if (anzahl >= 20) { var extra = 'NICE.' }
-        if (anzahl >= 40) { var extra = 'PRIMA.' }
-        if (anzahl >= 60) { var extra = 'LOL.' }
-        if (anzahl >= 80) { var extra = 'EIN PRO??!!' }
+        let extra
+        if (anzahl < 20) { extra = 'NAJA.'}
+        if (anzahl >= 20) { extra = 'NICE.' }
+        if (anzahl >= 40) { extra = 'PRIMA.' }
+        if (anzahl >= 60) { extra = 'LOL.' }
+        if (anzahl >= 80) { extra = 'EIN PRO??!!' }
         
         // Create Embeds
       	const sucess = new EmbedBuilder()

@@ -37,7 +37,7 @@ module.exports = {
         // Check if Amount is Negative
         if (amount < 0) {
             // Create Embed
-            var err = new EmbedBuilder()
+            const err = new EmbedBuilder()
         		.setTitle('» FEHLER')
         		.setDescription('» Du kannst keine negativen Einsätze verkaufen!')
         		.setFooter({ text: '» ' + version });
@@ -56,27 +56,29 @@ module.exports = {
         const cash = amount * priceText
 
         // Get Stocks Available
+        let stocks
         if (stock == 'blue') {
-            var stocks = await getblu('<@' + interaction.user.id + '>')
+            stocks = await getblu('<@' + interaction.user.id + '>')
         }
         if (stock == 'yellow') { 
-            var stocks = await getyll('<@' + interaction.user.id + '>')
+            stocks = await getyll('<@' + interaction.user.id + '>')
         }
         if (stock == 'red') {
-            var stocks = await getred('<@' + interaction.user.id + '>')
+            stocks = await getred('<@' + interaction.user.id + '>')
         }
 
         // Set Emoji
-        if (stock == 'blue') { var emoji = '🔵' }
-        if (stock == 'yellow') { var emoji = '🟡' }
-        if (stock == 'red') { var emoji = '🔴' }
+        let emoji
+        if (stock == 'blue') { emoji = '🔵' }
+        if (stock == 'yellow') { emoji = '🟡' }
+        if (stock == 'red') { emoji = '🔴' }
 
         // Check for enough Stocks
         if (stocks < amount) {
-            var missing = amount - stocks
+            const missing = amount - stocks
             
             // Create Embed
-            var err = new EmbedBuilder()
+            const err = new EmbedBuilder()
             	.setTitle('» FEHLER')
   				.setDescription('» Du hast dafür nicht genug Aktien, dir fehlen **' + missing + '** ' + emoji + ' !')
             	.setFooter({ text: '» ' + version });

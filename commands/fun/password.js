@@ -27,7 +27,7 @@ module.exports = {
         if (lenght > 128) {
 
             // Create Embed
-            var err = new EmbedBuilder()
+            const err = new EmbedBuilder()
         		.setTitle('» PASSWORT GENERIEREN')
         		.setDescription('» Die Maximale Größe ist **128**!')
         		.setFooter({ text: '» ' + version });
@@ -36,10 +36,11 @@ module.exports = {
             return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
 
         }
+
         if (lenght < 4) {
 
             // Create Embed
-            var err = new EmbedBuilder()
+            const err = new EmbedBuilder()
         		.setTitle('» PASSWORT GENERIEREN')
         		.setDescription('» Dein Password sollte schon mehr als **4** Buchstaben haben!')
         		.setFooter({ text: '» ' + version });
@@ -50,7 +51,7 @@ module.exports = {
         }
 
         // Generate Password
-        var password = generator.generate({
+        const password = generator.generate({
             length: lenght,
             numbers: true,
             uppercase: true,

@@ -45,7 +45,7 @@ module.exports = {
         // Check if Balance is Minus
         if (wette < 0) {
             // Create Embed
-            var err = new EmbedBuilder()
+            const err = new EmbedBuilder()
         		.setTitle('» FEHLER')
         		.setDescription('» Du kannst keine negativen Einsätze spielen!')
         		.setFooter({ text: '» ' + version });
@@ -60,7 +60,7 @@ module.exports = {
             // Check for Max Amount
             if (wette > 5000) {
                 // Create Embed
-                var err = new EmbedBuilder()
+                const err = new EmbedBuilder()
             		.setTitle('» RATEN')
   					.setDescription('» Du kannst nicht soviel Wetten! **5000€** ist das Maximum.')
             		.setFooter({ text: '» ' + version });
@@ -71,22 +71,24 @@ module.exports = {
             }
             
             // Calculate Winnings
+            let status
+            let result
             if (bereich == 10) { if (nummer == random10) { var status = 'GEWONNEN'; var result = wette * 2 } else { 
-                var status = 'VERLOREN'; var result = wette } }
+                status = 'VERLOREN'; result = wette } }
             if (bereich == 100) { if (nummer == random100) { var status = 'GEWONNEN'; var result = wette * 4 } else { 
-                var status = 'VERLOREN'; var result = wette } }
+                status = 'VERLOREN'; result = wette } }
             if (bereich == 1000) { if (nummer == random1000) { var status = 'GEWONNEN'; var result = wette * 6 } else { 
-                var status = 'VERLOREN'; var result = wette } }
+                status = 'VERLOREN'; result = wette } }
         } else {
-            var missing = wette - money
-            var notenoughmoney = new EmbedBuilder()
+            const missing = wette - money
+            const err = new EmbedBuilder()
             	.setTitle('» RATEN')
   				.setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
             	.setFooter({ text: '» ' + version });
 
             // Send Message
             console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] GUESS : NOTENOUGHMONEY : ' + missing + '€')
-            return interaction.reply({ embeds: [notenoughmoney.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
         
         // Create Embed

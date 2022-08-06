@@ -36,9 +36,8 @@ module.exports = {
        	// Check if API even exists
         var path = '/paper-api/' + interaction.user.id + '/' + name
         try {
-        
         	// Create Embed
-        	var message = new EmbedBuilder()
+        	const message = new EmbedBuilder()
             	.setTitle('» PAPER API REMOVE')
   				.setDescription('Du hast die API **' + name + '** gelöscht!')
         		.setFooter({ text: '» ' + version + ' » SLOTS ' + newamount + '/5'});
@@ -52,14 +51,14 @@ module.exports = {
         	return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         } catch (err) {
             // Create Embed
-            var err = new EmbedBuilder()
+            const error = new EmbedBuilder()
         		.setTitle('» PAPER API REMOVE')
         		.setDescription('» Diese API existiert garnicht!\n</apicreate:1000322453614104636> um eine zu erstellen')
         		.setFooter({ text: '» ' + version + ' » SLOTS ' + amount + '/5'});
             
             // Send Message
             console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] APIREMOVE : ' + name + ' : NOTFOUND')
-            return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [error.toJSON()], ephemeral: true })
         }
     },
 };

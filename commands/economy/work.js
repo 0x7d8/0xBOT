@@ -24,13 +24,15 @@ module.exports = {
         // Cooldown
         if (cooldown.get(interaction.user.id) - Date.now() > 0) {
         	// Translate Vars
+            let use
+            let cdown
         	const timeLeft = cooldown.get(interaction.user.id) - Date.now(); 
-            var use = 's'
-            var cdown = timeLeft / 1000;
-            if (cdown > 60) { var cdown = timeLeft / 1000 / 60; var use = 'm' }
+            use = 's'
+            cdown = timeLeft / 1000;
+            if (cdown > 60) { cdown = timeLeft / 1000 / 60; use = 'm' }
             
             // Create Embed
-            var err = new EmbedBuilder()
+            const err = new EmbedBuilder()
             	.setTitle('» ARBEIT')
   				.setDescription('» Du hast leider noch einen Cooldown von **' + cdown.toFixed(0) + use + '**!')
             	.setFooter({ text: '» ' + version });
@@ -41,17 +43,20 @@ module.exports = {
         } else {
             
             // Set Jobs
-        	if (random == '1') { var job = 'PROGRAMMIERER'; var result = Math.floor(Math.random() * (75 - 40 + 1)) + 40; }
-        	if (random == '2') { var job = 'HAUSMEISTER'; var result = Math.floor(Math.random() * (40 - 25 + 1)) + 25; }
-        	if (random == '3') { var job = 'MCDONALDS KASSIERER'; var result = Math.floor(Math.random() * (25 - 10 + 1)) + 10; }
-        	if (random == '4') { var job = 'KÜNSTLER'; var result = Math.floor(Math.random() * (100 - 25 + 1)) + 25; }
+            let job
+            let result
+        	if (random == '1') { job = 'PROGRAMMIERER'; result = Math.floor(Math.random() * (75 - 40 + 1)) + 40; }
+        	if (random == '2') { job = 'HAUSMEISTER'; result = Math.floor(Math.random() * (40 - 25 + 1)) + 25; }
+        	if (random == '3') { job = 'MCDONALDS KASSIERER'; result = Math.floor(Math.random() * (25 - 10 + 1)) + 10; }
+        	if (random == '4') { job = 'KÜNSTLER'; result = Math.floor(Math.random() * (100 - 25 + 1)) + 25; }
             
             // Set Extra Text
-            if (result < 20) { var extra = 'MEH.' }
-            if (result >= 20) { var extra = 'NICE.' }
-            if (result >= 40) { var extra = 'PRIMA.' }
-            if (result >= 60) { var extra = 'TOLL!' }
-            if (result >= 80) { var extra = 'WOW!' }
+            let extra
+            if (result < 20) { extra = 'MEH.' }
+            if (result >= 20) { extra = 'NICE.' }
+            if (result >= 40) { extra = 'PRIMA.' }
+            if (result >= 60) { extra = 'TOLL!' }
+            if (result >= 80) { extra = 'WOW!' }
         
         	// Create Embed
       		const message = new EmbedBuilder()

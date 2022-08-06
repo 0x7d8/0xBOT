@@ -31,7 +31,7 @@ module.exports = {
         // Check if Balance is Minus
         if (anzahl < 0) {
             // Create Embed
-            var err = new EmbedBuilder()
+            const err = new EmbedBuilder()
         		.setTitle('» FEHLER')
         		.setDescription('» Du kannst keine negativen Einsätze senden!')
         		.setFooter({ text: '» ' + version });
@@ -61,10 +61,10 @@ module.exports = {
         	rembal('<@' + interaction.user.id + '>', anzahl)
         	addbal('<@' + user + '>', anzahl)
         } else {
-            var missing = anzahl - money
+            const missing = anzahl - money
             
             // Create Embed
-            var err = new EmbedBuilder()
+            const err = new EmbedBuilder()
             	.setTitle('» GELD GEBEN')
   				.setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
             	.setFooter({ text: '» ' + version });

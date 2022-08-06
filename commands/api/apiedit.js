@@ -45,7 +45,7 @@ module.exports = {
         	fs.writeFile('/paper-api/' + interaction.user.id + '/' + name, inhalt, function(err) {})
             
         	// Create Embed
-        	var message = new EmbedBuilder()
+        	const message = new EmbedBuilder()
             	.setTitle('» PAPER API EDIT')
   				.setDescription('Du hast die API **' + name + '** editiert!')
         		.setFooter({ text: '» ' + version + ' » SLOTS ' + amount + '/5'});
@@ -55,7 +55,7 @@ module.exports = {
         	return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         } else {
             // Create Embed
-            var err = new EmbedBuilder()
+            const err = new EmbedBuilder()
         		.setTitle('» PAPER API EDIT')
         		.setDescription('» Diese API existiert garnicht!\n</apicreate:1000322453614104636> um eine zu erstellen')
         		.setFooter({ text: '» ' + version + ' » SLOTS ' + amount + '/5'});

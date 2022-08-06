@@ -33,8 +33,8 @@ module.exports = {
         
         // Set Variables
         const suche = interaction.options.getString("suche")
-        var engine = interaction.options.getString("engine")
-        if (engine == null) { var engine = 'Google' }
+        let engine = interaction.options.getString("engine")
+        if (engine == null) { engine = 'Google' }
         
         // Create Query
         const query = encodeURIComponent(suche)

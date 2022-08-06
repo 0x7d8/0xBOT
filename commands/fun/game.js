@@ -59,6 +59,7 @@ module.exports = {
 					.setURL('https://jklm.fun/')
 					.setStyle(ButtonStyle.Link),
 			);
+			
         // Create Embeds
         const slf = new EmbedBuilder()
         		.setTitle('» STADT LAND FLUSS REGELN')

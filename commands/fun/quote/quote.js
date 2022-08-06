@@ -37,7 +37,7 @@ module.exports = {
             const cdown = timeLeft / 1000;
             
             // Create Embed
-            var err = new EmbedBuilder()
+            const err = new EmbedBuilder()
             	.setTitle('» ZITAT')
   				.setDescription('» Du hast leider noch einen Cooldown von **' + cdown.toFixed(0) + 's**!')
             	.setFooter({ text: '» ' + version});
@@ -48,19 +48,22 @@ module.exports = {
         }
         
         // Check if there is a author specified
+        let message
         if (autor == null) {
-            var amount = await getqut('<@' + interaction.user.id + '>') + 1;
-        	var message = new EmbedBuilder()
+            const amount = await getqut('<@' + interaction.user.id + '>') + 1;
+        	message = new EmbedBuilder()
             	.setTitle('» EIN WEISES ZITAT')
   				.setDescription('» "' + zitat + '" ~<@' + interaction.user.id + '>')
             	.setFooter({ text: '» ' + version + ' » QUOTES: ' + amount});
+            
             console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] QUOTE : ' + zitat.toUpperCase())
         } else {
-            var amount = await getqut('<@' + autor + '>') + 1;
-        	var message = new EmbedBuilder()
+            const amount = await getqut('<@' + autor + '>') + 1;
+        	message = new EmbedBuilder()
             	.setTitle('» EIN ZITAT')
   				.setDescription('» "' + zitat + '" ~<@' + autor + '>')
             	.setFooter({ text: '» ' + version + ' » QUOTES: ' + amount});
+            
             console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] QUOTE : ' + zitat.toUpperCase() + ' : ~' + autor)
             addqut('<@' + autor + '>', 1);
         }
