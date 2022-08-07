@@ -31,12 +31,14 @@ module.exports = {
         addcmd('u-' + interaction.user.id, 1)
 
         // Set Variables
-        const res = Math.floor(Math.random() * (3 - 1 + 1)) + 1;
+        const res = Math.floor(Math.random() * (4 - 1 + 1)) + 1;
 
         // Set Subreddit
-        if (res == 1) { var subreddit = "memes" }
-        if (res == 2) { var subreddit = "me_irl" }
-        if (res == 3) { var subreddit = "CrappyDesign" }
+        let subreddit
+        if (res == 1) { subreddit = "memes" }
+        if (res == 2) { subreddit = "me_irl" }
+        if (res == 3) { subreddit = "CrappyDesign" }
+        if (res == 4) { subreddit = "gittertier" }
 
         // Get Initial Meme
         const url = await fetch("https://www.reddit.com/r/" + subreddit + "/random/.json");
