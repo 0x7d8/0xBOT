@@ -34,7 +34,7 @@ module.exports = {
         const newamount = amount - 1
 
        	// Check if API even exists
-        const path = '/paper-api/user/' + interaction.user.id + '/' + name
+        const path = '/paper-api/' + interaction.user.id + '/' + name
         try {
         	// Create Embed
         	const message = new EmbedBuilder()
