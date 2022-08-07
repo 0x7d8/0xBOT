@@ -48,13 +48,14 @@ module.exports = {
         const nachricht = interaction.options.getString("message")
 
         // Create Embed
+        let message
         if (interaction.user.id != '745619551865012274') {
-            var message = new EmbedBuilder()
+            message = new EmbedBuilder()
                 .setTitle(titel)
   			    .setDescription(nachricht)
         	    .setFooter({ text: '» ' + version + ' » NICHT OFFIZIELL' });
         } else {
-            var message = new EmbedBuilder()
+            message = new EmbedBuilder()
                 .setTitle(titel)
   			    .setDescription(nachricht)
         	    .setFooter({ text: '» ' + version });

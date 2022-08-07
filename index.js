@@ -91,11 +91,12 @@ client.on('interactionCreate', async interaction => {
 		console.error(error);
         
         // Create Error Embed
-        var err = new EmbedBuilder()
+        const err = new EmbedBuilder()
             .setTitle('» FEHLER')
   			.setDescription('**»» INFO**\n» WAS?\n`Ein Fehler ist beim ausführen dieses Befehls aufgetreten.`\n\n» WIESO?\n`Dies kann an vielem liegen, der Code wird für Fehler vorm Release einer neuen Version gecheckt und es kann sein, das ein Fehler enthalten war.`\n\n» WAS TUN?\n`Nichts. Einfach warten, der Befehl wurde geloggt und sollte in der nächsten Version schon behoben werden!`\n\n**»» KONTAKT**\n» EMAIL\n`kontakt@rjansen.de0`')
         	.setFooter({ text: '» ' + version });
 
+        // Send Message
 		await interaction.reply({ embeds: [err.toJSON()], ephemeral: true });
 	}
 });
