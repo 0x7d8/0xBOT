@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { EmbedBuilder } = require('@discordjs/builders');
-const { MessageActionRow, MessageButton } = require('discord.js');
+const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 const { version } = require('../../config.json');
 
 module.exports = {
@@ -40,34 +40,34 @@ module.exports = {
         const query = encodeURIComponent(suche)
 
         // Create Buttons
-		const google = new MessageActionRow()
+        const google = new ActionRowBuilder()
 			.addComponents(
-				new MessageButton()
-    				.setLabel('ANSCHAUEN')
-    				.setURL("https://google.com/search?q=" + query)
-    				.setStyle('LINK'),
-		);
-		const bing = new MessageActionRow()
+				new ButtonBuilder()
+					.setLabel('ANSCHAUEN')
+					.setURL("https://google.com/search?q=" + query)
+					.setStyle(ButtonStyle.Link),
+			);
+        const bing = new ActionRowBuilder()
 			.addComponents(
-				new MessageButton()
-    				.setLabel('ANSCHAUEN')
-    				.setURL("https://bing.com/search?q=" + query)
-    				.setStyle('LINK'),
-		);
-        const yahoo = new MessageActionRow()
+				new ButtonBuilder()
+					.setLabel('ANSCHAUEN')
+					.setURL("https://bing.com/search?q=" + query)
+					.setStyle(ButtonStyle.Link),
+			);
+        const yahoo = new ActionRowBuilder()
 			.addComponents(
-				new MessageButton()
-    				.setLabel('ANSCHAUEN')
-    				.setURL("https://search.yahoo.com/search?q=" + query)
-    				.setStyle('LINK'),
-		);
-        const duck = new MessageActionRow()
+				new ButtonBuilder()
+					.setLabel('ANSCHAUEN')
+					.setURL("https://search.yahoo.com/search?q=" + query)
+					.setStyle(ButtonStyle.Link),
+			);
+        const duck = new ActionRowBuilder()
 			.addComponents(
-				new MessageButton()
-    				.setLabel('ANSCHAUEN')
-    				.setURL("https://duckduckgo.com/?q=" + query)
-    				.setStyle('LINK'),
-		);
+				new ButtonBuilder()
+					.setLabel('ANSCHAUEN')
+					.setURL("https://duckduckgo.com/search?q=" + query)
+					.setStyle(ButtonStyle.Link),
+			);
         
         // Create Embed
        	const message = new EmbedBuilder()
