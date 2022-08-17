@@ -15,7 +15,7 @@ module.exports = {
                 .setRequired(true)
     			.addChoices(
                     // Setup Choices
-                    { name: '👀 ALLE', value: 'all' },
+                    { name: '👀 ALLE AKTIEN', value: 'all' },
             		{ name: '🔵 BLAUE AKTIE', value: 'blue' },
                     { name: '🟡 GELBE AKTIE', value: 'yellow' },
                     { name: '🔴 ROTE AKTIE', value: 'red' },
@@ -84,7 +84,19 @@ module.exports = {
             refresh = refreshtransformed.replace(/(\r\n|\n|\r)/gm, "");
 
             // Get Stocks
-            cache = await fetch("https://api.paperstudios.de/bot/stocks/red")
+            cache = await fetch("https://api.paperstudios.de/bot/stocks/json");
+            const json = await cache.json();
+
+            blue = json.blue
+            blueo = json.blue_last
+
+            yellow = json.yellow
+            yellowo = json.yellow_last
+
+            red = json.red
+            redo = json.red_last
+
+            /*cache = await fetch("https://api.paperstudios.de/bot/stocks/red")
             redc = await cache.text();
             red = redc.replace(/(\r\n|\n|\r)/gm, "");
             cache = await fetch("https://api.paperstudios.de/bot/stocks/yellow")
@@ -102,7 +114,7 @@ module.exports = {
             yellowo = yellowc.replace(/(\r\n|\n|\r)/gm, "");
             cache = await fetch("https://api.paperstudios.de/bot/stocks/blue-last")
             bluec = await cache.text();
-            blueo = bluec.replace(/(\r\n|\n|\r)/gm, "");
+            blueo = bluec.replace(/(\r\n|\n|\r)/gm, "");*/
 
             // Calculate Stock Percentage
             if (redo > red) {
