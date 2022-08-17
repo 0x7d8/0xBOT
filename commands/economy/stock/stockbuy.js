@@ -37,9 +37,9 @@ module.exports = {
         const blue = await getblu('<@' + interaction.user.id + '>');
         const yellow = await getyll('<@' + interaction.user.id + '>');
         const red = await getred('<@' + interaction.user.id + '>');
-        const blues = blue + anzahl
-        const yellows = yellow + anzahl
-        const reds = red + anzahl
+        const blues = blue + amount
+        const yellows = yellow + amount
+        const reds = red + amount
 
         const bluemax = await getblux('<@' + interaction.user.id + '>');
         const yellowmax = await getyllx('<@' + interaction.user.id + '>');
