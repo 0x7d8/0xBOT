@@ -104,22 +104,18 @@ module.exports = {
             bluec = await cache.text();
             blueo = bluec.replace(/(\r\n|\n|\r)/gm, "");
 
-            console.log(red + ' ' + redo)
-            console.log(yellow + ' ' + yellowo)
-            console.log(blue + ' ' + blueo)
-
             // Calculate Stock Percentage
             if (redo > red) {
-                redp = '<:UP:1009502422990860350>'
-            }
-            if (red > redo) {
                 redp = '<:DOWN:1009502386320056330>'
             }
+            if (red > redo) {
+                redp = '<:UP:1009502422990860350>'
+            }
             if (blueo > blue) {
-                bluep = '<:UP:1009502422990860350>'
+                bluep = '<:DOWN:1009502386320056330>'
             }
             if (blue > blueo) {
-                bluep = '<:DOWN:1009502386320056330>'
+                bluep = '<:UP:1009502422990860350>'
             }
             if (yellowo > yellow) {
                 yellowp = '<:UP:1009502422990860350>'
@@ -131,9 +127,9 @@ module.exports = {
 
         // Create Embed
         let message
-        let percent
         if (stock != 'all') {
             // Set Percent
+            let percent
             if (lastpriceText > priceText) {
                 percent = '<:DOWN:1009502386320056330>'
             }
