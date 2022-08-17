@@ -70,7 +70,7 @@ module.exports = {
             // Create Embed
             const err = new EmbedBuilder()
         		.setTitle('» FEHLER')
-        		.setDescription('» Du kannst nicht mehr als **5** 🔵 Kaufen!')
+        		.setDescription('» Du kannst nicht mehr als **' + bluemax + '** 🔵 Kaufen!')
         		.setFooter({ text: '» ' + version });
             
             // Send Message
@@ -81,7 +81,7 @@ module.exports = {
             // Create Embed
             const err = new EmbedBuilder()
         		.setTitle('» FEHLER')
-        		.setDescription('» Du kannst nicht mehr als **5** 🟡 Kaufen!')
+        		.setDescription('» Du kannst nicht mehr als **' + yellowmax + '** 🟡 Kaufen!')
         		.setFooter({ text: '» ' + version });
             
             // Send Message
@@ -92,7 +92,7 @@ module.exports = {
             // Create Embed
             const err = new EmbedBuilder()
         		.setTitle('» FEHLER')
-        		.setDescription('» Du kannst nicht mehr als **5** 🔴 Kaufen!')
+        		.setDescription('» Du kannst nicht mehr als **' + redmax + '** 🔴 Kaufen!')
         		.setFooter({ text: '» ' + version });
             
             // Send Message
