@@ -53,6 +53,10 @@ module.exports = {
         let redp
         let bluep
         let yellowp
+        let redc
+        let yellowc
+        let bluec
+
         if (stock != 'all') {
             price = await fetch("https://api.paperstudios.de/bot/stocks/" + stock);
 
@@ -81,14 +85,24 @@ module.exports = {
 
             // Get Stocks
             cache = await fetch("https://api.paperstudios.de/bot/stocks/red")
-            const redc = await cache.text();
+            redc = await cache.text();
             red = redc.replace(/(\r\n|\n|\r)/gm, "");
             cache = await fetch("https://api.paperstudios.de/bot/stocks/yellow")
-            const yellowc = await cache.text();
+            yellowc = await cache.text();
             yellow = yellowc.replace(/(\r\n|\n|\r)/gm, "");
             cache = await fetch("https://api.paperstudios.de/bot/stocks/blue")
-            const bluec = await cache.text();
+            bluec = await cache.text();
             blue = bluec.replace(/(\r\n|\n|\r)/gm, "");
+
+            cache = await fetch("https://api.paperstudios.de/bot/stocks/red-last")
+            redc = await cache.text();
+            redo = redc.replace(/(\r\n|\n|\r)/gm, "");
+            cache = await fetch("https://api.paperstudios.de/bot/stocks/yellow-last")
+            yellowc = await cache.text();
+            yellowo = yellowc.replace(/(\r\n|\n|\r)/gm, "");
+            cache = await fetch("https://api.paperstudios.de/bot/stocks/blue-last")
+            bluec = await cache.text();
+            blueo = bluec.replace(/(\r\n|\n|\r)/gm, "");
 
             // Calculate Stock Percentage
             if (redo > red) {
@@ -131,9 +145,9 @@ module.exports = {
 
         // Create Embed
         let message
+        let percent
         if (stock != 'all') {
             // Set Percent
-            let percent
             if (lastpriceText > priceText) {
                 per = lastpriceText / priceText * 100
                 if (per <= 100) { per = per - 100 }
