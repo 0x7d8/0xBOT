@@ -128,7 +128,7 @@ module.exports = {
         // Create Embed
         let message
         if (stock != 'all') {
-            if (lastpriceText > priceText) {
+            if (lastpriceText < priceText) {
                 message = new EmbedBuilder()
                     .setTitle('» ' + emoji + ' AKTIEN INFO')
                     .setDescription('» NÄCHSTER PREIS\n' + refresh + '\n\n» PREIS\n**<:DOWN:1009502386320056330> `' + priceText + '€`**')
