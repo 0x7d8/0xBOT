@@ -41,7 +41,8 @@ module.exports = {
         // Get Username
         let username
         if (user != null) {
-            username = client.users.fetch(user);
+            username = await client.users.fetch(user);
+            console.log(username)
         }
 
         // Create Embed
