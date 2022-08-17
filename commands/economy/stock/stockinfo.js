@@ -18,6 +18,7 @@ module.exports = {
             		{ name: '🔵 BLAUE AKTIE', value: 'blue' },
                     { name: '🟡 GELBE AKTIE', value: 'yellow' },
                     { name: '🔴 ROTE AKTIE', value: 'red' },
+                    { name: '👀 ALLE', value: 'all' },
 				)),
     async execute(interaction) {
         // Count to Global Commands
@@ -37,22 +38,58 @@ module.exports = {
         if (stock == 'red') { emoji = '🔴' }
 
         // Fetch Stock
-        const price = await fetch("https://api.paperstudios.de/bot/stocks/" + stock);
+        let red
+        let yellow
+        let blue
+        let price
+        let serverunix
+        let unix
+        let unixtime
+        let refreshtransformed
+        let refresh
+        let pricetransformed
+        let priceText
+        if (stock != 'all') {
+            price = await fetch("https://api.paperstudios.de/bot/stocks/" + stock);
 
-        // Calculate Refresh
-        const serverunix = await fetch("https://api.paperstudios.de/time/unix");
-        const unix = await serverunix.text();
-        const unixtime = parseInt(unix) + 60
-        const refreshtransformed = "<t:" + unixtime + ":R>"
-        const refresh = refreshtransformed.replace(/(\r\n|\n|\r)/gm, "");
-        const pricetransformed = await price.text();
-        const priceText = pricetransformed.replace(/(\r\n|\n|\r)/gm, "");
+            // Calculate Refresh
+            serverunix = await fetch("https://api.paperstudios.de/time/unix");
+            unix = await serverunix.text();
+            unixtime = parseInt(unix) + 60
+            refreshtransformed = "<t:" + unixtime + ":R>"
+            refresh = refreshtransformed.replace(/(\r\n|\n|\r)/gm, "");
+
+            // Get Stock
+            pricetransformed = await price.text();
+            priceText = pricetransformed.replace(/(\r\n|\n|\r)/gm, "");
+        } else {
+            // Calculate Refresh
+            serverunix = await fetch("https://api.paperstudios.de/time/unix");
+            unix = await serverunix.text();
+            unixtime = parseInt(unix) + 60
+
+            // Get Stocks
+            cache = await fetch("https://api.paperstudios.de/bot/stocks/red")
+            red = await cache.text();
+            cache = await fetch("https://api.paperstudios.de/bot/stocks/yellow")
+            yellow = await cache.text();
+            cache = await fetch("https://api.paperstudios.de/bot/stocks/blue")
+            blue = await cache.text();
+        }
 
         // Create Embed
-        const message = new EmbedBuilder()
-            .setTitle('» ' + emoji + ' AKTIEN INFO')
-            .setDescription('» NÄCHSTER PREIS\n' + refresh + '\n\n» PREIS\n`' + priceText + '€`')
-            .setFooter({ text: '» ' + version });
+        let message
+        if (stock != 'all') {
+            message = new EmbedBuilder()
+                .setTitle('» ' + emoji + ' AKTIEN INFO')
+                .setDescription('» NÄCHSTER PREIS\n' + refresh + '\n\n» PREIS\n**`' + priceText + '€`**')
+                .setFooter({ text: '» ' + version });
+        } else {
+            message = new EmbedBuilder()
+                .setTitle('» VOLLE AKTIEN INFO')
+                .setDescription('» NÄCHSTER PREIS\n' + refresh + '\n\n» 🔵 PREIS\n**`' + blue + '€`**\n\n» 🟡 PREIS\n**`' + yellow + '€`**\n\n» 🔴 PREIS\n**`' + red + '€`**')
+                .setFooter({ text: '» ' + version });
+        }
 
         // Send Message
         console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] STOCKINFO : ' + stock.toUpperCase() + ' : ' + priceText + '€')
