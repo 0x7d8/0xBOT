@@ -106,22 +106,22 @@ module.exports = {
 
             // Calculate Stock Percentage
             if (redo > red) {
-                redp = '<:DOWN:1009502386320056330>'
-            }
-            if (red > redo) {
                 redp = '<:UP:1009502422990860350>'
             }
-            if (blueo > blue) {
-                bluep = '<:DOWN:1009502386320056330>'
+            if (red > redo) {
+                redp = '<:DOWN:1009502386320056330>'
             }
-            if (blue > blueo) {
+            if (blueo > blue) {
                 bluep = '<:UP:1009502422990860350>'
             }
-            if (yellow > yellowo) {
-                yellowp = '<:DOWN:1009502386320056330>'
+            if (blue > blueo) {
+                bluep = '<:DOWN:1009502386320056330>'
             }
             if (yellowo > yellow) {
                 yellowp = '<:UP:1009502422990860350>'
+            }
+            if (yellow > yellowo) {
+                yellowp = '<:DOWN:1009502386320056330>'
             }
         }
 
