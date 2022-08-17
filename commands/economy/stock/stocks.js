@@ -43,7 +43,6 @@ module.exports = {
         let username
         if (user != null) {
             username = await client.users.fetch(user);
-            console.log(username)
         }
 
         // Create Embed
@@ -55,7 +54,7 @@ module.exports = {
                 .setFooter({ text: '» ' + version });
         } else {
             message = new EmbedBuilder()
-                .setTitle('» DIE AKTIEN VON <@' + username.username + '>')
+                .setTitle('» DIE AKTIEN VON ' + username.username + '#' + username.discriminator)
                 .setDescription('» BLAUE\n`' + blue + '`\n\n» GELBE\n`' + yellow + '`\n\n» ROTE\n`' + red + '`')
                 .setFooter({ text: '» ' + version });
         }

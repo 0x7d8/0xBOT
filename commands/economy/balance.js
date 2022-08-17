@@ -1,10 +1,11 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { EmbedBuilder } = require('@discordjs/builders');
-const { version } = require('../../config.json');
+const { version, token } = require('../../config.json');
 
 // Register Client
 const { Client, GatewayIntentBits } = require('discord.js');
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+client.login(token)
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -51,7 +52,7 @@ module.exports = {
             	.setFooter({ text: '» ' + version });
         } else {
             message = new EmbedBuilder()
-            	.setTitle('» DER GELDSTAND VON <@' + username.username + '>')
+            	.setTitle('» DER GELDSTAND VON ' + username.username + '#' + username.discriminator)
   				.setDescription('» Der Geldstand von <@' + user + '> ist **' + money + '€**!')
             	.setFooter({ text: '» ' + version });
         }
