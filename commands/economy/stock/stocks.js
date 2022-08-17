@@ -43,7 +43,7 @@ module.exports = {
                 .setFooter({ text: '» ' + version });
         } else {
             message = new EmbedBuilder()
-                .setTitle('» DIE AKTIEN')
+                .setTitle('» DIE AKTIEN VON <@' + user + '>')
                 .setDescription('» BLAUE\n`' + blue + '`\n\n» GELBE\n`' + yellow + '`\n\n» ROTE\n`' + red + '`')
                 .setFooter({ text: '» ' + version });
         }
