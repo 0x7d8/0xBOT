@@ -46,9 +46,9 @@ module.exports = {
         }
 
         // Convert Max Stocks
-        if (bluemax == 0) { bluemax = 5; addblux('<@' + interaction.user.id + '>', 5) }
-        if (yellowmax == 0) { yellowmax = 5; addyllx('<@' + interaction.user.id + '>', 5) }
-        if (redmax == 0) { redmax = 5; addredx('<@' + interaction.user.id + '>', 5) }
+        if (bluemax == 0) { bluemax = 10; addblux('<@' + interaction.user.id + '>', 10) }
+        if (yellowmax == 0) { yellowmax = 10; addyllx('<@' + interaction.user.id + '>', 10) }
+        if (redmax == 0) { redmax = 10; addredx('<@' + interaction.user.id + '>', 10) }
 
         // Get Username
         let username

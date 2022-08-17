@@ -34,18 +34,69 @@ module.exports = {
         const stock = interaction.options.getString("aktie")
         const amount = interaction.options.getInteger("anzahl")
 
+        const blue = await getblu('<@' + interaction.user.id + '>');
+        const yellow = await getyll('<@' + interaction.user.id + '>');
+        const red = await getred('<@' + interaction.user.id + '>');
+        const blues = blue + anzahl
+        const yellows = yellow + anzahl
+        const reds = red + anzahl
+
+        const bluemax = await getblux('<@' + interaction.user.id + '>');
+        const yellowmax = await getyllx('<@' + interaction.user.id + '>');
+        const redmax = await getredx('<@' + interaction.user.id + '>');
+
         const balance = await getbal('<@' + interaction.user.id + '>');
+
+        // Convert Max Stocks
+        if (bluemax == 0) { bluemax = 10; addblux('<@' + interaction.user.id + '>', 10) }
+        if (yellowmax == 0) { yellowmax = 10; addyllx('<@' + interaction.user.id + '>', 10) }
+        if (redmax == 0) { redmax = 10; addredx('<@' + interaction.user.id + '>', 10) }
 
         // Check if Amount is Negative
         if (amount < 0) {
             // Create Embed
             const err = new EmbedBuilder()
         		.setTitle('» FEHLER')
-        		.setDescription('» Du kannst keine negativen Einsätze kaufen!')
+        		.setDescription('» Du kannst keine negativen Anzahlen kaufen!')
         		.setFooter({ text: '» ' + version });
             
             // Send Message
             console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] STOCKBUY : NEGATIVEMONEY : ' + amount + '€')
+            return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
+        }
+
+        // Check if Max Stocks are reached
+        if (aktie == 'blue' && blues < bluemax) {
+            // Create Embed
+            const err = new EmbedBuilder()
+        		.setTitle('» FEHLER')
+        		.setDescription('» Du kannst nicht mehr als **5** 🔵 Kaufen!')
+        		.setFooter({ text: '» ' + version });
+            
+            // Send Message
+            console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] STOCKBUY : MAXBLUE : ' + amount + '€')
+            return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
+        }
+        if (aktie == 'yellow' && yellows < yellowmax) {
+            // Create Embed
+            const err = new EmbedBuilder()
+        		.setTitle('» FEHLER')
+        		.setDescription('» Du kannst nicht mehr als **5** 🟡 Kaufen!')
+        		.setFooter({ text: '» ' + version });
+            
+            // Send Message
+            console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] STOCKBUY : MAXYELLOW : ' + amount + '€')
+            return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
+        }
+        if (aktie == 'red' && reds < redmax) {
+            // Create Embed
+            const err = new EmbedBuilder()
+        		.setTitle('» FEHLER')
+        		.setDescription('» Du kannst nicht mehr als **5** 🔴 Kaufen!')
+        		.setFooter({ text: '» ' + version });
+            
+            // Send Message
+            console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] STOCKBUY : MAXRED : ' + amount + '€')
             return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
 
