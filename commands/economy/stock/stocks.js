@@ -6,7 +6,11 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('stocks')
     	.setDMPermission(false)
-        .setDescription('DEINE AKTIEN'),
+        .setDescription('SEHE AKTIEN')
+        .addUserOption(option =>
+            option.setName('user')
+                .setDescription('DER NUTZER')
+                .setRequired(false)),
     async execute(interaction) {
         // Count to Global Commands
         addcmd('t-all', 1)
@@ -16,15 +20,33 @@ module.exports = {
         addcmd('u-' + interaction.user.id, 1)
         
         // Set Variables
-        const blue = await getblu('<@' + interaction.user.id + '>');
-        const yellow = await getyll('<@' + interaction.user.id + '>');
-        const red = await getred('<@' + interaction.user.id + '>');
+        const user = interaction.options.getUser("user")
+        let blue
+        let yellow
+        let red
+        if (user == null) {
+            blue = await getblu('<@' + interaction.user.id + '>');
+            yellow = await getyll('<@' + interaction.user.id + '>');
+            red = await getred('<@' + interaction.user.id + '>');
+        } else {
+            blue = await getblu('<@' + user + '>');
+            yellow = await getyll('<@' + user + '>');
+            red = await getred('<@' + user + '>');
+        }
 
         // Create Embed
-        const message = new EmbedBuilder()
-            .setTitle('» DEINE AKTIEN')
-            .setDescription('» BLAUE\n`' + blue + '`\n\n» GELBE\n`' + yellow + '`\n\n» ROTE\n`' + red + '`')
-            .setFooter({ text: '» ' + version });
+        let message
+        if (user == null) {
+            message = new EmbedBuilder()
+                .setTitle('» DEINE AKTIEN')
+                .setDescription('» BLAUE\n`' + blue + '`\n\n» GELBE\n`' + yellow + '`\n\n» ROTE\n`' + red + '`')
+                .setFooter({ text: '» ' + version });
+        } else {
+            message = new EmbedBuilder()
+                .setTitle('» DIE AKTIEN')
+                .setDescription('» BLAUE\n`' + blue + '`\n\n» GELBE\n`' + yellow + '`\n\n» ROTE\n`' + red + '`')
+                .setFooter({ text: '» ' + version });
+        }
 
         // Send Message
         console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] STOCKS : ' + blue + ' : ' + yellow + ' : ' + red)
