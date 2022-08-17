@@ -144,7 +144,7 @@ module.exports = {
         } else {
             message = new EmbedBuilder()
                 .setTitle('» ALLE AKTIEN INFOS')
-                .setDescription('» NÄCHSTER PREIS\n' + refresh + '\n\n» 🔵 PREIS\n**' + bluep + ' `' + blue + '€`**\n\n» 🟡 PREIS\n**' + yellowp + ' `' + yellow + '€`**\n\n» 🔴 PREIS\n**' + redp + ' `' + red + '€`**')
+                .setDescription('» NÄCHSTER PREIS\n' + refresh + '\n\n» 🔵 BLAUE AKTIE\n**' + bluep + ' `' + blue + '€`**\n\n» 🟡 GELBE AKTIE\n**' + yellowp + ' `' + yellow + '€`**\n\n» 🔴 ROTE AKTIE\n**' + redp + ' `' + red + '€`**')
                 .setFooter({ text: '» ' + version });
         }
 
