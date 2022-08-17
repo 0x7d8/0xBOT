@@ -58,7 +58,7 @@ module.exports = {
        	// Check for enough Money
         if (money >= wette) {
             // Check for Max Amount
-            if (wette > 5000) {
+            if (wette > 15000) {
                 // Create Embed
                 const err = new EmbedBuilder()
             		.setTitle('» RATEN')
