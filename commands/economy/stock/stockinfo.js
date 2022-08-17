@@ -104,6 +104,10 @@ module.exports = {
             bluec = await cache.text();
             blueo = bluec.replace(/(\r\n|\n|\r)/gm, "");
 
+            console.log(red + ' ' + redo)
+            console.log(yellow + ' ' + yellowo)
+            console.log(blue + ' ' + blueo)
+
             // Calculate Stock Percentage
             if (redo > red) {
                 redp = '<:UP:1009502422990860350>'
