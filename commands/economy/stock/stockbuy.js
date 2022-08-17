@@ -59,7 +59,7 @@ module.exports = {
 
         // Check for enough Money
         if (balance < cost) {
-            const missing = cost - money
+            const missing = cost - balance
             
             // Create Embed
             const err = new EmbedBuilder()

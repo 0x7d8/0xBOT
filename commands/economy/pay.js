@@ -70,7 +70,7 @@ module.exports = {
             	.setFooter({ text: '» ' + version });
             
             // Send Message
-            console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] PAY : ' + user + ' : NOTENOUGHMONEY : ' + wette + '€')
+            console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] PAY : ' + user + ' : NOTENOUGHMONEY : ' + anzahl + '€')
             return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
 
