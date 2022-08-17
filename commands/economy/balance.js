@@ -52,7 +52,7 @@ module.exports = {
             	.setFooter({ text: '» ' + version });
         } else {
             message = new EmbedBuilder()
-            	.setTitle('» DER GELDSTAND VON ' + username.username + '#' + username.discriminator)
+            	.setTitle('» DER GELDSTAND VON ' + username.username.toUpperCase() + '#' + username.discriminator)
   				.setDescription('» Der Geldstand von <@' + user + '> ist **' + money + '€**!')
             	.setFooter({ text: '» ' + version });
         }
