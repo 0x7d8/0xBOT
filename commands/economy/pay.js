@@ -75,7 +75,7 @@ module.exports = {
         }
 
         // Send Message
-        console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] PAY : ' + user + ' : ' + missing + '€')
+        console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] PAY : ' + user + ' : ' + anzahl + '€')
         return interaction.reply({ embeds: [message.toJSON()] })
     },
 };
