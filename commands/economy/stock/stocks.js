@@ -3,7 +3,7 @@ const { EmbedBuilder } = require('@discordjs/builders');
 const { version } = require('../../../config.json');
 
 // Register Client
-const { Client } = require('discord.js');
+const { Client, GatewayIntentBits } = require('discord.js');
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
 module.exports = {
