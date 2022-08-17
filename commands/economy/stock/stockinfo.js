@@ -106,40 +106,37 @@ module.exports = {
 
             // Calculate Stock Percentage
             if (redo > red) {
-                redp = redo / red * 100
-                if (per >= 100) { redp = redp - 100 }
-                redp = Math.round(redp)
-                redp = '<:DOWN:1009502386320056330> `' + redp + '%` -'
+                redp = '<:DOWN:1009502386320056330>'
             }
             if (red > redo) {
                 redp = red / redo * 100
                 if (per >= 100) { redp = redp - 100 }
                 redp = Math.round(redp)
-                redp = '<:UP:1009502422990860350> `' + redp + '%` -'
+                redp = '<:UP:1009502422990860350>'
             }
             if (blueo > blue) {
                 bluep = blueo / blue * 100
                 if (per >= 100) { bluep = bluep - 100 }
                 bluep = Math.round(bluep)
-                bluep = '<:DOWN:1009502386320056330> `' + bluep + '%` -'
+                bluep = '<:DOWN:1009502386320056330>'
             }
             if (blue > blueo) {
                 bluep = blue / blueo * 100
                 if (per >= 100) { bluep = bluep - 100 }
                 bluep = Math.round(bluep)
-                bluep = '<:UP:1009502422990860350> `' + bluep + '%` -'
+                bluep = '<:UP:1009502422990860350>'
             }
             if (yellowo > yellow) {
                 yellowp = yellowo / yellow * 100
                 if (per >= 100) { yellowp = yellowp - 100 }
                 yellowp = Math.round(yellowp)
-                yellowp = '<:DOWN:1009502386320056330> `' + yellowp + '%` -'
+                yellowp = '<:DOWN:1009502386320056330>'
             }
             if (yellow > yellowo) {
                 yellowp = yellow / yellowo * 100
                 if (per >= 100) { yellowp = yellowp - 100 }
                 yellowp = Math.round(yellowp)
-                yellowp = '<:UP:1009502422990860350> `' + yellowp + '%` -'
+                yellowp = '<:UP:1009502422990860350>'
             }
         }
 
@@ -152,13 +149,13 @@ module.exports = {
                 per = lastpriceText / priceText * 100
                 if (per >= 100) { per = per - 100 }
                 per = Math.round(per)
-                percent = '<:DOWN:1009502386320056330> `' + per + '%` -'
+                percent = '<:DOWN:1009502386320056330>'
             }
             if (lastpriceText < priceText) {
                 per = priceText / lastpriceText * 100
                 if (per >= 100) { per = per - 100 }
                 per = Math.round(per)
-                percent = '<:UP:1009502422990860350> `' + per + '%` -'
+                percent = '<:UP:1009502422990860350>'
             }
 
             message = new EmbedBuilder()
