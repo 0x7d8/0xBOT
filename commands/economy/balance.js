@@ -29,7 +29,7 @@ module.exports = {
         // Get Username
         let username
         if (user != null) {
-            username = client.users.cache.get(user);
+            username = client.users.fetch(user);
         }
 
         // Get Money

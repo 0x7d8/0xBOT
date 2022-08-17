@@ -62,6 +62,11 @@ module.exports = {
             // Get Stock
             pricetransformed = await price.text();
             priceText = pricetransformed.replace(/(\r\n|\n|\r)/gm, "");
+
+            // Get Percentages
+            lastprice = await fetch("https://api.paperstudios.de/bot/stocks/" + stock + '-last');
+            cache = await lastprice.text();
+            lastpriceText = pricetransformed.replace(/(\r\n|\n|\r)/gm, "");
         } else {
             // Calculate Refresh
             serverunix = await fetch("https://api.paperstudios.de/time/unix");
@@ -85,9 +90,17 @@ module.exports = {
         // Create Embed
         let message
         if (stock != 'all') {
+            const per = 'NDY'
+            let percent
+            if (lastpriceText > priceText) {
+                percent = '<:UP:1009502422990860350>' + per
+            }
+            if (lastpriceText < priceText) {
+                percent = '<:DOWN:1009502386320056330>' + per
+            }
             message = new EmbedBuilder()
                 .setTitle('» ' + emoji + ' AKTIEN INFO')
-                .setDescription('» NÄCHSTER PREIS\n' + refresh + '\n\n» PREIS\n**`' + priceText + '€`**')
+                .setDescription('» NÄCHSTER PREIS\n' + refresh + '\n\n» PREIS\n**`' + percent + ' ' + priceText + '€`**')
                 .setFooter({ text: '» ' + version });
         } else {
             message = new EmbedBuilder()
