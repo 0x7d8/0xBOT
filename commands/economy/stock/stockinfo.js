@@ -67,14 +67,20 @@ module.exports = {
             serverunix = await fetch("https://api.paperstudios.de/time/unix");
             unix = await serverunix.text();
             unixtime = parseInt(unix) + 60
+            unixtime = parseInt(unix) + 60
+            refreshtransformed = "<t:" + unixtime + ":R>"
+            refresh = refreshtransformed.replace(/(\r\n|\n|\r)/gm, "");
 
             // Get Stocks
             cache = await fetch("https://api.paperstudios.de/bot/stocks/red")
-            red = await cache.text();
+            const redc = await cache.text();
+            red = redc.replace(/(\r\n|\n|\r)/gm, "");
             cache = await fetch("https://api.paperstudios.de/bot/stocks/yellow")
-            yellow = await cache.text();
+            const yellowc = await cache.text();
+            yellow = yellowc.replace(/(\r\n|\n|\r)/gm, "");
             cache = await fetch("https://api.paperstudios.de/bot/stocks/blue")
-            blue = await cache.text();
+            const bluec = await cache.text();
+            blue = bluec.replace(/(\r\n|\n|\r)/gm, "");
         }
 
         // Create Embed
