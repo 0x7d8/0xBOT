@@ -2,6 +2,10 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const { EmbedBuilder } = require('@discordjs/builders');
 const { version } = require('../../../config.json');
 
+// Register Client
+const { Client } = require('discord.js');
+const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('stocks')
@@ -34,6 +38,12 @@ module.exports = {
             red = await getred('<@' + user + '>');
         }
 
+        // Get Username
+        let username
+        if (user != null) {
+            username = client.users.cache.get(user);
+        }
+
         // Create Embed
         let message
         if (user == null) {
@@ -43,7 +53,7 @@ module.exports = {
                 .setFooter({ text: '» ' + version });
         } else {
             message = new EmbedBuilder()
-                .setTitle('» DIE AKTIEN VON <@' + user + '>')
+                .setTitle('» DIE AKTIEN VON <@' + username.username + '>')
                 .setDescription('» BLAUE\n`' + blue + '`\n\n» GELBE\n`' + yellow + '`\n\n» ROTE\n`' + red + '`')
                 .setFooter({ text: '» ' + version });
         }

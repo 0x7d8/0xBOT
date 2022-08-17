@@ -2,6 +2,10 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const { EmbedBuilder } = require('@discordjs/builders');
 const { version } = require('../../config.json');
 
+// Register Client
+const { Client } = require('discord.js');
+const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('balance')
@@ -22,6 +26,12 @@ module.exports = {
         // Set Variables
         const user = interaction.options.getUser("user")
 
+        // Get Username
+        let username
+        if (user != null) {
+            username = client.users.cache.get(user);
+        }
+
         // Get Money
         let money
         if (user == null) {
@@ -41,7 +51,7 @@ module.exports = {
             	.setFooter({ text: '» ' + version });
         } else {
             message = new EmbedBuilder()
-            	.setTitle('» DER GELDSTAND VON <@' + user + '>')
+            	.setTitle('» DER GELDSTAND VON <@' + username.username + '>')
   				.setDescription('» Der Geldstand von <@' + user + '> ist **' + money + '€**!')
             	.setFooter({ text: '» ' + version });
         }
