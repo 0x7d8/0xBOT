@@ -31,13 +31,24 @@ module.exports = {
         let red
         if (user == null) {
             blue = await getblu('<@' + interaction.user.id + '>');
+            bluemax = await getblux('<@' + interaction.user.id + '>');
             yellow = await getyll('<@' + interaction.user.id + '>');
+            yellowmax = await getyllx('<@' + interaction.user.id + '>');
             red = await getred('<@' + interaction.user.id + '>');
+            redmax = await getredx('<@' + interaction.user.id + '>');
         } else {
             blue = await getblu('<@' + user + '>');
+            bluemax = await getblux('<@' + user + '>');
             yellow = await getyll('<@' + user + '>');
+            yellowmax = await getyllx('<@' + user + '>');
             red = await getred('<@' + user + '>');
+            redmax = await getredx('<@' + user + '>');
         }
+
+        // Convert Max Stocks
+        if (bluemax == 0) { bluemax = 5; addblux('<@' + interaction.user.id + '>', 5) }
+        if (yellowmax == 0) { yellowmax = 5; addyllx('<@' + interaction.user.id + '>', 5) }
+        if (redmax == 0) { redmax = 5; addredx('<@' + interaction.user.id + '>', 5) }
 
         // Get Username
         let username
@@ -50,7 +61,7 @@ module.exports = {
         if (user == null) {
             message = new EmbedBuilder()
                 .setTitle('» DEINE AKTIEN')
-                .setDescription('» 🔵 BLAUE AKTIEN\n`' + blue + '`\n\n» 🟡 GELBE AKTIEN\n`' + yellow + '`\n\n» 🔴 ROTE AKTIEN\n`' + red + '`')
+                .setDescription('» 🔵 BLAUE AKTIEN\n`' + blue + '/' + bluemax + '`\n\n» 🟡 GELBE AKTIEN\n`' + yellow + '/' + yellowmax + '`\n\n» 🔴 ROTE AKTIEN\n`' + red + '/' + redmax + '`')
                 .setFooter({ text: '» ' + version });
         } else {
             message = new EmbedBuilder()

@@ -380,6 +380,129 @@ remred = (userId, stockred) => {
     })
 }
 
+/* Stock Max Functions
+Blue */
+
+const stockbluemaxschema = require('./schema/stockbluemax');
+
+getblux = (userId) => new Promise(async ful => {
+    const data = await stockbluemaxschema.findOne({ userId });
+    if(!data) return ful(0);
+    ful(data.stockbluemax);
+})
+
+addblux = (userId, stockbluemax) => {
+    stockbluemaxschema.findOne({ userId }, async (err, data) => {
+        if(err) throw err;
+        if(data) {
+            data.stockbluemax += stockbluemax;
+        } else {
+            data = new stockbluemaxschema({
+                userId,
+                stockbluemax
+            })
+        }
+        data.save();
+    })
+}
+
+remblux = (userId, stockblue) => {
+    stockbluemaxschema.findOne({ userId }, async (err, data) => {
+        if(err) throw err;
+        if(data) {
+            data.stockbluemax -= stockbluemax;
+        } else {
+            data = new stockbluemaxschema({
+                userId,
+                stockbluemax: -stockbluemax
+            })
+        }
+        data.save();
+    })
+}
+
+/* Stock Functions
+Yellow */
+
+const stockyellowmaxschema = require('./schema/stockyellowmax');
+
+getyllx = (userId) => new Promise(async ful => {
+    const data = await stockyellowmaxschema.findOne({ userId });
+    if(!data) return ful(0);
+    ful(data.stockyellowmax);
+})
+
+addyllx = (userId, stockyellowmax) => {
+    stockyellowmaxschema.findOne({ userId }, async (err, data) => {
+        if(err) throw err;
+        if(data) {
+            data.stockyellowmax += stockyellowmax;
+        } else {
+            data = new stockyellowmaxschema({
+                userId,
+                stockyellowmax
+            })
+        }
+        data.save();
+    })
+}
+
+remyllx = (userId, stockyellowmax) => {
+    stockyellowmaxschema.findOne({ userId }, async (err, data) => {
+        if(err) throw err;
+        if(data) {
+            data.stockyellowmax -= stockyellowmax;
+        } else {
+            data = new stockyellowmaxschema({
+                userId,
+                stockyellowmax: -stockyellowmax
+            })
+        }
+        data.save();
+    })
+}
+
+/* Stock Functions
+Red */
+
+const stockredmaxschema = require('./schema/stockredmax');
+
+getredx = (userId) => new Promise(async ful => {
+    const data = await stockredmaxschema.findOne({ userId });
+    if(!data) return ful(0);
+    ful(data.stockredmax);
+})
+
+addredx = (userId, stockredmax) => {
+    stockredmaxschema.findOne({ userId }, async (err, data) => {
+        if(err) throw err;
+        if(data) {
+            data.stockredmax += stockredmax;
+        } else {
+            data = new stockredmaxschema({
+                userId,
+                stockredmax
+            })
+        }
+        data.save();
+    })
+}
+
+remredx = (userId, stockredmax) => {
+    stockredmaxschema.findOne({ userId }, async (err, data) => {
+        if(err) throw err;
+        if(data) {
+            data.stockredmax -= stockredmax;
+        } else {
+            data = new stockredmaxschema({
+                userId,
+                stockredmax: -stockredmax
+            })
+        }
+        data.save();
+    })
+}
+
 // Deploy Commands
 const commands = [];
 
