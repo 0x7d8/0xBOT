@@ -49,6 +49,10 @@ module.exports = {
         let refresh
         let pricetransformed
         let priceText
+        let per
+        let redp
+        let bluep
+        let yellowp
         if (stock != 'all') {
             price = await fetch("https://api.paperstudios.de/bot/stocks/" + stock);
 
@@ -63,7 +67,7 @@ module.exports = {
             pricetransformed = await price.text();
             priceText = pricetransformed.replace(/(\r\n|\n|\r)/gm, "");
 
-            // Get Percentages
+            // Get Last Stock
             lastprice = await fetch("https://api.paperstudios.de/bot/stocks/" + stock + '-last');
             cache = await lastprice.text();
             lastpriceText = pricetransformed.replace(/(\r\n|\n|\r)/gm, "");
@@ -85,19 +89,64 @@ module.exports = {
             cache = await fetch("https://api.paperstudios.de/bot/stocks/blue")
             const bluec = await cache.text();
             blue = bluec.replace(/(\r\n|\n|\r)/gm, "");
+
+            // Calculate Stock Percentage
+            if (redo > red) {
+                redp = redo / red * 100
+                if (per <= 100) { redp = redp - 100 }
+                redp = Math.round(redp)
+                redp = '<:UP:1009502422990860350> ' + redp
+            }
+            if (red > redo) {
+                redp = red / redo * 100
+                if (per <= 100) { redp = redp - 100 }
+                redp = Math.round(redp)
+                redp = '<:UP:1009502422990860350> ' + redp
+            }
+            if (blueo > blue) {
+                bluep = blueo / blue * 100
+                if (per <= 100) { bluep = bluep - 100 }
+                bluep = Math.round(bluep)
+                bluep = '<:UP:1009502422990860350> ' + bluep
+            }
+            if (blue > blueo) {
+                bluep = blue / blueo * 100
+                if (per <= 100) { bluep = bluep - 100 }
+                bluep = Math.round(bluep)
+                bluep = '<:UP:1009502422990860350> ' + bluep
+            }
+            if (yellowo > yellow) {
+                yellowp = yellowo / yellow * 100
+                if (per <= 100) { yellowp = yellowp - 100 }
+                yellowp = Math.round(yellowp)
+                yellowp = '<:UP:1009502422990860350> ' + yellowp
+            }
+            if (yellow > yellowo) {
+                yellowp = yellow / yellowo * 100
+                if (per <= 100) { yellowp = yellowp - 100 }
+                yellowp = Math.round(yellowp)
+                yellowp = '<:UP:1009502422990860350> ' + yellowp
+            }
         }
 
         // Create Embed
         let message
         if (stock != 'all') {
-            const per = 'NDY'
+            // Set Percent
             let percent
             if (lastpriceText > priceText) {
-                percent = '<:UP:1009502422990860350>' + per
+                per = lastpriceText / priceText * 100
+                if (per <= 100) { per = per - 100 }
+                per = Math.round(per)
+                percent = '<:UP:1009502422990860350> ' + per
             }
             if (lastpriceText < priceText) {
-                percent = '<:DOWN:1009502386320056330>' + per
+                per = priceText / lastpriceText * 100
+                if (per <= 100) { per = per - 100 }
+                per = Math.round(per)
+                percent = '<:DOWN:1009502386320056330> ' + per
             }
+
             message = new EmbedBuilder()
                 .setTitle('» ' + emoji + ' AKTIEN INFO')
                 .setDescription('» NÄCHSTER PREIS\n' + refresh + '\n\n» PREIS\n**`' + percent + ' ' + priceText + '€`**')
@@ -105,7 +154,7 @@ module.exports = {
         } else {
             message = new EmbedBuilder()
                 .setTitle('» ALLE AKTIEN INFOS')
-                .setDescription('» NÄCHSTER PREIS\n' + refresh + '\n\n» 🔵 PREIS\n**`' + blue + '€`**\n\n» 🟡 PREIS\n**`' + yellow + '€`**\n\n» 🔴 PREIS\n**`' + red + '€`**')
+                .setDescription('» NÄCHSTER PREIS\n' + refresh + '\n\n» 🔵 PREIS\n**`' + bluep + ' ' + blue + '€`**\n\n» 🟡 PREIS\n**`' + yellowp + ' ' + yellow + '€`**\n\n» 🔴 PREIS\n**`' + redp + ' ' + red + '€`**')
                 .setFooter({ text: '» ' + version });
         }
 
