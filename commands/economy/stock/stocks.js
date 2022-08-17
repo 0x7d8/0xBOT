@@ -71,7 +71,7 @@ module.exports = {
         } else {
             message = new EmbedBuilder()
                 .setTitle('» DIE AKTIEN VON ' + username.username.toUpperCase() + '#' + username.discriminator)
-                .setDescription('» 🔵 BLAUE AKTIEN\n`' + blue + '`\n\n» 🟡 GELBE AKTIEN\n`' + yellow + '`\n\n» 🔴 ROTE AKTIEN\n`' + red + '`')
+                .setDescription('» 🔵 BLAUE AKTIEN\n`' + blue + '/' + bluemax + '`\n\n» 🟡 GELBE AKTIEN\n`' + yellow + '/' + yellowmax + '`\n\n» 🔴 ROTE AKTIEN\n`' + red + '/' + redmax + '`')
                 .setFooter({ text: '» ' + version });
         }
 
