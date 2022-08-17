@@ -36,6 +36,11 @@ module.exports = {
             yellowmax = await getyllx('<@' + interaction.user.id + '>');
             red = await getred('<@' + interaction.user.id + '>');
             redmax = await getredx('<@' + interaction.user.id + '>');
+
+            // Convert Max Stocks
+            if (bluemax == 0) { bluemax = 10; addblux('<@' + interaction.user.id + '>', 10) }
+            if (yellowmax == 0) { yellowmax = 10; addyllx('<@' + interaction.user.id + '>', 10) }
+            if (redmax == 0) { redmax = 10; addredx('<@' + interaction.user.id + '>', 10) }
         } else {
             blue = await getblu('<@' + user + '>');
             bluemax = await getblux('<@' + user + '>');
@@ -43,12 +48,12 @@ module.exports = {
             yellowmax = await getyllx('<@' + user + '>');
             red = await getred('<@' + user + '>');
             redmax = await getredx('<@' + user + '>');
-        }
 
-        // Convert Max Stocks
-        if (bluemax == 0) { bluemax = 10; addblux('<@' + interaction.user.id + '>', 10) }
-        if (yellowmax == 0) { yellowmax = 10; addyllx('<@' + interaction.user.id + '>', 10) }
-        if (redmax == 0) { redmax = 10; addredx('<@' + interaction.user.id + '>', 10) }
+            // Convert Max Stocks
+            if (bluemax == 0) { bluemax = 10; addblux('<@' + user + '>', 10) }
+            if (yellowmax == 0) { yellowmax = 10; addyllx('<@' + user + '>', 10) }
+            if (redmax == 0) { redmax = 10; addredx('<@' + user + '>', 10) }
+        }
 
         // Get Username
         let username
