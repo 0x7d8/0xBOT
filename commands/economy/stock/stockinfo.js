@@ -118,29 +118,27 @@ module.exports = {
                 bluep = '<:UP:1009502422990860350>'
             }
             if (yellowo > yellow) {
-                yellowp = '<:UP:1009502422990860350>'
+                yellowp = '<:DOWN:1009502386320056330>'
             }
             if (yellow > yellowo) {
-                yellowp = '<:DOWN:1009502386320056330>'
+                yellowp = '<:UP:1009502422990860350>'
             }
         }
 
         // Create Embed
         let message
         if (stock != 'all') {
-            // Set Percent
-            let percent
             if (lastpriceText > priceText) {
-                percent = '<:DOWN:1009502386320056330>'
+                message = new EmbedBuilder()
+                    .setTitle('» ' + emoji + ' AKTIEN INFO')
+                    .setDescription('» NÄCHSTER PREIS\n' + refresh + '\n\n» PREIS\n**<:DOWN:1009502386320056330> `' + priceText + '€`**')
+                    .setFooter({ text: '» ' + version });
+            } else {
+                message = new EmbedBuilder()
+                    .setTitle('» ' + emoji + ' AKTIEN INFO')
+                    .setDescription('» NÄCHSTER PREIS\n' + refresh + '\n\n» PREIS\n**<:UP:1009502422990860350> `' + priceText + '€`**')
+                    .setFooter({ text: '» ' + version });
             }
-            if (lastpriceText < priceText) {
-                percent = '<:UP:1009502422990860350>'
-            }
-
-            message = new EmbedBuilder()
-                .setTitle('» ' + emoji + ' AKTIEN INFO')
-                .setDescription('» NÄCHSTER PREIS\n' + refresh + '\n\n» PREIS\n**' + percent + ' `' + priceText + '€`**')
-                .setFooter({ text: '» ' + version });
         } else {
             message = new EmbedBuilder()
                 .setTitle('» ALLE AKTIEN INFOS')
