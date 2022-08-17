@@ -67,7 +67,6 @@ module.exports = {
             serverunix = await fetch("https://api.paperstudios.de/time/unix");
             unix = await serverunix.text();
             unixtime = parseInt(unix) + 60
-            unixtime = parseInt(unix) + 60
             refreshtransformed = "<t:" + unixtime + ":R>"
             refresh = refreshtransformed.replace(/(\r\n|\n|\r)/gm, "");
 
@@ -92,13 +91,17 @@ module.exports = {
                 .setFooter({ text: '» ' + version });
         } else {
             message = new EmbedBuilder()
-                .setTitle('» VOLLE AKTIEN INFO')
+                .setTitle('» ALLE AKTIEN INFOS')
                 .setDescription('» NÄCHSTER PREIS\n' + refresh + '\n\n» 🔵 PREIS\n**`' + blue + '€`**\n\n» 🟡 PREIS\n**`' + yellow + '€`**\n\n» 🔴 PREIS\n**`' + red + '€`**')
                 .setFooter({ text: '» ' + version });
         }
 
         // Send Message
-        console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] STOCKINFO : ' + stock.toUpperCase() + ' : ' + priceText + '€')
+        if (stock != 'all') {
+            console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] STOCKINFO : ' + stock.toUpperCase() + ' : ' + priceText + '€')
+        } else {
+            console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] STOCKINFO : ALL : ' + red + '€ : ' + yellow + '€ : ' + blue + '€')
+        }
         return interaction.reply({ embeds: [message.toJSON()] })
     },
 };
