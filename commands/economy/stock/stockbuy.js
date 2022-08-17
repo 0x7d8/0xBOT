@@ -66,7 +66,7 @@ module.exports = {
         }
 
         // Check if Max Stocks are reached
-        if (aktie == 'blue' && blues < bluemax) {
+        if (stock == 'blue' && blues < bluemax) {
             // Create Embed
             const err = new EmbedBuilder()
         		.setTitle('» FEHLER')
@@ -77,7 +77,7 @@ module.exports = {
             console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] STOCKBUY : MAXBLUE : ' + amount + '€')
             return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
-        if (aktie == 'yellow' && yellows < yellowmax) {
+        if (stock == 'yellow' && yellows < yellowmax) {
             // Create Embed
             const err = new EmbedBuilder()
         		.setTitle('» FEHLER')
@@ -88,7 +88,7 @@ module.exports = {
             console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] STOCKBUY : MAXYELLOW : ' + amount + '€')
             return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
-        if (aktie == 'red' && reds < redmax) {
+        if (stock == 'red' && reds < redmax) {
             // Create Embed
             const err = new EmbedBuilder()
         		.setTitle('» FEHLER')
