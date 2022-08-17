@@ -15,10 +15,10 @@ module.exports = {
                 .setRequired(true)
     			.addChoices(
                     // Setup Choices
+                    { name: '👀 ALLE', value: 'all' },
             		{ name: '🔵 BLAUE AKTIE', value: 'blue' },
                     { name: '🟡 GELBE AKTIE', value: 'yellow' },
                     { name: '🔴 ROTE AKTIE', value: 'red' },
-                    { name: '👀 ALLE', value: 'all' },
 				)),
     async execute(interaction) {
         // Count to Global Commands
