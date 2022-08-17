@@ -117,10 +117,10 @@ module.exports = {
             if (blue > blueo) {
                 bluep = '<:UP:1009502422990860350>'
             }
-            if (yellowo > yellow) {
+            if (yellow > yellowo) {
                 yellowp = '<:DOWN:1009502386320056330>'
             }
-            if (yellow > yellowo) {
+            if (yellowo > yellow) {
                 yellowp = '<:UP:1009502422990860350>'
             }
         }
