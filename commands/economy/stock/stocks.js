@@ -50,12 +50,12 @@ module.exports = {
         if (user == null) {
             message = new EmbedBuilder()
                 .setTitle('» DEINE AKTIEN')
-                .setDescription('» 🔵 BLAUE\n`' + blue + '`\n\n» 🟡 GELBE\n`' + yellow + '`\n\n» 🔴 ROTE\n`' + red + '`')
+                .setDescription('» 🔵 BLAUE AKTIEN\n`' + blue + '`\n\n» 🟡 GELBE AKTIEN\n`' + yellow + '`\n\n» 🔴 ROTE AKTIEN\n`' + red + '`')
                 .setFooter({ text: '» ' + version });
         } else {
             message = new EmbedBuilder()
                 .setTitle('» DIE AKTIEN VON ' + username.username.toUpperCase() + '#' + username.discriminator)
-                .setDescription('» 🔵 BLAUE\n`' + blue + '`\n\n» 🟡 GELBE\n`' + yellow + '`\n\n» 🔴 ROTE\n`' + red + '`')
+                .setDescription('» 🔵 BLAUE AKTIEN\n`' + blue + '`\n\n» 🟡 GELBE AKTIEN\n`' + yellow + '`\n\n» 🔴 ROTE AKTIEN\n`' + red + '`')
                 .setFooter({ text: '» ' + version });
         }
 
