@@ -32,6 +32,15 @@ module.exports = {
 
         const balance = await getbal('<@' + interaction.user.id + '>');
 
+        green = await getgrn('<@' + interaction.user.id + '>');
+        greenmax = await getgrnx('<@' + interaction.user.id + '>');
+        blue = await getblu('<@' + interaction.user.id + '>');
+        bluemax = await getblux('<@' + interaction.user.id + '>');
+        yellow = await getyll('<@' + interaction.user.id + '>');
+        yellowmax = await getyllx('<@' + interaction.user.id + '>');
+        red = await getred('<@' + interaction.user.id + '>');
+        redmax = await getredx('<@' + interaction.user.id + '>');
+
         // Convert Max Stocks
         if (greenmax == 0) { greenmax = 10; addgrnx('<@' + interaction.user.id + '>', 10) }
         if (bluemax == 0) { bluemax = 10; addblux('<@' + interaction.user.id + '>', 10) }
