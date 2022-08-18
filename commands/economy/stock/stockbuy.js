@@ -44,10 +44,10 @@ module.exports = {
         const yellows = yellow + amount
         const reds = red + amount
 
-        const greenmax = await getgrnx('<@' + interaction.user.id + '>');
-        const bluemax = await getblux('<@' + interaction.user.id + '>');
-        const yellowmax = await getyllx('<@' + interaction.user.id + '>');
-        const redmax = await getredx('<@' + interaction.user.id + '>');
+        let greenmax = await getgrnx('<@' + interaction.user.id + '>');
+        let bluemax = await getblux('<@' + interaction.user.id + '>');
+        let yellowmax = await getyllx('<@' + interaction.user.id + '>');
+        let redmax = await getredx('<@' + interaction.user.id + '>');
 
         const balance = await getbal('<@' + interaction.user.id + '>');
 
