@@ -141,11 +141,16 @@ module.exports = {
 
         // Set Emoji
         let emoji
+
+        if (stock == 'green') { emoji = '🟢' }
         if (stock == 'blue') { emoji = '🔵' }
         if (stock == 'yellow') { emoji = '🟡' }
         if (stock == 'red') { emoji = '🔴' }
 
         // Add Stock Amount
+        if (stock == 'green') {
+            addgrn('<@' + interaction.user.id + '>', amount)
+        }
         if (stock == 'blue') {
             addblu('<@' + interaction.user.id + '>', amount)
         }
