@@ -48,7 +48,7 @@ module.exports = {
         if (redmax == 0) { redmax = 10; addredx('<@' + interaction.user.id + '>', 10) }
 
         // Calculate Cost
-        const cost = slots * 100000
+        const cost = parseInt(slots) * 100000
 
         // Check for enough Money
         if (balance < cost) {
@@ -66,9 +66,10 @@ module.exports = {
         }
 
         // Add Stock Amount
-        addblux('<@' + interaction.user.id + '>', slots)
-        addyllx('<@' + interaction.user.id + '>', slots)
-        addredx('<@' + interaction.user.id + '>', slots)
+        addgrnx('<@' + interaction.user.id + '>', parseInt(slots))
+        addblux('<@' + interaction.user.id + '>', parseInt(slots))
+        addyllx('<@' + interaction.user.id + '>', parseInt(slots))
+        addredx('<@' + interaction.user.id + '>', parseInt(slots))
 
         // Remove Money
         rembal('<@' + interaction.user.id + '>', cost)
