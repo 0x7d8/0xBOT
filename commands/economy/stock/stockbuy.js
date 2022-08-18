@@ -14,6 +14,7 @@ module.exports = {
                 .setRequired(true)
     			.addChoices(
                     // Setup Choices
+                    { name: '🟢 GRÜNE AKTIE', value: 'green' },
             		{ name: '🔵 BLAUE AKTIE', value: 'blue' },
                     { name: '🟡 GELBE AKTIE', value: 'yellow' },
                     { name: '🔴 ROTE AKTIE', value: 'red' },
@@ -34,13 +35,16 @@ module.exports = {
         const stock = interaction.options.getString("aktie")
         const amount = interaction.options.getInteger("anzahl")
 
+        const green = await getgrn('<@' + interaction.user.id + '>');
         const blue = await getblu('<@' + interaction.user.id + '>');
         const yellow = await getyll('<@' + interaction.user.id + '>');
         const red = await getred('<@' + interaction.user.id + '>');
+        const greens = green + amount
         const blues = blue + amount
         const yellows = yellow + amount
         const reds = red + amount
 
+        const greenmax = await getgrnx('<@' + interaction.user.id + '>');
         const bluemax = await getblux('<@' + interaction.user.id + '>');
         const yellowmax = await getyllx('<@' + interaction.user.id + '>');
         const redmax = await getredx('<@' + interaction.user.id + '>');
@@ -48,6 +52,7 @@ module.exports = {
         const balance = await getbal('<@' + interaction.user.id + '>');
 
         // Convert Max Stocks
+        if (greenmax == 0) { greenmax = 10; addgrnx('<@' + interaction.user.id + '>', 10) }
         if (bluemax == 0) { bluemax = 10; addblux('<@' + interaction.user.id + '>', 10) }
         if (yellowmax == 0) { yellowmax = 10; addyllx('<@' + interaction.user.id + '>', 10) }
         if (redmax == 0) { redmax = 10; addredx('<@' + interaction.user.id + '>', 10) }
@@ -66,6 +71,17 @@ module.exports = {
         }
 
         // Check if Max Stocks are reached
+        if (stock == 'green' && greens > greenmax) {
+            // Create Embed
+            const err = new EmbedBuilder()
+        		.setTitle('» FEHLER')
+        		.setDescription('» Du kannst nicht mehr als **' + greenmax + '** 🟢 Kaufen!')
+        		.setFooter({ text: '» ' + version });
+            
+            // Send Message
+            console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] STOCKBUY : MAXGREEN : ' + amount + '€')
+            return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
+        }
         if (stock == 'blue' && blues > bluemax) {
             // Create Embed
             const err = new EmbedBuilder()

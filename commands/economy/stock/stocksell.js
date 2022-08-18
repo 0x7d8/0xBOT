@@ -14,6 +14,7 @@ module.exports = {
                 .setRequired(true)
     			.addChoices(
                     // Setup Choices
+                    { name: '🟢 GRÜNE AKTIE', value: 'green' },
             		{ name: '🔵 BLAUE AKTIE', value: 'blue' },
                     { name: '🟡 GELBE AKTIE', value: 'yellow' },
                     { name: '🔴 ROTE AKTIE', value: 'red' },
@@ -57,6 +58,10 @@ module.exports = {
 
         // Get Stocks Available
         let stocks
+
+        if (stock == 'green') {
+            stocks = await getgrn('<@' + interaction.user.id + '>')
+        }
         if (stock == 'blue') {
             stocks = await getblu('<@' + interaction.user.id + '>')
         }
@@ -69,6 +74,7 @@ module.exports = {
 
         // Set Emoji
         let emoji
+        if (stock == 'green') { emoji = '🟢' }
         if (stock == 'blue') { emoji = '🔵' }
         if (stock == 'yellow') { emoji = '🟡' }
         if (stock == 'red') { emoji = '🔴' }
@@ -92,6 +98,9 @@ module.exports = {
         addbal('<@' + interaction.user.id + '>', cash)
 
         // Remove Stock Amount
+        if (stock == 'green') {
+            remgrn('<@' + interaction.user.id + '>', amount)
+        }
         if (stock == 'blue') {
             remblu('<@' + interaction.user.id + '>', amount)
         }

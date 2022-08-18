@@ -258,6 +258,47 @@ remcmd = (userId, cmds) => {
 }
 
 /* Stock Functions
+Green */
+
+const stockgreenschema = require('./schema/stockgreen');
+
+getblu = (userId) => new Promise(async ful => {
+    const data = await stockgreenschema.findOne({ userId });
+    if(!data) return ful(0);
+    ful(data.stockgreen);
+})
+
+addblu = (userId, stockgreen) => {
+    stockgreenschema.findOne({ userId }, async (err, data) => {
+        if(err) throw err;
+        if(data) {
+            data.stockgreen += stockgreen;
+        } else {
+            data = new stockgreenschema({
+                userId,
+                stockgreen
+            })
+        }
+        data.save();
+    })
+}
+
+remblu = (userId, stockgreen) => {
+    stockgreenschema.findOne({ userId }, async (err, data) => {
+        if(err) throw err;
+        if(data) {
+            data.stockgreen -= stockgreen;
+        } else {
+            data = new stockgreenschema({
+                userId,
+                stockgreen: -stockgreen
+            })
+        }
+        data.save();
+    })
+}
+
+/* Stock Functions
 Blue */
 
 const stockblueschema = require('./schema/stockblue');
@@ -374,6 +415,47 @@ remred = (userId, stockred) => {
             data = new stockredschema({
                 userId,
                 stockred: -stockred
+            })
+        }
+        data.save();
+    })
+}
+
+/* Stock Max Functions
+Green */
+
+const stockgreenmaxschema = require('./schema/stockgreenmax');
+
+getgrnx = (userId) => new Promise(async ful => {
+    const data = await stockgreenmaxschema.findOne({ userId });
+    if(!data) return ful(0);
+    ful(data.stockgreenmax);
+})
+
+addgrnx = (userId, stockgreenmax) => {
+    stockgreenmaxschema.findOne({ userId }, async (err, data) => {
+        if(err) throw err;
+        if(data) {
+            data.stockgreenmax += stockgreenmax;
+        } else {
+            data = new stockgreenmaxschema({
+                userId,
+                stockgreenmax
+            })
+        }
+        data.save();
+    })
+}
+
+remgrnx = (userId, stockblue) => {
+    stockgreenmaxschema.findOne({ userId }, async (err, data) => {
+        if(err) throw err;
+        if(data) {
+            data.stockgreenmax -= stockgreenmax;
+        } else {
+            data = new stockgreenmaxschema({
+                userId,
+                stockgreenmax: -stockgreenmax
             })
         }
         data.save();

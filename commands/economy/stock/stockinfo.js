@@ -16,6 +16,7 @@ module.exports = {
     			.addChoices(
                     // Setup Choices
                     { name: '👀 ALLE AKTIEN', value: 'all' },
+                    { name: '🟢 GRÜNE AKTIE', value: 'green' },
             		{ name: '🔵 BLAUE AKTIE', value: 'blue' },
                     { name: '🟡 GELBE AKTIE', value: 'yellow' },
                     { name: '🔴 ROTE AKTIE', value: 'red' },
@@ -33,6 +34,7 @@ module.exports = {
 
         // Set Emoji
         let emoji
+        if (stock == 'green') { emoji = '🟢' }
         if (stock == 'blue') { emoji = '🔵' }
         if (stock == 'yellow') { emoji = '🟡' }
         if (stock == 'red') { emoji = '🔴' }
@@ -83,6 +85,9 @@ module.exports = {
             cache = await fetch("https://api.paperstudios.de/bot/stocks/json");
             const json = await cache.json();
 
+            green = json.green
+            greeno = json.green_last
+
             blue = json.blue
             blueo = json.blue_last
 
@@ -93,11 +98,11 @@ module.exports = {
             redo = json.red_last
 
             // Calculate Stock Percentage
-            if (redo > red) {
-                redp = '<:DOWN:1009502386320056330>'
+            if (greeno > green) {
+                greenp = '<:DOWN:1009502386320056330>'
             }
-            if (red > redo) {
-                redp = '<:UP:1009502422990860350>'
+            if (green > greeno) {
+                greenp = '<:UP:1009502422990860350>'
             }
             if (blueo > blue) {
                 bluep = '<:DOWN:1009502386320056330>'
@@ -110,6 +115,12 @@ module.exports = {
             }
             if (yellow > yellowo) {
                 yellowp = '<:UP:1009502422990860350>'
+            }
+            if (redo > red) {
+                redp = '<:DOWN:1009502386320056330>'
+            }
+            if (red > redo) {
+                redp = '<:UP:1009502422990860350>'
             }
         }
 
@@ -130,7 +141,7 @@ module.exports = {
         } else {
             message = new EmbedBuilder()
                 .setTitle('» ALLE AKTIEN INFOS')
-                .setDescription('» NÄCHSTER PREIS\n' + refresh + '\n\n» 🔵 BLAUE AKTIE\n**' + bluep + ' `' + blue + '€`**\n\n» 🟡 GELBE AKTIE\n**' + yellowp + ' `' + yellow + '€`**\n\n» 🔴 ROTE AKTIE\n**' + redp + ' `' + red + '€`**')
+                .setDescription('» NÄCHSTER PREIS\n' + refresh + '\n\n» 🟢 GRÜNE AKTIE\n**' + greenp + ' `' + green + '€`**\n\n» 🔵 BLAUE AKTIE\n**' + bluep + ' `' + blue + '€`**\n\n» 🟡 GELBE AKTIE\n**' + yellowp + ' `' + yellow + '€`**\n\n» 🔴 ROTE AKTIE\n**' + redp + ' `' + red + '€`**')
                 .setFooter({ text: '» ' + version });
         }
 
@@ -138,7 +149,7 @@ module.exports = {
         if (stock != 'all') {
             console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] STOCKINFO : ' + stock.toUpperCase() + ' : ' + priceText + '€')
         } else {
-            console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] STOCKINFO : ALL : ' + red + '€ : ' + yellow + '€ : ' + blue + '€')
+            console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] STOCKINFO : ALL : ' + green + '€ : ' + red + '€ : ' + yellow + '€ : ' + blue + '€')
         }
         return interaction.reply({ embeds: [message.toJSON()] })
     },
