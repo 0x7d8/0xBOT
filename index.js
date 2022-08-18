@@ -262,13 +262,13 @@ Green */
 
 const stockgreenschema = require('./schema/stockgreen');
 
-getblu = (userId) => new Promise(async ful => {
+getgrn = (userId) => new Promise(async ful => {
     const data = await stockgreenschema.findOne({ userId });
     if(!data) return ful(0);
     ful(data.stockgreen);
 })
 
-addblu = (userId, stockgreen) => {
+addgrn = (userId, stockgreen) => {
     stockgreenschema.findOne({ userId }, async (err, data) => {
         if(err) throw err;
         if(data) {
@@ -283,7 +283,7 @@ addblu = (userId, stockgreen) => {
     })
 }
 
-remblu = (userId, stockgreen) => {
+remgrn = (userId, stockgreen) => {
     stockgreenschema.findOne({ userId }, async (err, data) => {
         if(err) throw err;
         if(data) {
