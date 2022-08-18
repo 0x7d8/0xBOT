@@ -76,7 +76,7 @@ module.exports = {
 
         // Create Embed
         let message
-        if (slots = 1) {
+        if (slots == 1) {
             message = new EmbedBuilder()
                 .setTitle('» AKTIEN SLOTS KAUFEN')
                 .setDescription('» Du hast erfolgreich **' + slots + '** extra Aktien Slot für **' + cost + '€** gekauft!')
