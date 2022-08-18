@@ -75,10 +75,18 @@ module.exports = {
         rembal('<@' + interaction.user.id + '>', cost)
 
         // Create Embed
-        const message = new EmbedBuilder()
-            .setTitle('» AKTIEN SLOTS KAUFEN')
-            .setDescription('» Du hast erfolgreich **' + slots + '** extra Aktien Slots für **' + cost + '€** gekauft!')
-            .setFooter({ text: '» ' + version });
+        let message
+        if (slots = 1) {
+            message = new EmbedBuilder()
+                .setTitle('» AKTIEN SLOTS KAUFEN')
+                .setDescription('» Du hast erfolgreich **' + slots + '** extra Aktien Slot für **' + cost + '€** gekauft!')
+                .setFooter({ text: '» ' + version });
+        } else {
+            message = new EmbedBuilder()
+                .setTitle('» AKTIEN SLOTS KAUFEN')
+                .setDescription('» Du hast erfolgreich **' + slots + '** extra Aktien Slots für **' + cost + '€** gekauft!')
+                .setFooter({ text: '» ' + version });
+        }
 
         // Send Message
         console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] STOCKUPGRADE : ' + slots + ' : ' + cost + '€')
