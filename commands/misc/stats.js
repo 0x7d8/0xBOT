@@ -16,7 +16,7 @@ module.exports = {
         // Create Embed
         const message = new EmbedBuilder()
         		.setTitle('» BOT STATISTIKEN')
-        		.setDescription('**»» BEFEHL STATS**\n» GLOBAL\n' + totalcmd + '\n» DIESER SERVER\n' + guildcmd + '\n» DU INSGESAMT\n' + usercmd)
+        		.setDescription('**»» BEFEHL STATS**\n» GLOBAL\n`' + totalcmd + '`\n\n» DIESER SERVER\n`' + guildcmd + '`\n\n» DU INSGESAMT\n`' + usercmd + '`')
         		.setFooter({ text: '» ' + version });
 
         // Send Correct Response
