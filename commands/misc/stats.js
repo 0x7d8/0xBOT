@@ -9,9 +9,9 @@ module.exports = {
         .setDescription('SEHE STATISTIKEN'),
     async execute(interaction) {
         // Set Variables
-        var totalcmd = await getcmd('t-all');
-        var guildcmd = await getcmd('g-' + interaction.guild.id);
-        var usercmd = await getcmd('u-' + interaction.user.id);
+        const totalcmd = await getcmd('t-all');
+        const guildcmd = await getcmd('g-' + interaction.guild.id);
+        const usercmd = await getcmd('u-' + interaction.user.id);
 
         // Create Embed
         const message = new EmbedBuilder()
