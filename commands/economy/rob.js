@@ -101,15 +101,15 @@ module.exports = {
         	.setFooter({ text: '» ' + version });
             
         // Check Money
-        if (geld == 35 && moneytar < 20) {
+        if (money == 35 && moneytar < 20) {
             console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] ROB : ' + user + ' : NOTENOUGHMONEY')
             return interaction.reply({ embeds: [notenoughmoney2.toJSON()], ephemeral: true })
      	};
-        if (geld == 20 && moneytar < 50) {
+        if (money == 20 && moneytar < 50) {
             console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] ROB : ' + user + ' : NOTENOUGHMONEY')
             return interaction.reply({ embeds: [notenoughmoney2.toJSON()], ephemeral: true })
      	};
-        if (geld == 5 && moneytar < 100) {
+        if (money == 5 && moneytar < 100) {
             console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] ROB : ' + user + ' : NOTENOUGHMONEY')
             return interaction.reply({ embeds: [notenoughmoney2.toJSON()], ephemeral: true })
      	};
@@ -120,34 +120,42 @@ module.exports = {
         const random05 = Math.floor(Math.random() * (20 - 1 + 1)) + 1;
         
         let status
-        let anzahl
+        let amount
         if (geld == 35) {
-        	if (random35 == 1) { status = true; anzahl = Math.floor(Math.random() * (20 - 10 + 1)) + 10; } else { 
-                status = false; anzahl = Math.floor(Math.random() * (20 - 15 + 1)) + 10; }
+        	if (random35 == 1) { status = true; amount = Math.floor(Math.random() * (20 - 10 + 1)) + 10; } else { 
+                status = false; amount = Math.floor(Math.random() * (20 - 15 + 1)) + 10; }
         } else if (geld == 20) {
-            if (random20 == 1) { status = true; anzahl = Math.floor(Math.random() * (50 - 30 + 1)) + 30; } else {
-                status = false; anzahl = Math.floor(Math.random() * (50 - 40 + 1)) + 30; }
+            if (random20 == 1) { status = true; amount = Math.floor(Math.random() * (50 - 30 + 1)) + 30; } else {
+                status = false; amount = Math.floor(Math.random() * (50 - 40 + 1)) + 30; }
         } else {
-            if (random05 == 1) { status = true; anzahl = Math.floor(Math.random() * (100 - 50 + 1)) + 50; } else {
-                status = false; anzahl = Math.floor(Math.random() * (100 - 80 + 1)) + 60; }
+            if (random05 == 1) { status = true; amount = Math.floor(Math.random() * (100 - 50 + 1)) + 50; } else {
+                status = false; amount = Math.floor(Math.random() * (100 - 80 + 1)) + 60; }
+        }
+
+        // Set Punishment
+        let punishment
+        if (moneysnd > parseInt(need)*2) {
+            punishment = parseInt(amount)*2
+        } else {
+            punishment = parseInt(amount)
         }
         
         // Set Extra Text
         let extra
-        if (anzahl < 20) { extra = 'NAJA.'}
-        if (anzahl >= 20) { extra = 'NICE.' }
-        if (anzahl >= 40) { extra = 'PRIMA.' }
-        if (anzahl >= 60) { extra = 'LOL.' }
-        if (anzahl >= 80) { extra = 'EIN PRO??!!' }
+        if (amount < 20) { extra = 'NAJA.'}
+        if (amount >= 20) { extra = 'NICE.' }
+        if (amount >= 40) { extra = 'PRIMA.' }
+        if (amount >= 60) { extra = 'LOL.' }
+        if (amount >= 80) { extra = 'EIN PRO??!!' }
         
         // Create Embeds
       	const sucess = new EmbedBuilder()
             .setTitle('» AUSRAUBEN')
-  			.setDescription('» Du hast <@' + user + '> **' + anzahl + '€** geklaut! ' + extra)
+  			.setDescription('» Du hast <@' + user + '> **' + amount + '€** geklaut! ' + extra)
         	.setFooter({ text: '» ' + version });
         const failure = new EmbedBuilder()
             .setTitle('» AUSRAUBEN')
-  			.setDescription('» Du wolltest <@' + user + '> **' + anzahl + '€** klauen, aber die Polizei hat dich erwischt! Du musstest **' + anzahl + '€** Strafgeld bezahlen! KEKW.')
+  			.setDescription('» Du wolltest <@' + user + '> **' + amount + '€** klauen, aber die Polizei hat dich erwischt! Du musstest **' + punishment + '€** Strafgeld bezahlen! KEKW.')
         	.setFooter({ text: '» ' + version });
         
         // Set Money
@@ -156,8 +164,8 @@ module.exports = {
 			cooldown.set(interaction.user.id, Date.now() + time);
         	setTimeout(() => cooldown.delete(), time)
             
-            console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] ROB : ' + user + ' : ' + anzahl + '€ : FAILURE')
-        	rembal('<@' + interaction.user.id + '>', anzahl)
+            console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] ROB : ' + user + ' : ' + anzahl + '€ : FAILURE : ' + punishment + '€')
+        	rembal('<@' + interaction.user.id + '>', punishment)
         	return interaction.reply({ embeds: [failure.toJSON()] })
         }
         
