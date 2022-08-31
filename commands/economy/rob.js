@@ -34,7 +34,7 @@ module.exports = {
         
         // Set Variables
         const user = interaction.options.getUser("user")
-        const geld = interaction.options.getString("geld")
+        const money = interaction.options.getString("geld")
         const moneysnd = await getbal('<@' + interaction.user.id + '>');
         const moneytar = await getbal('<@' + user + '>');
 
@@ -67,9 +67,10 @@ module.exports = {
         }
         
         // Set Steal to Need
-        if (geld == 35) { var need = '20' }
-        if (geld == 20) { var need = '50' }
-        if (geld == 5) { var need = '100' }
+        let need
+        if (money == 35) { need = '20' }
+        if (money == 20) { need = '50' }
+        if (money == 5) { need = '100' }
         
         // Check for enough Money #1
         // Create Embed
