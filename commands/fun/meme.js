@@ -8,20 +8,6 @@ module.exports = {
         .setName('meme')
     	.setDMPermission(false)
         .setDescription('BEKOMME EIN MEME'),
-        /* Not Finished
-        .addStringOption(option =>
-            option.setName('upvotes')
-                .setDescription('DIE UPVOTES')
-                .setRequired(false)
-        		.addChoices(
-            		// Setup Choices
-					{ name: '💻 100+', value: '100' },
-					{ name: '💻 500+', value: '500' },
-					{ name: '💻 1000+', value: '1000' },
-            		{ name: '💻 5000+', value: '5000' },
-            		{ name: '💻 10000+', value: '10000' },
-				)),
-                    */
     async execute(interaction) {
         // Count to Global Commands
         addcmd('t-all', 1)
@@ -46,25 +32,6 @@ module.exports = {
 
         let upvotes = random[0].data.children[0].data.ups;
         let comments = random[0].data.children[0].data.num_comments;
-
-        /* Set Variables
-        var upvote = interaction.options.getString("upvotes")
-        if (upvote == null) { var upvote = 0 }
-
-        if (upvotes < upvote) {
-            loop:
-            while (upvotes < upvote) {
-                // Get Meme
-                var url = await fetch("https://www.reddit.com/r/memes/random/.json");
-                var random = await url.json();
-        
-                var upvotes = random[0].data.children[0].data.ups;
-                var comments = random[0].data.children[0].data.num_comments;
-
-                continue loop;
-            }
-        }
-        */
 
         // 187 Easter Egg
         if (upvotes == 187) { upvotes = upvotes + ' 🐊' }
