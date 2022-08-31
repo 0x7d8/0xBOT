@@ -59,7 +59,7 @@ module.exports = {
 
         if (stock != 'all') {
             // Calculate Refresh
-            serverunix = await fetch("https://api.paperstudios.de/time/unix");
+            serverunix = await fetch("https://api.paperstudios.de/bot/stocks/unix");
             unix = await serverunix.text();
             unixtime = parseInt(unix) + 60
             refreshtransformed = "<t:" + unixtime + ":R>"
@@ -96,7 +96,7 @@ module.exports = {
             }
         } else {
             // Calculate Refresh
-            serverunix = await fetch("https://api.paperstudios.de/time/unix");
+            serverunix = await fetch("https://api.paperstudios.de/bot/stocks/unix");
             unix = await serverunix.text();
             unixtime = parseInt(unix) + 60
             refreshtransformed = "<t:" + unixtime + ":R>"
