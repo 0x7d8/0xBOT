@@ -33,7 +33,7 @@ module.exports = {
             // Create Embed
             const err = new EmbedBuilder()
         		.setTitle('» FEHLER')
-        		.setDescription('» Du kannst keine negativen Einsätze senden!')
+        		.setDescription('» Du kannst kein negatives Geld senden!')
         		.setFooter({ text: '» ' + version });
             
             // Send Message
