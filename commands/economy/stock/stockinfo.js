@@ -50,14 +50,14 @@ module.exports = {
         let refreshtransformed
         let refresh
         let pricetransformed
-        let priceText
         let redp
         let bluep
         let yellowp
 
-        if (stock != 'all') {
-            price = await fetch("https://api.paperstudios.de/bot/stocks/" + stock);
+        let priceText
+        let lastpriceText
 
+        if (stock != 'all') {
             // Calculate Refresh
             serverunix = await fetch("https://api.paperstudios.de/time/unix");
             unix = await serverunix.text();
@@ -65,14 +65,35 @@ module.exports = {
             refreshtransformed = "<t:" + unixtime + ":R>"
             refresh = refreshtransformed.replace(/(\r\n|\n|\r)/gm, "");
 
-            // Get Stock
-            pricetransformed = await price.text();
-            priceText = pricetransformed.replace(/(\r\n|\n|\r)/gm, "");
+            // Get Stocks
+            cache = await fetch("https://api.paperstudios.de/bot/stocks/json");
+            const json = await cache.json();
 
-            // Get Last Stock
-            lastprice = await fetch("https://api.paperstudios.de/bot/stocks/" + stock + '-last');
-            cache = await lastprice.text();
-            lastpriceText = pricetransformed.replace(/(\r\n|\n|\r)/gm, "");
+            // Set Variables
+            if (stock == 'green') {
+                price = json.green
+                priceText = json.green
+
+                lastpriceText = json.green_last
+            }
+            if (stock == 'blue') {
+                price = json.blue
+                priceText = json.blue
+
+                lastpriceText = json.blue_last
+            }
+            if (stock == 'yellow') {
+                price = json.yellow
+                priceText = json.yellow
+
+                lastpriceText = json.yellow_last
+            }
+            if (stock == 'red') {
+                price = json.red
+                priceText = json.red
+
+                lastpriceText = json.red_last
+            }
         } else {
             // Calculate Refresh
             serverunix = await fetch("https://api.paperstudios.de/time/unix");
