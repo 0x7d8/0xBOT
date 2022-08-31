@@ -125,11 +125,17 @@ module.exports = {
             if (green > greeno) {
                 greenp = '<:UP:1009502422990860350>'
             }
+            if (green == greeno) {
+                greenp = '🧐'
+            }
             if (blueo > blue) {
                 bluep = '<:DOWN:1009502386320056330>'
             }
             if (blue > blueo) {
                 bluep = '<:UP:1009502422990860350>'
+            }
+            if (blue == blueo) {
+                bluep = '🧐'
             }
             if (yellowo > yellow) {
                 yellowp = '<:DOWN:1009502386320056330>'
@@ -137,11 +143,17 @@ module.exports = {
             if (yellow > yellowo) {
                 yellowp = '<:UP:1009502422990860350>'
             }
+            if (yellow == yellowo) {
+                yellowp = '🧐'
+            }
             if (redo > red) {
                 redp = '<:DOWN:1009502386320056330>'
             }
             if (red > redo) {
                 redp = '<:UP:1009502422990860350>'
+            }
+            if (red == redo) {
+                redp = '🧐'
             }
         }
 
@@ -153,10 +165,15 @@ module.exports = {
                     .setTitle('» ' + emoji + ' AKTIEN INFO')
                     .setDescription('» NÄCHSTER PREIS\n' + refresh + '\n\n» PREIS\n**<:DOWN:1009502386320056330> `' + priceText + '€`**')
                     .setFooter({ text: '» ' + version });
-            } else {
+            } else if (priceText > lastpriceText) {
                 message = new EmbedBuilder()
                     .setTitle('» ' + emoji + ' AKTIEN INFO')
                     .setDescription('» NÄCHSTER PREIS\n' + refresh + '\n\n» PREIS\n**<:UP:1009502422990860350> `' + priceText + '€`**')
+                    .setFooter({ text: '» ' + version });
+            } else {
+                message = new EmbedBuilder()
+                    .setTitle('» ' + emoji + ' AKTIEN INFO')
+                    .setDescription('» NÄCHSTER PREIS\n' + refresh + '\n\n» PREIS\n**🧐 `' + priceText + '€`**')
                     .setFooter({ text: '» ' + version });
             }
         } else {
