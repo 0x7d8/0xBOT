@@ -5,11 +5,20 @@ const { version } = require('../../config.json');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('8ball')
-        .setDescription('FRAGE EINEN BALL')
+        .setDescription('ASK A MAGIC BALL')
+        .setDescriptionLocalizations({
+            de: 'FRAGE EINEN MAGISCHEN BALL'
+        })
     	.setDMPermission(false)
     	.addStringOption(option =>
-            option.setName('frage')
-                .setDescription('DIE FRAGE')
+            option.setName('question')
+                .setNameLocalizations({
+                    de: 'frage'
+                })
+                .setDescription('THE QUESTION')
+                .setDescriptionLocalizations({
+                    de: 'DIE FRAGE'
+                })
                 .setRequired(true)),
     async execute(interaction) {
         // Count to Global Commands
@@ -20,7 +29,7 @@ module.exports = {
         addcmd('u-' + interaction.user.id, 1)
         
         // Set Variables
-        const frage = interaction.options.getString("frage")
+        const frage = interaction.options.getString("question")
         const random = Math.floor(Math.random() * (20 - 1 + 1)) + 1;
 
         // Translate to Word

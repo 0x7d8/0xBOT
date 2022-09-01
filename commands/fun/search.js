@@ -7,14 +7,26 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('search')
     	.setDMPermission(false)
-        .setDescription('ZEIGE JEMANDEN GOOGLE')
+        .setDescription('SHOW A BUTTON TO A SEARCH')
+        .setDescriptionLocalizations({
+            de: 'ZEIGE EINEN KNOPF ZU EINER SUCHE'
+        })
         .addStringOption(option =>
-            option.setName('suche')
-                .setDescription('DIE SUCHE')
+            option.setName('query')
+                .setNameLocalizations({
+                    de: 'suche'
+                })
+                .setDescription('THE QUERY')
+                .setDescriptionLocalizations({
+                    de: 'SIE SUCHE'
+                })
                 .setRequired(true))
     	.addStringOption(option =>
             option.setName('engine')
-                .setDescription('DIE SUCHMASCHINE')
+                .setDescription('THE SEARCH ENGINE')
+                .setDescriptionLocalizations({
+                    de: 'DIE SUCHMASCHINE'
+                })
                 .setRequired(false)
                 .addChoices(
             		// Setup Choices
@@ -32,7 +44,7 @@ module.exports = {
         addcmd('u-' + interaction.user.id, 1)
         
         // Set Variables
-        const suche = interaction.options.getString("suche")
+        const suche = interaction.options.getString("query")
         let engine = interaction.options.getString("engine")
         if (engine == null) { engine = 'Google' }
         

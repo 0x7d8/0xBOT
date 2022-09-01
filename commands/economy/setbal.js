@@ -6,15 +6,30 @@ const { version } = require('../../config.json');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('setbal')
-        .setDescription('SETZE GELD')
+        .setDescription('SET MONEY')
+        .setDescriptionLocalizations({
+            de: 'SETZE GELD'
+        })
     	.setDMPermission(false)
         .addUserOption(option =>
             option.setName('user')
-                .setDescription('DER NUTZER')
+                .setNameLocalizations({
+                    de: 'nutzer'
+                })
+                .setDescription('THE USER')
+                .setDescriptionLocalizations({
+                    de: 'DER NUTZER'
+                })
                 .setRequired(true))
         .addIntegerOption(option =>
-            option.setName('anzahl')
-                .setDescription('DIE ANZAHL')
+            option.setName('amount')
+                .setNameLocalizations({
+                    de: 'anzahl'
+                })
+                .setDescription('THE AMOUNT')
+                .setDescriptionLocalizations({
+                    de: 'DIE ANZAHL'
+                })
                 .setRequired(true))
     	.setDefaultMemberPermissions(PermissionFlagsBits.BanMembers),
     async execute(interaction) {
@@ -27,7 +42,7 @@ module.exports = {
         
         // Set Variables
         const user = interaction.options.getUser("user")
-        const anzahl = interaction.options.getInteger("anzahl")
+        const anzahl = interaction.options.getInteger("amount")
         const money = await getbal('<@' + user + '>');
 
         // Create Embed

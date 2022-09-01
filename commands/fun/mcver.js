@@ -6,7 +6,10 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('mcver')
     	.setDMPermission(false)
-        .setDescription('GENERIERE EINE MINECRAFT VERSION'),
+        .setDescription('GENERATE A MINECRAFT VERSION')
+        .setDescriptionLocalizations({
+            de: 'GENERIERE EINE MINECRAFT VERSION'
+        }),
     async execute(interaction) {
         // Count to Global Commands
         addcmd('t-all', 1)

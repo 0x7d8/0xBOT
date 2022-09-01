@@ -7,7 +7,10 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('topgg')
     	.setDMPermission(false)
-        .setDescription('DER BOT AUF TOP.GG'),
+        .setDescription('THE BOT ON TOP.GG')
+        .setDescriptionLocalizations({
+            de: 'DER BOT AUF TOP.GG'
+        }),
     async execute(interaction) {
         // Count to Global Commands
         addcmd('t-all', 1)

@@ -7,10 +7,19 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('game')
     	.setDMPermission(false)
-        .setDescription('ZEIGE BROWSERSPIELE UND REGELN')
+        .setDescription('SHOW BROWSERGAMES AND RULES')
+		.setDescriptionLocalizations({
+			de: 'ZEIGE BROWSERSPIELE UND REGELN'
+		})
     	.addStringOption(option =>
-            option.setName('spiel')
-                .setDescription('DAS SPIEL')
+            option.setName('game')
+                .setNameLocalizations({
+                    de: 'spiel'
+                })
+                .setDescription('THE GAME')
+				.setDescriptionLocalizations({
+                    de: 'DAS SPIEL'
+                })
                 .setRequired(true)
     			.addChoices(
             		// Setup Choices
@@ -28,7 +37,7 @@ module.exports = {
         addcmd('u-' + interaction.user.id, 1)
         
         // Set Variables
-        const spiel = interaction.options.getString("spiel")
+        const spiel = interaction.options.getString("game")
 
         // Create Buttons
 		const slfB = new ActionRowBuilder()

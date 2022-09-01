@@ -7,10 +7,19 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('password')
     	.setDMPermission(false)
-        .setDescription('GENERIERE EIN PASSWORT')
+        .setDescription('GENERATE A PASSWORD')
+        .setDescriptionLocalizations({
+            de: 'GENERIERE EIN PASSWORT'
+        })
         .addIntegerOption(option =>
-            option.setName('länge')
-                .setDescription('DIE LÄNGE')
+            option.setName('lenght')
+                .setNameLocalizations({
+                    de: 'länge'
+                })
+                .setDescription('THE LENGHT')
+                .setDescriptionLocalizations({
+                    de: 'DIE LÄNGE'
+                })
                 .setRequired(true)),
     async execute(interaction) {
         // Count to Global Commands
@@ -21,7 +30,7 @@ module.exports = {
         addcmd('u-' + interaction.user.id, 1)
         
         // Set Variables
-        const lenght = interaction.options.getInteger("länge")
+        const lenght = interaction.options.getInteger("lenght")
 
         // Check Lenght
         if (lenght > 128) {

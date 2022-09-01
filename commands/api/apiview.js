@@ -6,11 +6,17 @@ const fs = require('file-system');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('apiview')
-        .setDescription('BETRACHTE EINE API')
+        .setDescription('VIEW AN API')
+        .setDescriptionLocalizations({
+            de: 'BETRACHTE EINE API'
+        })
     	.setDMPermission(false)
         .addStringOption(option =>
             option.setName('name')
-                .setDescription('DER NAME')
+                .setDescription('THE NAME')
+                .setDescriptionLocalizations({
+                    de: 'DER NAME'
+                })
                 .setRequired(true)
         		.addChoices(
             		// Setup Choices

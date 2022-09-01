@@ -8,15 +8,30 @@ let time = 30000;
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('rob')
-        .setDescription('RAUBE JEMANDEN AUS')
+        .setDescription('ROB SOMEONE')
+        .setDescriptionLocalizations({
+            de: 'RAUBE JEMANDEN AUS'
+        })
     	.setDMPermission(false)
         .addUserOption(option =>
             option.setName('user')
-                .setDescription('DER NUTZER')
+                .setNameLocalizations({
+                    de: 'nutzer'
+                })
+                .setDescription('THE USER')
+                .setDescriptionLocalizations({
+                    de: 'DER NUTZER'
+                })
                 .setRequired(true))
         .addStringOption(option =>
-            option.setName('geld')
-                .setDescription('DAS GELD')
+            option.setName('money')
+                .setNameLocalizations({
+                    de: 'geld'
+                })
+                .setDescription('THE MONEY')
+                .setDescriptionLocalizations({
+                    de: 'DAS GELD'
+                })
                 .setRequired(true)
     			.addChoices(
                     // Setup Choices
@@ -34,7 +49,7 @@ module.exports = {
         
         // Set Variables
         const user = interaction.options.getUser("user")
-        const money = interaction.options.getString("geld")
+        const money = interaction.options.getString("money")
         const moneysnd = await getbal('<@' + interaction.user.id + '>');
         const moneytar = await getbal('<@' + user + '>');
 

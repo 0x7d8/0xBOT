@@ -6,14 +6,23 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('number')
     	.setDMPermission(false)
-        .setDescription('GENERIERE EINE NUMMER')
+        .setDescription('GENERATE A NUMBER')
+        .setDescriptionLocalizations({
+            de: 'GENERIERE EINE NUMMER'
+        })
         .addIntegerOption(option =>
             option.setName('min')
-                .setDescription('DAS MINIMUM')
+                .setDescription('THE MIN AMOUNT')
+                .setDescriptionLocalizations({
+                    de: 'DAS MINIMUM'
+                })
                 .setRequired(true))
         .addIntegerOption(option =>
             option.setName('max')
-                .setDescription('DAS MAXIMUM')
+                .setDescription('THE MAX AMOUNT')
+                .setDescriptionLocalizations({
+                    de: 'DAS MAXIMUM'
+                })
                 .setRequired(true)),
     async execute(interaction) {
         // Count to Global Commands

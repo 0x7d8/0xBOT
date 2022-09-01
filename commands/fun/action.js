@@ -6,14 +6,29 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('action')
     	.setDMPermission(false)
-        .setDescription('FÜHRE AKTIONEN MIT USERN AUS')
+        .setDescription('DO INTERACTIONS WITH USERS')
+        .setDescriptionLocalizations({
+            de: 'FÜHRE AKTIONEN MIT NUTZERN AUS'
+        })
         .addUserOption(option =>
             option.setName('user')
-                .setDescription('DIE PERSON')
+                .setNameLocalizations({
+                    de: 'nutzer'
+                })
+                .setDescription('THE PERSON')
+                .setDescriptionLocalizations({
+                    de: 'DIE PERSON'
+                })
                 .setRequired(true))
         .addStringOption(option =>
-            option.setName('aktion')
-                .setDescription('DIE AKTION')
+            option.setName('action')
+                .setNameLocalizations({
+                    de: 'aktion'
+                })
+                .setDescription('THE ACTION')
+                .setDescriptionLocalizations({
+                    de: 'DIE AKTION'
+                })
                 .setRequired(true)
     			.addChoices(
             		// Setup Choices
@@ -36,7 +51,7 @@ module.exports = {
         const userid = interaction.options.getUser("user")
         const user = '<@' + userid + '>'
         const sender = '<@' + interaction.user.id + '>'
-        const event = interaction.options.getString("aktion")
+        const event = interaction.options.getString("action")
 
         // Create Embeds
         const box = new EmbedBuilder()

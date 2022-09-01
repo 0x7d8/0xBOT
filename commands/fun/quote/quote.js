@@ -8,15 +8,30 @@ let time = 45000;
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('quote')
-        .setDescription('ZITIERE ETWAS')
+        .setDescription('QUOTE SOMETHING')
+        .setDescriptionLocalizations({
+            de: 'ZITIERE ETWAS'
+        })
     	.setDMPermission(false)
         .addStringOption(option =>
-            option.setName('zitat')
-                .setDescription('DAS ZITAT')
+            option.setName('quote')
+                .setNameLocalizations({
+                    de: 'zitat'
+                })
+                .setDescription('THE QUOTE')
+                .setDescriptionLocalizations({
+                    de: 'DAS ZITAT'
+                })
                 .setRequired(true))
         .addUserOption(option =>
-            option.setName('autor')
-                .setDescription('DER AUTOR')
+            option.setName('author')
+                .setNameLocalizations({
+                    de: 'autor'
+                })
+                .setDescription('THE AUTHOR')
+                .setDescriptionLocalizations({
+                    de: 'DER AUTOR'
+                })
                 .setRequired(false)),
     async execute(interaction) {
         // Count to Global Commands
@@ -27,8 +42,8 @@ module.exports = {
         addcmd('u-' + interaction.user.id, 1)
         
         // Set Variables
-        const zitat = interaction.options.getString("zitat")
-        const autor = interaction.options.getUser("autor")
+        const zitat = interaction.options.getString("quote")
+        const autor = interaction.options.getUser("author")
      
         // Cooldown
         if (cooldown.get(interaction.user.id) - Date.now() > 0) {

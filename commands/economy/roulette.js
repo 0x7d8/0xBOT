@@ -6,10 +6,19 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('roulette')
     	.setDMPermission(false)
-        .setDescription('SPIELE ROULETTE')
+        .setDescription('PLAY ROULETTE')
+        .setDescriptionLocalizations({
+            de: 'SPIELE ROULETTE'
+        })
         .addStringOption(option =>
-            option.setName('farbe')
-                .setDescription('DIE FARBE')
+            option.setName('color')
+                .setNameLocalizations({
+                    de: 'farbe'
+                })
+                .setDescription('THE COLOR')
+                .setDescriptionLocalizations({
+                    de: 'DIE FARBE'
+                })
                 .setRequired(true)
     			.addChoices(
                     // Setup Choices
@@ -18,8 +27,14 @@ module.exports = {
                     { name: '🔴 [x2] ROT', value: 'rot' },
 				))
         .addIntegerOption(option =>
-            option.setName('wette')
-                .setDescription('DIE WETTE')
+            option.setName('bet')
+                .setNameLocalizations({
+                    de: 'wette'
+                })
+                .setDescription('THE BET')
+                .setDescriptionLocalizations({
+                    de: 'DIE WETTE'
+                })
                 .setRequired(true)),
     async execute(interaction) {
         // Count to Global Commands
@@ -30,8 +45,8 @@ module.exports = {
         addcmd('u-' + interaction.user.id, 1)
         
         // Set Variables
-        const farbe = interaction.options.getString("farbe")
-        const wette = interaction.options.getInteger("wette")
+        const farbe = interaction.options.getString("color")
+        const wette = interaction.options.getInteger("bet")
         
         const money = await getbal('<@' + interaction.user.id + '>');
         const random = Math.floor(Math.random() * (21 - 1 + 1)) + 1;

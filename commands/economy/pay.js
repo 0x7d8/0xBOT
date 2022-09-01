@@ -5,15 +5,30 @@ const { version } = require('../../config.json');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('pay')
-        .setDescription('GEBE JEMANDED GELB')
+        .setDescription('GIVE SOMEONE MONEY')
+        .setDescriptionLocalizations({
+            de: 'GEBE JEMANDEN GELD'
+        })
     	.setDMPermission(false)
         .addUserOption(option =>
             option.setName('user')
-                .setDescription('DER NUTZER')
+                .setNameLocalizations({
+                    de: 'nutzer'
+                })
+                .setDescription('THE USER')
+                .setDescriptionLocalizations({
+                    de: 'DER NUTZER'
+                })
                 .setRequired(true))
         .addIntegerOption(option =>
-            option.setName('anzahl')
-                .setDescription('DIE ANZAHL')
+            option.setName('amount')
+                .setNameLocalizations({
+                    de: 'anzahl'
+                })
+                .setDescription('THE AMOUNT')
+                .setDescriptionLocalizations({
+                    de: 'DIE ANZAHL'
+                })
                 .setRequired(true)),
     async execute(interaction) {
         // Count to Global Commands
@@ -25,7 +40,7 @@ module.exports = {
         
         // Set Variables
         const user = interaction.options.getUser("user")
-        const anzahl = interaction.options.getInteger("anzahl")
+        const anzahl = interaction.options.getInteger("amount")
         const money = await getbal('<@' + interaction.user.id + '>');
 
         // Check if Balance is Minus

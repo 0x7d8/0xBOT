@@ -6,7 +6,10 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('donate')
     	.setDMPermission(false)
-        .setDescription('SPENDE DEM BOT'),
+        .setDescription('DONATE THE BOT')
+        .setDescriptionLocalizations({
+            de: 'SPENDE DEM BOT'
+        }),
     async execute(interaction) {
         // Count to Global Commands
         addcmd('t-all', 1)

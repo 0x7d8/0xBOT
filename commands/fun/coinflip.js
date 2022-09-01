@@ -6,10 +6,19 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('coinflip')
     	.setDMPermission(false)
-        .setDescription('WIRF EINE MÜNZE')
+        .setDescription('FLIP A COIN')
+        .setDescriptionLocalizations({
+            de: 'WIRF EINE MÜNZE'
+        })
         .addIntegerOption(option =>
-            option.setName('anzahl')
-                .setDescription('DIE ANZAHL')
+            option.setName('amount')
+                .setNameLocalizations({
+                    de: 'anzahl'
+                })
+                .setDescription('THE AMOUNT')
+                .setDescriptionLocalizations({
+                    de: 'DIE ANZAHL'
+                })
                 .setRequired(false)),
     async execute(interaction) {
         // Count to Global Commands
@@ -20,7 +29,7 @@ module.exports = {
         addcmd('u-' + interaction.user.id, 1)
         
         // Set Variables
-        let anzahl = interaction.options.getInteger("anzahl")
+        let anzahl = interaction.options.getInteger("amount")
         let heads = 0
         let tails = 0
         let tries = 0

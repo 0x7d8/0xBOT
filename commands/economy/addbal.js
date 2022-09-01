@@ -10,11 +10,23 @@ module.exports = {
     	.setDMPermission(false)
         .addUserOption(option =>
             option.setName('user')
-                .setDescription('DER NUTZER')
+                .setNameLocalizations({
+                    de: 'nutzer'
+                })
+                .setDescription('THE USER')
+                .setDescriptionLocalizations({
+                    de: 'DER NUTZER'
+                })
                 .setRequired(true))
         .addIntegerOption(option =>
-            option.setName('anzahl')
-                .setDescription('DIE ANZAHL')
+            option.setName('amount')
+                .setNameLocalizations({
+                    de: 'anzahl'
+                })
+                .setDescription('THE AMOUNT')
+                .setDescriptionLocalizations({
+                    de: 'DIE ANZAHL'
+                })
                 .setRequired(true))
     	.setDefaultMemberPermissions(PermissionFlagsBits.BanMembers),
     async execute(interaction) {
@@ -27,12 +39,12 @@ module.exports = {
         
         // Set Variables
         const user = interaction.options.getUser("user")
-        const anzahl = interaction.options.getInteger("anzahl")
+        const amount = interaction.options.getInteger("amount")
 
         // Create Embed
       	const message = new EmbedBuilder()
             .setTitle('» GELD GEBEN')
-  			.setDescription('» Du hast den Geldstand von <@' + user + '> um **' + anzahl + '€** erhöht!')
+  			.setDescription('» Du hast den Geldstand von <@' + user + '> um **' + amount + '€** erhöht!')
         	.setFooter({ text: '» ' + version });
         
         // Check for Perms
@@ -49,10 +61,10 @@ module.exports = {
         }
         
         // Add Money
-        addbal('<@' + user + '>', anzahl)
+        addbal('<@' + user + '>', amount)
 
         // Send Message
-        console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] ADDBAL : ' + user + ' : ' + anzahl + '€')
+        console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] ADDBAL : ' + user + ' : ' + amount + '€')
         return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
     },
 };

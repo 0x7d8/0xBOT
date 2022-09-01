@@ -6,10 +6,19 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('guess')
     	.setDMPermission(false)
-        .setDescription('RATE ZAHLEN')
+        .setDescription('GUESS NUMBERS')
+        .setDescriptionLocalizations({
+            de: 'RATE ZAHLEN'
+        })
         .addStringOption(option =>
-            option.setName('bereich')
-                .setDescription('DER BEREICH')
+            option.setName('range')
+                .setNameLocalizations({
+                    de: 'bereich'
+                })
+                .setDescription('THE RANGE')
+                .setDescriptionLocalizations({
+                    de: 'DER BEREICH'
+                })
                 .setRequired(true)
     			.addChoices(
                     // Setup Choices
@@ -18,12 +27,24 @@ module.exports = {
                     { name: '🔴 [x6] 1-1000', value: '1000' },
 				))
         .addIntegerOption(option =>
-            option.setName('wette')
-                .setDescription('DIE WETTE')
+            option.setName('bet')
+                .setNameLocalizations({
+                    de: 'wette'
+                })
+                .setDescription('THE BET')
+                .setDescriptionLocalizations({
+                    de: 'DIE WETTE'
+                })
                 .setRequired(true))
     	.addIntegerOption(option =>
-            option.setName('nummer')
-                .setDescription('DIE NUMMER')
+            option.setName('number')
+                .setNameLocalizations({
+                    de: 'nummer'
+                })
+                .setDescription('THE NUMBER')
+                .setDescriptionLocalizations({
+                    de: 'DIE NUMMER'
+                })
                 .setRequired(true)),
     async execute(interaction) {
         // Count to Global Commands
@@ -34,9 +55,9 @@ module.exports = {
         addcmd('u-' + interaction.user.id, 1)
         
         // Set Variables
-        const bereich = interaction.options.getString("bereich")
-        const wette = interaction.options.getInteger("wette")
-        const nummer = interaction.options.getInteger("nummer")
+        const bereich = interaction.options.getString("range")
+        const wette = interaction.options.getInteger("bet")
+        const nummer = interaction.options.getInteger("number")
         const money = await getbal('<@' + interaction.user.id + '>');
         const random10 = Math.floor(Math.random() * (10 - 1 + 1)) + 1;
         const random100 = Math.floor(Math.random() * (100 - 1 + 1)) + 1;

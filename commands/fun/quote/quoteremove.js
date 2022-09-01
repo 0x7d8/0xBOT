@@ -6,10 +6,19 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('quoteremove')
     	.setDMPermission(false)
-        .setDescription('ENTFERNE QUOTES')
+        .setDescription('REMOVE QUOTES')
+        .setDescriptionLocalizations({
+            de: 'ENTFERNE ZITATE'
+        })
         .addStringOption(option =>
-            option.setName('anzahl')
-                .setDescription('DIE ANZAHL')
+            option.setName('amount')
+                .setNameLocalizations({
+                    de: 'anzahl'
+                })
+                .setDescription('THE AMOUNT')
+                .setDescriptionLocalizations({
+                    de: 'DIE ANZAHL'
+                })
                 .setRequired(true)
     			.addChoices(
                     // Setup Choices
@@ -28,7 +37,7 @@ module.exports = {
         addcmd('u-' + interaction.user.id, 1)
         
         // Set Variables
-        const anzahl = interaction.options.getString("anzahl")
+        const anzahl = interaction.options.getString("amount")
         
         const cost = anzahl * 100
 

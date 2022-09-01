@@ -6,10 +6,19 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('quotes')
     	.setDMPermission(false)
-        .setDescription('SEHE DIE QUOTES')
+        .setDescription('SEE THE QUOTES')
+        .setDescriptionLocalizations({
+            de: 'SEHE DIE ZITATE'
+        })
         .addUserOption(option =>
             option.setName('user')
-                .setDescription('DER NUTZER')
+                .setNameLocalizations({
+                    de: 'nutzer'
+                })
+                .setDescription('THE USER')
+                .setDescriptionLocalizations({
+                    de: 'DER NUTZER'
+                })
                 .setRequired(false)),
     async execute(interaction) {
         // Count to Global Commands

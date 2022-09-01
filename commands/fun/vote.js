@@ -6,14 +6,26 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('vote')
     	.setDMPermission(false)
-        .setDescription('MACHE EINE UMFRAGE')
+        .setDescription('MAKE A POLL')
+        .setDescriptionLocalizations({
+            de: 'MACHE EINE UMFRAGE'
+        })
         .addStringOption(option =>
             option.setName('text')
-                .setDescription('DER TEXT')
+                .setDescription('THE TEXT')
+                .setDescriptionLocalizations({
+                    de: 'DER TEXT'
+                })
                 .setRequired(true))
     	.addStringOption(option =>
-            option.setName('reaktionen')
-                .setDescription('DIE REAKTIONEN')
+            option.setName('reactions')
+                .setNameLocalizations({
+                    de: 'reaktionen'
+                })
+                .setDescription('THE REACTIONS')
+                .setDescriptionLocalizations({
+                    de: 'DIE REAKTIONEN'
+                })
                 .setRequired(true)
     			.addChoices(
             		// Setup Choices
@@ -30,7 +42,7 @@ module.exports = {
         
         // Set Variables
         const frage = interaction.options.getString("text")
-        const reactions = interaction.options.getString("reaktionen")
+        const reactions = interaction.options.getString("reactions")
 
         // Create Embed
        	const message = new EmbedBuilder()

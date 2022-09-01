@@ -7,7 +7,10 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('meme')
     	.setDMPermission(false)
-        .setDescription('BEKOMME EIN MEME'),
+        .setDescription('GET A MEME')
+        .setDescriptionLocalizations({
+            de: 'BEKOMME EIN MEME'
+        }),
     async execute(interaction) {
         // Count to Global Commands
         addcmd('t-all', 1)

@@ -5,11 +5,17 @@ const { version } = require('../../config.json');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('bingo')
-        .setDescription('ZEIGE EIN BINGO')
+        .setDescription('SHOW A BINGO')
+        .setDescriptionLocalizations({
+            de: 'ZEIGE EIN BINGO'
+        })
     	.setDMPermission(false)
     	.addStringOption(option =>
             option.setName('bingo')
-                .setDescription('DAS BINGO')
+                .setDescription('THE BINGO')
+                .setDescriptionLocalizations({
+                    de: 'DAS BINGO'
+                })
                 .setRequired(true)
     			.addChoices(
             		{ name: '🗺️ STADT LAND FLUSS', value: 'stadtlandfluss' },

@@ -11,10 +11,19 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('stocks')
     	.setDMPermission(false)
-        .setDescription('SEHE AKTIEN')
+        .setDescription('SEE STOCKS')
+        .setDescriptionLocalizations({
+            de: 'SEHE AKTIEN'
+        })
         .addUserOption(option =>
             option.setName('user')
-                .setDescription('DER NUTZER')
+                .setNameLocalizations({
+                    de: 'nutzer'
+                })
+                .setDescription('THE USER')
+                .setDescriptionLocalizations({
+                    de: 'DER NUTZER'
+                })
                 .setRequired(false)),
     async execute(interaction) {
         // Count to Global Commands

@@ -6,7 +6,10 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('stats')
     	.setDMPermission(false)
-        .setDescription('SEHE STATISTIKEN'),
+        .setDescription('SEE STATS')
+        .setDescriptionLocalizations({
+            de: 'SEHE STATISTIKEN'
+        }),
     async execute(interaction) {
         // Set Variables
         const totalcmd = await getcmd('t-all');

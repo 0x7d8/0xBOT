@@ -9,7 +9,10 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('work')
     	.setDMPermission(false)
-        .setDescription('ARBEITE FÜR GELD'),
+        .setDescription('WORK FOR MONEY')
+        .setDescriptionLocalizations({
+            de: 'ARBEITE FÜR GELD'
+        }),
     async execute(interaction) {
         // Count to Global Commands
         addcmd('t-all', 1)

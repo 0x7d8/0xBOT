@@ -6,11 +6,17 @@ const fs = require('file-system');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('apicreate')
-        .setDescription('ERSTELLE EINE API')
+        .setDescription('CREATE AN API')
+        .setDescriptionLocalizations({
+            de: 'ERSTELLE EINE API'
+        })
     	.setDMPermission(false)
         .addStringOption(option =>
             option.setName('name')
-                .setDescription('DER NAME')
+                .setDescription('THE NAME')
+                .setDescriptionLocalizations({
+                    de: 'DER NAME'
+                })
                 .setRequired(true)
         		.addChoices(
             		// Setup Choices
@@ -21,8 +27,14 @@ module.exports = {
             		{ name: '💻 5', value: '5' },
 				))
     	.addStringOption(option =>
-            option.setName('inhalt')
-                .setDescription('DER INHALT')
+            option.setName('content')
+                .setNameLocalizations({
+                    de: 'inhalt'
+                })
+                .setDescription('THE CONTENT')
+                .setDescriptionLocalizations({
+                    de: 'DER INHALT'
+                })
                 .setRequired(true)),
     async execute(interaction) {
         // Count to Global Commands
@@ -34,7 +46,7 @@ module.exports = {
         
         // Set Variables
         const name = interaction.options.getString("name")
-        const inhalt = interaction.options.getString("inhalt")
+        const inhalt = interaction.options.getString("content")
         const amount = await getapi('<@' + interaction.user.id + '>');
         const newamount = amount + 1
 

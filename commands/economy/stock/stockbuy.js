@@ -9,8 +9,14 @@ module.exports = {
     	.setDMPermission(false)
         .setDescription('KAUFE AKTIEN')
         .addStringOption(option =>
-            option.setName('aktie')
-                .setDescription('DIE AKTIE')
+            option.setName('stock')
+                .setNameLocalizations({
+                    de: 'aktie'
+                })
+                .setDescription('THE STOCK')
+                .setDescriptionLocalizations({
+                    de: 'DIE AKTIE'
+                })
                 .setRequired(true)
     			.addChoices(
                     // Setup Choices
@@ -20,8 +26,14 @@ module.exports = {
                     { name: '🔴 ROTE AKTIE', value: 'red' },
 				))
         .addIntegerOption(option =>
-            option.setName('anzahl')
-                .setDescription('DIE ANZAHL')
+            option.setName('amount')
+                .setNameLocalizations({
+                    de: 'anzahl'
+                })
+                .setDescription('THE AMOUNT')
+                .setDescriptionLocalizations({
+                    de: 'DIE ANZAHL'
+                })
                 .setRequired(true)),
     async execute(interaction) {
         // Count to Global Commands
@@ -32,8 +44,8 @@ module.exports = {
         addcmd('u-' + interaction.user.id, 1)
         
         // Set Variables
-        const stock = interaction.options.getString("aktie")
-        const amount = interaction.options.getInteger("anzahl")
+        const stock = interaction.options.getString("stock")
+        const amount = interaction.options.getInteger("amount")
 
         const green = await getgrn('<@' + interaction.user.id + '>');
         const blue = await getblu('<@' + interaction.user.id + '>');

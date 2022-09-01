@@ -6,11 +6,17 @@ const fs = require('file-system');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('apiremove')
-        .setDescription('ENTFERNE EINE API')
+        .setDescription('REMOVE AN API')
+        .setDescriptionLocalizations({
+            de: 'ENTFERNE EINE API'
+        })
     	.setDMPermission(false)
         .addStringOption(option =>
             option.setName('name')
-                .setDescription('DER NAME')
+                .setDescription('THE NAME')
+                .setDescriptionLocalizations({
+                    de: 'DER NAME'
+                })
                 .setRequired(true)
         		.addChoices(
             		// Setup Choices

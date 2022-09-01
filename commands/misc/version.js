@@ -6,7 +6,10 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('version')
     	.setDMPermission(false)
-        .setDescription('DIE BOT VERSION'),
+        .setDescription('THE BOT VERSION')
+        .setDescriptionLocalizations({
+            de: 'DIE BOT VERSION'
+        }),
     async execute(interaction) {
         // Count to Global Commands
         addcmd('t-all', 1)

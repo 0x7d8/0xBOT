@@ -10,8 +10,14 @@ module.exports = {
     	.setDMPermission(false)
         .setDescription('DEN STAND EINER AKTIE')
         .addStringOption(option =>
-            option.setName('aktie')
-                .setDescription('DIE AKTIE')
+            option.setName('stock')
+                .setNameLocalizations({
+                    de: 'aktie'
+                })
+                .setDescription('THE STOCK')
+                .setDescriptionLocalizations({
+                    de: 'DIE AKTIE'
+                })
                 .setRequired(true)
     			.addChoices(
                     // Setup Choices
@@ -30,7 +36,7 @@ module.exports = {
         addcmd('u-' + interaction.user.id, 1)
         
         // Set Variables
-        const stock = interaction.options.getString("aktie")
+        const stock = interaction.options.getString("stock")
 
         // Set Emoji
         let emoji

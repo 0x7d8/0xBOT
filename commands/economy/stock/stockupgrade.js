@@ -6,10 +6,16 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('stockupgrade')
     	.setDMPermission(false)
-        .setDescription('KAUFE AKTIEN SLOTS')
+        .setDescription('BUY STOCK SLOTS')
+        .setDescriptionLocalizations({
+            de: 'KAUFE AKTIEN SLOTS'
+        })
         .addStringOption(option =>
             option.setName('slots')
-                .setDescription('DIE SLOTS')
+                .setDescription('THE SLOTS')
+                .setDescriptionLocalizations({
+                    de: 'DIE SLOTS'
+                })
                 .setRequired(true)
     			.addChoices(
                     // Setup Choices
