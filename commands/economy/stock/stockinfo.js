@@ -32,8 +32,6 @@ module.exports = {
                     { name: '🔴 ROTE AKTIE', value: 'red' },
 				)),
     async execute(interaction) {
-        await interaction.deferReply();
-
         // Count to Global Commands
         addcmd('t-all', 1)
         
@@ -92,6 +90,7 @@ module.exports = {
             }
 
             if (isJSON(json) == false) {
+                await interaction.deferReply();
                 await wait(1000)
                 cache = await fetch("https://api.paperstudios.de/bot/stocks/json");
                 json = await cache.json();
@@ -145,6 +144,7 @@ module.exports = {
             }
 
             if (isJSON(json) == false) {
+                await interaction.deferReply();
                 await wait(1000)
                 cache = await fetch("https://api.paperstudios.de/bot/stocks/json");
                 json = await cache.json();
