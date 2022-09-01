@@ -90,8 +90,7 @@ module.exports = {
             }
 
             if (isJSON(json) == false) {
-                await interaction.deferReply();
-                await wait(1000)
+                await wait(750)
                 cache = await fetch("https://api.paperstudios.de/bot/stocks/json");
                 json = await cache.json();
             }
@@ -144,8 +143,7 @@ module.exports = {
             }
 
             if (isJSON(json) == false) {
-                await interaction.deferReply();
-                await wait(1000)
+                await wait(750)
                 cache = await fetch("https://api.paperstudios.de/bot/stocks/json");
                 json = await cache.json();
             }
