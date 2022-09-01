@@ -12,6 +12,8 @@ module.exports = {
             de: 'BEKOMME EIN MEME'
         }),
     async execute(interaction) {
+        await interaction.deferReply();
+        
         // Count to Global Commands
         addcmd('t-all', 1)
         

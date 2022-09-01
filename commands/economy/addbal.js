@@ -6,7 +6,10 @@ const { version } = require('../../config.json');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('addbal')
-        .setDescription('ADDIERE GELD')
+        .setDescription('ADD MONEY')
+        .setDescriptionLocalizations({
+            de: 'ADDIERE GELD'
+        })
     	.setDMPermission(false)
         .addUserOption(option =>
             option.setName('user')

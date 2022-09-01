@@ -21,6 +21,7 @@ module.exports = {
                 })
                 .setRequired(false)),
     async execute(interaction) {
+
         // Count to Global Commands
         addcmd('t-all', 1)
         
@@ -64,6 +65,9 @@ module.exports = {
             console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] COINFLIP : TOOMANYCOINS : ' + anzahl)
             return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
+
+        // Make Bot Think
+        await interaction.deferReply();
 
         // Loop
         let coin

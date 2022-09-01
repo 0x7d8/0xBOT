@@ -7,7 +7,10 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('stockbuy')
     	.setDMPermission(false)
-        .setDescription('KAUFE AKTIEN')
+        .setDescription('BUY STOCKS')
+        .setDescriptionLocalizations({
+            de: 'KAUFE AKTIEN'
+        })
         .addStringOption(option =>
             option.setName('stock')
                 .setNameLocalizations({

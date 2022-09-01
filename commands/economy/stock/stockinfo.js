@@ -1,14 +1,18 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { EmbedBuilder } = require('@discordjs/builders');
 const { version } = require('../../../config.json');
+
 const fetch = require("node-fetch");
-const fs = require('file-system');
+const wait = require('node:timers/promises').setTimeout;
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('stockinfo')
     	.setDMPermission(false)
-        .setDescription('DEN STAND EINER AKTIE')
+        .setDescription('SEE STOCK PRICES')
+        .setDescriptionLocalizations({
+            de: 'SEHE AKTIEN PREISE'
+        })
         .addStringOption(option =>
             option.setName('stock')
                 .setNameLocalizations({
@@ -28,6 +32,8 @@ module.exports = {
                     { name: '🔴 ROTE AKTIE', value: 'red' },
 				)),
     async execute(interaction) {
+        await interaction.deferReply();
+
         // Count to Global Commands
         addcmd('t-all', 1)
         
@@ -72,8 +78,24 @@ module.exports = {
             refresh = refreshtransformed.replace(/(\r\n|\n|\r)/gm, "");
 
             // Get Stocks
+            let json
             cache = await fetch("https://api.paperstudios.de/bot/stocks/json");
-            const json = await cache.json();
+            json = await cache.json();
+
+            // Check JSON
+            function isJSON(str) {
+                try {
+                    return (JSON.parse(str) && !!str);
+                } catch (e) {
+                    return false;
+                }
+            }
+
+            if (isJSON(json) == false) {
+                await wait(1000)
+                cache = await fetch("https://api.paperstudios.de/bot/stocks/json");
+                json = await cache.json();
+            }
 
             // Set Variables
             if (stock == 'green') {
@@ -109,8 +131,24 @@ module.exports = {
             refresh = refreshtransformed.replace(/(\r\n|\n|\r)/gm, "");
 
             // Get Stocks
+            let json
             cache = await fetch("https://api.paperstudios.de/bot/stocks/json");
-            const json = await cache.json();
+            json = await cache.json();
+
+            // Check JSON
+            function isJSON(str) {
+                try {
+                    return (JSON.parse(str) && !!str);
+                } catch (e) {
+                    return false;
+                }
+            }
+
+            if (isJSON(json) == false) {
+                await wait(1000)
+                cache = await fetch("https://api.paperstudios.de/bot/stocks/json");
+                json = await cache.json();
+            }
 
             green = json.green
             greeno = json.green_last
