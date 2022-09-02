@@ -76,24 +76,8 @@ module.exports = {
             refresh = refreshtransformed.replace(/(\r\n|\n|\r)/gm, "");
 
             // Get Stocks
-            let json
             cache = await fetch("https://api.paperstudios.de/bot/stocks/json");
-            json = await cache.json();
-
-            // Check JSON
-            function isJSON(str) {
-                try {
-                    return (JSON.parse(str) && !!str);
-                } catch (e) {
-                    return false;
-                }
-            }
-
-            if (isJSON(json) == false) {
-                await wait(750)
-                cache = await fetch("https://api.paperstudios.de/bot/stocks/json");
-                json = await cache.json();
-            }
+            const json = await cache.json();
 
             // Set Variables
             if (stock == 'green') {
@@ -129,24 +113,8 @@ module.exports = {
             refresh = refreshtransformed.replace(/(\r\n|\n|\r)/gm, "");
 
             // Get Stocks
-            let json
             cache = await fetch("https://api.paperstudios.de/bot/stocks/json");
-            json = await cache.json();
-
-            // Check JSON
-            function isJSON(str) {
-                try {
-                    return (JSON.parse(str) && !!str);
-                } catch (e) {
-                    return false;
-                }
-            }
-
-            if (isJSON(json) == false) {
-                await wait(750)
-                cache = await fetch("https://api.paperstudios.de/bot/stocks/json");
-                json = await cache.json();
-            }
+            const json = await cache.json();
 
             green = json.green
             greeno = json.green_last
