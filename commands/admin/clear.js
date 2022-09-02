@@ -80,7 +80,7 @@ module.exports = {
             await channel.bulkDelete(filtered, true).then(messages => {
                 // Create Embed
                 let message
-                if (messages.size = 1) {
+                if (messages.size == 1) {
                     message = new EmbedBuilder()
                         .setTitle('» NACHRICHTEN LÖSCHEN')
                         .setDescription('» Du hast **' + messages.size + '** Nachricht von <@' + target + '> gelöscht!')
@@ -100,7 +100,7 @@ module.exports = {
             await channel.bulkDelete(amount, true).then(messages => {
                 // Create Embed
                 let message
-                if (messages.size = 1) {
+                if (messages.size == 1) {
                     message = new EmbedBuilder()
                         .setTitle('» NACHRICHTEN LÖSCHEN')
                         .setDescription('» Du hast **' + messages.size + '** Nachricht gelöscht!')
