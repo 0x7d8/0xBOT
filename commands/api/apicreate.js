@@ -60,6 +60,7 @@ module.exports = {
         		.setFooter({ text: '» ' + version + ' » SLOTS ' + amount + '/5'});
             
             // Send Message
+            console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] APICREATE : ' + name + ' : NOTFOUND')
             return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
   		}
         
@@ -72,6 +73,7 @@ module.exports = {
         		.setFooter({ text: '» ' + version });
             
             // Send Message
+            console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] APICREATE : ' + name + ' : MAXSLOTS')
             return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         } 
         
