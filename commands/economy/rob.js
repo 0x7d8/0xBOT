@@ -179,7 +179,7 @@ module.exports = {
 			cooldown.set(interaction.user.id, Date.now() + time);
         	setTimeout(() => cooldown.delete(), time)
             
-            console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] ROB : ' + user + ' : ' + anzahl + '€ : FAILURE : ' + punishment + '€')
+            console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] ROB : ' + user + ' : ' + amount + '€ : FAILURE : ' + punishment + '€')
         	rembal('<@' + interaction.user.id + '>', punishment)
         	return interaction.reply({ embeds: [failure.toJSON()] })
         }
@@ -189,11 +189,11 @@ module.exports = {
         setTimeout(() => cooldown.delete(), time)
 
         // Set Money
-        rembal('<@' + user + '>', anzahl)
-        addbal('<@' + interaction.user.id + '>', anzahl)
+        rembal('<@' + user + '>', amount)
+        addbal('<@' + interaction.user.id + '>', amount)
         
         // Send Message
-        console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] ROB : ' + user + ' : ' + anzahl + '€ : SUCCESS')
+        console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] ROB : ' + user + ' : ' + amount + '€ : SUCCESS')
         return interaction.reply({ embeds: [sucess.toJSON()] })
     },
 };
