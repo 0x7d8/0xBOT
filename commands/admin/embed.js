@@ -6,9 +6,6 @@ const { version } = require('../../config.json');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('embed')
-        .setNameLocalizations({
-            de: 'embed'
-        })
         .setDescription('SEND AN EMBED')
         .setDescriptionLocalizations({
             de: 'SENDE EINE EMBED'
