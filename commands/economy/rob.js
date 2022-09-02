@@ -95,15 +95,15 @@ module.exports = {
         	.setFooter({ text: '» ' + version });
             
         // Check Money
-        if (geld == 35 && moneysnd < 20) {
+        if (money == 35 && moneysnd < 20) {
             console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] ROB : ' + user + ' : NOTENOUGHMONEY')
             return interaction.reply({ embeds: [notenoughmoney1.toJSON()], ephemeral: true })
      	};
-        if (geld == 20 && moneysnd < 50) {
+        if (money == 20 && moneysnd < 50) {
             console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] ROB : ' + user + ' : NOTENOUGHMONEY')
             return interaction.reply({ embeds: [notenoughmoney1.toJSON()], ephemeral: true })
      	};
-        if (geld == 5 && moneysnd < 100) {
+        if (money == 5 && moneysnd < 100) {
             console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] ROB : ' + user + ' : NOTENOUGHMONEY')
             return interaction.reply({ embeds: [notenoughmoney1.toJSON()], ephemeral: true })
      	};
@@ -136,10 +136,10 @@ module.exports = {
         
         let status
         let amount
-        if (geld == 35) {
+        if (money == 35) {
         	if (random35 == 1) { status = true; amount = Math.floor(Math.random() * (20 - 10 + 1)) + 10; } else { 
                 status = false; amount = Math.floor(Math.random() * (20 - 15 + 1)) + 10; }
-        } else if (geld == 20) {
+        } else if (money == 20) {
             if (random20 == 1) { status = true; amount = Math.floor(Math.random() * (50 - 30 + 1)) + 30; } else {
                 status = false; amount = Math.floor(Math.random() * (50 - 40 + 1)) + 30; }
         } else {
