@@ -77,6 +77,8 @@ module.exports = {
         }
         
        	// Check for enough Money
+        let status
+          let result
         if (money >= wette) {
             // Check for Max Amount
             if (wette > 15000) {
@@ -92,13 +94,11 @@ module.exports = {
             }
             
             // Calculate Winnings
-            let status
-            let result
-            if (bereich == 10) { if (nummer == random10) { status = 'GEWONNEN'; result = wette * 2 } else { 
+            if (bereich == '10') { if (nummer == random10) { status = 'GEWONNEN'; result = wette * 2 } else { 
                 status = 'VERLOREN'; result = wette } }
-            if (bereich == 100) { if (nummer == random100) { status = 'GEWONNEN'; result = wette * 4 } else { 
+            if (bereich == '100') { if (nummer == random100) { status = 'GEWONNEN'; result = wette * 4 } else { 
                 status = 'VERLOREN'; result = wette } }
-            if (bereich == 1000) { if (nummer == random1000) { status = 'GEWONNEN'; result = wette * 6 } else { 
+            if (bereich == '1000') { if (nummer == random1000) { status = 'GEWONNEN'; result = wette * 6 } else { 
                 status = 'VERLOREN'; result = wette } }
         } else {
             const missing = wette - money
