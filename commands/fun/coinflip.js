@@ -66,9 +66,6 @@ module.exports = {
             return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
 
-        // Make Bot Think
-        await interaction.deferReply();
-
         // Loop
         let coin
         loop:
