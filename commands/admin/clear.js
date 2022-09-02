@@ -67,20 +67,37 @@ module.exports = {
 
         // Delete Messages and Send Message
         if (target != null) {
-            const targetmessages = (await messages).filter((m) => m.author.id === target.id)
-            await channel.bulkdelete(targetmessages, true)
+            let i = 0;
+            const filtered = [];
+
+            (await messages).filter((m) => {
+                if(m.author.id === target.id && amount > i) {
+                    filtered.push(m)
+                    i++
+                }
+            })
+
+            await channel.bulkDelete(filtered, true)
+
+            // Create Embed
             const message = new EmbedBuilder()
                 .setTitle('» NACHRICHTEN LÖSCHEN')
-                .setDescription('» Du hast **' + amount + '** Nachrichten von <@' + target + '> gelöscht!')
+                .setDescription('» Du hast **' + messages.size + '** Nachrichten von <@' + target + '> gelöscht!')
                 .setFooter({ text: '» ' + version });
+
+            // Send Message
             console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] CLEAR : ' + target + ' : ' + amount)
             return interaction.reply({ embeds: [message.toJSON()] })
         } else {
-            channel.bulkdelete(amount, true)
+            await channel.bulkDelete(amount, true)
+
+            // Create Embed
             const message = new EmbedBuilder()
                 .setTitle('» NACHRICHTEN LÖSCHEN')
-                .setDescription('» Du hast **' + amount + '** Nachrichten gelöscht!')
+                .setDescription('» Du hast **' + messages.size + '** Nachrichten gelöscht!')
                 .setFooter({ text: '» ' + version });
+
+            // Send Message
             console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] CLEAR : ' + amount)
             return interaction.reply({ embeds: [message.toJSON()] })
         }
