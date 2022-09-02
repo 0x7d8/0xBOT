@@ -86,7 +86,7 @@ module.exports = {
 
                 // Send Message
                 console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] CLEAR : ' + target + ' : ' + amount)
-                return interaction.reply({ embeds: [message.toJSON()] })
+                return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
             })
         } else {
             await channel.bulkDelete(amount, true).then(messages => {
@@ -98,7 +98,7 @@ module.exports = {
 
                 // Send Message
                 console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] CLEAR : ' + amount)
-                return interaction.reply({ embeds: [message.toJSON()] })
+                return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
             })
         }
     },
