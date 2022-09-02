@@ -37,7 +37,7 @@ module.exports = {
                     de: 'DAS ZIEL'
                 })
                 .setRequired(false))
-        .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
+        .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages),
     async execute(interaction) {
         // Count to Global Commands
         addcmd('t-all', 1)

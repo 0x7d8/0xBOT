@@ -37,13 +37,13 @@ module.exports = {
         const user = interaction.options.getUser("user")
 
         // Set User ID
-        let money
+        let quotes
         if (user == null) {
-            money = await getqut('<@' + interaction.user.id + '>');
-            console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] QUOTES : ' + money);
+            quotes = await getqut('<@' + interaction.user.id + '>');
+            console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] QUOTES : ' + quotes);
         } else {
-            money = await getqut('<@' + user + '>');
-            console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] QUOTES : ' + user + ' : ' + money);
+            quotes = await getqut('<@' + user + '>');
+            console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] QUOTES : ' + user + ' : ' + quotes);
         }
 
         // Check if Target is Bot
@@ -64,7 +64,7 @@ module.exports = {
         
         // Check if Plural or not
         let word
-        if (money = 1) {
+        if (quotes = 1) {
             word = "Zitat";
         } else {
             word = "Zitate";
@@ -75,12 +75,12 @@ module.exports = {
         if (user == null) {
         	message = new EmbedBuilder()
             	.setTitle('» DEINE ZITATE')
-  				.setDescription('» Du hast **' + money + '** ' + word + '!')
+  				.setDescription('» Du hast **' + quotes + '** ' + word + '!')
             	.setFooter({ text: '» ' + version });
         } else {
             message = new EmbedBuilder()
                 .setTitle('» DIE ZITATE VON ' + userinfo.username.toUpperCase() + '#' + userinfo.discriminator)
-  				.setDescription('» <@' + user + '> hat **' + money + '** ' + word + '!')
+  				.setDescription('» <@' + user + '> hat **' + quotes + '** ' + word + '!')
             	.setFooter({ text: '» ' + version });
         }
 

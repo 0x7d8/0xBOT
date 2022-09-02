@@ -66,7 +66,7 @@ module.exports = {
         // Create Embeds
         const message = new EmbedBuilder()
         	.setTitle('» MAGISCHER BALL')
-  			.setDescription('» "' + formatted + '" - ' + result)
+  			.setDescription('» "' + formatted + '" -> ' + result)
         	.setFooter({ text: '» ' + version });
         
         // Send Message
