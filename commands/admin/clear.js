@@ -79,10 +79,18 @@ module.exports = {
 
             await channel.bulkDelete(filtered, true).then(messages => {
                 // Create Embed
-                const message = new EmbedBuilder()
-                    .setTitle('» NACHRICHTEN LÖSCHEN')
-                    .setDescription('» Du hast **' + messages.size + '** Nachrichten von <@' + target + '> gelöscht!')
-                    .setFooter({ text: '» ' + version });
+                let message
+                if (messages.size = 1) {
+                    message = new EmbedBuilder()
+                        .setTitle('» NACHRICHTEN LÖSCHEN')
+                        .setDescription('» Du hast **' + messages.size + '** Nachricht von <@' + target + '> gelöscht!')
+                        .setFooter({ text: '» ' + version });
+                } else {
+                    message = new EmbedBuilder()
+                        .setTitle('» NACHRICHTEN LÖSCHEN')
+                        .setDescription('» Du hast **' + messages.size + '** Nachrichten von <@' + target + '> gelöscht!')
+                        .setFooter({ text: '» ' + version });
+                }
 
                 // Send Message
                 console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] CLEAR : ' + target + ' : ' + amount)
@@ -91,10 +99,18 @@ module.exports = {
         } else {
             await channel.bulkDelete(amount, true).then(messages => {
                 // Create Embed
-                const message = new EmbedBuilder()
-                    .setTitle('» NACHRICHTEN LÖSCHEN')
-                    .setDescription('» Du hast **' + messages.size + '** Nachrichten gelöscht!')
-                    .setFooter({ text: '» ' + version });
+                let message
+                if (messages.size = 1) {
+                    message = new EmbedBuilder()
+                        .setTitle('» NACHRICHTEN LÖSCHEN')
+                        .setDescription('» Du hast **' + messages.size + '** Nachricht gelöscht!')
+                        .setFooter({ text: '» ' + version });
+                } else {
+                    message = new EmbedBuilder()
+                        .setTitle('» NACHRICHTEN LÖSCHEN')
+                        .setDescription('» Du hast **' + messages.size + '** Nachrichten gelöscht!')
+                        .setFooter({ text: '» ' + version });
+                }
 
                 // Send Message
                 console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] CLEAR : ' + amount)
