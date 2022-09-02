@@ -1,7 +1,11 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { version } = require('../../config.json');
+const { version, token } = require('../../config.json');
 const { EmbedBuilder } = require('@discordjs/builders');
-const { client, message } = require('discord.js')
+
+// Register Client
+const { Client, GatewayIntentBits } = require('discord.js');
+const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+client.login(token)
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -18,14 +22,11 @@ module.exports = {
         // Count Guild Commands and User
         addcmd('g-' + interaction.guild.id, 1)
         addcmd('u-' + interaction.user.id, 1)
-        
-        // Set Variables
-        const botping = Math.floor(Math.random() * (60 - 20 + 1)) + 20;
 
         // Create Embed
         const messaged = new EmbedBuilder()
         		.setTitle('» BOT PING')
-        		.setDescription('» Der Ping vom Bot ist **' + botping + 'ms**!')
+        		.setDescription('» Der Ping vom Bot ist **' + Math.round(client.ws.ping) + 'ms**!')
         		.setFooter({ text: '» ' + version });
 
         // Send Correct Response
