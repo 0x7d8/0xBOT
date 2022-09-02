@@ -2,7 +2,7 @@ const { CommandInteraction, MessageEmbed } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { EmbedBuilder } = require('@discordjs/builders');
 const { PermissionFlagsBits } = require('discord-api-types/v10');
-const { version } = require('../../config.json');
+const { version, token } = require('../../config.json');
 
 // Register Client
 const { Client, GatewayIntentBits } = require('discord.js');
