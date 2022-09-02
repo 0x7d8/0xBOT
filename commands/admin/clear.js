@@ -1,8 +1,13 @@
-const { Client, CommandInteraction, MessageEmbed } = require('discord.js');
+const { CommandInteraction, MessageEmbed } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { EmbedBuilder } = require('@discordjs/builders');
 const { PermissionFlagsBits } = require('discord-api-types/v10');
 const { version } = require('../../config.json');
+
+// Register Client
+const { Client, GatewayIntentBits } = require('discord.js');
+const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+client.login(token)
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -23,15 +28,15 @@ module.exports = {
                 })
                 .setRequired(true))
     	.addUserOption(option =>
-            option.setName('target')
+            option.setName('user')
                 .setNameLocalizations({
-                    de: 'ziel'
+                    de: 'nutzer'
                 })
                 .setDescription('THE TARGET')
                 .setDescriptionLocalizations({
                     de: 'DAS ZIEL'
                 })
-                .setRequired(true))
+                .setRequired(false))
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
     async execute(interaction) {
         // Count to Global Commands
@@ -43,7 +48,7 @@ module.exports = {
         
         // Set Variables
         const amount = interaction.options.getInteger("amount")
-        const target = interaction.options.getUser("target")
+        const target = interaction.options.getUser("user")
         const channel = interaction.channel
         const messages = channel.messages.fetch()
 
