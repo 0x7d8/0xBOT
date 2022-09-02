@@ -9,14 +9,7 @@ const mongoose = require('mongoose')
 mongoose.connect(mongo, {
     useUnifiedTopology: true,
     useNewUrlParser: true
-}).then(console.log('\n[0xBOT] [i] LADE BOT VERSION ' + version + '\n[0xBOT] [!] ZU MONGODB VERBUNDEN\n\n[0xBOT] [i] LADE BEFEHLE UND EVENTS...'))
-
-// Log if Maintenance or not
-if (maintenance == 'yes') {
-    console.log('[0xBOT] [!] LADE BOT IN WARTUNGSMODUS\n')
-} else {
-    console.log('[0xBOT] [i] LADE BOT IN NORMALEN MODUS\n')
-}
+}).then(console.log('\n[0xBOT] [i] LOADING BOT, VERSION ' + version + '\n[0xBOT] [!] CONNECTED TO MONGODB\n\n[0xBOT] [i] LOADING COMMANDS AND EVENTS...'))
 
 // Deploy Commands
 const { REST } = require('@discordjs/rest');
@@ -24,29 +17,6 @@ const { Routes } = require('discord-api-types/v9');
 
 // Create Client
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
-
-/* Create client
-const client = new Client({
-	intents: [
-		Intents.FLAGS.GUILDS,
-		Intents.FLAGS.GUILD_MEMBERS,
-		Intents.FLAGS.GUILD_BANS,
-		Intents.FLAGS.GUILD_EMOJIS_AND_STICKERS,
-		Intents.FLAGS.GUILD_INTEGRATIONS,
-		Intents.FLAGS.GUILD_WEBHOOKS,
-		Intents.FLAGS.GUILD_INVITES,
-		Intents.FLAGS.GUILD_VOICE_STATES,
-		Intents.FLAGS.GUILD_PRESENCES,
-		Intents.FLAGS.GUILD_MESSAGES,
-		Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
-		Intents.FLAGS.GUILD_MESSAGE_TYPING,
-		Intents.FLAGS.DIRECT_MESSAGES,
-		Intents.FLAGS.DIRECT_MESSAGE_REACTIONS,
-		Intents.FLAGS.DIRECT_MESSAGE_TYPING,
-		Intents.FLAGS.GUILD_SCHEDULED_EVENTS
-	]
-});
-*/
 
 // Load all events
 const eventFiles = getAllFilesFilter('./events', '.js');
@@ -57,14 +27,8 @@ for (const file of eventFiles) {
 	} else {
 		client.on(event.event, (...args) => event.execute(...args));
 	}
-	console.log(`[0xBOT] [i] LADE EVENT ${event.name}`);
+	console.log(`[0xBOT] [i] LOADING EVENT ${event.name}`);
 }
-
-// Set Status
-client.on("ready", () => { 
-	client.user.setStatus("online");
-	client.user.setActivity('mit Robert', { type: "PLAYING"})
-})
 
 // Load all commands
 client.commands = new Collection();
@@ -74,7 +38,7 @@ for (const file of commandFiles) {
 	const command = require(file);
 	client.commands.set(command.data.name, command);
     let cmd = command.data.name.toUpperCase()
-	console.log(`[0xBOT] [i] LADE BEFEHL ${cmd}`);
+	console.log(`[0xBOT] [i] LOADING COMMAND ${cmd}`);
 }
 
 client.on('interactionCreate', async interaction => {
@@ -87,7 +51,7 @@ client.on('interactionCreate', async interaction => {
 	try {
 		await command.execute(interaction);
 	} catch (error) {
-        console.log('[0xBOT] [!] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] FEHLER :')
+        console.log('[0xBOT] [!] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] ERROR :')
 		console.error(error);
         
         // Create Error Embed
@@ -600,7 +564,7 @@ rest.put(
 	{ body: commands },
 );
 
-console.log('\n[0xBOT] [!] BEFEHLE REGISTRIERT')
+console.log('\n[0xBOT] [!] COMMANDS REGISTERED')
 
 // Login
 client.login(token);

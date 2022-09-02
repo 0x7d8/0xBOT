@@ -1,8 +1,8 @@
 module.exports = {
-	name: 'BOT STARTEN',
+	name: 'START BOT',
 	event: 'ready',
 	once: true,
 	execute(client) {
-		console.log(`[0xBOT] [!] GESTARTET UND EINGELOGGT ALS ${client.user.tag}!\n\n[0xBOT] [i] STARTE LOGGING VON BEFEHLEN UND EVENTS`);
+		console.log(`[0xBOT] [!] STARTED AND LOGGED IN AS ${client.user.tag}!\n\n[0xBOT] [i] STARTED LOGGING OF COMMANDS AND ERRORS`);
 	},
 };
