@@ -77,29 +77,29 @@ module.exports = {
                 }
             })
 
-            await channel.bulkDelete(filtered, true)
+            await channel.bulkDelete(filtered, true).then(messages => {
+                // Create Embed
+                const message = new EmbedBuilder()
+                    .setTitle('» NACHRICHTEN LÖSCHEN')
+                    .setDescription('» Du hast **' + messages.size + '** Nachrichten von <@' + target + '> gelöscht!')
+                    .setFooter({ text: '» ' + version });
 
-            // Create Embed
-            const message = new EmbedBuilder()
-                .setTitle('» NACHRICHTEN LÖSCHEN')
-                .setDescription('» Du hast **' + messages.size + '** Nachrichten von <@' + target + '> gelöscht!')
-                .setFooter({ text: '» ' + version });
-
-            // Send Message
-            console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] CLEAR : ' + target + ' : ' + amount)
-            return interaction.reply({ embeds: [message.toJSON()] })
+                // Send Message
+                console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] CLEAR : ' + target + ' : ' + amount)
+                return interaction.reply({ embeds: [message.toJSON()] })
+            })
         } else {
-            await channel.bulkDelete(amount, true)
+            await channel.bulkDelete(amount, true).then(messages => {
+                // Create Embed
+                const message = new EmbedBuilder()
+                    .setTitle('» NACHRICHTEN LÖSCHEN')
+                    .setDescription('» Du hast **' + messages.size + '** Nachrichten gelöscht!')
+                    .setFooter({ text: '» ' + version });
 
-            // Create Embed
-            const message = new EmbedBuilder()
-                .setTitle('» NACHRICHTEN LÖSCHEN')
-                .setDescription('» Du hast **' + messages.size + '** Nachrichten gelöscht!')
-                .setFooter({ text: '» ' + version });
-
-            // Send Message
-            console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] CLEAR : ' + amount)
-            return interaction.reply({ embeds: [message.toJSON()] })
+                // Send Message
+                console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] CLEAR : ' + amount)
+                return interaction.reply({ embeds: [message.toJSON()] })
+            })
         }
     },
 };
