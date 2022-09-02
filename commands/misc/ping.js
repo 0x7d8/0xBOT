@@ -23,10 +23,13 @@ module.exports = {
         addcmd('g-' + interaction.guild.id, 1)
         addcmd('u-' + interaction.user.id, 1)
 
+        // Set Variables
+        const botping = Math.round(client.ws.ping)
+
         // Create Embed
         const messaged = new EmbedBuilder()
         		.setTitle('» BOT PING')
-        		.setDescription('» Der Ping vom Bot ist **' + Math.round(client.ws.ping) + 'ms**!')
+        		.setDescription('» Der Ping vom Bot ist **' + botping + 'ms**!')
         		.setFooter({ text: '» ' + version });
 
         // Send Correct Response
