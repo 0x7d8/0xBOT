@@ -1,9 +1,14 @@
-const { Client, Intents, Collection } = require('discord.js');
+const { Intents, Collection } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { EmbedBuilder } = require('@discordjs/builders');
-const { version } = require('../../config.json');
+const { version, token } = require('../../config.json');
 const cooldown = new Collection();
 let time = 30000;
+
+// Register Client
+const { Client, GatewayIntentBits } = require('discord.js');
+const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+client.login(token)
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -78,6 +83,20 @@ module.exports = {
   				.setDescription('» Du kannst dich nicht selber ausrauben?!')
             	.setFooter({ text: '» ' + version });
             
+            return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
+        }
+
+        // Check if Target is Bot
+        const userinfo = await client.users.fetch(user);
+        if (userinfo.bot == true) {
+            // Create Embed
+            const err = new EmbedBuilder()
+        		.setTitle('» FEHLER')
+        		.setDescription('» Du kannst einem Bot kein Geld klauen!')
+        		.setFooter({ text: '» ' + version });
+            
+            // Send Message
+            console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] ROB : ' + user + ' : BOT')
             return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
         

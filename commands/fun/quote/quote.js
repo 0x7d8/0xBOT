@@ -1,9 +1,14 @@
-const { Client, Intents, Collection } = require('discord.js');
+const { Intents, Collection } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { EmbedBuilder } = require('@discordjs/builders');
-const { version } = require('../../../config.json');
+const { version, token } = require('../../../config.json');
 const cooldown = new Collection();
 let time = 45000;
+
+// Register Client
+const { Client, GatewayIntentBits } = require('discord.js');
+const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+client.login(token)
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -69,7 +74,7 @@ module.exports = {
         	message = new EmbedBuilder()
             	.setTitle('» EIN WEISES ZITAT')
   				.setDescription('» "' + zitat + '" ~<@' + interaction.user.id + '>')
-            	.setFooter({ text: '» ' + version + ' » QUOTES: ' + amount});
+            	.setFooter({ text: '» ' + version + ' » ZITATE: ' + amount});
             
             console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] QUOTE : ' + zitat.toUpperCase())
         } else {
@@ -77,10 +82,24 @@ module.exports = {
         	message = new EmbedBuilder()
             	.setTitle('» EIN ZITAT')
   				.setDescription('» "' + zitat + '" ~<@' + autor + '>')
-            	.setFooter({ text: '» ' + version + ' » QUOTES: ' + amount});
+            	.setFooter({ text: '» ' + version + ' » ZITATE: ' + amount});
             
             console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] QUOTE : ' + zitat.toUpperCase() + ' : ~' + autor)
             addqut('<@' + autor + '>', 1);
+        }
+
+        // Check if Target is Bot
+        const userinfo = await client.users.fetch(user);
+        if (userinfo.bot == true) {
+            // Create Embed
+            const err = new EmbedBuilder()
+        		.setTitle('» FEHLER')
+        		.setDescription('» Du kannst einen Bot Leider nicht Zitieren!')
+        		.setFooter({ text: '» ' + version });
+            
+            // Send Message
+            console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] QUOTE : ' + user + ' : BOT : ' + zitat.toUpperCase())
+            return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
         
         // Set Cooldown

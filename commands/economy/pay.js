@@ -1,6 +1,11 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { EmbedBuilder } = require('@discordjs/builders');
-const { version } = require('../../config.json');
+const { version, token } = require('../../config.json');
+
+// Register Client
+const { Client, GatewayIntentBits } = require('discord.js');
+const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+client.login(token)
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -52,7 +57,21 @@ module.exports = {
         		.setFooter({ text: '» ' + version });
             
             // Send Message
-            console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] PAY : NEGATIVEMONEY : ' + wette + '€')
+            console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] PAY : NEGATIVEMONEY : ' + anzahl + '€')
+            return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
+        }
+
+        // Check if Target is Bot
+        const userinfo = await client.users.fetch(user);
+        if (userinfo.bot == true) {
+            // Create Embed
+            const err = new EmbedBuilder()
+        		.setTitle('» FEHLER')
+        		.setDescription('» Du kannst einem Bot kein Geld geben!')
+        		.setFooter({ text: '» ' + version });
+            
+            // Send Message
+            console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] PAY : ' + user + ' : BOT : ' + anzahl + '€')
             return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
         

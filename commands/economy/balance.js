@@ -37,9 +37,9 @@ module.exports = {
         const user = interaction.options.getUser("user")
 
         // Get Username
-        let username
+        let userinfo
         if (user != null) {
-            username = await client.users.fetch(user);
+            userinfo = await client.users.fetch(user);
         }
 
         // Get Money
@@ -61,7 +61,7 @@ module.exports = {
             	.setFooter({ text: '» ' + version });
         } else {
             message = new EmbedBuilder()
-            	.setTitle('» DER GELDSTAND VON ' + username.username.toUpperCase() + '#' + username.discriminator)
+            	.setTitle('» DER GELDSTAND VON ' + userinfo.username.toUpperCase() + '#' + userinfo.discriminator)
   				.setDescription('» Der Geldstand von <@' + user + '> ist **' + money + '€**!')
             	.setFooter({ text: '» ' + version });
         }

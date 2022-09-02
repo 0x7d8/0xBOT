@@ -49,8 +49,8 @@ module.exports = {
         if (quotes - anzahl < 0) {
             // Create Embed
             const err = new EmbedBuilder()
-            	.setTitle('» QUOTES ENTFERNEN')
-  				.setDescription('» Du hast garnicht so viele Quotes, du hast nur **' + quotes + '**!')
+            	.setTitle('» ZITATE ENTFERNEN')
+  				.setDescription('» Du hast garnicht so viele Zitate, du hast nur **' + quotes + '**!')
             	.setFooter({ text: '» ' + version });
             
             // Send Message
@@ -64,7 +64,7 @@ module.exports = {
             
             // Create Embed
             const err = new EmbedBuilder()
-            	.setTitle('» QUOTES ENTFERNEN')
+            	.setTitle('» ZITATE ENTFERNEN')
   				.setDescription('» Du hast nicht genug Geld dafür, dir fehlen **' + missing + '€**!')
             	.setFooter({ text: '» ' + version + ' » QUOTES: ' + quotes});
             
@@ -75,16 +75,16 @@ module.exports = {
         
         // Check if Plural or not
         let word
-        if (anzahl > 1) {
-            word = "Quotes";
+        if (anzahl = 1) {
+            word = "Zitat";
         } else {
-            word = "Quote";
+            word = "Zitate";
         }
         
         // Create Embed
         const newquotes = quotes - 1
         const message = new EmbedBuilder()
-            .setTitle('» QUOTES ENTFERNEN')
+            .setTitle('» ZITATE ENTFERNEN')
   			.setDescription('» Du hast erfolgreich **' + anzahl + '** ' + word + ' für **' + cost + '€** entfernt!')
             .setFooter({ text: '» ' + version + ' » QUOTES: ' + newquotes});
 
