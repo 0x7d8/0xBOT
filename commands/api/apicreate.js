@@ -56,7 +56,7 @@ module.exports = {
             // Create Embed
             const err = new EmbedBuilder()
         		.setTitle('» PAPER API CREATE')
-        		.setDescription('» Diese API existiert schon!\n</apiedit:1000335179585441862> um sie zu ändern\n</apiremove:1000327305220071464> um sie zu löschen')
+        		.setDescription('» Diese API existiert schon!\n</apiedit:1002107281510506517> um sie zu ändern\n</apiremove:1002107281510506518> um sie zu löschen')
         		.setFooter({ text: '» ' + version + ' » SLOTS ' + amount + '/5'});
             
             // Send Message

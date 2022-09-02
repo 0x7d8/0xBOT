@@ -69,7 +69,7 @@ module.exports = {
             // Create Embed
             const err = new EmbedBuilder()
         		.setTitle('» PAPER API EDIT')
-        		.setDescription('» Diese API existiert garnicht!\n</apicreate:1000322453614104636> um eine zu erstellen')
+        		.setDescription('» Diese API existiert garnicht!\n</apicreate:1002107281510506516> um eine zu erstellen')
         		.setFooter({ text: '» ' + version + ' » SLOTS ' + amount + '/5'});
             
             // Send Message
