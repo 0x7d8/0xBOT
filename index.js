@@ -1,4 +1,4 @@
-const { Client, Collection, GatewayIntentBits } = require('discord.js');
+const { Client, Intents, Collection, GatewayIntentBits } = require('discord.js');
 const { token, clientId, mongo } = require('./config.json');
 const { getAllFilesFilter } = require('./utils/getAllFiles.js');
 const { version } = require('./config.json');
