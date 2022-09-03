@@ -66,27 +66,27 @@ client.on('interactionCreate', async interaction => {
 });
 
 // MongoDB Functions
-const cmds = require("./functions/cmds")
-const bals = require("./functions/economy")
-const quts = require("./functions/quotes")
-const apis = require("./functions/apis")
+var cmds = require("./functions/cmds")
+var bals = require("./functions/economy")
+var quts = require("./functions/quotes")
+var apis = require("./functions/apis")
 
 
-const sgrn = require("./functions/stocks/green")
-const sblu = require("./functions/stocks/blue")
-const syll = require("./functions/stocks/yellow")
-const sred = require("./functions/stocks/red")
+var sgrn = require("./functions/stocks/green")
+var sblu = require("./functions/stocks/blue")
+var syll = require("./functions/stocks/yellow")
+var sred = require("./functions/stocks/red")
 
-const sgrnx = require("./functions/stocks/greenmax")
-const sblux = require("./functions/stocks/bluemax")
-const syllx = require("./functions/stocks/yellowmax")
-const sredx = require("./functions/stocks/redmax")
+var sgrnx = require("./functions/stocks/greenmax")
+var sblux = require("./functions/stocks/bluemax")
+var syllx = require("./functions/stocks/yellowmax")
+var sredx = require("./functions/stocks/redmax")
 
 
-const Lb1o = require("./functions/business/1/owner")
-const Lb1e = require("./functions/business/1/earning")
-const Lb1u = require("./functions/business/1/upgrade")
-const Lb1t = require("./functions/business/1/timedunix")
+var Lb1o = require("./functions/business/1/owner")
+var Lb1e = require("./functions/business/1/earning")
+var Lb1u = require("./functions/business/1/upgrade")
+var Lb1t = require("./functions/business/1/timedunix")
 
 // Deploy Commands
 const commands = [];
