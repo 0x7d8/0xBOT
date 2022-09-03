@@ -82,7 +82,7 @@ module.exports = {
                 // Create Embed
                 const err = new EmbedBuilder()
             		.setTitle('» ROULETTE')
-  					.setDescription('» Du kannst nicht soviel Wetten! **5000€** ist das Maximum.')
+  					.setDescription('» Du kannst nicht soviel Wetten! **15000€** ist das Maximum.')
             		.setFooter({ text: '» ' + version });
                 
                 // Send Message
