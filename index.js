@@ -1,7 +1,7 @@
-const { Client, Intents, Collection, GatewayIntentBits } = require('discord.js');
+const { Client, Collection, GatewayIntentBits } = require('discord.js');
 const { token, clientId, mongo } = require('./config.json');
 const { getAllFilesFilter } = require('./utils/getAllFiles.js');
-const { version, maintenance } = require('./config.json');
+const { version } = require('./config.json');
 const { EmbedBuilder } = require('@discordjs/builders');
 
 // MongoDB
