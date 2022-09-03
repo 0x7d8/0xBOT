@@ -1,12 +1,12 @@
 const moneySchema = require('../schema/money');
 
-getbal = (userId) => new Promise(async ful => {
+exports.get = (userId) => new Promise(async ful => {
     const data = await moneySchema.findOne({ userId });
     if(!data) return ful(0);
     ful(data.money);
 })
 
-addbal = (userId, money) => {
+exports.add = (userId, money) => {
     moneySchema.findOne({ userId }, async (err, data) => {
         if(err) throw err;
         if(data) {
@@ -21,7 +21,7 @@ addbal = (userId, money) => {
     })
 }
 
-rembal = (userId, money) => {
+exports.rem = (userId, money) => {
     moneySchema.findOne({ userId }, async (err, data) => {
         if(err) throw err;
         if(data) {
@@ -35,5 +35,3 @@ rembal = (userId, money) => {
         data.save();
     })
 }
-
-export{getbal, addbal, rembal}

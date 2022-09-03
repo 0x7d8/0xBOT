@@ -47,7 +47,7 @@ module.exports = {
         // Set Variables
         const name = interaction.options.getString("name")
         const inhalt = interaction.options.getString("content")
-        const amount = await getapi('<@' + interaction.user.id + '>');
+        const amount = await apis.get('<@' + interaction.user.id + '>');
         const newamount = amount + 1
 
         // Check if API exists
@@ -87,7 +87,7 @@ module.exports = {
         fs.writeFile('/paper-api/' + interaction.user.id + '/' + name, inhalt, function(err) {})
 
         // Send Message
-        addapi('<@' + interaction.user.id + '>', 1)
+        apis.add('<@' + interaction.user.id + '>', 1)
         console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] APICREATE : ' + name + ' : ' + inhalt.toUpperCase())
         return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
     },

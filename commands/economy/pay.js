@@ -4,6 +4,7 @@ const { version, token } = require('../../config.json');
 
 // Register Client
 const { Client, GatewayIntentBits } = require('discord.js');
+const apis = require('../../schema/apis');
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 client.login(token)
 
@@ -46,7 +47,7 @@ module.exports = {
         // Set Variables
         const user = interaction.options.getUser("user")
         const anzahl = interaction.options.getInteger("amount")
-        const money = await getbal('<@' + interaction.user.id + '>');
+        const money = await bals.get('<@' + interaction.user.id + '>');
 
         // Check if Balance is Minus
         if (anzahl < 0) {
@@ -92,8 +93,8 @@ module.exports = {
         
         // Set Money
         if (money >= anzahl) {
-        	rembal('<@' + interaction.user.id + '>', anzahl)
-        	addbal('<@' + user + '>', anzahl)
+        	bals.rem('<@' + interaction.user.id + '>', anzahl)
+        	bals.add('<@' + user + '>', anzahl)
         } else {
             const missing = anzahl - money
             

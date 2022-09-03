@@ -39,10 +39,10 @@ module.exports = {
         // Set User ID
         let quotes
         if (user == null) {
-            quotes = await getqut('<@' + interaction.user.id + '>');
+            quotes = await quts.get('<@' + interaction.user.id + '>');
             console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] QUOTES : ' + quotes);
         } else {
-            quotes = await getqut('<@' + user + '>');
+            quotes = await quts.get('<@' + user + '>');
             console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] QUOTES : ' + user + ' : ' + quotes);
         }
 

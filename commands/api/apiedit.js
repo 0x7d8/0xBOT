@@ -47,7 +47,7 @@ module.exports = {
         // Set Variables
         const name = interaction.options.getString("name")
         const inhalt = interaction.options.getString("content")
-        const amount = await getapi('<@' + interaction.user.id + '>');
+        const amount = await apis.get('<@' + interaction.user.id + '>');
 
        	// Check if API even exists
         const path = '/paper-api/' + interaction.user.id + '/' + name

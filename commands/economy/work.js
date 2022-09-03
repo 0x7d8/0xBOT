@@ -68,7 +68,7 @@ module.exports = {
             	.setFooter({ text: '» ' + version });
         
         	// Send Money
-        	addbal('<@' + interaction.user.id + '>', result)
+        	bals.add('<@' + interaction.user.id + '>', result)
             console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] WORK : ' + result + '€');
             
             // Set Cooldown

@@ -1,12 +1,12 @@
 const quoteSchema = require('../schema/quotes');
 
-getqut = (userId) => new Promise(async ful => {
+exports.get = (userId) => new Promise(async ful => {
     const data = await quoteSchema.findOne({ userId });
     if(!data) return ful(0);
     ful(data.quotes);
 })
 
-addqut = (userId, quotes) => {
+exports.add = (userId, quotes) => {
     quoteSchema.findOne({ userId }, async (err, data) => {
         if(err) throw err;
         if(data) {
@@ -21,7 +21,7 @@ addqut = (userId, quotes) => {
     })
 }
 
-remqut = (userId, quotes) => {
+exports.rem = (userId, quotes) => {
     quoteSchema.findOne({ userId }, async (err, data) => {
         if(err) throw err;
         if(data) {
@@ -35,5 +35,3 @@ remqut = (userId, quotes) => {
         data.save();
     })
 }
-
-export{getqut, addqut, remqut}

@@ -42,8 +42,8 @@ module.exports = {
         const cost = anzahl * 100
 
         // Get User Balances
-        const quotes = await getqut('<@' + interaction.user.id + '>');
-        const money = await getbal('<@' + interaction.user.id + '>');
+        const quotes = await quts.get('<@' + interaction.user.id + '>');
+        const money = await bals.get('<@' + interaction.user.id + '>');
         
         // Check if not in Minus Quotes
         if (quotes - anzahl < 0) {
@@ -89,8 +89,8 @@ module.exports = {
             .setFooter({ text: '» ' + version + ' » QUOTES: ' + newquotes});
 
         // Set Money and Quotes
-        rembal('<@' + interaction.user.id + '>', cost);
-        remqut('<@' + interaction.user.id + '>', anzahl);
+        bals.rem('<@' + interaction.user.id + '>', cost);
+        quts.rem('<@' + interaction.user.id + '>', anzahl);
         
         // Send Message
         console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] REMQUOTES : ' + anzahl + ' : ' + cost + '€');

@@ -70,7 +70,7 @@ module.exports = {
         // Check if there is a author specified
         let message
         if (autor == null) {
-            const amount = await getqut('<@' + interaction.user.id + '>') + 1;
+            const amount = await quts.get('<@' + interaction.user.id + '>') + 1;
         	message = new EmbedBuilder()
             	.setTitle('» EIN WEISES ZITAT')
   				.setDescription('» "' + zitat + '" ~<@' + interaction.user.id + '>')
@@ -78,14 +78,14 @@ module.exports = {
             
             console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] QUOTE : ' + zitat.toUpperCase())
         } else {
-            const amount = await getqut('<@' + autor + '>') + 1;
+            const amount = await quts.get('<@' + autor + '>') + 1;
         	message = new EmbedBuilder()
             	.setTitle('» EIN ZITAT')
   				.setDescription('» "' + zitat + '" ~<@' + autor + '>')
             	.setFooter({ text: '» ' + version + ' » ZITATE: ' + amount});
             
             console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] QUOTE : ' + zitat.toUpperCase() + ' : ~' + autor)
-            addqut('<@' + autor + '>', 1);
+            quts.add('<@' + autor + '>', 1);
         }
 
         // Check if Target is Bot

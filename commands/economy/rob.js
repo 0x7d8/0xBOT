@@ -55,8 +55,8 @@ module.exports = {
         // Set Variables
         const user = interaction.options.getUser("user")
         const money = interaction.options.getString("money")
-        const moneysnd = await getbal('<@' + interaction.user.id + '>');
-        const moneytar = await getbal('<@' + user + '>');
+        const moneysnd = await bals.get('<@' + interaction.user.id + '>');
+        const moneytar = await bals.get('<@' + user + '>');
 
         // Cooldown
         if (cooldown.get(interaction.user.id) - Date.now() > 0) {
@@ -199,7 +199,7 @@ module.exports = {
         	setTimeout(() => cooldown.delete(), time)
             
             console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] ROB : ' + user + ' : ' + amount + '€ : FAILURE : ' + punishment + '€')
-        	rembal('<@' + interaction.user.id + '>', punishment)
+        	bals.rem('<@' + interaction.user.id + '>', punishment)
         	return interaction.reply({ embeds: [failure.toJSON()] })
         }
         
@@ -208,8 +208,8 @@ module.exports = {
         setTimeout(() => cooldown.delete(), time)
 
         // Set Money
-        rembal('<@' + user + '>', amount)
-        addbal('<@' + interaction.user.id + '>', amount)
+        bals.rem('<@' + user + '>', amount)
+        bals.add('<@' + interaction.user.id + '>', amount)
         
         // Send Message
         console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] ROB : ' + user + ' : ' + amount + '€ : SUCCESS')

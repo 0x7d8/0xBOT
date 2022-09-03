@@ -42,7 +42,7 @@ module.exports = {
         
         // Set Variables
         const business = interaction.options.getString("business")
-        const balance = await getbal('<@' + interaction.user.id + '>');
+        const balance = await bals.get('<@' + interaction.user.id + '>');
 
         // Check if Command is Allowed :P
         if (interaction.user.id != "745619551865012274") {
@@ -180,7 +180,7 @@ module.exports = {
         }
 
         // Remove Money
-        rembal('<@' + interaction.user.id + '>', cost)
+        bals.rem('<@' + interaction.user.id + '>', cost)
 
         // Create Embed
         const message = new EmbedBuilder()

@@ -36,22 +36,22 @@ module.exports = {
         // Set Variables
         const slots = interaction.options.getString("slots")
 
-        const balance = await getbal('<@' + interaction.user.id + '>');
+        const balance = await bals.get('<@' + interaction.user.id + '>');
 
-        green = await getgrn('<@' + interaction.user.id + '>');
-        greenmax = await getgrnx('<@' + interaction.user.id + '>');
-        blue = await getblu('<@' + interaction.user.id + '>');
-        bluemax = await getblux('<@' + interaction.user.id + '>');
-        yellow = await getyll('<@' + interaction.user.id + '>');
-        yellowmax = await getyllx('<@' + interaction.user.id + '>');
-        red = await getred('<@' + interaction.user.id + '>');
-        redmax = await getredx('<@' + interaction.user.id + '>');
+        green = await sgrn.get('<@' + interaction.user.id + '>');
+        greenmax = await sgrnx.get('<@' + interaction.user.id + '>');
+        blue = await sblu.get('<@' + interaction.user.id + '>');
+        bluemax = await sblux.get('<@' + interaction.user.id + '>');
+        yellow = await syll.get('<@' + interaction.user.id + '>');
+        yellowmax = await syllx.get('<@' + interaction.user.id + '>');
+        red = await sred.get('<@' + interaction.user.id + '>');
+        redmax = await sredx.get('<@' + interaction.user.id + '>');
 
         // Convert Max Stocks
-        if (greenmax == 0) { greenmax = 10; addgrnx('<@' + interaction.user.id + '>', 10) }
-        if (bluemax == 0) { bluemax = 10; addblux('<@' + interaction.user.id + '>', 10) }
-        if (yellowmax == 0) { yellowmax = 10; addyllx('<@' + interaction.user.id + '>', 10) }
-        if (redmax == 0) { redmax = 10; addredx('<@' + interaction.user.id + '>', 10) }
+        if (greenmax == 0) { greenmax = 10; sgrnx.add('<@' + interaction.user.id + '>', 10) }
+        if (bluemax == 0) { bluemax = 10; sblux.add('<@' + interaction.user.id + '>', 10) }
+        if (yellowmax == 0) { yellowmax = 10; syllx.add('<@' + interaction.user.id + '>', 10) }
+        if (redmax == 0) { redmax = 10; sredx.add('<@' + interaction.user.id + '>', 10) }
 
         // Calculate Cost
         const cost = parseInt(slots) * 100000
@@ -72,13 +72,13 @@ module.exports = {
         }
 
         // Add Stock Amount
-        addgrnx('<@' + interaction.user.id + '>', parseInt(slots))
-        addblux('<@' + interaction.user.id + '>', parseInt(slots))
-        addyllx('<@' + interaction.user.id + '>', parseInt(slots))
-        addredx('<@' + interaction.user.id + '>', parseInt(slots))
+        sgrnx.add('<@' + interaction.user.id + '>', parseInt(slots))
+        sblux.add('<@' + interaction.user.id + '>', parseInt(slots))
+        syllx.add('<@' + interaction.user.id + '>', parseInt(slots))
+        sredx.add('<@' + interaction.user.id + '>', parseInt(slots))
 
         // Remove Money
-        rembal('<@' + interaction.user.id + '>', cost)
+        bals.rem('<@' + interaction.user.id + '>', cost)
 
         // Create Embed
         let message

@@ -45,10 +45,10 @@ module.exports = {
         // Get Money
         let money
         if (user == null) {
-            money = await getbal('<@' + interaction.user.id + '>');
+            money = await bals.get('<@' + interaction.user.id + '>');
             console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] BALANCE : ' + money + '€');
         } else {
-            money = await getbal('<@' + user + '>');
+            money = await bals.get('<@' + user + '>');
             console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] BALANCE : ' + user + ' : ' + money + '€');
         }
         

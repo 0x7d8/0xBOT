@@ -66,24 +66,27 @@ client.on('interactionCreate', async interaction => {
 });
 
 // MongoDB Functions
-const cmds = require("./functions/cmds.js")
+const cmds = require("./functions/cmds")
+const bals = require("./functions/economy")
+const quts = require("./functions/quotes")
+const apis = require("./functions/apis")
 
-import {getbal, addbal, rembal} from "./functions/economy.js"
-import {getqut, addqut, remqut} from "./functions/quotes.js"
-import {getapi, addapi, remapi} from "./functions/apis.js"
+
+const sgrn = require("./functions/stocks/green")
+const sblu = require("./functions/stocks/blue")
+const syll = require("./functions/stocks/yellow")
+const sred = require("./functions/stocks/red")
+
+const sgrnx = require("./functions/stocks/greenmax")
+const sblux = require("./functions/stocks/bluemax")
+const syllx = require("./functions/stocks/yellowmax")
+const sredx = require("./functions/stocks/redmax")
 
 
-import {getgrn, getblu, getyll, getred} from "./functions/stocks.js"
-import {addgrn, addblu, addyll, addred} from "./functions/stocks.js"
-import {remgrn, remblu, remyll, remred} from "./functions/stocks.js"
-
-import {getgrnx, getblux, getyllx, getredx} from "./functions/stocksmax.js"
-import {addgrnx, addblux, addyllx, addredx} from "./functions/stocksmax.js"
-import {remgrnx, remblux, remyllx, remredx} from "./functions/stocksmax.js"
-
-import {getLb1o, getLb1e, getLb1u, getLb1t} from "./functions/business1.js"
-import {addLb1o, addLb1e, addLb1u, addLb1t} from "./functions/business1.js"
-import {remLb1o, remLb1e, remLb1u, remLb1t} from "./functions/business1.js"
+const Lb1o = require("./functions/business/1/owner")
+const Lb1e = require("./functions/business/1/earning")
+const Lb1u = require("./functions/business/1/upgrade")
+const Lb1t = require("./functions/business/1/timedunix")
 
 // Deploy Commands
 const commands = [];

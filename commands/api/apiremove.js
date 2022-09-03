@@ -36,7 +36,7 @@ module.exports = {
         
         // Set Variables
         const name = interaction.options.getString("name")
-        const amount = await getapi('<@' + interaction.user.id + '>');
+        const amount = await apis.get('<@' + interaction.user.id + '>');
         const newamount = amount - 1
 
        	// Check if API even exists
@@ -52,7 +52,7 @@ module.exports = {
         	fs.unlinkSync(path)
 
         	// Send Message
-        	remapi('<@' + interaction.user.id + '>', 1)
+        	apis.rem('<@' + interaction.user.id + '>', 1)
         	console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] APIREMOVE : ' + name)
         	return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         } catch (err) {

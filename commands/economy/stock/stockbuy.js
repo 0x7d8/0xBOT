@@ -50,27 +50,27 @@ module.exports = {
         const stock = interaction.options.getString("stock")
         const amount = interaction.options.getInteger("amount")
 
-        const green = await getgrn('<@' + interaction.user.id + '>');
-        const blue = await getblu('<@' + interaction.user.id + '>');
-        const yellow = await getyll('<@' + interaction.user.id + '>');
-        const red = await getred('<@' + interaction.user.id + '>');
+        const green = await sgrn.get('<@' + interaction.user.id + '>');
+        const blue = await sblu.get('<@' + interaction.user.id + '>');
+        const yellow = await syll.get('<@' + interaction.user.id + '>');
+        const red = await sred.get('<@' + interaction.user.id + '>');
         const greens = green + amount
         const blues = blue + amount
         const yellows = yellow + amount
         const reds = red + amount
 
-        let greenmax = await getgrnx('<@' + interaction.user.id + '>');
-        let bluemax = await getblux('<@' + interaction.user.id + '>');
-        let yellowmax = await getyllx('<@' + interaction.user.id + '>');
-        let redmax = await getredx('<@' + interaction.user.id + '>');
+        let greenmax = await sgrnx.get('<@' + interaction.user.id + '>');
+        let bluemax = await sblux.get('<@' + interaction.user.id + '>');
+        let yellowmax = await syllx.get('<@' + interaction.user.id + '>');
+        let redmax = await sredx.get('<@' + interaction.user.id + '>');
 
-        const balance = await getbal('<@' + interaction.user.id + '>');
+        const balance = await bals.get('<@' + interaction.user.id + '>');
 
         // Convert Max Stocks
-        if (greenmax == 0) { greenmax = 10; addgrnx('<@' + interaction.user.id + '>', 10) }
-        if (bluemax == 0) { bluemax = 10; addblux('<@' + interaction.user.id + '>', 10) }
-        if (yellowmax == 0) { yellowmax = 10; addyllx('<@' + interaction.user.id + '>', 10) }
-        if (redmax == 0) { redmax = 10; addredx('<@' + interaction.user.id + '>', 10) }
+        if (greenmax == 0) { greenmax = 10; sgrnx.add('<@' + interaction.user.id + '>', 10) }
+        if (bluemax == 0) { bluemax = 10; sblux.add('<@' + interaction.user.id + '>', 10) }
+        if (yellowmax == 0) { yellowmax = 10; syllx.add('<@' + interaction.user.id + '>', 10) }
+        if (redmax == 0) { redmax = 10; sredx.add('<@' + interaction.user.id + '>', 10) }
 
         // Check if Amount is Negative
         if (amount < 0) {
@@ -164,20 +164,20 @@ module.exports = {
 
         // Add Stock Amount
         if (stock == 'green') {
-            addgrn('<@' + interaction.user.id + '>', amount)
+            sgrn.add('<@' + interaction.user.id + '>', amount)
         }
         if (stock == 'blue') {
-            addblu('<@' + interaction.user.id + '>', amount)
+            sblu.add('<@' + interaction.user.id + '>', amount)
         }
         if (stock == 'yellow') { 
-            addyll('<@' + interaction.user.id + '>', amount)
+            syll.add('<@' + interaction.user.id + '>', amount)
         }
         if (stock == 'red') {
-            addred('<@' + interaction.user.id + '>', amount)
+            sred.add('<@' + interaction.user.id + '>', amount)
         }
 
         // Remove Money
-        rembal('<@' + interaction.user.id + '>', cost)
+        bals.rem('<@' + interaction.user.id + '>', cost)
 
         // Create Embed
         const message = new EmbedBuilder()

@@ -48,7 +48,7 @@ module.exports = {
         const farbe = interaction.options.getString("color")
         const wette = interaction.options.getInteger("bet")
         
-        const money = await getbal('<@' + interaction.user.id + '>');
+        const money = await bals.get('<@' + interaction.user.id + '>');
         const random = Math.floor(Math.random() * (21 - 1 + 1)) + 1;
 
         // Check if Balance is Minus
@@ -118,10 +118,10 @@ module.exports = {
             
             // Set Money
             if (color != farbe) {
-            	rembal('<@' + interaction.user.id + '>', wette);
+            	bals.rem('<@' + interaction.user.id + '>', wette);
             }
 			if (color == farbe) {
-            	addbal('<@' + interaction.user.id + '>', resultadd);
+            	bals.add('<@' + interaction.user.id + '>', resultadd);
             }
             
             // Send Message

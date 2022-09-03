@@ -5,7 +5,7 @@ const { version } = require('../../config.json');
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('addbal')
+        .setName('bals.add')
         .setDescription('ADD MONEY')
         .setDescriptionLocalizations({
             de: 'ADDIERE GELD'
@@ -59,15 +59,15 @@ module.exports = {
   				.setDescription('» Du bist nicht der Bot Besitzer! :P')
         		.setFooter({ text: '» ' + version });
             
-            console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] ADDBAL : NOTOWNER')
+            console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] bals.add : NOTOWNER')
             return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
         
         // Add Money
-        addbal('<@' + user + '>', amount)
+        bals.add('<@' + user + '>', amount)
 
         // Send Message
-        console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] ADDBAL : ' + user + ' : ' + amount + '€')
+        console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] bals.add : ' + user + ' : ' + amount + '€')
         return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
     },
 };

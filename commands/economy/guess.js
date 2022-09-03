@@ -58,7 +58,7 @@ module.exports = {
         const bereich = interaction.options.getString("range")
         const wette = interaction.options.getInteger("bet")
         const nummer = interaction.options.getInteger("number")
-        const money = await getbal('<@' + interaction.user.id + '>');
+        const money = await bals.get('<@' + interaction.user.id + '>');
         const random10 = Math.floor(Math.random() * (10 - 1 + 1)) + 1;
         const random100 = Math.floor(Math.random() * (100 - 1 + 1)) + 1;
         const random1000 = Math.floor(Math.random() * (1000 - 1 + 1)) + 1;
@@ -119,9 +119,9 @@ module.exports = {
         	.setFooter({ text: '» ' + version });
         
         // Set Money
-        rembal('<@' + interaction.user.id + '>', result)
+        bals.rem('<@' + interaction.user.id + '>', result)
         if (status == 'GEWONNEN') {
-        	addbal('<@' + interaction.user.id + '>', result)
+        	bals.add('<@' + interaction.user.id + '>', result)
         }
 
         // Send Message

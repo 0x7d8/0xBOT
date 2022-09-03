@@ -5,7 +5,7 @@ const { version } = require('../../config.json');
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('rembal')
+        .setName('bals.rem')
         .setDescription('REMOVE MONEY')
         .setDescriptionLocalizations({
             de: 'ENTFERNE GELD'
@@ -59,15 +59,15 @@ module.exports = {
   				.setDescription('» Du bist nicht der Bot Besitzer! :P')
         		.setFooter({ text: '» ' + version });
             
-            console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] REMBAL : NOTOWNER')
+            console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] bals.rem : NOTOWNER')
             return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
         
         // Remove Money
-        rembal('<@' + user + '>', anzahl)
+        bals.rem('<@' + user + '>', anzahl)
 
         // Send Message
-        console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] REMBAL : ' + user + ' : ' + anzahl + '€')
+        console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] bals.rem : ' + user + ' : ' + anzahl + '€')
         return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
     },
 };
