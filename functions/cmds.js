@@ -1,12 +1,12 @@
 const cmdschema = require('../schema/cmds');
 
-getcmd = (userId) => new Promise(async ful => {
+exports.get = (userId) => new Promise(async ful => {
     const data = await cmdschema.findOne({ userId });
     if(!data) return ful(0);
     ful(data.cmds);
 })
 
-addcmd = (userId, cmds) => {
+exports.add = (userId, cmds) => {
     cmdschema.findOne({ userId }, async (err, data) => {
         if(err) throw err;
         if(data) {
@@ -21,7 +21,7 @@ addcmd = (userId, cmds) => {
     })
 }
 
-remcmd = (userId, cmds) => {
+exports.rem = (userId, cmds) => {
     cmdschema.findOne({ userId }, async (err, data) => {
         if(err) throw err;
         if(data) {
@@ -35,5 +35,3 @@ remcmd = (userId, cmds) => {
         data.save();
     })
 }
-
-export{getcmd, addcmd, remcmd}

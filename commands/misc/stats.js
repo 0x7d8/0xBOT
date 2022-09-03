@@ -12,9 +12,9 @@ module.exports = {
         }),
     async execute(interaction) {
         // Set Variables
-        const totalcmd = await getcmd('t-all');
-        const guildcmd = await getcmd('g-' + interaction.guild.id);
-        const usercmd = await getcmd('u-' + interaction.user.id);
+        const totalcmd = await cmds.get('t-all');
+        const guildcmd = await cmds.get('g-' + interaction.guild.id);
+        const usercmd = await cmds.get('u-' + interaction.user.id);
 
         // Create Embed
         const message = new EmbedBuilder()

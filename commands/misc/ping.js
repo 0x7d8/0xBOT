@@ -17,11 +17,11 @@ module.exports = {
         }),
     async execute(interaction) {
         // Count to Global Commands
-        addcmd('t-all', 1)
+        cmds.add('t-all', 1)
         
         // Count Guild Commands and User
-        addcmd('g-' + interaction.guild.id, 1)
-        addcmd('u-' + interaction.user.id, 1)
+        cmds.add('g-' + interaction.guild.id, 1)
+        cmds.add('u-' + interaction.user.id, 1)
 
         // Set Variables
         const botping = Math.round(client.ws.ping)

@@ -66,10 +66,11 @@ client.on('interactionCreate', async interaction => {
 });
 
 // MongoDB Functions
+const cmds = require("./functions/cmds.js")
+
 import {getbal, addbal, rembal} from "./functions/economy.js"
 import {getqut, addqut, remqut} from "./functions/quotes.js"
 import {getapi, addapi, remapi} from "./functions/apis.js"
-import {getcmd, addcmd, remcmd} from "./functions/cmds.js"
 
 
 import {getgrn, getblu, getyll, getred} from "./functions/stocks.js"
