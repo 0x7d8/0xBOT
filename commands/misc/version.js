@@ -21,7 +21,7 @@ module.exports = {
         // Create Embed
         const message = new EmbedBuilder()
         		.setTitle('» BOT VERSION')
-        		.setDescription('» VERSION\n`' + version + '`\n\n» FRAMEWORK\n`discord.js v14`\n\n» AUTOR\n`0x4096#7678`')
+        		.setDescription('» VERSION\n`' + version + '`\n\n» FRAMEWORK\n`discord.js v14 (14.3.0)`\n\n» AUTOR\n`0x4096#7678`')
         		.setFooter({ text: '» ' + version });
 
         // Send Correct Response

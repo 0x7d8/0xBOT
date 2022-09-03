@@ -58,9 +58,9 @@ module.exports = {
 
         // Check if Business is Empty
         let businessowner, oldleft
-        if (business = '1' && await getLb1o('g-' + interaction.guild.id) != 0) {
+        if (business = '1' && await Lb1o.get('g-' + interaction.guild.id) != 0) {
             oldleft = true
-            businessowner = await getLb1o('g-' + interaction.guild.id)
+            businessowner = await Lb1o.get('g-' + interaction.guild.id)
             const guild = client.guilds.get(interaction.guild.id)
 
             // Check if Owner Left
@@ -76,9 +76,9 @@ module.exports = {
                 return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
             }
         }
-        if (business = '2' && await getLb2o('g-' + interaction.guild.id) != 0) {
+        if (business = '2' && await Lb2o.get('g-' + interaction.guild.id) != 0) {
             oldleft = true
-            businessowner = await getLb2o('g-' + interaction.guild.id)
+            businessowner = await Lb2o.get('g-' + interaction.guild.id)
             const guild = client.guilds.get(interaction.guild.id)
 
             // Check if Owner Left
@@ -94,9 +94,9 @@ module.exports = {
                 return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
             }
         }
-        if (business = '3' && await getLb3o('g-' + interaction.guild.id) != 0) {
+        if (business = '3' && await Lb3o.get('g-' + interaction.guild.id) != 0) {
             oldleft = true
-            businessowner = await getLb3o('g-' + interaction.guild.id)
+            businessowner = await Lb3o.get('g-' + interaction.guild.id)
             const guild = client.guilds.get(interaction.guild.id)
 
             // Check if Owner Left
@@ -142,41 +142,41 @@ module.exports = {
         if (business = '1') {
             // Remove Old Owner if he left
             if (oldleft = true) {
-                remLb1o('g-' + interaction.guild.id, businessowner)
+                Lb1o.rem('g-' + interaction.guild.id, businessowner)
             }
 
             // Own Business
-            addLb1o('g-' + interaction.guild.id, interaction.user.id)
-            remLb1e('g-' + interaction.guild.id, await getLb1e('g-' + interaction.guild.id))
-            remLb1u('g-' + interaction.guild.id, await getLb1u('g-' + interaction.guild.id))
-            remLb1t('g-' + interaction.guild.id, await getLb1t('g-' + interaction.guild.id))
-            addLb1t('g-' + interaction.guild.id, Math.floor(+new Date() / 1000))
+            Lb1o.add('g-' + interaction.guild.id, interaction.user.id)
+            Lb1e.rem('g-' + interaction.guild.id, await Lb1e.get('g-' + interaction.guild.id))
+            Lb1u.rem('g-' + interaction.guild.id, await Lb1u.get('g-' + interaction.guild.id))
+            Lb1t.rem('g-' + interaction.guild.id, await Lb1t.get('g-' + interaction.guild.id))
+            Lb1t.add('g-' + interaction.guild.id, Math.floor(+new Date() / 1000))
         }
         if (business = '2') {
             // Remove Old Owner if he left
             if (oldleft = true) {
-                remLb1o('g-' + interaction.guild.id, businessowner)
+                Lb1o.rem('g-' + interaction.guild.id, businessowner)
             }
 
             // Own Business
-            addLb2o('g-' + interaction.guild.id, interaction.user.id)
-            remLb2e('g-' + interaction.guild.id, await getLb2e('g-' + interaction.guild.id))
-            remLb2u('g-' + interaction.guild.id, await getLb2u('g-' + interaction.guild.id))
-            remLb2t('g-' + interaction.guild.id, await getLb2t('g-' + interaction.guild.id))
-            addLb2t('g-' + interaction.guild.id, Math.floor(+new Date() / 1000))
+            Lb2o.add('g-' + interaction.guild.id, interaction.user.id)
+            Lb2e.rem('g-' + interaction.guild.id, await Lb2e.get('g-' + interaction.guild.id))
+            Lb2u.rem('g-' + interaction.guild.id, await Lb2u.get('g-' + interaction.guild.id))
+            Lb2t.rem('g-' + interaction.guild.id, await Lb2t.get('g-' + interaction.guild.id))
+            Lb2t.rem('g-' + interaction.guild.id, Math.floor(+new Date() / 1000))
         }
         if (business = '3') {
             // Remove Old Owner if he left
             if (oldleft = true) {
-                remLb1o('g-' + interaction.guild.id, businessowner)
+                Lb1o.rem('g-' + interaction.guild.id, businessowner)
             }
 
             // Own Business
-            addLb3o('g-' + interaction.guild.id, interaction.user.id)
-            remLb3e('g-' + interaction.guild.id, await getLb3e('g-' + interaction.guild.id))
-            remLb3u('g-' + interaction.guild.id, await getLb3u('g-' + interaction.guild.id))
-            remLb3t('g-' + interaction.guild.id, await getLb3t('g-' + interaction.guild.id))
-            addLb3t('g-' + interaction.guild.id, Math.floor(+new Date() / 1000))
+            Lb3o.add('g-' + interaction.guild.id, interaction.user.id)
+            Lb3e.rem('g-' + interaction.guild.id, await Lb3e.get('g-' + interaction.guild.id))
+            Lb3u.rem('g-' + interaction.guild.id, await Lb3u.get('g-' + interaction.guild.id))
+            Lb3t.rem('g-' + interaction.guild.id, await Lb3t.get('g-' + interaction.guild.id))
+            Lb3t.add('g-' + interaction.guild.id, Math.floor(+new Date() / 1000))
         }
 
         // Remove Money

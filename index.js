@@ -65,13 +65,14 @@ client.on('interactionCreate', async interaction => {
 	}
 });
 
-// MongoDB Functions
+// MongoDB Basic Economy Functions
 global.cmds = require("./functions/cmds")
 global.bals = require("./functions/economy")
 global.quts = require("./functions/quotes")
 global.apis = require("./functions/apis")
 
 
+// MongoDB Advanced Economy Functions
 global.sgrn = require("./functions/stocks/green")
 global.sblu = require("./functions/stocks/blue")
 global.syll = require("./functions/stocks/yellow")
@@ -83,6 +84,7 @@ global.syllx = require("./functions/stocks/yellowmax")
 global.sredx = require("./functions/stocks/redmax")
 
 
+// MongoDB Experimental Economy Functions
 global.Lb1o = require("./functions/business/1/owner")
 global.Lb1e = require("./functions/business/1/earning")
 global.Lb1u = require("./functions/business/1/upgrade")
@@ -103,7 +105,7 @@ rest.put(
 	{ body: commands },
 );
 
-console.log('\n[0xBOT] [!] COMMANDS REGISTERED')
+console.log('\n[0xBOT] [!] COMMANDS REGISTERED\n[0xBOT] [i] LOGGING IN')
 
 // Login
 client.login(token);
