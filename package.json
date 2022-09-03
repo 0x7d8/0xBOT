@@ -1,6 +1,5 @@
 {
-  "type": "module",
-  "name": "discord-bot-js",
+  "name": "0x-bot",
   "version": "1.0.0",
   "description": "```bash\r npm init\r npm install discord.js\r npm install @discordjs/rest\r npm install @discordjs/builders\r ```",
   "main": "index.js",
@@ -9,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Tunakirkoc/Discord-Bot-JS.git"
+    "url": "git+https://github.com/rotvproHD/0xBOT.git"
   },
   "author": "Tuna Kirkoc",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Tunakirkoc/Discord-Bot-JS/issues"
+    "url": "https://github.com/rotvproHD/0xBOT/issues"
   },
-  "homepage": "https://github.com/Tunakirkoc/Discord-Bot-JS#readme",
+  "homepage": "https://github.com/rotvproHD/0xBOT",
   "dependencies": {
     "@discordjs/rest": "^0.5.0",
     "cjs": "^0.0.11",
