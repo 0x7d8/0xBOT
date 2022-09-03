@@ -66,27 +66,27 @@ client.on('interactionCreate', async interaction => {
 });
 
 // MongoDB Functions
-var cmds = require("./functions/cmds")
-var bals = require("./functions/economy")
-var quts = require("./functions/quotes")
-var apis = require("./functions/apis")
+global.cmds = require("./functions/cmds")
+global.bals = require("./functions/economy")
+global.quts = require("./functions/quotes")
+global.apis = require("./functions/apis")
 
 
-var sgrn = require("./functions/stocks/green")
-var sblu = require("./functions/stocks/blue")
-var syll = require("./functions/stocks/yellow")
-var sred = require("./functions/stocks/red")
+global.sgrn = require("./functions/stocks/green")
+global.sblu = require("./functions/stocks/blue")
+global.syll = require("./functions/stocks/yellow")
+global.sred = require("./functions/stocks/red")
 
-var sgrnx = require("./functions/stocks/greenmax")
-var sblux = require("./functions/stocks/bluemax")
-var syllx = require("./functions/stocks/yellowmax")
-var sredx = require("./functions/stocks/redmax")
+global.sgrnx = require("./functions/stocks/greenmax")
+global.sblux = require("./functions/stocks/bluemax")
+global.syllx = require("./functions/stocks/yellowmax")
+global.sredx = require("./functions/stocks/redmax")
 
 
-var Lb1o = require("./functions/business/1/owner")
-var Lb1e = require("./functions/business/1/earning")
-var Lb1u = require("./functions/business/1/upgrade")
-var Lb1t = require("./functions/business/1/timedunix")
+global.Lb1o = require("./functions/business/1/owner")
+global.Lb1e = require("./functions/business/1/earning")
+global.Lb1u = require("./functions/business/1/upgrade")
+global.Lb1t = require("./functions/business/1/timedunix")
 
 // Deploy Commands
 const commands = [];
