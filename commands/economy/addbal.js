@@ -5,7 +5,7 @@ const { version } = require('../../config.json');
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('bals.add')
+        .setName('addbal')
         .setDescription('ADD MONEY')
         .setDescriptionLocalizations({
             de: 'ADDIERE GELD'
