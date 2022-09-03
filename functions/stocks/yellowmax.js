@@ -1,12 +1,12 @@
 const stockyellowmaxschema = require('../../schema/stocks/stockyellowmax');
 
-exports.getx = (userId) => new Promise(async ful => {
+exports.get = (userId) => new Promise(async ful => {
     const data = await stockyellowmaxschema.findOne({ userId });
     if(!data) return ful(0);
     ful(data.stockyellowmax);
 })
 
-exports.addx = (userId, stockyellowmax) => {
+exports.add = (userId, stockyellowmax) => {
     stockyellowmaxschema.findOne({ userId }, async (err, data) => {
         if(err) throw err;
         if(data) {
@@ -21,7 +21,7 @@ exports.addx = (userId, stockyellowmax) => {
     })
 }
 
-exports.remx = (userId, stockyellowmax) => {
+exports.rem = (userId, stockyellowmax) => {
     stockyellowmaxschema.findOne({ userId }, async (err, data) => {
         if(err) throw err;
         if(data) {
