@@ -49,7 +49,7 @@ module.exports = {
         		.setFooter({ text: '» ' + version });
 
         // Send Message
-        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString() + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] BINGO : ' + bingo.toUpperCase())
+        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] BINGO : ' + bingo.toUpperCase())
         if (bingo == 'stadtlandfluss') {
             interaction.reply({ embeds: [slf.toJSON()] })
         }

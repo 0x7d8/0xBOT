@@ -3,6 +3,6 @@ module.exports = {
 	event: 'ready',
 	once: true,
 	execute(client) {
-		console.log(`[0xBOT] [!] [${new Date().toLocaleTimeString()}] STARTED AND LOGGED IN AS ${client.user.tag}!\n\n[0xBOT] [i] [${new Date().toLocaleTimeString()}] STARTED LOGGING OF COMMANDS AND ERRORS`);
+		console.log(`[0xBOT] [!] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] STARTED AND LOGGED IN AS ${client.user.tag}!\n\n[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] STARTED LOGGING OF COMMANDS AND ERRORS`);
 	},
 };

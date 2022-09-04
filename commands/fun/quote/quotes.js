@@ -40,10 +40,10 @@ module.exports = {
         let quotes
         if (user == null) {
             quotes = await quts.get('<@' + interaction.user.id + '>');
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString() + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] QUOTES : ' + quotes);
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] QUOTES : ' + quotes);
         } else {
             quotes = await quts.get('<@' + user + '>');
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString() + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] QUOTES : ' + user + ' : ' + quotes);
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] QUOTES : ' + user + ' : ' + quotes);
         }
 
         // Check if Target is Bot
@@ -57,7 +57,7 @@ module.exports = {
         		    .setFooter({ text: '» ' + version });
             
                 // Send Message
-                console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString() + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] QUOTES : ' + user + ' : BOT')
+                console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] QUOTES : ' + user + ' : BOT')
                 return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
             }
         }

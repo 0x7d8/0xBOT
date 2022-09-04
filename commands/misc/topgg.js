@@ -35,7 +35,7 @@ module.exports = {
         	.setFooter({ text: '» ' + version });
         
         // Send Message
-        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString() + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] TOPGG')
+        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] TOPGG')
         interaction.reply({ embeds: [message.toJSON()], components: [topgg], ephemeral: true })
     },
 };

@@ -70,7 +70,7 @@ module.exports = {
   				.setDescription('» Du hast leider noch einen Cooldown von **' + cdown.toFixed(0) + 's**!')
             	.setFooter({ text: '» ' + version });
             
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString() + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] ROB : ONCOOLDOWN : ' + cdown.toFixed(0) + 's');
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] ROB : ONCOOLDOWN : ' + cdown.toFixed(0) + 's');
             return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
         
@@ -96,7 +96,7 @@ module.exports = {
         		.setFooter({ text: '» ' + version });
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString() + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] ROB : ' + user + ' : BOT')
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] ROB : ' + user + ' : BOT')
             return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
         
@@ -115,15 +115,15 @@ module.exports = {
             
         // Check Money
         if (money == 35 && moneysnd < 20) {
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString() + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] ROB : ' + user + ' : NOTENOUGHMONEY')
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] ROB : ' + user + ' : NOTENOUGHMONEY')
             return interaction.reply({ embeds: [notenoughmoney1.toJSON()], ephemeral: true })
      	};
         if (money == 20 && moneysnd < 50) {
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString() + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] ROB : ' + user + ' : NOTENOUGHMONEY')
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] ROB : ' + user + ' : NOTENOUGHMONEY')
             return interaction.reply({ embeds: [notenoughmoney1.toJSON()], ephemeral: true })
      	};
         if (money == 5 && moneysnd < 100) {
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString() + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] ROB : ' + user + ' : NOTENOUGHMONEY')
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] ROB : ' + user + ' : NOTENOUGHMONEY')
             return interaction.reply({ embeds: [notenoughmoney1.toJSON()], ephemeral: true })
      	};
             
@@ -136,15 +136,15 @@ module.exports = {
             
         // Check Money
         if (money == 35 && moneytar < 20) {
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString() + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] ROB : ' + user + ' : NOTENOUGHMONEY')
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] ROB : ' + user + ' : NOTENOUGHMONEY')
             return interaction.reply({ embeds: [notenoughmoney2.toJSON()], ephemeral: true })
      	};
         if (money == 20 && moneytar < 50) {
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString() + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] ROB : ' + user + ' : NOTENOUGHMONEY')
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] ROB : ' + user + ' : NOTENOUGHMONEY')
             return interaction.reply({ embeds: [notenoughmoney2.toJSON()], ephemeral: true })
      	};
         if (money == 5 && moneytar < 100) {
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString() + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] ROB : ' + user + ' : NOTENOUGHMONEY')
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] ROB : ' + user + ' : NOTENOUGHMONEY')
             return interaction.reply({ embeds: [notenoughmoney2.toJSON()], ephemeral: true })
      	};
         
@@ -198,7 +198,7 @@ module.exports = {
 			cooldown.set(interaction.user.id, Date.now() + time);
         	setTimeout(() => cooldown.delete(), time)
             
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString() + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] ROB : ' + user + ' : ' + amount + '€ : FAILURE : ' + punishment + '€')
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] ROB : ' + user + ' : ' + amount + '€ : FAILURE : ' + punishment + '€')
         	bals.rem('<@' + interaction.user.id + '>', punishment)
         	return interaction.reply({ embeds: [failure.toJSON()] })
         }
@@ -212,7 +212,7 @@ module.exports = {
         bals.add('<@' + interaction.user.id + '>', amount)
         
         // Send Message
-        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString() + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] ROB : ' + user + ' : ' + amount + '€ : SUCCESS')
+        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] ROB : ' + user + ' : ' + amount + '€ : SUCCESS')
         return interaction.reply({ embeds: [sucess.toJSON()] })
     },
 };

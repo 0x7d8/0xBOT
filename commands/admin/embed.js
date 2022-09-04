@@ -59,7 +59,7 @@ module.exports = {
         }
 
         // Send Message
-        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString() + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] EMBED : ' + titel.toUpperCase() + ' : ' + nachricht.toUpperCase())
+        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] EMBED : ' + titel.toUpperCase() + ' : ' + nachricht.toUpperCase())
         return interaction.reply({ embeds: [message.toJSON()] })
     },
 };

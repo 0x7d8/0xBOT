@@ -49,7 +49,7 @@ module.exports = {
         		.setFooter({ text: '» ' + version });
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString() + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] COINFLIP : NOTENOUGHCOINS : ' + anzahl)
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] COINFLIP : NOTENOUGHCOINS : ' + anzahl)
             return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
 
@@ -62,7 +62,7 @@ module.exports = {
         		.setFooter({ text: '» ' + version });
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString() + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] COINFLIP : TOOMANYCOINS : ' + anzahl)
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] COINFLIP : TOOMANYCOINS : ' + anzahl)
             return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
 
@@ -101,7 +101,7 @@ module.exports = {
 
         
         // Send Message
-        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString() + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] COINFLIP : H[' + heads + '] : T[' + tails + ']')
+        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] COINFLIP : H[' + heads + '] : T[' + tails + ']')
         return interaction.reply({ embeds: [message.toJSON()] })
     },
 };

@@ -54,7 +54,7 @@ module.exports = {
             	.setFooter({ text: '» ' + version });
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString() + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] REMQUOTES : ' + anzahl + ' : NOTENOUGHQUOTES');
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] REMQUOTES : ' + anzahl + ' : NOTENOUGHQUOTES');
         	return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
         
@@ -69,7 +69,7 @@ module.exports = {
             	.setFooter({ text: '» ' + version + ' » QUOTES: ' + quotes});
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString() + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] REMQUOTES : ' + anzahl + ' : NOTENOUGHMONEY');
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] REMQUOTES : ' + anzahl + ' : NOTENOUGHMONEY');
         	return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
         
@@ -93,7 +93,7 @@ module.exports = {
         quts.rem('<@' + interaction.user.id + '>', anzahl);
         
         // Send Message
-        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString() + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] REMQUOTES : ' + anzahl + ' : ' + cost + '€');
+        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] REMQUOTES : ' + anzahl + ' : ' + cost + '€');
         return interaction.reply({ embeds: [message.toJSON()] })
     },
 };

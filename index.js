@@ -9,7 +9,7 @@ const mongoose = require('mongoose')
 mongoose.connect(mongo, {
     useUnifiedTopology: true,
     useNewUrlParser: true
-}).then(console.log('\n[0xBOT] [i] [' + new Date().toLocaleTimeString() + '] LOADING BOT, VERSION ' + version + '\n[0xBOT] [!] [' + new Date().toLocaleTimeString() + '] CONNECTED TO MONGODB\n\n[0xBOT] [i] [' + new Date().toLocaleTimeString() + '] LOADING COMMANDS AND EVENTS...'))
+}).then(console.log('\n[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] LOADING BOT, VERSION ' + version + '\n[0xBOT] [!] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] CONNECTED TO MONGODB\n\n[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] LOADING COMMANDS AND EVENTS...'))
 
 // Deploy Commands
 const { REST } = require('@discordjs/rest');
@@ -27,7 +27,7 @@ for (const file of eventFiles) {
 	} else {
 		client.on(event.event, (...args) => event.execute(...args));
 	}
-	console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString()}] LOADING EVENT ${event.name}`);
+	console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] LOADING EVENT ${event.name}`);
 }
 
 // Load all commands
@@ -38,7 +38,7 @@ for (const file of commandFiles) {
 	const command = require(file);
 	client.commands.set(command.data.name, command);
     let cmd = command.data.name.toUpperCase()
-	console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString()}] LOADING COMMAND ${cmd}`);
+	console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] LOADING COMMAND ${cmd}`);
 }
 
 client.on('interactionCreate', async interaction => {
@@ -51,7 +51,7 @@ client.on('interactionCreate', async interaction => {
 	try {
 		await command.execute(interaction);
 	} catch (error) {
-        console.log('[0xBOT] [!] [' + new Date().toLocaleTimeString() + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] ERROR :')
+        console.log('[0xBOT] [!] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] ERROR :')
 		console.error(error);
         
         // Create Error Embed
@@ -105,7 +105,7 @@ rest.put(
 	{ body: commands },
 );
 
-console.log('\n[0xBOT] [!] [' + new Date().toLocaleTimeString() + '] COMMANDS REGISTERED\n[0xBOT] [i] [' + new Date().toLocaleTimeString() + '] LOGGING IN')
+console.log('\n[0xBOT] [!] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] COMMANDS REGISTERED\n[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] LOGGING IN')
 
 // Login
 client.login(token);
