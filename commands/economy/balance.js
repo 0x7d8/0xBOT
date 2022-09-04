@@ -35,7 +35,7 @@ module.exports = {
         
         // Set Variables
         const userraw = interaction.options.getUser("user")
-        const user = userraw.replace(/\D/g, '')
+        const user = userraw.toString().replace(/\D/g, '')
 
         // Get Username
         let userinfo

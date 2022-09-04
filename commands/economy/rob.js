@@ -54,7 +54,7 @@ module.exports = {
         
         // Set Variables
         const userraw = interaction.options.getUser("user")
-        const user = userraw.replace(/\D/g, '')
+        const user = userraw.toString().replace(/\D/g, '')
         const money = interaction.options.getString("money")
         const moneysnd = await bals.get(interaction.user.id.replace(/\D/g, ''));
         const moneytar = await bals.get('<@' + user + '>');

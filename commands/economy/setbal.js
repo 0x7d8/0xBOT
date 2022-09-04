@@ -43,7 +43,7 @@ module.exports = {
         // Set Variables
         const user = interaction.options.getUser("user")
         const anzahl = interaction.options.getInteger("amount")
-        const money = await bals.get(user.replace(/\D/g, ''));
+        const money = await bals.get(user.toString().replace(/\D/g, ''));
 
         // Create Embed
       	const message = new EmbedBuilder()
@@ -66,10 +66,10 @@ module.exports = {
         
         // Set Money
         if (money > 0) {
-        	bals.rem(user.replace(/\D/g, ''), money)
+        	bals.rem(user.toString().replace(/\D/g, ''), money)
         }
         
-        bals.add(user.replace(/\D/g, ''), anzahl)
+        bals.add(user.toString().replace(/\D/g, ''), anzahl)
 
         // Send Message
         console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] SETBAL : ' + user + ' : ' + anzahl + '€')

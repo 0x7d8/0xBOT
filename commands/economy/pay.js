@@ -46,7 +46,7 @@ module.exports = {
         
         // Set Variables
         const userraw = interaction.options.getUser("user")
-        const user = userraw.replace(/\D/g, '')
+        const user = userraw.toString().replace(/\D/g, '')
         const anzahl = interaction.options.getInteger("amount")
         const money = await bals.get(interaction.user.id.replace(/\D/g, ''));
 
