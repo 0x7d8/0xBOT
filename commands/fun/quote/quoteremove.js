@@ -4,7 +4,7 @@ const { version } = require('../../../config.json');
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('quote remove')
+        .setName('quoteremove')
     	.setDMPermission(false)
         .setDescription('REMOVE QUOTES')
         .setDescriptionLocalizations({

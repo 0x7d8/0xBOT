@@ -5,7 +5,7 @@ const fs = require('fs');
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('api edit')
+        .setName('apiedit')
         .setDescription('CHANGE AN API')
         .setDescriptionLocalizations({
             de: 'ÄNDERE EINE EMBED'

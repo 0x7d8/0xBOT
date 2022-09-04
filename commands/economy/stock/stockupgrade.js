@@ -4,7 +4,7 @@ const { version } = require('../../../config.json');
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('stock upgrade')
+        .setName('stockupgrade')
     	.setDMPermission(false)
         .setDescription('BUY STOCK SLOTS')
         .setDescriptionLocalizations({
