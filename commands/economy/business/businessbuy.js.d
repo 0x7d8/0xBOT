@@ -72,7 +72,7 @@ module.exports = {
         		    .setFooter({ text: '» ' + version });
             
                 // Send Message
-                console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] BUSINESSBUY : ALREADYOWNED')
+                console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString() + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] BUSINESSBUY : ALREADYOWNED')
                 return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
             }
         }
@@ -90,7 +90,7 @@ module.exports = {
         		    .setFooter({ text: '» ' + version });
             
                 // Send Message
-                console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] BUSINESSBUY : ALREADYOWNED')
+                console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString() + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] BUSINESSBUY : ALREADYOWNED')
                 return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
             }
         }
@@ -108,7 +108,7 @@ module.exports = {
         		    .setFooter({ text: '» ' + version });
             
                 // Send Message
-                console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] BUSINESSBUY : ALREADYOWNED')
+                console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString() + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] BUSINESSBUY : ALREADYOWNED')
                 return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
             }
         }
@@ -135,7 +135,7 @@ module.exports = {
             	.setFooter({ text: '» ' + version });
             
             // Send Message
-            console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] BUSINESSBUY : ' + name.toUpperCase() + ' : NOTENOUGHMONEY : ' + cost + '€')
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString() + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] BUSINESSBUY : ' + name.toUpperCase() + ' : NOTENOUGHMONEY : ' + cost + '€')
             return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
 
@@ -189,7 +189,7 @@ module.exports = {
             .setFooter({ text: '» ' + version });
 
         // Send Message
-        console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] BUSINESSBUY : ' + name.toUpperCase() + ' : ' + cost + '€')
+        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString() + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] BUSINESSBUY : ' + name.toUpperCase() + ' : ' + cost + '€')
         return interaction.reply({ embeds: [message.toJSON()] })
     },
 };

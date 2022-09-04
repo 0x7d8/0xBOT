@@ -63,7 +63,7 @@ module.exports = {
         		.setFooter({ text: '» ' + version + ' » SLOTS ' + amount + '/5'});
 
         	// Send Message
-        	console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] APIEDIT : ' + name + ' : ' + inhalt.toUpperCase())
+        	console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString() + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] APIEDIT : ' + name + ' : ' + inhalt.toUpperCase())
         	return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         } else {
             // Create Embed
@@ -73,7 +73,7 @@ module.exports = {
         		.setFooter({ text: '» ' + version + ' » SLOTS ' + amount + '/5'});
             
             // Send Message
-            console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] APIEDIT : ' + name + ' : NOTFOUND')
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString() + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] APIEDIT : ' + name + ' : NOTFOUND')
             return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
     },

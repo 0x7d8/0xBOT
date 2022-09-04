@@ -67,7 +67,7 @@ module.exports = {
             	.setFooter({ text: '» ' + version });
             
             // Send Message
-            console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] STOCKUPGRADE  : ' + slots + ' : ' + cost + '€ : NOTENOUGHMONEY')
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString() + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] STOCKUPGRADE  : ' + slots + ' : ' + cost + '€ : NOTENOUGHMONEY')
             return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
 
@@ -95,7 +95,7 @@ module.exports = {
         }
 
         // Send Message
-        console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] STOCKUPGRADE : ' + slots + ' : ' + cost + '€')
+        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString() + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] STOCKUPGRADE : ' + slots + ' : ' + cost + '€')
         return interaction.reply({ embeds: [message.toJSON()] })
     },
 };

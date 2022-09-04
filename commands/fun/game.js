@@ -88,7 +88,7 @@ module.exports = {
         		.setFooter({ text: '» ' + version });
 
         // Send Message
-        console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] GAME : ' + spiel.toUpperCase())
+        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString() + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] GAME : ' + spiel.toUpperCase())
         if (spiel == 'stadtlandfluss') {
             interaction.reply({ embeds: [slf.toJSON()], components: [slfB] })
         }

@@ -195,9 +195,9 @@ module.exports = {
 
         // Send Message
         if (stock != 'all') {
-            console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] STOCKINFO : ' + stock.toUpperCase() + ' : ' + priceText + '€')
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString() + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] STOCKINFO : ' + stock.toUpperCase() + ' : ' + priceText + '€')
         } else {
-            console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] STOCKINFO : ALL : ' + green + '€ : ' + red + '€ : ' + yellow + '€ : ' + blue + '€')
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString() + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] STOCKINFO : ALL : ' + green + '€ : ' + red + '€ : ' + yellow + '€ : ' + blue + '€')
         }
         return interaction.reply({ embeds: [message.toJSON()] })
     },

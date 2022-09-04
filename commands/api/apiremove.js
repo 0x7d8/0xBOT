@@ -53,7 +53,7 @@ module.exports = {
 
         	// Send Message
         	apis.rem('<@' + interaction.user.id + '>', 1)
-        	console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] APIREMOVE : ' + name)
+        	console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString() + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] APIREMOVE : ' + name)
         	return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         } catch (err) {
             // Create Embed
@@ -63,7 +63,7 @@ module.exports = {
         		.setFooter({ text: '» ' + version + ' » SLOTS ' + amount + '/5'});
             
             // Send Message
-            console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] APIREMOVE : ' + name + ' : NOTFOUND')
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString() + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] APIREMOVE : ' + name + ' : NOTFOUND')
             return interaction.reply({ embeds: [error.toJSON()], ephemeral: true })
         }
     },

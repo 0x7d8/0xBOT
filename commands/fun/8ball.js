@@ -70,7 +70,7 @@ module.exports = {
         	.setFooter({ text: '» ' + version });
         
         // Send Message
-        console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] 8BALL : ' + formatted.toUpperCase() + ' : ' + result.toUpperCase())
+        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString() + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] 8BALL : ' + formatted.toUpperCase() + ' : ' + result.toUpperCase())
         return interaction.reply({ embeds: [message.toJSON()] })
     },
 };

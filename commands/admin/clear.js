@@ -61,7 +61,7 @@ module.exports = {
         		.setFooter({ text: '» ' + version });
             
             // Send Message
-            console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] CLEAR : NEGATIVEAMOUNT : ' + amount)
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString() + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] CLEAR : NEGATIVEAMOUNT : ' + amount)
             return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
 
@@ -93,7 +93,7 @@ module.exports = {
                 }
 
                 // Send Message
-                console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] CLEAR : ' + target + ' : ' + amount)
+                console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString() + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] CLEAR : ' + target + ' : ' + amount)
                 return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
             })
         } else {
@@ -113,7 +113,7 @@ module.exports = {
                 }
 
                 // Send Message
-                console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] CLEAR : ' + amount)
+                console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString() + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] CLEAR : ' + amount)
                 return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
             })
         }

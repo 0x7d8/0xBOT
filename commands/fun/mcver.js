@@ -28,7 +28,7 @@ module.exports = {
         	.setFooter({ text: '» ' + version });
 
         // Send Message
-        console.log('[0xBOT] [i] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] MCVER : 1.' + res)
+        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString() + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] MCVER : 1.' + res)
         return interaction.reply({ embeds: [message.toJSON()] })
     },
 };
