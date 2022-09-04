@@ -34,7 +34,8 @@ module.exports = {
         cmds.add('u-' + interaction.user.id.replace(/\D/g, ''), 1)
         
         // Set Variables
-        const user = interaction.options.getUser("user").replace(/\D/g, '')
+        const userraw = interaction.options.getUser("user")
+        const user = userraw.replace(/\D/g, '')
 
         // Get Username
         let userinfo

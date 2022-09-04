@@ -53,7 +53,8 @@ module.exports = {
         cmds.add('u-' + interaction.user.id.replace(/\D/g, ''), 1)
         
         // Set Variables
-        const user = interaction.options.getUser("user")
+        const userraw = interaction.options.getUser("user")
+        const user = userraw.replace(/\D/g, '')
         const money = interaction.options.getString("money")
         const moneysnd = await bals.get(interaction.user.id.replace(/\D/g, ''));
         const moneytar = await bals.get('<@' + user + '>');
@@ -208,7 +209,7 @@ module.exports = {
         setTimeout(() => cooldown.delete(), time)
 
         // Set Money
-        bals.rem(user.replace(/\D/g, ''), amount)
+        bals.rem(user, amount)
         bals.add(interaction.user.id.replace(/\D/g, ''), amount)
         
         // Send Message
