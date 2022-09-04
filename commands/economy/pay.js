@@ -45,8 +45,7 @@ module.exports = {
         cmds.add('u-' + interaction.user.id.replace(/\D/g, ''), 1)
         
         // Set Variables
-        const userraw = interaction.options.getUser("user")
-        const user = userraw.toString().replace(/\D/g, '')
+        const user = interaction.options.getUser("user")
         const anzahl = interaction.options.getInteger("amount")
         const money = await bals.get(interaction.user.id.replace(/\D/g, ''));
 
@@ -95,7 +94,7 @@ module.exports = {
         // Set Money
         if (money >= anzahl) {
         	bals.rem(interaction.user.id.replace(/\D/g, ''), anzahl)
-        	bals.add(user, anzahl)
+        	bals.add(user.toString().replace(/\D/g, ''), anzahl)
         } else {
             const missing = anzahl - money
             
