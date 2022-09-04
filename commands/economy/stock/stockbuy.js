@@ -5,7 +5,7 @@ const fetch = require("node-fetch");
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('stockbuy')
+        .setName('stock buy')
     	.setDMPermission(false)
         .setDescription('BUY STOCKS')
         .setDescriptionLocalizations({

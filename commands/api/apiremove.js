@@ -5,7 +5,7 @@ const fs = require('fs');
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('apiremove')
+        .setName('api remove')
         .setDescription('REMOVE AN API')
         .setDescriptionLocalizations({
             de: 'ENTFERNE EINE API'

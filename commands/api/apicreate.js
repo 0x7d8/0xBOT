@@ -5,7 +5,7 @@ const fs = require('fs');
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('apicreate')
+        .setName('api create')
         .setDescription('CREATE AN API')
         .setDescriptionLocalizations({
             de: 'ERSTELLE EINE API'

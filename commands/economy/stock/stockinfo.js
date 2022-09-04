@@ -7,7 +7,7 @@ const wait = require('node:timers/promises').setTimeout;
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('stockinfo')
+        .setName('stock info')
     	.setDMPermission(false)
         .setDescription('SEE STOCK PRICES')
         .setDescriptionLocalizations({

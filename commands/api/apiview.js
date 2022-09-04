@@ -5,7 +5,7 @@ const fs = require('fs');
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('apiview')
+        .setName('api view')
         .setDescription('VIEW AN API')
         .setDescriptionLocalizations({
             de: 'BETRACHTE EINE API'
