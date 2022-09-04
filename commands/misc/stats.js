@@ -14,7 +14,7 @@ module.exports = {
         // Set Variables
         const totalcmd = await cmds.get('t-all');
         const guildcmd = await cmds.get('g-' + interaction.guild.id);
-        const usercmd = await cmds.get('u-' + interaction.user.id);
+        const usercmd = await cmds.get('u-' + interaction.user.id.replace(/\D/g, ''));
 
         // Create Embed
         const message = new EmbedBuilder()
@@ -23,7 +23,7 @@ module.exports = {
         		.setFooter({ text: '» ' + version });
 
         // Send Correct Response
-        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] STATS')
+        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] STATS')
         return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
     },
 };

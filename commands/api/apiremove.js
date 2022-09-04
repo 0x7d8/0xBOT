@@ -32,15 +32,15 @@ module.exports = {
         
         // Count Guild Commands and User
         cmds.add('g-' + interaction.guild.id, 1)
-        cmds.add('u-' + interaction.user.id, 1)
+        cmds.add('u-' + interaction.user.id.replace(/\D/g, ''), 1)
         
         // Set Variables
         const name = interaction.options.getString("name")
-        const amount = await apis.get('<@' + interaction.user.id + '>');
+        const amount = await apis.get(interaction.user.id.replace(/\D/g, ''));
         const newamount = amount - 1
 
        	// Check if API even exists
-        const path = '/paper-api/' + interaction.user.id + '/' + name
+        const path = '/paper-api/' + interaction.user.id.replace(/\D/g, '') + '/' + name
         try {
         	// Create Embed
         	const message = new EmbedBuilder()
@@ -52,8 +52,8 @@ module.exports = {
         	fs.unlinkSync(path)
 
         	// Send Message
-        	apis.rem('<@' + interaction.user.id + '>', 1)
-        	console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] APIREMOVE : ' + name)
+        	apis.rem(interaction.user.id.replace(/\D/g, ''), 1)
+        	console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] APIREMOVE : ' + name)
         	return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         } catch (err) {
             // Create Embed
@@ -63,7 +63,7 @@ module.exports = {
         		.setFooter({ text: '» ' + version + ' » SLOTS ' + amount + '/5'});
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] APIREMOVE : ' + name + ' : NOTFOUND')
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] APIREMOVE : ' + name + ' : NOTFOUND')
             return interaction.reply({ embeds: [error.toJSON()], ephemeral: true })
         }
     },

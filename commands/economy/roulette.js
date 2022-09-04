@@ -42,13 +42,13 @@ module.exports = {
         
         // Count Guild Commands and User
         cmds.add('g-' + interaction.guild.id, 1)
-        cmds.add('u-' + interaction.user.id, 1)
+        cmds.add('u-' + interaction.user.id.replace(/\D/g, ''), 1)
         
         // Set Variables
         const farbe = interaction.options.getString("color")
         const wette = interaction.options.getInteger("bet")
         
-        const money = await bals.get('<@' + interaction.user.id + '>');
+        const money = await bals.get(interaction.user.id.replace(/\D/g, ''));
         const random = Math.floor(Math.random() * (21 - 1 + 1)) + 1;
 
         // Check if Balance is Minus
@@ -60,7 +60,7 @@ module.exports = {
         		.setFooter({ text: '» ' + version });
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] ROULETTE : NEGATIVEMONEY : ' + wette + '€')
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] ROULETTE : NEGATIVEMONEY : ' + wette + '€')
             return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
         
@@ -86,7 +86,7 @@ module.exports = {
             		.setFooter({ text: '» ' + version });
                 
                 // Send Message
-            	console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] ROULETTE : TOOMUCHMONEY : ' + wette + '€')
+            	console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] ROULETTE : TOOMUCHMONEY : ' + wette + '€')
         		return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
             }
             
@@ -118,14 +118,14 @@ module.exports = {
             
             // Set Money
             if (color != farbe) {
-            	bals.rem('<@' + interaction.user.id + '>', wette);
+            	bals.rem(interaction.user.id.replace(/\D/g, ''), wette);
             }
 			if (color == farbe) {
-            	bals.add('<@' + interaction.user.id + '>', resultadd);
+            	bals.add(interaction.user.id.replace(/\D/g, ''), resultadd);
             }
             
             // Send Message
-        	console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] ROULETTE : ' + farbe.toUpperCase() + '[W:' + color.toUpperCase() + '] : ' + status + ' : ' + resultdis + '€')
+        	console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] ROULETTE : ' + farbe.toUpperCase() + '[W:' + color.toUpperCase() + '] : ' + status + ' : ' + resultdis + '€')
         	return interaction.reply({ embeds: [message.toJSON()] })
         } else {
             const missing = wette - money
@@ -137,7 +137,7 @@ module.exports = {
             	.setFooter({ text: '» ' + version });
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] GUESS : NOTENOUGHMONEY : ' + missing + '€')
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] GUESS : NOTENOUGHMONEY : ' + missing + '€')
         	return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
     },

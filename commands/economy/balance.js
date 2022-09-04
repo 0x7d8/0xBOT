@@ -31,7 +31,7 @@ module.exports = {
         
         // Count Guild Commands and User
         cmds.add('g-' + interaction.guild.id, 1)
-        cmds.add('u-' + interaction.user.id, 1)
+        cmds.add('u-' + interaction.user.id.replace(/\D/g, ''), 1)
         
         // Set Variables
         const user = interaction.options.getUser("user")
@@ -45,11 +45,11 @@ module.exports = {
         // Get Money
         let money
         if (user == null) {
-            money = await bals.get('<@' + interaction.user.id + '>');
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] BALANCE : ' + money + '€');
+            money = await bals.get(interaction.user.id.replace(/\D/g, ''));
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] BALANCE : ' + money + '€');
         } else {
             money = await bals.get('<@' + user + '>');
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] BALANCE : ' + user + ' : ' + money + '€');
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] BALANCE : ' + user + ' : ' + money + '€');
         }
         
         // Create Embed

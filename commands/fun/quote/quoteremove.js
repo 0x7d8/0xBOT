@@ -34,7 +34,7 @@ module.exports = {
         
         // Count Guild Commands and User
         cmds.add('g-' + interaction.guild.id, 1)
-        cmds.add('u-' + interaction.user.id, 1)
+        cmds.add('u-' + interaction.user.id.replace(/\D/g, ''), 1)
         
         // Set Variables
         const anzahl = interaction.options.getString("amount")
@@ -42,8 +42,8 @@ module.exports = {
         const cost = anzahl * 100
 
         // Get User Balances
-        const quotes = await quts.get('<@' + interaction.user.id + '>');
-        const money = await bals.get('<@' + interaction.user.id + '>');
+        const quotes = await quts.get(interaction.user.id.replace(/\D/g, ''));
+        const money = await bals.get(interaction.user.id.replace(/\D/g, ''));
         
         // Check if not in Minus Quotes
         if (quotes - anzahl < 0) {
@@ -54,7 +54,7 @@ module.exports = {
             	.setFooter({ text: '» ' + version });
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] REMQUOTES : ' + anzahl + ' : NOTENOUGHQUOTES');
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] REMQUOTES : ' + anzahl + ' : NOTENOUGHQUOTES');
         	return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
         
@@ -69,7 +69,7 @@ module.exports = {
             	.setFooter({ text: '» ' + version + ' » QUOTES: ' + quotes});
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] REMQUOTES : ' + anzahl + ' : NOTENOUGHMONEY');
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] REMQUOTES : ' + anzahl + ' : NOTENOUGHMONEY');
         	return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
         
@@ -89,11 +89,11 @@ module.exports = {
             .setFooter({ text: '» ' + version + ' » QUOTES: ' + newquotes});
 
         // Set Money and Quotes
-        bals.rem('<@' + interaction.user.id + '>', cost);
-        quts.rem('<@' + interaction.user.id + '>', anzahl);
+        bals.rem(interaction.user.id.replace(/\D/g, ''), cost);
+        quts.rem(interaction.user.id.replace(/\D/g, ''), anzahl);
         
         // Send Message
-        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] REMQUOTES : ' + anzahl + ' : ' + cost + '€');
+        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] REMQUOTES : ' + anzahl + ' : ' + cost + '€');
         return interaction.reply({ embeds: [message.toJSON()] })
     },
 };

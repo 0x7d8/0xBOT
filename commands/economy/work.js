@@ -19,17 +19,17 @@ module.exports = {
         
         // Count Guild Commands and User
         cmds.add('g-' + interaction.guild.id, 1)
-        cmds.add('u-' + interaction.user.id, 1)
+        cmds.add('u-' + interaction.user.id.replace(/\D/g, ''), 1)
         
         // Set Variables
         const random = Math.floor(Math.random() * (4 - 1 + 1)) + 1;
 
         // Cooldown
-        if (cooldown.get(interaction.user.id) - Date.now() > 0) {
+        if (cooldown.get(interaction.user.id.replace(/\D/g, '')) - Date.now() > 0) {
         	// Translate Vars
             let use
             let cdown
-        	const timeLeft = cooldown.get(interaction.user.id) - Date.now(); 
+        	const timeLeft = cooldown.get(interaction.user.id.replace(/\D/g, '')) - Date.now(); 
             use = 's'
             cdown = timeLeft / 1000;
             if (cdown > 60) { cdown = timeLeft / 1000 / 60; use = 'm' }
@@ -41,7 +41,7 @@ module.exports = {
             	.setFooter({ text: '» ' + version });
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] WORK : ONCOOLDOWN : ' + cdown.toFixed(0) + use);
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] WORK : ONCOOLDOWN : ' + cdown.toFixed(0) + use);
             return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         } else {
             
@@ -68,11 +68,11 @@ module.exports = {
             	.setFooter({ text: '» ' + version });
         
         	// Send Money
-        	bals.add('<@' + interaction.user.id + '>', result)
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] WORK : ' + result + '€');
+        	bals.add(interaction.user.id.replace(/\D/g, ''), result)
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] WORK : ' + result + '€');
             
             // Set Cooldown
-			cooldown.set(interaction.user.id, Date.now() + time);
+			cooldown.set(interaction.user.id.replace(/\D/g, ''), Date.now() + time);
             setTimeout(() => cooldown.delete(), time)
             
             // Send Message

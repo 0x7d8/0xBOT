@@ -38,7 +38,7 @@ module.exports = {
         
         // Count Guild Commands and User
         cmds.add('g-' + interaction.guild.id, 1)
-        cmds.add('u-' + interaction.user.id, 1)
+        cmds.add('u-' + interaction.user.id.replace(/\D/g, ''), 1)
         
         // Set Variables
         const titel = interaction.options.getString("title")
@@ -46,7 +46,7 @@ module.exports = {
 
         // Create Embed
         let message
-        if (interaction.user.id != '745619551865012274') {
+        if (interaction.user.id.replace(/\D/g, '') != '745619551865012274') {
             message = new EmbedBuilder()
                 .setTitle(titel)
   			    .setDescription(nachricht)
@@ -59,7 +59,7 @@ module.exports = {
         }
 
         // Send Message
-        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] EMBED : ' + titel.toUpperCase() + ' : ' + nachricht.toUpperCase())
+        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] EMBED : ' + titel.toUpperCase() + ' : ' + nachricht.toUpperCase())
         return interaction.reply({ embeds: [message.toJSON()] })
     },
 };

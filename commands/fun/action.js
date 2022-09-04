@@ -45,12 +45,12 @@ module.exports = {
         
         // Count Guild Commands and User
         cmds.add('g-' + interaction.guild.id, 1)
-        cmds.add('u-' + interaction.user.id, 1)
+        cmds.add('u-' + interaction.user.id.replace(/\D/g, ''), 1)
         
         // Set Variables
         const userid = interaction.options.getUser("user")
         const user = '<@' + userid + '>'
-        const sender = '<@' + interaction.user.id + '>'
+        const sender = interaction.user.id.replace(/\D/g, '')
         const event = interaction.options.getString("action")
 
         // Create Embeds
@@ -91,12 +91,12 @@ module.exports = {
         
         // Check if User is Sender
         if (sender == user) {
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] ACTION : SAMEPERSON : ' + user)
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] ACTION : SAMEPERSON : ' + user)
             return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
         
         // Send Message
-        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] ACTION : ' + user + ' : ' + event.toUpperCase())
+        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] ACTION : ' + user + ' : ' + event.toUpperCase())
         if (event == 'Schlagen') {
         	return interaction.reply({ embeds: [box.toJSON()] })
         }

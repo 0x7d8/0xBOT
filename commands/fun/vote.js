@@ -38,7 +38,7 @@ module.exports = {
         
         // Count Guild Commands and User
         cmds.add('g-' + interaction.guild.id, 1)
-        cmds.add('u-' + interaction.user.id, 1)
+        cmds.add('u-' + interaction.user.id.replace(/\D/g, ''), 1)
         
         // Set Variables
         const frage = interaction.options.getString("text")
@@ -53,7 +53,7 @@ module.exports = {
         // Send Message
         interaction.reply({ embeds: [message.toJSON()] })
         const sendcache = await interaction.fetchReply();
-        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] VOTE : ' + frage.toUpperCase() + ' : ' + reactions.toUpperCase())
+        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] VOTE : ' + frage.toUpperCase() + ' : ' + reactions.toUpperCase())
         
         // Add the correct Reactions
 		if (reactions == 'frage') {

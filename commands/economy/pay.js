@@ -42,12 +42,12 @@ module.exports = {
         
         // Count Guild Commands and User
         cmds.add('g-' + interaction.guild.id, 1)
-        cmds.add('u-' + interaction.user.id, 1)
+        cmds.add('u-' + interaction.user.id.replace(/\D/g, ''), 1)
         
         // Set Variables
         const user = interaction.options.getUser("user")
         const anzahl = interaction.options.getInteger("amount")
-        const money = await bals.get('<@' + interaction.user.id + '>');
+        const money = await bals.get(interaction.user.id.replace(/\D/g, ''));
 
         // Check if Balance is Minus
         if (anzahl < 0) {
@@ -58,7 +58,7 @@ module.exports = {
         		.setFooter({ text: '» ' + version });
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] PAY : NEGATIVEMONEY : ' + anzahl + '€')
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] PAY : NEGATIVEMONEY : ' + anzahl + '€')
             return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
 
@@ -72,7 +72,7 @@ module.exports = {
         		.setFooter({ text: '» ' + version });
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] PAY : ' + user + ' : BOT : ' + anzahl + '€')
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] PAY : ' + user + ' : BOT : ' + anzahl + '€')
             return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
         
@@ -87,14 +87,14 @@ module.exports = {
         	.setFooter({ text: '» ' + version });
         
         // Check if User is Author
-        if (interaction.user.id == user) {
+        if (interaction.user.id.replace(/\D/g, '') == user) {
             return interaction.reply({ embeds: [err2.toJSON()], ephemeral: true })
         }
         
         // Set Money
         if (money >= anzahl) {
-        	bals.rem('<@' + interaction.user.id + '>', anzahl)
-        	bals.add('<@' + user + '>', anzahl)
+        	bals.rem(interaction.user.id.replace(/\D/g, ''), anzahl)
+        	bals.add(user.replace(/\D/g, ''), anzahl)
         } else {
             const missing = anzahl - money
             
@@ -105,12 +105,12 @@ module.exports = {
             	.setFooter({ text: '» ' + version });
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] PAY : ' + user + ' : NOTENOUGHMONEY : ' + anzahl + '€')
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] PAY : ' + user + ' : NOTENOUGHMONEY : ' + anzahl + '€')
             return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
 
         // Send Message
-        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] PAY : ' + user + ' : ' + anzahl + '€')
+        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] PAY : ' + user + ' : ' + anzahl + '€')
         return interaction.reply({ embeds: [message.toJSON()] })
     },
 };

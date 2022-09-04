@@ -52,13 +52,13 @@ module.exports = {
         
         // Count Guild Commands and User
         cmds.add('g-' + interaction.guild.id, 1)
-        cmds.add('u-' + interaction.user.id, 1)
+        cmds.add('u-' + interaction.user.id.replace(/\D/g, ''), 1)
         
         // Set Variables
         const bereich = interaction.options.getString("range")
         const wette = interaction.options.getInteger("bet")
         const nummer = interaction.options.getInteger("number")
-        const money = await bals.get('<@' + interaction.user.id + '>');
+        const money = await bals.get(interaction.user.id.replace(/\D/g, ''));
         const random10 = Math.floor(Math.random() * (10 - 1 + 1)) + 1;
         const random100 = Math.floor(Math.random() * (100 - 1 + 1)) + 1;
         const random1000 = Math.floor(Math.random() * (1000 - 1 + 1)) + 1;
@@ -72,7 +72,7 @@ module.exports = {
         		.setFooter({ text: '» ' + version });
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] GUESS : NEGATIVEMONEY : ' + wette + '€')
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] GUESS : NEGATIVEMONEY : ' + wette + '€')
             return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
         
@@ -89,7 +89,7 @@ module.exports = {
             		.setFooter({ text: '» ' + version });
                 
                 // Send Message
-            	console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] GUESS : TOOMUCHMONEY : ' + wette + '€')
+            	console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] GUESS : TOOMUCHMONEY : ' + wette + '€')
         		return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
             }
             
@@ -108,7 +108,7 @@ module.exports = {
             	.setFooter({ text: '» ' + version });
 
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] GUESS : NOTENOUGHMONEY : ' + missing + '€')
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] GUESS : NOTENOUGHMONEY : ' + missing + '€')
             return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
         
@@ -119,13 +119,13 @@ module.exports = {
         	.setFooter({ text: '» ' + version });
         
         // Set Money
-        bals.rem('<@' + interaction.user.id + '>', result)
+        bals.rem(interaction.user.id.replace(/\D/g, ''), result)
         if (status == 'GEWONNEN') {
-        	bals.add('<@' + interaction.user.id + '>', result)
+        	bals.add(interaction.user.id.replace(/\D/g, ''), result)
         }
 
         // Send Message
-       	console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] GUESS : ' + nummer + ' : ' + status + ' : ' + result + '€')
+       	console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] GUESS : ' + nummer + ' : ' + status + ' : ' + result + '€')
         return interaction.reply({ embeds: [message.toJSON()] })
     },
 };

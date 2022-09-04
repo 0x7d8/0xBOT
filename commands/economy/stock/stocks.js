@@ -31,7 +31,7 @@ module.exports = {
         
         // Count Guild Commands and User
         cmds.add('g-' + interaction.guild.id, 1)
-        cmds.add('u-' + interaction.user.id, 1)
+        cmds.add('u-' + interaction.user.id.replace(/\D/g, ''), 1)
         
         // Set Variables
         const user = interaction.options.getUser("user")
@@ -45,20 +45,20 @@ module.exports = {
         let redmax
 
         if (user == null) {
-            green = await sgrn.get('<@' + interaction.user.id + '>');
-            greenmax = await sgrnx.get('<@' + interaction.user.id + '>');
-            blue = await sblu.get('<@' + interaction.user.id + '>');
-            bluemax = await sblux.get('<@' + interaction.user.id + '>');
-            yellow = await syll.get('<@' + interaction.user.id + '>');
-            yellowmax = await syllx.get('<@' + interaction.user.id + '>');
-            red = await sred.get('<@' + interaction.user.id + '>');
-            redmax = await sredx.get('<@' + interaction.user.id + '>');
+            green = await sgrn.get(interaction.user.id.replace(/\D/g, ''));
+            greenmax = await sgrnx.get(interaction.user.id.replace(/\D/g, ''));
+            blue = await sblu.get(interaction.user.id.replace(/\D/g, ''));
+            bluemax = await sblux.get(interaction.user.id.replace(/\D/g, ''));
+            yellow = await syll.get(interaction.user.id.replace(/\D/g, ''));
+            yellowmax = await syllx.get(interaction.user.id.replace(/\D/g, ''));
+            red = await sred.get(interaction.user.id.replace(/\D/g, ''));
+            redmax = await sredx.get(interaction.user.id.replace(/\D/g, ''));
 
             // Convert Max Stocks
-            if (greenmax == 0) { greenmax = 10; sgrnx.add('<@' + interaction.user.id + '>', 10) }
-            if (bluemax == 0) { bluemax = 10; sblux.add('<@' + interaction.user.id + '>', 10) }
-            if (yellowmax == 0) { yellowmax = 10; syllx.add('<@' + interaction.user.id + '>', 10) }
-            if (redmax == 0) { redmax = 10; sredx.add('<@' + interaction.user.id + '>', 10) }
+            if (greenmax == 0) { greenmax = 10; sgrnx.add(interaction.user.id.replace(/\D/g, ''), 10) }
+            if (bluemax == 0) { bluemax = 10; sblux.add(interaction.user.id.replace(/\D/g, ''), 10) }
+            if (yellowmax == 0) { yellowmax = 10; syllx.add(interaction.user.id.replace(/\D/g, ''), 10) }
+            if (redmax == 0) { redmax = 10; sredx.add(interaction.user.id.replace(/\D/g, ''), 10) }
         } else {
             green = await sgrn.get('<@' + user + '>');
             greenmax = await sgrnx.get('<@' + user + '>');
@@ -97,7 +97,7 @@ module.exports = {
         }
 
         // Send Message
-        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] STOCKS : ' + green + ' : ' + blue + ' : ' + yellow + ' : ' + red)
+        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] STOCKS : ' + green + ' : ' + blue + ' : ' + yellow + ' : ' + red)
         return interaction.reply({ embeds: [message.toJSON()] })
     },
 };

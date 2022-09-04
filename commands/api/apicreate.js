@@ -42,16 +42,16 @@ module.exports = {
         
         // Count Guild Commands and User
         cmds.add('g-' + interaction.guild.id, 1)
-        cmds.add('u-' + interaction.user.id, 1)
+        cmds.add('u-' + interaction.user.id.replace(/\D/g, ''), 1)
         
         // Set Variables
         const name = interaction.options.getString("name")
         const inhalt = interaction.options.getString("content")
-        const amount = await apis.get('<@' + interaction.user.id + '>');
+        const amount = await apis.get(interaction.user.id.replace(/\D/g, ''));
         const newamount = amount + 1
 
         // Check if API exists
-        const path = '/paper-api/' + interaction.user.id + '/' + name
+        const path = '/paper-api/' + interaction.user.id.replace(/\D/g, '') + '/' + name
   		if (fs.existsSync(path)) {
             // Create Embed
             const err = new EmbedBuilder()
@@ -60,7 +60,7 @@ module.exports = {
         		.setFooter({ text: '» ' + version + ' » SLOTS ' + amount + '/5'});
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] APICREATE : ' + name + ' : NOTFOUND')
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] APICREATE : ' + name + ' : NOTFOUND')
             return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
   		}
         
@@ -73,22 +73,22 @@ module.exports = {
         		.setFooter({ text: '» ' + version });
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] APICREATE : ' + name + ' : MAXSLOTS')
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] APICREATE : ' + name + ' : MAXSLOTS')
             return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         } 
         
         // Create Embed
         const message = new EmbedBuilder()
             .setTitle('» PAPER API EDIT')
-  			.setDescription('Du hast eine neue API erstellt!\nSie ist hier verfügbar:\n**`https://api.paperstudios.de/user/' + interaction.user.id + '/' + name + '`**!')
+  			.setDescription('Du hast eine neue API erstellt!\nSie ist hier verfügbar:\n**`https://api.paperstudios.de/user/' + interaction.user.id.replace(/\D/g, '') + '/' + name + '`**!')
         	.setFooter({ text: '» ' + version + ' » SLOTS ' + newamount + '/5'});
         
         // Write File
-        fs.writeFile('/paper-api/' + interaction.user.id + '/' + name, inhalt, function(err) {})
+        fs.writeFile('/paper-api/' + interaction.user.id.replace(/\D/g, '') + '/' + name, inhalt, function(err) {})
 
         // Send Message
-        apis.add('<@' + interaction.user.id + '>', 1)
-        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] APICREATE : ' + name + ' : ' + inhalt.toUpperCase())
+        apis.add(interaction.user.id.replace(/\D/g, ''), 1)
+        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] APICREATE : ' + name + ' : ' + inhalt.toUpperCase())
         return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
     },
 };

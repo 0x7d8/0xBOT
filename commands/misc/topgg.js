@@ -17,7 +17,7 @@ module.exports = {
         
         // Count Guild Commands and User
         cmds.add('g-' + interaction.guild.id, 1)
-        cmds.add('u-' + interaction.user.id, 1)
+        cmds.add('u-' + interaction.user.id.replace(/\D/g, ''), 1)
 
         // Create Button
         const topgg = new ActionRowBuilder()
@@ -35,7 +35,7 @@ module.exports = {
         	.setFooter({ text: '» ' + version });
         
         // Send Message
-        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] TOPGG')
+        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] TOPGG')
         interaction.reply({ embeds: [message.toJSON()], components: [topgg], ephemeral: true })
     },
 };

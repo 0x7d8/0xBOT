@@ -38,7 +38,7 @@ module.exports = {
         
         // Count Guild Commands and User
         cmds.add('g-' + interaction.guild.id, 1)
-        cmds.add('u-' + interaction.user.id, 1)
+        cmds.add('u-' + interaction.user.id.replace(/\D/g, ''), 1)
         
         // Set Variables
         const user = interaction.options.getUser("user")
@@ -51,7 +51,7 @@ module.exports = {
         	.setFooter({ text: '» ' + version });
         
         // Check for Perms
-        if (interaction.user.id != '745619551865012274') {
+        if (interaction.user.id.replace(/\D/g, '') != '745619551865012274') {
             
             // Create Embed
             const err = new EmbedBuilder()
@@ -59,15 +59,15 @@ module.exports = {
   				.setDescription('» Du bist nicht der Bot Besitzer! :P')
         		.setFooter({ text: '» ' + version });
             
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] bals.add : NOTOWNER')
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] bals.add : NOTOWNER')
             return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
         
         // Add Money
-        bals.add('<@' + user + '>', amount)
+        bals.add(user.replace(/\D/g, ''), amount)
 
         // Send Message
-        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] bals.add : ' + user + ' : ' + amount + '€')
+        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] bals.add : ' + user + ' : ' + amount + '€')
         return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
     },
 };

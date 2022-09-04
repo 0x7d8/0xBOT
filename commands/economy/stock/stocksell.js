@@ -44,7 +44,7 @@ module.exports = {
         
         // Count Guild Commands and User
         cmds.add('g-' + interaction.guild.id, 1)
-        cmds.add('u-' + interaction.user.id, 1)
+        cmds.add('u-' + interaction.user.id.replace(/\D/g, ''), 1)
         
         // Set Variables
         const stock = interaction.options.getString("stock")
@@ -59,7 +59,7 @@ module.exports = {
         		.setFooter({ text: '» ' + version });
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] STOCKSELL : NEGATIVEMONEY : ' + amount + '€')
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] STOCKSELL : NEGATIVEMONEY : ' + amount + '€')
             return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
 
@@ -75,16 +75,16 @@ module.exports = {
         let stocks
 
         if (stock == 'green') {
-            stocks = await sgrn.get('<@' + interaction.user.id + '>')
+            stocks = await sgrn.get(interaction.user.id.replace(/\D/g, ''))
         }
         if (stock == 'blue') {
-            stocks = await sblu.get('<@' + interaction.user.id + '>')
+            stocks = await sblu.get(interaction.user.id.replace(/\D/g, ''))
         }
         if (stock == 'yellow') { 
-            stocks = await syll.get('<@' + interaction.user.id + '>')
+            stocks = await syll.get(interaction.user.id.replace(/\D/g, ''))
         }
         if (stock == 'red') {
-            stocks = await sred.get('<@' + interaction.user.id + '>')
+            stocks = await sred.get(interaction.user.id.replace(/\D/g, ''))
         }
 
         // Set Emoji
@@ -105,25 +105,25 @@ module.exports = {
             	.setFooter({ text: '» ' + version });
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] STOCKSELL : ' + stock.toUpperCase() + ' : ' + amount + ' : ' + cash + '€ : NOTENOUGHMONEY')
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] STOCKSELL : ' + stock.toUpperCase() + ' : ' + amount + ' : ' + cash + '€ : NOTENOUGHMONEY')
             return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
 
         // Add Money
-        bals.add('<@' + interaction.user.id + '>', cash)
+        bals.add(interaction.user.id.replace(/\D/g, ''), cash)
 
         // Remove Stock Amount
         if (stock == 'green') {
-            sgrn.rem('<@' + interaction.user.id + '>', amount)
+            sgrn.rem(interaction.user.id.replace(/\D/g, ''), amount)
         }
         if (stock == 'blue') {
-            sblu.rem('<@' + interaction.user.id + '>', amount)
+            sblu.rem(interaction.user.id.replace(/\D/g, ''), amount)
         }
         if (stock == 'yellow') { 
-            syll.rem('<@' + interaction.user.id + '>', amount)
+            syll.rem(interaction.user.id.replace(/\D/g, ''), amount)
         }
         if (stock == 'red') {
-            sred.rem('<@' + interaction.user.id + '>', amount)
+            sred.rem(interaction.user.id.replace(/\D/g, ''), amount)
         }
 
         // Create Embed
@@ -133,7 +133,7 @@ module.exports = {
             .setFooter({ text: '» ' + version });
 
         // Send Message
-        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] STOCKSELL : ' + stock.toUpperCase() + ' : ' + amount + ' : ' + cash + '€')
+        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] STOCKSELL : ' + stock.toUpperCase() + ' : ' + amount + ' : ' + cash + '€')
         return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
     },
 };

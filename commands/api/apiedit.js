@@ -42,19 +42,19 @@ module.exports = {
         
         // Count Guild Commands and User
         cmds.add('g-' + interaction.guild.id, 1)
-        cmds.add('u-' + interaction.user.id, 1)
+        cmds.add('u-' + interaction.user.id.replace(/\D/g, ''), 1)
         
         // Set Variables
         const name = interaction.options.getString("name")
         const inhalt = interaction.options.getString("content")
-        const amount = await apis.get('<@' + interaction.user.id + '>');
+        const amount = await apis.get(interaction.user.id.replace(/\D/g, ''));
 
        	// Check if API even exists
-        const path = '/paper-api/' + interaction.user.id + '/' + name
+        const path = '/paper-api/' + interaction.user.id.replace(/\D/g, '') + '/' + name
         if (fs.existsSync(path)) {
         
             // Edit File
-        	fs.writeFile('/paper-api/' + interaction.user.id + '/' + name, inhalt, function(err) {})
+        	fs.writeFile('/paper-api/' + interaction.user.id.replace(/\D/g, '') + '/' + name, inhalt, function(err) {})
             
         	// Create Embed
         	const message = new EmbedBuilder()
@@ -63,7 +63,7 @@ module.exports = {
         		.setFooter({ text: '» ' + version + ' » SLOTS ' + amount + '/5'});
 
         	// Send Message
-        	console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] APIEDIT : ' + name + ' : ' + inhalt.toUpperCase())
+        	console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] APIEDIT : ' + name + ' : ' + inhalt.toUpperCase())
         	return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         } else {
             // Create Embed
@@ -73,7 +73,7 @@ module.exports = {
         		.setFooter({ text: '» ' + version + ' » SLOTS ' + amount + '/5'});
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] APIEDIT : ' + name + ' : NOTFOUND')
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] APIEDIT : ' + name + ' : NOTFOUND')
             return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
     },

@@ -16,7 +16,7 @@ module.exports = {
         
         // Count Guild Commands and User
         cmds.add('g-' + interaction.guild.id, 1)
-        cmds.add('u-' + interaction.user.id, 1)
+        cmds.add('u-' + interaction.user.id.replace(/\D/g, ''), 1)
 
         // Create Embed
         const message = new EmbedBuilder()
@@ -26,7 +26,7 @@ module.exports = {
         		.setFooter({ text: '» ' + version });
 
         // Send Correct Response
-        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] DONATE <3')
+        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] DONATE <3')
         return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
     },
 };

@@ -44,33 +44,33 @@ module.exports = {
         
         // Count Guild Commands and User
         cmds.add('g-' + interaction.guild.id, 1)
-        cmds.add('u-' + interaction.user.id, 1)
+        cmds.add('u-' + interaction.user.id.replace(/\D/g, ''), 1)
         
         // Set Variables
         const stock = interaction.options.getString("stock")
         const amount = interaction.options.getInteger("amount")
 
-        const green = await sgrn.get('<@' + interaction.user.id + '>');
-        const blue = await sblu.get('<@' + interaction.user.id + '>');
-        const yellow = await syll.get('<@' + interaction.user.id + '>');
-        const red = await sred.get('<@' + interaction.user.id + '>');
+        const green = await sgrn.get(interaction.user.id.replace(/\D/g, ''));
+        const blue = await sblu.get(interaction.user.id.replace(/\D/g, ''));
+        const yellow = await syll.get(interaction.user.id.replace(/\D/g, ''));
+        const red = await sred.get(interaction.user.id.replace(/\D/g, ''));
         const greens = green + amount
         const blues = blue + amount
         const yellows = yellow + amount
         const reds = red + amount
 
-        let greenmax = await sgrnx.get('<@' + interaction.user.id + '>');
-        let bluemax = await sblux.get('<@' + interaction.user.id + '>');
-        let yellowmax = await syllx.get('<@' + interaction.user.id + '>');
-        let redmax = await sredx.get('<@' + interaction.user.id + '>');
+        let greenmax = await sgrnx.get(interaction.user.id.replace(/\D/g, ''));
+        let bluemax = await sblux.get(interaction.user.id.replace(/\D/g, ''));
+        let yellowmax = await syllx.get(interaction.user.id.replace(/\D/g, ''));
+        let redmax = await sredx.get(interaction.user.id.replace(/\D/g, ''));
 
-        const balance = await bals.get('<@' + interaction.user.id + '>');
+        const balance = await bals.get(interaction.user.id.replace(/\D/g, ''));
 
         // Convert Max Stocks
-        if (greenmax == 0) { greenmax = 10; sgrnx.add('<@' + interaction.user.id + '>', 10) }
-        if (bluemax == 0) { bluemax = 10; sblux.add('<@' + interaction.user.id + '>', 10) }
-        if (yellowmax == 0) { yellowmax = 10; syllx.add('<@' + interaction.user.id + '>', 10) }
-        if (redmax == 0) { redmax = 10; sredx.add('<@' + interaction.user.id + '>', 10) }
+        if (greenmax == 0) { greenmax = 10; sgrnx.add(interaction.user.id.replace(/\D/g, ''), 10) }
+        if (bluemax == 0) { bluemax = 10; sblux.add(interaction.user.id.replace(/\D/g, ''), 10) }
+        if (yellowmax == 0) { yellowmax = 10; syllx.add(interaction.user.id.replace(/\D/g, ''), 10) }
+        if (redmax == 0) { redmax = 10; sredx.add(interaction.user.id.replace(/\D/g, ''), 10) }
 
         // Check if Amount is Negative
         if (amount < 0) {
@@ -81,7 +81,7 @@ module.exports = {
         		.setFooter({ text: '» ' + version });
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] STOCKBUY : NEGATIVEMONEY : ' + amount + '€')
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] STOCKBUY : NEGATIVEMONEY : ' + amount + '€')
             return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
 
@@ -94,7 +94,7 @@ module.exports = {
         		.setFooter({ text: '» ' + version });
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] STOCKBUY : MAXGREEN : ' + amount + '€')
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] STOCKBUY : MAXGREEN : ' + amount + '€')
             return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
         if (stock == 'blue' && blues > bluemax) {
@@ -105,7 +105,7 @@ module.exports = {
         		.setFooter({ text: '» ' + version });
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] STOCKBUY : MAXBLUE : ' + amount + '€')
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] STOCKBUY : MAXBLUE : ' + amount + '€')
             return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
         if (stock == 'yellow' && yellows > yellowmax) {
@@ -116,7 +116,7 @@ module.exports = {
         		.setFooter({ text: '» ' + version });
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] STOCKBUY : MAXYELLOW : ' + amount + '€')
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] STOCKBUY : MAXYELLOW : ' + amount + '€')
             return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
         if (stock == 'red' && reds > redmax) {
@@ -127,7 +127,7 @@ module.exports = {
         		.setFooter({ text: '» ' + version });
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] STOCKBUY : MAXRED : ' + amount + '€')
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] STOCKBUY : MAXRED : ' + amount + '€')
             return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
 
@@ -150,7 +150,7 @@ module.exports = {
             	.setFooter({ text: '» ' + version });
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] STOCKBUY : ' + stock.toUpperCase() + ' : ' + amount + ' : ' + cost + '€ : NOTENOUGHMONEY')
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] STOCKBUY : ' + stock.toUpperCase() + ' : ' + amount + ' : ' + cost + '€ : NOTENOUGHMONEY')
             return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
 
@@ -164,20 +164,20 @@ module.exports = {
 
         // Add Stock Amount
         if (stock == 'green') {
-            sgrn.add('<@' + interaction.user.id + '>', amount)
+            sgrn.add(interaction.user.id.replace(/\D/g, ''), amount)
         }
         if (stock == 'blue') {
-            sblu.add('<@' + interaction.user.id + '>', amount)
+            sblu.add(interaction.user.id.replace(/\D/g, ''), amount)
         }
         if (stock == 'yellow') { 
-            syll.add('<@' + interaction.user.id + '>', amount)
+            syll.add(interaction.user.id.replace(/\D/g, ''), amount)
         }
         if (stock == 'red') {
-            sred.add('<@' + interaction.user.id + '>', amount)
+            sred.add(interaction.user.id.replace(/\D/g, ''), amount)
         }
 
         // Remove Money
-        bals.rem('<@' + interaction.user.id + '>', cost)
+        bals.rem(interaction.user.id.replace(/\D/g, ''), cost)
 
         // Create Embed
         const message = new EmbedBuilder()
@@ -186,7 +186,7 @@ module.exports = {
             .setFooter({ text: '» ' + version });
 
         // Send Message
-        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] STOCKBUY : ' + stock.toUpperCase() + ' : ' + amount + ' : ' + cost + '€')
+        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] STOCKBUY : ' + stock.toUpperCase() + ' : ' + amount + ' : ' + cost + '€')
         return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
     },
 };

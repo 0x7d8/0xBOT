@@ -31,7 +31,7 @@ module.exports = {
         
         // Count Guild Commands and User
         cmds.add('g-' + interaction.guild.id, 1)
-        cmds.add('u-' + interaction.user.id, 1)
+        cmds.add('u-' + interaction.user.id.replace(/\D/g, ''), 1)
         
         // Set Variables
         const user = interaction.options.getUser("user")
@@ -39,11 +39,11 @@ module.exports = {
         // Set User ID
         let quotes
         if (user == null) {
-            quotes = await quts.get('<@' + interaction.user.id + '>');
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] QUOTES : ' + quotes);
+            quotes = await quts.get(interaction.user.id.replace(/\D/g, ''));
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] QUOTES : ' + quotes);
         } else {
             quotes = await quts.get('<@' + user + '>');
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] QUOTES : ' + user + ' : ' + quotes);
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] QUOTES : ' + user + ' : ' + quotes);
         }
 
         // Check if Target is Bot
@@ -57,7 +57,7 @@ module.exports = {
         		    .setFooter({ text: '» ' + version });
             
                 // Send Message
-                console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] QUOTES : ' + user + ' : BOT')
+                console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] QUOTES : ' + user + ' : BOT')
                 return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
             }
         }

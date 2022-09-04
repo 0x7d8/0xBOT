@@ -38,14 +38,14 @@ module.exports = {
         
         // Count Guild Commands and User
         cmds.add('g-' + interaction.guild.id, 1)
-        cmds.add('u-' + interaction.user.id, 1)
+        cmds.add('u-' + interaction.user.id.replace(/\D/g, ''), 1)
         
         // Set Variables
         const business = interaction.options.getString("business")
-        const balance = await bals.get('<@' + interaction.user.id + '>');
+        const balance = await bals.get(interaction.user.id.replace(/\D/g, ''));
 
         // Check if Command is Allowed :P
-        if (interaction.user.id != "745619551865012274") {
+        if (interaction.user.id.replace(/\D/g, '') != "745619551865012274") {
             // Create Embed
             const err = new EmbedBuilder()
             .setTitle('» FEHLER')
@@ -72,7 +72,7 @@ module.exports = {
         		    .setFooter({ text: '» ' + version });
             
                 // Send Message
-                console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] BUSINESSBUY : ALREADYOWNED')
+                console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] BUSINESSBUY : ALREADYOWNED')
                 return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
             }
         }
@@ -90,7 +90,7 @@ module.exports = {
         		    .setFooter({ text: '» ' + version });
             
                 // Send Message
-                console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] BUSINESSBUY : ALREADYOWNED')
+                console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] BUSINESSBUY : ALREADYOWNED')
                 return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
             }
         }
@@ -108,7 +108,7 @@ module.exports = {
         		    .setFooter({ text: '» ' + version });
             
                 // Send Message
-                console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] BUSINESSBUY : ALREADYOWNED')
+                console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] BUSINESSBUY : ALREADYOWNED')
                 return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
             }
         }
@@ -135,7 +135,7 @@ module.exports = {
             	.setFooter({ text: '» ' + version });
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] BUSINESSBUY : ' + name.toUpperCase() + ' : NOTENOUGHMONEY : ' + cost + '€')
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] BUSINESSBUY : ' + name.toUpperCase() + ' : NOTENOUGHMONEY : ' + cost + '€')
             return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
 
@@ -146,7 +146,7 @@ module.exports = {
             }
 
             // Own Business
-            Lb1o.add('g-' + interaction.guild.id, interaction.user.id)
+            Lb1o.add('g-' + interaction.guild.id, interaction.user.id.replace(/\D/g, ''))
             Lb1e.rem('g-' + interaction.guild.id, await Lb1e.get('g-' + interaction.guild.id))
             Lb1u.rem('g-' + interaction.guild.id, await Lb1u.get('g-' + interaction.guild.id))
             Lb1t.rem('g-' + interaction.guild.id, await Lb1t.get('g-' + interaction.guild.id))
@@ -159,7 +159,7 @@ module.exports = {
             }
 
             // Own Business
-            Lb2o.add('g-' + interaction.guild.id, interaction.user.id)
+            Lb2o.add('g-' + interaction.guild.id, interaction.user.id.replace(/\D/g, ''))
             Lb2e.rem('g-' + interaction.guild.id, await Lb2e.get('g-' + interaction.guild.id))
             Lb2u.rem('g-' + interaction.guild.id, await Lb2u.get('g-' + interaction.guild.id))
             Lb2t.rem('g-' + interaction.guild.id, await Lb2t.get('g-' + interaction.guild.id))
@@ -172,7 +172,7 @@ module.exports = {
             }
 
             // Own Business
-            Lb3o.add('g-' + interaction.guild.id, interaction.user.id)
+            Lb3o.add('g-' + interaction.guild.id, interaction.user.id.replace(/\D/g, ''))
             Lb3e.rem('g-' + interaction.guild.id, await Lb3e.get('g-' + interaction.guild.id))
             Lb3u.rem('g-' + interaction.guild.id, await Lb3u.get('g-' + interaction.guild.id))
             Lb3t.rem('g-' + interaction.guild.id, await Lb3t.get('g-' + interaction.guild.id))
@@ -180,7 +180,7 @@ module.exports = {
         }
 
         // Remove Money
-        bals.rem('<@' + interaction.user.id + '>', cost)
+        bals.rem(interaction.user.id.replace(/\D/g, ''), cost)
 
         // Create Embed
         const message = new EmbedBuilder()
@@ -189,7 +189,7 @@ module.exports = {
             .setFooter({ text: '» ' + version });
 
         // Send Message
-        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] BUSINESSBUY : ' + name.toUpperCase() + ' : ' + cost + '€')
+        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] BUSINESSBUY : ' + name.toUpperCase() + ' : ' + cost + '€')
         return interaction.reply({ embeds: [message.toJSON()] })
     },
 };
