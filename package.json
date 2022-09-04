@@ -22,7 +22,6 @@
     "discord-api-types": "^0.37.1",
     "discord.js": "^14.3.0",
     "discordutility": "^0.2.6",
-    "file-system": "^2.2.2",
     "fs": "^0.0.1-security",
     "generate-password": "^1.7.0",
     "lib": "^4.3.3",
@@ -30,6 +29,7 @@
     "ms": "^2.1.3",
     "node-fetch": "^2.6.1",
     "nodeactyl": "^3.2.2",
-    "rest": "^2.0.0"
+    "rest": "^2.0.0",
+    "undici": "^5.10.0"
   }
 }
