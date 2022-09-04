@@ -60,20 +60,20 @@ module.exports = {
             if (yellowmax == 0) { yellowmax = 10; syllx.add(interaction.user.id.replace(/\D/g, ''), 10) }
             if (redmax == 0) { redmax = 10; sredx.add(interaction.user.id.replace(/\D/g, ''), 10) }
         } else {
-            green = await sgrn.get('<@' + user + '>');
-            greenmax = await sgrnx.get('<@' + user + '>');
-            blue = await sblu.get('<@' + user + '>');
-            bluemax = await sblux.get('<@' + user + '>');
-            yellow = await syll.get('<@' + user + '>');
-            yellowmax = await syllx.get('<@' + user + '>');
-            red = await sred.get('<@' + user + '>');
-            redmax = await sredx.get('<@' + user + '>');
+            green = await sgrn.get(user.toString().replace(/\D/g, ''));
+            greenmax = await sgrnx.get(user.toString().replace(/\D/g, ''));
+            blue = await sblu.get(user.toString().replace(/\D/g, ''));
+            bluemax = await sblux.get(user.toString().replace(/\D/g, ''));
+            yellow = await syll.get(user.toString().replace(/\D/g, ''));
+            yellowmax = await syllx.get(user.toString().replace(/\D/g, ''));
+            red = await sred.get(user.toString().replace(/\D/g, ''));
+            redmax = await sredx.get(user.toString().replace(/\D/g, ''));
 
             // Convert Max Stocks
-            if (greenmax == 0) { greenmax = 10; sgrnx.add('<@' + user + '>', 10) }
-            if (bluemax == 0) { bluemax = 10; sblux.add('<@' + user + '>', 10) }
-            if (yellowmax == 0) { yellowmax = 10; syllx.add('<@' + user + '>', 10) }
-            if (redmax == 0) { redmax = 10; sredx.add('<@' + user + '>', 10) }
+            if (greenmax == 0) { greenmax = 10; sgrnx.add(user.toString().replace(/\D/g, ''), 10) }
+            if (bluemax == 0) { bluemax = 10; sblux.add(user.toString().replace(/\D/g, ''), 10) }
+            if (yellowmax == 0) { yellowmax = 10; syllx.add(user.toString().replace(/\D/g, ''), 10) }
+            if (redmax == 0) { redmax = 10; sredx.add(user.toString().replace(/\D/g, ''), 10) }
         }
 
         // Get Username
