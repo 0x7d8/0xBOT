@@ -48,7 +48,7 @@ module.exports = {
             money = await bals.get(interaction.user.id.replace(/\D/g, ''));
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] BALANCE : ' + money + '€');
         } else {
-            money = await bals.get('<@' + user + '>');
+            money = await bals.get(user.replace(/\D/g, ''));
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] BALANCE : ' + user + ' : ' + money + '€');
         }
         
