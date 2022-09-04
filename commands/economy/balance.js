@@ -34,7 +34,7 @@ module.exports = {
         cmds.add('u-' + interaction.user.id.replace(/\D/g, ''), 1)
         
         // Set Variables
-        const user = interaction.options.getUser("user")
+        const user = interaction.options.getUser("user").replace(/\D/g, '')
 
         // Get Username
         let userinfo
@@ -48,7 +48,7 @@ module.exports = {
             money = await bals.get(interaction.user.id.replace(/\D/g, ''));
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] BALANCE : ' + money + '€');
         } else {
-            money = await bals.get(user.replace(/\D/g, ''));
+            money = await bals.get(user);
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] BALANCE : ' + user + ' : ' + money + '€');
         }
         
