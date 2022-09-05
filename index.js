@@ -82,11 +82,9 @@ client.on('interactionCreate', async interaction => {
 	
 		console.log(interaction.id + ' ci:' + interaction.customId)
 
-		const button = client.buttons.get(interaction.customId);
-		if (!button) return;
-
 		try {
 			let sc = false
+
 			if (interaction.customId.toString().substring(0, 3) == 'BEG') {
 				console.log(interaction.id)
 				const cache = interaction.customId.split('-');
