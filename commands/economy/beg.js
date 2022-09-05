@@ -66,7 +66,7 @@ module.exports = {
         // Get Username
         let userinfo
         if (user != null) {
-            userinfo = await client.users.fetch(user);
+            userinfo = await client.users.fetch(interaction.user.id);
         }
 
         // Create Button
