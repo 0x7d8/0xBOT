@@ -71,7 +71,7 @@ module.exports = {
         const button = new ActionRowBuilder()
 			.addComponents(
 				new ButtonBuilder()
-					.setLabel('GEBE ' + userinfo.username + ' **' + amount + '€**')
+					.setLabel('GEBE ' + userinfo.username.toUpperCase() + ' ' + amount + '€')
                     .setCustomId('BEG-' + interaction.user.id + '-' + amount)
 					.setStyle(ButtonStyle.Primary),
 			);

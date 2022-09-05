@@ -80,16 +80,20 @@ client.on('interactionCreate', async interaction => {
 
 	if (interaction.isButton()) {
 	
+		console.log(interaction.id)
+
 		const button = client.buttons.get(interaction.customId);
 		if (!button) return;
 
 		try {
 			let sc = false
 			if (interaction.customId.toString().substring(0, 3) == 'BEG') {
+				console.log(interaction.id)
 				const cache = interaction.customId.split('-');
 				const [cmd, reciever, amount] = cache;
 				let editedinteraction = interaction
 				editedinteraction.customId = "beg"
+				console.log(interaction.customId + ' e:' + editedinteraction.customId)
 				sc = true
 				await button.execute(editedinteraction, reciever, amount);
 			}
