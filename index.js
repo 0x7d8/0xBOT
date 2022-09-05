@@ -79,8 +79,6 @@ client.on('interactionCreate', async interaction => {
 	}
 
 	if (interaction.isButton()) {
-	
-		console.log(interaction.id + ' ci:' + interaction.customId)
 
 		try {
 			let sc = false
@@ -93,12 +91,19 @@ client.on('interactionCreate', async interaction => {
 				editedinteraction.customId = "beg"
 				console.log(interaction.customId + ' e:' + editedinteraction.customId)
 				sc = true
+
+				const button = client.buttons.get(editedinteraction.customId);
 				await button.execute(editedinteraction, reciever, amount);
 			}
 
 			if (sc == false) {
+				const button = client.buttons.get(interaction.customId);
+				if (!button) return;
+
 				await button.execute(interaction);
 			}
+
+			return;
 		} catch (error) {
 			console.log('[0xBOT] [!] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] ERROR :')
 			console.error(error);
