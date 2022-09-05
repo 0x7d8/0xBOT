@@ -4,7 +4,6 @@ const { version, token } = require('../../config.json');
 
 // Register Client
 const { Client, GatewayIntentBits } = require('discord.js');
-const apis = require('../../schema/apis');
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 client.login(token)
 
@@ -31,9 +30,9 @@ module.exports = {
                 .setNameLocalizations({
                     de: 'anzahl'
                 })
-                .setDescription('THE AMOUNT')
+                .setDescription('THE AMOUNT OF MONEY')
                 .setDescriptionLocalizations({
-                    de: 'DIE ANZAHL'
+                    de: 'DIE ANZAHL VON GELD'
                 })
                 .setRequired(true)),
     async execute(interaction) {

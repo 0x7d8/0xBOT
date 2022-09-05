@@ -18,7 +18,7 @@ const { Routes } = require('discord-api-types/v9');
 // Create Client
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
-// Load all events
+// Load all Events
 const eventFiles = getAllFilesFilter('./events', '.js');
 for (const file of eventFiles) {
 	const event = require(file);
@@ -30,7 +30,7 @@ for (const file of eventFiles) {
 	console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] LOADING EVENT ${event.name}`);
 }
 
-// Load all commands
+// Load all Commands
 client.commands = new Collection();
 
 const commandFiles = getAllFilesFilter('./commands', '.js');
@@ -41,28 +41,78 @@ for (const file of commandFiles) {
 	console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] LOADING COMMAND ${cmd}`);
 }
 
+// Load all Buttons
+client.buttons = new Collection();
+
+const buttonFiles = getAllFilesFilter('./buttons', '.js');
+for (const file of buttonFiles) {
+	const button = require(file);
+	client.buttons.set(button.data.name, button);
+    let btn = button.data.name.toUpperCase()
+	console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] LOADING BUTTON ${btn}`);
+}
+
 client.on('interactionCreate', async interaction => {
-	if (!interaction.isCommand()) return;
+	if (!interaction.isCommand() && !interaction.isButton()) return;
 
-	const command = client.commands.get(interaction.commandName);
+	if (interaction.isChatInputCommand()) {
 
-	if (!command) return;
+		const command = client.commands.get(interaction.commandName);
+		if (!command) return;
 
-	try {
-		await command.execute(interaction);
-	} catch (error) {
-        console.log('[0xBOT] [!] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] ERROR :')
-		console.error(error);
+		try {
+			await command.execute(interaction);
+		} catch (error) {
+    		console.log('[0xBOT] [!] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] ERROR :')
+			console.error(error);
         
-        // Create Error Embed
-        const err = new EmbedBuilder()
-            .setTitle('» FEHLER')
-  			.setDescription('**»» INFO**\n» WAS?\n`Ein Fehler ist beim ausführen dieses Befehls aufgetreten.`\n\n» WIESO?\n`Dies kann an vielem liegen, der Code wird für Fehler vorm Release einer neuen Version gecheckt und es kann sein, das ein Fehler enthalten war.`\n\n» WAS TUN?\n`Nichts. Einfach warten, der Befehl wurde geloggt und sollte in der nächsten Version schon behoben werden!`\n\n**»» KONTAKT**\n» EMAIL\n`kontakt@rjansen.de0`')
-        	.setFooter({ text: '» ' + version });
+    		// Create Error Embed
+    		const message = new EmbedBuilder()
+        		.setTitle('» FEHLER')
+  				.setDescription('**»» INFO**\n» WAS?\n`Ein Fehler ist beim ausführen dieses Befehls aufgetreten.`\n\n» WIESO?\n`Dies kann an vielem liegen, der Code wird für Fehler vorm Release einer neuen Version gecheckt und es kann sein, das ein Fehler enthalten war.`\n\n» WAS TUN?\n`Nichts. Einfach warten, der Befehl wurde geloggt und sollte in der nächsten Version schon behoben werden!`\n\n**»» KONTAKT**\n» EMAIL\n`kontakt@rjansen.de0`')
+    			.setFooter({ text: '» ' + version });
 
-        // Send Message
-		await interaction.reply({ embeds: [err.toJSON()], ephemeral: true });
+    		// Send Message
+			await interaction.reply({ embeds: [message.toJSON()], ephemeral: true });
+		}
+
 	}
+
+	if (interaction.isButton()) {
+	
+		const button = client.buttons.get(interaction.customId);
+		if (!button) return;
+
+		try {
+			let sc = false
+			if (interaction.customId.toString().substring(0, 3) == 'BEG') {
+				const cache = interaction.customId.split('-');
+				const [cmd, reciever, amount] = cache;
+				let editedinteraction = interaction
+				editedinteraction.customId = "beg"
+				sc = true
+				await button.execute(editedinteraction, reciever, amount);
+			}
+
+			if (sc == false) {
+				await button.execute(interaction);
+			}
+		} catch (error) {
+			console.log('[0xBOT] [!] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] ERROR :')
+			console.error(error);
+        
+    		// Create Error Embed
+    		const message = new EmbedBuilder()
+        		.setTitle('» FEHLER')
+  				.setDescription('**»» INFO**\n» WAS?\n`Ein Fehler ist beim ausführen dieses Befehls aufgetreten.`\n\n» WIESO?\n`Dies kann an vielem liegen, der Code wird für Fehler vorm Release einer neuen Version gecheckt und es kann sein, das ein Fehler enthalten war.`\n\n» WAS TUN?\n`Nichts. Einfach warten, der Befehl wurde geloggt und sollte in der nächsten Version schon behoben werden!`\n\n**»» KONTAKT**\n» EMAIL\n`kontakt@rjansen.de0`')
+    			.setFooter({ text: '» ' + version });
+
+    		// Send Message
+			await interaction.reply({ embeds: [message.toJSON()], ephemeral: true });
+		}
+
+	}
+
 });
 
 // MongoDB Basic Economy Functions
