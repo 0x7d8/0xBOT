@@ -39,7 +39,7 @@ module.exports = {
 
         // Transfer Money
         bals.rem(interaction.user.id.replace(/\D/g, ''), parseInt(amount))
-        bals.add(reciever.toString().replace(/\D/g, ''))
+        bals.add(reciever.toString().replace(/\D/g, ''), parseInt(amount))
         // Create Embeds
       	const message = new EmbedBuilder()
             .setTitle('» BETTELN')
