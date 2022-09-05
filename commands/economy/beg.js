@@ -46,7 +46,7 @@ module.exports = {
         		.setFooter({ text: '» ' + version });
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] BEG : NEGATIVEMONEY : ' + amount + '€')
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] BEG : NEGATIVEMONEY : ' + amount + '€')
             return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
 
@@ -59,7 +59,7 @@ module.exports = {
                 .setFooter({ text: '» ' + version });
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] BEG : TOOMUCHMONEY : ' + amount + '€')
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] BEG : TOOMUCHMONEY : ' + amount + '€')
             return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
 
@@ -83,7 +83,7 @@ module.exports = {
         	.setFooter({ text: '» ' + version });
 
         // Send Message
-        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] BEG : ' + amount + '€')
+        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] BEG : ' + amount + '€')
         return interaction.reply({ embeds: [message.toJSON()], components: [button] })
     },
 };

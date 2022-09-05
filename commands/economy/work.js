@@ -41,7 +41,7 @@ module.exports = {
             	.setFooter({ text: '» ' + version });
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] WORK : ONCOOLDOWN : ' + cdown.toFixed(0) + use);
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] WORK : ONCOOLDOWN : ' + cdown.toFixed(0) + use);
             return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         } else {
             
@@ -69,7 +69,7 @@ module.exports = {
         
         	// Send Money
         	bals.add(interaction.user.id.replace(/\D/g, ''), result)
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] WORK : ' + result + '€');
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] WORK : ' + result + '€');
             
             // Set Cooldown
 			cooldown.set(interaction.user.id.replace(/\D/g, ''), Date.now() + time);

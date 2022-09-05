@@ -72,7 +72,7 @@ module.exports = {
         		.setFooter({ text: '» ' + version });
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] GUESS : NEGATIVEMONEY : ' + wette + '€')
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] GUESS : NEGATIVEMONEY : ' + wette + '€')
             return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
         
@@ -89,7 +89,7 @@ module.exports = {
             		.setFooter({ text: '» ' + version });
                 
                 // Send Message
-            	console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] GUESS : TOOMUCHMONEY : ' + wette + '€')
+            	console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] GUESS : TOOMUCHMONEY : ' + wette + '€')
         		return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
             }
             
@@ -108,7 +108,7 @@ module.exports = {
             	.setFooter({ text: '» ' + version });
 
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] GUESS : NOTENOUGHMONEY : ' + missing + '€')
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] GUESS : NOTENOUGHMONEY : ' + missing + '€')
             return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
         
@@ -125,7 +125,7 @@ module.exports = {
         }
 
         // Send Message
-       	console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] GUESS : ' + nummer + ' : ' + status + ' : ' + result + '€')
+       	console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] GUESS : ' + nummer + ' : ' + status + ' : ' + result + '€')
         return interaction.reply({ embeds: [message.toJSON()] })
     },
 };

@@ -59,7 +59,7 @@ module.exports = {
   				.setDescription('» Du bist nicht der Bot Besitzer! :P')
         		.setFooter({ text: '» ' + version });
             
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] bals.add : NOTOWNER')
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] bals.add : NOTOWNER')
             return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
         
@@ -67,7 +67,7 @@ module.exports = {
         bals.add(user.toString().replace(/\D/g, ''), amount)
 
         // Send Message
-        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] bals.add : ' + user + ' : ' + amount + '€')
+        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] bals.add : ' + user + ' : ' + amount + '€')
         return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
     },
 };

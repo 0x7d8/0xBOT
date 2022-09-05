@@ -23,7 +23,7 @@ module.exports = {
         		.setFooter({ text: '» ' + version });
 
         // Send Correct Response
-        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] STATS')
+        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] STATS')
         return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
     },
 };

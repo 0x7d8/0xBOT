@@ -33,7 +33,7 @@ module.exports = {
         		.setFooter({ text: '» ' + version });
 
         // Send Correct Response
-        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] PING : ' + botping + 'ms')
+        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] PING : ' + botping + 'ms')
         return interaction.reply({ embeds: [messaged.toJSON()], ephemeral: true })
     },
 };

@@ -88,7 +88,7 @@ module.exports = {
         		.setFooter({ text: '» ' + version });
 
         // Send Message
-        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] GAME : ' + spiel.toUpperCase())
+        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] GAME : ' + spiel.toUpperCase())
         if (spiel == 'stadtlandfluss') {
             interaction.reply({ embeds: [slf.toJSON()], components: [slfB] })
         }

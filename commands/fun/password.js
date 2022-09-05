@@ -41,7 +41,7 @@ module.exports = {
         		.setDescription('» Die Maximale Größe ist **128**!')
         		.setFooter({ text: '» ' + version });
             
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] PASSWORD : TOOBIG : ' + lenght)
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] PASSWORD : TOOBIG : ' + lenght)
             return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
 
         }
@@ -54,7 +54,7 @@ module.exports = {
         		.setDescription('» Dein Password sollte schon mehr als **4** Buchstaben haben!')
         		.setFooter({ text: '» ' + version });
             
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] PASSWORD : TOOSMALL : ' + lenght)
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] PASSWORD : TOOSMALL : ' + lenght)
             return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
 
         }
@@ -74,7 +74,7 @@ module.exports = {
         	.setFooter({ text: '» ' + version });
 
         // Send Message
-        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] PASSWORD : ' + lenght + ' : SUCCESS')
+        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] PASSWORD : ' + lenght + ' : SUCCESS')
         return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
     },
 };

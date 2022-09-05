@@ -9,7 +9,7 @@ const mongoose = require('mongoose')
 mongoose.connect(mongo, {
     useUnifiedTopology: true,
     useNewUrlParser: true
-}).then(console.log('\n[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] LOADING BOT, VERSION ' + version + '\n[0xBOT] [!] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] CONNECTED TO MONGODB\n\n[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] LOADING COMMANDS AND EVENTS...'))
+}).then(console.log('\n[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] LOADING BOT, ' + version + '\n[0xBOT] [!] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] CONNECTED TO MONGODB\n\n[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] LOADING COMMANDS AND EVENTS...'))
 
 // Deploy Commands
 const { REST } = require('@discordjs/rest');
@@ -27,7 +27,7 @@ for (const file of eventFiles) {
 	} else {
 		client.on(event.event, (...args) => event.execute(...args));
 	}
-	console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] LOADING EVENT ${event.name}`);
+	console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] LOADING EVENT ${event.name}`);
 }
 
 // Load all Commands
@@ -38,7 +38,7 @@ for (const file of commandFiles) {
 	const command = require(file);
 	client.commands.set(command.data.name, command);
     let cmd = command.data.name.toUpperCase()
-	console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] LOADING COMMAND ${cmd}`);
+	console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] LOADING COMMAND ${cmd}`);
 }
 
 // Load all Buttons
@@ -49,7 +49,7 @@ for (const file of buttonFiles) {
 	const button = require(file);
 	client.buttons.set(button.data.name, button);
     let btn = button.data.name.toUpperCase()
-	console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] LOADING BUTTON ${btn}`);
+	console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] LOADING BUTTON ${btn}`);
 }
 
 client.on('interactionCreate', async interaction => {
@@ -63,7 +63,7 @@ client.on('interactionCreate', async interaction => {
 		try {
 			await command.execute(interaction);
 		} catch (error) {
-    		console.log('[0xBOT] [!] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] ERROR :')
+    		console.log('[0xBOT] [!] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] ERROR :')
 			console.error(error);
         
     		// Create Error Embed
@@ -103,7 +103,7 @@ client.on('interactionCreate', async interaction => {
 
 			return;
 		} catch (error) {
-			console.log('[0xBOT] [!] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] ERROR :')
+			console.log('[0xBOT] [!] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] ERROR :')
 			console.error(error);
         
     		// Create Error Embed
@@ -160,7 +160,7 @@ rest.put(
 	{ body: commands },
 );
 
-console.log('\n[0xBOT] [!] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] COMMANDS REGISTERED\n[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] LOGGING IN')
+console.log('\n[0xBOT] [!] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] COMMANDS REGISTERED\n[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] LOGGING IN')
 
 // Login
 client.login(token);

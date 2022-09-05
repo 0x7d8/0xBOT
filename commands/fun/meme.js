@@ -48,7 +48,7 @@ module.exports = {
         	.setFooter({ text: '» ' + version });
         
         // Send Message
-        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] MEME : ' + subreddit.toUpperCase() + ' : ' + upvotes + '^ : ' + comments)
+        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] MEME : ' + subreddit.toUpperCase() + ' : ' + upvotes + '^ : ' + comments)
         return interaction.reply({ embeds: [message.toJSON()] })
     },
 };
