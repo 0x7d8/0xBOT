@@ -80,7 +80,7 @@ client.on('interactionCreate', async interaction => {
 
 	if (interaction.isButton()) {
 	
-		console.log(interaction.id)
+		console.log(interaction.id + ' ci:' + interaction.customId)
 
 		const button = client.buttons.get(interaction.customId);
 		if (!button) return;
