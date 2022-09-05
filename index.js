@@ -84,12 +84,10 @@ client.on('interactionCreate', async interaction => {
 			let sc = false
 
 			if (interaction.customId.toString().substring(0, 3) == 'BEG') {
-				console.log(interaction.id)
 				const cache = interaction.customId.split('-');
 				const [cmd, reciever, amount] = cache;
 				let editedinteraction = interaction
 				editedinteraction.customId = "beg"
-				console.log(interaction.customId + ' e:' + editedinteraction.customId)
 				sc = true
 
 				const button = client.buttons.get(editedinteraction.customId);
