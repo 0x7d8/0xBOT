@@ -7,8 +7,8 @@ module.exports = {
     },
     async execute(interaction, client) {
         // Get Count
-        const cache = await interaction.message.embeds
-        const number = parseInt(cache.toString().match(/\d+/g)) + 1
+        const cache = interaction.message.embeds
+        const number = parseInt(cache[0].description.toString().match(/\d+/g)) + 1
 
         // Create Embeds
         let message = new EmbedBuilder()
@@ -25,6 +25,6 @@ module.exports = {
 
         // Send Message
         console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] COUNT : ' + number)
-        return interaction.message.edit({ embeds: [message.toJSON()] })
+        return interaction.update({ embeds: [message.toJSON()] })
     }
 }
