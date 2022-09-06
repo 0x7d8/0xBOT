@@ -5,7 +5,7 @@ module.exports = {
     data: {
         name: 'count'
     },
-    async execute(interaction, client) {
+    async execute(interaction, client, channel) {
         // Get Count
         const cache = channel.messages.fetch(interaction.message.id).toString()
         const number = parseInt(cache.match(/\d+/g).toString()) + 1

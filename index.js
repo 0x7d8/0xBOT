@@ -110,7 +110,7 @@ client.on('interactionCreate', async interaction => {
 				const button = client.buttons.get(interaction.customId);
 				if (!button) return;
 
-				await button.execute(interaction, client);
+				await button.execute(interaction, client, channel);
 			}
 
 			return;
