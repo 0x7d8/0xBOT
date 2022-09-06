@@ -21,7 +21,7 @@ module.exports = {
                     de: 'DIE ANZAHL AN GELD'
                 })
                 .setRequired(true))
-        .addIntegerOption(option =>
+        .addStringOption(option =>
             option.setName('reason')
                 .setNameLocalizations({
                     de: 'grund'
@@ -41,7 +41,7 @@ module.exports = {
         
         // Set Variables
         const amount = interaction.options.getInteger("amount")
-        const reason = interaction.options.getInteger("reason")
+        const reason = interaction.options.getString("reason")
 
         // Check if Balance is Minus
         if (amount < 0) {
