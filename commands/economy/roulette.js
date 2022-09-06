@@ -22,7 +22,7 @@ module.exports = {
                 .setRequired(true)
     			.addChoices(
                     // Setup Choices
-                    { name: '🟢 [x4] GRÜN', value: 'gruen' },
+                    { name: '🟢 [x4] GRÜN', value: 'grün' },
             		{ name: '⚫ [x2] SCHWARZ', value: 'schwarz' },
                     { name: '🔴 [x2] ROT', value: 'rot' },
 				))
@@ -73,7 +73,7 @@ module.exports = {
         
         // Calculate Color
         let color
-        if (random == 1) { color = 'gruen' }
+        if (random == 1) { color = 'grün' }
         if (random >= 2) { color = 'schwarz' }
         if (random >= 11) { color = 'rot' }
         
@@ -111,10 +111,10 @@ module.exports = {
             
         	// Set Money
             let resultmul
-            if (color == farbe && color == 'gruen') {
+            if (color == farbe && color == 'grün') {
                 resultmul = 4
             }
-            if (color == farbe && color != 'gruen') {
+            if (color == farbe && color != 'grün') {
                 resultmul = 2
             }
             if (color != farbe) {
@@ -132,7 +132,7 @@ module.exports = {
             }
 
             let colordis
-            if (farbe == 'gruen') { colordis = 'green' }
+            if (farbe == 'grün') { colordis = 'green' }
             if (farbe == 'rot') { colordis = 'red' }
             if (farbe == 'schwarz') { colordis = 'black' }
         
