@@ -66,9 +66,9 @@ module.exports = {
         const button = new ActionRowBuilder()
 			.addComponents(
 				new ButtonBuilder()
-					.setLabel('GEBE ' + userinfo.username.toUpperCase() + ' ' + amount + '€')
+					.setLabel('💰 GEBE ' + userinfo.username.toUpperCase() + ' DEINE ' + amount + '€')
                     .setCustomId('BEG-' + interaction.user.id + '-' + amount)
-					.setStyle(ButtonStyle.Primary),
+					.setStyle(ButtonStyle.Secondary),
 			);
         
         // Create Embeds

@@ -20,7 +20,7 @@ module.exports = {
             	.setFooter({ text: '» ' + version });
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] BEG : ' + reciever + ' : ' + amount + '€ : NOTENOUGHMONEY')
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] BEG : ' + reciever.toString().replace(/\D/g, '') + ' : ' + amount + '€ : NOTENOUGHMONEY')
             return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
 
@@ -33,13 +33,14 @@ module.exports = {
         	    .setFooter({ text: '» ' + version });
 
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] BEG : ' + reciever + ' : ' + amount + '€ : SAMEPERSON')
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] BEG : ' + reciever.toString().replace(/\D/g, '') + ' : ' + amount + '€ : SAMEPERSON')
             return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
 
         // Transfer Money
         bals.rem(interaction.user.id.replace(/\D/g, ''), parseInt(amount))
         bals.add(reciever.toString().replace(/\D/g, ''), parseInt(amount))
+
         // Create Embeds
       	const message = new EmbedBuilder()
             .setTitle('» BETTELN')
@@ -47,7 +48,7 @@ module.exports = {
             .setFooter({ text: '» ' + version });
 
         // Send Message
-        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] BEG : ' + reciever + ' : ' + amount + '€')
+        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] BEG : ' + reciever.toString().replace(/\D/g, '') + ' : ' + amount + '€')
         return interaction.reply({ embeds: [message.toJSON()] })
     }
 }
