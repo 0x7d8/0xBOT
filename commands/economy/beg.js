@@ -20,7 +20,17 @@ module.exports = {
                 .setDescriptionLocalizations({
                     de: 'DIE ANZAHL AN GELD'
                 })
-                .setRequired(true)),
+                .setRequired(true))
+        .addIntegerOption(option =>
+            option.setName('reason')
+                .setNameLocalizations({
+                    de: 'grund'
+                })
+                .setDescription('THE REASON')
+                .setDescriptionLocalizations({
+                    de: 'DER GRUND'
+                })
+                .setRequired(false)),
     async execute(interaction, client) {
         // Count to Global Commands
         cmds.add('t-all', 1)
@@ -31,6 +41,7 @@ module.exports = {
         
         // Set Variables
         const amount = interaction.options.getInteger("amount")
+        const reason = interaction.options.getInteger("reason")
 
         // Check if Balance is Minus
         if (amount < 0) {
@@ -66,16 +77,24 @@ module.exports = {
         const button = new ActionRowBuilder()
 			.addComponents(
 				new ButtonBuilder()
-					.setLabel('💰 GEBE ' + userinfo.username.toUpperCase() + ' DEINE ' + amount + '€')
+					.setLabel('💰 GEBE ' + userinfo.username.toUpperCase() + ' ' + amount + '€')
                     .setCustomId('BEG-' + interaction.user.id + '-' + amount)
 					.setStyle(ButtonStyle.Secondary),
 			);
         
-        // Create Embeds
-      	const message = new EmbedBuilder()
-            .setTitle('» BETTELN')
-  			.setDescription('» <@' + interaction.user.id + '> braucht Geld!')
-        	.setFooter({ text: '» ' + version });
+        // Create Embed
+        let message
+        if (reason == null) {
+      	    message = new EmbedBuilder()
+                .setTitle('» BETTELN')
+  			    .setDescription('» <@' + interaction.user.id + '> braucht Geld!')
+        	    .setFooter({ text: '» ' + version });
+        } else {
+            message = new EmbedBuilder()
+                .setTitle('» BETTELN')
+  			    .setDescription('» <@' + interaction.user.id + '> braucht Geld!\n*"' + reason.toString() + '"*')
+        	    .setFooter({ text: '» ' + version });
+        }
 
         // Send Message
         console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] BEG : ' + amount + '€')
