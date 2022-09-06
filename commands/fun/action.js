@@ -50,6 +50,7 @@ module.exports = {
         // Set Variables
         const user = interaction.options.getUser("user")
         const event = interaction.options.getString("action")
+        const sender = interaction.user.id
 
         // Create Embeds
         const box = new EmbedBuilder()
