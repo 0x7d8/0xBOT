@@ -5,7 +5,7 @@ module.exports = {
     data: {
         name: 'beg'
     },
-    async execute(interaction, reciever, amount) {
+    async execute(interaction, client, reciever, amount) {
         // Set Variables
         const balance = await bals.get(interaction.user.id.replace(/\D/g, ''));
 

@@ -32,7 +32,7 @@ module.exports = {
 					{ name: '✅ JA & NEIN', value: 'frage' },
             		{ name: '🧮 BUCHSTABEN VON A BIS E', value: 'abstimmung' },
 				)),
-    async execute(interaction) {
+    async execute(interaction, client) {
         // Count to Global Commands
         cmds.add('t-all', 1)
         

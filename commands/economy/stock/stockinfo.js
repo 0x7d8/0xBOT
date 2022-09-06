@@ -31,7 +31,7 @@ module.exports = {
                     { name: '🟡 GELBE AKTIE', value: 'yellow' },
                     { name: '🔴 ROTE AKTIE', value: 'red' },
 				)),
-    async execute(interaction) {
+    async execute(interaction, client) {
         // Count to Global Commands
         cmds.add('t-all', 1)
         

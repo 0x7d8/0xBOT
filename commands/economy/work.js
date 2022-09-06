@@ -13,7 +13,7 @@ module.exports = {
         .setDescriptionLocalizations({
             de: 'ARBEITE FÜR GELD'
         }),
-    async execute(interaction) {
+    async execute(interaction, client) {
         // Count to Global Commands
         cmds.add('t-all', 1)
         

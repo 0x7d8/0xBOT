@@ -39,7 +39,7 @@ module.exports = {
             		{ name: '🏁 FANGEN', value: 'Fangen' },
             		{ name: '😠 RUFEN', value: 'Rufen' },
 				)),
-    async execute(interaction) {
+    async execute(interaction, client) {
         // Count to Global Commands
         cmds.add('t-all', 1)
         

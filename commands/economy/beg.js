@@ -1,12 +1,7 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { EmbedBuilder } = require('@discordjs/builders');
 const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
-const { version, token } = require('../../config.json');
-
-// Register Client
-const { Client, GatewayIntentBits } = require('discord.js');
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
-client.login(token)
+const { version } = require('../../config.json');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -26,7 +21,7 @@ module.exports = {
                     de: 'DIE ANZAHL AN GELD'
                 })
                 .setRequired(true)),
-    async execute(interaction) {
+    async execute(interaction, client) {
         // Count to Global Commands
         cmds.add('t-all', 1)
         

@@ -11,7 +11,7 @@ module.exports = {
         .setDescriptionLocalizations({
             de: 'DER BOT AUF TOP.GG'
         }),
-    async execute(interaction) {
+    async execute(interaction, client) {
         // Count to Global Commands
         cmds.add('t-all', 1)
         

@@ -10,7 +10,7 @@ module.exports = {
         .setDescriptionLocalizations({
             de: 'SEHE STATISTIKEN'
         }),
-    async execute(interaction) {
+    async execute(interaction, client) {
         // Set Variables
         const totalcmd = await cmds.get('t-all');
         const guildcmd = await cmds.get('g-' + interaction.guild.id);

@@ -35,7 +35,7 @@ module.exports = {
             		{ name: '⭐ YAHOO', value: 'Yahoo' },
             		{ name: '⭐ DUCKDUCKGO', value: 'DuckDuckGo' },
 				)),
-    async execute(interaction) {
+    async execute(interaction, client) {
         // Count to Global Commands
         cmds.add('t-all', 1)
         

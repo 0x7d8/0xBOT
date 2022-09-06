@@ -1,14 +1,9 @@
 const { Intents, Collection } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { EmbedBuilder } = require('@discordjs/builders');
-const { version, token } = require('../../config.json');
+const { version } = require('../../config.json');
 const cooldown = new Collection();
 let time = 30000;
-
-// Register Client
-const { Client, GatewayIntentBits } = require('discord.js');
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
-client.login(token)
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -44,7 +39,7 @@ module.exports = {
                     { name: '🤑 [20%] 30€ - 50€', value: '20' },
                     { name: '💰 [05%] 60€ - 100€', value: '5' },
 				)),
-    async execute(interaction) {
+    async execute(interaction, client) {
         // Count to Global Commands
         cmds.add('t-all', 1)
         

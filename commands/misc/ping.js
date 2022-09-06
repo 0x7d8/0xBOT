@@ -1,11 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { version, token } = require('../../config.json');
+const { version } = require('../../config.json');
 const { EmbedBuilder } = require('@discordjs/builders');
-
-// Register Client
-const { Client, GatewayIntentBits } = require('discord.js');
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
-client.login(token)
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -15,7 +10,7 @@ module.exports = {
         .setDescriptionLocalizations({
             de: 'DER BOT PING'
         }),
-    async execute(interaction) {
+    async execute(interaction, client) {
         // Count to Global Commands
         cmds.add('t-all', 1)
         

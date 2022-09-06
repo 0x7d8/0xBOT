@@ -28,7 +28,7 @@ module.exports = {
             		{ name: '⭐ GARTIC PHONE', value: 'garticphone' },
             		{ name: '🧠 JKLM', value: 'jklm' },
 				)),
-    async execute(interaction) {
+    async execute(interaction, client) {
         // Count to Global Commands
         cmds.add('t-all', 1)
         

@@ -20,7 +20,7 @@ module.exports = {
                     de: 'DIE FRAGE'
                 })
                 .setRequired(true)),
-    async execute(interaction) {
+    async execute(interaction, client) {
         // Count to Global Commands
         cmds.add('t-all', 1)
         
