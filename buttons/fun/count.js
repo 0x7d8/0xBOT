@@ -8,7 +8,7 @@ module.exports = {
     async execute(interaction, client) {
         // Get Count
         const cache = await interaction.message.embeds
-        const number = parseInt(cache.match(/\d+/g).toString()) + 1
+        const number = parseInt(cache.toString().match(/\d+/g)) + 1
 
         // Create Embeds
         let message = new EmbedBuilder()
