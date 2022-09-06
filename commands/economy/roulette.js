@@ -79,8 +79,13 @@ module.exports = {
         
         // Calculate Status
         let status
-        if (color == farbe) { status = 'GEWONNEN' }
-        if (color != farbe) { status = 'VERLOREN' }
+        if (color == farbe) { status = 'WON' }
+        if (color != farbe) { status = 'LOST' }
+
+        if (interaction.guildLocale == "de") {
+            if (color == farbe) { status = 'GEWONNEN' }
+            if (color != farbe) { status = 'VERLOREN' } 
+        }
         
         // Check for enough Money
         if (money >= wette) {
@@ -123,11 +128,16 @@ module.exports = {
             } else {
                 resultdis = result
             }
+
+            let colordis
+            if (color == 'grün') { colordis = 'GREEN' }
+            if (color == 'rot') { colordis = 'RED' }
+            if (color == 'schwarz') { colordis = 'BLACK' }
         
         	// Create Embed
       		let message = new EmbedBuilder()
             	.setTitle('» ROULETTE')
-  				.setDescription('» You bet **$' + wette + '** on **' + farbe.toUpperCase() + '** and **' + status + '** **$' + resultdis + '**!')
+  				.setDescription('» You bet **$' + wette + '** on **' + colordis.toUpperCase() + '** and **' + status + '** **$' + resultdis + '**!')
             	.setFooter({ text: '» ' + version });
 
             if (interaction.guildLocale == "de") {
