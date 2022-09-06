@@ -132,9 +132,11 @@ module.exports = {
             }
 
             let colordis
-            if (color == 'gruen') { colordis = 'green' };
-            if (color == 'rot') { colordis = 'red' };
-            if (color == 'schwarz') { colordis = 'black' };
+            if (color == 'gruen') { colordis = 'green' }
+            if (color == 'rot') { colordis = 'red' }
+            if (color == 'schwarz') { colordis = 'black' }
+
+            console.log(color)
         
         	// Create Embed
       		let message = new EmbedBuilder()
