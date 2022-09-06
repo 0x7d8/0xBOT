@@ -134,7 +134,7 @@ module.exports = {
         }
 
         // Create Embed
-        const message = new EmbedBuilder()
+        let message = new EmbedBuilder()
             .setTitle('» ' + emoji + ' STOCK SELL')
             .setDescription('» You successfully sold **' + amount + '** ' + emoji + ' for **$' + cash + '**! (**$' + priceText + '** per Stock)')
             .setFooter({ text: '» ' + version });
