@@ -22,7 +22,7 @@ module.exports = {
                 .setRequired(true)
     			.addChoices(
                     // Setup Choices
-                    { name: '🟢 [x4] gruen', value: 'gruen' },
+                    { name: '🟢 [x4] GRÜN', value: 'gruen' },
             		{ name: '⚫ [x2] SCHWARZ', value: 'schwarz' },
                     { name: '🔴 [x2] ROT', value: 'rot' },
 				))
@@ -132,9 +132,9 @@ module.exports = {
             }
 
             let colordis
-            if (color == 'gruen') { colordis = 'green' }
-            if (color == 'rot') { colordis = 'red' }
-            if (color == 'schwarz') { colordis = 'black' }
+            if (color == 'gruen') { colordis = 'green' };
+            if (color == 'rot') { colordis = 'red' };
+            if (color == 'schwarz') { colordis = 'black' };
         
         	// Create Embed
       		let message = new EmbedBuilder()
