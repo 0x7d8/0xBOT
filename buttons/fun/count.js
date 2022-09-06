@@ -7,7 +7,7 @@ module.exports = {
     },
     async execute(interaction, client) {
         // Get Count
-        const cache = msg.channel.messages.fetch(interaction.message.id).toString()
+        const cache = channel.messages.fetch(interaction.message.id).toString()
         const number = parseInt(cache.match(/\d+/g).toString()) + 1
 
         // Create Embeds
