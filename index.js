@@ -4,6 +4,15 @@ const { getAllFilesFilter } = require('./utils/getAllFiles.js');
 const { version } = require('./config.json');
 const { EmbedBuilder } = require('@discordjs/builders');
 
+// Show Logo
+console.log('   ___           ____     ____    _______ ')
+console.log('  / _ \         |  _ \   / __ \  |__   __|')
+console.log(' | | | | __  __ | |_) | | |  | |    | |   ')
+console.log(' | | | | \ \/ / |  _ <  | |  | |    | |   ')
+console.log(' | |_| |  >  <  | |_) | | |__| |    | |   ')
+console.log('  \___/  /_/\_\ |____/   \____/     |_|   ')
+console.log('                                          ')
+
 // MongoDB
 const mongoose = require('mongoose')
 mongoose.connect(mongo, {
