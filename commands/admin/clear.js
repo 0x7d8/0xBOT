@@ -62,7 +62,7 @@ module.exports = {
             }
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] CLEAR : NEGATIVEAMOUNT : ' + amount)
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] CLEAR : NOTENOUGH : ' + amount)
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
@@ -83,14 +83,28 @@ module.exports = {
                 let message
                 if (messages.size == 1) {
                     message = new EmbedBuilder()
-                        .setTitle('» NACHRICHTEN LÖSCHEN')
-                        .setDescription('» Du hast **' + messages.size + '** Nachricht von <@' + target + '> gelöscht!')
+                        .setTitle('» DELETE MESSAGES')
+                        .setDescription('» You deleted **' + messages.size + '** Message from <@' + target + '>!')
                         .setFooter({ text: '» ' + version });
+
+                    if (interaction.guildLocale == "de") {
+                        message = new EmbedBuilder()
+                            .setTitle('» NACHRICHTEN LÖSCHEN')
+                            .setDescription('» Du hast **' + messages.size + '** Nachricht von <@' + target + '> gelöscht!')
+                            .setFooter({ text: '» ' + version });
+                    }
                 } else {
                     message = new EmbedBuilder()
-                        .setTitle('» NACHRICHTEN LÖSCHEN')
-                        .setDescription('» Du hast **' + messages.size + '** Nachrichten von <@' + target + '> gelöscht!')
+                        .setTitle('» DELETE MESSAGES')
+                        .setDescription('» You deleted **' + messages.size + '** Messages from <@' + target + '>!')
                         .setFooter({ text: '» ' + version });
+
+                    if (interaction.guildLocale == "de") {
+                        message = new EmbedBuilder()
+                            .setTitle('» NACHRICHTEN LÖSCHEN')
+                            .setDescription('» Du hast **' + messages.size + '** Nachrichten von <@' + target + '> gelöscht!')
+                            .setFooter({ text: '» ' + version });
+                    }
                 }
 
                 // Send Message
@@ -103,14 +117,28 @@ module.exports = {
                 let message
                 if (messages.size == 1) {
                     message = new EmbedBuilder()
-                        .setTitle('» NACHRICHTEN LÖSCHEN')
-                        .setDescription('» Du hast **' + messages.size + '** Nachricht gelöscht!')
+                        .setTitle('» DELETE MESSAGES')
+                        .setDescription('» You deleted **' + messages.size + '** Message!')
                         .setFooter({ text: '» ' + version });
+
+                    if (interaction.guildLocale == "de") {
+                        message = new EmbedBuilder()
+                            .setTitle('» NACHRICHTEN LÖSCHEN')
+                            .setDescription('» Du hast **' + messages.size + '** Nachricht gelöscht!')
+                            .setFooter({ text: '» ' + version });
+                    }
                 } else {
                     message = new EmbedBuilder()
-                        .setTitle('» NACHRICHTEN LÖSCHEN')
-                        .setDescription('» Du hast **' + messages.size + '** Nachrichten gelöscht!')
+                        .setTitle('» DELETE MESSAGES')
+                        .setDescription('» You deleted **' + messages.size + '** Messages!')
                         .setFooter({ text: '» ' + version });
+
+                    if (interaction.guildLocale == "de") {
+                        message = new EmbedBuilder()
+                            .setTitle('» NACHRICHTEN LÖSCHEN')
+                            .setDescription('» Du hast **' + messages.size + '** Nachrichten gelöscht!')
+                            .setFooter({ text: '» ' + version });
+                    }
                 }
 
                 // Send Message
