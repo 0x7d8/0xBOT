@@ -84,7 +84,7 @@ module.exports = {
 
         if (interaction.guildLocale == "de") {
             if (color == farbe) { status = 'GEWONNEN' }
-            if (color != farbe) { status = 'VERLOREN' } 
+            if (color != farbe) { status = 'VERLOREN' }
         }
         
         // Check for enough Money
@@ -120,8 +120,10 @@ module.exports = {
             if (color != farbe) {
                 resultmul = 0
             }
+
             const result = wette * resultmul
             const resultadd = result - wette
+
             let resultdis
             if (result == 0) {
                 resultdis = wette
@@ -130,9 +132,9 @@ module.exports = {
             }
 
             let colordis
-            if (color == 'grün') { colordis = 'GREEN' }
-            if (color == 'rot') { colordis = 'RED' }
-            if (color == 'schwarz') { colordis = 'BLACK' }
+            if (color == 'grün') { colordis = 'green' }
+            if (color == 'rot') { colordis = 'red' }
+            if (color == 'schwarz') { colordis = 'black' }
         
         	// Create Embed
       		let message = new EmbedBuilder()
