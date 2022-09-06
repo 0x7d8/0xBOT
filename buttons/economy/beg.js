@@ -14,27 +14,41 @@ module.exports = {
             const missing = cost - balance
             
             // Create Embed
-            const err = new EmbedBuilder()
-            	.setTitle('» FEHLER')
-  				.setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
+            let message = new EmbedBuilder()
+            	.setTitle('» ERROR')
+  				.setDescription('» You dont have enough Money for that, you are missing **$' + missing + '**!')
             	.setFooter({ text: '» ' + version });
+
+            if (interaction.guildLocale == "de") {
+                message = new EmbedBuilder()
+            	    .setTitle('» FEHLER')
+  				    .setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
+            	    .setFooter({ text: '» ' + version });
+            }
             
             // Send Message
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] BEG : ' + reciever.toString().replace(/\D/g, '') + ' : ' + amount + '€ : NOTENOUGHMONEY')
-            return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
         // Check if User is Author
         if (interaction.user.id == reciever.toString().replace(/\D/g, '')) {
             // Create Embed
-            const err = new EmbedBuilder()
-        	    .setTitle('» BETTELN')
-  			    .setDescription("» Du kannst dir selber kein Geld geben?")
-        	    .setFooter({ text: '» ' + version });
+            let message = new EmbedBuilder()
+            	.setTitle('» ERROR')
+  				.setDescription('» You cant give yourself Money?')
+            	.setFooter({ text: '» ' + version });
+
+            if (interaction.guildLocale == "de") {
+                message = new EmbedBuilder()
+            	    .setTitle('» FEHLER')
+  				    .setDescription('» Du kannst dir selber kein Geld geben?')
+            	    .setFooter({ text: '» ' + version });
+            }
 
             // Send Message
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] BEG : ' + reciever.toString().replace(/\D/g, '') + ' : ' + amount + '€ : SAMEPERSON')
-            return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
         // Transfer Money
@@ -42,10 +56,17 @@ module.exports = {
         bals.add(reciever.toString().replace(/\D/g, ''), parseInt(amount))
 
         // Create Embeds
-      	const message = new EmbedBuilder()
-            .setTitle('» BETTELN')
-            .setDescription('» <@' + interaction.user.id + '> hat <@' + reciever.toString().replace(/\D/g, '') + '> **' + amount + '€** gegeben!')
+      	let message = new EmbedBuilder()
+            .setTitle('» BEGGING')
+            .setDescription('» <@' + interaction.user.id + '> gave <@' + reciever.toString().replace(/\D/g, '') + '> **$' + amount + '**!')
             .setFooter({ text: '» ' + version });
+
+        if (interaction.guildLocale == "de") {
+            message = new EmbedBuilder()
+                .setTitle('» BETTELN')
+                .setDescription('» <@' + interaction.user.id + '> hat <@' + reciever.toString().replace(/\D/g, '') + '> **' + amount + '€** gegeben!')
+                .setFooter({ text: '» ' + version });
+        }
 
         // Send Message
         console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] BEG : ' + reciever.toString().replace(/\D/g, '') + ' : ' + amount + '€')

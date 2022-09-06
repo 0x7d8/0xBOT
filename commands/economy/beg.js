@@ -46,27 +46,41 @@ module.exports = {
         // Check if Balance is Minus
         if (amount < 0) {
             // Create Embed
-            const err = new EmbedBuilder()
-        		.setTitle('» FEHLER')
-        		.setDescription('» Du kannst nicht nach negativem Geld fragen!')
+            let message = new EmbedBuilder()
+        		.setTitle('» ERROR')
+        		.setDescription('» You cant ask for negative Money!')
         		.setFooter({ text: '» ' + version });
+
+            if (interaction.guildLocale == "de") {
+                message = new EmbedBuilder()
+        		    .setTitle('» FEHLER')
+        		    .setDescription('» Du kannst nicht nach negativem Geld fragen!')
+        		    .setFooter({ text: '» ' + version });
+            }
             
             // Send Message
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] BEG : NEGATIVEMONEY : ' + amount + '€')
-            return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
         // Check for Max Amount
         if (amount > 5000) {
             // Create Embed
-            const err = new EmbedBuilder()
-                .setTitle('» BETTELN')
-                  .setDescription('» Du kannst nicht soviel erbetteln! **5000€** ist das Maximum.')
+            let message = new EmbedBuilder()
+                .setTitle('» BEGGING')
+                .setDescription('» You cant beg that much! **$5000** is the Maximum.')
                 .setFooter({ text: '» ' + version });
+
+            if (interaction.guildLocale == "de") {
+                message = new EmbedBuilder()
+                    .setTitle('» BETTELN')
+                    .setDescription('» Du kannst nicht soviel erbetteln! **5000€** ist das Maximum.')
+                    .setFooter({ text: '» ' + version });
+            }
             
             // Send Message
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] BEG : TOOMUCHMONEY : ' + amount + '€')
-            return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
         // Get Username
@@ -74,26 +88,50 @@ module.exports = {
         userinfo = await client.users.fetch(interaction.user.id);
 
         // Create Button
-        const button = new ActionRowBuilder()
+        let button = new ActionRowBuilder()
 			.addComponents(
 				new ButtonBuilder()
-					.setLabel('💰 GEBE ' + userinfo.username.toUpperCase() + ' ' + amount + '€')
+					.setLabel('💰 GIVE ' + userinfo.username.toUpperCase() + ' $' + amount)
                     .setCustomId('BEG-' + interaction.user.id + '-' + amount)
 					.setStyle(ButtonStyle.Secondary),
 			);
+
+        if (interaction.guildLocale == "de") {
+            button = new ActionRowBuilder()
+			    .addComponents(
+				    new ButtonBuilder()
+				    	.setLabel('💰 GEBE ' + userinfo.username.toUpperCase() + ' ' + amount + '€')
+                        .setCustomId('BEG-' + interaction.user.id + '-' + amount)
+				    	.setStyle(ButtonStyle.Secondary),
+			    );
+        }
         
         // Create Embed
         let message
         if (reason == null) {
       	    message = new EmbedBuilder()
-                .setTitle('» BETTELN')
-  			    .setDescription('» <@' + interaction.user.id + '> braucht Geld!')
+                .setTitle('» BEGGING')
+  			    .setDescription('» <@' + interaction.user.id + '> needs Money!')
         	    .setFooter({ text: '» ' + version });
+
+            if (interaction.guildLocale == "de") {
+                message = new EmbedBuilder()
+                    .setTitle('» BETTELN')
+  			        .setDescription('» <@' + interaction.user.id + '> braucht Geld!')
+        	        .setFooter({ text: '» ' + version });
+            }
         } else {
             message = new EmbedBuilder()
-                .setTitle('» BETTELN')
-  			    .setDescription('» <@' + interaction.user.id + '> braucht Geld!\n*"' + reason.toString() + '"*')
+                .setTitle('» BEGGING')
+  			    .setDescription('» <@' + interaction.user.id + '> needs Money!\n*"' + reason.toString() + '"*')
         	    .setFooter({ text: '» ' + version });
+
+            if (interaction.guildLocale == "de") {
+                message = new EmbedBuilder()
+                    .setTitle('» BETTELN')
+  			        .setDescription('» <@' + interaction.user.id + '> braucht Geld!\n*"' + reason.toString() + '"*')
+        	        .setFooter({ text: '» ' + version });
+            }
         }
 
         // Send Message

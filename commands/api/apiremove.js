@@ -43,10 +43,17 @@ module.exports = {
         const path = '/paper-api/' + interaction.user.id.replace(/\D/g, '') + '/' + name
         try {
         	// Create Embed
-        	const message = new EmbedBuilder()
+        	let message = new EmbedBuilder()
             	.setTitle('» PAPER API REMOVE')
-  				.setDescription('Du hast die API **' + name + '** gelöscht!')
+  				.setDescription('You have deleted the API **' + name + '**!')
         		.setFooter({ text: '» ' + version + ' » SLOTS ' + newamount + '/5'});
+
+            if (interaction.guildLocale == "de") {
+                message = new EmbedBuilder()
+            	    .setTitle('» PAPER API REMOVE')
+  				    .setDescription('Du hast die API **' + name + '** gelöscht!')
+        		    .setFooter({ text: '» ' + version + ' » SLOTS ' + newamount + '/5'});
+            }
 
         	// Remove File
         	fs.unlinkSync(path)
@@ -57,14 +64,21 @@ module.exports = {
         	return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         } catch (err) {
             // Create Embed
-            const error = new EmbedBuilder()
-        		.setTitle('» PAPER API REMOVE')
-        		.setDescription('» Diese API existiert garnicht!\n</apicreate:1002107281510506516> um eine zu erstellen')
+            let message = new EmbedBuilder()
+        		.setTitle('» PAPER API EDIT')
+        		.setDescription('» This API doesnt exist!\n</apicreate:1002107281510506516> to Create one')
         		.setFooter({ text: '» ' + version + ' » SLOTS ' + amount + '/5'});
+
+            if (interaction.guildLocale == "de") {
+                message = new EmbedBuilder()
+        		    .setTitle('» PAPER API EDIT')
+        		    .setDescription('» Diese API existiert garnicht!\n</apicreate:1002107281510506516> um eine zu erstellen')
+        		    .setFooter({ text: '» ' + version + ' » SLOTS ' + amount + '/5'});
+            }
             
             // Send Message
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] APIREMOVE : ' + name + ' : NOTFOUND')
-            return interaction.reply({ embeds: [error.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
     },
 };

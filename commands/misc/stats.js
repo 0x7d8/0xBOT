@@ -17,10 +17,17 @@ module.exports = {
         const usercmd = await cmds.get('u-' + interaction.user.id.replace(/\D/g, ''));
 
         // Create Embed
-        const message = new EmbedBuilder()
+        let message = new EmbedBuilder()
+        		.setTitle('» BOT STATISTICS')
+        		.setDescription('**»» COMMAND STATS**\n» GLOBAL\n`' + totalcmd + '`\n\n» THIS SERVER\n`' + guildcmd + '`\n\n» YOU IN TOTAL\n`' + usercmd + '`')
+        		.setFooter({ text: '» ' + version });
+
+        if (interaction.guildLocale == "de") {
+            message = new EmbedBuilder()
         		.setTitle('» BOT STATISTIKEN')
         		.setDescription('**»» BEFEHL STATS**\n» GLOBAL\n`' + totalcmd + '`\n\n» DIESER SERVER\n`' + guildcmd + '`\n\n» DU INSGESAMT\n`' + usercmd + '`')
         		.setFooter({ text: '» ' + version });
+        }
 
         // Send Correct Response
         console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] STATS')

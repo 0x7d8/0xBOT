@@ -1,6 +1,7 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { EmbedBuilder } = require('@discordjs/builders');
 const { version } = require('../../config.json');
+const { listenerCount } = require('../../schema/cmds');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -64,10 +65,17 @@ module.exports = {
         }
         
         // Create Embeds
-        const message = new EmbedBuilder()
-        	.setTitle('» MAGISCHER BALL')
+        let message = new EmbedBuilder()
+        	.setTitle('» MAGIC BALL')
   			.setDescription('» "' + formatted + '" -> ' + result)
         	.setFooter({ text: '» ' + version });
+
+        if (interaction.guildLocale == "de") {
+            message = new EmbedBuilder()
+        	    .setTitle('» MAGISCHER BALL')
+  			    .setDescription('» "' + formatted + '" -> ' + result)
+        	    .setFooter({ text: '» ' + version });
+        }
         
         // Send Message
         console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] 8BALL : ' + formatted.toUpperCase() + ' : ' + result.toUpperCase())

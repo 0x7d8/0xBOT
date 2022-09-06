@@ -19,11 +19,19 @@ module.exports = {
         cmds.add('u-' + interaction.user.id.replace(/\D/g, ''), 1)
 
         // Create Embed
-        const message = new EmbedBuilder()
+        let message = new EmbedBuilder()
+        	.setTitle('» DONATE')
+        	.setDescription('**»» DONATE**\n» LINK\nhttps://donate.rjansen.de\n» QR CODE')
+    		.setImage("https://img.rjansen.de/bot/donate.png")
+    		.setFooter({ text: '» ' + version });
+
+        if (interaction.guildLocale == "de") {
+            message = new EmbedBuilder()
         		.setTitle('» SPENDEN')
         		.setDescription('**»» SPENDEN**\n» LINK\nhttps://donate.rjansen.de\n» QR CODE')
         		.setImage("https://img.rjansen.de/bot/donate.png")
         		.setFooter({ text: '» ' + version });
+        }
 
         // Send Correct Response
         console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] DONATE <3')

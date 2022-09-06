@@ -54,34 +54,55 @@ module.exports = {
         const path = '/paper-api/' + interaction.user.id.replace(/\D/g, '') + '/' + name
   		if (fs.existsSync(path)) {
             // Create Embed
-            const err = new EmbedBuilder()
+            let message = new EmbedBuilder()
         		.setTitle('» PAPER API CREATE')
-        		.setDescription('» Diese API existiert schon!\n</apiedit:1002107281510506517> um sie zu ändern\n</apiremove:1002107281510506518> um sie zu löschen')
+        		.setDescription('» This API already exists!\n</apiedit:1002107281510506517> to change it\n</apiremove:1002107281510506518> to delete it')
         		.setFooter({ text: '» ' + version + ' » SLOTS ' + amount + '/5'});
+
+            if (interaction.guildLocale == "de") {
+                message = new EmbedBuilder()
+        		    .setTitle('» PAPER API CREATE')
+        		    .setDescription('» Diese API existiert schon!\n</apiedit:1002107281510506517> um sie zu ändern\n</apiremove:1002107281510506518> um sie zu löschen')
+        		    .setFooter({ text: '» ' + version + ' » SLOTS ' + amount + '/5'});
+            }
             
             // Send Message
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] APICREATE : ' + name + ' : NOTFOUND')
-            return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
   		}
         
         // Check if Slots are Free
         if (amount > '4') {
             // Create Embed
-            const err = new EmbedBuilder()
+            let message = new EmbedBuilder()
         		.setTitle('» PAPER API CREATE')
-        		.setDescription('» Du hast alle deiner **5** API Slots genutzt!')
+        		.setDescription('» You have used all of your **5** API Slots!')
         		.setFooter({ text: '» ' + version });
+
+            if (interaction.guildLocale == "de") {
+                message = new EmbedBuilder()
+        		    .setTitle('» PAPER API CREATE')
+        		    .setDescription('» Du hast alle deiner **5** API Slots genutzt!')
+        		    .setFooter({ text: '» ' + version });
+            }
             
             // Send Message
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] APICREATE : ' + name + ' : MAXSLOTS')
-            return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         } 
         
         // Create Embed
-        const message = new EmbedBuilder()
+        let message = new EmbedBuilder()
             .setTitle('» PAPER API EDIT')
-  			.setDescription('Du hast eine neue API erstellt!\nSie ist hier verfügbar:\n**`https://api.paperstudios.de/user/' + interaction.user.id.replace(/\D/g, '') + '/' + name + '`**!')
+  			.setDescription('You have created a new API!\nIts available here:\n**`https://api.paperstudios.de/user/' + interaction.user.id.replace(/\D/g, '') + '/' + name + '`**!')
         	.setFooter({ text: '» ' + version + ' » SLOTS ' + newamount + '/5'});
+
+        if (interaction.guildLocale == "de") {
+            message = new EmbedBuilder()
+                .setTitle('» PAPER API EDIT')
+  			    .setDescription('Du hast eine neue API erstellt!\nSie ist hier verfügbar:\n**`https://api.paperstudios.de/user/' + interaction.user.id.replace(/\D/g, '') + '/' + name + '`**!')
+        	    .setFooter({ text: '» ' + version + ' » SLOTS ' + newamount + '/5'});
+        }
         
         // Write File
         fs.writeFile('/paper-api/' + interaction.user.id.replace(/\D/g, '') + '/' + name, inhalt, function(err) {})

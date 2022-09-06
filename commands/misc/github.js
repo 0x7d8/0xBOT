@@ -20,7 +20,7 @@ module.exports = {
         cmds.add('u-' + interaction.user.id.replace(/\D/g, ''), 1)
 
         // Create Button
-        const github = new ActionRowBuilder()
+        let button = new ActionRowBuilder()
 			.addComponents(
 				new ButtonBuilder()
 					.setLabel('ANSCHAUEN')
@@ -28,14 +28,31 @@ module.exports = {
 					.setStyle(ButtonStyle.Link),
 			);
         
+        if (interaction.guildLocale == "de") {
+            button = new ActionRowBuilder()
+			    .addComponents(
+				    new ButtonBuilder()
+				    	.setLabel('VIEW')
+				    	.setURL('https://github.com/rotvproHD/0xBOT')
+				    	.setStyle(ButtonStyle.Link),
+			    );
+        }
+        
         // Create Embed
-       	const message = new EmbedBuilder()
+       	let message = new EmbedBuilder()
             .setTitle('» GITHUB')
-  			.setDescription('» Klicke unten um auf die **GITHUB** Seite zu kommen!')
+  			.setDescription('» CLick below to go to the **GITHUB** Page of the Bot!')
         	.setFooter({ text: '» ' + version });
+
+        if (interaction.guildLocale == "de") {
+            message = new EmbedBuilder()
+                .setTitle('» GITHUB')
+  			    .setDescription('» Klicke unten um auf die **GITHUB** Seite zu kommen!')
+        	    .setFooter({ text: '» ' + version });
+        }
         
         // Send Message
         console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] GITHUB')
-        interaction.reply({ embeds: [message.toJSON()], components: [github], ephemeral: true })
+        interaction.reply({ embeds: [message.toJSON()], components: [button], ephemeral: true })
     },
 };

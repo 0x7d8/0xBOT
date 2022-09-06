@@ -43,23 +43,37 @@ module.exports = {
         // Check if Number is negative
         if (anzahl < 1) {
             // Create Embed
-            const err = new EmbedBuilder()
-        		.setTitle('» FEHLER')
-        		.setDescription('» Du musst schon mindestens eine Münze werfen!')
+            let message = new EmbedBuilder()
+        		.setTitle('» ERROR')
+        		.setDescription('» You need to throw atleast **1** Coin!')
         		.setFooter({ text: '» ' + version });
+
+            if (interaction.guildLocale == "de") {
+                message = new EmbedBuilder()
+        		    .setTitle('» FEHLER')
+        		    .setDescription('» Du musst schon mindestens **1** Münze werfen!')
+        		    .setFooter({ text: '» ' + version });
+            }
             
             // Send Message
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] COINFLIP : NOTENOUGHCOINS : ' + anzahl)
-            return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
         // Check if Number is too Big
         if (anzahl > 1000) {
             // Create Embed
-            const err = new EmbedBuilder()
-        		.setTitle('» FEHLER')
-        		.setDescription('» Du darfst nicht mehr als **1000** Münzen werfen!')
+            let message = new EmbedBuilder()
+        		.setTitle('» ERROR')
+        		.setDescription('» You cant throw more than **1000** Coins!')
         		.setFooter({ text: '» ' + version });
+
+            if (interaction.guildLocale == "de") {
+                message = new EmbedBuilder()
+        		    .setTitle('» FEHLER')
+        		    .setDescription('» Du darfst nicht mehr als **1000** Münzen werfen!')
+        		    .setFooter({ text: '» ' + version });
+            }
             
             // Send Message
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] COINFLIP : TOOMANYCOINS : ' + anzahl)
@@ -72,8 +86,8 @@ module.exports = {
         while (anzahl != tries) {
             const random = Math.floor(Math.random() * (2 - 1 + 1)) + 1;
 
-            if (random == 1) { coin = 'KOPF'; heads = heads + 1 }
-            if (random == 2) { coin = 'ZAHL'; tails = tails + 1 }
+            if (random == 1) { coin = 'HEAD'; heads = heads + 1 }
+            if (random == 2) { coin = 'TAIL'; tails = tails + 1 }
 
             tries = tries + 1
             continue loop;
@@ -90,13 +104,30 @@ module.exports = {
         if (anzahl == 1) {
             message = new EmbedBuilder()
         	    .setTitle('» COINFLIP')
-  			    .setDescription('» Die Münze ist auf **' + coin + '** gelandet!')
+  			    .setDescription('» The Coin Landed on **' + coin + '**!')
         	    .setFooter({ text: '» ' + version });
+
+            if (interaction.guildLocale == "de") {
+                if (coin == "HEAD") { coin = "KOPF" }
+                if (coin == "TAIL") { coin = "ZAHL" }
+
+                message = new EmbedBuilder()
+        	        .setTitle('» COINFLIP')
+  			        .setDescription('» Die Münze ist auf **' + coin + '** gelandet!')
+        	        .setFooter({ text: '» ' + version });
+            }
         } else {
             message = new EmbedBuilder()
         	    .setTitle('» COINFLIP')
-  			    .setDescription('» KÖPFE\n`' + heads + '`\n\n» ZAHLEN\n`' + tails + '`')
+  			    .setDescription('» HEADS\n`' + heads + '`\n\n» TAILS\n`' + tails + '`')
         	    .setFooter({ text: '» ' + version });
+
+            if (interaction.guildLocale == "de") {
+                message = new EmbedBuilder()
+        	        .setTitle('» COINFLIP')
+  			        .setDescription('» KÖPFE\n`' + heads + '`\n\n» ZAHLEN\n`' + tails + '`')
+        	        .setFooter({ text: '» ' + version });
+            }
         }
 
         

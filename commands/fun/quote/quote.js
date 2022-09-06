@@ -52,14 +52,21 @@ module.exports = {
             const cdown = timeLeft / 1000;
             
             // Create Embed
-            const err = new EmbedBuilder()
-            	.setTitle('» ZITAT')
-  				.setDescription('» Du hast leider noch einen Cooldown von **' + cdown.toFixed(0) + 's**!')
-            	.setFooter({ text: '» ' + version});
+            let message = new EmbedBuilder()
+            	.setTitle('» ERROR')
+  				.setDescription('» You still have a Cooldown of **' + cdown.toFixed(0) + 's**!')
+            	.setFooter({ text: '» ' + version });
+
+            if (interaction.guildLocale == "de") {
+                message = new EmbedBuilder()
+            	    .setTitle('» FEHLER')
+  				    .setDescription('» Du hast leider noch einen Cooldown von **' + cdown.toFixed(0) + 's**!')
+            	    .setFooter({ text: '» ' + version });
+            }
             
             // Send Message
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] QUOTE : ONCOOLDOWN : ' + cdown.toFixed(0) + 's');
-            return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
         
         // Check if there is a author specified
@@ -67,34 +74,34 @@ module.exports = {
         if (autor == null) {
             const amount = await quts.get(interaction.user.id.replace(/\D/g, '')) + 1;
         	message = new EmbedBuilder()
-            	.setTitle('» EIN WEISES ZITAT')
+            	.setTitle('» A WISE QUOTE')
   				.setDescription('» "' + zitat + '" ~<@' + interaction.user.id.replace(/\D/g, '') + '>')
-            	.setFooter({ text: '» ' + version + ' » ZITATE: ' + amount});
+            	.setFooter({ text: '» ' + version + ' » QUOTES: ' + amount});
+
+            if (interaction.guildLocale == "de") {
+                message = new EmbedBuilder()
+            	    .setTitle('» EIN WEISES ZITAT')
+  				    .setDescription('» "' + zitat + '" ~<@' + interaction.user.id.replace(/\D/g, '') + '>')
+            	    .setFooter({ text: '» ' + version + ' » ZITATE: ' + amount});
+            }
             
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] QUOTE : ' + zitat.toUpperCase())
         } else {
             const amount = await quts.get('<@' + autor + '>') + 1;
         	message = new EmbedBuilder()
-            	.setTitle('» EIN ZITAT')
+            	.setTitle('» A QUOTE')
   				.setDescription('» "' + zitat + '" ~<@' + autor + '>')
-            	.setFooter({ text: '» ' + version + ' » ZITATE: ' + amount});
+            	.setFooter({ text: '» ' + version + ' » QUOTES: ' + amount});
+
+            if (interaction.guildLocale == "de") {
+                message = new EmbedBuilder()
+            	    .setTitle('» EIN ZITAT')
+  				    .setDescription('» "' + zitat + '" ~<@' + autor + '>')
+            	    .setFooter({ text: '» ' + version + ' » ZITATE: ' + amount});
+            }
             
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] QUOTE : ' + zitat.toUpperCase() + ' : ~' + autor)
             quts.add('<@' + autor + '>', 1);
-        }
-
-        // Check if Target is Bot
-        const userinfo = await client.users.fetch(user);
-        if (userinfo.bot == true) {
-            // Create Embed
-            const err = new EmbedBuilder()
-        		.setTitle('» FEHLER')
-        		.setDescription('» Du kannst einen Bot Leider nicht Zitieren!')
-        		.setFooter({ text: '» ' + version });
-            
-            // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] QUOTE : ' + user + ' : BOT : ' + zitat.toUpperCase())
-            return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
         
         // Set Cooldown

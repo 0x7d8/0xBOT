@@ -51,14 +51,28 @@ module.exports = {
         let message
         if (user == null) {
         	message = new EmbedBuilder()
-            	.setTitle('» DEIN GELDSTAND')
-  				.setDescription('» Dein Geldstand beträgt **' + money + '€**!')
+            	.setTitle('» YOUR BALANCE')
+  				.setDescription('» Your Balance is **$' + money + '**!')
             	.setFooter({ text: '» ' + version });
+
+            if (interaction.guildLocale == "de") {
+                message = new EmbedBuilder()
+            	    .setTitle('» DEIN GELDSTAND')
+  				    .setDescription('» Dein Geldstand beträgt **' + money + '€**!')
+            	    .setFooter({ text: '» ' + version });
+            }
         } else {
             message = new EmbedBuilder()
-            	.setTitle('» DER GELDSTAND VON ' + userinfo.username.toUpperCase() + '#' + userinfo.discriminator)
-  				.setDescription('» Der Geldstand von <@' + user + '> ist **' + money + '€**!')
+            	.setTitle('» THE BALANCE OF ' + userinfo.username.toUpperCase() + '#' + userinfo.discriminator)
+  				.setDescription('» The Balance of <@' + user + '> is **$' + money + '**!')
             	.setFooter({ text: '» ' + version });
+
+            if (interaction.guildLocale == "de") {
+                message = new EmbedBuilder()
+            	    .setTitle('» DER GELDSTAND VON ' + userinfo.username.toUpperCase() + '#' + userinfo.discriminator)
+  				    .setDescription('» Der Geldstand von <@' + user + '> ist **' + money + '€**!')
+            	    .setFooter({ text: '» ' + version });
+            }
         }
 
         // Send Message

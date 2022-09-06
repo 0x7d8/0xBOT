@@ -29,8 +29,8 @@ module.exports = {
                 .setRequired(true)
     			.addChoices(
             		// Setup Choices
-					{ name: '✅ JA & NEIN', value: 'frage' },
-            		{ name: '🧮 BUCHSTABEN VON A BIS E', value: 'abstimmung' },
+					{ name: '✅ JA & NEIN', value: 'question' },
+            		{ name: '🧮 BUCHSTABEN VON A BIS E', value: 'vote' },
 				)),
     async execute(interaction, client) {
         // Count to Global Commands
@@ -45,10 +45,21 @@ module.exports = {
         const reactions = interaction.options.getString("reactions")
 
         // Create Embed
-       	const message = new EmbedBuilder()
-            .setTitle('» EINE ' + reactions.toUpperCase())
+       	let message = new EmbedBuilder()
+            .setTitle('» A ' + reactions.toUpperCase())
   			.setDescription('» ' + frage)
         	.setFooter({ text: '» ' + version });
+
+        if (interaction.guildLocale == "de") {
+            let reactionsde
+            if (reactions == "question") { reactionsde = "frage" }
+            if (reactions == "vote") { reactionsde = "abstimmung" }
+
+            message = new EmbedBuilder()
+                .setTitle('» EINE ' + reactionsde.toUpperCase())
+  			    .setDescription('» ' + frage)
+        	    .setFooter({ text: '» ' + version });
+        }
         
         // Send Message
         interaction.reply({ embeds: [message.toJSON()] })

@@ -35,37 +35,66 @@ module.exports = {
             if (cdown > 60) { cdown = timeLeft / 1000 / 60; use = 'm' }
             
             // Create Embed
-            const err = new EmbedBuilder()
-            	.setTitle('» ARBEIT')
-  				.setDescription('» Du hast leider noch einen Cooldown von **' + cdown.toFixed(0) + use + '**!')
+            let message = new EmbedBuilder()
+            	.setTitle('» ERROR')
+  				.setDescription('» You still have a Cooldown of **' + cdown.toFixed(0) + 's**!')
             	.setFooter({ text: '» ' + version });
+
+            if (interaction.guildLocale == "de") {
+                message = new EmbedBuilder()
+            	    .setTitle('» FEHLER')
+  				    .setDescription('» Du hast leider noch einen Cooldown von **' + cdown.toFixed(0) + 's**!')
+            	    .setFooter({ text: '» ' + version });
+            }
             
             // Send Message
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] WORK : ONCOOLDOWN : ' + cdown.toFixed(0) + use);
-            return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         } else {
             
             // Set Jobs
             let job
             let result
-        	if (random == '1') { job = 'PROGRAMMIERER'; result = Math.floor(Math.random() * (75 - 40 + 1)) + 40; }
-        	if (random == '2') { job = 'HAUSMEISTER'; result = Math.floor(Math.random() * (40 - 25 + 1)) + 25; }
-        	if (random == '3') { job = 'MCDONALDS KASSIERER'; result = Math.floor(Math.random() * (25 - 10 + 1)) + 10; }
-        	if (random == '4') { job = 'KÜNSTLER'; result = Math.floor(Math.random() * (100 - 25 + 1)) + 25; }
+        	if (random == '1') { job = 'PROGRAMMER'; result = Math.floor(Math.random() * (75 - 40 + 1)) + 40; }
+        	if (random == '2') { job = 'CLEANER'; result = Math.floor(Math.random() * (40 - 25 + 1)) + 25; }
+        	if (random == '3') { job = 'MCDONALDS WORKER'; result = Math.floor(Math.random() * (25 - 10 + 1)) + 10; }
+        	if (random == '4') { job = 'PAINTER'; result = Math.floor(Math.random() * (100 - 25 + 1)) + 25; }
+
+            if (interaction.guildLocale == "de") {
+                if (random == '1') { job = 'PROGRAMMIERER'; result = Math.floor(Math.random() * (75 - 40 + 1)) + 40; }
+        	    if (random == '2') { job = 'HAUSMEISTER'; result = Math.floor(Math.random() * (40 - 25 + 1)) + 25; }
+        	    if (random == '3') { job = 'MCDONALDS KASSIERER'; result = Math.floor(Math.random() * (25 - 10 + 1)) + 10; }
+        	    if (random == '4') { job = 'KÜNSTLER'; result = Math.floor(Math.random() * (100 - 25 + 1)) + 25; }
+            }
             
             // Set Extra Text
             let extra
             if (result < 20) { extra = 'MEH.' }
             if (result >= 20) { extra = 'NICE.' }
-            if (result >= 40) { extra = 'PRIMA.' }
-            if (result >= 60) { extra = 'TOLL!' }
+            if (result >= 40) { extra = 'GREAT.' }
+            if (result >= 60) { extra = 'WONDERFUL!' }
             if (result >= 80) { extra = 'WOW!' }
+
+            if (interaction.guildLocale == "de") {
+                if (result < 20) { extra = 'MEH.' }
+                if (result >= 20) { extra = 'NICE.' }
+                if (result >= 40) { extra = 'PRIMA.' }
+                if (result >= 60) { extra = 'TOLL!' }
+                if (result >= 80) { extra = 'WOW!' }
+            }
         
         	// Create Embed
-      		const message = new EmbedBuilder()
-            	.setTitle('» ARBEIT')
-  				.setDescription('» Du arbeitest als **' + job + '** und verdienst **' + result + '€**! ' + extra)
+      		let message = new EmbedBuilder()
+            	.setTitle('» WORK')
+  				.setDescription('» You work as **' + job + '** and earn **$' + result + '**! ' + extra)
             	.setFooter({ text: '» ' + version });
+
+            if (interaction.guildLocale == "de") {
+                message = new EmbedBuilder()
+            	    .setTitle('» ARBEIT')
+  				    .setDescription('» Du arbeitest als **' + job + '** und verdienst **' + result + '€**! ' + extra)
+            	    .setFooter({ text: '» ' + version });
+            }
         
         	// Send Money
         	bals.add(interaction.user.id.replace(/\D/g, ''), result)

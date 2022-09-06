@@ -82,10 +82,17 @@ module.exports = {
 			);
         
         // Create Embed
-       	const message = new EmbedBuilder()
-            .setTitle('» SUCHEN')
-  			.setDescription('» Klicke unten um nach Ergebnissen für **' + suche + '** auf **' + engine + '** zu finden!')
+       	let message = new EmbedBuilder()
+            .setTitle('» SEARCH')
+  			.setDescription('» Click Below to look up results for **' + suche + '** on **' + engine + '**!')
         	.setFooter({ text: '» ' + version });
+
+        if (interaction.guildLocale == "de") {
+            message = new EmbedBuilder()
+                .setTitle('» SUCHEN')
+  			    .setDescription('» Klicke unten um nach Ergebnissen für **' + suche + '** auf **' + engine + '** zu finden!')
+        	    .setFooter({ text: '» ' + version });
+        }
         
         // Send Message
         console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] SEARCH : "' + suche.toUpperCase() + '" : ' + engine.toUpperCase())

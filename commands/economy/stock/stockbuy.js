@@ -75,60 +75,95 @@ module.exports = {
         // Check if Amount is Negative
         if (amount < 0) {
             // Create Embed
-            const err = new EmbedBuilder()
-        		.setTitle('» FEHLER')
-        		.setDescription('» Du kannst keine negativen Anzahlen kaufen!')
+            let message = new EmbedBuilder()
+        		.setTitle('» ERROR')
+        		.setDescription('» You cant buy a negative amount of Stocks!')
         		.setFooter({ text: '» ' + version });
+
+            if (interaction.guildLocale == "de") {
+                message = new EmbedBuilder()
+        		    .setTitle('» FEHLER')
+        		    .setDescription('» Du kannst keine negativen Anzahlen kaufen!')
+        		    .setFooter({ text: '» ' + version });
+            }
             
             // Send Message
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] STOCKBUY : NEGATIVEMONEY : ' + amount + '€')
-            return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
         // Check if Max Stocks are reached
         if (stock == 'green' && greens > greenmax) {
             // Create Embed
-            const err = new EmbedBuilder()
-        		.setTitle('» FEHLER')
-        		.setDescription('» Du kannst nicht mehr als **' + greenmax + '** 🟢 Kaufen!')
+            let message = new EmbedBuilder()
+        		.setTitle('» ERROR')
+        		.setDescription('» You cant buy more than **' + greenmax + '** 🟢!')
         		.setFooter({ text: '» ' + version });
+
+            if (interaction.guildLocale == "de") {
+                message = new EmbedBuilder()
+        		    .setTitle('» FEHLER')
+        		    .setDescription('» Du kannst nicht mehr als **' + greenmax + '** 🟢 Kaufen!')
+        		    .setFooter({ text: '» ' + version });
+            }
             
             // Send Message
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] STOCKBUY : MAXGREEN : ' + amount + '€')
-            return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
         if (stock == 'blue' && blues > bluemax) {
             // Create Embed
-            const err = new EmbedBuilder()
-        		.setTitle('» FEHLER')
-        		.setDescription('» Du kannst nicht mehr als **' + bluemax + '** 🔵 Kaufen!')
+            let message = new EmbedBuilder()
+        		.setTitle('» ERROR')
+        		.setDescription('» You cant buy more than **' + bluemax + '** 🔵!')
         		.setFooter({ text: '» ' + version });
+
+            if (interaction.guildLocale == "de") {
+                message = new EmbedBuilder()
+        		    .setTitle('» FEHLER')
+        		    .setDescription('» Du kannst nicht mehr als **' + bluemax + '** 🔵 Kaufen!')
+        		    .setFooter({ text: '» ' + version });
+            }
             
             // Send Message
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] STOCKBUY : MAXBLUE : ' + amount + '€')
-            return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
         if (stock == 'yellow' && yellows > yellowmax) {
             // Create Embed
-            const err = new EmbedBuilder()
-        		.setTitle('» FEHLER')
-        		.setDescription('» Du kannst nicht mehr als **' + yellowmax + '** 🟡 Kaufen!')
+            let message = new EmbedBuilder()
+        		.setTitle('» ERROR')
+        		.setDescription('» You cant buy more than **' + yellowmax + '** 🟡!')
         		.setFooter({ text: '» ' + version });
+
+            if (interaction.guildLocale == "de") {
+                message = new EmbedBuilder()
+        		    .setTitle('» FEHLER')
+        		    .setDescription('» Du kannst nicht mehr als **' + yellowmax + '** 🟡 Kaufen!')
+        		    .setFooter({ text: '» ' + version });
+            }
             
             // Send Message
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] STOCKBUY : MAXYELLOW : ' + amount + '€')
-            return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
         if (stock == 'red' && reds > redmax) {
             // Create Embed
-            const err = new EmbedBuilder()
-        		.setTitle('» FEHLER')
-        		.setDescription('» Du kannst nicht mehr als **' + redmax + '** 🔴 Kaufen!')
+            let message = new EmbedBuilder()
+        		.setTitle('» ERROR')
+        		.setDescription('» You cant buy more than **' + redmax + '** 🔴!')
         		.setFooter({ text: '» ' + version });
+
+            if (interaction.guildLocale == "de") {
+                message = new EmbedBuilder()
+        		    .setTitle('» FEHLER')
+        		    .setDescription('» Du kannst nicht mehr als **' + redmax + '** 🔴 Kaufen!')
+        		    .setFooter({ text: '» ' + version });
+            }
             
             // Send Message
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] STOCKBUY : MAXRED : ' + amount + '€')
-            return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
         // Fetch Stock
@@ -144,14 +179,21 @@ module.exports = {
             const missing = cost - balance
             
             // Create Embed
-            const err = new EmbedBuilder()
-            	.setTitle('» FEHLER')
-  				.setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
+            let message = new EmbedBuilder()
+            	.setTitle('» ERROR')
+  				.setDescription('» You dont have enough Money for that, you are missing **$' + missing + '**!')
             	.setFooter({ text: '» ' + version });
+
+            if (interaction.guildLocale == "de") {
+                message = new EmbedBuilder()
+            	    .setTitle('» FEHLER')
+  				    .setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
+            	    .setFooter({ text: '» ' + version });
+            }
             
             // Send Message
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] STOCKBUY : ' + stock.toUpperCase() + ' : ' + amount + ' : ' + cost + '€ : NOTENOUGHMONEY')
-            return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
         // Set Emoji
@@ -180,10 +222,17 @@ module.exports = {
         bals.rem(interaction.user.id.replace(/\D/g, ''), cost)
 
         // Create Embed
-        const message = new EmbedBuilder()
-            .setTitle('» ' + emoji + ' AKTIE KAUFEN')
-            .setDescription('» Du hast erfolgreich **' + amount + '** ' + emoji + ' für **' + cost + '€** gekauft!')
+        let message = new EmbedBuilder()
+            .setTitle('» ' + emoji + ' BUY STOCKS')
+            .setDescription('» You successfully bought **' + amount + '** ' + emoji + ' for **$' + cost + '**! (**$' + priceText + '** per Stock)')
             .setFooter({ text: '» ' + version });
+
+        if (interaction.guildLocale == "de") {
+            message = new EmbedBuilder()
+                .setTitle('» ' + emoji + ' AKTIE KAUFEN')
+                .setDescription('» Du hast erfolgreich **' + amount + '** ' + emoji + ' für **' + cost + '€** gekauft! (**' + priceText + '€** pro Aktie)')
+                .setFooter({ text: '» ' + version });
+        }
 
         // Send Message
         console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] STOCKBUY : ' + stock.toUpperCase() + ' : ' + amount + ' : ' + cost + '€')

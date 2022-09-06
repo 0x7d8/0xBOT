@@ -66,61 +66,100 @@ module.exports = {
         // Check if Balance is Minus
         if (wette < 0) {
             // Create Embed
-            const err = new EmbedBuilder()
-        		.setTitle('» FEHLER')
-        		.setDescription('» Du kannst keine negativen Einsätze spielen!')
+            let message = new EmbedBuilder()
+        		.setTitle('» ERROR')
+        		.setDescription('» You cant play with negative Money!')
         		.setFooter({ text: '» ' + version });
+
+            if (interaction.guildLocale == "de") {
+                message = new EmbedBuilder()
+        		    .setTitle('» FEHLER')
+        		    .setDescription('» Du kannst keine negativen Einsätze spielen!')
+        		    .setFooter({ text: '» ' + version });
+            }
             
             // Send Message
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] GUESS : NEGATIVEMONEY : ' + wette + '€')
-            return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
         
        	// Check for enough Money
         let status
-          let result
+        let result
         if (money >= wette) {
             // Check for Max Amount
             if (wette > 15000) {
                 // Create Embed
-                const err = new EmbedBuilder()
-            		.setTitle('» RATEN')
-  					.setDescription('» Du kannst nicht soviel Wetten! **15000€** ist das Maximum.')
+                let message = new EmbedBuilder()
+            		.setTitle('» ERROR')
+  					.setDescription('» You cant bet that much! **$15000** is the Maximum.')
             		.setFooter({ text: '» ' + version });
+
+                if (interaction.guildLocale == "de") {
+                    message = new EmbedBuilder()
+            		    .setTitle('» FEHLER')
+  					    .setDescription('» Du kannst nicht soviel Wetten! **15000€** ist das Maximum.')
+            		    .setFooter({ text: '» ' + version });
+                }
                 
                 // Send Message
             	console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] GUESS : TOOMUCHMONEY : ' + wette + '€')
-        		return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
+        		return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
             }
             
             // Calculate Winnings
-            if (bereich == '10') { if (nummer == random10) { status = 'GEWONNEN'; result = wette * 2 } else { 
-                status = 'VERLOREN'; result = wette } }
-            if (bereich == '100') { if (nummer == random100) { status = 'GEWONNEN'; result = wette * 4 } else { 
-                status = 'VERLOREN'; result = wette } }
-            if (bereich == '1000') { if (nummer == random1000) { status = 'GEWONNEN'; result = wette * 6 } else { 
-                status = 'VERLOREN'; result = wette } }
+            if (bereich == '10') { if (nummer == random10) { status = 'WON'; result = wette * 2 } else { 
+                status = 'LOST'; result = wette } }
+            if (bereich == '100') { if (nummer == random100) { status = 'WON'; result = wette * 4 } else { 
+                status = 'LOST'; result = wette } }
+            if (bereich == '1000') { if (nummer == random1000) { status = 'WON'; result = wette * 6 } else { 
+                status = 'LOST'; result = wette } }
+
+            if (interaction.guildLocale == "de") {
+                if (bereich == '10') { if (nummer == random10) { status = 'GEWONNEN'; result = wette * 2 } else { 
+                    status = 'VERLOREN'; result = wette } }
+                if (bereich == '100') { if (nummer == random100) { status = 'GEWONNEN'; result = wette * 4 } else { 
+                    status = 'VERLOREN'; result = wette } }
+                if (bereich == '1000') { if (nummer == random1000) { status = 'GEWONNEN'; result = wette * 6 } else { 
+                    status = 'VERLOREN'; result = wette } }
+            }
         } else {
             const missing = wette - money
-            const err = new EmbedBuilder()
-            	.setTitle('» RATEN')
-  				.setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
+
+            // Create Embed
+            let message = new EmbedBuilder()
+            	.setTitle('» ERROR')
+  				.setDescription('» You dont have enough Money for that, you are missing **$' + missing + '**!')
             	.setFooter({ text: '» ' + version });
+
+            if (interaction.guildLocale == "de") {
+                message = new EmbedBuilder()
+            	    .setTitle('» FEHLER')
+  				    .setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
+            	    .setFooter({ text: '» ' + version });
+            }
 
             // Send Message
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] GUESS : NOTENOUGHMONEY : ' + missing + '€')
-            return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
         
         // Create Embed
-      	const message = new EmbedBuilder()
-            .setTitle('» RATEN')
-  			.setDescription('» Du hast **' + wette + '€** auf **' + nummer + '** gesetzt und **' + result + '€** **' + status + '**!')
+      	let message = new EmbedBuilder()
+            .setTitle('» GUESSING')
+  			.setDescription('» You set **$' + wette + '** on **' + nummer + '** and **' + status + '** **$' + result + '**!')
         	.setFooter({ text: '» ' + version });
+
+        if (interaction.guildLocale == "de") {
+            message = new EmbedBuilder()
+                .setTitle('» RATEN')
+  			    .setDescription('» Du hast **' + wette + '€** auf **' + nummer + '** gesetzt und **' + result + '€** **' + status + '**!')
+        	    .setFooter({ text: '» ' + version });
+        }
         
         // Set Money
         bals.rem(interaction.user.id.replace(/\D/g, ''), result)
-        if (status == 'GEWONNEN') {
+        if (status == 'GEWONNEN' || status == 'WON') {
         	bals.add(interaction.user.id.replace(/\D/g, ''), result)
         }
 

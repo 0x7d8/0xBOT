@@ -99,14 +99,21 @@ module.exports = {
             const missing = amount - stocks
             
             // Create Embed
-            const err = new EmbedBuilder()
-            	.setTitle('» FEHLER')
-  				.setDescription('» Du hast dafür nicht genug Aktien, dir fehlen **' + missing + '** ' + emoji + ' !')
+            let message = new EmbedBuilder()
+            	.setTitle('» ERROR')
+  				.setDescription('» You dont have enough Stocks for that, you are missing **' + missing + '** ' + emoji + ' !')
             	.setFooter({ text: '» ' + version });
+
+            if (interaction.guildLocale) {
+                message = new EmbedBuilder()
+            	    .setTitle('» FEHLER')
+  				    .setDescription('» Du hast dafür nicht genug Aktien, dir fehlen **' + missing + '** ' + emoji + ' !')
+            	    .setFooter({ text: '» ' + version });
+            }
             
             // Send Message
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] STOCKSELL : ' + stock.toUpperCase() + ' : ' + amount + ' : ' + cash + '€ : NOTENOUGHSTOCKS')
-            return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
         // Add Money
@@ -128,9 +135,16 @@ module.exports = {
 
         // Create Embed
         const message = new EmbedBuilder()
-            .setTitle('» ' + emoji + ' AKTIE VERKAUFEN')
-            .setDescription('» Du hast erfolgreich **' + amount + '** ' + emoji + ' für **' + cash + '€** verkauft!')
+            .setTitle('» ' + emoji + ' STOCK SELL')
+            .setDescription('» You successfully sold **' + amount + '** ' + emoji + ' for **$' + cash + '**! (**$' + priceText + '** per Stock)')
             .setFooter({ text: '» ' + version });
+
+        if (interaction.guildLocale == "de") {
+            message = new EmbedBuilder()
+                .setTitle('» ' + emoji + ' AKTIE VERKAUFEN')
+                .setDescription('» Du hast erfolgreich **' + amount + '** ' + emoji + ' für **' + cash + '€** verkauft! (**' + priceText + '€** pro Aktie)')
+                .setFooter({ text: '» ' + version });
+        }
 
         // Send Message
         console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] STOCKSELL : ' + stock.toUpperCase() + ' : ' + amount + ' : ' + cash + '€')

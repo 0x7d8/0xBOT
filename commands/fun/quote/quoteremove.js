@@ -48,10 +48,17 @@ module.exports = {
         // Check if not in Minus Quotes
         if (quotes - anzahl < 0) {
             // Create Embed
-            const err = new EmbedBuilder()
-            	.setTitle('» ZITATE ENTFERNEN')
-  				.setDescription('» Du hast garnicht so viele Zitate, du hast nur **' + quotes + '**!')
+            let message = new EmbedBuilder()
+            	.setTitle('» REMOVE QUOTES')
+  				.setDescription('» You dont have that many Quotes, you onl have **' + quotes + '**!')
             	.setFooter({ text: '» ' + version });
+
+            if (interaction.guildLocale == "de") {
+                message = new EmbedBuilder()
+            	    .setTitle('» ZITATE ENTFERNEN')
+  				    .setDescription('» Du hast garnicht so viele Zitate, du hast nur **' + quotes + '**!')
+            	    .setFooter({ text: '» ' + version });
+            }
             
             // Send Message
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] REMQUOTES : ' + anzahl + ' : NOTENOUGHQUOTES');

@@ -19,10 +19,17 @@ module.exports = {
         cmds.add('u-' + interaction.user.id.replace(/\D/g, ''), 1)
 
         // Create Embed
-        const message = new EmbedBuilder()
+        let message = new EmbedBuilder()
+        		.setTitle('» BOT VERSION')
+        		.setDescription('» VERSION\n`' + version + '`\n\n» FRAMEWORK\n`discord.js v14 (14.3.0)`\n\n» AUTHOR\n`0x4096#7678`')
+        		.setFooter({ text: '» ' + version });
+
+        if (interaction.guildLocale == "de") {
+            message = new EmbedBuilder()
         		.setTitle('» BOT VERSION')
         		.setDescription('» VERSION\n`' + version + '`\n\n» FRAMEWORK\n`discord.js v14 (14.3.0)`\n\n» AUTOR\n`0x4096#7678`')
         		.setFooter({ text: '» ' + version });
+        }
 
         // Send Correct Response
         console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] VERSION')

@@ -22,13 +22,20 @@ module.exports = {
         const botping = Math.round(client.ws.ping)
 
         // Create Embed
-        const messaged = new EmbedBuilder()
+        let message = new EmbedBuilder()
+        		.setTitle('» BOT PING')
+        		.setDescription('» The Bot Ping is **' + botping + 'ms**!')
+        		.setFooter({ text: '» ' + version });
+
+        if (interaction.guildLocale == "de") {
+            message = new EmbedBuilder()
         		.setTitle('» BOT PING')
         		.setDescription('» Der Ping vom Bot ist **' + botping + 'ms**!')
         		.setFooter({ text: '» ' + version });
+        }
 
         // Send Correct Response
         console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] PING : ' + botping + 'ms')
-        return interaction.reply({ embeds: [messaged.toJSON()], ephemeral: true })
+        return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
     },
 };

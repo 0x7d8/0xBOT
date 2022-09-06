@@ -40,43 +40,49 @@ module.exports = {
             quotes = await quts.get('<@' + user + '>');
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] QUOTES : ' + user + ' : ' + quotes);
         }
-
-        // Check if Target is Bot
-        const userinfo = await client.users.fetch(user);
-        if (user != null) {
-            if (userinfo.bot == true) {
-                // Create Embed
-                const err = new EmbedBuilder()
-        		    .setTitle('» FEHLER')
-        		    .setDescription('» Ein Bot kann keine Zitate haben!')
-        		    .setFooter({ text: '» ' + version });
-            
-                // Send Message
-                console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] QUOTES : ' + user + ' : BOT')
-                return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
-            }
-        }
         
         // Check if Plural or not
         let word
         if (quotes = 1) {
-            word = "Zitat";
+            word = "Quote";
         } else {
-            word = "Zitate";
+            word = "Quotes";
+        }
+
+        if (interaction.guildLocale == "de") {
+            if (quotes = 1) {
+                word = "Zitat";
+            } else {
+                word = "Zitate";
+            }
         }
         
         // Create Embed
         let message
         if (user == null) {
         	message = new EmbedBuilder()
-            	.setTitle('» DEINE ZITATE')
-  				.setDescription('» Du hast **' + quotes + '** ' + word + '!')
+            	.setTitle('» YOUR QUOTES')
+  				.setDescription('» You have **' + quotes + '** ' + word + '!')
             	.setFooter({ text: '» ' + version });
+
+            if (interaction.guildLocale == "de") {
+                message = new EmbedBuilder()
+            	    .setTitle('» DEINE ZITATE')
+  				    .setDescription('» Du hast **' + quotes + '** ' + word + '!')
+            	    .setFooter({ text: '» ' + version });
+            }
         } else {
             message = new EmbedBuilder()
-                .setTitle('» DIE ZITATE VON ' + userinfo.username.toUpperCase() + '#' + userinfo.discriminator)
-  				.setDescription('» <@' + user + '> hat **' + quotes + '** ' + word + '!')
+                .setTitle('» THE QUOTES OF ' + userinfo.username.toUpperCase() + '#' + userinfo.discriminator)
+  				.setDescription('» <@' + user + '> has **' + quotes + '** ' + word + '!')
             	.setFooter({ text: '» ' + version });
+
+            if (interaction.guildLocale == "de") {
+                message = new EmbedBuilder()
+                    .setTitle('» DIE ZITATE VON ' + userinfo.username.toUpperCase() + '#' + userinfo.discriminator)
+  				    .setDescription('» <@' + user + '> hat **' + quotes + '** ' + word + '!')
+            	    .setFooter({ text: '» ' + version });
+            }
         }
 
         // Send Message

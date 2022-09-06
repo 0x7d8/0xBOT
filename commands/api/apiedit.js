@@ -57,24 +57,38 @@ module.exports = {
         	fs.writeFile('/paper-api/' + interaction.user.id.replace(/\D/g, '') + '/' + name, inhalt, function(err) {})
             
         	// Create Embed
-        	const message = new EmbedBuilder()
+        	let message = new EmbedBuilder()
             	.setTitle('» PAPER API EDIT')
-  				.setDescription('Du hast die API **' + name + '** editiert!')
+  				.setDescription('You edited the API **' + name + '**!')
         		.setFooter({ text: '» ' + version + ' » SLOTS ' + amount + '/5'});
+
+            if (interaction.guildLocale == "de") {
+                message = new EmbedBuilder()
+            	    .setTitle('» PAPER API EDIT')
+  				    .setDescription('Du hast die API **' + name + '** editiert!')
+        		    .setFooter({ text: '» ' + version + ' » SLOTS ' + amount + '/5'});
+            }
 
         	// Send Message
         	console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] APIEDIT : ' + name + ' : ' + inhalt.toUpperCase())
         	return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         } else {
             // Create Embed
-            const err = new EmbedBuilder()
+            let message = new EmbedBuilder()
         		.setTitle('» PAPER API EDIT')
-        		.setDescription('» Diese API existiert garnicht!\n</apicreate:1002107281510506516> um eine zu erstellen')
+        		.setDescription('» This API doesnt exist!\n</apicreate:1002107281510506516> to Create one')
         		.setFooter({ text: '» ' + version + ' » SLOTS ' + amount + '/5'});
+
+            if (interaction.guildLocale == "de") {
+                message = new EmbedBuilder()
+        		    .setTitle('» PAPER API EDIT')
+        		    .setDescription('» Diese API existiert garnicht!\n</apicreate:1002107281510506516> um eine zu erstellen')
+        		    .setFooter({ text: '» ' + version + ' » SLOTS ' + amount + '/5'});
+            }
             
             // Send Message
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] APIEDIT : ' + name + ' : NOTFOUND')
-            return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
     },
 };

@@ -33,29 +33,43 @@ module.exports = {
         const lenght = interaction.options.getInteger("lenght")
 
         // Check Lenght
-        if (lenght > 128) {
+        if (lenght > 256) {
 
             // Create Embed
-            const err = new EmbedBuilder()
-        		.setTitle('» PASSWORT GENERIEREN')
-        		.setDescription('» Die Maximale Größe ist **128**!')
+            let message = new EmbedBuilder()
+        		.setTitle('» ERROR')
+        		.setDescription('» The Maximum Size is **256**!')
         		.setFooter({ text: '» ' + version });
+
+            if (interaction.guildLocale == "de") {
+                message = new EmbedBuilder()
+        		    .setTitle('» FEHLER')
+        		    .setDescription('» Die Maximale Größe ist **128**!')
+        		    .setFooter({ text: '» ' + version });
+            }
             
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] PASSWORD : TOOBIG : ' + lenght)
-            return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
 
         }
 
         if (lenght < 4) {
 
             // Create Embed
-            const err = new EmbedBuilder()
-        		.setTitle('» PASSWORT GENERIEREN')
-        		.setDescription('» Dein Password sollte schon mehr als **4** Buchstaben haben!')
+            let message = new EmbedBuilder()
+        		.setTitle('» ERROR')
+        		.setDescription('» The Minimum Size is **4**!')
         		.setFooter({ text: '» ' + version });
+
+            if (interaction.guildLocale == "de") {
+                message = new EmbedBuilder()
+        		    .setTitle('» FEHLER')
+        		    .setDescription('» Die Minimale Größe ist **4**!')
+        		    .setFooter({ text: '» ' + version });
+            }
             
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] PASSWORD : TOOSMALL : ' + lenght)
-            return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
 
         }
 
@@ -68,10 +82,17 @@ module.exports = {
         });
         
         // Create Embed
-        const message = new EmbedBuilder()
-        	.setTitle('» PASSWORT GENERIEREN')
-  			.setDescription('» Das hier ist mein ausgedachtes Passwort:\n`' + password + '`')
+        let message = new EmbedBuilder()
+        	.setTitle('» GENERATE PASSWORD')
+  			.setDescription('» This is the Password I choose:\n`' + password + '`')
         	.setFooter({ text: '» ' + version });
+
+        if (interaction.guildLocale == "de") {
+            message = new EmbedBuilder()
+        	    .setTitle('» PASSWORT GENERIEREN')
+  			    .setDescription('» Das hier ist mein ausgedachtes Passwort:\n`' + password + '`')
+        	    .setFooter({ text: '» ' + version });
+        }
 
         // Send Message
         console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] PASSWORD : ' + lenght + ' : SUCCESS')

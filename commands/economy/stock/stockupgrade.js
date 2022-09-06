@@ -61,14 +61,21 @@ module.exports = {
             const missing = cost - balance
             
             // Create Embed
-            const err = new EmbedBuilder()
-            	.setTitle('» FEHLER')
-  				.setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
+            let message = new EmbedBuilder()
+            	.setTitle('» ERROR')
+  				.setDescription('» You dont have enough Money for that, you are missing **$' + missing + '**!')
             	.setFooter({ text: '» ' + version });
+
+            if (interaction.guildLocale == "de") {
+                message = new EmbedBuilder()
+            	    .setTitle('» FEHLER')
+  				    .setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
+            	    .setFooter({ text: '» ' + version });
+            }
             
             // Send Message
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] STOCKUPGRADE  : ' + slots + ' : ' + cost + '€ : NOTENOUGHMONEY')
-            return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
         // Add Stock Amount
@@ -84,14 +91,28 @@ module.exports = {
         let message
         if (slots == 1) {
             message = new EmbedBuilder()
-                .setTitle('» AKTIEN SLOTS KAUFEN')
-                .setDescription('» Du hast erfolgreich **' + slots + '** extra Aktien Slot für **' + cost + '€** gekauft!')
+                .setTitle('» BUY STOCK SLOTS')
+                .setDescription('» You successfully bought **' + slots + '** extra Stock Slot for **$' + cost + '**!')
                 .setFooter({ text: '» ' + version });
+
+            if (interaction.guildLocale == "de") {
+                message = new EmbedBuilder()
+                    .setTitle('» AKTIEN SLOTS KAUFEN')
+                    .setDescription('» Du hast erfolgreich **' + slots + '** extra Aktien Slot für **' + cost + '€** gekauft!')
+                    .setFooter({ text: '» ' + version });
+            }
         } else {
             message = new EmbedBuilder()
-                .setTitle('» AKTIEN SLOTS KAUFEN')
-                .setDescription('» Du hast erfolgreich **' + slots + '** extra Aktien Slots für **' + cost + '€** gekauft!')
+                .setTitle('» BUY STOCK SLOTS')
+                .setDescription('» You successfully bought **' + slots + '** extra Stock Slots for **$' + cost + '**!')
                 .setFooter({ text: '» ' + version });
+
+            if (interaction.guildLocale == "de") {
+                message = new EmbedBuilder()
+                    .setTitle('» AKTIEN SLOTS KAUFEN')
+                    .setDescription('» Du hast erfolgreich **' + slots + '** extra Aktien Slots für **' + cost + '€** gekauft!')
+                    .setFooter({ text: '» ' + version });
+            }
         }
 
         // Send Message

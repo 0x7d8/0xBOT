@@ -20,22 +20,39 @@ module.exports = {
         cmds.add('u-' + interaction.user.id.replace(/\D/g, ''), 1)
 
         // Create Button
-        const topgg = new ActionRowBuilder()
+        let button = new ActionRowBuilder()
 			.addComponents(
 				new ButtonBuilder()
 					.setLabel('ANSCHAUEN')
 					.setURL('https://top.gg/bot/1001944224545128588')
 					.setStyle(ButtonStyle.Link),
 			);
+
+        if (interaction.guildLocale = "de") {
+            button = new ActionRowBuilder()
+			    .addComponents(
+			    	new ButtonBuilder()
+			    		.setLabel('VIEW')
+			    		.setURL('https://top.gg/bot/1001944224545128588')
+			    		.setStyle(ButtonStyle.Link),
+			    );
+        }
         
         // Create Embed
-       	const message = new EmbedBuilder()
+       	let message = new EmbedBuilder()
             .setTitle('» TOP.GG')
-  			.setDescription('» Klicke unten um auf die **TOP.GG** Seite zu kommen!')
+  			.setDescription('» Click below to go to the **TOP.GG** Page of the Bot!')
         	.setFooter({ text: '» ' + version });
+
+        if (interaction.guildLocale == "de") {
+            message = new EmbedBuilder()
+                .setTitle('» TOP.GG')
+  			    .setDescription('» Klicke unten um auf die **TOP.GG** Seite zu kommen!')
+        	    .setFooter({ text: '» ' + version });
+        }
         
         // Send Message
         console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] TOPGG')
-        interaction.reply({ embeds: [message.toJSON()], components: [topgg], ephemeral: true })
+        interaction.reply({ embeds: [message.toJSON()], components: [button], ephemeral: true })
     },
 };

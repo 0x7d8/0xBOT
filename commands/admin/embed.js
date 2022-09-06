@@ -50,7 +50,14 @@ module.exports = {
             message = new EmbedBuilder()
                 .setTitle(titel)
   			    .setDescription(nachricht)
-        	    .setFooter({ text: '» ' + version + ' » NICHT OFFIZIELL' });
+        	    .setFooter({ text: '» ' + version + ' » NOT OFFICIAL' });
+            
+            if (interaction.guildLocale == "de") {
+                message = new EmbedBuilder()
+                    .setTitle(titel)
+  			        .setDescription(nachricht)
+        	        .setFooter({ text: '» ' + version + ' » NICHT OFFIZIELL' });
+            }
         } else {
             message = new EmbedBuilder()
                 .setTitle(titel)

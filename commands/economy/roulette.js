@@ -54,14 +54,21 @@ module.exports = {
         // Check if Balance is Minus
         if (wette < 0) {
             // Create Embed
-            const err = new EmbedBuilder()
-        		.setTitle('» FEHLER')
-        		.setDescription('» Du kannst keine negativen Einsätze spielen!')
+            let message = new EmbedBuilder()
+        		.setTitle('» ERROR')
+        		.setDescription('» You cant play with negative Money!')
         		.setFooter({ text: '» ' + version });
+
+            if (interaction.guildLocale == "de") {
+                message = new EmbedBuilder()
+        		    .setTitle('» FEHLER')
+        		    .setDescription('» Du kannst keine negativen Einsätze spielen!')
+        		    .setFooter({ text: '» ' + version });
+            }
             
             // Send Message
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] ROULETTE : NEGATIVEMONEY : ' + wette + '€')
-            return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
         
         // Calculate Color
@@ -80,14 +87,21 @@ module.exports = {
             // Check for Max Amount
             if (wette > 15000) {
                 // Create Embed
-                const err = new EmbedBuilder()
-            		.setTitle('» ROULETTE')
-  					.setDescription('» Du kannst nicht soviel Wetten! **15000€** ist das Maximum.')
+                let message = new EmbedBuilder()
+            		.setTitle('» ERROR')
+  					.setDescription('» You cant bet that much! **$15000** is the Maximum.')
             		.setFooter({ text: '» ' + version });
+
+                if (interaction.guildLocale == "de") {
+                    message = new EmbedBuilder()
+            		    .setTitle('» FEHLER')
+  					    .setDescription('» Du kannst nicht soviel Wetten! **15000€** ist das Maximum.')
+            		    .setFooter({ text: '» ' + version });
+                }
                 
                 // Send Message
             	console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] ROULETTE : TOOMUCHMONEY : ' + wette + '€')
-        		return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
+        		return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
             }
             
         	// Set Money
@@ -111,10 +125,17 @@ module.exports = {
             }
         
         	// Create Embed
-      		const message = new EmbedBuilder()
+      		let message = new EmbedBuilder()
             	.setTitle('» ROULETTE')
-  				.setDescription('» Du hast **' + wette + '€** auf **' + farbe.toUpperCase() + '** gesetzt und **' + resultdis + '€** **' + status + '**!')
+  				.setDescription('» You bet **$' + wette + '** on **' + farbe.toUpperCase() + '** and **' + status + '** **$' + resultdis + '**!')
             	.setFooter({ text: '» ' + version });
+
+            if (interaction.guildLocale == "de") {
+                message = new EmbedBuilder()
+            	    .setTitle('» ROULETTE')
+  				    .setDescription('» Du hast **' + wette + '€** auf **' + farbe.toUpperCase() + '** gesetzt und **' + resultdis + '€** **' + status + '**!')
+            	    .setFooter({ text: '» ' + version });
+            }
             
             // Set Money
             if (color != farbe) {
@@ -131,14 +152,21 @@ module.exports = {
             const missing = wette - money
             
             // Create Embed
-            const err = new EmbedBuilder()
-            	.setTitle('» ROULETTE')
-  				.setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
+            let message = new EmbedBuilder()
+            	.setTitle('» ERROR')
+  				.setDescription('» You dont have enough Money for that, you are missing **$' + missing + '**!')
             	.setFooter({ text: '» ' + version });
+
+            if (interaction.guildLocale == "de") {
+                message = new EmbedBuilder()
+            	    .setTitle('» FEHLER')
+  				    .setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
+            	    .setFooter({ text: '» ' + version });
+            }
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] GUESS : NOTENOUGHMONEY : ' + missing + '€')
-        	return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] ROULETTE : NOTENOUGHMONEY : ' + missing + '€')
+        	return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
     },
 };

@@ -22,10 +22,17 @@ module.exports = {
         const res = Math.floor(Math.random() * (19 - 0 + 1)) + 0;
 
         // Create Embed
-        const message = new EmbedBuilder()
-        	.setTitle('» ZUFÄLLIGE MINECRAFT VERSION')
-  			.setDescription('» Ich würde **1.' + res + '** nehmen!')
+        let message = new EmbedBuilder()
+        	.setTitle('» RANDOM MINECRAFT VERSION')
+  			.setDescription('» I would choose **1.' + res + '**!')
         	.setFooter({ text: '» ' + version });
+
+        if (interaction.guildLocale == "de") {
+            message = new EmbedBuilder()
+        	    .setTitle('» ZUFÄLLIGE MINECRAFT VERSION')
+  			    .setDescription('» Ich würde **1.' + res + '** nehmen!')
+        	    .setFooter({ text: '» ' + version });
+        }
 
         // Send Message
         console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] MCVER : 1.' + res)

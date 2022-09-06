@@ -81,14 +81,28 @@ module.exports = {
         let message
         if (user == null) {
             message = new EmbedBuilder()
-                .setTitle('» DEINE AKTIEN')
-                .setDescription('» 🟢 GRÜNE AKTIEN\n`' + green + '/' + greenmax + '`\n\n» 🔵 BLAUE AKTIEN\n`' + blue + '/' + bluemax + '`\n\n» 🟡 GELBE AKTIEN\n`' + yellow + '/' + yellowmax + '`\n\n» 🔴 ROTE AKTIEN\n`' + red + '/' + redmax + '`')
+                .setTitle('» YOUR STOCKS')
+                .setDescription('» 🟢 GREEN STOCKS\n`' + green + '/' + greenmax + '`\n\n» 🔵 BLUE STOCKS\n`' + blue + '/' + bluemax + '`\n\n» 🟡 YELLOW STOCKS\n`' + yellow + '/' + yellowmax + '`\n\n» 🔴 RED STOCKS\n`' + red + '/' + redmax + '`')
                 .setFooter({ text: '» ' + version });
+
+            if (interaction.guildLocale == "de") {
+                message = new EmbedBuilder()
+                    .setTitle('» DEINE AKTIEN')
+                    .setDescription('» 🟢 GRÜNE AKTIEN\n`' + green + '/' + greenmax + '`\n\n» 🔵 BLAUE AKTIEN\n`' + blue + '/' + bluemax + '`\n\n» 🟡 GELBE AKTIEN\n`' + yellow + '/' + yellowmax + '`\n\n» 🔴 ROTE AKTIEN\n`' + red + '/' + redmax + '`')
+                    .setFooter({ text: '» ' + version });
+            }
         } else {
             message = new EmbedBuilder()
-                .setTitle('» DIE AKTIEN VON ' + username.username.toUpperCase() + '#' + username.discriminator)
-                .setDescription('» 🟢 GRÜNE AKTIEN\n`' + green + '/' + greenmax + '`\n\n» 🔵 BLAUE AKTIEN\n`' + blue + '/' + bluemax + '`\n\n» 🟡 GELBE AKTIEN\n`' + yellow + '/' + yellowmax + '`\n\n» 🔴 ROTE AKTIEN\n`' + red + '/' + redmax + '`')
+                .setTitle('» THE STOCKS OF ' + username.username.toUpperCase() + '#' + username.discriminator)
+                .setDescription('» 🟢 GREEN STOCKS\n`' + green + '/' + greenmax + '`\n\n» 🔵 BLUE STOCKS\n`' + blue + '/' + bluemax + '`\n\n» 🟡 YELLOW STOCKS\n`' + yellow + '/' + yellowmax + '`\n\n» 🔴 RED STOCKS\n`' + red + '/' + redmax + '`')
                 .setFooter({ text: '» ' + version });
+
+            if (interaction.guildLocale == "de") {
+                message = new EmbedBuilder()
+                    .setTitle('» DIE AKTIEN VON ' + username.username.toUpperCase() + '#' + username.discriminator)
+                    .setDescription('» 🟢 GRÜNE AKTIEN\n`' + green + '/' + greenmax + '`\n\n» 🔵 BLAUE AKTIEN\n`' + blue + '/' + bluemax + '`\n\n» 🟡 GELBE AKTIEN\n`' + yellow + '/' + yellowmax + '`\n\n» 🔴 ROTE AKTIEN\n`' + red + '/' + redmax + '`')
+                    .setFooter({ text: '» ' + version });
+            }
         }
 
         // Send Message

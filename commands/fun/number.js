@@ -38,10 +38,17 @@ module.exports = {
         const res = Math.floor(Math.random() * (max - min + 1)) + min;
 
         // Create Embed
-        const message = new EmbedBuilder()
-        	.setTitle('» ZUFÄLLIGE NUMMER')
-  			.setDescription('» Zwischen **' + min + '** und **' + max + '** wähle ich **' + res + '**!')
+        let message = new EmbedBuilder()
+        	.setTitle('» RANDOM NUMBER')
+  			.setDescription('» Between **' + min + '** and **' + max + '** I choose **' + res + '**!')
         	.setFooter({ text: '» ' + version });
+
+        if (interaction.guildLocale == "de") {
+            message = new EmbedBuilder()
+        	    .setTitle('» ZUFÄLLIGE NUMMER')
+  			    .setDescription('» Zwischen **' + min + '** und **' + max + '** wähle ich **' + res + '**!')
+        	    .setFooter({ text: '» ' + version });
+        }
 
         // Send Message
         console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] NUMBER : ' + min + ' : ' + max + ' : ' + res)
