@@ -45,6 +45,34 @@ module.exports = {
         const money = await bals.get(interaction.user.id.replace(/\D/g, ''));
         const othermoney = await bals.get(user.toString().replace(/\D/g, ''));
 
+        // Check if User is already in a Lobby
+        try {
+            eval('i' + sender.toString().replace(/\D/g, ''))
+            eval('i' + reciever.toString().replace(/\D/g, ''))
+
+            lobby = true
+        } catch (e) {
+            lobby = false
+        }
+        if (lobby) {
+            // Create Embed
+            let message = new EmbedBuilder()
+        		.setTitle('» ERROR')
+        		.setDescription('» You are already in a Lobby!')
+        		.setFooter({ text: '» ' + version });
+
+            if (interaction.guildLocale == "de") {
+                message = new EmbedBuilder()
+        		    .setTitle('» FEHLER')
+        		    .setDescription('» Du bist schon in einer Lobby!')
+        		    .setFooter({ text: '» ' + version });
+            }
+            
+            // Send Message
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] RPS : ' + user.toString().replace(/\D/g, '') + ' : ALREADYLOBBY')
+            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+        }
+
         // Check if Bet is Negative
         if (bet < 0 && bet != null) {
             // Create Embed
