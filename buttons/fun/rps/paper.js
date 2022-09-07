@@ -48,7 +48,7 @@ module.exports = {
             // Calculate Winner
             const psc = eval('i' + sender.toString().replace(/\D/g, ''))
             const prc = eval('i' + reciever.toString().replace(/\D/g, ''))
-            let win = none
+            let win = 'none'
             if (psc == 'ROCK' && prc == 'PAPER') { win = 'pr' }
             if (psc == 'ROCK' && prc == 'SCISSORS') { win = 'ps' }
             if (psc == 'PAPER' && prc == 'ROCK') { win = 'ps' }

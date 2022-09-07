@@ -8,11 +8,11 @@ module.exports = {
     async execute(interaction, client, bet) {
         // Get Users
         const cache = interaction.message.embeds
-        const description = cache[0].description.toString().replace(/[^\d@-]/g, '')
-        const [bin, sender, reciever] = description
+        const description = cache[0].description.toString().replace(/[^\d@!]/g, '').split('!')[0].substring(1).split("@");
+        const [sender, reciever] = description
 
         // Check if User is playing
-        if (sender.toString().replace(/\D/g, '') != interaction.user.id.replace(/\D/g, '') || reciever.toString().replace(/\D/g, '') != interaction.user.id.replace(/\D/g, '')) {
+        if (sender.toString().replace(/\D/g, '') != interaction.user.id.replace(/\D/g, '') && reciever.toString().replace(/\D/g, '') != interaction.user.id.replace(/\D/g, '')) {
             // Create Embed
             let message = new EmbedBuilder()
         		.setTitle('» ERROR')
@@ -48,7 +48,7 @@ module.exports = {
             // Calculate Winner
             const psc = eval('i' + sender.toString().replace(/\D/g, ''))
             const prc = eval('i' + reciever.toString().replace(/\D/g, ''))
-            let win = none
+            let win = 'none'
             if (psc == 'ROCK' && prc == 'PAPER') { win = 'pr' }
             if (psc == 'ROCK' && prc == 'SCISSORS') { win = 'ps' }
             if (psc == 'PAPER' && prc == 'ROCK') { win = 'ps' }
