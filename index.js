@@ -1,7 +1,7 @@
 const { Client, Collection, GatewayIntentBits } = require('discord.js');
 const { token, clientId, mongo } = require('./config.json');
 const { getAllFilesFilter } = require('./utils/getAllFiles.js');
-const { version, apikey } = require('./config.json');
+const { version, apikey, webkey, dovotes } = require('./config.json');
 const { EmbedBuilder } = require('@discordjs/builders');
 
 // Show Logo
@@ -217,7 +217,7 @@ if (dovotes != 'no') {
 
 	const app = express()
 
-	const webhook = new Topgg.Webhook("your webhook auth")
+	const webhook = new Topgg.Webhook(webkey)
 
 	app.post("/dblwebhook", webhook.listener(vote => {
   		console.log(vote.user)
