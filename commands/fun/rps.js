@@ -89,55 +89,42 @@ module.exports = {
 
         // Create Buttons
         if (bet == null) { bet = 0 }
-        let rock = new ActionRowBuilder()
+        let row = new ActionRowBuilder()
 			.addComponents(
 				new ButtonBuilder()
 					.setLabel('🪨 ROCK')
                     .setCustomId('RPS-1-' + bet)
 					.setStyle(ButtonStyle.Secondary),
-			);
-        if (interaction.guildLocale == "de") {
-            rock = new ActionRowBuilder()
-			    .addComponents(
-			    	new ButtonBuilder()
-			    		.setLabel('🪨 STEIN')
-                        .setCustomId('RPS-1-' + bet)
-			    		.setStyle(ButtonStyle.Secondary),
-			    );
-        }
 
-        let paper = new ActionRowBuilder()
-			.addComponents(
-				new ButtonBuilder()
+                new ButtonBuilder()
 					.setLabel('📝 PAPER')
                     .setCustomId('RPS-2-' + bet)
 					.setStyle(ButtonStyle.Secondary),
-			);
-        if (interaction.guildLocale == "de") {
-            paper = new ActionRowBuilder()
-			    .addComponents(
-			    	new ButtonBuilder()
-			    		.setLabel('📝 PAPIER')
-                        .setCustomId('RPS-2-' + bet)
-			    		.setStyle(ButtonStyle.Secondary),
-			    );
-        }
 
-        let scissors = new ActionRowBuilder()
-			.addComponents(
-				new ButtonBuilder()
+                new ButtonBuilder()
 					.setLabel('✂️ SCISSOR')
                     .setCustomId('RPS-3-' + bet)
 					.setStyle(ButtonStyle.Secondary),
 			);
+
         if (interaction.guildLocale == "de") {
-            scissors = new ActionRowBuilder()
+            row = new ActionRowBuilder()
 			    .addComponents(
-			    	new ButtonBuilder()
-			    		.setLabel('✂️ SCHERE')
+                    new ButtonBuilder()
+				    	.setLabel('✂️ SCHERE')
                         .setCustomId('RPS-3-' + bet)
+					    .setStyle(ButtonStyle.Secondary),
+
+			    	new ButtonBuilder()
+			    		.setLabel('🪨 STEIN')
+                        .setCustomId('RPS-1-' + bet)
 			    		.setStyle(ButtonStyle.Secondary),
-			    );
+
+                    new ButtonBuilder()
+			    		.setLabel('📝 PAPIER')
+                        .setCustomId('RPS-2-' + bet)
+		    		    .setStyle(ButtonStyle.Secondary),
+			);
         }
         
         // Create Embed
@@ -170,6 +157,6 @@ module.exports = {
 
         // Send Message
         console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] COUNT')
-        return interaction.reply({ embeds: [message.toJSON()], components: [rock, paper, scissors] })
+        return interaction.reply({ embeds: [message.toJSON()], components: [row] })
     },
 };

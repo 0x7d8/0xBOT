@@ -96,66 +96,53 @@ module.exports = {
             eval('delete i' + reciever.toString().replace(/\D/g, ''))
 
             // Create Buttons to Replace
-            let rock = new ActionRowBuilder()
-		    	.addComponents(
-				    new ButtonBuilder()
-	    			    .setLabel('🪨 ROCK')
-                        .setCustomId('RPS-1-' + bet)
-					    .setStyle(ButtonStyle.Secondary)
-                        .setDisabled(true),
-		        );
+            let row = new ActionRowBuilder()
+			.addComponents(
+				new ButtonBuilder()
+					.setLabel('🪨 ROCK')
+                    .setCustomId('RPS-1-' + bet)
+					.setStyle(ButtonStyle.Secondary)
+                    .setDisabled(true),
+
+                new ButtonBuilder()
+					.setLabel('📝 PAPER')
+                    .setCustomId('RPS-2-' + bet)
+					.setStyle(ButtonStyle.Secondary)
+                    .setDisabled(true),
+
+                new ButtonBuilder()
+					.setLabel('✂️ SCISSOR')
+                    .setCustomId('RPS-3-' + bet)
+					.setStyle(ButtonStyle.Secondary)
+                    .setDisabled(true),
+			);
+
             if (interaction.guildLocale == "de") {
-                rock = new ActionRowBuilder()
+                row = new ActionRowBuilder()
 		    	    .addComponents(
+                         new ButtonBuilder()
+		    		    	.setLabel('✂️ SCHERE')
+                            .setCustomId('RPS-3-' + bet)
+		    			    .setStyle(ButtonStyle.Secondary)
+                            .setDisabled(true),
+
 		    	    	new ButtonBuilder()
 		    	    		.setLabel('🪨 STEIN')
                             .setCustomId('RPS-1-' + bet)
 		    	    		.setStyle(ButtonStyle.Secondary)
                             .setDisabled(true),
-		    	    );
-            }
 
-            let paper = new ActionRowBuilder()
-		    	.addComponents(
-		    		new ButtonBuilder()
-		    			.setLabel('📝 PAPER')
-                        .setCustomId('RPS-2-' + bet)
-		    			.setStyle(ButtonStyle.Secondary)
-                        .setDisabled(true),
-		    	);
-            if (interaction.guildLocale == "de") {
-                paper = new ActionRowBuilder()
-		    	    .addComponents(
-		    	    	new ButtonBuilder()
+                        new ButtonBuilder()
 		    	    		.setLabel('📝 PAPIER')
                             .setCustomId('RPS-2-' + bet)
-		    	    		.setStyle(ButtonStyle.Secondary)
+		        		    .setStyle(ButtonStyle.Secondary)
                             .setDisabled(true),
-		    	    );
-            }
-
-            let scissors = new ActionRowBuilder()
-		    	.addComponents(
-		    		new ButtonBuilder()
-		    			.setLabel('✂️ SCISSOR')
-                        .setCustomId('RPS-3-' + bet)
-		    			.setStyle(ButtonStyle.Secondary)
-                        .setDisabled(true),
 		    	);
-            if (interaction.guildLocale == "de") {
-                scissors = new ActionRowBuilder()
-		    	    .addComponents(
-		    	    	new ButtonBuilder()
-		    	    		.setLabel('✂️ SCHERE')
-                            .setCustomId('RPS-3-' + bet)
-		    	    		.setStyle(ButtonStyle.Secondary)
-                            .setDisabled(true),
-		    	    );
             }
 
             // Send Message
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] RPS : DONE')
-            return interaction.update({ embeds: [message.toJSON()], components: [rock, paper, scissors], ephemeral: true })
+            return interaction.update({ embeds: [message.toJSON()], components: [row], ephemeral: true })
         }
 
         // Create Embed
