@@ -222,7 +222,7 @@ if (dovotes != 'no') {
 	app.post("/dblwebhook", webhook.listener(vote => {
   		console.log(vote.user)
 
-		user = await client.users.fetch(vote.user);
+		user = client.users.fetch(vote.user);
 		random = Math.floor(Math.random() * (5000 - 1000 + 1)) + 1000;
 
 		message = new EmbedBuilder()
