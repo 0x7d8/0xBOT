@@ -250,7 +250,7 @@ if (dovotes != 'no') {
 		}
 
 		user.send({ embeds: [message.toJSON()] });
-		bals.add(user, parseInt(random))
+		bals.add(vote.user, parseInt(random))
 
 		console.log('\n\n[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] VOTED : ' + user + ' : ' + random + '€\n')
 	}))
