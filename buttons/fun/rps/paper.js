@@ -52,8 +52,10 @@ module.exports = {
             let win = 'none'
             if (psc == 'ROCK' && prc == 'PAPER') { win = 'pr' }
             if (psc == 'ROCK' && prc == 'SCISSORS') { win = 'ps' }
-            if (psc == 'PAPER' && prc == 'ROCK') { win = 'ps' }
             if (psc == 'SCISSORS' && prc == 'ROCK') { win = 'pr' }
+            if (psc == 'SCISSORS' && prc == 'PAPER') { win = 'ps' }
+            if (psc == 'PAPER' && prc == 'ROCK') { win = 'ps' }
+            if (psc == 'PAPER' && prc == 'SCISSORS') { win = 'pr' }
             let winner
             if (win == 'ps') { winner = '<@' + sender.toString().replace(/\D/g, '') + '>' }
             if (win == 'pr') { winner = '<@' + reciever.toString().replace(/\D/g, '') + '>' }
@@ -63,13 +65,13 @@ module.exports = {
             // Create Embed
             let message = new EmbedBuilder()
                 .setTitle('» ROCK PAPER SCISSORS')
-                .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> selected **' + eval('i' + sender.toString().replace(/\D/g, '')) + '**\n» <@' + reciever.toString().replace(/\D/g, '') + '> selected **' + eval('i' + reciever.toString().replace(/\D/g, '')) + '\n\n» ' + winner + ' hat gewonnen.')
+                .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> selected **' + eval('i' + sender.toString().replace(/\D/g, '')) + '**\n» <@' + reciever.toString().replace(/\D/g, '') + '> selected **' + eval('i' + reciever.toString().replace(/\D/g, '')) + '**\n\n» ' + winner + ' hat gewonnen.')
                 .setFooter({ text: '» ' + version });
 
             if (interaction.guildLocale == "de") {
                 message = new EmbedBuilder()
                     .setTitle('» SCHERE STEIN PAPIER')
-                    .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> selected **' + eval('i' + sender.toString().replace(/\D/g, '')) + '**\n» <@' + reciever.toString().replace(/\D/g, '') + '> wählte **' + eval('i' + reciever.toString().replace(/\D/g, '')) + '\n\n» ' + winner + ' hat gewonnen.')
+                    .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> wählte **' + eval('i' + sender.toString().replace(/\D/g, '')) + '**\n» <@' + reciever.toString().replace(/\D/g, '') + '> wählte **' + eval('i' + reciever.toString().replace(/\D/g, '')) + '**\n\n» ' + winner + ' hat gewonnen.')
                     .setFooter({ text: '» ' + version });
             }
 
