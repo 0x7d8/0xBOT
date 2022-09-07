@@ -12,25 +12,7 @@ module.exports = {
         const [sender, reciever] = description
 
         // Check if User is playing
-        if (sender.toString().replace(/\D/g, '') != interaction.user.id.replace(/\D/g, '')) {
-            // Create Embed
-            let message = new EmbedBuilder()
-        		.setTitle('» ERROR')
-        		.setDescription('» You arent playing!')
-        		.setFooter({ text: '» ' + version });
-
-            if (interaction.guildLocale == "de") {
-                message = new EmbedBuilder()
-        		    .setTitle('» FEHLER')
-        		    .setDescription('» Du spielst garnicht mit!')
-        		    .setFooter({ text: '» ' + version });
-            }
-            
-            // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] RPS : NOTPLAYING')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
-        }
-        if (reciever.toString().replace(/\D/g, '') != interaction.user.id.replace(/\D/g, '')) {
+        if (sender.toString().replace(/\D/g, '') != interaction.user.id.replace(/\D/g, '') && reciever.toString().replace(/\D/g, '') != interaction.user.id.replace(/\D/g, '')) {
             // Create Embed
             let message = new EmbedBuilder()
         		.setTitle('» ERROR')
