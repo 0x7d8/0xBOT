@@ -237,7 +237,7 @@ if (dovotes != 'no') {
 			.setDescription('» Thanks for Voting! You got **$' + random + '** from me :)\n» Danke fürs Voten! Du hast **' + random + '€** von mir erhalten :)')
 			.setFooter({ text: '» ' + version });
 
-		if (await lang.get(interaction.user.id) == 1) {
+		if (await lang.get(vote.user) == 1) {
 			message = new EmbedBuilder()
 				.setTitle('» VOTING')
 				.setDescription('» Danke fürs Voten! Du hast **' + random + '€** von mir erhalten :)')
