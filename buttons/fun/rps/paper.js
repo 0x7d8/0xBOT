@@ -11,6 +11,9 @@ module.exports = {
         const description = cache[0].description.toString().replace(/[^\d@-]/g, '')
         const [bin, sender, reciever] = description
 
+        console.log(sender)
+        console.log(reciever)
+
         // Check if User is playing
         if (sender.toString().replace(/\D/g, '') == interaction.user.id.replace(/\D/g, '') || reciever.toString().replace(/\D/g, '') == interaction.user.id.replace(/\D/g, '')) {
             // Create Embed
