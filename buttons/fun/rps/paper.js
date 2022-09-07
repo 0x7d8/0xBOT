@@ -35,7 +35,7 @@ module.exports = {
         eval('global.i' + interaction.user.id.replace(/\D/g, '') + ' = "SCISSORS"')
 
         // Check if Game is Done
-        if (eval('typeof ' + sender.toString().replace(/\D/g, '') + ' !== "undefined"') && eval('typeof ' + reciever.toString().replace(/\D/g, '') + ' !== "undefined"')) {
+        if (eval('typeof ' + sender.toString().replace(/\D/g, '') + ' !== "undefined"') == true && eval('typeof ' + reciever.toString().replace(/\D/g, '') + ' !== "undefined"') == true) {
             // Calculate Winner
             const psc = eval('i' + sender.toString().replace(/\D/g, ''))
             const prc = eval('i' + reciever.toString().replace(/\D/g, ''))
