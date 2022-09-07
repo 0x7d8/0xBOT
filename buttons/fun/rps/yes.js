@@ -12,7 +12,8 @@ module.exports = {
         const [sender, reciever] = description
 
         // Set Variables
-        const balance = await bals.get(user.toString().replace(/\D/g, ''));
+        const balance = await bals.get(reciever.toString().replace(/\D/g, ''))
+        const otherbalance = await bals.get(sender.toString().replace(/\D/g, ''))
 
         // Check if User is Authorized
         if (interaction.user.id.replace(/\D/g, '') != reciever.toString().replace(/\D/g, '')) {

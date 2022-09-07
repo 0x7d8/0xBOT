@@ -202,6 +202,7 @@ module.exports = {
         }
 
         // Create Buttons
+        if (bet == null) { bet = 0 }
         let row = new ActionRowBuilder()
 			.addComponents(
 				new ButtonBuilder()
