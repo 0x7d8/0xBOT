@@ -36,8 +36,11 @@ for (const file of eventFiles) {
 	} else {
 		client.on(event.event, (...args) => event.execute(...args));
 	}
-	console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] LOADING EVENT ${event.name}`);
+	let evt = event.name.toUpperCase()
+	console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] LOADING EVENT ${evt}`);
 }
+
+console.log(' ')
 
 // Load all Commands
 client.commands = new Collection();
@@ -49,6 +52,8 @@ for (const file of commandFiles) {
     let cmd = command.data.name.toUpperCase()
 	console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] LOADING COMMAND ${cmd}`);
 }
+
+console.log(' ')
 
 // Load all Buttons
 client.buttons = new Collection();
