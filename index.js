@@ -20,6 +20,30 @@ mongoose.connect(mongo, {
     useNewUrlParser: true
 }).then(console.log('\n[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] LOADING BOT, ' + version + '\n[0xBOT] [!] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] CONNECTED TO MONGODB\n\n[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] LOADING COMMANDS AND EVENTS...'))
 
+// MongoDB Functions
+global.cmds = require("./functions/cmds")
+global.bals = require("./functions/economy")
+global.quts = require("./functions/quotes")
+global.apis = require("./functions/apis")
+global.lang = require("./functions/langs")
+
+
+global.sgrn = require("./functions/stocks/green")
+global.sblu = require("./functions/stocks/blue")
+global.syll = require("./functions/stocks/yellow")
+global.sred = require("./functions/stocks/red")
+
+global.sgrnx = require("./functions/stocks/greenmax")
+global.sblux = require("./functions/stocks/bluemax")
+global.syllx = require("./functions/stocks/yellowmax")
+global.sredx = require("./functions/stocks/redmax")
+
+
+global.Lb1o = require("./functions/business/1/owner")
+global.Lb1e = require("./functions/business/1/earning")
+global.Lb1u = require("./functions/business/1/upgrade")
+global.Lb1t = require("./functions/business/1/timedunix")
+
 // Deploy Commands
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
@@ -68,6 +92,10 @@ for (const file of buttonFiles) {
 
 client.on('interactionCreate', async interaction => {
 	if (!interaction.isCommand() && !interaction.isButton()) return;
+
+	lang.rem(interaction.user.id, await lang.get(interaction.user.id))
+	if (interaction.locale == "de") { lang.add(interaction.user.id, 1) }
+	if (interaction.locale == "en") { lang.add(interaction.user.id, 2) }
 
 	if (interaction.isChatInputCommand()) {
 
@@ -152,31 +180,6 @@ client.on('interactionCreate', async interaction => {
 
 });
 
-// MongoDB Basic Economy Functions
-global.cmds = require("./functions/cmds")
-global.bals = require("./functions/economy")
-global.quts = require("./functions/quotes")
-global.apis = require("./functions/apis")
-
-
-// MongoDB Advanced Economy Functions
-global.sgrn = require("./functions/stocks/green")
-global.sblu = require("./functions/stocks/blue")
-global.syll = require("./functions/stocks/yellow")
-global.sred = require("./functions/stocks/red")
-
-global.sgrnx = require("./functions/stocks/greenmax")
-global.sblux = require("./functions/stocks/bluemax")
-global.syllx = require("./functions/stocks/yellowmax")
-global.sredx = require("./functions/stocks/redmax")
-
-
-// MongoDB Experimental Economy Functions
-global.Lb1o = require("./functions/business/1/owner")
-global.Lb1e = require("./functions/business/1/earning")
-global.Lb1u = require("./functions/business/1/upgrade")
-global.Lb1t = require("./functions/business/1/timedunix")
-
 // Deploy Commands
 const commands = [];
 
@@ -226,7 +229,17 @@ if (dovotes != 'no') {
 			.setDescription('» Thanks for Voting! You got **$' + random + '** from me :)\n» Danke fürs Voten! Du hast **' + random + '€** von mir erhalten :)')
 			.setFooter({ text: '» ' + version });
 
-		console.log(user.locale)
+		if (await lang.get(interaction.user.id) == 1) {
+			message = new EmbedBuilder()
+				.setTitle('» VOTING')
+				.setDescription('» Danke fürs Voten! Du hast **' + random + '€** von mir erhalten :)')
+				.setFooter({ text: '» ' + version });
+		} else {
+			message = new EmbedBuilder()
+				.setTitle('» VOTING')
+				.setDescription('» Thanks for Voting! You got **$' + random + '** from me :)')
+				.setFooter({ text: '» ' + version });
+		}
 
 		user.send({ embeds: [message.toJSON()] });
 		bals.add(user, random)
