@@ -45,6 +45,27 @@ module.exports = {
         const money = await bals.get(interaction.user.id.replace(/\D/g, ''));
         const othermoney = await bals.get(user.toString().replace(/\D/g, ''));
 
+        // Check if Target is Bot
+        const userinfo = await client.users.fetch(user);
+        if (userinfo.bot == true) {
+            // Create Embed
+            let message = new EmbedBuilder()
+        		.setTitle('» ERROR')
+        		.setDescription('» You cant play Rock Paper Scissors with a Bot!')
+        		.setFooter({ text: '» ' + version });
+
+            if (interaction.guildLocale == "de") {
+                message = new EmbedBuilder()
+        		    .setTitle('» FEHLER')
+        		    .setDescription('» Du kannst Schere Stein Papier nicht mit einem Bot spielen!')
+        		    .setFooter({ text: '» ' + version });
+            }
+            
+            // Send Message
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] RPS : ' + user.toString().replace(/\D/g, '') + ' : BOT')
+            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+        }
+
         // Check if Sender is already in a Lobby
         let lobby
         try {

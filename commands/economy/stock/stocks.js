@@ -71,7 +71,7 @@ module.exports = {
             if (redmax == 0) { redmax = 10; sredx.add(user.toString().replace(/\D/g, ''), 10) }
         }
 
-        // Get Username
+        // Get Userinfo
         let username
         if (user != null) {
             username = await client.users.fetch(user);

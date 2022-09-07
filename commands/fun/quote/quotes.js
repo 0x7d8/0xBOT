@@ -31,7 +31,7 @@ module.exports = {
         // Set Variables
         const user = interaction.options.getUser("user")
 
-        // Get Username
+        // Get Userinfo
         let userinfo
         if (user != null) {
             userinfo = await client.users.fetch(user);

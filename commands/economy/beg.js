@@ -83,7 +83,7 @@ module.exports = {
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
-        // Get Username
+        // Get Userinfo
         let userinfo
         userinfo = await client.users.fetch(interaction.user.id);
 
