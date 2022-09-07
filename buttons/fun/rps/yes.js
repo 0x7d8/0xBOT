@@ -57,7 +57,7 @@ module.exports = {
             }
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] RPS : ' + user.toString().replace(/\D/g, '') + ' : ALREADYLOBBY')
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] RPS : ' + reciever.toString().replace(/\D/g, '') + ' : ALREADYLOBBY')
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
@@ -86,7 +86,7 @@ module.exports = {
             }
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] RPS : ' + user.toString().replace(/\D/g, '') + ' : ALREADYLOBBY')
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] RPS : ' + sender.toString().replace(/\D/g, '') + ' : ALREADYLOBBY')
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
@@ -115,7 +115,7 @@ module.exports = {
             }
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] RPS : ' + user.toString().replace(/\D/g, '') + ' : ALREADYLOBBY')
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] RPS : ' + reciever.toString().replace(/\D/g, '') + ' : ALREADYLOBBY')
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
@@ -137,7 +137,27 @@ module.exports = {
             }
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] BEG : ' + reciever.toString().replace(/\D/g, '') + ' : ' + amount + '€ : NOTENOUGHMONEY')
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] RPS : ' + reciever.toString().replace(/\D/g, '') + ' : ' + amount + '€ : NOTENOUGHMONEY')
+            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+        }
+        if (otherbalance < bet) {
+            const missing = bet - otherbalance
+            
+            // Create Embed
+            let message = new EmbedBuilder()
+            	.setTitle('» ERROR')
+  				.setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> doesnt have enough Money, he is Missing **$' + missing + '**!')
+            	.setFooter({ text: '» ' + version });
+
+            if (interaction.guildLocale == "de") {
+                message = new EmbedBuilder()
+            	    .setTitle('» FEHLER')
+  				    .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> hat nicht genug Geld, im fehlen **' + missing + '€**!')
+            	    .setFooter({ text: '» ' + version });
+            }
+            
+            // Send Message
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] RPS : ' + reciever.toString().replace(/\D/g, '') + ' : ' + amount + '€ : NOTENOUGHMONEY')
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
