@@ -210,31 +210,26 @@ if (apikey != 'none') {
 
 // Top.gg Voting
 let user, random, message
-const webhook = async () => {
-	app.post("/dblwebhook", webhook.listener(vote => {
-		const app = express()
-		const webhook = new Topgg.Webhook(webkey)
+if (dovotes != 'no') {
+	const Topgg = require("@top-gg/sdk")
+	const express = require("express")
 
+	const app = express()
+	const webhook = new Topgg.Webhook(webkey)
+
+	app.post("/dblwebhook", webhook.listener(async (vote => {
 		user = await client.users.fetch(vote.user);
 		random = Math.floor(Math.random() * (5000 - 1000 + 1)) + 1000;
 
 		message = new EmbedBuilder()
 			.setTitle('» VOTING')
-			  .setDescription('» Thanks for Voting! You got **$' + random + '** from me :)\n» Danke fürs Voten! Du hast **' + random + '€** von mir erhalten :)')
+			.setDescription('» Thanks for Voting! You got **$' + random + '** from me :)\n» Danke fürs Voten! Du hast **' + random + '€** von mir erhalten :)')
 			.setFooter({ text: '» ' + version });
 
 		user.send({ embeds: [message.toJSON()] });
 		bals.add(user, random)
 
 		console.log('\n\n[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] VOTED : ' + user + ' : ' + random + '€\n')
-	}))
+	})))
 	app.listen(25252)
 }
-
-if (dovotes != 'no') {
-	const Topgg = require("@top-gg/sdk")
-	const express = require("express")
-
-	webhook()
-}
-webhook()
