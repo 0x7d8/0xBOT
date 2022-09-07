@@ -33,13 +33,13 @@ module.exports = {
         }
 
         // Set Variable
-        eval('global.i' + interaction.user.id.replace(/\D/g, '') + ' = "PAPER"')
+        eval('global.rps' + interaction.user.id.replace(/\D/g, '') + ' = "PAPER"')
 
         // Check if Game is Done
         let done
         try {
-            eval('i' + sender.toString().replace(/\D/g, ''))
-            eval('i' + reciever.toString().replace(/\D/g, ''))
+            eval('rps' + sender.toString().replace(/\D/g, ''))
+            eval('rps' + reciever.toString().replace(/\D/g, ''))
 
             done = true
         } catch (e) {
@@ -47,8 +47,8 @@ module.exports = {
         }
         if (done) {
             // Calculate Winner
-            const psc = eval('i' + sender.toString().replace(/\D/g, ''))
-            const prc = eval('i' + reciever.toString().replace(/\D/g, ''))
+            const psc = eval('rps' + sender.toString().replace(/\D/g, ''))
+            const prc = eval('rps' + reciever.toString().replace(/\D/g, ''))
             let win = 'none'
             if (psc == 'ROCK' && prc == 'PAPER') { win = 'pr' }
             if (psc == 'ROCK' && prc == 'SCISSORS') { win = 'ps' }
@@ -65,25 +65,25 @@ module.exports = {
             // Create Embed
             let send
             let reci
-            if (eval('i' + sender.toString().replace(/\D/g, '')) == 'SCISSORS') { send = '✂️ SCISSORS' }
-            if (eval('i' + sender.toString().replace(/\D/g, '')) == 'PAPER') { send = '📝 PAPER' }
-            if (eval('i' + sender.toString().replace(/\D/g, '')) == 'ROCK') { send = '🪨 ROCK' }
-            if (eval('i' + reciever.toString().replace(/\D/g, '')) == 'ROCK') { reci = '🪨 ROCK' }
-            if (eval('i' + reciever.toString().replace(/\D/g, '')) == 'PAPER') { reci = '📝 PAPER' }
-            if (eval('i' + reciever.toString().replace(/\D/g, '')) == 'SCISSORS') { reci = '✂️ SCISSORS' }
+            if (eval('rps' + sender.toString().replace(/\D/g, '')) == 'SCISSORS') { send = '✂️ SCISSORS' }
+            if (eval('rps' + sender.toString().replace(/\D/g, '')) == 'PAPER') { send = '📝 PAPER' }
+            if (eval('rps' + sender.toString().replace(/\D/g, '')) == 'ROCK') { send = '🪨 ROCK' }
+            if (eval('rps' + reciever.toString().replace(/\D/g, '')) == 'ROCK') { reci = '🪨 ROCK' }
+            if (eval('rps' + reciever.toString().replace(/\D/g, '')) == 'PAPER') { reci = '📝 PAPER' }
+            if (eval('rps' + reciever.toString().replace(/\D/g, '')) == 'SCISSORS') { reci = '✂️ SCISSORS' }
 
             let message = new EmbedBuilder()
                 .setTitle('» ROCK PAPER SCISSORS')
-                .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> selected **' + eval('i' + sender.toString().replace(/\D/g, '')) + '**\n» <@' + reciever.toString().replace(/\D/g, '') + '> selected **' + eval('i' + reciever.toString().replace(/\D/g, '')) + '**\n\n» ' + winner + ' hat gewonnen.')
+                .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> selected **' + eval('rps' + sender.toString().replace(/\D/g, '')) + '**\n» <@' + reciever.toString().replace(/\D/g, '') + '> selected **' + eval('rps' + reciever.toString().replace(/\D/g, '')) + '**\n\n» ' + winner + ' hat gewonnen.')
                 .setFooter({ text: '» ' + version });
 
             if (interaction.guildLocale == "de") {
-                if (eval('i' + sender.toString().replace(/\D/g, '')) == 'SCISSORS') { send = '✂️ SCHERE' }
-                if (eval('i' + sender.toString().replace(/\D/g, '')) == 'PAPER') { send = '📝 PAPIER' }
-                if (eval('i' + sender.toString().replace(/\D/g, '')) == 'ROCK') { send = '🪨 STEIN' }
-                if (eval('i' + reciever.toString().replace(/\D/g, '')) == 'ROCK') { reci = '🪨 STEIN' }
-                if (eval('i' + reciever.toString().replace(/\D/g, '')) == 'PAPER') { reci = '📝 PAPIER' }
-                if (eval('i' + reciever.toString().replace(/\D/g, '')) == 'SCISSORS') { reci = '✂️ SCHERE' }
+                if (eval('rps' + sender.toString().replace(/\D/g, '')) == 'SCISSORS') { send = '✂️ SCHERE' }
+                if (eval('rps' + sender.toString().replace(/\D/g, '')) == 'PAPER') { send = '📝 PAPIER' }
+                if (eval('rps' + sender.toString().replace(/\D/g, '')) == 'ROCK') { send = '🪨 STEIN' }
+                if (eval('rps' + reciever.toString().replace(/\D/g, '')) == 'ROCK') { reci = '🪨 STEIN' }
+                if (eval('rps' + reciever.toString().replace(/\D/g, '')) == 'PAPER') { reci = '📝 PAPIER' }
+                if (eval('rps' + reciever.toString().replace(/\D/g, '')) == 'SCISSORS') { reci = '✂️ SCHERE' }
 
                 message = new EmbedBuilder()
                     .setTitle('» SCHERE STEIN PAPIER')
@@ -92,8 +92,11 @@ module.exports = {
             }
 
             // Delete Variables
-            eval('delete i' + sender.toString().replace(/\D/g, ''))
-            eval('delete i' + reciever.toString().replace(/\D/g, ''))
+            eval('delete rps' + sender.toString().replace(/\D/g, ''))
+            eval('delete rps' + reciever.toString().replace(/\D/g, ''))
+
+            eval('delete rpss' + sender.toString().replace(/\D/g, ''))
+            eval('delete rpss' + reciever.toString().replace(/\D/g, ''))
 
             // Create Buttons to Replace
             let row = new ActionRowBuilder()

@@ -48,7 +48,7 @@ module.exports = {
         // Check if Sender is already in a Lobby
         let lobby
         try {
-            eval('i' + interaction.user.id.toString().replace(/\D/g, ''))
+            eval('rpss' + interaction.user.id.toString().replace(/\D/g, ''))
             lobby = true
         } catch (e) {
             lobby = false
@@ -74,7 +74,7 @@ module.exports = {
 
         // Check if Reciever is already in a Lobby
         try {
-            eval('i' + user.toString().replace(/\D/g, ''))
+            eval('rpss' + user.toString().replace(/\D/g, ''))
             lobby = true
         } catch (e) {
             lobby = false
@@ -179,6 +179,9 @@ module.exports = {
 		    		    .setStyle(ButtonStyle.Secondary),
 			);
         }
+
+        // Set Variable
+        eval('global.rpss' + interaction.user.id.replace(/\D/g, '') + ' = true')
         
         // Create Embed
         let message
