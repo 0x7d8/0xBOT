@@ -1,7 +1,7 @@
 const { Client, Collection, GatewayIntentBits } = require('discord.js');
 const { token, clientId, mongo } = require('./config.json');
 const { getAllFilesFilter } = require('./utils/getAllFiles.js');
-const { version } = require('./config.json');
+const { version, apikey } = require('./config.json');
 const { EmbedBuilder } = require('@discordjs/builders');
 
 // Show Logo
@@ -196,3 +196,14 @@ console.log('\n[0xBOT] [!] [' + new Date().toLocaleTimeString('en-US', { hour12:
 
 // Login
 client.login(token);
+
+// Top.gg Stats
+if (apikey != 'none') {
+	const { AutoPoster } = require('topgg-autoposter')
+
+	const ap = AutoPoster(apikey, client)
+
+	ap.on('posted', () => {
+		console.log('\n\n[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] TOP.GG STATS POSTED\n')
+	})
+}
