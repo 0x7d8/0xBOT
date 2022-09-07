@@ -8,8 +8,8 @@ module.exports = {
     async execute(interaction, client, bet) {
         // Get Users
         const cache = interaction.message.embeds
-        const sender = cache[0].description.toString().replace(/^\D+|\D.*$/g, "")
-        const reciever = cache[0].description.toString().replace(/.*\D(?=\d)|\D+$/g, "")
+        const description = cache[0].description.toString().replace(/[^\d@-]/g, '')
+        const [bin, sender, reciever] = description
 
         // Check if User is playing
         if (sender.toString().replace(/\D/g, '') == interaction.user.id.replace(/\D/g, '') || reciever.toString().replace(/\D/g, '') == interaction.user.id.replace(/\D/g, '')) {
@@ -153,7 +153,7 @@ module.exports = {
         }
 
         // Send Message
-        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] RPS : SCISSOR')
+        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] RPS : PAPER')
         return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
     }
 }
