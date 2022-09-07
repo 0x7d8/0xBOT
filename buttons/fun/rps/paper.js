@@ -63,15 +63,31 @@ module.exports = {
             if (win == 'none' && interaction.guildLocale == "de") { winner = '**Niemand**' }
 
             // Create Embed
+            let send
+            let reci
+            if (eval('i' + sender.toString().replace(/\D/g, '')) == 'SCISSORS') { send = '✂️ SCISSORS' }
+            if (eval('i' + sender.toString().replace(/\D/g, '')) == 'PAPER') { send = '📝 PAPER' }
+            if (eval('i' + sender.toString().replace(/\D/g, '')) == 'ROCK') { send = '🪨 ROCK' }
+            if (eval('i' + reciever.toString().replace(/\D/g, '')) == 'ROCK') { reci = '🪨 ROCK' }
+            if (eval('i' + reciever.toString().replace(/\D/g, '')) == 'PAPER') { reci = '📝 PAPER' }
+            if (eval('i' + reciever.toString().replace(/\D/g, '')) == 'SCISSORS') { reci = '✂️ SCISSORS' }
+
             let message = new EmbedBuilder()
                 .setTitle('» ROCK PAPER SCISSORS')
                 .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> selected **' + eval('i' + sender.toString().replace(/\D/g, '')) + '**\n» <@' + reciever.toString().replace(/\D/g, '') + '> selected **' + eval('i' + reciever.toString().replace(/\D/g, '')) + '**\n\n» ' + winner + ' hat gewonnen.')
                 .setFooter({ text: '» ' + version });
 
             if (interaction.guildLocale == "de") {
+                if (eval('i' + sender.toString().replace(/\D/g, '')) == 'SCISSORS') { send = '✂️ SCHERE' }
+                if (eval('i' + sender.toString().replace(/\D/g, '')) == 'PAPER') { send = '📝 PAPIER' }
+                if (eval('i' + sender.toString().replace(/\D/g, '')) == 'ROCK') { send = '🪨 STEIN' }
+                if (eval('i' + reciever.toString().replace(/\D/g, '')) == 'ROCK') { reci = '🪨 STEIN' }
+                if (eval('i' + reciever.toString().replace(/\D/g, '')) == 'PAPER') { reci = '📝 PAPIER' }
+                if (eval('i' + reciever.toString().replace(/\D/g, '')) == 'SCISSORS') { reci = '✂️ SCHERE' }
+
                 message = new EmbedBuilder()
                     .setTitle('» SCHERE STEIN PAPIER')
-                    .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> wählte **' + eval('i' + sender.toString().replace(/\D/g, '')) + '**\n» <@' + reciever.toString().replace(/\D/g, '') + '> wählte **' + eval('i' + reciever.toString().replace(/\D/g, '')) + '**\n\n» ' + winner + ' hat gewonnen.')
+                    .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> wählte **' + send + '**\n» <@' + reciever.toString().replace(/\D/g, '') + '> wählte **' + reci + '**\n\n» ' + winner + ' hat gewonnen.')
                     .setFooter({ text: '» ' + version });
             }
 
