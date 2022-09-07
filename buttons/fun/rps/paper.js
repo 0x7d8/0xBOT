@@ -8,7 +8,7 @@ module.exports = {
     async execute(interaction, client, bet) {
         // Get Users
         const cache = interaction.message.embeds
-        const description = cache[0].description.toString().replace(/[^\d@!]/g, '')
+        const description = cache[0].description.toString().replace(/[^\d@!]/g, '').split('!')[0]
         console.log(description)
         console.log(description.toString())
         console.log(cache[0].description)
@@ -18,7 +18,7 @@ module.exports = {
         console.log(reciever)
 
         // Check if User is playing
-        if (sender.toString().replace(/\D/g, '') == interaction.user.id.replace(/\D/g, '') || reciever.toString().replace(/\D/g, '') == interaction.user.id.replace(/\D/g, '')) {
+        if (sender.toString().replace(/\D/g, '') != interaction.user.id.replace(/\D/g, '') || reciever.toString().replace(/\D/g, '') != interaction.user.id.replace(/\D/g, '')) {
             // Create Embed
             let message = new EmbedBuilder()
         		.setTitle('» ERROR')

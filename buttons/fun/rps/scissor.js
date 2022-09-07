@@ -12,7 +12,7 @@ module.exports = {
         const [bin, sender, reciever] = description
 
         // Check if User is playing
-        if (sender.toString().replace(/\D/g, '') == interaction.user.id.replace(/\D/g, '') || reciever.toString().replace(/\D/g, '') == interaction.user.id.replace(/\D/g, '')) {
+        if (sender.toString().replace(/\D/g, '') != interaction.user.id.replace(/\D/g, '') || reciever.toString().replace(/\D/g, '') != interaction.user.id.replace(/\D/g, '')) {
             // Create Embed
             let message = new EmbedBuilder()
         		.setTitle('» ERROR')
