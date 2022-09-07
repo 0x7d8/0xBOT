@@ -93,9 +93,9 @@ for (const file of buttonFiles) {
 client.on('interactionCreate', async interaction => {
 	if (!interaction.isCommand() && !interaction.isButton()) return;
 
-	if (await lang.get(interaction.user.id) != 0) { lang.rem(interaction.user.id, await lang.get(interaction.user.id)) }
-	if (interaction.locale == "de") { lang.add(interaction.user.id, 1) }
-	if (interaction.locale == "en") { lang.add(interaction.user.id, 2) }
+	const clang = await lang.get(interaction.user.id)
+	if (clang != 0) { lang.rem(interaction.user.id, clang) }
+	if (interaction.locale == "de") { lang.add(interaction.user.id, 1) } else { lang.add(interaction.user.id, 2) }
 
 	if (interaction.isChatInputCommand()) {
 
