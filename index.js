@@ -93,7 +93,7 @@ for (const file of buttonFiles) {
 client.on('interactionCreate', async interaction => {
 	if (!interaction.isCommand() && !interaction.isButton()) return;
 
-	lang.rem(interaction.user.id, await lang.get(interaction.user.id))
+	if (await lang.get(interaction.user.id) != 0) { lang.rem(interaction.user.id, await lang.get(interaction.user.id)) }
 	if (interaction.locale == "de") { lang.add(interaction.user.id, 1) }
 	if (interaction.locale == "en") { lang.add(interaction.user.id, 2) }
 
