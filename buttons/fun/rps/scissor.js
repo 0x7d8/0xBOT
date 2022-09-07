@@ -62,6 +62,12 @@ module.exports = {
             if (win == 'none') { winner = '**Noone**' }
             if (win == 'none' && interaction.guildLocale == "de") { winner = '**Niemand**' }
 
+            // Transfer Money
+            const betwon = bet * 2
+            if (winner != '**Noone**' && winner != '**Niemand**') {
+                bals.add(winner.toString().replace(/\D/g, ''), betwon)
+            }
+
             // Create Embed
             let send
             let reci
@@ -74,7 +80,7 @@ module.exports = {
 
             let message = new EmbedBuilder()
                 .setTitle('» ROCK PAPER SCISSORS')
-                .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> selected **' + eval('rps' + sender.toString().replace(/\D/g, '')) + '**\n» <@' + reciever.toString().replace(/\D/g, '') + '> selected **' + eval('rps' + reciever.toString().replace(/\D/g, '')) + '**\n\n» ' + winner + ' hat gewonnen.')
+                .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> selected **' + eval('rps' + sender.toString().replace(/\D/g, '')) + '**\n» <@' + reciever.toString().replace(/\D/g, '') + '> selected **' + eval('rps' + reciever.toString().replace(/\D/g, '')) + '**\n\n» ' + winner + ' won **$' + betwon + '**.')
                 .setFooter({ text: '» ' + version });
 
             if (interaction.guildLocale == "de") {
@@ -87,7 +93,7 @@ module.exports = {
 
                 message = new EmbedBuilder()
                     .setTitle('» SCHERE STEIN PAPIER')
-                    .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> wählte **' + send + '**\n» <@' + reciever.toString().replace(/\D/g, '') + '> wählte **' + reci + '**\n\n» ' + winner + ' hat gewonnen.')
+                    .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> wählte **' + send + '**\n» <@' + reciever.toString().replace(/\D/g, '') + '> wählte **' + reci + '**\n\n» ' + winner + ' hat **' + betwon + '€** gewonnen.')
                     .setFooter({ text: '» ' + version });
             }
 
