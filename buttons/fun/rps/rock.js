@@ -67,8 +67,8 @@ module.exports = {
             if (winner != '**Noone**' && winner != '**Niemand**') {
                 bals.add(winner.toString().replace(/\D/g, ''), betwon)
             } else {
-                bals.add(sender.toString().replace(/\D/g, ''), bet)
-                bals.add(reciever.toString().replace(/\D/g, ''), bet)
+                bals.add(sender.toString().replace(/\D/g, ''), parseInt(bet))
+                bals.add(reciever.toString().replace(/\D/g, ''), parseInt(bet))
             }
 
             // Create Embed
