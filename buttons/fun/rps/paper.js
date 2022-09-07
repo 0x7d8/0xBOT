@@ -8,11 +8,11 @@ module.exports = {
     async execute(interaction, client, bet) {
         // Get Users
         const cache = interaction.message.embeds
-        const description = cache[0].description.toString().replace(/[^\d@!]/g, '').split('!')[0].substring(1);
+        const description = cache[0].description.toString().replace(/[^\d@!]/g, '').split('!')[0].substring(1).split("@");
         console.log(description)
         console.log(description.toString())
         console.log(cache[0].description)
-        const [sender, reciever, bin] = description
+        const [sender, reciever] = description
 
         console.log(sender)
         console.log(reciever)
