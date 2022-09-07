@@ -94,8 +94,16 @@ client.on('interactionCreate', async interaction => {
 	if (!interaction.isCommand() && !interaction.isButton()) return;
 
 	const clang = await lang.get(interaction.user.id)
-	await lang.rem(interaction.user.id, parseInt(clang))
-	if (interaction.locale == "de") { lang.add(interaction.user.id, 1) } else { lang.add(interaction.user.id, 2) }
+	if (parseInt(clang) != 0) { await lang.rem(interaction.user.id, parseInt(clang)) }
+	if (interaction.locale == "de") {
+		if (parseInt(clang) == 2) {
+			lang.rem(interaction.user.id, 1)
+		}
+	} else {
+		if (parseInt(clang) == 1) {
+			lang.add(interaction.user.id, 1)
+		}
+	}
 
 	if (interaction.isChatInputCommand()) {
 
