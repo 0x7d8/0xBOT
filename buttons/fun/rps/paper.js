@@ -9,6 +9,8 @@ module.exports = {
         // Get Users
         const cache = interaction.message.embeds
         const description = cache[0].description.toString().replace(/[^\d@-]/g, '')
+        console.log(description)
+        console.log(cache[0].description)
         const [bin, sender, reciever] = description
 
         console.log(sender)
