@@ -232,6 +232,8 @@ if (dovotes != 'no') {
 
 		user.send({ embeds: [message.toJSON()] });
 		bals.add(user, random)
+
+		console.log('\n\n[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] VOTED : ' + user + ' : ' + random + '€\n')
 	}))
 
 	app.listen(25252)
