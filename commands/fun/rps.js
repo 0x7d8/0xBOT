@@ -161,7 +161,7 @@ module.exports = {
 
         // Check for Enough Money
         if (money < bet && bet != null) {
-            const missing = cost - money
+            const missing = bet - money
             
             // Create Embed
             let message = new EmbedBuilder()
@@ -181,7 +181,7 @@ module.exports = {
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
         if (othermoney < bet && bet != null) {
-            const missing = cost - othermoney
+            const missing = bet - othermoney
             
             // Create Embed
             let message = new EmbedBuilder()
