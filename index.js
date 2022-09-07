@@ -217,7 +217,7 @@ if (dovotes != 'no') {
 	const app = express()
 	const webhook = new Topgg.Webhook(webkey)
 
-	app.post("/dblwebhook", webhook.listener(async (vote => {
+	app.post("/dblwebhook", webhook.listener(async (vote) => {
 		user = await client.users.fetch(vote.user);
 		random = Math.floor(Math.random() * (5000 - 1000 + 1)) + 1000;
 
@@ -230,6 +230,6 @@ if (dovotes != 'no') {
 		bals.add(user, random)
 
 		console.log('\n\n[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] VOTED : ' + user + ' : ' + random + '€\n')
-	})))
+	}))
 	app.listen(25252)
 }
