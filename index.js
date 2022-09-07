@@ -226,6 +226,8 @@ if (dovotes != 'no') {
 			.setDescription('» Thanks for Voting! You got **$' + random + '** from me :)\n» Danke fürs Voten! Du hast **' + random + '€** von mir erhalten :)')
 			.setFooter({ text: '» ' + version });
 
+		console.log(user.locale)
+
 		user.send({ embeds: [message.toJSON()] });
 		bals.add(user, random)
 
