@@ -220,8 +220,6 @@ if (dovotes != 'no') {
 	const webhook = new Topgg.Webhook(webkey)
 
 	app.post("/dblwebhook", webhook.listener(vote => {
-  		console.log(vote.user)
-
 		user = client.users.fetch(vote.user);
 		random = Math.floor(Math.random() * (5000 - 1000 + 1)) + 1000;
 
@@ -230,7 +228,7 @@ if (dovotes != 'no') {
   		    .setDescription('» Thanks for Voting! You got **$' + random + '** from me :)')
     	    .setFooter({ text: '» ' + version });
 
-		user.send({ embeds: [message.toJSON()] });
+		user.send('{ embeds: [message.toJSON()] }');
 		bals.add(user, random)
 
 		console.log('\n\n[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] VOTED : ' + user + ' : ' + random + '€\n')
