@@ -139,9 +139,29 @@ module.exports = {
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
+        // Check if User is Author
+        if (interaction.user.id == user.toString().replace(/\D/g, '')) {
+            // Create Embed
+            let message = new EmbedBuilder()
+            	.setTitle('» ERROR')
+  				.setDescription('» You cant play Rock Paper Scissors with yourself?')
+            	.setFooter({ text: '» ' + version });
+
+            if (interaction.guildLocale == "de") {
+                message = new EmbedBuilder()
+            	    .setTitle('» FEHLER')
+  				    .setDescription('» Du kannst Schere Stein Papier nicht mit dir alleine spielen?')
+            	    .setFooter({ text: '» ' + version });
+            }
+
+            // Send Message
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] BEG : ' + reciever.toString().replace(/\D/g, '') + ' : ' + amount + '€ : SAMEPERSON')
+            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+        }
+
         // Check for Enough Money
         if (money < bet && bet != null) {
-            const missing = cost - balance
+            const missing = cost - money
             
             // Create Embed
             let message = new EmbedBuilder()
@@ -160,76 +180,70 @@ module.exports = {
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] RPS : ' + user.toString().replace(/\D/g, '') + ' : NOTENOUGHMONEY')
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
+        if (othermoney < bet && bet != null) {
+            const missing = cost - othermoney
+            
+            // Create Embed
+            let message = new EmbedBuilder()
+            	.setTitle('» ERROR')
+  				.setDescription('» <@' + user.toString().replace(/\D/g, '') + '> doesnt have enough Money for that, he is Missing **$' + missing + '**!')
+            	.setFooter({ text: '» ' + version });
+
+            if (interaction.guildLocale == "de") {
+                message = new EmbedBuilder()
+            	    .setTitle('» FEHLER')
+  				    .setDescription('» <@' + user.toString().replace(/\D/g, '') + '> hat dafür nicht genug Geld, im fehlen **' + missing + '€**!')
+            	    .setFooter({ text: '» ' + version });
+            }
+            
+            // Send Message
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] RPS : ' + user.toString().replace(/\D/g, '') + ' : NOTENOUGHMONEY')
+            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+        }
 
         // Create Buttons
-        if (bet == null) { bet = 0 }
         let row = new ActionRowBuilder()
 			.addComponents(
 				new ButtonBuilder()
-					.setLabel('🪨 ROCK')
-                    .setCustomId('RPS-1-' + bet)
-					.setStyle(ButtonStyle.Secondary),
+					.setLabel('YES')
+                    .setCustomId('RPS-YES-' + bet)
+                    .setEmoji('1009735521154650123')
+					.setStyle(ButtonStyle.Success),
 
                 new ButtonBuilder()
-					.setLabel('📝 PAPER')
-                    .setCustomId('RPS-2-' + bet)
-					.setStyle(ButtonStyle.Secondary),
-
-                new ButtonBuilder()
-					.setLabel('✂️ SCISSORS')
-                    .setCustomId('RPS-3-' + bet)
-					.setStyle(ButtonStyle.Secondary),
+					.setLabel('NO')
+                    .setCustomId('RPS-NO-' + bet)
+                    .setEmoji('1009735555229163560')
+					.setStyle(ButtonStyle.Danger),
 			);
-
         if (interaction.guildLocale == "de") {
             row = new ActionRowBuilder()
 			    .addComponents(
-                    new ButtonBuilder()
-				    	.setLabel('✂️ SCHERE')
-                        .setCustomId('RPS-3-' + bet)
-					    .setStyle(ButtonStyle.Secondary),
-
 			    	new ButtonBuilder()
-			    		.setLabel('🪨 STEIN')
-                        .setCustomId('RPS-1-' + bet)
-			    		.setStyle(ButtonStyle.Secondary),
+			    		.setLabel('JA')
+                        .setCustomId('RPS-YES-' + bet)
+                        .setEmoji('1009735521154650123')
+			    		.setStyle(ButtonStyle.Success),
 
                     new ButtonBuilder()
-			    		.setLabel('📝 PAPIER')
-                        .setCustomId('RPS-2-' + bet)
-		    		    .setStyle(ButtonStyle.Secondary),
-			);
+			    		.setLabel('NEIN')
+                        .setCustomId('RPS-NO-' + bet)
+                        .setEmoji('1009735555229163560')
+			    		.setStyle(ButtonStyle.Danger),
+			    );
         }
-
-        // Set Variable
-        eval('global.rpss' + interaction.user.id.replace(/\D/g, '') + ' = true')
         
         // Create Embed
-        let message
-        if (bet == null) {
-      	    message = new EmbedBuilder()
-                .setTitle('» ROCK PAPER SCISSORS')
-  			    .setDescription('» <@' + interaction.user.id.replace(/\D/g, '') + '> is playing Rock Paper Scissors with <@' + user.toString().replace(/\D/g, '') + '>!')
-        	    .setFooter({ text: '» ' + version });
+        let message = new EmbedBuilder()
+        	.setTitle('» ROCK PAPER SCISSORS')
+  			.setDescription('» <@' + interaction.user.id.replace(/\D/g, '') + '> challenges you, <@' + user.toString().replace(/\D/g, '') + '> to a battle of Rock Paper Scissors! The Bet is **$' + bet + '**.\nDo you accept?')
+        	.setFooter({ text: '» ' + version });
 
-            if (interaction.guildLocale == "de") {
-                message = new EmbedBuilder()
-                    .setTitle('» SCHERE STEIN PAPIER')
-                    .setDescription('» <@' + interaction.user.id.replace(/\D/g, '') + '> spielt mit <@' + user.toString().replace(/\D/g, '') + '> Schere Stein Papier!')
-                    .setFooter({ text: '» ' + version });
-            }
-        } else {
+        if (interaction.guildLocale == "de") {
             message = new EmbedBuilder()
-                .setTitle('» ROCK PAPER SCISSORS')
-  			    .setDescription('» <@' + interaction.user.id.replace(/\D/g, '') + '> is playing Rock Paper Scissors with <@' + user.toString().replace(/\D/g, '') + '>!\nThe Bet is **$' + bet + '**')
+        	    .setTitle('» SCHERE STEIN PAPIER')
+  			    .setDescription('» <@' + interaction.user.id.replace(/\D/g, '') + '> fordert dich, <@' + user.toString().replace(/\D/g, '') + '> zu einem Spiel von Schere Stein Papier heraus! Die Wette ist **' + bet + '€**.\nAkzeptierst du?')
         	    .setFooter({ text: '» ' + version });
-
-            if (interaction.guildLocale == "de") {
-                message = new EmbedBuilder()
-                    .setTitle('» SCHERE STEIN PAPIER')
-                    .setDescription('» <@' + interaction.user.id.replace(/\D/g, '') + '> spielt mit <@' + user.toString().replace(/\D/g, '') + '> Schere Stein Papier!\nDie Wette ist **' + bet + '€**')
-                    .setFooter({ text: '» ' + version });
-            }
         }
 
         // Send Message

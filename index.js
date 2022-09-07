@@ -115,6 +115,9 @@ client.on('interactionCreate', async interaction => {
 				if (selection == '1') { editedinteraction.customId = "rps-rock" }
 				if (selection == '2') { editedinteraction.customId = "rps-paper" }
 				if (selection == '3') { editedinteraction.customId = "rps-scissor" }
+
+				if (selection == 'YES') { editedinteraction.customId = "rps-yes" }
+				if (selection == 'NO') { editedinteraction.customId = "rps-no" }
 				sc = true
 
 				const button = client.buttons.get(editedinteraction.customId);
