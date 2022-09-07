@@ -4,7 +4,7 @@ const { version } = require('../../config.json');
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('vote')
+        .setName('poll')
     	.setDMPermission(false)
         .setDescription('MAKE A POLL')
         .setDescriptionLocalizations({
