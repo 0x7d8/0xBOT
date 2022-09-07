@@ -102,7 +102,7 @@ module.exports = {
 					.setStyle(ButtonStyle.Secondary),
 
                 new ButtonBuilder()
-					.setLabel('✂️ SCISSOR')
+					.setLabel('✂️ SCISSORS')
                     .setCustomId('RPS-3-' + bet)
 					.setStyle(ButtonStyle.Secondary),
 			);

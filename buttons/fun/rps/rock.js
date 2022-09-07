@@ -111,7 +111,7 @@ module.exports = {
                     .setDisabled(true),
 
                 new ButtonBuilder()
-					.setLabel('✂️ SCISSOR')
+					.setLabel('✂️ SCISSORS')
                     .setCustomId('RPS-3-' + bet)
 					.setStyle(ButtonStyle.Secondary)
                     .setDisabled(true),
