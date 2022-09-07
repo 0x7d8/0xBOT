@@ -38,14 +38,14 @@ module.exports = {
 				new ButtonBuilder()
 					.setLabel('YES')
                     .setCustomId('RPS-YES-' + bet)
-                    .setEmoji('1009735521154650123')
+                    .setEmoji('1017050442431209543')
 					.setStyle(ButtonStyle.Success)
                     .setDisabled(true),
 
                 new ButtonBuilder()
 					.setLabel('NO')
                     .setCustomId('RPS-NO-' + bet)
-                    .setEmoji('1009735555229163560')
+                    .setEmoji('1017050508252418068')
 					.setStyle(ButtonStyle.Danger)
                     .setDisabled(true),
 			);
@@ -55,14 +55,14 @@ module.exports = {
 			    	new ButtonBuilder()
 			    		.setLabel('JA')
                         .setCustomId('RPS-YES-' + bet)
-                        .setEmoji('1009735521154650123')
+                        .setEmoji('1017050442431209543')
 			    		.setStyle(ButtonStyle.Success)
                         .setDisabled(true),
 
                     new ButtonBuilder()
 			    		.setLabel('NEIN')
                         .setCustomId('RPS-NO-' + bet)
-                        .setEmoji('1009735555229163560')
+                        .setEmoji('1017050508252418068')
 			    		.setStyle(ButtonStyle.Danger)
                         .setDisabled(true),
 			    );

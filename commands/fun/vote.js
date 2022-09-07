@@ -68,8 +68,8 @@ module.exports = {
         
         // Add the correct Reactions
 		if (reactions == 'frage') {
-            sendcache.react('<:YES:1009735521154650123>');
-			sendcache.react('<:NO:1009735555229163560>');
+            sendcache.react('<:YES:1017050442431209543>');
+			sendcache.react('<:NO:1017050508252418068>');
         }
         if (reactions == 'abstimmung') {
             sendcache.react('🇦');
