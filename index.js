@@ -207,3 +207,33 @@ if (apikey != 'none') {
 		console.log('\n\n[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] TOP.GG STATS POSTED\n')
 	})
 }
+
+// Top.gg Voting
+let user, random, message
+if (dovotes != 'no') {
+
+	const Topgg = require("@top-gg/sdk")
+	const express = require("express")
+
+	const app = express()
+
+	const webhook = new Topgg.Webhook("your webhook auth")
+
+	app.post("/dblwebhook", webhook.listener(vote => {
+  		console.log(vote.user)
+
+		user = await client.users.fetch(vote.user);
+		random = Math.floor(Math.random() * (5000 - 1000 + 1)) + 1000;
+
+		message = new EmbedBuilder()
+            .setTitle('» VOING')
+  		    .setDescription('» Thanks for Voting! You got **$' + random + '** from me :)')
+    	    .setFooter({ text: '» ' + version });
+
+		user.send({ embeds: [message.toJSON()] });
+		bals.add(user, random)
+	}))
+
+	app.listen(25252)
+
+}
