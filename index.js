@@ -94,7 +94,7 @@ client.on('interactionCreate', async interaction => {
 	if (!interaction.isCommand() && !interaction.isButton()) return;
 
 	const clang = await lang.get(interaction.user.id)
-	if (parseInt(clang) != 0) { await lang.rem(interaction.user.id, parseInt(clang)) }
+	if (parseInt(clang) == 0) { lang.add(interaction.user.id, 1) }
 	if (interaction.locale == "de") {
 		if (parseInt(clang) == 2) {
 			lang.rem(interaction.user.id, 1)
