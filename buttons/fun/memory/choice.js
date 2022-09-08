@@ -35,6 +35,8 @@ module.exports = {
         // Set Variable
         eval('global.memorydataf' + sel + sender.toString().replace(/\D/g, '') + ' = memorydatag' + sel + sender.toString().replace(/\D/g, ''))
 
+        console.log(eval('memorydatag' + sel + sender.toString().replace(/\D/g, '')))
+
         /* Check if Game is Done
         let done
         try {
