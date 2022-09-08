@@ -3,6 +3,8 @@ const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 const { generate } = require('generate-password');
 const { version } = require('../../../config.json');
 
+const wait = require('node:timers/promises').setTimeout;
+
 module.exports = {
     data: {
         name: 'memory-yes'
@@ -329,6 +331,7 @@ module.exports = {
                 const emoji = emojilist[emojirandom - 1]
                 console.log(emojinumber)
                 if (!emojis.includes(emoji) || !buttons.includes(emojinumber)) {
+                    wait(50)
                     emojis[emojinumber - 1] = emoji
                     eval('global.memorydatag' + emojinumber + sender.toString().replace(/\D/g, '') + ' = "' + emoji + '"')
                     console.log(emoji)
