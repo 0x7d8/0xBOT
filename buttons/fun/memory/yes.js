@@ -330,7 +330,7 @@ module.exports = {
                 await wait(50)
                 const emoji = emojilist[emojirandom - 1]
                 console.log(emojinumber)
-                if (!emojis.includes(emoji) || !buttons.includes(emojinumber)) {
+                if (!emojis.includes(emoji) || !buttons.includes(emojinumber) && typeof emoji !== 'undefined') {
                     emojis[emojinumber - 1] = emoji
                     eval('global.memorydatag' + emojinumber + sender.toString().replace(/\D/g, '') + ' = "' + emoji + '"')
                     console.log(emoji)
@@ -342,7 +342,7 @@ module.exports = {
                 }
             }
         }
-        rdo()
+        await rdo()
 
         // Transfer Money
         bals.rem(sender.toString().replace(/\D/g, ''), bet)
