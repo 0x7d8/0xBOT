@@ -310,13 +310,14 @@ module.exports = {
             const emojirandom = Math.floor(Math.random() * (17 - 1 + 1)) + 1;
             const emoji = emojilist[emojirandom - 1]
             console.log(emojinumber)
-            if (emojis.includes(emoji) || buttons.includes(emojinumber)) return
-            emojis[emojinumber - 1] = emoji
-            eval('global.memorydatag' + emojinumber + sender.toString().replace(/\D/g, '') + ' = "' + emoji + '"')
-            emojinumber = emojinumber + 1
-            if (emojinumber == 11) {
-                emojistate = true
-                return
+            if (!emojis.includes(emoji) || !buttons.includes(emojinumber)) {
+                emojis[emojinumber - 1] = emoji
+                eval('global.memorydatag' + emojinumber + sender.toString().replace(/\D/g, '') + ' = "' + emoji + '"')
+                emojinumber = emojinumber + 1
+                if (emojinumber == 11) {
+                    emojistate = true
+                    return
+                }
             }
         }
 
