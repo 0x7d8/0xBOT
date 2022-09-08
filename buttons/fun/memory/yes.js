@@ -287,7 +287,6 @@ module.exports = {
 					.setStyle(ButtonStyle.Secondary),
 
                 new ButtonBuilder()
-					.setLabel('')
                     .setEmoji('1017050508252418068')
                     .setCustomId('MEMORY-20-' + bet)
 					.setStyle(ButtonStyle.Secondary),
