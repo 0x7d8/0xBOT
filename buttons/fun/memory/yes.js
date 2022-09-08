@@ -345,6 +345,7 @@ module.exports = {
                 skipother = false
 
                 if (await typeof emoji !== 'undefined' && await typeof emojinumber !== 'undefined') {
+                    console.log(emoji + ' n' + emojinumber)
                     if (await !emojis.includes(emoji)) {
                         emojis[emojinumber - 1] = await emoji
                         await wait(50)
