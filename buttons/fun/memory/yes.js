@@ -306,7 +306,7 @@ module.exports = {
         const buttons = []
         let emojistate = false
         let emojinumber = 1
-        generate = () => {
+        rdo = () => {
             while (emojistate == false) {
                 const emojilist = ["1017444934904729611", "1017445104685961236", "1017444736610619453", "1017445667347636294", "1017445007910772766", "1017445430310752336", "1017444320569196615", "1017445761291669604", "1017444619006517429", "1017445557842739221", "1017444837257134100", "1017444467353063474", "1017445246516334653", "1017445352078590093"]
                 const emojirandom = Math.floor(Math.random() * (17 - 1 + 1)) + 1;
@@ -323,7 +323,7 @@ module.exports = {
                 }
             }
         }
-        generate()
+        rdo()
 
         // Transfer Money
         bals.rem(sender.toString().replace(/\D/g, ''), bet)
