@@ -276,11 +276,9 @@ module.exports = {
         // Set Variable
         eval('global.memorys' + sender.toString().replace(/\D/g, '') + ' = true')
         eval('global.memorys' + reciever.toString().replace(/\D/g, '') + ' = true')
-        let times
-        while (times < 20) {
-            times = times + 1
-            eval('global.memorydataf' + sel + sender.toString().replace(/\D/g, '') + ' = "?"')
-        }
+
+        eval('global.memorydataf1' + sender.toString().replace(/\D/g, '') + ' = "?"')
+        eval('global.memorydataf2' + sender.toString().replace(/\D/g, '') + ' = "?"')
 
         // Transfer Money
         bals.rem(sender.toString().replace(/\D/g, ''), bet)
