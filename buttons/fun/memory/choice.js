@@ -33,7 +33,7 @@ module.exports = {
         }
 
         // Set Variable
-        const fc = 1017050442431209543
+        const fc = "1017050442431209543"
         eval('global.memorydataf' + sel + sender.toString().replace(/\D/g, '') + ' = "' + fc + '"')
 
         /* Check if Game is Done
