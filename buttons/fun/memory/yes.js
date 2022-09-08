@@ -277,6 +277,9 @@ module.exports = {
         eval('global.memorys' + sender.toString().replace(/\D/g, '') + ' = true')
         eval('global.memorys' + reciever.toString().replace(/\D/g, '') + ' = true')
 
+        eval('global.memorydatap' + sender.toString().replace(/\D/g, '') + ' = 0')
+        eval('global.memorydatap' + reciever.toString().replace(/\D/g, '') + ' = 0')
+
         eval('global.memorydataf1' + sender.toString().replace(/\D/g, '') + ' = "?"')
         eval('global.memorydataf2' + sender.toString().replace(/\D/g, '') + ' = "?"')
         eval('global.memorydataf3' + sender.toString().replace(/\D/g, '') + ' = "?"')

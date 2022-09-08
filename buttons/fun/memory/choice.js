@@ -271,7 +271,7 @@ module.exports = {
         // Create Embed
         let message = new EmbedBuilder()
         .setTitle('» MEMORY')
-        .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> is playing Memory with <@' + reciever.toString().replace(/\D/g, '') + '>!\nThe Bet is **$' + bet + '**\n\n» Points of <@' + sender.toString().replace(/\D/g, '') + '> are **' + eval('memorydata-p' + sender.toString().replace(/\D/g, '')) + '**\n» Points of <@' + reciever.toString().replace(/\D/g, '') + '> are **' + eval('memorydata-p' + reciever.toString().replace(/\D/g, '')) + '**')
+        .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> is playing Memory with <@' + reciever.toString().replace(/\D/g, '') + '>!\nThe Bet is **$' + bet + '**\n\n» Points of <@' + sender.toString().replace(/\D/g, '') + '> are **' + eval('memorydatap' + sender.toString().replace(/\D/g, '')) + '**\n» Points of <@' + reciever.toString().replace(/\D/g, '') + '> are **' + eval('memorydatap' + reciever.toString().replace(/\D/g, '')) + '**')
         .setFooter({ text: '» ' + version });
 
         if (interaction.guildLocale == "de") {
