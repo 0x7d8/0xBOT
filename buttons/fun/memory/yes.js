@@ -328,13 +328,11 @@ module.exports = {
             while (emojistate == false) {
                 const emojirandom = await Math.floor(Math.random() * (10 - 1 + 1)) + 1
                 const emoji = await emojilist[emojirandom - 1]
-                console.log(emojinumber)
                 if (await typeof emoji !== 'undefined' && await typeof emojinumber !== 'undefined') {
-                    if (await !emojis.includes(emoji) || await !buttons.includes(emojinumber)) {
+                    if (await !emojis.includes(emoji) && await !buttons.includes(emojinumber)) {
                         emojis[emojinumber - 1] = await emoji
                         await wait(50)
                         await eval('global.memorydatag' + emojinumber + sender.toString().replace(/\D/g, '') + ' = "' + emoji + '"')
-                        console.log(emoji)
                         emojinumber = emojinumber + 1
                         if (emojinumber > 20) {
                             emojistate = true
