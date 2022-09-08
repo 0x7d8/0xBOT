@@ -16,7 +16,7 @@ module.exports = {
         const balance = await bals.get(reciever.toString().replace(/\D/g, ''))
         const otherbalance = await bals.get(sender.toString().replace(/\D/g, ''))
 
-        // Check if User is Authorized
+        /* // Check if User is Authorized
         if (interaction.user.id.replace(/\D/g, '') != reciever.toString().replace(/\D/g, '')) {
             // Create Embed
             let message = new EmbedBuilder()
@@ -34,7 +34,7 @@ module.exports = {
             // Send Message
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] MEMORY : YES : NOTALLOWED')
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
-        }
+        } */
 
         // Check if Person is already in a Lobby
         let lobby
@@ -300,6 +300,24 @@ module.exports = {
         eval('global.memorydataf18' + sender.toString().replace(/\D/g, '') + ' = "1017050508252418068"')
         eval('global.memorydataf19' + sender.toString().replace(/\D/g, '') + ' = "1017050508252418068"')
         eval('global.memorydataf20' + sender.toString().replace(/\D/g, '') + ' = "1017050508252418068"')
+
+        const emojis = []
+        const buttons = []
+        let emojistate = false
+        let emojinumber = 1
+        while (emojistate == false) {
+            const emojilist = ["1017444934904729611", "1017445104685961236", "1017444736610619453", "1017445667347636294", "1017445007910772766", "1017445430310752336", "1017444320569196615", "1017445761291669604", "1017444619006517429", "1017445557842739221", "1017444837257134100", "1017444467353063474", "1017445246516334653", "1017445352078590093"]
+            const emojirandom = Math.floor(Math.random() * (17 - 1 + 1)) + 1;
+            const emoji = emojilist[emojirandom - 1]
+            if (emojis.includes(emoji) || buttons.includes(emojinumber)) return
+            emojis[emojinumber - 1] = emoji
+            eval('global.memorydatag' + emojinumber + sender.toString().replace(/\D/g, '') + ' = "' + emoji + '"')
+            emojinumber = emojinumber + 1
+            if (emojinumber == 11) {
+                emojistate = true
+                return
+            }
+        }
 
         // Transfer Money
         bals.rem(sender.toString().replace(/\D/g, ''), bet)
