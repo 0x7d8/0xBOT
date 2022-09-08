@@ -34,7 +34,7 @@ module.exports = {
 
         // Set Variable
         const fc = "t"
-        eval('global.memorydata-f' + sel + '-' + interaction.user.id.replace(/\D/g, '') + ' = "' + fc + '"')
+        eval('global.memorydata-f' + sel + '-' + sender.toString().replace(/\D/g, '') + ' = "' + fc + '"')
 
         /* Check if Game is Done
         let done
