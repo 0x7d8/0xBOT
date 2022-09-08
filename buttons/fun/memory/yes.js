@@ -305,7 +305,7 @@ module.exports = {
         eval('global.memorydataf20' + sender.toString().replace(/\D/g, '') + ' = "1017050508252418068"')
 
         const emojis = []
-        const buttons = []
+        const emojis2 = []
         const emojilist = [
             "1017444934904729611",
             "1017445104685961236",
@@ -329,7 +329,7 @@ module.exports = {
                 const emojirandom = await Math.floor(Math.random() * (10 - 1 + 1)) + 1
                 const emoji = await emojilist[emojirandom - 1]
                 if (await typeof emoji !== 'undefined' && await typeof emojinumber !== 'undefined') {
-                    if (await !emojis.includes(emoji) && await !buttons.includes(emojinumber)) {
+                    if (await !emojis.includes(emoji) && await !emojis2.includes(emoji)) {
                         emojis[emojinumber - 1] = await emoji
                         await wait(50)
                         await eval('global.memorydatag' + emojinumber + sender.toString().replace(/\D/g, '') + ' = "' + emoji + '"')
@@ -338,6 +338,24 @@ module.exports = {
                             emojistate = true
                             return
                         }
+                    }
+                } else if (await !emojis.includes(emoji)) {
+                    emojis[emojinumber - 1] = await emoji
+                    await wait(50)
+                    await eval('global.memorydatag' + emojinumber + sender.toString().replace(/\D/g, '') + ' = "' + emoji + '"')
+                    emojinumber = emojinumber + 1
+                    if (emojinumber > 20) {
+                        emojistate = true
+                        return
+                    }
+                } else if (await !emojis2.includes(emoji)) {
+                    emojis2[emojinumber - 1] = await emoji
+                    await wait(50)
+                    await eval('global.memorydatag' + emojinumber + sender.toString().replace(/\D/g, '') + ' = "' + emoji + '"')
+                    emojinumber = emojinumber + 1
+                    if (emojinumber > 20) {
+                        emojistate = true
+                        return
                     }
                 }
             }
