@@ -341,11 +341,11 @@ module.exports = {
         let skipother = false
         const rdo = async () => {
             while (emojistate == false) {
-                const emoji = await emojilist[emojinumber - 1]
+                const emojirandom = await Math.floor(Math.random() * (10 - 1 + 1)) + 1
+                const emoji = await emojilist[emojirandom - 1]
                 skipother = false
 
                 if (await typeof emoji !== 'undefined' && await typeof emojinumber !== 'undefined') {
-                    console.log(emoji + ' n' + emojinumber)
                     if (await !emojis.includes(emoji)) {
                         emojis[emojinumber - 1] = await emoji
                         await wait(50)
