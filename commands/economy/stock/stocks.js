@@ -21,23 +21,15 @@ module.exports = {
                 })
                 .setRequired(false)),
     async execute(interaction, client) {
-        // Count to Global Commands
-        cmds.add('t-all', 1)
-        
-        // Count Guild Commands and User
-        cmds.add('g-' + interaction.guild.id, 1)
-        cmds.add('u-' + interaction.user.id.replace(/\D/g, ''), 1)
+
         
         // Set Variables
         const user = interaction.options.getUser("user")
-        let green
-        let greenmax
-        let blue
-        let bluemax
-        let yellow
-        let yellowmax
-        let red
-        let redmax
+        
+        let green, greenmax
+        let blue, bluemax
+        let yellow, yellowmax
+        let red, redmax
 
         if (user == null) {
             green = await sgrn.get(interaction.user.id.replace(/\D/g, ''));

@@ -27,13 +27,6 @@ module.exports = {
             		{ name: '💻 5', value: '5' },
 				)),
     async execute(interaction, client) {
-        // Count to Global Commands
-        cmds.add('t-all', 1)
-        
-        // Count Guild Commands and User
-        cmds.add('g-' + interaction.guild.id, 1)
-        cmds.add('u-' + interaction.user.id.replace(/\D/g, ''), 1)
-        
         // Set Variables
         const name = interaction.options.getString("name")
         const amount = await apis.get(interaction.user.id.replace(/\D/g, ''));

@@ -33,13 +33,6 @@ module.exports = {
                 .setRequired(true))
     	.setDefaultMemberPermissions(PermissionFlagsBits.BanMembers),
     async execute(interaction, client) {
-        // Count to Global Commands
-        cmds.add('t-all', 1)
-        
-        // Count Guild Commands and User
-        cmds.add('g-' + interaction.guild.id, 1)
-        cmds.add('u-' + interaction.user.id.replace(/\D/g, ''), 1)
-        
         // Set Variables
         const user = interaction.options.getUser("user")
         const anzahl = interaction.options.getInteger("amount")
@@ -59,7 +52,7 @@ module.exports = {
   				.setDescription('» Du bist nicht der Bot Besitzer! :P')
         		.setFooter({ text: '» ' + version });
             
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] bals.rem : NOTOWNER')
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] REMBAL : NOTOWNER')
             return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
         
@@ -67,7 +60,7 @@ module.exports = {
         bals.rem(user.toString().replace(/\D/g, ''), anzahl)
 
         // Send Message
-        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] bals.rem : ' + user + ' : ' + anzahl + '€')
+        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] REMBAL : ' + user + ' : ' + anzahl + '€')
         return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
     },
 };

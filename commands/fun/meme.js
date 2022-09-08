@@ -12,13 +12,6 @@ module.exports = {
             de: 'BEKOMME EIN MEME'
         }),
     async execute(interaction, client) {
-        // Count to Global Commands
-        cmds.add('t-all', 1)
-        
-        // Count Guild Commands and User
-        cmds.add('g-' + interaction.guild.id, 1)
-        cmds.add('u-' + interaction.user.id.replace(/\D/g, ''), 1)
-
         // Set Variables
         const res = Math.floor(Math.random() * (4 - 1 + 1)) + 1;
 
@@ -41,11 +34,19 @@ module.exports = {
         if (comments == 187) { comments = comments + ' 🐊' }
         
         // Create Embed
-        const message = new EmbedBuilder()
+        let message = new EmbedBuilder()
             .setTitle(`» ${random[0].data.children[0].data.title.toUpperCase()}`)
-            .setDescription('» SUBREDDIT:\n`r/' + subreddit + '`\n\n» UPVOTES:\n`' + upvotes + '`\n\n» KOMMENTARE:\n`' + comments + '`')
+            .setDescription('» SUBREDDIT:\n`r/' + subreddit + '`\n\n» UPVOTES:\n`' + upvotes + '`\n\n» COMMENTS:\n`' + comments + '`')
             .setImage(random[0].data.children[0].data.url)
         	.setFooter({ text: '» ' + version });
+
+        if (interaction.guildLocale == "de") {
+            message = new EmbedBuilder()
+                .setTitle(`» ${random[0].data.children[0].data.title.toUpperCase()}`)
+                .setDescription('» SUBREDDIT:\n`r/' + subreddit + '`\n\n» UPVOTES:\n`' + upvotes + '`\n\n» KOMMENTARE:\n`' + comments + '`')
+                .setImage(random[0].data.children[0].data.url)
+        	    .setFooter({ text: '» ' + version });
+        }
         
         // Send Message
         console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] MEME : ' + subreddit.toUpperCase() + ' : ' + upvotes + '^ : ' + comments)

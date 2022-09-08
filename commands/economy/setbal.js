@@ -33,13 +33,6 @@ module.exports = {
                 .setRequired(true))
     	.setDefaultMemberPermissions(PermissionFlagsBits.BanMembers),
     async execute(interaction, client) {
-        // Count to Global Commands
-        cmds.add('t-all', 1)
-        
-        // Count Guild Commands and User
-        cmds.add('g-' + interaction.guild.id, 1)
-        cmds.add('u-' + interaction.user.id.replace(/\D/g, ''), 1)
-        
         // Set Variables
         const user = interaction.options.getUser("user")
         const anzahl = interaction.options.getInteger("amount")

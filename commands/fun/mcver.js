@@ -11,13 +11,6 @@ module.exports = {
             de: 'GENERIERE EINE MINECRAFT VERSION'
         }),
     async execute(interaction, client) {
-        // Count to Global Commands
-        cmds.add('t-all', 1)
-        
-        // Count Guild Commands and User
-        cmds.add('g-' + interaction.guild.id, 1)
-        cmds.add('u-' + interaction.user.id.replace(/\D/g, ''), 1)
-        
         // Set Variables
         const res = Math.floor(Math.random() * (19 - 0 + 1)) + 0;
 

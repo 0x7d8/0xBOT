@@ -14,13 +14,6 @@ module.exports = {
             de: 'ARBEITE FÜR GELD'
         }),
     async execute(interaction, client) {
-        // Count to Global Commands
-        cmds.add('t-all', 1)
-        
-        // Count Guild Commands and User
-        cmds.add('g-' + interaction.guild.id, 1)
-        cmds.add('u-' + interaction.user.id.replace(/\D/g, ''), 1)
-        
         // Set Variables
         const random = Math.floor(Math.random() * (4 - 1 + 1)) + 1;
 
@@ -55,32 +48,32 @@ module.exports = {
             // Set Jobs
             let job
             let result
-        	if (random == '1') { job = 'PROGRAMMER'; result = Math.floor(Math.random() * (75 - 40 + 1)) + 40; }
-        	if (random == '2') { job = 'CLEANER'; result = Math.floor(Math.random() * (40 - 25 + 1)) + 25; }
-        	if (random == '3') { job = 'MCDONALDS WORKER'; result = Math.floor(Math.random() * (25 - 10 + 1)) + 10; }
-        	if (random == '4') { job = 'PAINTER'; result = Math.floor(Math.random() * (100 - 25 + 1)) + 25; }
+        	if (random == '1') { job = 'PROGRAMMER'; result = Math.floor(Math.random() * (200 - 75 + 1)) + 75; }
+        	if (random == '2') { job = 'CLEANER'; result = Math.floor(Math.random() * (100 - 50 + 1)) + 50; }
+        	if (random == '3') { job = 'MCDONALDS WORKER'; result = Math.floor(Math.random() * (120 - 30 + 1)) + 30; }
+        	if (random == '4') { job = 'PAINTER'; result = Math.floor(Math.random() * (500 - 200 + 1)) + 200; }
 
             if (interaction.guildLocale == "de") {
-                if (random == '1') { job = 'PROGRAMMIERER'; result = Math.floor(Math.random() * (75 - 40 + 1)) + 40; }
-        	    if (random == '2') { job = 'HAUSMEISTER'; result = Math.floor(Math.random() * (40 - 25 + 1)) + 25; }
-        	    if (random == '3') { job = 'MCDONALDS KASSIERER'; result = Math.floor(Math.random() * (25 - 10 + 1)) + 10; }
-        	    if (random == '4') { job = 'KÜNSTLER'; result = Math.floor(Math.random() * (100 - 25 + 1)) + 25; }
+                if (random == '1') { job = 'PROGRAMMIERER'; }
+        	    if (random == '2') { job = 'HAUSMEISTER'; }
+        	    if (random == '3') { job = 'MCDONALDS KASSIERER'; }
+        	    if (random == '4') { job = 'KÜNSTLER'; }
             }
             
             // Set Extra Text
             let extra
-            if (result < 20) { extra = 'MEH.' }
-            if (result >= 20) { extra = 'NICE.' }
-            if (result >= 40) { extra = 'GREAT.' }
-            if (result >= 60) { extra = 'WONDERFUL!' }
-            if (result >= 80) { extra = 'WOW!' }
+            if (result < 40) { extra = 'MEH.' }
+            if (result >= 40) { extra = 'NICE.' }
+            if (result >= 60) { extra = 'GREAT.' }
+            if (result >= 80) { extra = 'WONDERFUL!' }
+            if (result >= 100) { extra = 'WOW!' }
 
             if (interaction.guildLocale == "de") {
-                if (result < 20) { extra = 'MEH.' }
-                if (result >= 20) { extra = 'NICE.' }
-                if (result >= 40) { extra = 'PRIMA.' }
-                if (result >= 60) { extra = 'TOLL!' }
-                if (result >= 80) { extra = 'WOW!' }
+                if (result < 40) { extra = 'MEH.' }
+                if (result >= 40) { extra = 'NICE.' }
+                if (result >= 60) { extra = 'PRIMA.' }
+                if (result >= 80) { extra = 'TOLL!' }
+                if (result >= 100) { extra = 'WOW!' }
             }
         
         	// Create Embed

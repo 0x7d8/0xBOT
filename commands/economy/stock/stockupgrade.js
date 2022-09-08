@@ -19,20 +19,13 @@ module.exports = {
                 .setRequired(true)
     			.addChoices(
                     // Setup Choices
-                    { name: '💰 [01] 100000€', value: '1' },
-                    { name: '💰 [02] 200000€', value: '2' },
-                    { name: '💰 [03] 300000€', value: '3' },
-            		{ name: '💰 [04] 400000€', value: '4' },
-            		{ name: '💰 [05] 500000€', value: '5' },
+                    { name: '💰 [01] 75000€', value: '1' },
+                    { name: '💰 [02] 150000€', value: '2' },
+                    { name: '💰 [03] 225000€', value: '3' },
+            		{ name: '💰 [04] 300000€', value: '4' },
+            		{ name: '💰 [05] 375000€', value: '5' },
 				)),
     async execute(interaction, client) {
-        // Count to Global Commands
-        cmds.add('t-all', 1)
-        
-        // Count Guild Commands and User
-        cmds.add('g-' + interaction.guild.id, 1)
-        cmds.add('u-' + interaction.user.id.replace(/\D/g, ''), 1)
-        
         // Set Variables
         const slots = interaction.options.getString("slots")
 
@@ -54,7 +47,7 @@ module.exports = {
         if (redmax == 0) { redmax = 10; sredx.add(interaction.user.id.replace(/\D/g, ''), 10) }
 
         // Calculate Cost
-        const cost = parseInt(slots) * 100000
+        const cost = parseInt(slots) * 75000
 
         // Check for enough Money
         if (balance < cost) {

@@ -32,13 +32,6 @@ module.exports = {
                     { name: '🔴 ROTE AKTIE', value: 'red' },
 				)),
     async execute(interaction, client) {
-        // Count to Global Commands
-        cmds.add('t-all', 1)
-        
-        // Count Guild Commands and User
-        cmds.add('g-' + interaction.guild.id, 1)
-        cmds.add('u-' + interaction.user.id.replace(/\D/g, ''), 1)
-        
         // Set Variables
         const stock = interaction.options.getString("stock")
 
@@ -50,19 +43,12 @@ module.exports = {
         if (stock == 'red') { emoji = '🔴' }
 
         // Fetch Stock
-        let red
-        let yellow
-        let blue
-        let price
-        let serverunix
-        let unix
-        let unixtime
-        let refreshtransformed
-        let refresh
-        let pricetransformed
-        let redp
-        let bluep
-        let yellowp
+        let green, greenp
+        let blue, bluep
+        let yellow, yellowp
+        let red, redp
+        let unix, serverunix, unixtime
+        let refresh, refreshtransformed
 
         let priceText
         let lastpriceText

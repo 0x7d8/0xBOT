@@ -28,13 +28,6 @@ module.exports = {
                     { name: '🟡 [520000€] BAHNHOF', value: '3' },
 				)),
     async execute(interaction, client) {
-        // Count to Global Commands
-        cmds.add('t-all', 1)
-        
-        // Count Guild Commands and User
-        cmds.add('g-' + interaction.guild.id, 1)
-        cmds.add('u-' + interaction.user.id.replace(/\D/g, ''), 1)
-        
         // Set Variables
         const business = interaction.options.getString("business")
         const balance = await bals.get(interaction.user.id.replace(/\D/g, ''));

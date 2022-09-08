@@ -106,10 +106,18 @@ client.on('interactionCreate', async interaction => {
 	}
 
 	if (interaction.isChatInputCommand()) {
+		// Count to Global Commands
+		cmds.add('t-all', 1)
+        
+		// Count Guild Commands and User
+		cmds.add('g-' + interaction.guild.id, 1)
+		cmds.add('u-' + interaction.user.id.replace(/\D/g, ''), 1)
 
+		// Check if Command Exists
 		const command = client.commands.get(interaction.commandName);
 		if (!command) return;
 
+		// Execute Command
 		try {
 			await command.execute(interaction, client);
 		} catch (error) {
@@ -130,6 +138,7 @@ client.on('interactionCreate', async interaction => {
 
 	if (interaction.isButton()) {
 
+		// Execute Button
 		try {
 			let sc = false
 
@@ -197,7 +206,6 @@ for (const file of commandFiles) {
 }
 
 const rest = new REST({ version: '9' }).setToken(token);
-
 rest.put(
 	Routes.applicationCommands(clientId),
 	{ body: commands },
@@ -215,7 +223,7 @@ if (apikey != 'none') {
 	const ap = AutoPoster(apikey, client)
 
 	ap.on('posted', () => {
-		console.log('\n\n[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] TOP.GG STATS POSTED\n')
+		console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] TOP.GG STATS POSTED\n')
 	})
 }
 
@@ -252,7 +260,7 @@ if (dovotes != 'no') {
 		user.send({ embeds: [message.toJSON()] });
 		bals.add(vote.user, parseInt(random))
 
-		console.log('\n\n[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] VOTED : ' + user + ' : ' + random + '€\n')
+		console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] VOTED : ' + user + ' : ' + random + '€\n')
 	}))
 	app.listen(25252)
 }
