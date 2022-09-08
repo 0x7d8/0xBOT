@@ -6,7 +6,7 @@ module.exports = {
     data: {
         name: 'memory-yes'
     },
-    async execute(interaction, client, bet) {
+    async execute(interaction, client, bet, sel) {
         // Get Users
         const cache = interaction.message.embeds
         const description = cache[0].description.toString().replace(/[^\d@!]/g, '').split('!')[0].substring(1).split("@");
