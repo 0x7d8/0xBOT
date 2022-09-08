@@ -330,8 +330,10 @@ module.exports = {
                 const emojirandom = await Math.floor(Math.random() * (10 - 1 + 1)) + 1
                 const emoji = await emojilist[emojirandom - 1]
                 skipother = false
+
                 if (await typeof emoji !== 'undefined' && await typeof emojinumber !== 'undefined') {
-                    if (await emojis2.includes(emoji)) {
+                    console.log(emoji + ' n' + emojinumber)
+                    if (await !emojis.includes(emoji)) {
                         emojis[emojinumber - 1] = await emoji
                         await wait(50)
                         await eval('global.memorydatag' + emojinumber + sender.toString().replace(/\D/g, '') + ' = "' + emoji + '"')
@@ -342,7 +344,7 @@ module.exports = {
                         }
                         skipother = true
                     }
-                    if (await emojis.includes(emoji) && skipother != true) {
+                    if (await !emojis2.includes(emoji) && skipother != true) {
                         emojis2[emojinumber - 1] = await emoji
                         await wait(50)
                         await eval('global.memorydatag' + emojinumber + sender.toString().replace(/\D/g, '') + ' = "' + emoji + '"')
@@ -353,6 +355,7 @@ module.exports = {
                         }
                     }
                 }
+
             }
         }
         await rdo()
