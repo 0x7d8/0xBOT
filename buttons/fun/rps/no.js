@@ -13,17 +13,17 @@ module.exports = {
         const [sender, reciever] = description
 
         // Check if User is Authorized
-        if (interaction.user.id.replace(/\D/g, '') != reciever.toString().replace(/\D/g, '')) {
+        if (interaction.user.id.replace(/\D/g, '') != reciever.toString().replace(/\D/g, '') && interaction.user.id.replace(/\D/g, '') != sender.toString().replace(/\D/g, '')) {
             // Create Embed
             let message = new EmbedBuilder()
         		.setTitle('» ERROR')
-        		.setDescription('» <@' + reciever.toString().replace(/\D/g, '') + '> has to decide this!')
+        		.setDescription('» <@' + reciever.toString().replace(/\D/g, '') + '> or <@' + sender.toString().replace(/\D/g, '') + '> has to decide this!')
         		.setFooter({ text: '» ' + version });
 
             if (interaction.guildLocale == "de") {
                 message = new EmbedBuilder()
         		    .setTitle('» FEHLER')
-        		    .setDescription('» <@' + reciever.toString().replace(/\D/g, '') + '> muss das entscheiden!')
+        		    .setDescription('» <@' + reciever.toString().replace(/\D/g, '') + '> oder <@' + sender.toString().replace(/\D/g, '') + '> muss das entscheiden!')
         		    .setFooter({ text: '» ' + version });
             }
             
