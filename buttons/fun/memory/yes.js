@@ -306,7 +306,9 @@ module.exports = {
 
         const emojis = []
         const emojis2 = []
-        const emojilist = [
+
+        // Generate Emoji Grid
+        const emojilistraw = [
             "1017444934904729611",
             "1017445104685961236",
             "1017444736610619453",
@@ -322,17 +324,27 @@ module.exports = {
             "1017445246516334653",
             "1017445352078590093",
         ]
+        const copied = [...emojilistraw]
+        const emojilist = []
+        for (let i = 0; i < 5; i++) {
+            const randomIndex = Math.floor(
+                Math.random() * copied.length
+            )
+            emojilist.push(
+                copied[randomIndex]
+            )
+            copied.splice(randomIndex, 1);
+        }
+
         let emojistate = false
         let emojinumber = 1
         let skipother = false
         const rdo = async () => {
             while (emojistate == false) {
-                const emojirandom = await Math.floor(Math.random() * (10 - 1 + 1)) + 1
-                const emoji = await emojilist[emojirandom - 1]
+                const emoji = await emojilist[emojinumber - 1]
                 skipother = false
 
                 if (await typeof emoji !== 'undefined' && await typeof emojinumber !== 'undefined') {
-                    console.log(emoji + ' n' + emojinumber)
                     if (await !emojis.includes(emoji)) {
                         emojis[emojinumber - 1] = await emoji
                         await wait(50)
