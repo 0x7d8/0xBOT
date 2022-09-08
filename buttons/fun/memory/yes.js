@@ -326,14 +326,14 @@ module.exports = {
         ]
         const copied = [...emojilistraw]
         const emojilist = []
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < 10; i++) {
             const randomIndex = Math.floor(
                 Math.random() * copied.length
             )
             emojilist.push(
                 copied[randomIndex]
             )
-            copied.splice(randomIndex, 1);
+            copied.splice(randomIndex, 1)
         }
 
         let emojistate = false
