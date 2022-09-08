@@ -279,7 +279,7 @@ module.exports = {
         let times
         while (times < 20) {
             times = times + 1
-            eval('global.memorydata-f' + sel + '-' + sender.toString().replace(/\D/g, '') + ' = "?"')
+            eval('global.memorydataf' + sel + sender.toString().replace(/\D/g, '') + ' = "?"')
         }
 
         // Transfer Money
