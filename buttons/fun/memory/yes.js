@@ -308,7 +308,7 @@ module.exports = {
         const buttons = []
         let emojistate = false
         let emojinumber = 1
-        rdo = () => {
+        const rdo = async () => {
             while (emojistate == false) {
                 const emojilist = [
                     "1017444934904729611",
@@ -329,7 +329,7 @@ module.exports = {
 
                 const emojirandom = Math.floor(Math.random() * (17 - 1 + 1)) + 1;
                 const emoji = emojilist[emojirandom - 1]
-                wait(100)
+                await wait(100)
                 console.log(emojinumber)
                 if (!emojis.includes(emoji) || !buttons.includes(emojinumber)) {
                     emojis[emojinumber - 1] = emoji
