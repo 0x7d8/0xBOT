@@ -314,7 +314,7 @@ module.exports = {
                 emojis[emojinumber - 1] = emoji
                 eval('global.memorydatag' + emojinumber + sender.toString().replace(/\D/g, '') + ' = "' + emoji + '"')
                 emojinumber = emojinumber + 1
-                if (emojinumber == 21) {
+                if (emojinumber > 19) {
                     emojistate = true
                     return
                 }
