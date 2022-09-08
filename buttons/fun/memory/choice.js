@@ -162,108 +162,108 @@ module.exports = {
         let row1 = new ActionRowBuilder()
 			.addComponents(
 				new ButtonBuilder()
-                    .setEmoji('"' + eval('memorydataf1' + sender.toString().replace(/\D/g, '')) + '"')
+                    .setEmoji(eval('memorydataf1' + sender.toString().replace(/\D/g, '')))
                     .setCustomId('MEMORY-1-' + bet)
 					.setStyle(ButtonStyle.Secondary),
 
                 new ButtonBuilder()
-                    .setEmoji('"' + eval('memorydataf2' + sender.toString().replace(/\D/g, '')) + '"')
+                    .setEmoji(eval('memorydataf2' + sender.toString().replace(/\D/g, '')))
                     .setCustomId('MEMORY-2-' + bet)
 					.setStyle(ButtonStyle.Secondary),
 
                 new ButtonBuilder()
-                    .setEmoji('"' + eval('memorydataf3' + sender.toString().replace(/\D/g, '')) + '"')
+                    .setEmoji(eval('memorydataf3' + sender.toString().replace(/\D/g, '')))
                     .setCustomId('MEMORY-3-' + bet)
 					.setStyle(ButtonStyle.Secondary),
                 
                 new ButtonBuilder()
-                    .setEmoji('"' + eval('memorydataf4' + sender.toString().replace(/\D/g, '')) + '"')
+                    .setEmoji(eval('memorydataf4' + sender.toString().replace(/\D/g, '')))
                     .setCustomId('MEMORY-4-' + bet)
 					.setStyle(ButtonStyle.Secondary),
 
                 new ButtonBuilder()
-                    .setEmoji('"' + eval('memorydataf5' + sender.toString().replace(/\D/g, '')) + '"')
+                    .setEmoji(eval('memorydataf5' + sender.toString().replace(/\D/g, '')))
                     .setCustomId('MEMORY-5-' + bet)
 					.setStyle(ButtonStyle.Secondary),
 			);
         let row2 = new ActionRowBuilder()
 			.addComponents(
 				new ButtonBuilder()
-                    .setEmoji('"' + eval('memorydataf6' + sender.toString().replace(/\D/g, '')) + '"')
+                    .setEmoji(eval('memorydataf6' + sender.toString().replace(/\D/g, '')))
                     .setCustomId('MEMORY-6-' + bet)
 					.setStyle(ButtonStyle.Secondary),
 
                 new ButtonBuilder()
-                    .setEmoji('"' + eval('memorydataf7' + sender.toString().replace(/\D/g, '')) + '"')
+                    .setEmoji(eval('memorydataf7' + sender.toString().replace(/\D/g, '')))
                     .setCustomId('MEMORY-7-' + bet)
 					.setStyle(ButtonStyle.Secondary),
 
                 new ButtonBuilder()
-                    .setEmoji('"' + eval('memorydataf8' + sender.toString().replace(/\D/g, '')) + '"')
+                    .setEmoji(eval('memorydataf8' + sender.toString().replace(/\D/g, '')))
                     .setCustomId('MEMORY-8-' + bet)
 					.setStyle(ButtonStyle.Secondary),
                 
                 new ButtonBuilder()
-                    .setEmoji('"' + eval('memorydataf9' + sender.toString().replace(/\D/g, '')) + '"')
+                    .setEmoji(eval('memorydataf9' + sender.toString().replace(/\D/g, '')))
                     .setCustomId('MEMORY-9-' + bet)
 					.setStyle(ButtonStyle.Secondary),
 
                 new ButtonBuilder()
-                    .setEmoji('"' + eval('memorydataf10' + sender.toString().replace(/\D/g, '')) + '"')
+                    .setEmoji(eval('memorydataf10' + sender.toString().replace(/\D/g, '')))
                     .setCustomId('MEMORY-10-' + bet)
 					.setStyle(ButtonStyle.Secondary),
 			);
         let row3 = new ActionRowBuilder()
 			.addComponents(
 				new ButtonBuilder()
-                    .setEmoji('"' + eval('memorydataf11' + sender.toString().replace(/\D/g, '')) + '"')
+                    .setEmoji(eval('memorydataf11' + sender.toString().replace(/\D/g, '')))
                     .setCustomId('MEMORY-11-' + bet)
 					.setStyle(ButtonStyle.Secondary),
 
                 new ButtonBuilder()
-                    .setEmoji('"' + eval('memorydataf12' + sender.toString().replace(/\D/g, '')) + '"')
+                    .setEmoji(eval('memorydataf12' + sender.toString().replace(/\D/g, '')))
                     .setCustomId('MEMORY-12-' + bet)
 					.setStyle(ButtonStyle.Secondary),
 
                 new ButtonBuilder()
-                    .setEmoji('"' + eval('memorydataf13' + sender.toString().replace(/\D/g, '')) + '"')
+                    .setEmoji(eval('memorydataf13' + sender.toString().replace(/\D/g, '')))
                     .setCustomId('MEMORY-13-' + bet)
 					.setStyle(ButtonStyle.Secondary),
                 
                 new ButtonBuilder()
-                    .setEmoji('"' + eval('memorydataf14' + sender.toString().replace(/\D/g, '')) + '"')
+                    .setEmoji(eval('memorydataf14' + sender.toString().replace(/\D/g, '')))
                     .setCustomId('MEMORY-14-' + bet)
 					.setStyle(ButtonStyle.Secondary),
 
                 new ButtonBuilder()
-                    .setEmoji('"' + eval('memorydataf15' + sender.toString().replace(/\D/g, '')) + '"')
+                    .setEmoji(eval('memorydataf15' + sender.toString().replace(/\D/g, '')))
                     .setCustomId('MEMORY-15-' + bet)
 					.setStyle(ButtonStyle.Secondary),
 			);
         let row4 = new ActionRowBuilder()
 			.addComponents(
 				new ButtonBuilder()
-                    .setEmoji('"' + eval('memorydataf16' + sender.toString().replace(/\D/g, '')) + '"')
+                    .setEmoji(eval('memorydataf16' + sender.toString().replace(/\D/g, '')))
                     .setCustomId('MEMORY-16-' + bet)
 					.setStyle(ButtonStyle.Secondary),
 
                 new ButtonBuilder()
-                    .setEmoji('"' + eval('memorydataf17' + sender.toString().replace(/\D/g, '')) + '"')
+                    .setEmoji(eval('memorydataf17' + sender.toString().replace(/\D/g, '')))
                     .setCustomId('MEMORY-17-' + bet)
 					.setStyle(ButtonStyle.Secondary),
 
                 new ButtonBuilder()
-                    .setEmoji('"' + eval('memorydataf18' + sender.toString().replace(/\D/g, '')) + '"')
+                    .setEmoji(eval('memorydataf18' + sender.toString().replace(/\D/g, '')))
                     .setCustomId('MEMORY-18-' + bet)
 					.setStyle(ButtonStyle.Secondary),
                 
                 new ButtonBuilder()
-                    .setEmoji('"' + eval('memorydataf19' + sender.toString().replace(/\D/g, '')) + '"')
+                    .setEmoji(eval('memorydataf19' + sender.toString().replace(/\D/g, '')))
                     .setCustomId('MEMORY-19-' + bet)
 					.setStyle(ButtonStyle.Secondary),
 
                 new ButtonBuilder()
-                    .setEmoji('"' + eval('memorydataf20' + sender.toString().replace(/\D/g, '')) + '"')
+                    .setEmoji(eval('memorydataf20' + sender.toString().replace(/\D/g, '')))
                     .setCustomId('MEMORY-20-' + bet)
 					.setStyle(ButtonStyle.Secondary),
 			);
