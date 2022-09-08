@@ -236,7 +236,7 @@ if (apikey != 'none') {
 	const ap = AutoPoster(apikey, client)
 
 	ap.on('posted', () => {
-		console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] TOP.GG STATS POSTED\n')
+		console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] TOP.GG STATS POSTED')
 	})
 }
 
@@ -273,7 +273,7 @@ if (dovotes != 'no') {
 		user.send({ embeds: [message.toJSON()] });
 		bals.add(vote.user, parseInt(random))
 
-		console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] VOTED : ' + user + ' : ' + random + '€\n')
+		console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] VOTED : ' + user + ' : ' + random + '€')
 	}))
 	app.listen(25252)
 }
