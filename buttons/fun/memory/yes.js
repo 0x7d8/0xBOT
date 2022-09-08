@@ -167,31 +167,26 @@ module.exports = {
         let row1 = new ActionRowBuilder()
 			.addComponents(
 				new ButtonBuilder()
-					.setLabel(' ')
                     .setEmoji('1017050508252418068')
                     .setCustomId('MEMORY-1-' + bet)
 					.setStyle(ButtonStyle.Secondary),
 
                 new ButtonBuilder()
-					.setLabel(' ')
                     .setEmoji('1017050508252418068')
                     .setCustomId('MEMORY-2-' + bet)
 					.setStyle(ButtonStyle.Secondary),
 
                 new ButtonBuilder()
-					.setLabel(' ')
                     .setEmoji('1017050508252418068')
                     .setCustomId('MEMORY-3-' + bet)
 					.setStyle(ButtonStyle.Secondary),
                 
                 new ButtonBuilder()
-					.setLabel(' ')
                     .setEmoji('1017050508252418068')
                     .setCustomId('MEMORY-4-' + bet)
 					.setStyle(ButtonStyle.Secondary),
 
                 new ButtonBuilder()
-					.setLabel(' ')
                     .setEmoji('1017050508252418068')
                     .setCustomId('MEMORY-5-' + bet)
 					.setStyle(ButtonStyle.Secondary),
@@ -199,31 +194,26 @@ module.exports = {
         let row2 = new ActionRowBuilder()
 			.addComponents(
 				new ButtonBuilder()
-					.setLabel(' ')
                     .setEmoji('1017050508252418068')
                     .setCustomId('MEMORY-6-' + bet)
 					.setStyle(ButtonStyle.Secondary),
 
                 new ButtonBuilder()
-					.setLabel(' ')
                     .setEmoji('1017050508252418068')
                     .setCustomId('MEMORY-7-' + bet)
 					.setStyle(ButtonStyle.Secondary),
 
                 new ButtonBuilder()
-					.setLabel(' ')
                     .setEmoji('1017050508252418068')
                     .setCustomId('MEMORY-8-' + bet)
 					.setStyle(ButtonStyle.Secondary),
                 
                 new ButtonBuilder()
-					.setLabel(' ')
                     .setEmoji('1017050508252418068')
                     .setCustomId('MEMORY-9-' + bet)
 					.setStyle(ButtonStyle.Secondary),
 
                 new ButtonBuilder()
-					.setLabel(' ')
                     .setEmoji('1017050508252418068')
                     .setCustomId('MEMORY-10-' + bet)
 					.setStyle(ButtonStyle.Secondary),
@@ -231,31 +221,26 @@ module.exports = {
         let row3 = new ActionRowBuilder()
 			.addComponents(
 				new ButtonBuilder()
-					.setLabel(' ')
                     .setEmoji('1017050508252418068')
                     .setCustomId('MEMORY-11-' + bet)
 					.setStyle(ButtonStyle.Secondary),
 
                 new ButtonBuilder()
-					.setLabel(' ')
                     .setEmoji('1017050508252418068')
                     .setCustomId('MEMORY-12-' + bet)
 					.setStyle(ButtonStyle.Secondary),
 
                 new ButtonBuilder()
-					.setLabel(' ')
                     .setEmoji('1017050508252418068')
                     .setCustomId('MEMORY-13-' + bet)
 					.setStyle(ButtonStyle.Secondary),
                 
                 new ButtonBuilder()
-					.setLabel(' ')
                     .setEmoji('1017050508252418068')
                     .setCustomId('MEMORY-14-' + bet)
 					.setStyle(ButtonStyle.Secondary),
 
                 new ButtonBuilder()
-					.setLabel(' ')
                     .setEmoji('1017050508252418068')
                     .setCustomId('MEMORY-15-' + bet)
 					.setStyle(ButtonStyle.Secondary),
@@ -263,25 +248,21 @@ module.exports = {
         let row4 = new ActionRowBuilder()
 			.addComponents(
 				new ButtonBuilder()
-					.setLabel(' ')
                     .setEmoji('1017050508252418068')
                     .setCustomId('MEMORY-16-' + bet)
 					.setStyle(ButtonStyle.Secondary),
 
                 new ButtonBuilder()
-					.setLabel(' ')
                     .setEmoji('1017050508252418068')
                     .setCustomId('MEMORY-17-' + bet)
 					.setStyle(ButtonStyle.Secondary),
 
                 new ButtonBuilder()
-					.setLabel(' ')
                     .setEmoji('1017050508252418068')
                     .setCustomId('MEMORY-18-' + bet)
 					.setStyle(ButtonStyle.Secondary),
                 
                 new ButtonBuilder()
-					.setLabel(' ')
                     .setEmoji('1017050508252418068')
                     .setCustomId('MEMORY-19-' + bet)
 					.setStyle(ButtonStyle.Secondary),
