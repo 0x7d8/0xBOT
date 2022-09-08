@@ -163,6 +163,7 @@ module.exports = {
 			.addComponents(
 				new ButtonBuilder()
 					.setLabel(eval('memorydataf1' + sender.toString().replace(/\D/g, '')))
+                    .setEmoji(eval('memorydataf1' + sender.toString().replace(/\D/g, '')))
                     .setCustomId('MEMORY-1-' + bet)
 					.setStyle(ButtonStyle.Secondary),
 
