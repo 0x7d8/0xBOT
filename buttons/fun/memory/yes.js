@@ -326,12 +326,12 @@ module.exports = {
         let emojinumber = 1
         const rdo = async () => {
             while (emojistate == false) {
-                const emojirandom = Math.floor(Math.random() * (17 - 1 + 1)) + 1
-                await wait(50)
+                const emojirandom = await Math.floor(Math.random() * (17 - 1 + 1)) + 1
                 const emoji = await emojilist[emojirandom - 1]
                 console.log(emojinumber)
                 if (!emojis.includes(emoji) || !buttons.includes(emojinumber) && typeof emoji !== 'undefined' && typeof emojinumber !== 'undefined') {
                     emojis[emojinumber - 1] = emoji
+                    await wait(50)
                     await eval('global.memorydatag' + emojinumber + sender.toString().replace(/\D/g, '') + ' = "' + emoji + '"')
                     console.log(emoji)
                     emojinumber = emojinumber + 1
