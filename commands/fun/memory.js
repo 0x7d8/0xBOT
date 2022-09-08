@@ -5,10 +5,10 @@ const { version } = require('../../config.json');
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('rps')
-        .setDescription('PLAY ROCK-PAPER-SCISSORS')
+        .setName('memory')
+        .setDescription('PLAY MEMORY')
         .setDescriptionLocalizations({
-            de: 'SPIELE SCHERE-STEIN-PAPIER'
+            de: 'SPIELE MEMORY'
         })
     	.setDMPermission(false)
         .addUserOption(option =>
@@ -44,25 +44,25 @@ module.exports = {
             // Create Embed
             let message = new EmbedBuilder()
         		.setTitle('» ERROR')
-        		.setDescription('» You cant play Rock Paper Scissors with a Bot!')
+        		.setDescription('» You cant play Memory with a Bot!')
         		.setFooter({ text: '» ' + version });
 
             if (interaction.guildLocale == "de") {
                 message = new EmbedBuilder()
         		    .setTitle('» FEHLER')
-        		    .setDescription('» Du kannst Schere Stein Papier nicht mit einem Bot spielen!')
+        		    .setDescription('» Du kannst Memory nicht mit einem Bot spielen!')
         		    .setFooter({ text: '» ' + version });
             }
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] RPS : ' + user.toString().replace(/\D/g, '') + ' : BOT')
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] MEMORY : ' + user.toString().replace(/\D/g, '') + ' : BOT')
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
         // Check if Sender is already in a Lobby
         let lobby
         try {
-            eval('rpss' + interaction.user.id.toString().replace(/\D/g, ''))
+            eval('memorys' + interaction.user.id.toString().replace(/\D/g, ''))
             lobby = true
         } catch (e) {
             lobby = false
@@ -82,13 +82,13 @@ module.exports = {
             }
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] RPS : ' + user.toString().replace(/\D/g, '') + ' : ALREADYLOBBY')
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] MEMORY : ' + user.toString().replace(/\D/g, '') + ' : ALREADYLOBBY')
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
         // Check if Reciever is already in a Lobby
         try {
-            eval('rpss' + user.toString().replace(/\D/g, ''))
+            eval('memorys' + user.toString().replace(/\D/g, ''))
             lobby = true
         } catch (e) {
             lobby = false
@@ -108,7 +108,7 @@ module.exports = {
             }
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] RPS : ' + user.toString().replace(/\D/g, '') + ' : ALREADYLOBBY')
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] MEMORY : ' + user.toString().replace(/\D/g, '') + ' : ALREADYLOBBY')
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
@@ -128,7 +128,7 @@ module.exports = {
             }
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] RPS : ' + user.toString().replace(/\D/g, '') + ' : NEGATIVEMONEY : ' + bet + '€')
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] MEMORY : ' + user.toString().replace(/\D/g, '') + ' : NEGATIVEMONEY : ' + bet + '€')
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
@@ -137,18 +137,18 @@ module.exports = {
             // Create Embed
             let message = new EmbedBuilder()
             	.setTitle('» ERROR')
-  				.setDescription('» You cant play Rock Paper Scissors with yourself?')
+  				.setDescription('» You cant play Memory with yourself?')
             	.setFooter({ text: '» ' + version });
 
             if (interaction.guildLocale == "de") {
                 message = new EmbedBuilder()
             	    .setTitle('» FEHLER')
-  				    .setDescription('» Du kannst Schere Stein Papier nicht mit dir alleine spielen?')
+  				    .setDescription('» Du kannst Memory nicht mit dir alleine spielen?')
             	    .setFooter({ text: '» ' + version });
             }
 
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] RPS : ' + reciever.toString().replace(/\D/g, '') + ' : ' + amount + '€ : SAMEPERSON')
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] MEMORY : ' + reciever.toString().replace(/\D/g, '') + ' : ' + amount + '€ : SAMEPERSON')
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
@@ -170,7 +170,7 @@ module.exports = {
             }
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] RPS : ' + user.toString().replace(/\D/g, '') + ' : NOTENOUGHMONEY')
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] MEMORY : ' + user.toString().replace(/\D/g, '') + ' : NOTENOUGHMONEY')
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
         if (othermoney < bet && bet != null) {
@@ -190,7 +190,7 @@ module.exports = {
             }
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] RPS : ' + user.toString().replace(/\D/g, '') + ' : NOTENOUGHMONEY')
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] MEMORY : ' + user.toString().replace(/\D/g, '') + ' : NOTENOUGHMONEY')
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
@@ -200,13 +200,13 @@ module.exports = {
 			.addComponents(
 				new ButtonBuilder()
 					.setLabel('YES')
-                    .setCustomId('RPS-YES-' + bet)
+                    .setCustomId('MEMORY-YES-' + bet)
                     .setEmoji('1017050442431209543')
 					.setStyle(ButtonStyle.Success),
 
                 new ButtonBuilder()
 					.setLabel('NO')
-                    .setCustomId('RPS-NO-' + bet)
+                    .setCustomId('MEMORY-NO-' + bet)
                     .setEmoji('1017050508252418068')
 					.setStyle(ButtonStyle.Danger),
 			);
@@ -215,13 +215,13 @@ module.exports = {
 			    .addComponents(
 			    	new ButtonBuilder()
 			    		.setLabel('JA')
-                        .setCustomId('RPS-YES-' + bet)
+                        .setCustomId('MEMORY-YES-' + bet)
                         .setEmoji('1017050442431209543')
 			    		.setStyle(ButtonStyle.Success),
 
                     new ButtonBuilder()
 			    		.setLabel('NEIN')
-                        .setCustomId('RPS-NO-' + bet)
+                        .setCustomId('MEMORY-NO-' + bet)
                         .setEmoji('1017050508252418068')
 			    		.setStyle(ButtonStyle.Danger),
 			    );
@@ -229,19 +229,19 @@ module.exports = {
         
         // Create Embed
         let message = new EmbedBuilder()
-        	.setTitle('» ROCK PAPER SCISSORS')
-  			.setDescription('» <@' + interaction.user.id.replace(/\D/g, '') + '> challenges you, <@' + user.toString().replace(/\D/g, '') + '> to a battle of Rock Paper Scissors! The Bet is **$' + bet + '**.\nDo you accept?')
+        	.setTitle('» MEMORY')
+  			.setDescription('» <@' + interaction.user.id.replace(/\D/g, '') + '> challenges you, <@' + user.toString().replace(/\D/g, '') + '> to a battle of Memory! The Bet is **$' + bet + '**.\nDo you accept?')
         	.setFooter({ text: '» ' + version });
 
         if (interaction.guildLocale == "de") {
             message = new EmbedBuilder()
-        	    .setTitle('» SCHERE STEIN PAPIER')
-  			    .setDescription('» <@' + interaction.user.id.replace(/\D/g, '') + '> fordert dich, <@' + user.toString().replace(/\D/g, '') + '> zu einem Spiel von Schere Stein Papier heraus! Die Wette ist **' + bet + '€**.\nAkzeptierst du?')
+        	    .setTitle('» MEMORY')
+  			    .setDescription('» <@' + interaction.user.id.replace(/\D/g, '') + '> fordert dich, <@' + user.toString().replace(/\D/g, '') + '> zu einem Spiel von Memory heraus! Die Wette ist **' + bet + '€**.\nAkzeptierst du?')
         	    .setFooter({ text: '» ' + version });
         }
 
         // Send Message
-        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] RPS : ' + user.toString().replace(/\D/g, '') + ' : ' + bet + '€')
+        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] MEMORY : ' + user.toString().replace(/\D/g, '') + ' : ' + bet + '€')
         return interaction.reply({ embeds: [message.toJSON()], components: [row] })
     },
 };

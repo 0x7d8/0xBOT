@@ -168,6 +168,21 @@ client.on('interactionCreate', async interaction => {
 				const button = client.buttons.get(editedinteraction.customId);
 				await button.execute(editedinteraction, client, bet);
 			}
+			if (interaction.customId.toString().substring(0, 6) == 'MEMORY') {
+				const cache = interaction.customId.split('-');
+				const [cmd, selection, bet] = cache;
+				let editedinteraction = interaction
+				if (selection == '1') { editedinteraction.customId = "rps-rock" }
+				if (selection == '2') { editedinteraction.customId = "rps-paper" }
+				if (selection == '3') { editedinteraction.customId = "rps-scissor" }
+
+				if (selection == 'YES') { editedinteraction.customId = "memory-yes" }
+				if (selection == 'NO') { editedinteraction.customId = "memory-no" }
+				sc = true
+
+				const button = client.buttons.get(editedinteraction.customId);
+				await button.execute(editedinteraction, client, bet);
+			}
 
 
 			// Other Button Cases
