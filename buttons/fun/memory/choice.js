@@ -33,9 +33,10 @@ module.exports = {
         }
 
         // Set Variable
-        /* eval('global.rps' + interaction.user.id.replace(/\D/g, '') + ' = "PAPER"')
+        const fc = "t"
+        eval('global.memorydata-f' + sel + '-' + interaction.user.id.replace(/\D/g, '') + ' = "' + fc + '"')
 
-        // Check if Game is Done
+        /* Check if Game is Done
         let done
         try {
             eval('rps' + sender.toString().replace(/\D/g, ''))
@@ -157,21 +158,131 @@ module.exports = {
             return interaction.update({ embeds: [message.toJSON()], components: [row], ephemeral: true })
         } */
 
+        // Create Buttons
+        let row1 = new ActionRowBuilder()
+			.addComponents(
+				new ButtonBuilder()
+					.setLabel(eval('memorydata-f1-' + sender.toString().replace(/\D/g, '')))
+                    .setCustomId('MEMORY-1-' + bet)
+					.setStyle(ButtonStyle.Secondary),
+
+                new ButtonBuilder()
+					.setLabel(eval('memorydata-f2-' + sender.toString().replace(/\D/g, '')))
+                    .setCustomId('MEMORY-2-' + bet)
+					.setStyle(ButtonStyle.Secondary),
+
+                new ButtonBuilder()
+					.setLabel(eval('memorydata-f3-' + sender.toString().replace(/\D/g, '')))
+                    .setCustomId('MEMORY-3-' + bet)
+					.setStyle(ButtonStyle.Secondary),
+                
+                new ButtonBuilder()
+					.setLabel(eval('memorydata-f4-' + sender.toString().replace(/\D/g, '')))
+                    .setCustomId('MEMORY-4-' + bet)
+					.setStyle(ButtonStyle.Secondary),
+
+                new ButtonBuilder()
+					.setLabel(eval('memorydata-f5-' + sender.toString().replace(/\D/g, '')))
+                    .setCustomId('MEMORY-5-' + bet)
+					.setStyle(ButtonStyle.Secondary),
+			);
+        let row2 = new ActionRowBuilder()
+			.addComponents(
+				new ButtonBuilder()
+					.setLabel(eval('memorydata-f6-' + sender.toString().replace(/\D/g, '')))
+                    .setCustomId('MEMORY-6-' + bet)
+					.setStyle(ButtonStyle.Secondary),
+
+                new ButtonBuilder()
+					.setLabel(eval('memorydata-f7-' + sender.toString().replace(/\D/g, '')))
+                    .setCustomId('MEMORY-7-' + bet)
+					.setStyle(ButtonStyle.Secondary),
+
+                new ButtonBuilder()
+					.setLabel(eval('memorydata-f8-' + sender.toString().replace(/\D/g, '')))
+                    .setCustomId('MEMORY-8-' + bet)
+					.setStyle(ButtonStyle.Secondary),
+                
+                new ButtonBuilder()
+					.setLabel(eval('memorydata-f9-' + sender.toString().replace(/\D/g, '')))
+                    .setCustomId('MEMORY-9-' + bet)
+					.setStyle(ButtonStyle.Secondary),
+
+                new ButtonBuilder()
+					.setLabel(eval('memorydata-f10-' + sender.toString().replace(/\D/g, '')))
+                    .setCustomId('MEMORY-10-' + bet)
+					.setStyle(ButtonStyle.Secondary),
+			);
+        let row3 = new ActionRowBuilder()
+			.addComponents(
+				new ButtonBuilder()
+					.setLabel(eval('memorydata-f11-' + sender.toString().replace(/\D/g, '')))
+                    .setCustomId('MEMORY-11-' + bet)
+					.setStyle(ButtonStyle.Secondary),
+
+                new ButtonBuilder()
+					.setLabel(eval('memorydata-f12-' + sender.toString().replace(/\D/g, '')))
+                    .setCustomId('MEMORY-12-' + bet)
+					.setStyle(ButtonStyle.Secondary),
+
+                new ButtonBuilder()
+					.setLabel(eval('memorydata-f13-' + sender.toString().replace(/\D/g, '')))
+                    .setCustomId('MEMORY-13-' + bet)
+					.setStyle(ButtonStyle.Secondary),
+                
+                new ButtonBuilder()
+					.setLabel(eval('memorydata-f14-' + sender.toString().replace(/\D/g, '')))
+                    .setCustomId('MEMORY-14-' + bet)
+					.setStyle(ButtonStyle.Secondary),
+
+                new ButtonBuilder()
+					.setLabel(eval('memorydata-f15-' + sender.toString().replace(/\D/g, '')))
+                    .setCustomId('MEMORY-15-' + bet)
+					.setStyle(ButtonStyle.Secondary),
+			);
+        let row4 = new ActionRowBuilder()
+			.addComponents(
+				new ButtonBuilder()
+					.setLabel(eval('memorydata-f16-' + sender.toString().replace(/\D/g, '')))
+                    .setCustomId('MEMORY-16-' + bet)
+					.setStyle(ButtonStyle.Secondary),
+
+                new ButtonBuilder()
+					.setLabel(eval('memorydata-f17-' + sender.toString().replace(/\D/g, '')))
+                    .setCustomId('MEMORY-17-' + bet)
+					.setStyle(ButtonStyle.Secondary),
+
+                new ButtonBuilder()
+					.setLabel(eval('memorydata-f18-' + sender.toString().replace(/\D/g, '')))
+                    .setCustomId('MEMORY-18-' + bet)
+					.setStyle(ButtonStyle.Secondary),
+                
+                new ButtonBuilder()
+					.setLabel(eval('memorydata-f19-' + sender.toString().replace(/\D/g, '')))
+                    .setCustomId('MEMORY-19-' + bet)
+					.setStyle(ButtonStyle.Secondary),
+
+                new ButtonBuilder()
+					.setLabel(eval('memorydata-f20-' + sender.toString().replace(/\D/g, '')))
+                    .setCustomId('MEMORY-20-' + bet)
+					.setStyle(ButtonStyle.Secondary),
+			);
+
         // Create Embed
         let message = new EmbedBuilder()
         .setTitle('» MEMORY')
-        .setDescription('» You selected ' + sel + '!')
+        .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> is playing Memory with <@' + reciever.toString().replace(/\D/g, '') + '>!\nThe Bet is **$' + bet + '**\n\n» Points of <@' + sender.toString().replace(/\D/g, '') + '> are **' + eval('memorydata-p' + sender.toString().replace(/\D/g, '')) + '**\n» Points of <@' + reciever.toString().replace(/\D/g, '') + '> are **' + eval('memorydata-p' + reciever.toString().replace(/\D/g, '')) + '**')
         .setFooter({ text: '» ' + version });
 
         if (interaction.guildLocale == "de") {
             message = new EmbedBuilder()
                 .setTitle('» MEMORY')
-                .setDescription('» Du hast ' + sel + ' ausgewählt!')
+                .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> spielt mit <@' + reciever.toString().replace(/\D/g, '') + '> Memory!\nDie Wette ist **' + bet + '€**\n\n» Punkte von <@' + sender.toString().replace(/\D/g, '') + '> sind **' + eval('memorydata-p' + sender.toString().replace(/\D/g, '')) + '**\n» Punkte von <@' + reciever.toString().replace(/\D/g, '') + '> sind **' + eval('memorydata-p' + reciever.toString().replace(/\D/g, '')) +'**')
                 .setFooter({ text: '» ' + version });
         }
 
         // Send Message
         console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] MEMORY : ' + sel)
-        return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+        return interaction.update({ embeds: [message.toJSON()], components: [row1, row2, row3, row4], ephemeral: true })
     }
 }
