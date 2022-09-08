@@ -329,9 +329,9 @@ module.exports = {
 
                 const emojirandom = Math.floor(Math.random() * (17 - 1 + 1)) + 1;
                 const emoji = emojilist[emojirandom - 1]
+                wait(100)
                 console.log(emojinumber)
                 if (!emojis.includes(emoji) || !buttons.includes(emojinumber)) {
-                    wait(50)
                     emojis[emojinumber - 1] = emoji
                     eval('global.memorydatag' + emojinumber + sender.toString().replace(/\D/g, '') + ' = "' + emoji + '"')
                     console.log(emoji)
