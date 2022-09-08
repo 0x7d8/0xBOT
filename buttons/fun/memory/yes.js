@@ -324,13 +324,14 @@ module.exports = {
                     "1017445246516334653",
                     "1017445352078590093"
                 ]
-                
+
                 const emojirandom = Math.floor(Math.random() * (17 - 1 + 1)) + 1;
                 const emoji = emojilist[emojirandom - 1]
                 console.log(emojinumber)
                 if (!emojis.includes(emoji) || !buttons.includes(emojinumber)) {
                     emojis[emojinumber - 1] = emoji
                     eval('global.memorydatag' + emojinumber + sender.toString().replace(/\D/g, '') + ' = "' + emoji + '"')
+                    console.log(emoji)
                     emojinumber = emojinumber + 1
                     if (emojinumber > 20) {
                         emojistate = true
