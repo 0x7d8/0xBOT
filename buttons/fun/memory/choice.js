@@ -72,7 +72,7 @@ module.exports = {
             console.log('3')
             se = true
         }
-        console.log(await eval('memorydataf' + sel + sender.toString().replace(/\D/g, '')))
+        console.log(await eval('memorydatapcn' + interaction.user.id.replace(/\D/g, '')))
 
         // Create Buttons
         let row1 = new ActionRowBuilder()
