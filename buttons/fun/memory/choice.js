@@ -32,8 +32,33 @@ module.exports = {
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
-        // Set Variable
+        // Set Variables
         await eval('global.memorydataf' + sel + sender.toString().replace(/\D/g, '') + ' = memorydatag' + sel + sender.toString().replace(/\D/g, ''))
+        try {
+            await eval('global.memorydatapc' + interaction.user.id.replace(/\D/g, '') + ' = []')
+            await eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '[0] = ' + sel)
+        } catch (e) {
+            if (!eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '.includes(' + sel + ')')) {
+                await eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '[1] = ' + sel)
+            } else {
+                // Create Embed
+                let message = new EmbedBuilder()
+                    .setTitle('» ERROR')
+                    .setDescription('» This Field is already occupied!')
+                    .setFooter({ text: '» ' + version });
+
+                if (interaction.guildLocale == "de") {
+                message = new EmbedBuilder()
+                    .setTitle('» FEHLER')
+                    .setDescription('» Dieses Feld ist schon belegt!')
+                    .setFooter({ text: '» ' + version });
+                }
+        
+                // Send Message
+                console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] MEMORY : OCCUPIED')
+                return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            }
+        }
 
         /* Check if Game is Done
         let done
