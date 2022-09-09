@@ -166,7 +166,7 @@ module.exports = {
         await eval('global.memorydatapca' + interaction.user.id.replace(/\D/g, '') + ' = memorydatapca' + interaction.user.id.replace(/\D/g, '') + ' + 1')
         let se = false
         const nums = []
-        if (eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '.includes(' + await eval('memorydatag' + sel + sender.toString().replace(/\D/g, '')) + ')') && await eval('global.memorydatapca' + interaction.user.id.replace(/\D/g, '')) != 2) {
+        if (eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '.includes(' + await eval('memorydatag' + sel + sender.toString().replace(/\D/g, '')) + ')') && parseInt(await eval('global.memorydatapca' + interaction.user.id.replace(/\D/g, ''))) != 2) {
             await eval('global.memorydatap' + interaction.user.id.replace(/\D/g, '') + ' = memorydatap' + interaction.user.id.replace(/\D/g, '') + ' + 1')
             nums.push(eval('memorydatapcn' + interaction.user.id.replace(/\D/g, '') + '[0]'))
             nums.push(eval('memorydatapcn' + interaction.user.id.replace(/\D/g, '') + '[1]'))
@@ -175,13 +175,15 @@ module.exports = {
             await eval('global.memorydatapcn' + interaction.user.id.replace(/\D/g, '') + ' = []')
             console.log('1')
             se = true
-        } else if (!eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '.includes(' + await eval('memorydataf' + sel + sender.toString().replace(/\D/g, '')) + ')') && await eval('global.memorydatapca' + interaction.user.id.replace(/\D/g, '')) != 2) {
+        }
+        if (!eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '.includes(' + await eval('memorydataf' + sel + sender.toString().replace(/\D/g, '')) + ')') && parseInt(await eval('global.memorydatapca' + interaction.user.id.replace(/\D/g, ''))) != 2) {
             await eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '.push("' + await eval('memorydataf' + sel + sender.toString().replace(/\D/g, '')) + '")')
             await eval('memorydatapcn' + interaction.user.id.replace(/\D/g, '') + '.push("' + sel + '")')
             await eval('global.memorydatad' + sel + sender.toString().replace(/\D/g, '') + ' = true')
             console.log('2')
             se = false
-        } else if (await eval('global.memorydatapca' + interaction.user.id.replace(/\D/g, '')) == 2) {
+        }
+        if (parseInt(await eval('global.memorydatapca' + interaction.user.id.replace(/\D/g, ''))) == 2) {
             nums.push(eval('memorydatapcn' + interaction.user.id.replace(/\D/g, '') + '[0]'))
             nums.push(eval('memorydatapcn' + interaction.user.id.replace(/\D/g, '') + '[1]'))
             await eval('global.memorydatapca' + interaction.user.id.replace(/\D/g, '') + ' = 0')
