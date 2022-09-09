@@ -405,7 +405,7 @@ module.exports = {
         await eval('global.memorydatad' + nums[1] + sender.toString().replace(/\D/g, '') + ' = false')
 
         // Check if Round has ended
-        if(await eval('parseInt(memorydatap' + sender.toString().replace(/\D/g, '') + ') + parseint(memorydatap' + reciever.toString().replace(/\D/g, '') + ') == 10')) {
+        if(await eval('parseInt(memorydatap' + sender.toString().replace(/\D/g, '') + ') + parseInt(memorydatap' + reciever.toString().replace(/\D/g, '') + ') == 10')) {
             // Check Who Won
             const senderpoints = await eval('memorydatap' + sender.toString().replace(/\D/g, ''))
             const recieverpoints = await eval('memorydatap' + reciever.toString().replace(/\D/g, ''))
