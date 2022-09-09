@@ -250,6 +250,7 @@ module.exports = {
                 buttoncount = buttoncount + 1
             }
         }
+        await abtn()
 
         // Remove Emojis
         console.log(nums)
