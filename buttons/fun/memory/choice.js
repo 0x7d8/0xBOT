@@ -225,14 +225,12 @@ module.exports = {
                 if (await eval('memorydatad' + buttoncount + sender.toString().replace(/\D/g, '') + ' == false')) {
                     await eval('global.memorydatad' + buttoncount + sender.toString().replace(/\D/g, '') + ' = true')
                     buttondatas.push(buttoncount.toString())
-                    console.log('yes-' + buttoncount)
                 }
                 buttoncount = buttoncount + 1
                 if (buttoncount == 21) {
                     donebutton = true
                     return
                 }
-                console.log('no-' + buttoncount)
             }
         }
         if (se == true) {
@@ -376,13 +374,12 @@ module.exports = {
                     await eval('global.memorydatad' + buttoncount + sender.toString().replace(/\D/g, '') + ' = false')
                 }
                 buttoncount = buttoncount + 1
-                if (buttoncount == 20) {
+                if (buttoncount == 21) {
                     donebutton = true
                     return
                 }
             }
         }
-        console.log(buttondatas)
 
         // Update Message
         interaction.message.edit({ embeds: [message.toJSON()], components: [row1, row2, row3, row4], ephemeral: true })
