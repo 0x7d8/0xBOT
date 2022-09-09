@@ -405,9 +405,9 @@ module.exports = {
         await eval('global.memorydatad' + nums[1] + sender.toString().replace(/\D/g, '') + ' = false')
 
         // Check if Round has ended
-        if(await eval('memorydatap' + sender.toString().replace(/\D/g, '') + ' + memorydatap' + reciever.toString().replace(/\D/g, '') + ' == 10')) {
+        if(await eval('parseInt(memorydatap' + sender.toString().replace(/\D/g, '') + ') + parseint(memorydatap' + reciever.toString().replace(/\D/g, '') + ') == 10')) {
             // Check Who Won
-            const senderpoints = await eval('memorydatap' + reciever.toString().replace(/\D/g, ''))
+            const senderpoints = await eval('memorydatap' + sender.toString().replace(/\D/g, ''))
             const recieverpoints = await eval('memorydatap' + reciever.toString().replace(/\D/g, ''))
             let winner
             if (parseInt(senderpoints) > parseInt(recieverpoints)) {
@@ -419,6 +419,28 @@ module.exports = {
                 if (interaction.guildLocale == "de") {
                     winner = '**Niemand**'
                 }
+            }
+
+            // Transfer Money
+            const betwon = parseInt(bet) * 2
+            if (winner != '**Noone**' && winner != '**Niemand**') {
+                bals.add(winner.toString().replace(/\D/g, ''), parseInt(betwon))
+            } else {
+                bals.add(sender.toString().replace(/\D/g, ''), parseInt(bet))
+                bals.add(reciever.toString().replace(/\D/g, ''), parseInt(bet))
+            }
+
+            // Create Embed
+            message = new EmbedBuilder()
+                .setTitle('» MEMORY')
+                .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> is playing Memory with <@' + reciever.toString().replace(/\D/g, '') + '>!\nThe Bet is **$' + bet + '**\n\n» Points of <@' + sender.toString().replace(/\D/g, '') + '> are **' + eval('memorydatap' + sender.toString().replace(/\D/g, '')) + '**\n» Points of <@' + reciever.toString().replace(/\D/g, '') + '> are **' + eval('memorydatap' + reciever.toString().replace(/\D/g, '')) + '**\n<@' + winner + '> has won **$' + betwon + '**!')
+                .setFooter({ text: '» ' + version });
+
+            if (interaction.guildLocale == "de") {
+                message = new EmbedBuilder()
+                    .setTitle('» MEMORY')
+                    .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> spielt mit <@' + reciever.toString().replace(/\D/g, '') + '> Memory!\nDie Wette ist **' + bet + '€**\n\n» Punkte von <@' + sender.toString().replace(/\D/g, '') + '> sind **' + eval('memorydatap' + sender.toString().replace(/\D/g, '')) + '**\n» Punkte von <@' + reciever.toString().replace(/\D/g, '') + '> sind **' + eval('memorydatap' + reciever.toString().replace(/\D/g, '')) +'**\n<@' + winner + '> hat **' + betwon + '€** gewonnen!')
+                    .setFooter({ text: '» ' + version });
             }
 
             // Delete Variables
@@ -496,27 +518,6 @@ module.exports = {
 
             eval('delete memorys' + sender.toString().replace(/\D/g, ''))
             eval('delete memorys' + reciever.toString().replace(/\D/g, ''))
-
-            // Transfer Money
-            const betwon = parseInt(bet) * 2
-            if (winner != '**Noone**' && winner != '**Niemand**') {
-                bals.add(winner.toString().replace(/\D/g, ''), parseInt(betwon))
-            } else {
-                bals.add(sender.toString().replace(/\D/g, ''), parseInt(bet))
-                bals.add(reciever.toString().replace(/\D/g, ''), parseInt(bet))
-            }
-
-            message = new EmbedBuilder()
-                .setTitle('» MEMORY')
-                .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> is playing Memory with <@' + reciever.toString().replace(/\D/g, '') + '>!\nThe Bet is **$' + bet + '**\n\n» Points of <@' + sender.toString().replace(/\D/g, '') + '> are **' + eval('memorydatap' + sender.toString().replace(/\D/g, '')) + '**\n» Points of <@' + reciever.toString().replace(/\D/g, '') + '> are **' + eval('memorydatap' + reciever.toString().replace(/\D/g, '')) + '**\n<@' + winner + '> has won **$' + betwon + '**!')
-                .setFooter({ text: '» ' + version });
-
-            if (interaction.guildLocale == "de") {
-                message = new EmbedBuilder()
-                    .setTitle('» MEMORY')
-                    .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> spielt mit <@' + reciever.toString().replace(/\D/g, '') + '> Memory!\nDie Wette ist **' + bet + '€**\n\n» Punkte von <@' + sender.toString().replace(/\D/g, '') + '> sind **' + eval('memorydatap' + sender.toString().replace(/\D/g, '')) + '**\n» Punkte von <@' + reciever.toString().replace(/\D/g, '') + '> sind **' + eval('memorydatap' + reciever.toString().replace(/\D/g, '')) +'**\n<@' + winner + '> hat **' + betwon + '€** gewonnen!')
-                    .setFooter({ text: '» ' + version });
-            }
 
             // Update Message
             return interaction.message.edit({ embeds: [message.toJSON()], components: [row1, row2, row3, row4], ephemeral: true })
