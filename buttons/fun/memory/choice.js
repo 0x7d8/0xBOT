@@ -183,7 +183,7 @@ module.exports = {
             console.log('2')
             se = false
         }
-        if (parseInt(await eval('memorydatapca' + interaction.user.id.replace(/\D/g, ''))) == 2) {
+        if (parseInt(await eval('memorydatapca' + interaction.user.id.replace(/\D/g, ''))) === 2) {
             nums.push(eval('memorydatapcn' + interaction.user.id.replace(/\D/g, '') + '[0]'))
             nums.push(eval('memorydatapcn' + interaction.user.id.replace(/\D/g, '') + '[1]'))
             await eval('global.memorydatapca' + interaction.user.id.replace(/\D/g, '') + ' = 0')
