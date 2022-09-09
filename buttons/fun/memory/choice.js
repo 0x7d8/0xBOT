@@ -49,12 +49,14 @@ module.exports = {
                 await eval('global.memorydatapcn' + interaction.user.id.replace(/\D/g, '') + ' = []')
 
                 if (interaction.user.id.replace(/\D/g, '') == sender.toString().replace(/\D/g, '')) {
-                    await eval('global.memorydatabc' + await eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '[0]') + sender.replace(/\D/g, '') + ' = "ButtonStyle.Primary"')
-                    await eval('global.memorydatabc' + await eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '[1]') + sender.replace(/\D/g, '') + ' = "ButtonStyle.Primary"')
+                    await eval('global.memorydatabc' + await eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '[0]') + sender.replace(/\D/g, '') + ' = ButtonStyle.Primary')
+                    await eval('global.memorydatabc' + await eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '[1]') + sender.replace(/\D/g, '') + ' = ButtonStyle.Primary')
+                    console.log('1')
                 }
                 if (interaction.user.id.replace(/\D/g, '') == reciever.toString().replace(/\D/g, '')) {
-                    await eval('global.memorydatabc' + await eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '[0]') + sender.replace(/\D/g, '') + ' = "ButtonStyle.Primary"')
-                    await eval('global.memorydatabc' + await eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '[1]') + sender.replace(/\D/g, '') + ' = "ButtonStyle.Primary"')
+                    await eval('global.memorydatabc' + await eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '[0]') + sender.replace(/\D/g, '') + ' = ButtonStyle.Danger')
+                    await eval('global.memorydatabc' + await eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '[1]') + sender.replace(/\D/g, '') + ' = ButtonStyle.Danger')
+                    console.log('2')
                 }
                 sno = true
                 se = true
