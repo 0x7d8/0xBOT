@@ -190,7 +190,7 @@ module.exports = {
             console.log('3')
             se = true
         }
-        console.log(se + ' a' + await eval('global.memorydatapc' + interaction.user.id.replace(/\D/g, '')))
+        console.log(se + ' a' + await eval('global.memorydatapca' + interaction.user.id.replace(/\D/g, '')))
 
         // Create Buttons
         let row1 = new ActionRowBuilder()
