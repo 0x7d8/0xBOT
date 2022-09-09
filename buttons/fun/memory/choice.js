@@ -45,19 +45,18 @@ module.exports = {
             if (await eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '.includes("' + await eval('memorydataf' + sel + sender.toString().replace(/\D/g, '')) + '")')) {
                 await eval('global.memorydatap' + interaction.user.id.replace(/\D/g, '') + ' = memorydatap' + interaction.user.id.replace(/\D/g, '') + ' + 1')
                 await eval('global.memorydatapca' + interaction.user.id.replace(/\D/g, '') + ' = 0')
-                await eval('global.memorydatapc' + interaction.user.id.replace(/\D/g, '') + ' = []')
-                await eval('global.memorydatapcn' + interaction.user.id.replace(/\D/g, '') + ' = []')
 
                 if (interaction.user.id.replace(/\D/g, '') == sender.toString().replace(/\D/g, '')) {
                     eval('global.memorydatabc' + await eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '[0]') + sender.replace(/\D/g, '') + ' = ButtonStyle.Primary')
                     eval('global.memorydatabc' + await eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '[1]') + sender.replace(/\D/g, '') + ' = ButtonStyle.Primary')
-                    console.log(await eval('memorydatapc' + interaction.user.id.replace(/\D/g, '')))
                 }
                 if (interaction.user.id.replace(/\D/g, '') == reciever.toString().replace(/\D/g, '')) {
                     eval('global.memorydatabc' + await eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '[0]') + sender.replace(/\D/g, '') + ' = ButtonStyle.Danger')
                     eval('global.memorydatabc' + await eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '[1]') + sender.replace(/\D/g, '') + ' = ButtonStyle.Danger')
-                    console.log('2')
                 }
+
+                await eval('global.memorydatapc' + interaction.user.id.replace(/\D/g, '') + ' = []')
+                await eval('global.memorydatapcn' + interaction.user.id.replace(/\D/g, '') + ' = []')
                 sno = true
                 se = true
             }
