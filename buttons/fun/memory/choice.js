@@ -163,7 +163,7 @@ module.exports = {
         // Set Variables
         await eval('global.memorydataf' + sel + sender.toString().replace(/\D/g, '') + ' = memorydatag' + sel + sender.toString().replace(/\D/g, ''))
         await eval('global.memorydatad' + sel + sender.toString().replace(/\D/g, '') + ' = true')
-        await eval('global.memorydatapca' + interaction.user.id.replace(/\D/g, '') + ' = memorydatapca' + interaction.user.id.replace(/\D/g, '') + ' + 1')
+        await eval('global.memorydatapca' + interaction.user.id.replace(/\D/g, '') + ' = parseInt(memorydatapca' + interaction.user.id.replace(/\D/g, '') + ') + 1')
         let se = false
         const nums = []
         if (eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '.includes(' + await eval('memorydatag' + sel + sender.toString().replace(/\D/g, '')) + ')') && parseInt(await eval('memorydatapca' + interaction.user.id.replace(/\D/g, ''))) != 2) {
