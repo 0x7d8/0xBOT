@@ -47,14 +47,13 @@ module.exports = {
                 await eval('global.memorydatapca' + interaction.user.id.replace(/\D/g, '') + ' = 0')
 
                 if (interaction.user.id.replace(/\D/g, '') == sender.toString().replace(/\D/g, '')) {
-                    eval('global.memorydatabc' + await eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '[0]') + sender.replace(/\D/g, '') + ' = ButtonStyle.Primary')
-                    eval('global.memorydatabc' + await eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '[1]') + sender.replace(/\D/g, '') + ' = ButtonStyle.Primary')
+                    eval('global.memorydatabc' + await eval('memorydatapcn' + interaction.user.id.replace(/\D/g, '') + '[0]') + sender.replace(/\D/g, '') + ' = ButtonStyle.Primary')
+                    eval('global.memorydatabc' + await eval('memorydatapcn' + interaction.user.id.replace(/\D/g, '') + '[1]') + sender.replace(/\D/g, '') + ' = ButtonStyle.Primary')
                 }
                 if (interaction.user.id.replace(/\D/g, '') == reciever.toString().replace(/\D/g, '')) {
-                    eval('global.memorydatabc' + await eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '[0]') + sender.replace(/\D/g, '') + ' = ButtonStyle.Danger')
-                    eval('global.memorydatabc' + await eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '[1]') + sender.replace(/\D/g, '') + ' = ButtonStyle.Danger')
+                    eval('global.memorydatabc' + await eval('memorydatapcn' + interaction.user.id.replace(/\D/g, '') + '[0]') + sender.replace(/\D/g, '') + ' = ButtonStyle.Danger')
+                    eval('global.memorydatabc' + await eval('memorydatapcn' + interaction.user.id.replace(/\D/g, '') + '[1]') + sender.replace(/\D/g, '') + ' = ButtonStyle.Danger')
                 }
-                console.log(await eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '[0]'))
 
                 await eval('global.memorydatapc' + interaction.user.id.replace(/\D/g, '') + ' = []')
                 await eval('global.memorydatapcn' + interaction.user.id.replace(/\D/g, '') + ' = []')
