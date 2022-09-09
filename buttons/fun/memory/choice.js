@@ -60,7 +60,7 @@ module.exports = {
         if (turn == sender.toString().replace(/\D/g, '')) {
             turnemoji = '🔵'
         }
-        if (turn = reciever.toString().replace(/\D/g, '')) {
+        if (turn == reciever.toString().replace(/\D/g, '')) {
             turnemoji = '🔴'
         }
 
@@ -122,12 +122,12 @@ module.exports = {
                 await eval('global.memorydatatu' + sender.toString().replace(/\D/g, '') + ' = ' + reciever.toString().replace(/\D/g, ''))
                 turnemoji = '🔴'
             }
-            if (turn = reciever.toString().replace(/\D/g, '')) {
+            if (turn == reciever.toString().replace(/\D/g, '')) {
                 await eval('global.memorydatatu' + sender.toString().replace(/\D/g, '') + ' = ' + sender.toString().replace(/\D/g, ''))
                 turnemoji = '🔵'
             }
 
-            
+
             await eval('global.memorydatapca' + interaction.user.id.replace(/\D/g, '') + ' = 0')
             await eval('global.memorydatapc' + interaction.user.id.replace(/\D/g, '') + ' = []')
             await eval('global.memorydatapcn' + interaction.user.id.replace(/\D/g, '') + ' = []')
