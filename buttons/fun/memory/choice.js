@@ -241,11 +241,135 @@ module.exports = {
             await dbtn()
         }
 
-        // Check for Special Conditions
-        if (se == false) return
-        await wait(2000)
+        // Create Buttons
+        row1 = new ActionRowBuilder()
+			.addComponents(
+				new ButtonBuilder()
+                    .setEmoji(eval('memorydataf1' + sender.toString().replace(/\D/g, '')))
+                    .setCustomId('MEMORY-1-' + bet)
+					.setStyle(ButtonStyle.Secondary)
+                    .setDisabled(eval('memorydatad1' + sender.toString().replace(/\D/g, ''))),
 
-        // Activate all Deactivated Buttons
+                new ButtonBuilder()
+                    .setEmoji(eval('memorydataf2' + sender.toString().replace(/\D/g, '')))
+                    .setCustomId('MEMORY-2-' + bet)
+					.setStyle(ButtonStyle.Secondary)
+                    .setDisabled(eval('memorydatad2' + sender.toString().replace(/\D/g, ''))),
+
+                new ButtonBuilder()
+                    .setEmoji(eval('memorydataf3' + sender.toString().replace(/\D/g, '')))
+                    .setCustomId('MEMORY-3-' + bet)
+					.setStyle(ButtonStyle.Secondary)
+                    .setDisabled(eval('memorydatad3' + sender.toString().replace(/\D/g, ''))),
+                
+                new ButtonBuilder()
+                    .setEmoji(eval('memorydataf4' + sender.toString().replace(/\D/g, '')))
+                    .setCustomId('MEMORY-4-' + bet)
+					.setStyle(ButtonStyle.Secondary)
+                    .setDisabled(eval('memorydatad4' + sender.toString().replace(/\D/g, ''))),
+
+                new ButtonBuilder()
+                    .setEmoji(eval('memorydataf5' + sender.toString().replace(/\D/g, '')))
+                    .setCustomId('MEMORY-5-' + bet)
+					.setStyle(ButtonStyle.Secondary)
+                    .setDisabled(eval('memorydatad5' + sender.toString().replace(/\D/g, ''))),
+			);
+        row2 = new ActionRowBuilder()
+			.addComponents(
+				new ButtonBuilder()
+                    .setEmoji(eval('memorydataf6' + sender.toString().replace(/\D/g, '')))
+                    .setCustomId('MEMORY-6-' + bet)
+					.setStyle(ButtonStyle.Secondary)
+                    .setDisabled(eval('memorydatad6' + sender.toString().replace(/\D/g, ''))),
+
+                new ButtonBuilder()
+                    .setEmoji(eval('memorydataf7' + sender.toString().replace(/\D/g, '')))
+                    .setCustomId('MEMORY-7-' + bet)
+					.setStyle(ButtonStyle.Secondary)
+                    .setDisabled(eval('memorydatad7' + sender.toString().replace(/\D/g, ''))),
+
+                new ButtonBuilder()
+                    .setEmoji(eval('memorydataf8' + sender.toString().replace(/\D/g, '')))
+                    .setCustomId('MEMORY-8-' + bet)
+					.setStyle(ButtonStyle.Secondary)
+                    .setDisabled(eval('memorydatad8' + sender.toString().replace(/\D/g, ''))),
+                
+                new ButtonBuilder()
+                    .setEmoji(eval('memorydataf9' + sender.toString().replace(/\D/g, '')))
+                    .setCustomId('MEMORY-9-' + bet)
+					.setStyle(ButtonStyle.Secondary)
+                    .setDisabled(eval('memorydatad9' + sender.toString().replace(/\D/g, ''))),
+
+                new ButtonBuilder()
+                    .setEmoji(eval('memorydataf10' + sender.toString().replace(/\D/g, '')))
+                    .setCustomId('MEMORY-10-' + bet)
+					.setStyle(ButtonStyle.Secondary)
+                    .setDisabled(eval('memorydatad10' + sender.toString().replace(/\D/g, ''))),
+			);
+        row3 = new ActionRowBuilder()
+			.addComponents(
+				new ButtonBuilder()
+                    .setEmoji(eval('memorydataf11' + sender.toString().replace(/\D/g, '')))
+                    .setCustomId('MEMORY-11-' + bet)
+					.setStyle(ButtonStyle.Secondary)
+                    .setDisabled(eval('memorydatad11' + sender.toString().replace(/\D/g, ''))),
+
+                new ButtonBuilder()
+                    .setEmoji(eval('memorydataf12' + sender.toString().replace(/\D/g, '')))
+                    .setCustomId('MEMORY-12-' + bet)
+					.setStyle(ButtonStyle.Secondary)
+                    .setDisabled(eval('memorydatad12' + sender.toString().replace(/\D/g, ''))),
+
+                new ButtonBuilder()
+                    .setEmoji(eval('memorydataf13' + sender.toString().replace(/\D/g, '')))
+                    .setCustomId('MEMORY-13-' + bet)
+					.setStyle(ButtonStyle.Secondary)
+                    .setDisabled(eval('memorydatad13' + sender.toString().replace(/\D/g, ''))),
+                
+                new ButtonBuilder()
+                    .setEmoji(eval('memorydataf14' + sender.toString().replace(/\D/g, '')))
+                    .setCustomId('MEMORY-14-' + bet)
+					.setStyle(ButtonStyle.Secondary)
+                    .setDisabled(eval('memorydatad14' + sender.toString().replace(/\D/g, ''))),
+
+                new ButtonBuilder()
+                    .setEmoji(eval('memorydataf15' + sender.toString().replace(/\D/g, '')))
+                    .setCustomId('MEMORY-15-' + bet)
+					.setStyle(ButtonStyle.Secondary)
+                    .setDisabled(eval('memorydatad15' + sender.toString().replace(/\D/g, ''))),
+			);
+        row4 = new ActionRowBuilder()
+			.addComponents(
+				new ButtonBuilder()
+                    .setEmoji(eval('memorydataf16' + sender.toString().replace(/\D/g, '')))
+                    .setCustomId('MEMORY-16-' + bet)
+					.setStyle(ButtonStyle.Secondary)
+                    .setDisabled(eval('memorydatad16' + sender.toString().replace(/\D/g, ''))),
+
+                new ButtonBuilder()
+                    .setEmoji(eval('memorydataf17' + sender.toString().replace(/\D/g, '')))
+                    .setCustomId('MEMORY-17-' + bet)
+					.setStyle(ButtonStyle.Secondary)
+                    .setDisabled(eval('memorydatad17' + sender.toString().replace(/\D/g, ''))),
+
+                new ButtonBuilder()
+                    .setEmoji(eval('memorydataf18' + sender.toString().replace(/\D/g, '')))
+                    .setCustomId('MEMORY-18-' + bet)
+					.setStyle(ButtonStyle.Secondary)
+                    .setDisabled(eval('memorydatad18' + sender.toString().replace(/\D/g, ''))),
+                
+                new ButtonBuilder()
+                    .setEmoji(eval('memorydataf19' + sender.toString().replace(/\D/g, '')))
+                    .setCustomId('MEMORY-19-' + bet)
+					.setStyle(ButtonStyle.Secondary)
+                    .setDisabled(eval('memorydatad19' + sender.toString().replace(/\D/g, ''))),
+
+                new ButtonBuilder()
+                    .setEmoji(eval('memorydataf20' + sender.toString().replace(/\D/g, '')))
+                    .setCustomId('MEMORY-20-' + bet)
+					.setStyle(ButtonStyle.Secondary)
+                    .setDisabled(eval('memorydatad20' + sender.toString().replace(/\D/g, ''))),
+			);
         buttoncount = 0
         donebutton = false
         const abtn = async () => {
@@ -260,6 +384,18 @@ module.exports = {
                 }
             }
         }
+
+        // Update Message
+        interaction.message.edit({ embeds: [message.toJSON()], components: [row1, row2, row3, row4], ephemeral: true })
+
+        // Check for Special Conditions
+        if (se == false) {
+            await abtn()
+            return
+        }
+        await wait(2000)
+
+        // Activate all Deactivated Buttons
         await abtn()
 
         // Remove Emojis
