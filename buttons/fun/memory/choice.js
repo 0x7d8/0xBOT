@@ -2,6 +2,8 @@ const { EmbedBuilder } = require('@discordjs/builders');
 const { ActionRowBuilder, ButtonBuilder, ButtonStyle, BaseClient } = require('discord.js');
 const { version } = require('../../../config.json');
 
+const wait = require('node:timers/promises').setTimeout;
+
 module.exports = {
     data: {
         name: 'memory-choice'
@@ -38,15 +40,21 @@ module.exports = {
 
         if (eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '.includes(' + await eval('memorydatag' + sel + sender.toString().replace(/\D/g, '')) + ')') && await eval('global.memorydatapca' + interaction.user.id.replace(/\D/g, '')) != 2) {
             await eval('global.memorydatap' + interaction.user.id.replace(/\D/g, '') + ' = memorydatap' + interaction.user.id.replace(/\D/g, '') + ' + 1')
-            await eval('global.memorydataf' + eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '[0]') + sender.toString().replace(/\D/g, '') + ' = memorydatag' + sel + sender.toString().replace(/\D/g, ''))
-            await eval('global.memorydataf' + eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '[1]') + sender.toString().replace(/\D/g, '') + ' = memorydatag' + sel + sender.toString().replace(/\D/g, ''))
+            await wait(1000)
+            await eval('global.memorydataf' + eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '[0]') + sender.toString().replace(/\D/g, '') + ' = "1017050508252418068"')
+            await eval('global.memorydataf' + eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '[1]') + sender.toString().replace(/\D/g, '') + ' = "1017050508252418068"')
+            await eval('global.memorydatad' + eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '[0]' + sender.toString().replace(/\D/g, '') + ' = false'))
+            await eval('global.memorydatad' + eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '[1]' + sender.toString().replace(/\D/g, '') + ' = false'))
             await eval('global.memorydatapc' + interaction.user.id.replace(/\D/g, '') + ' = []')
         } else if (!eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '.includes(' + await eval('memorydataf' + sel + sender.toString().replace(/\D/g, '')) + ')') && await eval('global.memorydatapca' + interaction.user.id.replace(/\D/g, '')) != 2) {
             await eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '.push("' + await eval('memorydataf' + sel + sender.toString().replace(/\D/g, '')) + '")')
             await eval('global.memorydatad' + sel + sender.toString().replace(/\D/g, '') + ' = true')
         } else if (await eval('global.memorydatapca' + interaction.user.id.replace(/\D/g, '')) == 2) {
-            await eval('global.memorydataf' + eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '[0]') + sender.toString().replace(/\D/g, '') + ' = memorydatag' + sel + sender.toString().replace(/\D/g, ''))
-            await eval('global.memorydataf' + eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '[1]') + sender.toString().replace(/\D/g, '') + ' = memorydatag' + sel + sender.toString().replace(/\D/g, ''))
+            await wait(1000)
+            await eval('global.memorydataf' + eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '[0]') + sender.toString().replace(/\D/g, '') + ' = "1017050508252418068"')
+            await eval('global.memorydataf' + eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '[1]') + sender.toString().replace(/\D/g, '') + ' = "1017050508252418068"')
+            await eval('global.memorydatad' + eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '[0]' + sender.toString().replace(/\D/g, '') + ' = false'))
+            await eval('global.memorydatad' + eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '[1]' + sender.toString().replace(/\D/g, '') + ' = false'))
             await eval('global.memorydatapc' + interaction.user.id.replace(/\D/g, '') + ' = []')
         }
 
