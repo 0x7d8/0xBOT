@@ -34,13 +34,18 @@ module.exports = {
 
         // Set Variables
         await eval('global.memorydataf' + sel + sender.toString().replace(/\D/g, '') + ' = memorydatag' + sel + sender.toString().replace(/\D/g, ''))
+        await eval('global.memorydatapca' + interaction.user.id.replace(/\D/g, '') + ' = memorydatapca + 1')
 
-        if (eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '.includes(' + await eval('memorydataf' + sel + sender.toString().replace(/\D/g, '')) + ')')) {
+        if (eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '.includes(' + await eval('memorydataf' + sel + sender.toString().replace(/\D/g, '')) + ')') && await eval('global.memorydatapca' + interaction.user.id.replace(/\D/g, '')) != 2) {
             await eval('global.memorydatap' + interaction.user.id.replace(/\D/g, '') + ' = memorydatap + 1')
             await eval('global.memorydatapc' + interaction.user.id.replace(/\D/g, '') + ' = []')
-        } else {
+        } else if (!eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '.includes(' + await eval('memorydataf' + sel + sender.toString().replace(/\D/g, '')) + ')')) {
             await eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '.push("' + await eval('memorydataf' + sel + sender.toString().replace(/\D/g, '')) + '")')
             await eval('global.memorydatad' + sel + sender.toString().replace(/\D/g, '') + ' = true')
+        } else if (await eval('global.memorydatapca' + interaction.user.id.replace(/\D/g, '')) == 2) {
+            await eval('global.memorydataf' + eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '[0]') + sender.toString().replace(/\D/g, '') + ' = memorydatag' + sel + sender.toString().replace(/\D/g, ''))
+            await eval('global.memorydataf' + eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '[1]') + sender.toString().replace(/\D/g, '') + ' = memorydatag' + sel + sender.toString().replace(/\D/g, ''))
+            await eval('global.memorydatapc' + interaction.user.id.replace(/\D/g, '') + ' = []')
         }
 
         /* Check if Game is Done
