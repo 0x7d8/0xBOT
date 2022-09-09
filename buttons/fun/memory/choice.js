@@ -223,6 +223,7 @@ module.exports = {
         // Deactivate all Buttons
         const buttondatas = []
         let buttoncount = 1
+        let donebutton
         const dbtn = async () => {
             while (donebutton == false) {
                 if (await eval('memorydataf' + buttoncount + sender.toString().replace(/\D/g, '') + ' == false')) {
@@ -230,6 +231,10 @@ module.exports = {
                     buttondatas.push(buttoncount.toString())
                 }
                 buttoncount = buttoncount + 1
+                if (buttoncount == 21) {
+                    donebutton = true
+                    return
+                }
             }
         }
         if (se == true) {
@@ -242,12 +247,17 @@ module.exports = {
 
         // Activate all Deactivated Buttons
         buttoncount = 0
+        donebutton = false
         const abtn = async () => {
             while (donebutton == false) {
                 if (buttondatas.includes(buttoncount.toString())) {
                     await eval('memorydataf' + buttoncount + sender.toString().replace(/\D/g, '') + ' = false')
                 }
                 buttoncount = buttoncount + 1
+                if (buttoncount == 20) {
+                    donebutton = true
+                    return
+                }
             }
         }
         await abtn()
