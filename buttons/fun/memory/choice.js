@@ -162,6 +162,7 @@ module.exports = {
 
         // Set Variables
         await eval('global.memorydataf' + sel + sender.toString().replace(/\D/g, '') + ' = memorydatag' + sel + sender.toString().replace(/\D/g, ''))
+        await eval('global.memorydatad' + sel + sender.toString().replace(/\D/g, '') + ' = true' + sel + sender.toString().replace(/\D/g, ''))
         await eval('global.memorydatapca' + interaction.user.id.replace(/\D/g, '') + ' = memorydatapca' + interaction.user.id.replace(/\D/g, '') + ' + 1')
 
         // Create Buttons
@@ -311,6 +312,7 @@ module.exports = {
         console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] MEMORY : ' + sel + ' : ' + eval('memorydataf' + sel + sender.toString().replace(/\D/g, '')))
         interaction.update({ embeds: [message.toJSON()], components: [row1, row2, row3, row4], ephemeral: true })
 
+        // Check for Special Conditions
         let se = false
         if (eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '.includes(' + await eval('memorydatag' + sel + sender.toString().replace(/\D/g, '')) + ')') && await eval('global.memorydatapca' + interaction.user.id.replace(/\D/g, '')) != 2) {
             await eval('global.memorydatap' + interaction.user.id.replace(/\D/g, '') + ' = memorydatap' + interaction.user.id.replace(/\D/g, '') + ' + 1')
@@ -338,9 +340,10 @@ module.exports = {
             await eval('global.memorydatapcn' + interaction.user.id.replace(/\D/g, '') + ' = []')
             se = true
         }
-        if (se == false) return
-        await wait(1500)
 
+        console.log(se)
+        if (se == false) return
+        await wait(2000)
 
         // Create Buttons
         row1 = new ActionRowBuilder()
