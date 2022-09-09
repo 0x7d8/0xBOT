@@ -282,6 +282,8 @@ module.exports = {
         eval('global.memorydatap' + sender.toString().replace(/\D/g, '') + ' = 0')
         eval('global.memorydatap' + reciever.toString().replace(/\D/g, '') + ' = 0')
 
+        eval('global.memorydatatu' + sender.toString().replace(/\D/g, '') + ' = ' + sender.toString().replace(/\D/g, ''))
+
         eval('global.memorydatapc' + sender.toString().replace(/\D/g, '') + ' = []')
         eval('global.memorydatapc' + reciever.toString().replace(/\D/g, '') + ' = []')
         eval('global.memorydatapcn' + sender.toString().replace(/\D/g, '') + ' = []')
@@ -429,14 +431,14 @@ module.exports = {
         // Create Embed
         let message = new EmbedBuilder()
             .setTitle('» MEMORY')
-            .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> is playing Memory with <@' + reciever.toString().replace(/\D/g, '') + '>!\nThe Bet is **$' + bet + '**\n\n» Points of <@' + sender.toString().replace(/\D/g, '') + '> are **0**\n» Points of <@' + reciever.toString().replace(/\D/g, '') + '> are **0**')
-            .setFooter({ text: '» ' + version });
+            .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> is playing Memory with <@' + reciever.toString().replace(/\D/g, '') + '>!\nThe Bet is **$' + bet + '**\n\n🔵 » Points of <@' + sender.toString().replace(/\D/g, '') + '> are **0**\n🔴 » Points of <@' + reciever.toString().replace(/\D/g, '') + '> are **0**')
+            .setFooter({ text: '» ' + version + ' » CURRENT TURN: 🔵' });
 
         if (interaction.guildLocale == "de") {
             message = new EmbedBuilder()
                 .setTitle('» MEMORY')
-                .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> spielt mit <@' + reciever.toString().replace(/\D/g, '') + '> Memory!\nDie Wette ist **' + bet + '€**\n\n» Punkte von <@' + sender.toString().replace(/\D/g, '') + '> sind **0**\n» Punkte von <@' + reciever.toString().replace(/\D/g, '') + '> sind **0**')
-                .setFooter({ text: '» ' + version });
+                .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> spielt mit <@' + reciever.toString().replace(/\D/g, '') + '> Memory!\nDie Wette ist **' + bet + '€**\n\n🔵 » Punkte von <@' + sender.toString().replace(/\D/g, '') + '> sind **0**\n🔴 » Punkte von <@' + reciever.toString().replace(/\D/g, '') + '> sind **0**')
+                .setFooter({ text: '» ' + version + ' » AM ZUG: 🔵' });
         }
 
         // Send Message

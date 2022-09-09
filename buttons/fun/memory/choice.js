@@ -34,6 +34,36 @@ module.exports = {
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
+        // Check Turn
+        const turn = await eval('memorydatatu' + sender.toString().replace(/\D/g, ''))
+        if (interaction.user.id.replace(/\D/g, '') != turn) {
+            // Create Embed
+            let message = new EmbedBuilder()
+        		.setTitle('» ERROR')
+        		.setDescription('» Its not your turn!')
+        		.setFooter({ text: '» ' + version });
+
+            if (interaction.guildLocale == "de") {
+                message = new EmbedBuilder()
+        		    .setTitle('» FEHLER')
+        		    .setDescription('» Es ist nicht dein Zug!')
+        		    .setFooter({ text: '» ' + version });
+            }
+            
+            // Send Message
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] MEMORY : NOTTURN')
+            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+        }
+
+        // Translate Turn to Emoji
+        let turnemoji
+        if (turn == sender.toString().replace(/\D/g, '')) {
+            turnemoji = '🔵'
+        }
+        if (turn = reciever.toString().replace(/\D/g, '')) {
+            turnemoji = '🔴'
+        }
+
         // Set Variables
         await eval('global.memorydataf' + sel + sender.toString().replace(/\D/g, '') + ' = memorydatag' + sel + sender.toString().replace(/\D/g, ''))
         await eval('global.memorydatad' + sel + sender.toString().replace(/\D/g, '') + ' = true')
@@ -48,12 +78,24 @@ module.exports = {
 
                 if (interaction.user.id.replace(/\D/g, '') == sender.toString().replace(/\D/g, '')) {
                     eval('global.memorydatabc' + await eval('memorydatapcn' + interaction.user.id.replace(/\D/g, '') + '[0]') + sender.replace(/\D/g, '') + ' = ButtonStyle.Primary')
-                    eval('global.memorydatabc' + sel + sender.replace(/\D/g, '') + ' = ButtonStyle.Primary')
+                    eval('global.memorydatabc' + sel + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Primary')
                 }
                 if (interaction.user.id.replace(/\D/g, '') == reciever.toString().replace(/\D/g, '')) {
                     eval('global.memorydatabc' + await eval('memorydatapcn' + interaction.user.id.replace(/\D/g, '') + '[0]') + sender.replace(/\D/g, '') + ' = ButtonStyle.Danger')
-                    eval('global.memorydatabc' + sel + sender.replace(/\D/g, '') + ' = ButtonStyle.Danger')
+                    eval('global.memorydatabc' + sel + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Danger')
                 }
+
+
+                // Turn Switcher
+                if (turn == sender.toString().replace(/\D/g, '')) {
+                    await eval('global.memorydatatu' + sender.toString().replace(/\D/g, '') + ' = ' + reciever.toString().replace(/\D/g, ''))
+                    turnemoji = '🔴'
+                }
+                if (turn = reciever.toString().replace(/\D/g, '')) {
+                    await eval('global.memorydatatu' + sender.toString().replace(/\D/g, '') + ' = ' + sender.toString().replace(/\D/g, ''))
+                    turnemoji = '🔵'
+                }
+
 
                 await eval('global.memorydatapc' + interaction.user.id.replace(/\D/g, '') + ' = []')
                 await eval('global.memorydatapcn' + interaction.user.id.replace(/\D/g, '') + ' = []')
@@ -73,6 +115,19 @@ module.exports = {
             nums = []
             nums[0] = (await eval('memorydatapcn' + interaction.user.id.replace(/\D/g, '') + '[0]'))
             nums[1] = (await eval('memorydatapcn' + interaction.user.id.replace(/\D/g, '') + '[1]'))
+
+
+            // Turn Switcher
+            if (turn == sender.toString().replace(/\D/g, '')) {
+                await eval('global.memorydatatu' + sender.toString().replace(/\D/g, '') + ' = ' + reciever.toString().replace(/\D/g, ''))
+                turnemoji = '🔴'
+            }
+            if (turn = reciever.toString().replace(/\D/g, '')) {
+                await eval('global.memorydatatu' + sender.toString().replace(/\D/g, '') + ' = ' + sender.toString().replace(/\D/g, ''))
+                turnemoji = '🔵'
+            }
+
+            
             await eval('global.memorydatapca' + interaction.user.id.replace(/\D/g, '') + ' = 0')
             await eval('global.memorydatapc' + interaction.user.id.replace(/\D/g, '') + ' = []')
             await eval('global.memorydatapcn' + interaction.user.id.replace(/\D/g, '') + ' = []')
@@ -212,14 +267,14 @@ module.exports = {
         // Create Embed
         let message = new EmbedBuilder()
             .setTitle('» MEMORY')
-            .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> is playing Memory with <@' + reciever.toString().replace(/\D/g, '') + '>!\nThe Bet is **$' + bet + '**\n\n» Points of <@' + sender.toString().replace(/\D/g, '') + '> are **' + eval('memorydatap' + sender.toString().replace(/\D/g, '')) + '**\n» Points of <@' + reciever.toString().replace(/\D/g, '') + '> are **' + eval('memorydatap' + reciever.toString().replace(/\D/g, '')) + '**')
-            .setFooter({ text: '» ' + version });
+            .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> is playing Memory with <@' + reciever.toString().replace(/\D/g, '') + '>!\nThe Bet is **$' + bet + '**\n\n🔵 » Points of <@' + sender.toString().replace(/\D/g, '') + '> are **' + eval('memorydatap' + sender.toString().replace(/\D/g, '')) + '**\n🔴 » Points of <@' + reciever.toString().replace(/\D/g, '') + '> are **' + eval('memorydatap' + reciever.toString().replace(/\D/g, '')) + '**')
+            .setFooter({ text: '» ' + version + ' » CURRENT TURN: ' + turnemoji });
 
         if (interaction.guildLocale == "de") {
             message = new EmbedBuilder()
                 .setTitle('» MEMORY')
-                .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> spielt mit <@' + reciever.toString().replace(/\D/g, '') + '> Memory!\nDie Wette ist **' + bet + '€**\n\n» Punkte von <@' + sender.toString().replace(/\D/g, '') + '> sind **' + eval('memorydatap' + sender.toString().replace(/\D/g, '')) + '**\n» Punkte von <@' + reciever.toString().replace(/\D/g, '') + '> sind **' + eval('memorydatap' + reciever.toString().replace(/\D/g, '')) +'**')
-                .setFooter({ text: '» ' + version });
+                .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> spielt mit <@' + reciever.toString().replace(/\D/g, '') + '> Memory!\nDie Wette ist **' + bet + '€**\n\n🔵 » Punkte von <@' + sender.toString().replace(/\D/g, '') + '> sind **' + eval('memorydatap' + sender.toString().replace(/\D/g, '')) + '**\n🔴 » Punkte von <@' + reciever.toString().replace(/\D/g, '') + '> sind **' + eval('memorydatap' + reciever.toString().replace(/\D/g, '')) +'**')
+                .setFooter({ text: '» ' + version + ' » AM ZUG: ' + turnemoji });
         }
 
         // Send Message
@@ -442,13 +497,13 @@ module.exports = {
             // Create Embed
             message = new EmbedBuilder()
                 .setTitle('» MEMORY')
-                .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> is playing Memory with <@' + reciever.toString().replace(/\D/g, '') + '>!\nThe Bet is **$' + bet + '**\n\n» Points of <@' + sender.toString().replace(/\D/g, '') + '> are **' + eval('memorydatap' + sender.toString().replace(/\D/g, '')) + '**\n» Points of <@' + reciever.toString().replace(/\D/g, '') + '> are **' + eval('memorydatap' + reciever.toString().replace(/\D/g, '')) + '**\n\n' + winner + ' has won **$' + betwon + '**!')
+                .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> is playing Memory with <@' + reciever.toString().replace(/\D/g, '') + '>!\nThe Bet is **$' + bet + '**\n\n🔵 » Points of <@' + sender.toString().replace(/\D/g, '') + '> are **' + eval('memorydatap' + sender.toString().replace(/\D/g, '')) + '**\n🔴 » Points of <@' + reciever.toString().replace(/\D/g, '') + '> are **' + eval('memorydatap' + reciever.toString().replace(/\D/g, '')) + '**\n\n' + winner + ' has won **$' + betwon + '**!')
                 .setFooter({ text: '» ' + version });
 
             if (interaction.guildLocale == "de") {
                 message = new EmbedBuilder()
                     .setTitle('» MEMORY')
-                    .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> spielt mit <@' + reciever.toString().replace(/\D/g, '') + '> Memory!\nDie Wette ist **' + bet + '€**\n\n» Punkte von <@' + sender.toString().replace(/\D/g, '') + '> sind **' + eval('memorydatap' + sender.toString().replace(/\D/g, '')) + '**\n» Punkte von <@' + reciever.toString().replace(/\D/g, '') + '> sind **' + eval('memorydatap' + reciever.toString().replace(/\D/g, '')) +'**\n\n' + winner + ' hat **' + betwon + '€** gewonnen!')
+                    .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> spielt mit <@' + reciever.toString().replace(/\D/g, '') + '> Memory!\nDie Wette ist **' + bet + '€**\n\n🔵 » Punkte von <@' + sender.toString().replace(/\D/g, '') + '> sind **' + eval('memorydatap' + sender.toString().replace(/\D/g, '')) + '**\n🔴 » Punkte von <@' + reciever.toString().replace(/\D/g, '') + '> sind **' + eval('memorydatap' + reciever.toString().replace(/\D/g, '')) +'**\n\n' + winner + ' hat **' + betwon + '€** gewonnen!')
                     .setFooter({ text: '» ' + version });
             }
 
