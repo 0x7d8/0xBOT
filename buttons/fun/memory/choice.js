@@ -52,13 +52,15 @@ module.exports = {
             sno = true
             se = true
         }
-        if (!await eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '.includes(' + await eval('memorydataf' + sel + sender.toString().replace(/\D/g, '')) + ')') && await eval('memorydatapca' + interaction.user.id.replace(/\D/g, '')) + ' < 2' && sno == false) {
-            await eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '.push("' + await eval('memorydataf' + sel + sender.toString().replace(/\D/g, '')) + '")')
-            await eval('memorydatapcn' + interaction.user.id.replace(/\D/g, '') + '.push("' + sel + '")')
-            await eval('global.memorydatad' + sel + sender.toString().replace(/\D/g, '') + ' = true')
-            console.log('2')
-            sno = true
-            se = false
+        if (await eval('memorydatapca' + interaction.user.id.replace(/\D/g, '')) + ' < 2' && sno == false) {
+            if (!await eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '.includes(' + await eval('memorydataf' + sel + sender.toString().replace(/\D/g, '')) + ')')) {
+                await eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '.push("' + await eval('memorydataf' + sel + sender.toString().replace(/\D/g, '')) + '")')
+                await eval('memorydatapcn' + interaction.user.id.replace(/\D/g, '') + '.push("' + sel + '")')
+                await eval('global.memorydatad' + sel + sender.toString().replace(/\D/g, '') + ' = true')
+                console.log('2')
+                sno = true
+                se = false
+            }
         }
         if (await eval('memorydatapca' + interaction.user.id.replace(/\D/g, '') + ' > 1') && sno == false) {
             nums.push(eval('memorydatapcn' + interaction.user.id.replace(/\D/g, '') + '[0]'))
