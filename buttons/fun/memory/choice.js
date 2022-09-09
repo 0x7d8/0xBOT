@@ -35,11 +35,11 @@ module.exports = {
         // Set Variables
         await eval('global.memorydataf' + sel + sender.toString().replace(/\D/g, '') + ' = memorydatag' + sel + sender.toString().replace(/\D/g, ''))
 
-        if (eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '.includes(' + emoji + ')')) {
+        if (eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '.includes(' + await eval('memorydataf' + sel + sender.toString().replace(/\D/g, '')) + ')')) {
             await eval('global.memorydatap' + interaction.user.id.replace(/\D/g, '') + ' = memorydatap + 1')
             await eval('global.memorydatapc' + interaction.user.id.replace(/\D/g, '') + ' = []')
         } else {
-            await eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '.push("' + eval('memorydataf' + sel + sender.toString().replace(/\D/g, '')) + '")')
+            await eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '.push("' + await eval('memorydataf' + sel + sender.toString().replace(/\D/g, '')) + '")')
             await eval('global.memorydatad' + sel + sender.toString().replace(/\D/g, '') + ' = true')
         }
 
