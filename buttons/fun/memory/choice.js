@@ -219,7 +219,7 @@ module.exports = {
         // Deactivate all Buttons
         const buttondatas = []
         let buttoncount = 1
-        let donebutton
+        let donebutton = false
         const dbtn = async () => {
             while (donebutton == false) {
                 if (await eval('memorydatad' + buttoncount + sender.toString().replace(/\D/g, '') == false)) {
