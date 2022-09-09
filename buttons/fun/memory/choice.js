@@ -34,26 +34,13 @@ module.exports = {
 
         // Set Variables
         await eval('global.memorydataf' + sel + sender.toString().replace(/\D/g, '') + ' = memorydatag' + sel + sender.toString().replace(/\D/g, ''))
-        if (!eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '.includes(' + sel + ')')) {
-            await eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '[1] = ' + sel)
-            await eval('global.memorydatad' + sel + sender.toString().replace(/\D/g, '') + ' = true')
-        } else {
-            // Create Embed
-            let message = new EmbedBuilder()
-                .setTitle('» ERROR')
-                .setDescription('» This Field is already occupied!')
-                .setFooter({ text: '» ' + version });
 
-            if (interaction.guildLocale == "de") {
-            message = new EmbedBuilder()
-                .setTitle('» FEHLER')
-                .setDescription('» Dieses Feld ist schon belegt!')
-                .setFooter({ text: '» ' + version });
-            }
-    
-            // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] MEMORY : ' + sel + ' : OCCUPIED')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+        if (eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '.includes(' + emoji + ')')) {
+            await eval('global.memorydatap' + interaction.user.id.replace(/\D/g, '') + ' = memorydatap + 1')
+            await eval('global.memorydatapc' + interaction.user.id.replace(/\D/g, '') + ' = []')
+        } else {
+            await eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '.push("' + eval('memorydataf' + sel + sender.toString().replace(/\D/g, '')) + '")')
+            await eval('global.memorydatad' + sel + sender.toString().replace(/\D/g, '') + ' = true')
         }
 
         /* Check if Game is Done
