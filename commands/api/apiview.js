@@ -64,7 +64,7 @@ module.exports = {
             if (interaction.guildLocale == "de") {
                 message = new EmbedBuilder()
         		    .setTitle('» PAPER API EDIT')
-        		    .setDescription('» Diese API existiert garnicht!\n</apicreate:1002107281510506516> um eine zu erstellen')
+        		    .setDescription('» Diese API existiert nicht!\n</apicreate:1002107281510506516> um eine zu erstellen')
         		    .setFooter({ text: '» ' + version + ' » SLOTS ' + amount + '/5'});
             }
             

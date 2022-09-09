@@ -22,7 +22,7 @@ module.exports = {
         	// Translate Vars
             let use
             let cdown
-        	const timeLeft = cooldown.get(interaction.user.id.replace(/\D/g, '')) - Date.now(); 
+        	const timeLeft = cooldown.get(interaction.user.id.replace(/\D/g, '')) - Date.now();
             use = 's'
             cdown = timeLeft / 1000;
             if (cdown > 60) { cdown = timeLeft / 1000 / 60; use = 'm' }
@@ -30,13 +30,13 @@ module.exports = {
             // Create Embed
             let message = new EmbedBuilder()
             	.setTitle('» ERROR')
-  				.setDescription('» You still have a Cooldown of **' + cdown.toFixed(0) + 's**!')
+  				.setDescription('» You still have a Cooldown of **' + cdown.toFixed(0) + use + '**!')
             	.setFooter({ text: '» ' + version });
 
             if (interaction.guildLocale == "de") {
                 message = new EmbedBuilder()
             	    .setTitle('» FEHLER')
-  				    .setDescription('» Du hast leider noch einen Cooldown von **' + cdown.toFixed(0) + 's**!')
+  				    .setDescription('» Du hast leider noch einen Cooldown von **' + cdown.toFixed(0) + use + 's*!')
             	    .setFooter({ text: '» ' + version });
             }
             

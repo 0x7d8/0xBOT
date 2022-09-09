@@ -249,16 +249,100 @@ module.exports = {
                 }
             }
 
+            // Delete Variables
+            eval('delete memorydataf1' + sender.toString().replace(/\D/g, ''))
+            eval('delete memorydataf2' + sender.toString().replace(/\D/g, ''))
+            eval('delete memorydataf3' + sender.toString().replace(/\D/g, ''))
+            eval('delete memorydataf4' + sender.toString().replace(/\D/g, ''))
+            eval('delete memorydataf5' + sender.toString().replace(/\D/g, ''))
+            eval('delete memorydataf6' + sender.toString().replace(/\D/g, ''))
+            eval('delete memorydataf7' + sender.toString().replace(/\D/g, ''))
+            eval('delete memorydataf8' + sender.toString().replace(/\D/g, ''))
+            eval('delete memorydataf9' + sender.toString().replace(/\D/g, ''))
+            eval('delete memorydataf10' + sender.toString().replace(/\D/g, ''))
+            eval('delete memorydataf11' + sender.toString().replace(/\D/g, ''))
+            eval('delete memorydataf12' + sender.toString().replace(/\D/g, ''))
+            eval('delete memorydataf13' + sender.toString().replace(/\D/g, ''))
+            eval('delete memorydataf14' + sender.toString().replace(/\D/g, ''))
+            eval('delete memorydataf15' + sender.toString().replace(/\D/g, ''))
+            eval('delete memorydataf16' + sender.toString().replace(/\D/g, ''))
+            eval('delete memorydataf17' + sender.toString().replace(/\D/g, ''))
+            eval('delete memorydataf18' + sender.toString().replace(/\D/g, ''))
+            eval('delete memorydataf19' + sender.toString().replace(/\D/g, ''))
+            eval('delete memorydataf20' + sender.toString().replace(/\D/g, ''))
+
+            eval('delete memorydatag1' + sender.toString().replace(/\D/g, ''))
+            eval('delete memorydatag2' + sender.toString().replace(/\D/g, ''))
+            eval('delete memorydatag3' + sender.toString().replace(/\D/g, ''))
+            eval('delete memorydatag4' + sender.toString().replace(/\D/g, ''))
+            eval('delete memorydatag5' + sender.toString().replace(/\D/g, ''))
+            eval('delete memorydatag6' + sender.toString().replace(/\D/g, ''))
+            eval('delete memorydatag7' + sender.toString().replace(/\D/g, ''))
+            eval('delete memorydatag8' + sender.toString().replace(/\D/g, ''))
+            eval('delete memorydatag9' + sender.toString().replace(/\D/g, ''))
+            eval('delete memorydatag10' + sender.toString().replace(/\D/g, ''))
+            eval('delete memorydatag11' + sender.toString().replace(/\D/g, ''))
+            eval('delete memorydatag12' + sender.toString().replace(/\D/g, ''))
+            eval('delete memorydatag13' + sender.toString().replace(/\D/g, ''))
+            eval('delete memorydatag14' + sender.toString().replace(/\D/g, ''))
+            eval('delete memorydatag15' + sender.toString().replace(/\D/g, ''))
+            eval('delete memorydatag16' + sender.toString().replace(/\D/g, ''))
+            eval('delete memorydatag17' + sender.toString().replace(/\D/g, ''))
+            eval('delete memorydatag18' + sender.toString().replace(/\D/g, ''))
+            eval('delete memorydatag19' + sender.toString().replace(/\D/g, ''))
+            eval('delete memorydatag20' + sender.toString().replace(/\D/g, ''))
+
+            eval('delete memorydatad1' + sender.toString().replace(/\D/g, ''))
+            eval('delete memorydatad2' + sender.toString().replace(/\D/g, ''))
+            eval('delete memorydatad3' + sender.toString().replace(/\D/g, ''))
+            eval('delete memorydatad4' + sender.toString().replace(/\D/g, ''))
+            eval('delete memorydatad5' + sender.toString().replace(/\D/g, ''))
+            eval('delete memorydatad6' + sender.toString().replace(/\D/g, ''))
+            eval('delete memorydatad7' + sender.toString().replace(/\D/g, ''))
+            eval('delete memorydatad8' + sender.toString().replace(/\D/g, ''))
+            eval('delete memorydatad9' + sender.toString().replace(/\D/g, ''))
+            eval('delete memorydatad10' + sender.toString().replace(/\D/g, ''))
+            eval('delete memorydatad11' + sender.toString().replace(/\D/g, ''))
+            eval('delete memorydatad12' + sender.toString().replace(/\D/g, ''))
+            eval('delete memorydatad13' + sender.toString().replace(/\D/g, ''))
+            eval('delete memorydatad14' + sender.toString().replace(/\D/g, ''))
+            eval('delete memorydatad15' + sender.toString().replace(/\D/g, ''))
+            eval('delete memorydatad16' + sender.toString().replace(/\D/g, ''))
+            eval('delete memorydatad17' + sender.toString().replace(/\D/g, ''))
+            eval('delete memorydatad18' + sender.toString().replace(/\D/g, ''))
+            eval('delete memorydatad19' + sender.toString().replace(/\D/g, ''))
+            eval('delete memorydatad20' + sender.toString().replace(/\D/g, ''))
+
+            eval('delete memorydatap' + sender.toString().replace(/\D/g, ''))
+            eval('delete memorydatap' + reciever.toString().replace(/\D/g, ''))
+            eval('delete memorydatapc' + sender.toString().replace(/\D/g, ''))
+            eval('delete memorydatapc' + reciever.toString().replace(/\D/g, ''))
+            eval('delete memorydatapcn' + sender.toString().replace(/\D/g, ''))
+            eval('delete memorydatapcn' + reciever.toString().replace(/\D/g, ''))
+            eval('delete memorydatapca' + sender.toString().replace(/\D/g, ''))
+            eval('delete memorydatapca' + reciever.toString().replace(/\D/g, ''))
+
+            eval('delete memorys' + sender.toString().replace(/\D/g, ''))
+            eval('delete memorys' + reciever.toString().replace(/\D/g, ''))
+
+            // Transfer Money
+            const betwon = parseInt(bet) * 2
+            if (winner != '**Noone**' && winner != '**Niemand**') {
+                bals.add(winner.toString().replace(/\D/g, ''), parseInt(betwon))
+            } else {
+                bals.add(sender.toString().replace(/\D/g, ''), parseInt(bet))
+                bals.add(reciever.toString().replace(/\D/g, ''), parseInt(bet))
+            }
 
             message = new EmbedBuilder()
                 .setTitle('» MEMORY')
-                .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> is playing Memory with <@' + reciever.toString().replace(/\D/g, '') + '>!\nThe Bet is **$' + bet + '**\n\n» Points of <@' + sender.toString().replace(/\D/g, '') + '> are **' + eval('memorydatap' + sender.toString().replace(/\D/g, '')) + '**\n» Points of <@' + reciever.toString().replace(/\D/g, '') + '> are **' + eval('memorydatap' + reciever.toString().replace(/\D/g, '')) + '**\n<@' + winner + '> has won!')
+                .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> is playing Memory with <@' + reciever.toString().replace(/\D/g, '') + '>!\nThe Bet is **$' + bet + '**\n\n» Points of <@' + sender.toString().replace(/\D/g, '') + '> are **' + eval('memorydatap' + sender.toString().replace(/\D/g, '')) + '**\n» Points of <@' + reciever.toString().replace(/\D/g, '') + '> are **' + eval('memorydatap' + reciever.toString().replace(/\D/g, '')) + '**\n<@' + winner + '> has won **$' + betwon + '**!')
                 .setFooter({ text: '» ' + version });
 
             if (interaction.guildLocale == "de") {
                 message = new EmbedBuilder()
                     .setTitle('» MEMORY')
-                    .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> spielt mit <@' + reciever.toString().replace(/\D/g, '') + '> Memory!\nDie Wette ist **' + bet + '€**\n\n» Punkte von <@' + sender.toString().replace(/\D/g, '') + '> sind **' + eval('memorydatap' + sender.toString().replace(/\D/g, '')) + '**\n» Punkte von <@' + reciever.toString().replace(/\D/g, '') + '> sind **' + eval('memorydatap' + reciever.toString().replace(/\D/g, '')) +'**\n<@' + winner + '> hat gewonnen!')
+                    .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> spielt mit <@' + reciever.toString().replace(/\D/g, '') + '> Memory!\nDie Wette ist **' + bet + '€**\n\n» Punkte von <@' + sender.toString().replace(/\D/g, '') + '> sind **' + eval('memorydatap' + sender.toString().replace(/\D/g, '')) + '**\n» Punkte von <@' + reciever.toString().replace(/\D/g, '') + '> sind **' + eval('memorydatap' + reciever.toString().replace(/\D/g, '')) +'**\n<@' + winner + '> hat **' + betwon + '€** gewonnen!')
                     .setFooter({ text: '» ' + version });
             }
 

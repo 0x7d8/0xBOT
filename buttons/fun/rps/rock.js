@@ -63,9 +63,9 @@ module.exports = {
             if (win == 'none' && interaction.guildLocale == "de") { winner = '**Niemand**' }
 
             // Transfer Money
-            const betwon = bet * 2
+            const betwon = parseInt(bet) * 2
             if (winner != '**Noone**' && winner != '**Niemand**') {
-                bals.add(winner.toString().replace(/\D/g, ''), betwon)
+                bals.add(winner.toString().replace(/\D/g, ''), parseInt(betwon))
             } else {
                 bals.add(sender.toString().replace(/\D/g, ''), parseInt(bet))
                 bals.add(reciever.toString().replace(/\D/g, ''), parseInt(bet))

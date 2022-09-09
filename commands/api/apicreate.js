@@ -44,7 +44,11 @@ module.exports = {
         const newamount = amount + 1
 
         // Check if API exists
+        const dir = '/paper-api/' + interaction.user.id.replace(/\D/g, '')
         const path = '/paper-api/' + interaction.user.id.replace(/\D/g, '') + '/' + name
+        if (!fs.existsSync(dir)) {
+            fs.mkdirSync(dir)
+        }
   		if (fs.existsSync(path)) {
             // Create Embed
             let message = new EmbedBuilder()
