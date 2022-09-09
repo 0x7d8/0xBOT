@@ -173,11 +173,13 @@ module.exports = {
             await eval('global.memorydatapca' + interaction.user.id.replace(/\D/g, '') + ' = 0')
             await eval('global.memorydatapc' + interaction.user.id.replace(/\D/g, '') + ' = []')
             await eval('global.memorydatapcn' + interaction.user.id.replace(/\D/g, '') + ' = []')
+            console.log('1')
             se = true
         } else if (!eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '.includes(' + await eval('memorydataf' + sel + sender.toString().replace(/\D/g, '')) + ')') && await eval('global.memorydatapca' + interaction.user.id.replace(/\D/g, '')) != 2) {
             await eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '.push("' + await eval('memorydataf' + sel + sender.toString().replace(/\D/g, '')) + '")')
             await eval('memorydatapcn' + interaction.user.id.replace(/\D/g, '') + '.push("' + sel + '")')
             await eval('global.memorydatad' + sel + sender.toString().replace(/\D/g, '') + ' = true')
+            console.log('2')
             se = false
         } else if (await eval('global.memorydatapca' + interaction.user.id.replace(/\D/g, '')) == 2) {
             nums.push(eval('memorydatapcn' + interaction.user.id.replace(/\D/g, '') + '[0]'))
@@ -185,6 +187,7 @@ module.exports = {
             await eval('global.memorydatapca' + interaction.user.id.replace(/\D/g, '') + ' = 0')
             await eval('global.memorydatapc' + interaction.user.id.replace(/\D/g, '') + ' = []')
             await eval('global.memorydatapcn' + interaction.user.id.replace(/\D/g, '') + ' = []')
+            console.log('3')
             se = true
         }
         console.log(se + ' a' + await eval('global.memorydatapc' + interaction.user.id.replace(/\D/g, '')))
