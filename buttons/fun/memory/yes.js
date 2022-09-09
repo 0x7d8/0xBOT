@@ -285,6 +285,8 @@ module.exports = {
 
         eval('global.memorydatapc' + sender.toString().replace(/\D/g, '') + ' = []')
         eval('global.memorydatapc' + reciever.toString().replace(/\D/g, '') + ' = []')
+        eval('global.memorydatapcn' + sender.toString().replace(/\D/g, '') + ' = []')
+        eval('global.memorydatapcn' + reciever.toString().replace(/\D/g, '') + ' = []')
         eval('global.memorydatapca' + sender.toString().replace(/\D/g, '') + ' = 0')
         eval('global.memorydatapca' + reciever.toString().replace(/\D/g, '') + ' = 0')
 
