@@ -205,9 +205,9 @@ module.exports = {
 
         // Create Embed
         let message = new EmbedBuilder()
-        .setTitle('» MEMORY')
-        .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> is playing Memory with <@' + reciever.toString().replace(/\D/g, '') + '>!\nThe Bet is **$' + bet + '**\n\n» Points of <@' + sender.toString().replace(/\D/g, '') + '> are **' + eval('memorydatap' + sender.toString().replace(/\D/g, '')) + '**\n» Points of <@' + reciever.toString().replace(/\D/g, '') + '> are **' + eval('memorydatap' + reciever.toString().replace(/\D/g, '')) + '**')
-        .setFooter({ text: '» ' + version });
+            .setTitle('» MEMORY')
+            .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> is playing Memory with <@' + reciever.toString().replace(/\D/g, '') + '>!\nThe Bet is **$' + bet + '**\n\n» Points of <@' + sender.toString().replace(/\D/g, '') + '> are **' + eval('memorydatap' + sender.toString().replace(/\D/g, '')) + '**\n» Points of <@' + reciever.toString().replace(/\D/g, '') + '> are **' + eval('memorydatap' + reciever.toString().replace(/\D/g, '')) + '**')
+            .setFooter({ text: '» ' + version });
 
         if (interaction.guildLocale == "de") {
             message = new EmbedBuilder()
@@ -220,9 +220,36 @@ module.exports = {
         console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] MEMORY : ' + sel + ' : ' + eval('memorydataf' + sel + sender.toString().replace(/\D/g, '')))
         interaction.update({ embeds: [message.toJSON()], components: [row1, row2, row3, row4], ephemeral: true })
 
+        // Deactivate all Buttons
+        const buttondatas = []
+        let buttoncount = 1
+        const dbtn = async () => {
+            while (donebutton == false) {
+                if (await eval('memorydataf' + buttoncount + sender.toString().replace(/\D/g, '') + ' == false')) {
+                    await eval('memorydataf' + buttoncount + sender.toString().replace(/\D/g, '') + ' = true')
+                    buttondatas.push(buttoncount.toString())
+                }
+                buttoncount = buttoncount + 1
+            }
+        }
+        if (se == true) {
+            await dbtn()
+        }
+
         // Check for Special Conditions
         if (se == false) return
         await wait(2000)
+
+        // Activate all Deactivated Buttons
+        buttoncount = 0
+        const abtn = async () => {
+            while (donebutton == false) {
+                if (buttondatas.includes(buttoncount.toString())) {
+                    await eval('memorydataf' + buttoncount + sender.toString().replace(/\D/g, '') + ' = false')
+                }
+                buttoncount = buttoncount + 1
+            }
+        }
 
         // Remove Emojis
         console.log(nums)
