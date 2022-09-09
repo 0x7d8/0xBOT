@@ -225,6 +225,7 @@ module.exports = {
                 if (await eval('memorydatad' + buttoncount + sender.toString().replace(/\D/g, '') == false)) {
                     await eval('global.memorydatad' + buttoncount + sender.toString().replace(/\D/g, '') + ' = true')
                     buttondatas.push(buttoncount.toString())
+                    console.log('yes-' + buttoncount)
                 }
                 buttoncount = buttoncount + 1
                 if (buttoncount == 21) {
