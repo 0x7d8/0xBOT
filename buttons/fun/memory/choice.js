@@ -389,7 +389,7 @@ module.exports = {
             await abtn()
             return
         }
-        await wait(2000)
+        await wait(2500)
 
         // Activate all Deactivated Buttons
         await abtn()
