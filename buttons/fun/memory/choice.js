@@ -44,10 +44,6 @@ module.exports = {
         if (await eval('memorydatapca' + interaction.user.id.replace(/\D/g, '')) + ' < 2') {
             if (await eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '.includes("' + await eval('memorydataf' + sel + sender.toString().replace(/\D/g, '')) + '")')) {
                 await eval('global.memorydatap' + interaction.user.id.replace(/\D/g, '') + ' = memorydatap' + interaction.user.id.replace(/\D/g, '') + ' + 1')
-                await eval('memorydatapcn' + interaction.user.id.replace(/\D/g, '') + '.push("' + sel + '")')
-                nums = []
-                nums[0] = (await eval('memorydatapcn' + interaction.user.id.replace(/\D/g, '') + '[0]'))
-                nums[1] = (await eval('memorydatapcn' + interaction.user.id.replace(/\D/g, '') + '[1]'))
                 await eval('global.memorydatapca' + interaction.user.id.replace(/\D/g, '') + ' = 0')
                 await eval('global.memorydatapc' + interaction.user.id.replace(/\D/g, '') + ' = []')
                 await eval('global.memorydatapcn' + interaction.user.id.replace(/\D/g, '') + ' = []')
