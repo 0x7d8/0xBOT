@@ -222,6 +222,7 @@ module.exports = {
         let donebutton = false
         const dbtn = async () => {
             while (donebutton == false) {
+                await wait(25)
                 if (await eval('memorydatad' + buttoncount + sender.toString().replace(/\D/g, '') + ' == false')) {
                     await eval('global.memorydatad' + buttoncount + sender.toString().replace(/\D/g, '') + ' = true')
                     buttondatas.push(buttoncount.toString())
@@ -370,6 +371,7 @@ module.exports = {
         donebutton = false
         const abtn = async () => {
             while (donebutton == false) {
+                await wait(25)
                 if (buttondatas.includes(buttoncount.toString())) {
                     await eval('global.memorydatad' + buttoncount + sender.toString().replace(/\D/g, '') + ' = false')
                 }
@@ -380,6 +382,7 @@ module.exports = {
                 }
             }
         }
+        console.log(buttondatas)
 
         // Update Message
         interaction.message.edit({ embeds: [message.toJSON()], components: [row1, row2, row3, row4], ephemeral: true })
