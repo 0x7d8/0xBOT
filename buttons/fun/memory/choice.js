@@ -187,6 +187,7 @@ module.exports = {
             nums.push(eval('memorydatapcn' + interaction.user.id.replace(/\D/g, '') + '[0]'))
             nums.push(eval('memorydatapcn' + interaction.user.id.replace(/\D/g, '') + '[1]'))
         }
+        console.log(se + ' a' + memorydatapc)
 
         // Create Buttons
         let row1 = new ActionRowBuilder()
@@ -346,6 +347,7 @@ module.exports = {
         await wait(50)
         await eval('global.memorydatad' + nums[0] + sender.toString().replace(/\D/g, '') + ' = false')
         await eval('global.memorydatad' + nums[1] + sender.toString().replace(/\D/g, '') + ' = false')
+        console.log('st')
 
         // Create Buttons
         row1 = new ActionRowBuilder()
