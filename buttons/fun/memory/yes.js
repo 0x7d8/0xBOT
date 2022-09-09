@@ -18,7 +18,7 @@ module.exports = {
         const balance = await bals.get(reciever.toString().replace(/\D/g, ''))
         const otherbalance = await bals.get(sender.toString().replace(/\D/g, ''))
 
-        /* // Check if User is Authorized
+        // Check if User is Authorized
         if (interaction.user.id.replace(/\D/g, '') != reciever.toString().replace(/\D/g, '')) {
             // Create Embed
             let message = new EmbedBuilder()
@@ -36,7 +36,7 @@ module.exports = {
             // Send Message
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] MEMORY : YES : NOTALLOWED')
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
-        } */
+        }
 
         // Check if Person is already in a Lobby
         let lobby
