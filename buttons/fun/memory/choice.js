@@ -38,6 +38,7 @@ module.exports = {
         await eval('global.memorydataf' + sel + sender.toString().replace(/\D/g, '') + ' = memorydatag' + sel + sender.toString().replace(/\D/g, ''))
         await eval('global.memorydatapca' + interaction.user.id.replace(/\D/g, '') + ' = memorydatapca' + interaction.user.id.replace(/\D/g, '') + ' + 1')
 
+        let se = false
         if (eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '.includes(' + await eval('memorydatag' + sel + sender.toString().replace(/\D/g, '')) + ')') && await eval('global.memorydatapca' + interaction.user.id.replace(/\D/g, '')) != 2) {
             await eval('global.memorydatap' + interaction.user.id.replace(/\D/g, '') + ' = memorydatap' + interaction.user.id.replace(/\D/g, '') + ' + 1')
             await eval('global.memorydataf' + eval('memorydatapcn' + interaction.user.id.replace(/\D/g, '') + '[0]') + sender.toString().replace(/\D/g, '') + ' = "1017050508252418068"')
@@ -48,6 +49,7 @@ module.exports = {
             await eval('global.memorydatapca' + interaction.user.id.replace(/\D/g, '') + ' = 0')
             await eval('global.memorydatapc' + interaction.user.id.replace(/\D/g, '') + ' = []')
             await eval('global.memorydatapcn' + interaction.user.id.replace(/\D/g, '') + ' = []')
+            se = true
         } else if (!eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '.includes(' + await eval('memorydataf' + sel + sender.toString().replace(/\D/g, '')) + ')') && await eval('global.memorydatapca' + interaction.user.id.replace(/\D/g, '')) != 2) {
             await eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '.push("' + await eval('memorydataf' + sel + sender.toString().replace(/\D/g, '')) + '")')
             await eval('memorydatapcn' + interaction.user.id.replace(/\D/g, '') + '.push("' + sel + '")')
@@ -61,6 +63,7 @@ module.exports = {
             await eval('global.memorydatapca' + interaction.user.id.replace(/\D/g, '') + ' = 0')
             await eval('global.memorydatapc' + interaction.user.id.replace(/\D/g, '') + ' = []')
             await eval('global.memorydatapcn' + interaction.user.id.replace(/\D/g, '') + ' = []')
+            se = true
         }
 
         /* Check if Game is Done
@@ -335,35 +338,6 @@ module.exports = {
         // Send Message
         console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] MEMORY : ' + sel + ' : ' + eval('memorydataf' + sel + sender.toString().replace(/\D/g, '')))
         interaction.update({ embeds: [message.toJSON()], components: [row1, row2, row3, row4], ephemeral: true })
-
-        // Check if Special Edit is required
-        let se = false
-        if (eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '.includes(' + await eval('memorydatag' + sel + sender.toString().replace(/\D/g, '')) + ')') && await eval('global.memorydatapca' + interaction.user.id.replace(/\D/g, '')) != 2) {
-            await eval('global.memorydatap' + interaction.user.id.replace(/\D/g, '') + ' = memorydatap' + interaction.user.id.replace(/\D/g, '') + ' + 1')
-            await eval('global.memorydataf' + eval('memorydatapcn' + interaction.user.id.replace(/\D/g, '') + '[0]') + sender.toString().replace(/\D/g, '') + ' = "1017050508252418068"')
-            await eval('global.memorydataf' + eval('memorydatapcn' + interaction.user.id.replace(/\D/g, '') + '[1]') + sender.toString().replace(/\D/g, '') + ' = "1017050508252418068"')
-            await wait(50)
-            await eval('global.memorydatad' + eval('memorydatapcn' + interaction.user.id.replace(/\D/g, '') + '[0]') + sender.toString().replace(/\D/g, '') + ' = false')
-            await eval('global.memorydatad' + eval('memorydatapcn' + interaction.user.id.replace(/\D/g, '') + '[1]') + sender.toString().replace(/\D/g, '') + ' = false')
-            await eval('global.memorydatapca' + interaction.user.id.replace(/\D/g, '') + ' = 0')
-            await eval('global.memorydatapc' + interaction.user.id.replace(/\D/g, '') + ' = []')
-            await eval('global.memorydatapcn' + interaction.user.id.replace(/\D/g, '') + ' = []')
-            se = true
-        } else if (!eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '.includes(' + await eval('memorydataf' + sel + sender.toString().replace(/\D/g, '')) + ')') && await eval('global.memorydatapca' + interaction.user.id.replace(/\D/g, '')) != 2) {
-            await eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '.push("' + await eval('memorydataf' + sel + sender.toString().replace(/\D/g, '')) + '")')
-            await eval('memorydatapcn' + interaction.user.id.replace(/\D/g, '') + '.push("' + sel + '")')
-            await eval('global.memorydatad' + sel + sender.toString().replace(/\D/g, '') + ' = true')
-        } else if (await eval('global.memorydatapca' + interaction.user.id.replace(/\D/g, '')) == 2) {
-            await eval('global.memorydataf' + eval('memorydatapcn' + sender.toString().replace(/\D/g, '') + '[0]') + sender.toString().replace(/\D/g, '') + ' = "1017050508252418068"')
-            await eval('global.memorydataf' + eval('memorydatapcn' + sender.toString().replace(/\D/g, '') + '[1]') + sender.toString().replace(/\D/g, '') + ' = "1017050508252418068"')
-            await wait(50)
-            await eval('global.memorydatad' + eval('memorydatapcn' + interaction.user.id.replace(/\D/g, '') + '[0]') + sender.toString().replace(/\D/g, '') + ' = false')
-            await eval('global.memorydatad' + eval('memorydatapcn' + interaction.user.id.replace(/\D/g, '') + '[1]') + sender.toString().replace(/\D/g, '') + ' = false')
-            await eval('global.memorydatapca' + interaction.user.id.replace(/\D/g, '') + ' = 0')
-            await eval('global.memorydatapc' + interaction.user.id.replace(/\D/g, '') + ' = []')
-            await eval('global.memorydatapcn' + interaction.user.id.replace(/\D/g, '') + ' = []')
-            se = true
-        }
 
         if (!se) return
         await wait(1500)
