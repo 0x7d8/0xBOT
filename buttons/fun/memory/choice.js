@@ -47,7 +47,6 @@ module.exports = {
                 await eval('global.memorydatapca' + interaction.user.id.replace(/\D/g, '') + ' = 0')
                 await eval('global.memorydatapc' + interaction.user.id.replace(/\D/g, '') + ' = []')
                 await eval('global.memorydatapcn' + interaction.user.id.replace(/\D/g, '') + ' = []')
-                console.log('1')
                 sno = true
                 se = true
             }
@@ -57,7 +56,6 @@ module.exports = {
                 await eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '.push("' + await eval('memorydataf' + sel + sender.toString().replace(/\D/g, '')) + '")')
                 await eval('memorydatapcn' + interaction.user.id.replace(/\D/g, '') + '.push("' + sel + '")')
                 await eval('global.memorydatad' + sel + sender.toString().replace(/\D/g, '') + ' = true')
-                console.log('2')
                 se = false
             }
         }
@@ -68,10 +66,8 @@ module.exports = {
             await eval('global.memorydatapca' + interaction.user.id.replace(/\D/g, '') + ' = 0')
             await eval('global.memorydatapc' + interaction.user.id.replace(/\D/g, '') + ' = []')
             await eval('global.memorydatapcn' + interaction.user.id.replace(/\D/g, '') + ' = []')
-            console.log('3')
             se = true
         }
-        console.log(await eval('memorydatapcn' + interaction.user.id.replace(/\D/g, '')))
 
         // Create Buttons
         let row1 = new ActionRowBuilder()
@@ -384,6 +380,7 @@ module.exports = {
                 }
             }
         }
+        console.log(buttondatas)
 
         // Update Message
         interaction.message.edit({ embeds: [message.toJSON()], components: [row1, row2, row3, row4], ephemeral: true })
@@ -399,7 +396,6 @@ module.exports = {
         await abtn()
 
         // Remove Emojis
-        console.log(nums)
         await eval('global.memorydataf' + nums[0] + sender.toString().replace(/\D/g, '') + ' = "1017050508252418068"')
         await eval('global.memorydataf' + nums[1] + sender.toString().replace(/\D/g, '') + ' = "1017050508252418068"')
         await wait(50)
