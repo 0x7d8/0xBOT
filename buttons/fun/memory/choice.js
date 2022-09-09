@@ -508,6 +508,8 @@ module.exports = {
             }
 
             // Delete Variables
+            eval('delete memorydatatu' + sender.toString().replace(/\D/g, ''))
+
             eval('delete memorydataf1' + sender.toString().replace(/\D/g, ''))
             eval('delete memorydataf2' + sender.toString().replace(/\D/g, ''))
             eval('delete memorydataf3' + sender.toString().replace(/\D/g, ''))
