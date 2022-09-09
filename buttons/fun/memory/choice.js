@@ -494,6 +494,6 @@ module.exports = {
 			);
 
         // Update Message
-        return interaction.update({ embeds: [message.toJSON()], components: [row1, row2, row3, row4], ephemeral: true })
+        return interaction.message.edit({ embeds: [message.toJSON()], components: [row1, row2, row3, row4], ephemeral: true })
     }
 }
