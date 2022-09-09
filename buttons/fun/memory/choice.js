@@ -162,7 +162,7 @@ module.exports = {
 
         // Set Variables
         await eval('global.memorydataf' + sel + sender.toString().replace(/\D/g, '') + ' = memorydatag' + sel + sender.toString().replace(/\D/g, ''))
-        await eval('global.memorydatad' + sel + sender.toString().replace(/\D/g, '') + ' = true' + sel + sender.toString().replace(/\D/g, ''))
+        await eval('global.memorydatad' + sel + sender.toString().replace(/\D/g, '') + ' = true')
         await eval('global.memorydatapca' + interaction.user.id.replace(/\D/g, '') + ' = memorydatapca' + interaction.user.id.replace(/\D/g, '') + ' + 1')
 
         // Create Buttons
