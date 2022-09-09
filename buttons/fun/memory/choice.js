@@ -39,7 +39,7 @@ module.exports = {
         await eval('global.memorydatad' + sel + sender.toString().replace(/\D/g, '') + ' = true')
         await eval('global.memorydatapca' + interaction.user.id.replace(/\D/g, '') + ' = memorydatapca' + interaction.user.id.replace(/\D/g, '') + ' + 1')
         let se = false
-        let nums = []
+        const nums = []
         if (await eval('memorydatapca' + interaction.user.id.replace(/\D/g, '')) + ' < 2') {
             if (await eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '.includes("' + await eval('memorydataf' + sel + sender.toString().replace(/\D/g, '')) + '")')) {
                 await eval('global.memorydatap' + interaction.user.id.replace(/\D/g, '') + ' = memorydatap' + interaction.user.id.replace(/\D/g, '') + ' + 1')
