@@ -342,6 +342,7 @@ module.exports = {
         await wait(2000)
 
         // Remove Emojis
+        console.log(nums)
         await eval('global.memorydataf' + nums[0] + sender.toString().replace(/\D/g, '') + ' = "1017050508252418068"')
         await eval('global.memorydataf' + nums[1] + sender.toString().replace(/\D/g, '') + ' = "1017050508252418068"')
         await wait(50)
