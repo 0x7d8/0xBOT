@@ -307,6 +307,27 @@ module.exports = {
         eval('global.memorydataf19' + sender.toString().replace(/\D/g, '') + ' = "1017050508252418068"')
         eval('global.memorydataf20' + sender.toString().replace(/\D/g, '') + ' = "1017050508252418068"')
 
+        eval('global.memorydatad1' + sender.toString().replace(/\D/g, '') + ' = false')
+        eval('global.memorydatad2' + sender.toString().replace(/\D/g, '') + ' = false')
+        eval('global.memorydatad3' + sender.toString().replace(/\D/g, '') + ' = false')
+        eval('global.memorydatad4' + sender.toString().replace(/\D/g, '') + ' = false')
+        eval('global.memorydatad5' + sender.toString().replace(/\D/g, '') + ' = false')
+        eval('global.memorydatad6' + sender.toString().replace(/\D/g, '') + ' = false')
+        eval('global.memorydatad7' + sender.toString().replace(/\D/g, '') + ' = false')
+        eval('global.memorydatad8' + sender.toString().replace(/\D/g, '') + ' = false')
+        eval('global.memorydatad9' + sender.toString().replace(/\D/g, '') + ' = false')
+        eval('global.memorydatad10' + sender.toString().replace(/\D/g, '') + ' = false')
+        eval('global.memorydatad11' + sender.toString().replace(/\D/g, '') + ' = false')
+        eval('global.memorydatad12' + sender.toString().replace(/\D/g, '') + ' = false')
+        eval('global.memorydatad13' + sender.toString().replace(/\D/g, '') + ' = false')
+        eval('global.memorydatad14' + sender.toString().replace(/\D/g, '') + ' = false')
+        eval('global.memorydatad15' + sender.toString().replace(/\D/g, '') + ' = false')
+        eval('global.memorydatad16' + sender.toString().replace(/\D/g, '') + ' = false')
+        eval('global.memorydatad17' + sender.toString().replace(/\D/g, '') + ' = false')
+        eval('global.memorydatad18' + sender.toString().replace(/\D/g, '') + ' = false')
+        eval('global.memorydatad19' + sender.toString().replace(/\D/g, '') + ' = false')
+        eval('global.memorydatad20' + sender.toString().replace(/\D/g, '') + ' = false')
+
         const emojis = []
         const emojis2 = []
 
