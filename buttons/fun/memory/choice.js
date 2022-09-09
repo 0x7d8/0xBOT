@@ -41,7 +41,7 @@ module.exports = {
         let se = false
         const nums = []
         if (await eval('memorydatapca' + interaction.user.id.replace(/\D/g, '')) + ' < 2') {
-            if (eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '.includes(' + await eval('memorydataf' + sel + sender.toString().replace(/\D/g, '')) + ')')) {
+            if (await eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '.includes(' + await eval('memorydataf' + sel + sender.toString().replace(/\D/g, '')) + ')')) {
                 await eval('global.memorydatap' + interaction.user.id.replace(/\D/g, '') + ' = memorydatap' + interaction.user.id.replace(/\D/g, '') + ' + 1')
                 nums.push(eval('memorydatapcn' + interaction.user.id.replace(/\D/g, '') + '[0]'))
                 nums.push(eval('memorydatapcn' + interaction.user.id.replace(/\D/g, '') + '[1]'))
@@ -70,7 +70,6 @@ module.exports = {
             console.log('3')
             se = true
         }
-        console.log(se + ' a' + await eval('memorydatapca' + interaction.user.id.replace(/\D/g, '')))
 
         // Create Buttons
         let row1 = new ActionRowBuilder()
@@ -220,7 +219,6 @@ module.exports = {
         interaction.update({ embeds: [message.toJSON()], components: [row1, row2, row3, row4], ephemeral: true })
 
         // Check for Special Conditions
-        console.log(se)
         if (se == false) return
         await wait(2000)
 
@@ -231,7 +229,6 @@ module.exports = {
         await wait(50)
         await eval('global.memorydatad' + nums[0] + sender.toString().replace(/\D/g, '') + ' = false')
         await eval('global.memorydatad' + nums[1] + sender.toString().replace(/\D/g, '') + ' = false')
-        console.log('st')
 
         // Create Buttons
         row1 = new ActionRowBuilder()
