@@ -222,7 +222,7 @@ module.exports = {
         let donebutton = false
         const dbtn = async () => {
             while (donebutton == false) {
-                if (await eval('memorydatad' + buttoncount + sender.toString().replace(/\D/g, '') == false)) {
+                if (await eval('memorydatad' + buttoncount + sender.toString().replace(/\D/g, '') + ' == false')) {
                     await eval('global.memorydatad' + buttoncount + sender.toString().replace(/\D/g, '') + ' = true')
                     buttondatas.push(buttoncount.toString())
                     console.log('yes-' + buttoncount)
@@ -232,6 +232,7 @@ module.exports = {
                     donebutton = true
                     return
                 }
+                console.log('no-' + buttoncount)
             }
         }
         if (se == true) {
