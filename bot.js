@@ -5,11 +5,16 @@ const { version, apikey, webkey, dovotes } = require('./config.json');
 const { EmbedBuilder } = require('@discordjs/builders');
 
 // MongoDB
+console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] LOADING 0xBOT ' + version)
+console.log(' ')
+console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] CONNECTING TO MONGODB')
 const mongoose = require('mongoose')
 mongoose.connect(mongo, {
     useUnifiedTopology: true,
     useNewUrlParser: true
-}).then(console.log('\n[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] LOADING BOT, ' + version + '\n[0xBOT] [!] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] CONNECTED TO MONGODB\n\n[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] LOADING COMMANDS AND EVENTS...'))
+}).then(console.log('[0xBOT] [!] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] CONNECTED TO MONGODB'))
+console.log(' ')
+console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] LOADING COMMANDS AND EVENTS...')
 
 // MongoDB Functions
 global.cmds = require("./functions/cmds")
@@ -243,7 +248,10 @@ rest.put(
 	{ body: commands },
 );
 
-console.log('\n[0xBOT] [!] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] COMMANDS REGISTERED\n[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] LOGGING IN')
+console.log(' ')
+console.log('[0xBOT] [!] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] INTERACTIONS REGISTERED')
+console.log(' ')
+console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] LOGGING IN')
 
 // Login
 client.login(token);

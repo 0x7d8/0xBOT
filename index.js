@@ -14,5 +14,6 @@ console.log(' \\______/ |__/  \\__/|_______/  \\______/    |__/   ')
 console.log(' ')
 
 const manager = new ShardingManager('./bot.js', { token: token, shards: 'auto' });
-manager.on('shardCreate', shard => console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] LAUNCHED SHARD #' + shard.id) + '\n');
+manager.on('shardCreate', shard => console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] LAUNCHED SHARD #' + shard.id));
+console.log(' ')
 manager.spawn();
