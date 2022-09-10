@@ -69,13 +69,14 @@ module.exports = {
         await eval('global.tttdataf' + sel + sender.toString().replace(/\D/g, '') + ' = "1017050442431209543"')
         await eval('global.tttdatad' + sel + sender.toString().replace(/\D/g, '') + ' = true')
 
+        const msel = sel - 1
         if (interaction.user.id.replace(/\D/g, '') == sender.toString().replace(/\D/g, '')) {
             await eval('global.tttdatabc' + sel + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Primary')
-            await eval('global.tttdata1a' + sender.toString().replace(/\D/g, '') + '[' + sel-1 + '] = true')
+            await eval('global.tttdata1a' + sender.toString().replace(/\D/g, '') + '[' + msel+ '] = true')
         }
         if (interaction.user.id.replace(/\D/g, '') == reciever.toString().replace(/\D/g, '')) {
             await eval('global.tttdatabc' + sel + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Danger')
-            await eval('global.tttdata2a' + sender.toString().replace(/\D/g, '') + '[' + sel-1 + '] = true')
+            await eval('global.tttdata2a' + sender.toString().replace(/\D/g, '') + '[' + msel + '] = true')
         }
 
         // Turn Switcher
