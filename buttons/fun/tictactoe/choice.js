@@ -65,7 +65,7 @@ module.exports = {
         }
 
         // Set Variables
-        await eval('global.tttdatatuf' + sel + sender.toString().replace(/\D/g, '') + ' = parseInt(tttdatatuf) + 1')
+        await eval('global.tttdatatuf' + sender.toString().replace(/\D/g, '') + ' = parseInt(tttdatatuf) + 1')
         await eval('global.tttdataf' + sel + sender.toString().replace(/\D/g, '') + ' = "1017050442431209543"')
         await eval('global.tttdatad' + sel + sender.toString().replace(/\D/g, '') + ' = true')
 
