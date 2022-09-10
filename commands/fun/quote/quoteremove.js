@@ -42,20 +42,20 @@ module.exports = {
         if (quotes - anzahl < 0) {
             // Create Embed
             let message = new EmbedBuilder()
-            	.setTitle('» REMOVE QUOTES')
-  				.setDescription('» You dont have that many Quotes, you onl have **' + quotes + '**!')
+            	.setTitle('» ERROR')
+  				.setDescription('» You dont have that many Quotes, you only have **' + quotes + '**!')
             	.setFooter({ text: '» ' + version });
 
             if (interaction.guildLocale == "de") {
                 message = new EmbedBuilder()
-            	    .setTitle('» ZITATE ENTFERNEN')
+            	    .setTitle('» FEHLER')
   				    .setDescription('» Du hast garnicht so viele Zitate, du hast nur **' + quotes + '**!')
             	    .setFooter({ text: '» ' + version });
             }
             
             // Send Message
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] REMQUOTES : ' + anzahl + ' : NOTENOUGHQUOTES');
-        	return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
+        	return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
         
         // Check for enough Money
@@ -63,30 +63,52 @@ module.exports = {
             const missing = cost - money
             
             // Create Embed
-            const err = new EmbedBuilder()
-            	.setTitle('» ZITATE ENTFERNEN')
-  				.setDescription('» Du hast nicht genug Geld dafür, dir fehlen **' + missing + '€**!')
+            let message = new EmbedBuilder()
+            	.setTitle('» ERROR')
+  				.setDescription('» You dont have enough Money for that, you are Missing **$' + missing + '**!')
             	.setFooter({ text: '» ' + version + ' » QUOTES: ' + quotes});
+
+            if (interaction.guildLocale == "de") {
+                message = new EmbedBuilder()
+            	    .setTitle('» FEHLER')
+  				    .setDescription('» Du hast nicht genug Geld dafür, dir fehlen **' + missing + '€**!')
+            	    .setFooter({ text: '» ' + version + ' » QUOTES: ' + quotes});
+            }
             
             // Send Message
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] REMQUOTES : ' + anzahl + ' : NOTENOUGHMONEY');
-        	return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
+        	return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
         
         // Check if Plural or not
         let word
         if (anzahl = 1) {
-            word = "Zitat";
+            word = "Quote";
         } else {
-            word = "Zitate";
+            word = "Quotes";
+        }
+
+        if (interaction.guildLocale == "de") {
+            if (anzahl = 1) {
+                word = "Zitat";
+            } else {
+                word = "Zitate";
+            }
         }
         
         // Create Embed
         const newquotes = quotes - 1
-        const message = new EmbedBuilder()
+        let message = new EmbedBuilder()
             .setTitle('» ZITATE ENTFERNEN')
-  			.setDescription('» Du hast erfolgreich **' + anzahl + '** ' + word + ' für **' + cost + '€** entfernt!')
+  			.setDescription('» You successfully removed **' + anzahl + '** ' + word + ' for **$' + cost + '**!')
             .setFooter({ text: '» ' + version + ' » QUOTES: ' + newquotes});
+
+        if (interaction.guildLocale == "de") {
+            message = new EmbedBuilder()
+                .setTitle('» ZITATE ENTFERNEN')
+  			    .setDescription('» Du hast erfolgreich **' + anzahl + '** ' + word + ' für **' + cost + '€** entfernt!')
+                .setFooter({ text: '» ' + version + ' » QUOTES: ' + newquotes});
+        }
 
         // Set Money and Quotes
         bals.rem(interaction.user.id.replace(/\D/g, ''), cost);
