@@ -6,7 +6,7 @@ const wait = require('node:timers/promises').setTimeout;
 
 module.exports = {
     data: {
-        name: 'memory-yes'
+        name: 'ttt-yes'
     },
     async execute(interaction, client, bet, sel) {
         // Get Users

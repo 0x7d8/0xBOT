@@ -230,13 +230,13 @@ module.exports = {
         // Create Embed
         let message = new EmbedBuilder()
         	.setTitle('» TICTACTOE')
-  			.setDescription('» <@' + interaction.user.id.replace(/\D/g, '') + '> challenges you, <@' + user.toString().replace(/\D/g, '') + '> to a battle of Rock Paper Scissors! The Bet is **$' + bet + '**.\nDo you accept?')
+  			.setDescription('» <@' + interaction.user.id.replace(/\D/g, '') + '> challenges you, <@' + user.toString().replace(/\D/g, '') + '> to a battle of Tic Tac Toe! The Bet is **$' + bet + '**.\nDo you accept?')
         	.setFooter({ text: '» ' + version });
 
         if (interaction.guildLocale == "de") {
             message = new EmbedBuilder()
         	    .setTitle('» TICTACTOE')
-  			    .setDescription('» <@' + interaction.user.id.replace(/\D/g, '') + '> fordert dich, <@' + user.toString().replace(/\D/g, '') + '> zu einem Spiel von Schere Stein Papier heraus! Die Wette ist **' + bet + '€**.\nAkzeptierst du?')
+  			    .setDescription('» <@' + interaction.user.id.replace(/\D/g, '') + '> fordert dich, <@' + user.toString().replace(/\D/g, '') + '> zu einem Spiel von Tic Tac Toe heraus! Die Wette ist **' + bet + '€**.\nAkzeptierst du?')
         	    .setFooter({ text: '» ' + version });
         }
 
