@@ -54,7 +54,7 @@ module.exports = {
             }
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] REMQUOTES : ' + anzahl + ' : NOTENOUGHQUOTES');
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] QUOTEREMOVE : ' + anzahl + ' : NOTENOUGHQUOTES');
         	return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
         
@@ -76,7 +76,7 @@ module.exports = {
             }
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] REMQUOTES : ' + anzahl + ' : NOTENOUGHMONEY');
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] QUOTEREMOVE : ' + anzahl + ' : NOTENOUGHMONEY');
         	return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
         
@@ -115,7 +115,7 @@ module.exports = {
         quts.rem(interaction.user.id.replace(/\D/g, ''), anzahl);
         
         // Send Message
-        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] REMQUOTES : ' + anzahl + ' : ' + cost + '€');
+        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] QUOTEREMOVE : ' + anzahl + ' : ' + cost + '€');
         return interaction.reply({ embeds: [message.toJSON()] })
     },
 };

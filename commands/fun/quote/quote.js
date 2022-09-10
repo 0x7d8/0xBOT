@@ -80,7 +80,7 @@ module.exports = {
             
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] QUOTE : ' + zitat.toUpperCase())
         } else {
-            const amount = await quts.get('<@' + autor + '>') + 1;
+            const amount = await quts.get(autor.toString().replace(/\D/g, '')) + 1;
         	message = new EmbedBuilder()
             	.setTitle('» A QUOTE')
   				.setDescription('» "' + zitat + '" ~<@' + autor + '>')
@@ -94,7 +94,7 @@ module.exports = {
             }
             
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] QUOTE : ' + zitat.toUpperCase() + ' : ~' + autor)
-            quts.add('<@' + autor + '>', 1);
+            quts.add(autor.toString().replace(/\D/g, ''), 1);
         }
         
         // Set Cooldown
