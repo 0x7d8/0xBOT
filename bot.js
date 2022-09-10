@@ -14,7 +14,7 @@ mongoose.connect(mongo, {
     useNewUrlParser: true
 }).then(console.log('[0xBOT] [!] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] CONNECTED TO MONGODB'))
 console.log(' ')
-console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] ### LOADING COMMANDS AND EVENTS... ###')
+console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] $$$$$ LOADING COMMANDS AND EVENTS... $$$$$')
 
 // MongoDB Functions
 global.cmds = require("./functions/cmds")
@@ -87,7 +87,8 @@ for (const file of buttonFiles) {
 	console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] LOADING BUTTON ${btn}`);
 }
 
-console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] ### LOADED COMMANDS AND EVENTS ###')
+console.log(' ')
+console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] $$$$$ LOADED COMMANDS AND EVENTS $$$$$')
 
 client.on('interactionCreate', async interaction => {
 	if (!interaction.isCommand() && !interaction.isButton()) return;
@@ -250,7 +251,6 @@ rest.put(
 	{ body: commands },
 );
 
-console.log(' ')
 console.log('[0xBOT] [!] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] INTERACTIONS REGISTERED')
 console.log(' ')
 console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] LOGGING IN')
