@@ -192,6 +192,19 @@ client.on('interactionCreate', async interaction => {
 				const button = client.buttons.get(editedinteraction.customId);
 				await button.execute(editedinteraction, client, bet, selection);
 			}
+			if (interaction.customId.toString().substring(0, 3) == 'TTT') {
+				const cache = interaction.customId.split('-');
+				const [cmd, selection, bet] = cache;
+				let editedinteraction = interaction
+				editedinteraction.customId = "ttt-choice"
+
+				if (selection == 'YES') { editedinteraction.customId = "ttt-yes" }
+				if (selection == 'NO') { editedinteraction.customId = "ttt-no" }
+				sc = true
+
+				const button = client.buttons.get(editedinteraction.customId);
+				await button.execute(editedinteraction, client, bet, selection);
+			}
 
 
 			// Other Button Cases
