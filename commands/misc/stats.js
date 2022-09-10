@@ -14,18 +14,21 @@ module.exports = {
         // Set Variables
         const totalcmd = await cmds.get('t-all');
         const guildcmd = await cmds.get('g-' + interaction.guild.id);
-        const usercmd = await cmds.get('u-' + interaction.user.id.replace(/\D/g, ''));
+        const usercmd = await cmds.get('u-' + interaction.user.id.replace(/\D/g, ''))
+        const totalbtn = await btns.get('t-all');
+        const guildbtn = await btns.get('g-' + interaction.guild.id);
+        const userbtn = await btns.get('u-' + interaction.user.id.replace(/\D/g, ''))
 
         // Create Embed
         let message = new EmbedBuilder()
         		.setTitle('» BOT STATISTICS')
-        		.setDescription('**»» COMMAND STATS**\n» GLOBAL\n`' + totalcmd + '`\n\n» THIS SERVER\n`' + guildcmd + '`\n\n» YOU IN TOTAL\n`' + usercmd + '`')
+        		.setDescription('**»» COMMAND STATS**\n» GLOBAL\n`' + totalcmd + '`\n\n» THIS SERVER\n`' + guildcmd + '`\n\n» YOU IN TOTAL\n`' + usercmd + '`\n\n**»» BUTTON STATS**\n» GLOBAL\n`' + totalbtn + '`\n\n» THIS SERVER\n`' + guildbtn + '`\n\n» YOU IN TOTAL\n`' + userbtn + '`')
         		.setFooter({ text: '» ' + version });
 
         if (interaction.guildLocale == "de") {
             message = new EmbedBuilder()
         		.setTitle('» BOT STATISTIKEN')
-        		.setDescription('**»» BEFEHL STATS**\n» GLOBAL\n`' + totalcmd + '`\n\n» DIESER SERVER\n`' + guildcmd + '`\n\n» DU INSGESAMT\n`' + usercmd + '`')
+        		.setDescription('**»» BEFEHL STATS**\n» GLOBAL\n`' + totalcmd + '`\n\n» DIESER SERVER\n`' + guildcmd + '`\n\n» DU INSGESAMT\n`' + usercmd + '`\n\n**»» BUTTON STATS**\n» GLOBAL\n`' + totalbtn + '`\n\n» DIESER SERVER\n`' + guildbtn + '`\n\n» DU INSGESAMT\n`' + userbtn + '`')
         		.setFooter({ text: '» ' + version });
         }
 

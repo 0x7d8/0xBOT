@@ -22,6 +22,7 @@ mongoose.connect(mongo, {
 
 // MongoDB Functions
 global.cmds = require("./functions/cmds")
+global.btns = require("./functions/btns")
 global.bals = require("./functions/economy")
 global.quts = require("./functions/quotes")
 global.apis = require("./functions/apis")
@@ -137,6 +138,12 @@ client.on('interactionCreate', async interaction => {
 	}
 
 	if (interaction.isButton()) {
+		// Count to Global Buttons
+		btns.add('t-all', 1)
+        
+		// Count Guild Buttons and User
+		btns.add('g-' + interaction.guild.id, 1)
+		btns.add('u-' + interaction.user.id.replace(/\D/g, ''), 1)
 
 		// Execute Button
 		try {
