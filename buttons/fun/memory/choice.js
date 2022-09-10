@@ -307,10 +307,7 @@ module.exports = {
         interaction.message.edit({ embeds: [message.toJSON()], components: [row1, row2, row3, row4], ephemeral: true })
 
         // Check for Special Conditions
-        if (se == false) {
-            await abtn()
-            return
-        }
+        if (se == false) return
         await wait(2500)
 
         // Activate all Deactivated Buttons
