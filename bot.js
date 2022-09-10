@@ -5,16 +5,17 @@ const { version, apikey, webkey, dovotes } = require('./config.json');
 const { EmbedBuilder } = require('@discordjs/builders');
 
 // MongoDB
+console.log(' ')
 console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] LOADING 0xBOT ' + version)
 console.log(' ')
-console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] CONNECTING TO MONGODB...')
+console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] CONNECTING TO MONGODB')
 const mongoose = require('mongoose')
 mongoose.connect(mongo, {
     useUnifiedTopology: true,
     useNewUrlParser: true
 }).then(console.log('[0xBOT] [!] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] CONNECTED TO MONGODB'))
 console.log(' ')
-console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] $$$$$ LOADING COMMANDS AND EVENTS... $$$$$')
+console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [STA] $$$$$ LOADING COMMANDS AND EVENTS $$$$$')
 
 // MongoDB Functions
 global.cmds = require("./functions/cmds")
@@ -88,7 +89,7 @@ for (const file of buttonFiles) {
 }
 
 console.log(' ')
-console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] $$$$$ LOADED COMMANDS AND EVENTS $$$$$')
+console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [END] $$$$$ LOADED COMMANDS AND EVENTS $$$$$')
 
 client.on('interactionCreate', async interaction => {
 	if (!interaction.isCommand() && !interaction.isButton()) return;
