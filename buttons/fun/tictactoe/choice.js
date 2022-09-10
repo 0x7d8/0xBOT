@@ -192,9 +192,59 @@ module.exports = {
         interaction.message.edit({ embeds: [message.toJSON()], components: [row1, row2, row3], ephemeral: true })
         await wait(2500)
 
+        // Check if Anyone Won
+        let won = false
+        if (await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[0] == true') && await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[1] == true') && await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[2] == true')) {
+            won = true
+        }
+        if (await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[3] == true') && await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[4] == true') && await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[5] == true')) {
+            won = true
+        }
+        if (await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[6] == true') && await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[7] == true') && await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[8] == true')) {
+            won = true
+        }
+        if (await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[0] == true') && await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[3] == true') && await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[6] == true')) {
+            won = true
+        }
+        if (await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[1] == true') && await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[4] == true') && await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[7] == true')) {
+            won = true
+        }
+        if (await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[2] == true') && await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[5] == true') && await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[8] == true')) {
+            won = true
+        }
+        if (await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[0] == true') && await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[4] == true') && await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[8] == true')) {
+            won = true
+        }
+        if (await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[6] == true') && await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[4] == true') && await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[2] == true')) {
+            won = true
+        }
+        if (await eval('tttdata2a' + sender.toString().replace(/\D/g, '') + '[0] == true') && await eval('tttdata2a' + sender.toString().replace(/\D/g, '') + '[1] == true') && await eval('tttdata2a' + sender.toString().replace(/\D/g, '') + '[2] == true')) {
+            won = true
+        }
+        if (await eval('tttdata2a' + sender.toString().replace(/\D/g, '') + '[3] == true') && await eval('tttdata2a' + sender.toString().replace(/\D/g, '') + '[4] == true') && await eval('tttdata2a' + sender.toString().replace(/\D/g, '') + '[5] == true')) {
+            won = true
+        }
+        if (await eval('tttdata2a' + sender.toString().replace(/\D/g, '') + '[6] == true') && await eval('tttdata2a' + sender.toString().replace(/\D/g, '') + '[7] == true') && await eval('tttdata2a' + sender.toString().replace(/\D/g, '') + '[8] == true')) {
+            won = true
+        }
+        if (await eval('tttdata2a' + sender.toString().replace(/\D/g, '') + '[0] == true') && await eval('tttdata2a' + sender.toString().replace(/\D/g, '') + '[3] == true') && await eval('tttdata2a' + sender.toString().replace(/\D/g, '') + '[6] == true')) {
+            won = true
+        }
+        if (await eval('tttdata2a' + sender.toString().replace(/\D/g, '') + '[1] == true') && await eval('tttdata2a' + sender.toString().replace(/\D/g, '') + '[4] == true') && await eval('tttdata2a' + sender.toString().replace(/\D/g, '') + '[7] == true')) {
+            won = true
+        }
+        if (await eval('tttdata2a' + sender.toString().replace(/\D/g, '') + '[2] == true') && await eval('tttdata2a' + sender.toString().replace(/\D/g, '') + '[5] == true') && await eval('tttdata2a' + sender.toString().replace(/\D/g, '') + '[8] == true')) {
+            won = true
+        }
+        if (await eval('tttdata2a' + sender.toString().replace(/\D/g, '') + '[0] == true') && await eval('tttdata2a' + sender.toString().replace(/\D/g, '') + '[4] == true') && await eval('tttdata2a' + sender.toString().replace(/\D/g, '') + '[8] == true')) {
+            won = true
+        }
+        if (await eval('tttdata2a' + sender.toString().replace(/\D/g, '') + '[6] == true') && await eval('tttdata2a' + sender.toString().replace(/\D/g, '') + '[4] == true') && await eval('tttdata2a' + sender.toString().replace(/\D/g, '') + '[2] == true')) {
+            won = true
+        }
+
         // Check if Round has ended
-        console.log(await eval('tttdatatuf' + sender.toString().replace(/\D/g, '')))
-        if(await eval('tttdatatuf' + sender.toString().replace(/\D/g, '') + ' == 9')) {
+        if(won) {
             // Check Who Won
             let winner = '**Noone**'
             if (interaction.guildLocale == "de") { winner = '**Niemand**' }
@@ -303,6 +353,68 @@ module.exports = {
                 bals.add(sender.toString().replace(/\D/g, ''), parseInt(bet))
                 bals.add(reciever.toString().replace(/\D/g, ''), parseInt(bet))
             }
+
+            // Create Buttons
+            row1 = new ActionRowBuilder()
+                .addComponents(
+                    new ButtonBuilder()
+                        .setEmoji(eval('tttdataf1' + sender.toString().replace(/\D/g, '')))
+                        .setCustomId('TTT-1-' + bet)
+                        .setStyle(eval('tttdatabc1' + sender.toString().replace(/\D/g, '')))
+                        .setDisabled(eval('tttdatad1' + sender.toString().replace(/\D/g, ''))),
+
+                    new ButtonBuilder()
+                        .setEmoji(eval('tttdataf2' + sender.toString().replace(/\D/g, '')))
+                        .setCustomId('TTT-2-' + bet)
+                        .setStyle(eval('tttdatabc2' + sender.toString().replace(/\D/g, '')))
+                        .setDisabled(eval('tttdatad2' + sender.toString().replace(/\D/g, ''))),
+
+                    new ButtonBuilder()
+                        .setEmoji(eval('tttdataf3' + sender.toString().replace(/\D/g, '')))
+                        .setCustomId('TTT-3-' + bet)
+                        .setStyle(eval('tttdatabc3' + sender.toString().replace(/\D/g, '')))
+                        .setDisabled(eval('tttdatad3' + sender.toString().replace(/\D/g, ''))),
+                );
+            row2 = new ActionRowBuilder()
+                .addComponents(
+                    new ButtonBuilder()
+                        .setEmoji(eval('tttdataf4' + sender.toString().replace(/\D/g, '')))
+                        .setCustomId('TTT-4-' + bet)
+                        .setStyle(eval('tttdatabc4' + sender.toString().replace(/\D/g, '')))
+                        .setDisabled(eval('tttdatad4' + sender.toString().replace(/\D/g, ''))),
+
+                    new ButtonBuilder()
+                        .setEmoji(eval('tttdataf5' + sender.toString().replace(/\D/g, '')))
+                        .setCustomId('TTT-5-' + bet)
+                        .setStyle(eval('tttdatabc5' + sender.toString().replace(/\D/g, '')))
+                        .setDisabled(eval('tttdatad5' + sender.toString().replace(/\D/g, ''))),
+
+                    new ButtonBuilder()
+                        .setEmoji(eval('tttdataf6' + sender.toString().replace(/\D/g, '')))
+                        .setCustomId('TTT-6-' + bet)
+                        .setStyle(eval('tttdatabc6' + sender.toString().replace(/\D/g, '')))
+                        .setDisabled(eval('tttdatad6' + sender.toString().replace(/\D/g, ''))),
+                );
+            row3 = new ActionRowBuilder()
+                .addComponents(
+                    new ButtonBuilder()
+                        .setEmoji(eval('tttdataf7' + sender.toString().replace(/\D/g, '')))
+                        .setCustomId('TTT-7-' + bet)
+                        .setStyle(eval('tttdatabc7' + sender.toString().replace(/\D/g, '')))
+                        .setDisabled(eval('tttdatad7' + sender.toString().replace(/\D/g, ''))),
+
+                    new ButtonBuilder()
+                        .setEmoji(eval('tttdataf8' + sender.toString().replace(/\D/g, '')))
+                        .setCustomId('TTT-8-' + bet)
+                        .setStyle(eval('tttdatabc8' + sender.toString().replace(/\D/g, '')))
+                        .setDisabled(eval('tttdatad8' + sender.toString().replace(/\D/g, ''))),
+
+                    new ButtonBuilder()
+                        .setEmoji(eval('tttdataf9' + sender.toString().replace(/\D/g, '')))
+                        .setCustomId('TTT-9-' + bet)
+                        .setStyle(eval('tttdatabc9' + sender.toString().replace(/\D/g, '')))
+                        .setDisabled(eval('tttdatad9' + sender.toString().replace(/\D/g, ''))),
+                );
 
             // Create Embed
             message = new EmbedBuilder()
