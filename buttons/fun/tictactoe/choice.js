@@ -193,59 +193,106 @@ module.exports = {
         await wait(2500)
 
         // Check if Round has ended
+        console.log(await eval('tttdatatuf' + sender.toString().replace(/\D/g, '')))
         if(await eval('tttdatatuf' + sender.toString().replace(/\D/g, '') + ' == 9')) {
             // Check Who Won
-            const senderpoints = await eval('memeorydatap' + sender.toString().replace(/\D/g, ''))
-            const recieverpoints = await eval('memorydatap' + reciever.toString().replace(/\D/g, ''))
             let winner = '**Noone**'
             if (interaction.guildLocale == "de") { winner = '**Niemand**' }
             if (await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[0] == true') && await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[1] == true') && await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[2] == true')) {
                 winner = '<@' + sender.toString().replace(/\D/g, '') + '>'
+                await eval('global.tttdatabc1' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Success')
+                await eval('global.tttdatabc2' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Success')
+                await eval('global.tttdatabc3' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Success')
             }
             if (await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[3] == true') && await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[4] == true') && await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[5] == true')) {
                 winner = '<@' + sender.toString().replace(/\D/g, '') + '>'
+                await eval('global.tttdatabc4' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Success')
+                await eval('global.tttdatabc5' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Success')
+                await eval('global.tttdatabc6' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Success')
             }
             if (await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[6] == true') && await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[7] == true') && await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[8] == true')) {
                 winner = '<@' + sender.toString().replace(/\D/g, '') + '>'
+                await eval('global.tttdatabc7' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Success')
+                await eval('global.tttdatabc8' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Success')
+                await eval('global.tttdatabc9' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Success')
             }
             if (await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[0] == true') && await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[3] == true') && await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[6] == true')) {
                 winner = '<@' + sender.toString().replace(/\D/g, '') + '>'
+                await eval('global.tttdatabc1' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Success')
+                await eval('global.tttdatabc4' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Success')
+                await eval('global.tttdatabc7' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Success')
             }
             if (await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[1] == true') && await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[4] == true') && await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[7] == true')) {
                 winner = '<@' + sender.toString().replace(/\D/g, '') + '>'
+                await eval('global.tttdatabc2' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Success')
+                await eval('global.tttdatabc5' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Success')
+                await eval('global.tttdatabc8' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Success')
             }
             if (await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[2] == true') && await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[5] == true') && await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[8] == true')) {
                 winner = '<@' + sender.toString().replace(/\D/g, '') + '>'
+                await eval('global.tttdatabc3' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Success')
+                await eval('global.tttdatabc6' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Success')
+                await eval('global.tttdatabc9' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Success')
             }
             if (await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[0] == true') && await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[4] == true') && await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[8] == true')) {
                 winner = '<@' + sender.toString().replace(/\D/g, '') + '>'
+                await eval('global.tttdatabc1' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Success')
+                await eval('global.tttdatabc5' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Success')
+                await eval('global.tttdatabc9' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Success')
             }
             if (await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[6] == true') && await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[4] == true') && await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[2] == true')) {
                 winner = '<@' + sender.toString().replace(/\D/g, '') + '>'
+                await eval('global.tttdatabc3' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Success')
+                await eval('global.tttdatabc5' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Success')
+                await eval('global.tttdatabc7' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Success')
             }
             if (await eval('tttdata2a' + reciever.toString().replace(/\D/g, '') + '[0] == true') && await eval('tttdata2a' + reciever.toString().replace(/\D/g, '') + '[1] == true') && await eval('tttdata2a' + reciever.toString().replace(/\D/g, '') + '[2] == true')) {
                 winner = '<@' + reciever.toString().replace(/\D/g, '') + '>'
+                await eval('global.tttdatabc1' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Success')
+                await eval('global.tttdatabc2' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Success')
+                await eval('global.tttdatabc3' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Success')
             }
             if (await eval('tttdata2a' + reciever.toString().replace(/\D/g, '') + '[3] == true') && await eval('tttdata2a' + reciever.toString().replace(/\D/g, '') + '[4] == true') && await eval('tttdata2a' + reciever.toString().replace(/\D/g, '') + '[5] == true')) {
                 winner = '<@' + reciever.toString().replace(/\D/g, '') + '>'
+                await eval('global.tttdatabc4' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Success')
+                await eval('global.tttdatabc5' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Success')
+                await eval('global.tttdatabc6' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Success')
             }
             if (await eval('tttdata2a' + reciever.toString().replace(/\D/g, '') + '[6] == true') && await eval('tttdata2a' + reciever.toString().replace(/\D/g, '') + '[7] == true') && await eval('tttdata2a' + reciever.toString().replace(/\D/g, '') + '[8] == true')) {
                 winner = '<@' + reciever.toString().replace(/\D/g, '') + '>'
+                await eval('global.tttdatabc7' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Success')
+                await eval('global.tttdatabc8' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Success')
+                await eval('global.tttdatabc9' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Success')
             }
             if (await eval('tttdata2a' + reciever.toString().replace(/\D/g, '') + '[0] == true') && await eval('tttdata2a' + reciever.toString().replace(/\D/g, '') + '[3] == true') && await eval('tttdata2a' + reciever.toString().replace(/\D/g, '') + '[6] == true')) {
                 winner = '<@' + reciever.toString().replace(/\D/g, '') + '>'
+                await eval('global.tttdatabc1' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Success')
+                await eval('global.tttdatabc4' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Success')
+                await eval('global.tttdatabc7' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Success')
             }
             if (await eval('tttdata2a' + reciever.toString().replace(/\D/g, '') + '[1] == true') && await eval('tttdata2a' + reciever.toString().replace(/\D/g, '') + '[4] == true') && await eval('tttdata2a' + reciever.toString().replace(/\D/g, '') + '[7] == true')) {
                 winner = '<@' + reciever.toString().replace(/\D/g, '') + '>'
+                await eval('global.tttdatabc2' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Success')
+                await eval('global.tttdatabc5' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Success')
+                await eval('global.tttdatabc8' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Success')
             }
             if (await eval('tttdata2a' + reciever.toString().replace(/\D/g, '') + '[2] == true') && await eval('tttdata2a' + reciever.toString().replace(/\D/g, '') + '[5] == true') && await eval('tttdata2a' + reciever.toString().replace(/\D/g, '') + '[8] == true')) {
                 winner = '<@' + reciever.toString().replace(/\D/g, '') + '>'
+                await eval('global.tttdatabc3' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Success')
+                await eval('global.tttdatabc6' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Success')
+                await eval('global.tttdatabc9' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Success')
             }
             if (await eval('tttdata2a' + reciever.toString().replace(/\D/g, '') + '[0] == true') && await eval('tttdata2a' + reciever.toString().replace(/\D/g, '') + '[4] == true') && await eval('tttdata2a' + reciever.toString().replace(/\D/g, '') + '[8] == true')) {
                 winner = '<@' + reciever.toString().replace(/\D/g, '') + '>'
+                await eval('global.tttdatabc1' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Success')
+                await eval('global.tttdatabc5' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Success')
+                await eval('global.tttdatabc9' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Success')
             }
             if (await eval('tttdata2a' + reciever.toString().replace(/\D/g, '') + '[6] == true') && await eval('tttdata2a' + reciever.toString().replace(/\D/g, '') + '[4] == true') && await eval('tttdata2a' + reciever.toString().replace(/\D/g, '') + '[2] == true')) {
                 winner = '<@' + reciever.toString().replace(/\D/g, '') + '>'
+                await eval('global.tttdatabc3' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Success')
+                await eval('global.tttdatabc5' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Success')
+                await eval('global.tttdatabc7' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Success')
             }
 
             // Transfer Money
