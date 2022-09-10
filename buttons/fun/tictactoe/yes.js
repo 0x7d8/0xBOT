@@ -228,6 +228,9 @@ module.exports = {
         eval('global.tttdatatu' + sender.toString().replace(/\D/g, '') + ' = ' + sender.toString().replace(/\D/g, ''))
         eval('global.tttdatatuf' + sender.toString().replace(/\D/g, '') + ' = 0')
 
+        eval('global.tttdata1a' + sender.toString().replace(/\D/g, '') + ' = []')
+        eval('global.tttdata2a' + sender.toString().replace(/\D/g, '') + ' = []')
+
         eval('global.tttdatapc' + sender.toString().replace(/\D/g, '') + ' = []')
         eval('global.tttdatapc' + reciever.toString().replace(/\D/g, '') + ' = []')
         eval('global.tttdatapcn' + sender.toString().replace(/\D/g, '') + ' = []')

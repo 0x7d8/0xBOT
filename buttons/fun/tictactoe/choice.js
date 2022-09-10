@@ -71,9 +71,11 @@ module.exports = {
 
         if (interaction.user.id.replace(/\D/g, '') == sender.toString().replace(/\D/g, '')) {
             await eval('global.tttdatabc' + sel + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Primary')
+            await eval('global.tttdata1a' + sender.toString().replace(/\D/g, '') + '[' + sel-1 + '] = true')
         }
         if (interaction.user.id.replace(/\D/g, '') == reciever.toString().replace(/\D/g, '')) {
             await eval('global.tttdatabc' + sel + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Danger')
+            await eval('global.tttdata2a' + sender.toString().replace(/\D/g, '') + '[' + sel-1 + '] = true')
         }
 
         // Turn Switcher
@@ -189,39 +191,60 @@ module.exports = {
         interaction.message.edit({ embeds: [message.toJSON()], components: [row1, row2, row3], ephemeral: true })
         await wait(2500)
 
-        // Activate all Deactivated Buttons
-        buttoncount = 0
-        donebutton = false
-        const abtn = async () => {
-            while (donebutton == false) {
-                await wait(25)
-                if (buttondatas.includes(buttoncount.toString())) {
-                    await eval('global.tttdatad' + buttoncount + sender.toString().replace(/\D/g, '') + ' = false')
-                }
-                buttoncount = buttoncount + 1
-                if (buttoncount == 10) {
-                    donebutton = true
-                    return
-                }
-            }
-        }
-        await abtn()
-
         // Check if Round has ended
         if(await eval('tttdatatuf' + sender.toString().replace(/\D/g, '') + ' == 9')) {
             // Check Who Won
             const senderpoints = await eval('memeorydatap' + sender.toString().replace(/\D/g, ''))
             const recieverpoints = await eval('memorydatap' + reciever.toString().replace(/\D/g, ''))
-            let winner
-            if (parseInt(senderpoints) > parseInt(recieverpoints)) {
+            let winner = '**Noone**'
+            if (interaction.guildLocale == "de") { winner = '**Niemand**' }
+            if (await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[0] == true') && await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[1] == true') && await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[2] == true')) {
                 winner = '<@' + sender.toString().replace(/\D/g, '') + '>'
-            } else if (parseInt(senderpoints) < parseInt(recieverpoints)) {
+            }
+            if (await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[3] == true') && await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[4] == true') && await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[5] == true')) {
+                winner = '<@' + sender.toString().replace(/\D/g, '') + '>'
+            }
+            if (await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[6] == true') && await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[7] == true') && await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[8] == true')) {
+                winner = '<@' + sender.toString().replace(/\D/g, '') + '>'
+            }
+            if (await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[0] == true') && await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[3] == true') && await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[6] == true')) {
+                winner = '<@' + sender.toString().replace(/\D/g, '') + '>'
+            }
+            if (await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[1] == true') && await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[4] == true') && await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[7] == true')) {
+                winner = '<@' + sender.toString().replace(/\D/g, '') + '>'
+            }
+            if (await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[2] == true') && await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[5] == true') && await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[8] == true')) {
+                winner = '<@' + sender.toString().replace(/\D/g, '') + '>'
+            }
+            if (await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[0] == true') && await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[4] == true') && await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[8] == true')) {
+                winner = '<@' + sender.toString().replace(/\D/g, '') + '>'
+            }
+            if (await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[6] == true') && await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[4] == true') && await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[2] == true')) {
+                winner = '<@' + sender.toString().replace(/\D/g, '') + '>'
+            }
+            if (await eval('tttdata2a' + reciever.toString().replace(/\D/g, '') + '[0] == true') && await eval('tttdata2a' + reciever.toString().replace(/\D/g, '') + '[1] == true') && await eval('tttdata2a' + reciever.toString().replace(/\D/g, '') + '[2] == true')) {
                 winner = '<@' + reciever.toString().replace(/\D/g, '') + '>'
-            } else {
-                winner = '**Noone**'
-                if (interaction.guildLocale == "de") {
-                    winner = '**Niemand**'
-                }
+            }
+            if (await eval('tttdata2a' + reciever.toString().replace(/\D/g, '') + '[3] == true') && await eval('tttdata2a' + reciever.toString().replace(/\D/g, '') + '[4] == true') && await eval('tttdata2a' + reciever.toString().replace(/\D/g, '') + '[5] == true')) {
+                winner = '<@' + reciever.toString().replace(/\D/g, '') + '>'
+            }
+            if (await eval('tttdata2a' + reciever.toString().replace(/\D/g, '') + '[6] == true') && await eval('tttdata2a' + reciever.toString().replace(/\D/g, '') + '[7] == true') && await eval('tttdata2a' + reciever.toString().replace(/\D/g, '') + '[8] == true')) {
+                winner = '<@' + reciever.toString().replace(/\D/g, '') + '>'
+            }
+            if (await eval('tttdata2a' + reciever.toString().replace(/\D/g, '') + '[0] == true') && await eval('tttdata2a' + reciever.toString().replace(/\D/g, '') + '[3] == true') && await eval('tttdata2a' + reciever.toString().replace(/\D/g, '') + '[6] == true')) {
+                winner = '<@' + reciever.toString().replace(/\D/g, '') + '>'
+            }
+            if (await eval('tttdata2a' + reciever.toString().replace(/\D/g, '') + '[1] == true') && await eval('tttdata2a' + reciever.toString().replace(/\D/g, '') + '[4] == true') && await eval('tttdata2a' + reciever.toString().replace(/\D/g, '') + '[7] == true')) {
+                winner = '<@' + reciever.toString().replace(/\D/g, '') + '>'
+            }
+            if (await eval('tttdata2a' + reciever.toString().replace(/\D/g, '') + '[2] == true') && await eval('tttdata2a' + reciever.toString().replace(/\D/g, '') + '[5] == true') && await eval('tttdata2a' + reciever.toString().replace(/\D/g, '') + '[8] == true')) {
+                winner = '<@' + reciever.toString().replace(/\D/g, '') + '>'
+            }
+            if (await eval('tttdata2a' + reciever.toString().replace(/\D/g, '') + '[0] == true') && await eval('tttdata2a' + reciever.toString().replace(/\D/g, '') + '[4] == true') && await eval('tttdata2a' + reciever.toString().replace(/\D/g, '') + '[8] == true')) {
+                winner = '<@' + reciever.toString().replace(/\D/g, '') + '>'
+            }
+            if (await eval('tttdata2a' + reciever.toString().replace(/\D/g, '') + '[6] == true') && await eval('tttdata2a' + reciever.toString().replace(/\D/g, '') + '[4] == true') && await eval('tttdata2a' + reciever.toString().replace(/\D/g, '') + '[2] == true')) {
+                winner = '<@' + reciever.toString().replace(/\D/g, '') + '>'
             }
 
             // Transfer Money
@@ -236,18 +259,19 @@ module.exports = {
             // Create Embed
             message = new EmbedBuilder()
                 .setTitle('» TICTACTOE')
-                .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> is playing Memory with <@' + reciever.toString().replace(/\D/g, '') + '>!\nThe Bet is **$' + bet + '**\n\n🔵 » Points of <@' + sender.toString().replace(/\D/g, '') + '> are **' + eval('memorydatap' + sender.toString().replace(/\D/g, '')) + '**\n🔴 » Points of <@' + reciever.toString().replace(/\D/g, '') + '> are **' + eval('memorydatap' + reciever.toString().replace(/\D/g, '')) + '**\n\n' + winner + ' has won **$' + betwon + '**!')
+                .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> is playing Tic Tac Toe with <@' + reciever.toString().replace(/\D/g, '') + '>!\nThe Bet is **$' + bet + '**\n\n🔵 » <@' + sender.toString().replace(/\D/g, '') + '>\n🔴 » <@' + reciever.toString().replace(/\D/g, '') + '>\n\n' + winner + ' has won **$' + betwon + '**!')
                 .setFooter({ text: '» ' + version });
 
             if (interaction.guildLocale == "de") {
                 message = new EmbedBuilder()
                     .setTitle('» TICTACTOE')
-                    .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> spielt mit <@' + reciever.toString().replace(/\D/g, '') + '> Memory!\nDie Wette ist **' + bet + '€**\n\n🔵 » Punkte von <@' + sender.toString().replace(/\D/g, '') + '> sind **' + eval('memorydatap' + sender.toString().replace(/\D/g, '')) + '**\n🔴 » Punkte von <@' + reciever.toString().replace(/\D/g, '') + '> sind **' + eval('memorydatap' + reciever.toString().replace(/\D/g, '')) +'**\n\n' + winner + ' hat **' + betwon + '€** gewonnen!')
+                    .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> spielt mit <@' + reciever.toString().replace(/\D/g, '') + '> Tic Tac Toe!\nDie Wette ist **' + bet + '€**\n\n🔵 » <@' + sender.toString().replace(/\D/g, '') + '>\n🔴 » <@' + reciever.toString().replace(/\D/g, '') + '>\n\n' + winner + ' hat **' + betwon + '€** gewonnen!')
                     .setFooter({ text: '» ' + version });
             }
 
             // Delete Variables
             eval('delete tttdatatu' + sender.toString().replace(/\D/g, ''))
+            eval('delete tttdatatuf' + sender.toString().replace(/\D/g, ''))
 
             eval('delete tttdataf1' + sender.toString().replace(/\D/g, ''))
             eval('delete tttdataf2' + sender.toString().replace(/\D/g, ''))
@@ -294,6 +318,24 @@ module.exports = {
             // Update Message
             return interaction.message.edit({ embeds: [message.toJSON()], components: [row1, row2, row3], ephemeral: true })
         }
+
+        // Activate all Deactivated Buttons
+        buttoncount = 0
+        donebutton = false
+        const abtn = async () => {
+            while (donebutton == false) {
+                await wait(25)
+                if (buttondatas.includes(buttoncount.toString())) {
+                    await eval('global.tttdatad' + buttoncount + sender.toString().replace(/\D/g, '') + ' = false')
+                }
+                buttoncount = buttoncount + 1
+                if (buttoncount == 10) {
+                    donebutton = true
+                    return
+                }
+            }
+        }
+        await abtn()
 
         // Create Buttons
         row1 = new ActionRowBuilder()
