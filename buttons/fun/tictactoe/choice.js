@@ -104,9 +104,7 @@ module.exports = {
                 }
             }
         }
-        if (se == true) {
-            await dbtn()
-        }
+        await dbtn()
 
         // Create Buttons
         let row1 = new ActionRowBuilder()
@@ -191,7 +189,6 @@ module.exports = {
         interaction.message.edit({ embeds: [message.toJSON()], components: [row1, row2, row3], ephemeral: true })
 
         // Check for Special Conditions
-        if (se == false) return
         await wait(2500)
 
         // Activate all Deactivated Buttons
@@ -215,7 +212,7 @@ module.exports = {
         // Check if Round has ended
         if(await eval('tttdatatuf' + sender.toString().replace(/\D/g, '') + ' == 9')) {
             // Check Who Won
-            const senderpoints = await eval('memorydatap' + sender.toString().replace(/\D/g, ''))
+            const senderpoints = await eval('memeorydatap' + sender.toString().replace(/\D/g, ''))
             const recieverpoints = await eval('memorydatap' + reciever.toString().replace(/\D/g, ''))
             let winner
             if (parseInt(senderpoints) > parseInt(recieverpoints)) {
