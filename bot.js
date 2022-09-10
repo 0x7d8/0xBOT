@@ -7,14 +7,14 @@ const { EmbedBuilder } = require('@discordjs/builders');
 // MongoDB
 console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] LOADING 0xBOT ' + version)
 console.log(' ')
-console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] CONNECTING TO MONGODB')
+console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] CONNECTING TO MONGODB...')
 const mongoose = require('mongoose')
 mongoose.connect(mongo, {
     useUnifiedTopology: true,
     useNewUrlParser: true
 }).then(console.log('[0xBOT] [!] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] CONNECTED TO MONGODB'))
 console.log(' ')
-console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] LOADING COMMANDS AND EVENTS...')
+console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] ### LOADING COMMANDS AND EVENTS... ###')
 
 // MongoDB Functions
 global.cmds = require("./functions/cmds")
@@ -86,6 +86,8 @@ for (const file of buttonFiles) {
     let btn = button.data.name.toUpperCase()
 	console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] LOADING BUTTON ${btn}`);
 }
+
+console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] ### LOADED COMMANDS AND EVENTS ###')
 
 client.on('interactionCreate', async interaction => {
 	if (!interaction.isCommand() && !interaction.isButton()) return;
