@@ -244,7 +244,7 @@ module.exports = {
         }
 
         // Check if Round has ended
-        if(won) {
+        if(won || await eval('tttdatatuf' + sender.toString().replace(/\D/g, '') + ' == 9')) {
             // Check Who Won
             let winner = '**Noone**'
             if (interaction.guildLocale == "de") { winner = '**Niemand**' }
