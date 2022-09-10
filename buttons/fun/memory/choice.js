@@ -84,19 +84,6 @@ module.exports = {
                     eval('global.memorydatabc' + await eval('memorydatapcn' + interaction.user.id.replace(/\D/g, '') + '[0]') + sender.replace(/\D/g, '') + ' = ButtonStyle.Danger')
                     eval('global.memorydatabc' + sel + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Danger')
                 }
-
-
-                // Turn Switcher
-                if (turn == sender.toString().replace(/\D/g, '')) {
-                    await eval('global.memorydatatu' + sender.toString().replace(/\D/g, '') + ' = ' + reciever.toString().replace(/\D/g, ''))
-                    turnemoji = '🔴'
-                }
-                if (turn == reciever.toString().replace(/\D/g, '')) {
-                    await eval('global.memorydatatu' + sender.toString().replace(/\D/g, '') + ' = ' + sender.toString().replace(/\D/g, ''))
-                    turnemoji = '🔵'
-                }
-
-
                 await eval('global.memorydatapc' + interaction.user.id.replace(/\D/g, '') + ' = []')
                 await eval('global.memorydatapcn' + interaction.user.id.replace(/\D/g, '') + ' = []')
                 sno = true
