@@ -122,17 +122,21 @@ client.on('interactionCreate', async interaction => {
 		try {
 			await command.execute(interaction, client);
 		} catch (error) {
-    		console.log('[0xBOT] [!] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] ERROR :')
-			console.error(error);
+			try {
+    			console.log('[0xBOT] [!] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] ERROR :')
+				console.error(error);
         
-    		// Create Error Embed
-    		const message = new EmbedBuilder()
-        		.setTitle('» FEHLER')
-  				.setDescription('**»» INFO**\n» WAS?\n`Ein Fehler ist beim ausführen dieses Befehls aufgetreten.`\n\n» WIESO?\n`Dies kann an vielem liegen, der Code wird für Fehler vorm Release einer neuen Version gecheckt und es kann sein, das ein Fehler enthalten war.`\n\n» WAS TUN?\n`Nichts. Einfach warten, der Befehl wurde geloggt und sollte in der nächsten Version schon behoben werden!`\n\n**»» KONTAKT**\n» EMAIL\n`kontakt@rjansen.de`')
-    			.setFooter({ text: '» ' + version });
+    			// Create Error Embed
+    			const message = new EmbedBuilder()
+        			.setTitle('» FEHLER')
+  					.setDescription('**»» INFO**\n» WAS?\n`Ein Fehler ist beim ausführen dieses Befehls aufgetreten.`\n\n» WIESO?\n`Dies kann an vielem liegen, der Code wird für Fehler vorm Release einer neuen Version gecheckt und es kann sein, das ein Fehler enthalten war.`\n\n» WAS TUN?\n`Nichts. Einfach warten, der Befehl wurde geloggt und sollte in der nächsten Version schon behoben werden!`\n\n**»» KONTAKT**\n» EMAIL\n`kontakt@rjansen.de`')
+    				.setFooter({ text: '» ' + version });
 
-    		// Send Message
-			await interaction.reply({ embeds: [message.toJSON()], ephemeral: true });
+    			// Send Message
+				await interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+			} catch (error) {
+				return
+			}
 		}
 
 	}
@@ -200,17 +204,21 @@ client.on('interactionCreate', async interaction => {
 
 			return;
 		} catch (error) {
-			console.log('[0xBOT] [!] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] ERROR :')
-			console.error(error);
+			try {
+				console.log('[0xBOT] [!] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] ERROR :')
+				console.error(error);
         
-    		// Create Error Embed
-    		const message = new EmbedBuilder()
-        		.setTitle('» FEHLER')
-  				.setDescription('**»» INFO**\n» WAS?\n`Ein Fehler ist beim ausführen dieses Buttons aufgetreten.`\n\n» WIESO?\n`Dies kann an vielem liegen, der Code wird für Fehler vorm Release einer neuen Version gecheckt und es kann sein, das ein Fehler enthalten war.`\n\n» WAS TUN?\n`Nichts. Einfach warten, der Button wurde geloggt und sollte in der nächsten Version schon behoben werden!`\n\n**»» KONTAKT**\n» EMAIL\n`kontakt@rjansen.de`')
-    			.setFooter({ text: '» ' + version });
+    			// Create Error Embed
+    			const message = new EmbedBuilder()
+        			.setTitle('» FEHLER')
+  					.setDescription('**»» INFO**\n» WAS?\n`Ein Fehler ist beim ausführen dieses Buttons aufgetreten.`\n\n» WIESO?\n`Dies kann an vielem liegen, der Code wird für Fehler vorm Release einer neuen Version gecheckt und es kann sein, das ein Fehler enthalten war.`\n\n» WAS TUN?\n`Nichts. Einfach warten, der Button wurde geloggt und sollte in der nächsten Version schon behoben werden!`\n\n**»» KONTAKT**\n» EMAIL\n`kontakt@rjansen.de`')
+    				.setFooter({ text: '» ' + version });
 
-    		// Send Message
-			await interaction.reply({ embeds: [message.toJSON()], ephemeral: true });
+    			// Send Message
+				await interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+			} catch (error) {
+				return
+			}
 		}
 
 	}
