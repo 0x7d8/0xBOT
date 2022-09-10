@@ -82,14 +82,14 @@ module.exports = {
         
         // Check if Plural or not
         let word
-        if (anzahl = 1) {
+        if (anzahl == 1) {
             word = "Quote";
         } else {
             word = "Quotes";
         }
 
         if (interaction.guildLocale == "de") {
-            if (anzahl = 1) {
+            if (anzahl == 1) {
                 word = "Zitat";
             } else {
                 word = "Zitate";
