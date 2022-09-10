@@ -226,6 +226,7 @@ module.exports = {
         eval('global.tttdatap' + reciever.toString().replace(/\D/g, '') + ' = 0')
 
         eval('global.tttdatatu' + sender.toString().replace(/\D/g, '') + ' = ' + sender.toString().replace(/\D/g, ''))
+        eval('global.tttdatatuf' + sender.toString().replace(/\D/g, '') + ' = 0')
 
         eval('global.tttdatapc' + sender.toString().replace(/\D/g, '') + ' = []')
         eval('global.tttdatapc' + reciever.toString().replace(/\D/g, '') + ' = []')
