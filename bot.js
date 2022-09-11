@@ -323,7 +323,7 @@ if (dovotes != 'no') {
 		console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] VOTED : ' + user + ' : ' + random + '€')
 
 		db.set(vote.user, Date.now()).then(() => {
-			await user.send({ embeds: [message.toJSON()] })
+			user.send({ embeds: [message.toJSON()] })
 		})
 	}))
 	app.listen(25252)
