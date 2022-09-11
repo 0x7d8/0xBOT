@@ -38,25 +38,6 @@ module.exports = {
         const nickname = interaction.options.getString("nickname")
         const user = interaction.options.getUser("user")
 
-        // Check if Bot has Permission
-        if (!interaction.member.guild.me.permissions.has("MANAGE_NICKNAMES")) {
-            // Create Embed
-            let message = new EmbedBuilder()
-        		.setTitle('» ERROR')
-        		.setDescription('» I dont have enough Permissions to nick that User!')
-        		.setFooter({ text: '» ' + version });
-            if (interaction.guildLocale == "de") {
-                message = new EmbedBuilder()
-        		    .setTitle('» FEHLER')
-        		    .setDescription('» Ich hab nicht genug Rechte um diesen Nutzer zu nicken!')
-        		    .setFooter({ text: '» ' + version });
-            }
-            
-            // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] NICK : NOTENOUGHPERMS')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
-        }
-
         // Nickname User
         user.setNickname(nickname)
 
