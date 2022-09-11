@@ -260,9 +260,6 @@ console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: f
 // Login
 client.login(token)
 
-// Set Status
-client.user.setActivity(client.guilds.cache.size + ' Servers!', { type: ActivityType.Watching })
-
 // Top.gg Stats
 if (apikey != 'none') {
 	const { AutoPoster } = require('topgg-autoposter')

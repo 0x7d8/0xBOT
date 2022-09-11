@@ -10,5 +10,8 @@ module.exports = {
 		console.log(' ')
 		console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [STA] $$$$$ STARTED LOGGING OF COMMANDS AND ERRORS`)
 		console.log(' ')
+
+		// Set Status
+		client.user.setActivity(client.guilds.cache.size + ' Servers!', { type: ActivityType.Watching })
 	},
 };
