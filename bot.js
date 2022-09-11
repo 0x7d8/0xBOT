@@ -5,7 +5,7 @@ const { version, apikey, webkey, dovotes } = require('./config.json')
 const { EmbedBuilder } = require('@discordjs/builders')
 
 const { QuickDB } = require('quick.db')
-const db = QuickDB({ filePath: "./database/votes.sqlite" })
+const db = new QuickDB({ filePath: "./database/votes.sqlite" })
 
 // MongoDB
 console.log(' ')
@@ -291,9 +291,6 @@ if (dovotes != 'no') {
 
 	const app = express()
 	const webhook = new Topgg.Webhook(webkey)
-
-	const { QuickDB } = require('quick.db')
-	const db = QuickDB({ filePath: "./database/votes.sqlite" })
 
 	app.post("/dblwebhook", webhook.listener(async (vote) => {
 		if(!vote) { return false }
