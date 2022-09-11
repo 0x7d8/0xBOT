@@ -3,7 +3,6 @@ const { token, clientId, mongo } = require('./config.json');
 const { getAllFilesFilter } = require('./utils/getAllFiles.js');
 const { version, apikey, webkey, dovotes } = require('./config.json');
 const { EmbedBuilder } = require('@discordjs/builders');
-const { ActivityType } = require('discord.js');
 
 // MongoDB
 console.log(' ')

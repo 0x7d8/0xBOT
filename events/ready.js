@@ -1,4 +1,5 @@
-const { version } = require('../config.json');
+const { version } = require('../config.json')
+const { ActivityType } = require('discord.js')
 
 module.exports = {
 	name: 'START BOT',
