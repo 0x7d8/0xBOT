@@ -98,7 +98,7 @@ client.on('interactionCreate', async interaction => {
 	if (!interaction.isCommand() && !interaction.isButton()) return;
 
 	let vote = 'VOTED'
-	const lastVote = db.get(interaction.user.id)
+	const lastVote = await db.get(interaction.user.id.toString())
 	if (!lastVote) { vote = 'NOT VOTED -> /VOTE' }
 	if (lastVote < (Date.now() - 24*60*60*1000)) { vote = 'NOT VOTED' }
 	if (interaction.guildLocale == "de") {
