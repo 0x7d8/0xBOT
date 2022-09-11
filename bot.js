@@ -3,6 +3,7 @@ const { token, clientId, mongo } = require('./config.json');
 const { getAllFilesFilter } = require('./utils/getAllFiles.js');
 const { version, apikey, webkey, dovotes } = require('./config.json');
 const { EmbedBuilder } = require('@discordjs/builders');
+const { ActivityType } = require('discord.js');
 
 // MongoDB
 console.log(' ')
@@ -260,7 +261,7 @@ console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: f
 client.login(token)
 
 // Set Status
-client.user.setPresence({ activities: [{ name: 'On ' + client.guilds.cache.size + ' Servers!' }], status: 'online' });
+client.user.setActivity(client.guilds.cache.size + ' Servers!', { type: ActivityType.Watching })
 
 // Top.gg Stats
 if (apikey != 'none') {
