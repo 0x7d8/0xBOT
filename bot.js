@@ -134,7 +134,7 @@ client.on('interactionCreate', async interaction => {
     				.setFooter({ text: '» ' + version });
 
     			// Send Message
-				await await interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+				await interaction.edit.message({ embeds: [message.toJSON()], ephemeral: true })
 			} catch (error) {
 				return
 			}
@@ -229,7 +229,7 @@ client.on('interactionCreate', async interaction => {
     				.setFooter({ text: '» ' + version });
 
     			// Send Message
-				await await interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+				await interaction.edit.message({ embeds: [message.toJSON()], ephemeral: true })
 			} catch (error) {
 				return
 			}
@@ -301,8 +301,8 @@ if (dovotes != 'no') {
 				.setFooter({ text: '» ' + version });
 		}
 
-		user.send({ embeds: [message.toJSON()] });
-		bals.add(vote.user, parseInt(random))
+		await user.send({ embeds: [message.toJSON()] });
+		await bals.add(vote.user, parseInt(random))
 
 		console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] VOTED : ' + user + ' : ' + random + '€')
 	}))

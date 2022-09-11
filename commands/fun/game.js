@@ -83,16 +83,16 @@ module.exports = {
         // Send Message
         console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] GAME : ' + spiel.toUpperCase())
         if (spiel == 'stadtlandfluss') {
-            await interaction.reply({ embeds: [slf.toJSON()], components: [slfB] })
+            await interaction.edit.message({ embeds: [slf.toJSON()], components: [slfB] })
         }
         if (spiel == 'scribblio') {
-            await interaction.reply({ embeds: [sio.toJSON()], components: [sioB] })
+            await interaction.edit.message({ embeds: [sio.toJSON()], components: [sioB] })
         }
         if (spiel == 'garticphone') {
-            await interaction.reply({ embeds: [gtf.toJSON()], components: [gtfB] })
+            await interaction.edit.message({ embeds: [gtf.toJSON()], components: [gtfB] })
         }
         if (spiel == 'jklm') {
-            await interaction.reply({ embeds: [jkl.toJSON()], components: [jklB] })
+            await interaction.edit.message({ embeds: [jkl.toJSON()], components: [jklB] })
         }
     },
 };

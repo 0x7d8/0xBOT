@@ -213,6 +213,6 @@ module.exports = {
         } else {
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] STOCKINFO : ALL : ' + green + '€ : ' + red + '€ : ' + yellow + '€ : ' + blue + '€')
         }
-        return interaction.reply({ embeds: [message.toJSON()] })
+        return interaction.edit.message({ embeds: [message.toJSON()] })
     },
 };
