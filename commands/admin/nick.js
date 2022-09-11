@@ -22,7 +22,7 @@ module.exports = {
                     de: 'DAS ZIEL'
                 })
             .setRequired(true))
-        .addIntegerOption(option =>
+        .addStringOption(option =>
             option.setName('nickname')
                 .setNameLocalizations({
                     de: 'nickname'
@@ -35,11 +35,11 @@ module.exports = {
         .setDefaultMemberPermissions(PermissionFlagsBits.ManageNicknames),
     async execute(interaction, client) {
         // Set Variables
-        const nickname = interaction.options.getInteger("nickname")
+        const nickname = interaction.options.getString("nickname")
         const user = interaction.options.getUser("user")
 
         // Check if Bot has Permission
-        if (!message.guild.members.get(clientId).hasPermission("MANAGE_NICKNAMES")) {
+        if (!clientId.hasPermission("MANAGE_NICKNAMES")) {
             // Create Embed
             let message = new EmbedBuilder()
         		.setTitle('» ERROR')
