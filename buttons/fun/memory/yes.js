@@ -435,13 +435,13 @@ module.exports = {
         let message = new EmbedBuilder()
             .setTitle('» MEMORY')
             .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> is playing Memory with <@' + reciever.toString().replace(/\D/g, '') + '>!\nThe Bet is **$' + bet + '**\n\n🔵 » Points of <@' + sender.toString().replace(/\D/g, '') + '> are **0**\n🔴 » Points of <@' + reciever.toString().replace(/\D/g, '') + '> are **0**')
-            .setFooter({ text: '» ' + vote + ' » ' + version + ' » CURRENT TURN: 🔵' });
+            .setFooter({ text: '» ' + version + ' » CURRENT TURN: 🔵' });
 
         if (interaction.guildLocale == "de") {
             message = new EmbedBuilder()
                 .setTitle('» MEMORY')
                 .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> spielt mit <@' + reciever.toString().replace(/\D/g, '') + '> Memory!\nDie Wette ist **' + bet + '€**\n\n🔵 » Punkte von <@' + sender.toString().replace(/\D/g, '') + '> sind **0**\n🔴 » Punkte von <@' + reciever.toString().replace(/\D/g, '') + '> sind **0**')
-                .setFooter({ text: '» ' + vote + ' » ' + version + ' » AM ZUG: 🔵' });
+                .setFooter({ text: '» ' + version + ' » AM ZUG: 🔵' });
         }
 
         // Send Message

@@ -214,13 +214,13 @@ module.exports = {
         let message = new EmbedBuilder()
         .setTitle('» ROCK PAPER SCISSORS')
         .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> is playing Rock Paper Scissors with <@' + reciever.toString().replace(/\D/g, '') + '>!\nThe Bet is **$' + bet + '**')
-        .setFooter({ text: '» ' + vote + ' » ' + version });
+        .setFooter({ text: '» ' + version });
 
         if (interaction.guildLocale == "de") {
             message = new EmbedBuilder()
                 .setTitle('» SCHERE STEIN PAPIER')
                 .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> spielt mit <@' + reciever.toString().replace(/\D/g, '') + '> Schere Stein Papier!\nDie Wette ist **' + bet + '€**')
-                .setFooter({ text: '» ' + vote + ' » ' + version });
+                .setFooter({ text: '» ' + version });
         }
 
         // Send Message
