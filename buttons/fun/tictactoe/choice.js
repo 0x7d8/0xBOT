@@ -190,7 +190,7 @@ module.exports = {
 
         // Update Message
         await interaction.message.edit({ embeds: [message.toJSON()], components: [row1, row2, row3], ephemeral: true })
-        await wait(2500)
+        await wait(1000)
 
         // Check if Anyone Won
         let won = false
