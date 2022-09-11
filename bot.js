@@ -257,7 +257,10 @@ console.log(' ')
 console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] LOGGING IN')
 
 // Login
-client.login(token);
+client.login(token)
+
+// Set Status
+client.user.setPresence({ activities: [{ name: 'On ' + client.guilds.cache.size + ' Servers!' }], status: 'online' });
 
 // Top.gg Stats
 if (apikey != 'none') {

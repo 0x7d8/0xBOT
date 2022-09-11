@@ -2,7 +2,7 @@ const { CommandInteraction, MessageEmbed } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { EmbedBuilder } = require('@discordjs/builders');
 const { PermissionFlagsBits } = require('discord-api-types/v10');
-const { version } = require('../../config.json');
+const { version, clientId } = require('../../config.json');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -37,11 +37,9 @@ module.exports = {
         // Set Variables
         const nickname = interaction.options.getInteger("nickname")
         const user = interaction.options.getUser("user")
-        const channel = interaction.channel
-        const messages = channel.messages.fetch()
 
         // Check if Bot has Permission
-        if (!user.kickable) {
+        if (!message.guild.members.get(clientId).hasPermission("MANAGE_NICKNAMES")) {
             // Create Embed
             let message = new EmbedBuilder()
         		.setTitle('» ERROR')
