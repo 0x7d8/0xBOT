@@ -6,7 +6,7 @@ module.exports = {
     data: {
         name: 'memory-no'
     },
-    async execute(interaction, client, bet, sel) {
+    async execute(interaction, client, vote, bet, sel) {
         // Get Users
         const cache = interaction.message.embeds
         const description = cache[0].description.toString().replace(/[^\d@!]/g, '').split('!')[0].substring(1).split("@");
@@ -18,13 +18,13 @@ module.exports = {
             let message = new EmbedBuilder()
         		.setTitle('» ERROR')
         		.setDescription('» <@' + reciever.toString().replace(/\D/g, '') + '> or <@' + sender.toString().replace(/\D/g, '') + '> has to decide this!')
-        		.setFooter({ text: '» ' + version });
+        		.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (interaction.guildLocale == "de") {
                 message = new EmbedBuilder()
         		    .setTitle('» FEHLER')
         		    .setDescription('» <@' + reciever.toString().replace(/\D/g, '') + '> oder <@' + sender.toString().replace(/\D/g, '') + '> muss das entscheiden!')
-        		    .setFooter({ text: '» ' + version });
+        		    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
             
             // Send Message
@@ -72,13 +72,13 @@ module.exports = {
         let message = new EmbedBuilder()
         .setTitle('» MEMORY')
         .setDescription('» <@' + interaction.user.id.replace(/\D/g, '') + '> said **NO**.')
-        .setFooter({ text: '» ' + version });
+        .setFooter({ text: '» ' + vote + ' » ' + version });
 
         if (interaction.guildLocale == "de") {
             message = new EmbedBuilder()
                 .setTitle('» MEMORY')
                 .setDescription('» <@' + interaction.user.id.replace(/\D/g, '') + '> hat **NEIN** gesagt.')
-                .setFooter({ text: '» ' + version });
+                .setFooter({ text: '» ' + vote + ' » ' + version });
         }
 
         // Send Message

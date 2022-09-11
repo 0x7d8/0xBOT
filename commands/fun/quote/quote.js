@@ -33,7 +33,7 @@ module.exports = {
                     de: 'DER AUTOR'
                 })
                 .setRequired(false)),
-    async execute(interaction, client) {
+    async execute(interaction, client, vote) {
         // Set Variables
         const zitat = interaction.options.getString("quote")
         const autor = interaction.options.getUser("author")
@@ -48,13 +48,13 @@ module.exports = {
             let message = new EmbedBuilder()
             	.setTitle('» ERROR')
   				.setDescription('» You still have a Cooldown of **' + cdown.toFixed(0) + 's**!')
-            	.setFooter({ text: '» ' + version });
+            	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (interaction.guildLocale == "de") {
                 message = new EmbedBuilder()
             	    .setTitle('» FEHLER')
   				    .setDescription('» Du hast leider noch einen Cooldown von **' + cdown.toFixed(0) + 's**!')
-            	    .setFooter({ text: '» ' + version });
+            	    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
             
             // Send Message

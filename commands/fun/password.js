@@ -21,7 +21,7 @@ module.exports = {
                     de: 'DIE LÄNGE'
                 })
                 .setRequired(true)),
-    async execute(interaction, client) {
+    async execute(interaction, client, vote) {
         // Set Variables
         const lenght = interaction.options.getInteger("lenght")
 
@@ -32,13 +32,13 @@ module.exports = {
             let message = new EmbedBuilder()
         		.setTitle('» ERROR')
         		.setDescription('» The Maximum Size is **256**!')
-        		.setFooter({ text: '» ' + version });
+        		.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (interaction.guildLocale == "de") {
                 message = new EmbedBuilder()
         		    .setTitle('» FEHLER')
         		    .setDescription('» Die Maximale Größe ist **128**!')
-        		    .setFooter({ text: '» ' + version });
+        		    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
             
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] PASSWORD : TOOBIG : ' + lenght)
@@ -52,13 +52,13 @@ module.exports = {
             let message = new EmbedBuilder()
         		.setTitle('» ERROR')
         		.setDescription('» The Minimum Size is **4**!')
-        		.setFooter({ text: '» ' + version });
+        		.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (interaction.guildLocale == "de") {
                 message = new EmbedBuilder()
         		    .setTitle('» FEHLER')
         		    .setDescription('» Die Minimale Größe ist **4**!')
-        		    .setFooter({ text: '» ' + version });
+        		    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
             
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] PASSWORD : TOOSMALL : ' + lenght)
@@ -78,13 +78,13 @@ module.exports = {
         let message = new EmbedBuilder()
         	.setTitle('» GENERATE PASSWORD')
   			.setDescription('» This is the Password I choose:\n`' + password + '`')
-        	.setFooter({ text: '» ' + version });
+        	.setFooter({ text: '» ' + vote + ' » ' + version });
 
         if (interaction.guildLocale == "de") {
             message = new EmbedBuilder()
         	    .setTitle('» PASSWORT GENERIEREN')
   			    .setDescription('» Das hier ist mein ausgedachtes Passwort:\n`' + password + '`')
-        	    .setFooter({ text: '» ' + version });
+        	    .setFooter({ text: '» ' + vote + ' » ' + version });
         }
 
         // Send Message

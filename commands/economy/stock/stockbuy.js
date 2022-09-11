@@ -38,7 +38,7 @@ module.exports = {
                     de: 'DIE ANZAHL'
                 })
                 .setRequired(true)),
-    async execute(interaction, client) {
+    async execute(interaction, client, vote) {
         // Set Variables
         const stock = interaction.options.getString("stock")
         const amount = interaction.options.getInteger("amount")
@@ -71,13 +71,13 @@ module.exports = {
             let message = new EmbedBuilder()
         		.setTitle('» ERROR')
         		.setDescription('» You cant buy a negative amount of Stocks!')
-        		.setFooter({ text: '» ' + version });
+        		.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (interaction.guildLocale == "de") {
                 message = new EmbedBuilder()
         		    .setTitle('» FEHLER')
         		    .setDescription('» Du kannst keine negativen Anzahlen kaufen!')
-        		    .setFooter({ text: '» ' + version });
+        		    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
             
             // Send Message
@@ -91,13 +91,13 @@ module.exports = {
             let message = new EmbedBuilder()
         		.setTitle('» ERROR')
         		.setDescription('» You cant buy more than **' + greenmax + '** 🟢!')
-        		.setFooter({ text: '» ' + version });
+        		.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (interaction.guildLocale == "de") {
                 message = new EmbedBuilder()
         		    .setTitle('» FEHLER')
         		    .setDescription('» Du kannst nicht mehr als **' + greenmax + '** 🟢 Kaufen!')
-        		    .setFooter({ text: '» ' + version });
+        		    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
             
             // Send Message
@@ -109,13 +109,13 @@ module.exports = {
             let message = new EmbedBuilder()
         		.setTitle('» ERROR')
         		.setDescription('» You cant buy more than **' + bluemax + '** 🔵!')
-        		.setFooter({ text: '» ' + version });
+        		.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (interaction.guildLocale == "de") {
                 message = new EmbedBuilder()
         		    .setTitle('» FEHLER')
         		    .setDescription('» Du kannst nicht mehr als **' + bluemax + '** 🔵 Kaufen!')
-        		    .setFooter({ text: '» ' + version });
+        		    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
             
             // Send Message
@@ -127,13 +127,13 @@ module.exports = {
             let message = new EmbedBuilder()
         		.setTitle('» ERROR')
         		.setDescription('» You cant buy more than **' + yellowmax + '** 🟡!')
-        		.setFooter({ text: '» ' + version });
+        		.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (interaction.guildLocale == "de") {
                 message = new EmbedBuilder()
         		    .setTitle('» FEHLER')
         		    .setDescription('» Du kannst nicht mehr als **' + yellowmax + '** 🟡 Kaufen!')
-        		    .setFooter({ text: '» ' + version });
+        		    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
             
             // Send Message
@@ -145,13 +145,13 @@ module.exports = {
             let message = new EmbedBuilder()
         		.setTitle('» ERROR')
         		.setDescription('» You cant buy more than **' + redmax + '** 🔴!')
-        		.setFooter({ text: '» ' + version });
+        		.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (interaction.guildLocale == "de") {
                 message = new EmbedBuilder()
         		    .setTitle('» FEHLER')
         		    .setDescription('» Du kannst nicht mehr als **' + redmax + '** 🔴 Kaufen!')
-        		    .setFooter({ text: '» ' + version });
+        		    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
             
             // Send Message
@@ -175,13 +175,13 @@ module.exports = {
             let message = new EmbedBuilder()
             	.setTitle('» ERROR')
   				.setDescription('» You dont have enough Money for that, you are missing **$' + missing + '**!')
-            	.setFooter({ text: '» ' + version });
+            	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (interaction.guildLocale == "de") {
                 message = new EmbedBuilder()
             	    .setTitle('» FEHLER')
   				    .setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
-            	    .setFooter({ text: '» ' + version });
+            	    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
             
             // Send Message
@@ -218,13 +218,13 @@ module.exports = {
         let message = new EmbedBuilder()
             .setTitle('» ' + emoji + ' BUY STOCKS')
             .setDescription('» You successfully bought **' + amount + '** ' + emoji + ' for **$' + cost + '**! (**$' + priceText + '** per Stock)')
-            .setFooter({ text: '» ' + version });
+            .setFooter({ text: '» ' + vote + ' » ' + version });
 
         if (interaction.guildLocale == "de") {
             message = new EmbedBuilder()
                 .setTitle('» ' + emoji + ' AKTIE KAUFEN')
                 .setDescription('» Du hast erfolgreich **' + amount + '** ' + emoji + ' für **' + cost + '€** gekauft! (**' + priceText + '€** pro Aktie)')
-                .setFooter({ text: '» ' + version });
+                .setFooter({ text: '» ' + vote + ' » ' + version });
         }
 
         // Send Message

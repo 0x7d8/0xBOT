@@ -11,7 +11,7 @@ module.exports = {
         .setDescriptionLocalizations({
             de: 'BEKOMME EIN MEME'
         }),
-    async execute(interaction, client) {
+    async execute(interaction, client, vote) {
         // Set Variables
         const res = Math.floor(Math.random() * (4 - 1 + 1)) + 1;
 
@@ -38,14 +38,14 @@ module.exports = {
             .setTitle(`» ${random[0].data.children[0].data.title.toUpperCase()}`)
             .setDescription('» SUBREDDIT:\n`r/' + subreddit + '`\n\n» UPVOTES:\n`' + upvotes + '`\n\n» COMMENTS:\n`' + comments + '`')
             .setImage(random[0].data.children[0].data.url)
-        	.setFooter({ text: '» ' + version });
+        	.setFooter({ text: '» ' + vote + ' » ' + version });
 
         if (interaction.guildLocale == "de") {
             message = new EmbedBuilder()
                 .setTitle(`» ${random[0].data.children[0].data.title.toUpperCase()}`)
                 .setDescription('» SUBREDDIT:\n`r/' + subreddit + '`\n\n» UPVOTES:\n`' + upvotes + '`\n\n» KOMMENTARE:\n`' + comments + '`')
                 .setImage(random[0].data.children[0].data.url)
-        	    .setFooter({ text: '» ' + version });
+        	    .setFooter({ text: '» ' + vote + ' » ' + version });
         }
         
         // Send Message

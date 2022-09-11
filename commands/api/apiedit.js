@@ -36,7 +36,7 @@ module.exports = {
                     de: 'DER INHALT'
                 })
                 .setRequired(true)),
-    async execute(interaction, client) {
+    async execute(interaction, client, vote) {
         // Set Variables
         const name = interaction.options.getString("name")
         const inhalt = interaction.options.getString("content")

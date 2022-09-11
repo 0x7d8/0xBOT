@@ -20,7 +20,7 @@ module.exports = {
                     de: 'DER NUTZER'
                 })
                 .setRequired(false)),
-    async execute(interaction, client) {
+    async execute(interaction, client, vote) {
         // Set Variables
         const user = interaction.options.getUser("user")
 
@@ -46,25 +46,25 @@ module.exports = {
         	message = new EmbedBuilder()
             	.setTitle('» YOUR BALANCE')
   				.setDescription('» Your Balance is **$' + money + '**!')
-            	.setFooter({ text: '» ' + version });
+            	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (interaction.guildLocale == "de") {
                 message = new EmbedBuilder()
             	    .setTitle('» DEIN GELDSTAND')
   				    .setDescription('» Dein Geldstand beträgt **' + money + '€**!')
-            	    .setFooter({ text: '» ' + version });
+            	    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
         } else {
             message = new EmbedBuilder()
             	.setTitle('» THE BALANCE OF ' + userinfo.username.toUpperCase() + '#' + userinfo.discriminator)
   				.setDescription('» The Balance of <@' + user + '> is **$' + money + '**!')
-            	.setFooter({ text: '» ' + version });
+            	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (interaction.guildLocale == "de") {
                 message = new EmbedBuilder()
             	    .setTitle('» DER GELDSTAND VON ' + userinfo.username.toUpperCase() + '#' + userinfo.discriminator)
   				    .setDescription('» Der Geldstand von <@' + user + '> ist **' + money + '€**!')
-            	    .setFooter({ text: '» ' + version });
+            	    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
         }
 

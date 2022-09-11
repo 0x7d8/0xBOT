@@ -30,7 +30,7 @@ module.exports = {
                     de: 'DIE ANZAHL VON GELD'
                 })
                 .setRequired(true)),
-    async execute(interaction, client) {
+    async execute(interaction, client, vote) {
         // Set Variables
         const user = interaction.options.getUser("user")
         const anzahl = interaction.options.getInteger("amount")
@@ -42,13 +42,13 @@ module.exports = {
             let message = new EmbedBuilder()
         		.setTitle('» ERROR')
         		.setDescription('» You cant send negative Money!')
-        		.setFooter({ text: '» ' + version });
+        		.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (interaction.guildLocale == "de") {
                 message = new EmbedBuilder()
         		    .setTitle('» FEHLER')
         		    .setDescription('» Du kannst kein negatives Geld senden!')
-        		    .setFooter({ text: '» ' + version });
+        		    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
             
             // Send Message
@@ -63,13 +63,13 @@ module.exports = {
             let message = new EmbedBuilder()
         		.setTitle('» ERROR')
         		.setDescription('» You cant give a Bot Money!')
-        		.setFooter({ text: '» ' + version });
+        		.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (interaction.guildLocale == "de") {
                 message = new EmbedBuilder()
         		    .setTitle('» FEHLER')
         		    .setDescription('» Du kannst einem Bot kein Geld geben!')
-        		    .setFooter({ text: '» ' + version });
+        		    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
             
             // Send Message
@@ -81,21 +81,21 @@ module.exports = {
       	let message = new EmbedBuilder()
             .setTitle('» GIVE MONEY')
   			.setDescription('» You gave <@' + user + '> **$' + anzahl + '**!')
-        	.setFooter({ text: '» ' + version });
+        	.setFooter({ text: '» ' + vote + ' » ' + version });
         let err2 = new EmbedBuilder()
             .setTitle('» GIVE MONEY')
   			.setDescription('» You cant give yourself Money!')
-        	.setFooter({ text: '» ' + version });
+        	.setFooter({ text: '» ' + vote + ' » ' + version });
 
         if (interaction.guildLocale == "de") {
             message = new EmbedBuilder()
                 .setTitle('» GELD GEBEN')
   			    .setDescription('» Du hast <@' + user + '> **' + anzahl + '€** gegeben!')
-        	    .setFooter({ text: '» ' + version });
+        	    .setFooter({ text: '» ' + vote + ' » ' + version });
             err2 = new EmbedBuilder()
                 .setTitle('» GELD GEBEN')
   			    .setDescription('» Du kannst dir nicht selber Geld überweisen!')
-        	    .setFooter({ text: '» ' + version });
+        	    .setFooter({ text: '» ' + vote + ' » ' + version });
         }
         
         // Check if User is Author
@@ -114,13 +114,13 @@ module.exports = {
             let message = new EmbedBuilder()
             	.setTitle('» ERROR')
   				.setDescription('» You dont have enough Money for that, you are missing **$' + missing + '**!')
-            	.setFooter({ text: '» ' + version });
+            	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (interaction.guildLocale == "de") {
                 message = new EmbedBuilder()
             	    .setTitle('» FEHLER')
   				    .setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
-            	    .setFooter({ text: '» ' + version });
+            	    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
             
             // Send Message

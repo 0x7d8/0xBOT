@@ -1,8 +1,11 @@
-const { Client, Collection, GatewayIntentBits } = require('discord.js');
-const { token, clientId, mongo } = require('./config.json');
-const { getAllFilesFilter } = require('./utils/getAllFiles.js');
-const { version, apikey, webkey, dovotes } = require('./config.json');
-const { EmbedBuilder } = require('@discordjs/builders');
+const { Client, Collection, GatewayIntentBits } = require('discord.js')
+const { token, clientId, mongo } = require('./config.json')
+const { getAllFilesFilter } = require('./utils/getAllFiles.js')
+const { version, apikey, webkey, dovotes } = require('./config.json')
+const { EmbedBuilder } = require('@discordjs/builders')
+
+const { QuickDB } = require('quick.db')
+const db = QuickDB({ filePath: "./database/votes.sqlite" })
 
 // MongoDB
 console.log(' ')
@@ -94,6 +97,16 @@ console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: f
 client.on('interactionCreate', async interaction => {
 	if (!interaction.isCommand() && !interaction.isButton()) return;
 
+	let vote = 'VOTED'
+	const lastVote = db.get(interaction.user.id)
+	if (!lastVote) { vote = 'NOT VOTED -> /VOTE' }
+	if (lastVote < (Date.now() - 24*60*60*1000)) { vote = 'NOT VOTED' }
+	if (interaction.guildLocale == "de") {
+		vote = 'GEVOTED'
+		if (!lastVote) { vote = 'NICHT GEVOTED -> /VOTE' }
+		if (lastVote < (Date.now() - 24*60*60*1000)) { vote = 'NICHT GEVOTET' }
+	}
+	
 	const clang = await lang.get(interaction.user.id)
 	if (parseInt(clang) == 0) { lang.add(interaction.user.id, 1) }
 	if (interaction.locale == "de") {
@@ -120,7 +133,7 @@ client.on('interactionCreate', async interaction => {
 
 		// Execute Command
 		try {
-			await command.execute(interaction, client);
+			await command.execute(interaction, client, vote);
 		} catch (error) {
 			try {
     			console.log('[0xBOT] [!] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] ERROR :')
@@ -130,7 +143,7 @@ client.on('interactionCreate', async interaction => {
     			const message = new EmbedBuilder()
         			.setTitle('» FEHLER')
   					.setDescription('**»» INFO**\n» WAS?\n`Ein Fehler ist beim ausführen dieses Befehls aufgetreten.`\n\n» WIESO?\n`Dies kann an vielem liegen, der Code wird für Fehler vorm Release einer neuen Version gecheckt und es kann sein, das ein Fehler enthalten war.`\n\n» WAS TUN?\n`Nichts. Einfach warten, der Befehl wurde geloggt und sollte in der nächsten Version schon behoben werden!`\n\n**»» KONTAKT**\n» EMAIL\n`kontakt@rjansen.de`')
-    				.setFooter({ text: '» ' + version });
+    				.setFooter({ text: '» ' + vote + ' » ' + version });
 
     			// Send Message
 				await await interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
@@ -162,7 +175,7 @@ client.on('interactionCreate', async interaction => {
 				sc = true
 
 				const button = client.buttons.get(editedinteraction.customId);
-				await button.execute(editedinteraction, client, reciever, amount);
+				await button.execute(editedinteraction, client, vote, reciever, amount);
 			}
 			if (interaction.customId.toString().substring(0, 3) == 'RPS') {
 				const cache = interaction.customId.split('-');
@@ -177,7 +190,7 @@ client.on('interactionCreate', async interaction => {
 				sc = true
 
 				const button = client.buttons.get(editedinteraction.customId);
-				await button.execute(editedinteraction, client, bet);
+				await button.execute(editedinteraction, client, vote, bet);
 			}
 			if (interaction.customId.toString().substring(0, 6) == 'MEMORY') {
 				const cache = interaction.customId.split('-');
@@ -190,7 +203,7 @@ client.on('interactionCreate', async interaction => {
 				sc = true
 
 				const button = client.buttons.get(editedinteraction.customId);
-				await button.execute(editedinteraction, client, bet, selection);
+				await button.execute(editedinteraction, client, vote, bet, selection);
 			}
 			if (interaction.customId.toString().substring(0, 3) == 'TTT') {
 				const cache = interaction.customId.split('-');
@@ -203,7 +216,7 @@ client.on('interactionCreate', async interaction => {
 				sc = true
 
 				const button = client.buttons.get(editedinteraction.customId);
-				await button.execute(editedinteraction, client, bet, selection);
+				await button.execute(editedinteraction, client, vote, bet, selection);
 			}
 
 
@@ -212,7 +225,7 @@ client.on('interactionCreate', async interaction => {
 				const button = client.buttons.get(interaction.customId);
 				if (!button) return;
 
-				await button.execute(interaction, client);
+				await button.execute(interaction, client, vote);
 			}
 
 			return;
@@ -225,7 +238,7 @@ client.on('interactionCreate', async interaction => {
     			const message = new EmbedBuilder()
         			.setTitle('» FEHLER')
   					.setDescription('**»» INFO**\n» WAS?\n`Ein Fehler ist beim ausführen dieses Buttons aufgetreten.`\n\n» WIESO?\n`Dies kann an vielem liegen, der Code wird für Fehler vorm Release einer neuen Version gecheckt und es kann sein, das ein Fehler enthalten war.`\n\n» WAS TUN?\n`Nichts. Einfach warten, der Button wurde geloggt und sollte in der nächsten Version schon behoben werden!`\n\n**»» KONTAKT**\n» EMAIL\n`kontakt@rjansen.de`')
-    				.setFooter({ text: '» ' + version });
+    				.setFooter({ text: '» ' + vote + ' » ' + version });
 
     			// Send Message
 				await interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
@@ -279,31 +292,39 @@ if (dovotes != 'no') {
 	const app = express()
 	const webhook = new Topgg.Webhook(webkey)
 
+	const { QuickDB } = require('quick.db')
+	const db = QuickDB({ filePath: "./database/votes.sqlite" })
+
 	app.post("/dblwebhook", webhook.listener(async (vote) => {
+		if(!vote) { return false }
+		if(!vote.user) { return false }
+
 		user = await client.users.fetch(vote.user);
 		random = Math.floor(Math.random() * (5000 - 1000 + 1)) + 1000;
 
 		message = new EmbedBuilder()
 			.setTitle('» VOTING')
 			.setDescription('» Thanks for Voting! You got **$' + random + '** from me :)\n» Danke fürs Voten! Du hast **' + random + '€** von mir erhalten :)')
-			.setFooter({ text: '» ' + version });
+			.setFooter({ text: '» ' + vote + ' » ' + version });
 
 		if (await lang.get(vote.user) == 1) {
 			message = new EmbedBuilder()
 				.setTitle('» VOTING')
 				.setDescription('» Danke fürs Voten! Du hast **' + random + '€** von mir erhalten :)')
-				.setFooter({ text: '» ' + version });
+				.setFooter({ text: '» ' + vote + ' » ' + version });
 		} else {
 			message = new EmbedBuilder()
 				.setTitle('» VOTING')
 				.setDescription('» Thanks for Voting! You got **$' + random + '** from me :)')
-				.setFooter({ text: '» ' + version });
+				.setFooter({ text: '» ' + vote + ' » ' + version });
 		}
 
-		await user.send({ embeds: [message.toJSON()] });
 		await bals.add(vote.user, parseInt(random))
-
 		console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] VOTED : ' + user + ' : ' + random + '€')
+
+		db.set(vote.user, Date.now()).then(() => {
+			await user.send({ embeds: [message.toJSON()] })
+		})
 	}))
 	app.listen(25252)
 }

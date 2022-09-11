@@ -8,7 +8,7 @@ module.exports = {
     data: {
         name: 'ttt-choice'
     },
-    async execute(interaction, client, bet, sel) {
+    async execute(interaction, client, vote, bet, sel) {
         // Get Users
         const cache = interaction.message.embeds
         const description = cache[0].description.toString().replace(/[^\d@!]/g, '').split('!')[0].substring(1).split("@");
@@ -20,13 +20,13 @@ module.exports = {
             let message = new EmbedBuilder()
         		.setTitle('» ERROR')
         		.setDescription('» You arent playing!')
-        		.setFooter({ text: '» ' + version });
+        		.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (interaction.guildLocale == "de") {
                 message = new EmbedBuilder()
         		    .setTitle('» FEHLER')
         		    .setDescription('» Du spielst garnicht mit!')
-        		    .setFooter({ text: '» ' + version });
+        		    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
             
             // Send Message
@@ -41,13 +41,13 @@ module.exports = {
             let message = new EmbedBuilder()
         		.setTitle('» ERROR')
         		.setDescription('» Its not your turn!')
-        		.setFooter({ text: '» ' + version });
+        		.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (interaction.guildLocale == "de") {
                 message = new EmbedBuilder()
         		    .setTitle('» FEHLER')
         		    .setDescription('» Es ist nicht dein Zug!')
-        		    .setFooter({ text: '» ' + version });
+        		    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
             
             // Send Message
@@ -420,13 +420,13 @@ module.exports = {
             message = new EmbedBuilder()
                 .setTitle('» TICTACTOE')
                 .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> is playing Tic Tac Toe with <@' + reciever.toString().replace(/\D/g, '') + '>!\nThe Bet is **$' + bet + '**\n\n🔵 » <@' + sender.toString().replace(/\D/g, '') + '>\n🔴 » <@' + reciever.toString().replace(/\D/g, '') + '>\n\n' + winner + ' has won **$' + betwon + '**!')
-                .setFooter({ text: '» ' + version });
+                .setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (interaction.guildLocale == "de") {
                 message = new EmbedBuilder()
                     .setTitle('» TICTACTOE')
                     .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> spielt mit <@' + reciever.toString().replace(/\D/g, '') + '> Tic Tac Toe!\nDie Wette ist **' + bet + '€**\n\n🔵 » <@' + sender.toString().replace(/\D/g, '') + '>\n🔴 » <@' + reciever.toString().replace(/\D/g, '') + '>\n\n' + winner + ' hat **' + betwon + '€** gewonnen!')
-                    .setFooter({ text: '» ' + version });
+                    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
 
             // Delete Variables

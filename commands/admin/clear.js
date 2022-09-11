@@ -33,7 +33,7 @@ module.exports = {
                 })
                 .setRequired(false))
         .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages),
-    async execute(interaction, client) {
+    async execute(interaction, client, vote) {
         // Set Variables
         const amount = interaction.options.getInteger("amount")
         const target = interaction.options.getUser("user")
@@ -46,12 +46,12 @@ module.exports = {
             let message = new EmbedBuilder()
         		.setTitle('» ERROR')
         		.setDescription('» You have to delete atleast **1** Message!')
-        		.setFooter({ text: '» ' + version });
+        		.setFooter({ text: '» ' + vote + ' » ' + version });
             if (interaction.guildLocale == "de") {
                 message = new EmbedBuilder()
         		    .setTitle('» FEHLER')
         		    .setDescription('» Du musst mindestens **1** Nachricht löschen!')
-        		    .setFooter({ text: '» ' + version });
+        		    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
             
             // Send Message
@@ -78,25 +78,25 @@ module.exports = {
                     message = new EmbedBuilder()
                         .setTitle('» DELETE MESSAGES')
                         .setDescription('» You deleted **' + messages.size + '** Message from <@' + target + '>!')
-                        .setFooter({ text: '» ' + version });
+                        .setFooter({ text: '» ' + vote + ' » ' + version });
 
                     if (interaction.guildLocale == "de") {
                         message = new EmbedBuilder()
                             .setTitle('» NACHRICHTEN LÖSCHEN')
                             .setDescription('» Du hast **' + messages.size + '** Nachricht von <@' + target + '> gelöscht!')
-                            .setFooter({ text: '» ' + version });
+                            .setFooter({ text: '» ' + vote + ' » ' + version });
                     }
                 } else {
                     message = new EmbedBuilder()
                         .setTitle('» DELETE MESSAGES')
                         .setDescription('» You deleted **' + messages.size + '** Messages from <@' + target + '>!')
-                        .setFooter({ text: '» ' + version });
+                        .setFooter({ text: '» ' + vote + ' » ' + version });
 
                     if (interaction.guildLocale == "de") {
                         message = new EmbedBuilder()
                             .setTitle('» NACHRICHTEN LÖSCHEN')
                             .setDescription('» Du hast **' + messages.size + '** Nachrichten von <@' + target + '> gelöscht!')
-                            .setFooter({ text: '» ' + version });
+                            .setFooter({ text: '» ' + vote + ' » ' + version });
                     }
                 }
 
@@ -112,25 +112,25 @@ module.exports = {
                     message = new EmbedBuilder()
                         .setTitle('» DELETE MESSAGES')
                         .setDescription('» You deleted **' + messages.size + '** Message!')
-                        .setFooter({ text: '» ' + version });
+                        .setFooter({ text: '» ' + vote + ' » ' + version });
 
                     if (interaction.guildLocale == "de") {
                         message = new EmbedBuilder()
                             .setTitle('» NACHRICHTEN LÖSCHEN')
                             .setDescription('» Du hast **' + messages.size + '** Nachricht gelöscht!')
-                            .setFooter({ text: '» ' + version });
+                            .setFooter({ text: '» ' + vote + ' » ' + version });
                     }
                 } else {
                     message = new EmbedBuilder()
                         .setTitle('» DELETE MESSAGES')
                         .setDescription('» You deleted **' + messages.size + '** Messages!')
-                        .setFooter({ text: '» ' + version });
+                        .setFooter({ text: '» ' + vote + ' » ' + version });
 
                     if (interaction.guildLocale == "de") {
                         message = new EmbedBuilder()
                             .setTitle('» NACHRICHTEN LÖSCHEN')
                             .setDescription('» Du hast **' + messages.size + '** Nachrichten gelöscht!')
-                            .setFooter({ text: '» ' + version });
+                            .setFooter({ text: '» ' + vote + ' » ' + version });
                     }
                 }
 

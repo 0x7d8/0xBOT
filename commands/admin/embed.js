@@ -32,7 +32,7 @@ module.exports = {
                 })
                 .setRequired(true))
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
-    async execute(interaction, client) {
+    async execute(interaction, client, vote) {
         // Set Variables
         const titel = interaction.options.getString("title")
         const nachricht = interaction.options.getString("message")
@@ -55,7 +55,7 @@ module.exports = {
             message = new EmbedBuilder()
                 .setTitle(titel)
   			    .setDescription(nachricht)
-        	    .setFooter({ text: '» ' + version });
+        	    .setFooter({ text: '» ' + vote + ' » ' + version });
         }
 
         // Send Message

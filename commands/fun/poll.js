@@ -32,7 +32,7 @@ module.exports = {
 					{ name: '✅ JA & NEIN', value: 'question' },
             		{ name: '🧮 BUCHSTABEN VON A BIS E', value: 'vote' },
 				)),
-    async execute(interaction, client) {
+    async execute(interaction, client, vote) {
         // Set Variables
         const frage = interaction.options.getString("text")
         const reactions = interaction.options.getString("reactions")
@@ -41,7 +41,7 @@ module.exports = {
        	let message = new EmbedBuilder()
             .setTitle('» A ' + reactions.toUpperCase())
   			.setDescription('» ' + frage)
-        	.setFooter({ text: '» ' + version });
+        	.setFooter({ text: '» ' + vote + ' » ' + version });
 
         if (interaction.guildLocale == "de") {
             let reactionsde
@@ -51,7 +51,7 @@ module.exports = {
             message = new EmbedBuilder()
                 .setTitle('» EINE ' + reactionsde.toUpperCase())
   			    .setDescription('» ' + frage)
-        	    .setFooter({ text: '» ' + version });
+        	    .setFooter({ text: '» ' + vote + ' » ' + version });
         }
         
         // Send Message

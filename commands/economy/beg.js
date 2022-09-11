@@ -31,7 +31,7 @@ module.exports = {
                     de: 'DER GRUND'
                 })
                 .setRequired(false)),
-    async execute(interaction, client) {
+    async execute(interaction, client, vote) {
         // Set Variables
         const amount = interaction.options.getInteger("amount")
         const reason = interaction.options.getString("reason")
@@ -42,13 +42,13 @@ module.exports = {
             let message = new EmbedBuilder()
         		.setTitle('» ERROR')
         		.setDescription('» You cant ask for negative Money!')
-        		.setFooter({ text: '» ' + version });
+        		.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (interaction.guildLocale == "de") {
                 message = new EmbedBuilder()
         		    .setTitle('» FEHLER')
         		    .setDescription('» Du kannst nicht nach negativem Geld fragen!')
-        		    .setFooter({ text: '» ' + version });
+        		    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
             
             // Send Message
@@ -62,13 +62,13 @@ module.exports = {
             let message = new EmbedBuilder()
                 .setTitle('» BEGGING')
                 .setDescription('» You cant beg that much! **$5000** is the Maximum.')
-                .setFooter({ text: '» ' + version });
+                .setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (interaction.guildLocale == "de") {
                 message = new EmbedBuilder()
                     .setTitle('» BETTELN')
                     .setDescription('» Du kannst nicht soviel erbetteln! **5000€** ist das Maximum.')
-                    .setFooter({ text: '» ' + version });
+                    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
             
             // Send Message
@@ -105,25 +105,25 @@ module.exports = {
       	    message = new EmbedBuilder()
                 .setTitle('» BEGGING')
   			    .setDescription('» <@' + interaction.user.id + '> needs Money!')
-        	    .setFooter({ text: '» ' + version });
+        	    .setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (interaction.guildLocale == "de") {
                 message = new EmbedBuilder()
                     .setTitle('» BETTELN')
   			        .setDescription('» <@' + interaction.user.id + '> braucht Geld!')
-        	        .setFooter({ text: '» ' + version });
+        	        .setFooter({ text: '» ' + vote + ' » ' + version });
             }
         } else {
             message = new EmbedBuilder()
                 .setTitle('» BEGGING')
   			    .setDescription('» <@' + interaction.user.id + '> needs Money!\n*"' + reason.toString() + '"*')
-        	    .setFooter({ text: '» ' + version });
+        	    .setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (interaction.guildLocale == "de") {
                 message = new EmbedBuilder()
                     .setTitle('» BETTELN')
   			        .setDescription('» <@' + interaction.user.id + '> braucht Geld!\n*"' + reason.toString() + '"*')
-        	        .setFooter({ text: '» ' + version });
+        	        .setFooter({ text: '» ' + vote + ' » ' + version });
             }
         }
 

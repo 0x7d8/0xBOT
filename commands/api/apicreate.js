@@ -36,7 +36,7 @@ module.exports = {
                     de: 'DER INHALT'
                 })
                 .setRequired(true)),
-    async execute(interaction, client) {
+    async execute(interaction, client, vote) {
         // Set Variables
         const name = interaction.options.getString("name")
         const inhalt = interaction.options.getString("content")
@@ -74,13 +74,13 @@ module.exports = {
             let message = new EmbedBuilder()
         		.setTitle('» PAPER API CREATE')
         		.setDescription('» You have used all of your **5** API Slots!')
-        		.setFooter({ text: '» ' + version });
+        		.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (interaction.guildLocale == "de") {
                 message = new EmbedBuilder()
         		    .setTitle('» PAPER API CREATE')
         		    .setDescription('» Du hast alle deiner **5** API Slots genutzt!')
-        		    .setFooter({ text: '» ' + version });
+        		    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
             
             // Send Message

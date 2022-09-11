@@ -10,7 +10,7 @@ module.exports = {
         .setDescriptionLocalizations({
             de: 'DER BOT PING'
         }),
-    async execute(interaction, client) {
+    async execute(interaction, client, vote) {
         // Set Variables
         const botping = Math.round(client.ws.ping)
 
@@ -18,13 +18,13 @@ module.exports = {
         let message = new EmbedBuilder()
         		.setTitle('» BOT PING')
         		.setDescription('» The Bot Ping is **' + botping + 'ms**!')
-        		.setFooter({ text: '» ' + version });
+        		.setFooter({ text: '» ' + vote + ' » ' + version });
 
         if (interaction.guildLocale == "de") {
             message = new EmbedBuilder()
         		.setTitle('» BOT PING')
         		.setDescription('» Der Ping vom Bot ist **' + botping + 'ms**!')
-        		.setFooter({ text: '» ' + version });
+        		.setFooter({ text: '» ' + vote + ' » ' + version });
         }
 
         // Send Correct Response

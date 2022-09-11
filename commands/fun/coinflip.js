@@ -20,7 +20,7 @@ module.exports = {
                     de: 'DIE ANZAHL'
                 })
                 .setRequired(false)),
-    async execute(interaction, client) {
+    async execute(interaction, client, vote) {
         // Set Variables
         let anzahl = interaction.options.getInteger("amount")
         let heads = 0
@@ -38,13 +38,13 @@ module.exports = {
             let message = new EmbedBuilder()
         		.setTitle('» ERROR')
         		.setDescription('» You need to throw atleast **1** Coin!')
-        		.setFooter({ text: '» ' + version });
+        		.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (interaction.guildLocale == "de") {
                 message = new EmbedBuilder()
         		    .setTitle('» FEHLER')
         		    .setDescription('» Du musst schon mindestens **1** Münze werfen!')
-        		    .setFooter({ text: '» ' + version });
+        		    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
             
             // Send Message
@@ -58,13 +58,13 @@ module.exports = {
             let message = new EmbedBuilder()
         		.setTitle('» ERROR')
         		.setDescription('» You cant throw more than **1000** Coins!')
-        		.setFooter({ text: '» ' + version });
+        		.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (interaction.guildLocale == "de") {
                 message = new EmbedBuilder()
         		    .setTitle('» FEHLER')
         		    .setDescription('» Du darfst nicht mehr als **1000** Münzen werfen!')
-        		    .setFooter({ text: '» ' + version });
+        		    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
             
             // Send Message
@@ -97,7 +97,7 @@ module.exports = {
             message = new EmbedBuilder()
         	    .setTitle('» COINFLIP')
   			    .setDescription('» The Coin Landed on **' + coin + '**!')
-        	    .setFooter({ text: '» ' + version });
+        	    .setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (interaction.guildLocale == "de") {
                 if (coin == "HEAD") { coin = "KOPF" }
@@ -106,19 +106,19 @@ module.exports = {
                 message = new EmbedBuilder()
         	        .setTitle('» COINFLIP')
   			        .setDescription('» Die Münze ist auf **' + coin + '** gelandet!')
-        	        .setFooter({ text: '» ' + version });
+        	        .setFooter({ text: '» ' + vote + ' » ' + version });
             }
         } else {
             message = new EmbedBuilder()
         	    .setTitle('» COINFLIP')
   			    .setDescription('» HEADS\n`' + heads + '`\n\n» TAILS\n`' + tails + '`')
-        	    .setFooter({ text: '» ' + version });
+        	    .setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (interaction.guildLocale == "de") {
                 message = new EmbedBuilder()
         	        .setTitle('» COINFLIP')
   			        .setDescription('» KÖPFE\n`' + heads + '`\n\n» ZAHLEN\n`' + tails + '`')
-        	        .setFooter({ text: '» ' + version });
+        	        .setFooter({ text: '» ' + vote + ' » ' + version });
             }
         }
 

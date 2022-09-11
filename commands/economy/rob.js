@@ -39,7 +39,7 @@ module.exports = {
                     { name: '🤑 [20%] 30€ - 50€', value: '20' },
                     { name: '💰 [05%] 60€ - 100€', value: '5' },
 				)),
-    async execute(interaction, client) {
+    async execute(interaction, client, vote) {
         // Set Variables
         const user = interaction.options.getUser("user")
         const money = interaction.options.getString("money")
@@ -56,13 +56,13 @@ module.exports = {
             let message = new EmbedBuilder()
             	.setTitle('» ERROR')
   				.setDescription('» You still have a Cooldown of **' + cdown.toFixed(0) + 's**!')
-            	.setFooter({ text: '» ' + version });
+            	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (interaction.guildLocale == "de") {
                 message = new EmbedBuilder()
             	    .setTitle('» FEHLER')
   				    .setDescription('» Du hast leider noch einen Cooldown von **' + cdown.toFixed(0) + 's**!')
-            	    .setFooter({ text: '» ' + version });
+            	    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
             
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] ROB : ONCOOLDOWN : ' + cdown.toFixed(0) + 's');
@@ -76,13 +76,13 @@ module.exports = {
             let message = new EmbedBuilder()
             	.setTitle('» ERROR')
   				.setDescription('» You cant rob yourself?!')
-            	.setFooter({ text: '» ' + version });
+            	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (interaction.guildLocale == "de") {
                 message = new EmbedBuilder()
             	    .setTitle('» FEHLER')
   				    .setDescription('» Du kannst dich nicht selber ausrauben?!')
-            	    .setFooter({ text: '» ' + version });
+            	    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
             
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] ROB : ' + user.toString().replace(/\D/g, '') + ' : ' + money + '€ : SAMEPERSON')
@@ -96,13 +96,13 @@ module.exports = {
             let message = new EmbedBuilder()
         		.setTitle('» ERROR')
         		.setDescription('» You cant rob a Bot!')
-        		.setFooter({ text: '» ' + version });
+        		.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (interaction.guildLocale == "de") {
                 message = new EmbedBuilder()
         		    .setTitle('» FEHLER')
         		    .setDescription('» Du kannst einem Bot kein Geld klauen!')
-        		    .setFooter({ text: '» ' + version });
+        		    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
             
             // Send Message
@@ -121,13 +121,13 @@ module.exports = {
         let notenoughmoney1 = new EmbedBuilder()
         	.setTitle('» ERROR')
   			.setDescription('» You dont have enough Money for that, you need atleast **$' + need + '**! BRUH.')
-        	.setFooter({ text: '» ' + version });
+        	.setFooter({ text: '» ' + vote + ' » ' + version });
 
         if (interaction.guildLocale == "de") {
             notenoughmoney1 = new EmbedBuilder()
         	    .setTitle('» FEHLER')
   			    .setDescription('» Du hast nicht genug Geld dafür, du brauchst mindestens **' + need + '€**! BRUH.')
-        	    .setFooter({ text: '» ' + version });
+        	    .setFooter({ text: '» ' + vote + ' » ' + version });
         }
             
         // Check Money
@@ -149,13 +149,13 @@ module.exports = {
         let notenoughmoney2 = new EmbedBuilder()
         	.setTitle('» ERROR')
   			.setDescription('» <@' + user + '> doesnt have enough Money for that, he needs atleast **$' + need + '**! LOL.')
-        	.setFooter({ text: '» ' + version });
+        	.setFooter({ text: '» ' + vote + ' » ' + version });
 
         if (interaction.guildLocale == "de") {
             notenoughmoney2 = new EmbedBuilder()
         	    .setTitle('» FEHLER')
   			    .setDescription('» <@' + user + '> hat nicht genug Geld dafür, er braucht mindestens **' + need + '€**! LOL.')
-        	    .setFooter({ text: '» ' + version });
+        	    .setFooter({ text: '» ' + vote + ' » ' + version });
         }
             
         // Check Money
@@ -218,23 +218,23 @@ module.exports = {
       	let sucess = new EmbedBuilder()
             .setTitle('» AUSRAUBEN')
   			.setDescription('» You stole <@' + user + '> **$' + amount + '**! ' + extra)
-        	.setFooter({ text: '» ' + version });
+        	.setFooter({ text: '» ' + vote + ' » ' + version });
 
         let failure = new EmbedBuilder()
             .setTitle('» AUSRAUBEN')
   			.setDescription('» You wanted to steal <@' + user + '> **$' + amount + '**, but the Police caught you! You had to pay **$' + punishment + '**! KEKW.')
-        	.setFooter({ text: '» ' + version });
+        	.setFooter({ text: '» ' + vote + ' » ' + version });
 
         if (interaction.guildLocale == "de") {
             sucess = new EmbedBuilder()
                 .setTitle('» AUSRAUBEN')
   			    .setDescription('» Du hast <@' + user + '> **' + amount + '€** geklaut! ' + extra)
-        	    .setFooter({ text: '» ' + version });
+        	    .setFooter({ text: '» ' + vote + ' » ' + version });
             
             failure = new EmbedBuilder()
                 .setTitle('» AUSRAUBEN')
                 .setDescription('» Du wolltest <@' + user + '> **' + amount + '€** klauen, aber die Polizei hat dich erwischt! Du musstest **' + punishment + '€** Strafgeld bezahlen! KEKW.')
-                .setFooter({ text: '» ' + version });
+                .setFooter({ text: '» ' + vote + ' » ' + version });
         }
         
         // Set Money

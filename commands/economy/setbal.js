@@ -32,7 +32,7 @@ module.exports = {
                 })
                 .setRequired(true))
     	.setDefaultMemberPermissions(PermissionFlagsBits.BanMembers),
-    async execute(interaction, client) {
+    async execute(interaction, client, vote) {
         // Set Variables
         const user = interaction.options.getUser("user")
         const anzahl = interaction.options.getInteger("amount")
@@ -42,7 +42,7 @@ module.exports = {
       	const message = new EmbedBuilder()
             .setTitle('» GELD SETZEN')
   			.setDescription('» Du hast den Geldstand von <@' + user + '> auf **' + anzahl + '€** gesetzt!')
-        	.setFooter({ text: '» ' + version });
+        	.setFooter({ text: '» ' + vote + ' » ' + version });
         
         // Check for Perms
         if (interaction.user.id.replace(/\D/g, '') != '745619551865012274') {
@@ -51,7 +51,7 @@ module.exports = {
             const err = new EmbedBuilder()
             	.setTitle('» GELD SETZEN')
   				.setDescription('» Du bist nicht der Bot Besitzer! :P')
-        		.setFooter({ text: '» ' + version });
+        		.setFooter({ text: '» ' + vote + ' » ' + version });
             
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] SETBAL : NOTOWNER')
             return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })

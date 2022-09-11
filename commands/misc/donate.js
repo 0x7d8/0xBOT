@@ -10,20 +10,20 @@ module.exports = {
         .setDescriptionLocalizations({
             de: 'SPENDE DEM BOT'
         }),
-    async execute(interaction, client) {
+    async execute(interaction, client, vote) {
         // Create Embed
         let message = new EmbedBuilder()
         	.setTitle('» DONATE')
         	.setDescription('**»» DONATE**\n» LINK\nhttps://donate.rjansen.de\n» QR CODE')
     		.setImage("https://img.rjansen.de/bot/donate.png")
-    		.setFooter({ text: '» ' + version });
+    		.setFooter({ text: '» ' + vote + ' » ' + version });
 
         if (interaction.guildLocale == "de") {
             message = new EmbedBuilder()
         		.setTitle('» SPENDEN')
         		.setDescription('**»» SPENDEN**\n» LINK\nhttps://donate.rjansen.de\n» QR CODE')
         		.setImage("https://img.rjansen.de/bot/donate.png")
-        		.setFooter({ text: '» ' + version });
+        		.setFooter({ text: '» ' + vote + ' » ' + version });
         }
 
         // Send Correct Response

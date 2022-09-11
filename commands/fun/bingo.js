@@ -20,7 +20,7 @@ module.exports = {
     			.addChoices(
             		{ name: '🗺️ STADT LAND FLUSS', value: 'stadtlandfluss' },
 				)),
-    async execute(interaction, client) {
+    async execute(interaction, client, vote) {
         // Set Variables
         const bingo = interaction.options.getString("bingo")
 
@@ -30,7 +30,7 @@ module.exports = {
             const err = new EmbedBuilder()
         		.setTitle('» FEHLER')
         		.setDescription('» Dieser Befehl ist auf **' + interaction.guild.id + '** nicht erlaubt!\nDas ist kein Bug.')
-        		.setFooter({ text: '» ' + version });
+        		.setFooter({ text: '» ' + vote + ' » ' + version });
             
             return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
@@ -39,7 +39,7 @@ module.exports = {
         const slf = new EmbedBuilder()
         		.setTitle('» STADT LAND FLUSS BINGO')
         		.setImage("https://img.rjansen.de/bot/stadtlandfluss.png")
-        		.setFooter({ text: '» ' + version });
+        		.setFooter({ text: '» ' + vote + ' » ' + version });
 
         // Send Message
         console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] BINGO : ' + bingo.toUpperCase())

@@ -28,7 +28,7 @@ module.exports = {
             		{ name: '⭐ GARTIC PHONE', value: 'garticphone' },
             		{ name: '🧠 JKLM', value: 'jklm' },
 				)),
-    async execute(interaction, client) {
+    async execute(interaction, client, vote) {
         // Set Variables
         const spiel = interaction.options.getString("game")
 
@@ -66,19 +66,19 @@ module.exports = {
         const slf = new EmbedBuilder()
         		.setTitle('» STADT LAND FLUSS REGELN')
         		.setDescription('**»» PERSONEN**\n» 100000+ ABONNENTEN\n» DEUTSCHE PERSON\n\n**»» STÄDTE**\n» 5000+ BEWOHNER\n» DEUTSCHE STADTNAMEN\n\n**»» SÄTZE**\n» KONTEXT WICHTIG\n» NUR DEUTSCH')
-        		.setFooter({ text: '» ' + version });
+        		.setFooter({ text: '» ' + vote + ' » ' + version });
         const sio = new EmbedBuilder()
         		.setTitle('» SCRIBBL.IO REGELN')
         		.setDescription('**»» MALEN**\n» KEINEN TEXT\n\n**»» WÖRTER**\n» WÖRTER DIE JEDER KENNT\n\n**»» CHAT**\n» KEIN SPAMMING')
-        		.setFooter({ text: '» ' + version });
+        		.setFooter({ text: '» ' + vote + ' » ' + version });
         const gtf = new EmbedBuilder()
         		.setTitle('» GARTICPHONE REGELN')
         		.setDescription('**»» MALEN**\n» KEINEN TEXT\n» MUSS ZUM SATZ PASSEN\n\n**»» SÄTZE**\n» SÄTZE DIE JEDER VERSTEHT')
-        		.setFooter({ text: '» ' + version });
+        		.setFooter({ text: '» ' + vote + ' » ' + version });
         const jkl = new EmbedBuilder()
         		.setTitle('» JKLM.FUN REGELN')
         		.setDescription('**»» GENERELL**\n» KEINE REGELN')
-        		.setFooter({ text: '» ' + version });
+        		.setFooter({ text: '» ' + vote + ' » ' + version });
 
         // Send Message
         console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] GAME : ' + spiel.toUpperCase())

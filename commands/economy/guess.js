@@ -46,7 +46,7 @@ module.exports = {
                     de: 'DIE NUMMER'
                 })
                 .setRequired(true)),
-    async execute(interaction, client) {
+    async execute(interaction, client, vote) {
         // Set Variables
         const bereich = interaction.options.getString("range")
         const wette = interaction.options.getInteger("bet")
@@ -62,13 +62,13 @@ module.exports = {
             let message = new EmbedBuilder()
         		.setTitle('» ERROR')
         		.setDescription('» You cant play with negative Money!')
-        		.setFooter({ text: '» ' + version });
+        		.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (interaction.guildLocale == "de") {
                 message = new EmbedBuilder()
         		    .setTitle('» FEHLER')
         		    .setDescription('» Du kannst keine negativen Einsätze spielen!')
-        		    .setFooter({ text: '» ' + version });
+        		    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
             
             // Send Message
@@ -86,13 +86,13 @@ module.exports = {
                 let message = new EmbedBuilder()
             		.setTitle('» ERROR')
   					.setDescription('» You cant bet that much! **$15000** is the Maximum.')
-            		.setFooter({ text: '» ' + version });
+            		.setFooter({ text: '» ' + vote + ' » ' + version });
 
                 if (interaction.guildLocale == "de") {
                     message = new EmbedBuilder()
             		    .setTitle('» FEHLER')
   					    .setDescription('» Du kannst nicht soviel Wetten! **15000€** ist das Maximum.')
-            		    .setFooter({ text: '» ' + version });
+            		    .setFooter({ text: '» ' + vote + ' » ' + version });
                 }
                 
                 // Send Message
@@ -123,13 +123,13 @@ module.exports = {
             let message = new EmbedBuilder()
             	.setTitle('» ERROR')
   				.setDescription('» You dont have enough Money for that, you are missing **$' + missing + '**!')
-            	.setFooter({ text: '» ' + version });
+            	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (interaction.guildLocale == "de") {
                 message = new EmbedBuilder()
             	    .setTitle('» FEHLER')
   				    .setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
-            	    .setFooter({ text: '» ' + version });
+            	    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
 
             // Send Message
@@ -141,13 +141,13 @@ module.exports = {
       	let message = new EmbedBuilder()
             .setTitle('» GUESSING')
   			.setDescription('» You set **$' + wette + '** on **' + nummer + '** and **' + status + '** **$' + result + '**!')
-        	.setFooter({ text: '» ' + version });
+        	.setFooter({ text: '» ' + vote + ' » ' + version });
 
         if (interaction.guildLocale == "de") {
             message = new EmbedBuilder()
                 .setTitle('» RATEN')
   			    .setDescription('» Du hast **' + wette + '€** auf **' + nummer + '** gesetzt und **' + result + '€** **' + status + '**!')
-        	    .setFooter({ text: '» ' + version });
+        	    .setFooter({ text: '» ' + vote + ' » ' + version });
         }
         
         // Set Money

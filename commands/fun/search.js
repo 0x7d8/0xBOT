@@ -35,7 +35,7 @@ module.exports = {
             		{ name: '⭐ YAHOO', value: 'Yahoo' },
             		{ name: '⭐ DUCKDUCKGO', value: 'DuckDuckGo' },
 				)),
-    async execute(interaction, client) {
+    async execute(interaction, client, vote) {
         // Set Variables
         const suche = interaction.options.getString("query")
         let engine = interaction.options.getString("engine")
@@ -78,13 +78,13 @@ module.exports = {
        	let message = new EmbedBuilder()
             .setTitle('» SEARCH')
   			.setDescription('» Click Below to look up results for **' + suche + '** on **' + engine + '**!')
-        	.setFooter({ text: '» ' + version });
+        	.setFooter({ text: '» ' + vote + ' » ' + version });
 
         if (interaction.guildLocale == "de") {
             message = new EmbedBuilder()
                 .setTitle('» SUCHEN')
   			    .setDescription('» Klicke unten um nach Ergebnissen für **' + suche + '** auf **' + engine + '** zu finden!')
-        	    .setFooter({ text: '» ' + version });
+        	    .setFooter({ text: '» ' + vote + ' » ' + version });
         }
         
         // Send Message

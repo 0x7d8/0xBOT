@@ -27,7 +27,7 @@ module.exports = {
             		{ name: '🔵 [390000€] PARKHAUS', value: '2' },
                     { name: '🟡 [520000€] BAHNHOF', value: '3' },
 				)),
-    async execute(interaction, client) {
+    async execute(interaction, client, vote) {
         // Set Variables
         const business = interaction.options.getString("business")
         const balance = await bals.get(interaction.user.id.replace(/\D/g, ''));
@@ -38,7 +38,7 @@ module.exports = {
             const err = new EmbedBuilder()
             .setTitle('» FEHLER')
             .setDescription('» Nur für Devs!')
-            .setFooter({ text: '» ' + version });
+            .setFooter({ text: '» ' + vote + ' » ' + version });
     
         // Send Message
         return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
@@ -57,7 +57,7 @@ module.exports = {
                 const err = new EmbedBuilder()
         		    .setTitle('» FEHLER')
         		    .setDescription('» Dieses Business gehört schon <@' + businessowner + '>!')
-        		    .setFooter({ text: '» ' + version });
+        		    .setFooter({ text: '» ' + vote + ' » ' + version });
             
                 // Send Message
                 console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] BUSINESSBUY : ALREADYOWNED')
@@ -75,7 +75,7 @@ module.exports = {
                 const err = new EmbedBuilder()
         		    .setTitle('» FEHLER')
         		    .setDescription('» Dieses Business gehört schon <@' + businessowner + '>!')
-        		    .setFooter({ text: '» ' + version });
+        		    .setFooter({ text: '» ' + vote + ' » ' + version });
             
                 // Send Message
                 console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] BUSINESSBUY : ALREADYOWNED')
@@ -93,7 +93,7 @@ module.exports = {
                 const err = new EmbedBuilder()
         		    .setTitle('» FEHLER')
         		    .setDescription('» Dieses Business gehört schon <@' + businessowner + '>!')
-        		    .setFooter({ text: '» ' + version });
+        		    .setFooter({ text: '» ' + vote + ' » ' + version });
             
                 // Send Message
                 console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] BUSINESSBUY : ALREADYOWNED')
@@ -120,7 +120,7 @@ module.exports = {
             const err = new EmbedBuilder()
             	.setTitle('» GESCHÄFT KAUFEN')
   				.setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
-            	.setFooter({ text: '» ' + version });
+            	.setFooter({ text: '» ' + vote + ' » ' + version });
             
             // Send Message
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] BUSINESSBUY : ' + name.toUpperCase() + ' : NOTENOUGHMONEY : ' + cost + '€')
@@ -174,7 +174,7 @@ module.exports = {
         const message = new EmbedBuilder()
             .setTitle('» GESCHÄFT KAUFEN')
             .setDescription('» Du hast erfolgreich eine **' + name + '** für **' + cost + '€** gekauft!')
-            .setFooter({ text: '» ' + version });
+            .setFooter({ text: '» ' + vote + ' » ' + version });
 
         // Send Message
         console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] BUSINESSBUY : ' + name.toUpperCase() + ' : ' + cost + '€')

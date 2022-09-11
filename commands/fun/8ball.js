@@ -21,7 +21,7 @@ module.exports = {
                     de: 'DIE FRAGE'
                 })
                 .setRequired(true)),
-    async execute(interaction, client) {
+    async execute(interaction, client, vote) {
         // Set Variables
         const frage = interaction.options.getString("question")
         const random = Math.floor(Math.random() * (20 - 1 + 1)) + 1;
@@ -84,13 +84,13 @@ module.exports = {
         let message = new EmbedBuilder()
         	.setTitle('» MAGIC BALL')
   			.setDescription('» "' + formatted + '" -> ' + result)
-        	.setFooter({ text: '» ' + version });
+        	.setFooter({ text: '» ' + vote + ' » ' + version });
 
         if (interaction.guildLocale == "de") {
             message = new EmbedBuilder()
         	    .setTitle('» MAGISCHER BALL')
   			    .setDescription('» "' + formatted + '" -> ' + result)
-        	    .setFooter({ text: '» ' + version });
+        	    .setFooter({ text: '» ' + vote + ' » ' + version });
         }
         
         // Send Message

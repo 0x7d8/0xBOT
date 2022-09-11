@@ -24,7 +24,7 @@ module.exports = {
                     de: 'DAS MAXIMUM'
                 })
                 .setRequired(true)),
-    async execute(interaction, client) {
+    async execute(interaction, client, vote) {
         // Set Variables
         const min = interaction.options.getInteger("min")
         const max = interaction.options.getInteger("max")
@@ -34,13 +34,13 @@ module.exports = {
         let message = new EmbedBuilder()
         	.setTitle('» RANDOM NUMBER')
   			.setDescription('» Between **' + min + '** and **' + max + '** I choose **' + res + '**!')
-        	.setFooter({ text: '» ' + version });
+        	.setFooter({ text: '» ' + vote + ' » ' + version });
 
         if (interaction.guildLocale == "de") {
             message = new EmbedBuilder()
         	    .setTitle('» ZUFÄLLIGE NUMMER')
   			    .setDescription('» Zwischen **' + min + '** und **' + max + '** wähle ich **' + res + '**!')
-        	    .setFooter({ text: '» ' + version });
+        	    .setFooter({ text: '» ' + vote + ' » ' + version });
         }
 
         // Send Message

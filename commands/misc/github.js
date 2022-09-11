@@ -11,7 +11,7 @@ module.exports = {
         .setDescriptionLocalizations({
             de: 'DER BOT AUF GITHUB'
         }),
-    async execute(interaction, client) {
+    async execute(interaction, client, vote) {
         // Create Button
         let button = new ActionRowBuilder()
 			.addComponents(
@@ -35,13 +35,13 @@ module.exports = {
        	let message = new EmbedBuilder()
             .setTitle('» GITHUB')
   			.setDescription('» CLick below to go to the **GITHUB** Page of the Bot!')
-        	.setFooter({ text: '» ' + version });
+        	.setFooter({ text: '» ' + vote + ' » ' + version });
 
         if (interaction.guildLocale == "de") {
             message = new EmbedBuilder()
                 .setTitle('» GITHUB')
   			    .setDescription('» Klicke unten um auf die **GITHUB** Seite zu kommen!')
-        	    .setFooter({ text: '» ' + version });
+        	    .setFooter({ text: '» ' + vote + ' » ' + version });
         }
         
         // Send Message

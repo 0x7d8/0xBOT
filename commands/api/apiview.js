@@ -26,7 +26,7 @@ module.exports = {
             		{ name: '💻 4', value: '4' },
             		{ name: '💻 5', value: '5' },
 				)),
-    async execute(interaction, client) {
+    async execute(interaction, client, vote) {
         // Set Variables
         const name = interaction.options.getString("name")
         const amount = await apis.get(interaction.user.id.replace(/\D/g, ''));

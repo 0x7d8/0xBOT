@@ -28,7 +28,7 @@ module.exports = {
             		{ name: '💰 [04] 400€', value: '4' },
             		{ name: '💰 [05] 500€', value: '5' },
 				)),
-    async execute(interaction, client) {
+    async execute(interaction, client, vote) {
         // Set Variables
         const anzahl = interaction.options.getString("amount")
         
@@ -44,13 +44,13 @@ module.exports = {
             let message = new EmbedBuilder()
             	.setTitle('» ERROR')
   				.setDescription('» You dont have that many Quotes, you only have **' + quotes + '**!')
-            	.setFooter({ text: '» ' + version });
+            	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (interaction.guildLocale == "de") {
                 message = new EmbedBuilder()
             	    .setTitle('» FEHLER')
   				    .setDescription('» Du hast garnicht so viele Zitate, du hast nur **' + quotes + '**!')
-            	    .setFooter({ text: '» ' + version });
+            	    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
             
             // Send Message

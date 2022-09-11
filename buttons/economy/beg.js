@@ -5,7 +5,7 @@ module.exports = {
     data: {
         name: 'beg'
     },
-    async execute(interaction, client, reciever, amount) {
+    async execute(interaction, client, vote, reciever, amount) {
         // Set Variables
         const balance = await bals.get(interaction.user.id.replace(/\D/g, ''));
 
@@ -17,13 +17,13 @@ module.exports = {
             let message = new EmbedBuilder()
             	.setTitle('» ERROR')
   				.setDescription('» You dont have enough Money for that, you are missing **$' + missing + '**!')
-            	.setFooter({ text: '» ' + version });
+            	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (interaction.guildLocale == "de") {
                 message = new EmbedBuilder()
             	    .setTitle('» FEHLER')
   				    .setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
-            	    .setFooter({ text: '» ' + version });
+            	    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
             
             // Send Message
@@ -37,13 +37,13 @@ module.exports = {
             let message = new EmbedBuilder()
             	.setTitle('» ERROR')
   				.setDescription('» You cant give yourself Money?')
-            	.setFooter({ text: '» ' + version });
+            	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (interaction.guildLocale == "de") {
                 message = new EmbedBuilder()
             	    .setTitle('» FEHLER')
   				    .setDescription('» Du kannst dir selber kein Geld geben?')
-            	    .setFooter({ text: '» ' + version });
+            	    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
 
             // Send Message
@@ -59,13 +59,13 @@ module.exports = {
       	let message = new EmbedBuilder()
             .setTitle('» BEGGING')
             .setDescription('» <@' + interaction.user.id + '> gave <@' + reciever.toString().replace(/\D/g, '') + '> **$' + amount + '**!')
-            .setFooter({ text: '» ' + version });
+            .setFooter({ text: '» ' + vote + ' » ' + version });
 
         if (interaction.guildLocale == "de") {
             message = new EmbedBuilder()
                 .setTitle('» BETTELN')
                 .setDescription('» <@' + interaction.user.id + '> hat <@' + reciever.toString().replace(/\D/g, '') + '> **' + amount + '€** gegeben!')
-                .setFooter({ text: '» ' + version });
+                .setFooter({ text: '» ' + vote + ' » ' + version });
         }
 
         // Send Message

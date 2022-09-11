@@ -20,7 +20,7 @@ module.exports = {
                     de: 'DER NUTZER'
                 })
                 .setRequired(false)),
-    async execute(interaction, client) {
+    async execute(interaction, client, vote) {
         // Set Variables
         const user = interaction.options.getUser("user")
 
@@ -62,25 +62,25 @@ module.exports = {
         	message = new EmbedBuilder()
             	.setTitle('» YOUR QUOTES')
   				.setDescription('» You have **' + quotes + '** ' + word + '!')
-            	.setFooter({ text: '» ' + version });
+            	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (interaction.guildLocale == "de") {
                 message = new EmbedBuilder()
             	    .setTitle('» DEINE ZITATE')
   				    .setDescription('» Du hast **' + quotes + '** ' + word + '!')
-            	    .setFooter({ text: '» ' + version });
+            	    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
         } else {
             message = new EmbedBuilder()
                 .setTitle('» THE QUOTES OF ' + userinfo.username.toUpperCase() + '#' + userinfo.discriminator)
   				.setDescription('» <@' + user + '> has **' + quotes + '** ' + word + '!')
-            	.setFooter({ text: '» ' + version });
+            	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (interaction.guildLocale == "de") {
                 message = new EmbedBuilder()
                     .setTitle('» DIE ZITATE VON ' + userinfo.username.toUpperCase() + '#' + userinfo.discriminator)
   				    .setDescription('» <@' + user + '> hat **' + quotes + '** ' + word + '!')
-            	    .setFooter({ text: '» ' + version });
+            	    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
         }
 

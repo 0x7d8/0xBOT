@@ -13,7 +13,7 @@ module.exports = {
         .setDescriptionLocalizations({
             de: 'ARBEITE FÜR GELD'
         }),
-    async execute(interaction, client) {
+    async execute(interaction, client, vote) {
         // Set Variables
         const random = Math.floor(Math.random() * (4 - 1 + 1)) + 1;
 
@@ -31,13 +31,13 @@ module.exports = {
             let message = new EmbedBuilder()
             	.setTitle('» ERROR')
   				.setDescription('» You still have a Cooldown of **' + cdown.toFixed(0) + use + '**!')
-            	.setFooter({ text: '» ' + version });
+            	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (interaction.guildLocale == "de") {
                 message = new EmbedBuilder()
             	    .setTitle('» FEHLER')
   				    .setDescription('» Du hast leider noch einen Cooldown von **' + cdown.toFixed(0) + use + 's*!')
-            	    .setFooter({ text: '» ' + version });
+            	    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
             
             // Send Message
@@ -80,13 +80,13 @@ module.exports = {
       		let message = new EmbedBuilder()
             	.setTitle('» WORK')
   				.setDescription('» You work as **' + job + '** and earn **$' + result + '**! ' + extra)
-            	.setFooter({ text: '» ' + version });
+            	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (interaction.guildLocale == "de") {
                 message = new EmbedBuilder()
             	    .setTitle('» ARBEIT')
   				    .setDescription('» Du arbeitest als **' + job + '** und verdienst **' + result + '€**! ' + extra)
-            	    .setFooter({ text: '» ' + version });
+            	    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
         
         	// Send Money

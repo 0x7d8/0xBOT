@@ -11,7 +11,7 @@ module.exports = {
             de: 'DRÜCKE EINEN KNOPF'
         })
     	.setDMPermission(false),
-    async execute(interaction, client) {
+    async execute(interaction, client, vote) {
         // Create Button
         let button = new ActionRowBuilder()
 			.addComponents(
@@ -25,13 +25,13 @@ module.exports = {
       	let message = new EmbedBuilder()
                 .setTitle('» COUNTING')
   			    .setDescription('» Lets Count! Current Number: **0**')
-        	    .setFooter({ text: '» ' + version });
+        	    .setFooter({ text: '» ' + vote + ' » ' + version });
 
         if (interaction.guildLocale == "de") {
             message = new EmbedBuilder()
                 .setTitle('» ZÄHLEN')
   		        .setDescription('» Komm Zählen! Aktuelle Nummer: **0**')
-                .setFooter({ text: '» ' + version });
+                .setFooter({ text: '» ' + vote + ' » ' + version });
         }
 
         // Send Message
