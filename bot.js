@@ -133,7 +133,7 @@ client.on('interactionCreate', async interaction => {
     				.setFooter({ text: '» ' + version });
 
     			// Send Message
-				await interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+				await await interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
 			} catch (error) {
 				return
 			}

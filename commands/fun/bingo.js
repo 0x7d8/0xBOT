@@ -32,7 +32,7 @@ module.exports = {
         		.setDescription('» Dieser Befehl ist auf **' + interaction.guild.id + '** nicht erlaubt!\nDas ist kein Bug.')
         		.setFooter({ text: '» ' + version });
             
-            await return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
         
         // Create Embeds

@@ -85,6 +85,6 @@ module.exports = {
         }
 
         // Send Message
-        await return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+        return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
     },
 };

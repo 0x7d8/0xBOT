@@ -69,6 +69,6 @@ module.exports = {
         }
 
         // Send Message
-        await return interaction.reply({ embeds: [message.toJSON()] })
+        return interaction.reply({ embeds: [message.toJSON()] })
     },
 };

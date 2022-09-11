@@ -66,7 +66,7 @@ module.exports = {
             }
             
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] ROB : ONCOOLDOWN : ' + cdown.toFixed(0) + 's');
-            await return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
         
         // Check if User is Author
@@ -86,7 +86,7 @@ module.exports = {
             }
             
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] ROB : ' + user.toString().replace(/\D/g, '') + ' : ' + money + '€ : SAMEPERSON')
-            await return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
         // Check if Target is Bot
@@ -107,7 +107,7 @@ module.exports = {
             
             // Send Message
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] ROB : ' + user + ' : BOT')
-            await return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
         
         // Set Steal to Need
@@ -133,15 +133,15 @@ module.exports = {
         // Check Money
         if (money == 35 && moneysnd < 20) {
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] ROB : ' + user + ' : NOTENOUGHMONEY')
-            await return interaction.reply({ embeds: [notenoughmoney1.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [notenoughmoney1.toJSON()], ephemeral: true })
      	};
         if (money == 20 && moneysnd < 50) {
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] ROB : ' + user + ' : NOTENOUGHMONEY')
-            await return interaction.reply({ embeds: [notenoughmoney1.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [notenoughmoney1.toJSON()], ephemeral: true })
      	};
         if (money == 5 && moneysnd < 100) {
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] ROB : ' + user + ' : NOTENOUGHMONEY')
-            await return interaction.reply({ embeds: [notenoughmoney1.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [notenoughmoney1.toJSON()], ephemeral: true })
      	};
             
         // Check for enough Money #2
@@ -161,15 +161,15 @@ module.exports = {
         // Check Money
         if (money == 35 && moneytar < 20) {
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] ROB : ' + user + ' : NOTENOUGHMONEY')
-            await return interaction.reply({ embeds: [notenoughmoney2.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [notenoughmoney2.toJSON()], ephemeral: true })
      	};
         if (money == 20 && moneytar < 50) {
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] ROB : ' + user + ' : NOTENOUGHMONEY')
-            await return interaction.reply({ embeds: [notenoughmoney2.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [notenoughmoney2.toJSON()], ephemeral: true })
      	};
         if (money == 5 && moneytar < 100) {
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] ROB : ' + user + ' : NOTENOUGHMONEY')
-            await return interaction.reply({ embeds: [notenoughmoney2.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [notenoughmoney2.toJSON()], ephemeral: true })
      	};
         
         // Setup Chances
@@ -245,7 +245,7 @@ module.exports = {
             
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] ROB : ' + user + ' : ' + amount + '€ : FAILURE : ' + punishment + '€')
         	bals.rem(interaction.user.id.replace(/\D/g, ''), punishment)
-        	await return interaction.reply({ embeds: [failure.toJSON()] })
+        	return interaction.reply({ embeds: [failure.toJSON()] })
         }
         
         // Set Cooldown
@@ -258,6 +258,6 @@ module.exports = {
         
         // Send Message
         console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] ROB : ' + user + ' : ' + amount + '€ : SUCCESS')
-        await return interaction.reply({ embeds: [sucess.toJSON()] })
+        return interaction.reply({ embeds: [sucess.toJSON()] })
     },
 };
