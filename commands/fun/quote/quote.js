@@ -59,7 +59,7 @@ module.exports = {
             
             // Send Message
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] QUOTE : ONCOOLDOWN : ' + cdown.toFixed(0) + 's');
-            return await interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
         
         // Check if there is a author specified
@@ -102,6 +102,6 @@ module.exports = {
         setTimeout(() => cooldown.delete(), time)
 
         // Send Message
-        return await interaction.reply({ embeds: [message.toJSON()] })
+        return interaction.reply({ embeds: [message.toJSON()] })
     },
 };

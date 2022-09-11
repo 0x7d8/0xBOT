@@ -73,7 +73,7 @@ module.exports = {
             
             // Send Message
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] GUESS : NEGATIVEMONEY : ' + wette + '€')
-            return await interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
         
        	// Check for enough Money
@@ -97,7 +97,7 @@ module.exports = {
                 
                 // Send Message
             	console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] GUESS : TOOMUCHMONEY : ' + wette + '€')
-        		return await interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+        		return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
             }
             
             // Calculate Winnings
@@ -134,7 +134,7 @@ module.exports = {
 
             // Send Message
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] GUESS : NOTENOUGHMONEY : ' + missing + '€')
-            return await interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
         
         // Create Embed
@@ -158,6 +158,6 @@ module.exports = {
 
         // Send Message
        	console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] GUESS : ' + nummer + ' : ' + status + ' : ' + result + '€')
-        return await interaction.reply({ embeds: [message.toJSON()] })
+        return interaction.reply({ embeds: [message.toJSON()] })
     },
 };

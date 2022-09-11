@@ -60,6 +60,6 @@ module.exports = {
 
         // Send Message
         console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] EMBED : ' + titel.toUpperCase() + ' : ' + nachricht.toUpperCase())
-        return await interaction.reply({ embeds: [message.toJSON()] })
+        return interaction.reply({ embeds: [message.toJSON()] })
     },
 };

@@ -53,7 +53,7 @@ module.exports = {
         		.setFooter({ text: '» ' + version });
             
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] REMBAL : NOTOWNER')
-            return await interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
         
         // Remove Money
@@ -61,6 +61,6 @@ module.exports = {
 
         // Send Message
         console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] REMBAL : ' + user + ' : ' + anzahl + '€')
-        return await interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+        return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
     },
 };

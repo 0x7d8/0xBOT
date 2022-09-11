@@ -82,7 +82,7 @@ module.exports = {
             
             // Send Message
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] STOCKBUY : NEGATIVEMONEY : ' + amount + '€')
-            return await interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
         // Check if Max Stocks are reached
@@ -102,7 +102,7 @@ module.exports = {
             
             // Send Message
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] STOCKBUY : MAXGREEN : ' + amount + '€')
-            return await interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
         if (stock == 'blue' && blues > bluemax) {
             // Create Embed
@@ -120,7 +120,7 @@ module.exports = {
             
             // Send Message
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] STOCKBUY : MAXBLUE : ' + amount + '€')
-            return await interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
         if (stock == 'yellow' && yellows > yellowmax) {
             // Create Embed
@@ -138,7 +138,7 @@ module.exports = {
             
             // Send Message
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] STOCKBUY : MAXYELLOW : ' + amount + '€')
-            return await interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
         if (stock == 'red' && reds > redmax) {
             // Create Embed
@@ -156,7 +156,7 @@ module.exports = {
             
             // Send Message
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] STOCKBUY : MAXRED : ' + amount + '€')
-            return await interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
         // Fetch Stock
@@ -186,7 +186,7 @@ module.exports = {
             
             // Send Message
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] STOCKBUY : ' + stock.toUpperCase() + ' : ' + amount + ' : ' + cost + '€ : NOTENOUGHMONEY')
-            return await interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
         // Set Emoji
@@ -229,6 +229,6 @@ module.exports = {
 
         // Send Message
         console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] STOCKBUY : ' + stock.toUpperCase() + ' : ' + amount + ' : ' + cost + '€')
-        return await interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+        return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
     },
 };

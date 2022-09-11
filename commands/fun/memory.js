@@ -56,7 +56,7 @@ module.exports = {
             
             // Send Message
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] MEMORY : ' + user.toString().replace(/\D/g, '') + ' : BOT')
-            return await interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
         // Check if Sender is already in a Lobby
@@ -83,7 +83,7 @@ module.exports = {
             
             // Send Message
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] MEMORY : ' + user.toString().replace(/\D/g, '') + ' : ALREADYLOBBY')
-            return await interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
         // Check if Reciever is already in a Lobby
@@ -109,7 +109,7 @@ module.exports = {
             
             // Send Message
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] MEMORY : ' + user.toString().replace(/\D/g, '') + ' : ALREADYLOBBY')
-            return await interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
         // Check if Bet is Negative
@@ -129,7 +129,7 @@ module.exports = {
             
             // Send Message
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] MEMORY : ' + user.toString().replace(/\D/g, '') + ' : NEGATIVEMONEY : ' + bet + '€')
-            return await interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
         // Check if User is Author
@@ -149,7 +149,7 @@ module.exports = {
 
             // Send Message
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] MEMORY : ' + reciever.toString().replace(/\D/g, '') + ' : ' + amount + '€ : SAMEPERSON')
-            return await interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
         // Check for Enough Money
@@ -171,7 +171,7 @@ module.exports = {
             
             // Send Message
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] MEMORY : ' + user.toString().replace(/\D/g, '') + ' : NOTENOUGHMONEY')
-            return await interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
         if (othermoney < bet && bet != null) {
             const missing = bet - othermoney
@@ -191,7 +191,7 @@ module.exports = {
             
             // Send Message
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] MEMORY : ' + user.toString().replace(/\D/g, '') + ' : NOTENOUGHMONEY')
-            return await interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
         // Create Buttons
@@ -242,6 +242,6 @@ module.exports = {
 
         // Send Message
         console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] MEMORY : ' + user.toString().replace(/\D/g, '') + ' : ' + bet + '€')
-        return await interaction.reply({ embeds: [message.toJSON()], components: [row] })
+        return interaction.reply({ embeds: [message.toJSON()], components: [row] })
     },
 };

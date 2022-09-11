@@ -49,7 +49,7 @@ module.exports = {
             
             // Send Message
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] COINFLIP : NOTENOUGHCOINS : ' + anzahl)
-            return await interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
         // Check if Number is too Big
@@ -69,7 +69,7 @@ module.exports = {
             
             // Send Message
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] COINFLIP : TOOMANYCOINS : ' + anzahl)
-            return await interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
 
         // Loop
@@ -125,6 +125,6 @@ module.exports = {
         
         // Send Message
         console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] COINFLIP : H[' + heads + '] : T[' + tails + ']')
-        return await interaction.reply({ embeds: [message.toJSON()] })
+        return interaction.reply({ embeds: [message.toJSON()] })
     },
 };
