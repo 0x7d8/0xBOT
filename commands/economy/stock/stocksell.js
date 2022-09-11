@@ -53,7 +53,7 @@ module.exports = {
             
             // Send Message
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] STOCKSELL : NEGATIVEMONEY : ' + amount + '€')
-            return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
+            return await interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
 
         // Fetch Stock
@@ -106,7 +106,7 @@ module.exports = {
             
             // Send Message
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] STOCKSELL : ' + stock.toUpperCase() + ' : ' + amount + ' : ' + cash + '€ : NOTENOUGHSTOCKS')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return await interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
         // Add Money
@@ -141,6 +141,6 @@ module.exports = {
 
         // Send Message
         console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] STOCKSELL : ' + stock.toUpperCase() + ' : ' + amount + ' : ' + cash + '€')
-        return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+        return await interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
     },
 };

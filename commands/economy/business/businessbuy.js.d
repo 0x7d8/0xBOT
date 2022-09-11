@@ -41,7 +41,7 @@ module.exports = {
             .setFooter({ text: '» ' + version });
     
         // Send Message
-        return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
+        return await interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
 
         // Check if Business is Empty
@@ -61,7 +61,7 @@ module.exports = {
             
                 // Send Message
                 console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] BUSINESSBUY : ALREADYOWNED')
-                return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
+                return await interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
             }
         }
         if (business = '2' && await Lb2o.get('g-' + interaction.guild.id) != 0) {
@@ -79,7 +79,7 @@ module.exports = {
             
                 // Send Message
                 console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] BUSINESSBUY : ALREADYOWNED')
-                return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
+                return await interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
             }
         }
         if (business = '3' && await Lb3o.get('g-' + interaction.guild.id) != 0) {
@@ -97,7 +97,7 @@ module.exports = {
             
                 // Send Message
                 console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] BUSINESSBUY : ALREADYOWNED')
-                return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
+                return await interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
             }
         }
 
@@ -124,7 +124,7 @@ module.exports = {
             
             // Send Message
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] BUSINESSBUY : ' + name.toUpperCase() + ' : NOTENOUGHMONEY : ' + cost + '€')
-            return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
+            return await interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
 
         if (business = '1') {
@@ -178,6 +178,6 @@ module.exports = {
 
         // Send Message
         console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] BUSINESSBUY : ' + name.toUpperCase() + ' : ' + cost + '€')
-        return interaction.reply({ embeds: [message.toJSON()] })
+        return await interaction.reply({ embeds: [message.toJSON()] })
     },
 };

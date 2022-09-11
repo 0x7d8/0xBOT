@@ -31,7 +31,7 @@ module.exports = {
             
             // Send Message
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] MEMORY : NOTPLAYING')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return await interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
         // Check Turn
@@ -52,7 +52,7 @@ module.exports = {
             
             // Send Message
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] MEMORY : NOTTURN')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return await interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
         // Translate Turn to Emoji
@@ -291,7 +291,7 @@ module.exports = {
         interaction.update({ embeds: [message.toJSON()], components: [row1, row2, row3, row4], ephemeral: true })
 
         // Update Message
-        interaction.message.edit({ embeds: [message.toJSON()], components: [row1, row2, row3, row4], ephemeral: true })
+        await interaction.message.edit({ embeds: [message.toJSON()], components: [row1, row2, row3, row4], ephemeral: true })
 
         // Check for Special Conditions
         if (se == false) return
@@ -461,7 +461,7 @@ module.exports = {
             eval('delete memorys' + reciever.toString().replace(/\D/g, ''))
 
             // Update Message
-            return interaction.message.edit({ embeds: [message.toJSON()], components: [row1, row2, row3, row4], ephemeral: true })
+            return await interaction.message.edit({ embeds: [message.toJSON()], components: [row1, row2, row3, row4], ephemeral: true })
         }
 
         // Create Buttons
@@ -595,6 +595,6 @@ module.exports = {
 			);
 
         // Update Message
-        return interaction.message.edit({ embeds: [message.toJSON()], components: [row1, row2, row3, row4], ephemeral: true })
+        return await interaction.message.edit({ embeds: [message.toJSON()], components: [row1, row2, row3, row4], ephemeral: true })
     }
 }

@@ -55,7 +55,7 @@ module.exports = {
             
             // Send Message
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] QUOTEREMOVE : ' + anzahl + ' : NOTENOUGHQUOTES');
-        	return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+        	return await interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
         
         // Check for enough Money
@@ -77,7 +77,7 @@ module.exports = {
             
             // Send Message
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] QUOTEREMOVE : ' + anzahl + ' : NOTENOUGHMONEY');
-        	return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+        	return await interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
         
         // Check if Plural or not
@@ -116,6 +116,6 @@ module.exports = {
         
         // Send Message
         console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] QUOTEREMOVE : ' + anzahl + ' : ' + cost + '€');
-        return interaction.reply({ embeds: [message.toJSON()] })
+        return await interaction.reply({ embeds: [message.toJSON()] })
     },
 };
