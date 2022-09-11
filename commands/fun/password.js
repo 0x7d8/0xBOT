@@ -42,7 +42,7 @@ module.exports = {
             }
             
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] PASSWORD : TOOBIG : ' + lenght)
-            return interaction.edit.message({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.message.edit({ embeds: [message.toJSON()], ephemeral: true })
 
         }
 
@@ -62,7 +62,7 @@ module.exports = {
             }
             
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] PASSWORD : TOOSMALL : ' + lenght)
-            return interaction.edit.message({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.message.edit({ embeds: [message.toJSON()], ephemeral: true })
 
         }
 
@@ -89,6 +89,6 @@ module.exports = {
 
         // Send Message
         console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] PASSWORD : ' + lenght + ' : SUCCESS')
-        return interaction.edit.message({ embeds: [message.toJSON()], ephemeral: true })
+        return interaction.message.edit({ embeds: [message.toJSON()], ephemeral: true })
     },
 };

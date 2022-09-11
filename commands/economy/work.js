@@ -42,7 +42,7 @@ module.exports = {
             
             // Send Message
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] WORK : ONCOOLDOWN : ' + cdown.toFixed(0) + use);
-            return interaction.edit.message({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.message.edit({ embeds: [message.toJSON()], ephemeral: true })
         } else {
             
             // Set Jobs
@@ -98,7 +98,7 @@ module.exports = {
             setTimeout(() => cooldown.delete(), time)
             
             // Send Message
-        	return interaction.edit.message({ embeds: [message.toJSON()] })
+        	return interaction.message.edit({ embeds: [message.toJSON()] })
         }
     },
 };

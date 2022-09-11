@@ -95,6 +95,6 @@ module.exports = {
         
         // Send Message
         console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] 8BALL : ' + formatted.toUpperCase() + ' : ' + result.toUpperCase())
-        return interaction.edit.message({ embeds: [message.toJSON()] })
+        return interaction.message.edit({ embeds: [message.toJSON()] })
     },
 };

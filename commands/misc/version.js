@@ -26,6 +26,6 @@ module.exports = {
 
         // Send Correct Response
         console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] VERSION')
-        return interaction.edit.message({ embeds: [message.toJSON()], ephemeral: true })
+        return interaction.message.edit({ embeds: [message.toJSON()], ephemeral: true })
     },
 };

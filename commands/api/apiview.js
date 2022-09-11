@@ -53,7 +53,7 @@ module.exports = {
 
         	// Send Message
         	console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] APIVIEW : ' + name + ' : ' + data.toUpperCase())
-        	return interaction.edit.message({ embeds: [message.toJSON()], ephemeral: true })
+        	return interaction.message.edit({ embeds: [message.toJSON()], ephemeral: true })
         } catch (err) {
             // Create Embed
             let message = new EmbedBuilder()
@@ -70,7 +70,7 @@ module.exports = {
             
             // Send Message
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] APIVIEW : ' + name + ' : NOTFOUND')
-            return interaction.edit.message({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.message.edit({ embeds: [message.toJSON()], ephemeral: true })
         }
     },
 };

@@ -134,7 +134,7 @@ client.on('interactionCreate', async interaction => {
     				.setFooter({ text: '» ' + version });
 
     			// Send Message
-				await interaction.edit.message({ embeds: [message.toJSON()], ephemeral: true })
+				await interaction.message.edit({ embeds: [message.toJSON()], ephemeral: true })
 			} catch (error) {
 				return
 			}
@@ -229,7 +229,7 @@ client.on('interactionCreate', async interaction => {
     				.setFooter({ text: '» ' + version });
 
     			// Send Message
-				await interaction.edit.message({ embeds: [message.toJSON()], ephemeral: true })
+				await interaction.message.edit({ embeds: [message.toJSON()], ephemeral: true })
 			} catch (error) {
 				return
 			}

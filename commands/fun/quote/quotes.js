@@ -85,6 +85,6 @@ module.exports = {
         }
 
         // Send Message
-        return interaction.edit.message({ embeds: [message.toJSON()], ephemeral: true })
+        return interaction.message.edit({ embeds: [message.toJSON()], ephemeral: true })
     },
 };
