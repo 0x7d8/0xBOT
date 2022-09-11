@@ -32,7 +32,7 @@ module.exports = {
         		.setDescription('» Dieser Befehl ist auf **' + interaction.guild.id + '** nicht erlaubt!\nDas ist kein Bug.')
         		.setFooter({ text: '» ' + version });
             
-            return interaction.message.edit({ embeds: [err.toJSON()], ephemeral: true })
+            await return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
         
         // Create Embeds
@@ -44,7 +44,7 @@ module.exports = {
         // Send Message
         console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] BINGO : ' + bingo.toUpperCase())
         if (bingo == 'stadtlandfluss') {
-            await interaction.message.edit({ embeds: [slf.toJSON()] })
+            await interaction.reply({ embeds: [slf.toJSON()] })
         }
     },
 };

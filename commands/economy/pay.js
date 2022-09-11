@@ -53,7 +53,7 @@ module.exports = {
             
             // Send Message
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] PAY : NEGATIVEMONEY : ' + anzahl + '€')
-            return interaction.message.edit({ embeds: [message.toJSON()], ephemeral: true })
+            await return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
         // Check if Target is Bot
@@ -74,7 +74,7 @@ module.exports = {
             
             // Send Message
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] PAY : ' + user + ' : BOT : ' + anzahl + '€')
-            return interaction.message.edit({ embeds: [message.toJSON()], ephemeral: true })
+            await return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
         
         // Create Embeds
@@ -100,7 +100,7 @@ module.exports = {
         
         // Check if User is Author
         if (interaction.user.id.replace(/\D/g, '') == user) {
-            return interaction.message.edit({ embeds: [err2.toJSON()], ephemeral: true })
+            await return interaction.reply({ embeds: [err2.toJSON()], ephemeral: true })
         }
         
         // Set Money
@@ -125,11 +125,11 @@ module.exports = {
             
             // Send Message
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] PAY : ' + user + ' : NOTENOUGHMONEY : ' + anzahl + '€')
-            return interaction.message.edit({ embeds: [message.toJSON()], ephemeral: true })
+            await return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
         // Send Message
         console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] PAY : ' + user + ' : ' + anzahl + '€')
-        return interaction.message.edit({ embeds: [message.toJSON()] })
+        await return interaction.reply({ embeds: [message.toJSON()] })
     },
 };

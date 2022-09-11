@@ -61,7 +61,7 @@ module.exports = {
             
             // Send Message
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] ROULETTE : NEGATIVEMONEY : ' + wette + '€')
-            return interaction.message.edit({ embeds: [message.toJSON()], ephemeral: true })
+            await return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
         
         // Calculate Color
@@ -99,7 +99,7 @@ module.exports = {
                 
                 // Send Message
             	console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] ROULETTE : TOOMUCHMONEY : ' + wette + '€')
-        		return interaction.message.edit({ embeds: [message.toJSON()], ephemeral: true })
+        		await return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
             }
             
         	// Set Money
@@ -152,7 +152,7 @@ module.exports = {
             
             // Send Message
         	console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] ROULETTE : ' + farbe.toUpperCase() + '[W:' + color.toUpperCase() + '] : ' + status + ' : ' + resultdis + '€')
-        	return interaction.message.edit({ embeds: [message.toJSON()] })
+        	await return interaction.reply({ embeds: [message.toJSON()] })
         } else {
             const missing = wette - money
             
@@ -171,7 +171,7 @@ module.exports = {
             
             // Send Message
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] ROULETTE : NOTENOUGHMONEY : ' + missing + '€')
-        	return interaction.message.edit({ embeds: [message.toJSON()], ephemeral: true })
+        	await return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
     },
 };

@@ -35,7 +35,7 @@ module.exports = {
             
             // Send Message
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] TICTACTOE : YES : NOTALLOWED')
-            return interaction.message.edit({ embeds: [message.toJSON()], ephemeral: true })
+            await return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
         // Check if Person is already in a Lobby
@@ -62,7 +62,7 @@ module.exports = {
             
             // Send Message
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] TICTACTOE : ' + reciever.toString().replace(/\D/g, '') + ' : ALREADYLOBBY')
-            return interaction.message.edit({ embeds: [message.toJSON()], ephemeral: true })
+            await return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
         // Check if Reciever is already in a Lobby
@@ -91,7 +91,7 @@ module.exports = {
             
             // Send Message
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] TICTACTOE : ' + sender.toString().replace(/\D/g, '') + ' : ALREADYLOBBY')
-            return interaction.message.edit({ embeds: [message.toJSON()], ephemeral: true })
+            await return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
         // Check if Sender is already in a Lobby
@@ -120,7 +120,7 @@ module.exports = {
             
             // Send Message
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] TICTACTOE : ' + reciever.toString().replace(/\D/g, '') + ' : ALREADYLOBBY')
-            return interaction.message.edit({ embeds: [message.toJSON()], ephemeral: true })
+            await return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
         // Check for enough Money
@@ -142,7 +142,7 @@ module.exports = {
             
             // Send Message
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] TICTACTOE : ' + reciever.toString().replace(/\D/g, '') + ' : ' + bet + '€ : NOTENOUGHMONEY')
-            return interaction.message.edit({ embeds: [message.toJSON()], ephemeral: true })
+            await return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
         if (otherbalance < bet) {
             const missing = bet - otherbalance
@@ -162,7 +162,7 @@ module.exports = {
             
             // Send Message
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] TICTACTOE : ' + reciever.toString().replace(/\D/g, '') + ' : ' + bet + '€ : NOTENOUGHMONEY')
-            return interaction.message.edit({ embeds: [message.toJSON()], ephemeral: true })
+            await return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
         // Create Buttons

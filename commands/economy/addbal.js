@@ -53,7 +53,7 @@ module.exports = {
         		.setFooter({ text: '» ' + version });
             
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] ADDBAL : NOTOWNER')
-            return interaction.message.edit({ embeds: [err.toJSON()], ephemeral: true })
+            await return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
         
         // Add Money
@@ -61,6 +61,6 @@ module.exports = {
 
         // Send Message
         console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] ADDBAL : ' + user + ' : ' + amount + '€')
-        return interaction.message.edit({ embeds: [message.toJSON()], ephemeral: true })
+        await return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
     },
 };

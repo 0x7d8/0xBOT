@@ -28,7 +28,7 @@ module.exports = {
             
             // Send Message
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] BEG : ' + reciever.toString().replace(/\D/g, '') + ' : ' + amount + '€ : NOTENOUGHMONEY')
-            return interaction.message.edit({ embeds: [message.toJSON()], ephemeral: true })
+            await return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
         // Check if User is Author
@@ -48,7 +48,7 @@ module.exports = {
 
             // Send Message
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] BEG : ' + reciever.toString().replace(/\D/g, '') + ' : ' + amount + '€ : SAMEPERSON')
-            return interaction.message.edit({ embeds: [message.toJSON()], ephemeral: true })
+            await return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
         // Transfer Money
@@ -70,6 +70,6 @@ module.exports = {
 
         // Send Message
         console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] BEG : ' + reciever.toString().replace(/\D/g, '') + ' : ' + amount + '€')
-        return interaction.message.edit({ embeds: [message.toJSON()] })
+        await return interaction.reply({ embeds: [message.toJSON()] })
     }
 }

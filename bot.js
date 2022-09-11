@@ -94,7 +94,6 @@ console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: f
 client.on('interactionCreate', async interaction => {
 	if (!interaction.isCommand() && !interaction.isButton()) return;
 
-	await interaction.deferReply();
 	const clang = await lang.get(interaction.user.id)
 	if (parseInt(clang) == 0) { lang.add(interaction.user.id, 1) }
 	if (interaction.locale == "de") {
@@ -134,7 +133,7 @@ client.on('interactionCreate', async interaction => {
     				.setFooter({ text: '» ' + version });
 
     			// Send Message
-				await interaction.message.edit({ embeds: [message.toJSON()], ephemeral: true })
+				await interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
 			} catch (error) {
 				return
 			}
@@ -229,7 +228,7 @@ client.on('interactionCreate', async interaction => {
     				.setFooter({ text: '» ' + version });
 
     			// Send Message
-				await interaction.message.edit({ embeds: [message.toJSON()], ephemeral: true })
+				await interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
 			} catch (error) {
 				return
 			}

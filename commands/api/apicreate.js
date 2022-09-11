@@ -65,7 +65,7 @@ module.exports = {
             
             // Send Message
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] APICREATE : ' + name + ' : NOTFOUND')
-            return interaction.message.edit({ embeds: [message.toJSON()], ephemeral: true })
+            await return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
   		}
         
         // Check if Slots are Free
@@ -85,7 +85,7 @@ module.exports = {
             
             // Send Message
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] APICREATE : ' + name + ' : MAXSLOTS')
-            return interaction.message.edit({ embeds: [message.toJSON()], ephemeral: true })
+            await return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         } 
         
         // Create Embed
@@ -107,6 +107,6 @@ module.exports = {
         // Send Message
         apis.add(interaction.user.id.replace(/\D/g, ''), 1)
         console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] APICREATE : ' + name + ' : ' + inhalt.toUpperCase())
-        return interaction.message.edit({ embeds: [message.toJSON()], ephemeral: true })
+        await return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
     },
 };

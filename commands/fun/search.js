@@ -90,16 +90,16 @@ module.exports = {
         // Send Message
         console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] SEARCH : "' + suche.toUpperCase() + '" : ' + engine.toUpperCase())
         if (engine == 'Google') {
-        	await interaction.message.edit({ embeds: [message.toJSON()], components: [google] })
+        	await interaction.reply({ embeds: [message.toJSON()], components: [google] })
         }
         if (engine == 'Bing') {
-            await interaction.message.edit({ embeds: [message.toJSON()], components: [bing] })
+            await interaction.reply({ embeds: [message.toJSON()], components: [bing] })
         }
         if (engine == 'Yahoo') {
-            await interaction.message.edit({ embeds: [message.toJSON()], components: [yahoo] })
+            await interaction.reply({ embeds: [message.toJSON()], components: [yahoo] })
         }
         if (engine == 'DuckDuckGo') {
-            await interaction.message.edit({ embeds: [message.toJSON()], components: [duck] })
+            await interaction.reply({ embeds: [message.toJSON()], components: [duck] })
         }
     },
 };

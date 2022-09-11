@@ -84,28 +84,28 @@ module.exports = {
         // Check if User is Sender
         if (sender == user) {
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] ACTION : SAMEPERSON : ' + user)
-            return interaction.message.edit({ embeds: [err.toJSON()], ephemeral: true })
+            await return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
         
         // Send Message
         console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] ACTION : ' + user + ' : ' + event.toUpperCase())
         if (event == 'Schlagen') {
-        	return interaction.message.edit({ embeds: [box.toJSON()] })
+        	await return interaction.reply({ embeds: [box.toJSON()] })
         }
         if (event == 'Töten') {
-        	return interaction.message.edit({ embeds: [kill.toJSON()] })
+        	await return interaction.reply({ embeds: [kill.toJSON()] })
         }
         if (event == 'Anstarren') {
-        	return interaction.message.edit({ embeds: [stare.toJSON()] })
+        	await return interaction.reply({ embeds: [stare.toJSON()] })
         }
         if (event == 'Twerken') {
-        	return interaction.message.edit({ embeds: [twerk.toJSON()] })
+        	await return interaction.reply({ embeds: [twerk.toJSON()] })
         }
         if (event == 'Fangen') {
-        	return interaction.message.edit({ embeds: [catchp.toJSON()] })
+        	await return interaction.reply({ embeds: [catchp.toJSON()] })
         }
         if (event == 'Rufen') {
-        	return interaction.message.edit({ embeds: [call.toJSON()] })
+        	await return interaction.reply({ embeds: [call.toJSON()] })
         }
     },
 };
