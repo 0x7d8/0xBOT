@@ -39,7 +39,7 @@ module.exports = {
         const user = interaction.options.getUser("user")
 
         // Check if Bot has Permission
-        if (!clientId.hasPermission("MANAGE_NICKNAMES")) {
+        if (!interaction.member.guild.me.permissions.has("MANAGE_NICKNAMES")) {
             // Create Embed
             let message = new EmbedBuilder()
         		.setTitle('» ERROR')
