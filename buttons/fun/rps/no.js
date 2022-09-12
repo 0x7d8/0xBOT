@@ -32,6 +32,10 @@ module.exports = {
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
+        // Answer Timeout Function
+        eval('global.rpstf' + sender.toString().replace(/\D/g, '') + ' = true')
+        eval('delete rpslc' + interaction.user.id.replace(/\D/g, ''))
+
         // Create Buttons
         let row = new ActionRowBuilder()
 			.addComponents(
