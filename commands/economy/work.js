@@ -36,7 +36,7 @@ module.exports = {
             if (interaction.guildLocale == "de") {
                 message = new EmbedBuilder()
             	    .setTitle('» FEHLER')
-  				    .setDescription('» Du hast leider noch einen Cooldown von **' + cdown.toFixed(0) + use + 's*!')
+  				    .setDescription('» Du hast leider noch einen Cooldown von **' + cdown.toFixed(0) + use + '**!')
             	    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
             

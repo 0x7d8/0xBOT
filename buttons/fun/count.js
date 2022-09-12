@@ -14,13 +14,13 @@ module.exports = {
         let message = new EmbedBuilder()
         .setTitle('» COUNTING')
           .setDescription('» Lets Count! Current Number: **' + number + '**')
-        .setFooter({ text: '» ' + vote + ' » ' + version });
+        .setFooter({ text: '» ' + version });
 
         if (interaction.guildLocale == "de") {
             message = new EmbedBuilder()
                 .setTitle('» ZÄHLEN')
                 .setDescription('» Komm Zählen! Aktuelle Nummer: **' + number + '**')
-                .setFooter({ text: '» ' + vote + ' » ' + version });
+                .setFooter({ text: '» ' + version });
         }
 
         // Send Message
