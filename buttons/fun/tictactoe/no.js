@@ -31,6 +31,10 @@ module.exports = {
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] TICTACTOE : NO : NOTALLOWED')
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
+        
+        // Answer Timeout Function
+        eval('global.ttttf' + sender.toString().replace(/\D/g, '') + ' = true')
+        eval('delete tttlc' + interaction.user.id.replace(/\D/g, ''))        
 
         // Create Buttons
         let row = new ActionRowBuilder()

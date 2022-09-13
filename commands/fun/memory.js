@@ -67,6 +67,12 @@ module.exports = {
         } catch (e) {
             lobby = false
         }
+        try {
+            eval('memorylc' + interaction.user.id.replace(/\D/g, ''))
+            lobby = true
+        } catch (e) {
+            if (lobby) { lobby = false }
+        }
         if (lobby) {
             // Create Embed
             let message = new EmbedBuilder()
@@ -148,7 +154,7 @@ module.exports = {
             }
 
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] MEMORY : ' + reciever.toString().replace(/\D/g, '') + ' : ' + amount + '€ : SAMEPERSON')
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] MEMORY : ' + user.toString().replace(/\D/g, '') + ' : ' + bet + '€ : SAMEPERSON')
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
@@ -226,22 +232,104 @@ module.exports = {
 			    		.setStyle(ButtonStyle.Danger),
 			    );
         }
+
+        eval('global.memorylc' + interaction.user.id.replace(/\D/g, '') + ' = true')
         
         // Create Embed
         let message = new EmbedBuilder()
         	.setTitle('» MEMORY')
-  			.setDescription('» <@' + interaction.user.id.replace(/\D/g, '') + '> challenges you, <@' + user.toString().replace(/\D/g, '') + '> to a battle of Memory! The Bet is **$' + bet + '**.\nDo you accept?')
+  			.setDescription('» <@' + interaction.user.id.replace(/\D/g, '') + '> challenges you, <@' + user.toString().replace(/\D/g, '') + '> to a battle of Memory! The Bet is **$' + bet + '**.\nDo you accept?\n\n» This Request expires <t:' + (Math.floor(+new Date() / 1000) + 29) + ':R>')
         	.setFooter({ text: '» ' + vote + ' » ' + version });
 
         if (interaction.guildLocale == "de") {
             message = new EmbedBuilder()
         	    .setTitle('» MEMORY')
-  			    .setDescription('» <@' + interaction.user.id.replace(/\D/g, '') + '> fordert dich, <@' + user.toString().replace(/\D/g, '') + '> zu einem Spiel von Memory heraus! Die Wette ist **' + bet + '€**.\nAkzeptierst du?')
+  			    .setDescription('» <@' + interaction.user.id.replace(/\D/g, '') + '> fordert dich, <@' + user.toString().replace(/\D/g, '') + '> zu einem Spiel von Memory heraus! Die Wette ist **' + bet + '€**.\nAkzeptierst du?\n\n» Diese Anfrage wird ungültig <t:' + (Math.floor(+new Date() / 1000) + 29) + ':R>')
         	    .setFooter({ text: '» ' + vote + ' » ' + version });
         }
 
         // Send Message
         console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] MEMORY : ' + user.toString().replace(/\D/g, '') + ' : ' + bet + '€')
-        return interaction.reply({ embeds: [message.toJSON()], components: [row] })
+        interaction.reply({ embeds: [message.toJSON()], components: [row] })
+
+        const expiration = async () => {
+            let run
+            try {
+                eval('memorys' + interaction.user.id.toString().replace(/\D/g, ''))
+                run = false
+            } catch (e) {
+                run = true
+            }
+            if (!run) return
+
+            // Check if Message wasnt already answered with NO
+            let sno
+            try {
+                eval('memorytf' + interaction.user.id.replace(/\D/g, ''))
+                sno = true
+            } catch (e) {
+                sno = false
+            }
+            let ano = false
+            if (sno) {
+                if (eval('memorytf' + interaction.user.id.replace(/\D/g, '') + ' == true')) { eval('delete memorytf' + interaction.user.id.replace(/\D/g, '')); ano = true }
+                if (ano) return
+            }
+
+            eval('delete memorylc' + interaction.user.id.replace(/\D/g, ''))
+
+            // Create Buttons
+            row = new ActionRowBuilder()
+			    .addComponents(
+			    	new ButtonBuilder()
+			    		.setLabel('YES')
+                        .setCustomId('MEMORY-YES-' + bet)
+                        .setEmoji('1017050442431209543')
+			    		.setStyle(ButtonStyle.Success)
+                        .setDisabled(true),
+
+                    new ButtonBuilder()
+			    		.setLabel('NO')
+                        .setCustomId('MEMORY-NO-' + bet)
+                        .setEmoji('1017050508252418068')
+			    		.setStyle(ButtonStyle.Danger)
+                        .setDisabled(true),
+			    );
+            if (interaction.guildLocale == "de") {
+                row = new ActionRowBuilder()
+			        .addComponents(
+			        	new ButtonBuilder()
+			        		.setLabel('JA')
+                            .setCustomId('MEMORY-YES-' + bet)
+                            .setEmoji('1017050442431209543')
+			        		.setStyle(ButtonStyle.Success)
+                            .setDisabled(true),
+
+                        new ButtonBuilder()
+			        		.setLabel('NEIN')
+                            .setCustomId('MEMORY-NO-' + bet)
+                            .setEmoji('1017050508252418068')
+			        		.setStyle(ButtonStyle.Danger)
+                            .setDisabled(true),
+			        );
+            }
+
+            message = new EmbedBuilder()
+                .setTitle('» MEMORY')
+                .setDescription('» The Request expired.')
+                .setFooter({ text: '» ' + vote + ' » ' + version });
+
+            if (interaction.guildLocale == "de") {
+                message = new EmbedBuilder()
+                    .setTitle('» MEMORY')
+                    .setDescription('» Die Anfrage ist abgelaufen.')
+                    .setFooter({ text: '» ' + vote + ' » ' + version });
+            }
+
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] MEMORY : ' + user.toString().replace(/\D/g, '') + ' : EXPIRED')
+            interaction.editReply({ embeds: [message.toJSON()], components: [row] }).catch((error) => {})
+        }
+
+        setTimeout(() => expiration(), 27000)
     },
 };

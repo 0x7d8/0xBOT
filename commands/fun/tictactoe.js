@@ -44,13 +44,13 @@ module.exports = {
             // Create Embed
             let message = new EmbedBuilder()
         		.setTitle('» ERROR')
-        		.setDescription('» You cant play TicTacToe with a Bot!')
+        		.setDescription('» You cant play Tic Tac Toe with a Bot!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (interaction.guildLocale == "de") {
                 message = new EmbedBuilder()
         		    .setTitle('» FEHLER')
-        		    .setDescription('» Du kannst TicTacToe nicht mit einem Bot spielen!')
+        		    .setDescription('» Du kannst Tic Tac Toe nicht mit einem Bot spielen!')
         		    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
             
@@ -62,10 +62,16 @@ module.exports = {
         // Check if Sender is already in a Lobby
         let lobby
         try {
-            eval('rpss' + interaction.user.id.toString().replace(/\D/g, ''))
+            eval('ttts' + interaction.user.id.toString().replace(/\D/g, ''))
             lobby = true
         } catch (e) {
             lobby = false
+        }
+        try {
+            eval('tttlc' + interaction.user.id.replace(/\D/g, ''))
+            lobby = true
+        } catch (e) {
+            if (lobby) { lobby = false }
         }
         if (lobby) {
             // Create Embed
@@ -88,7 +94,7 @@ module.exports = {
 
         // Check if Reciever is already in a Lobby
         try {
-            eval('rpss' + user.toString().replace(/\D/g, ''))
+            eval('ttts' + user.toString().replace(/\D/g, ''))
             lobby = true
         } catch (e) {
             lobby = false
@@ -137,18 +143,18 @@ module.exports = {
             // Create Embed
             let message = new EmbedBuilder()
             	.setTitle('» ERROR')
-  				.setDescription('» You cant play Rock Paper Scissors with yourself?')
+  				.setDescription('» You cant play Tic Tac Toe with yourself?')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (interaction.guildLocale == "de") {
                 message = new EmbedBuilder()
             	    .setTitle('» FEHLER')
-  				    .setDescription('» Du kannst Schere Stein Papier nicht mit dir alleine spielen?')
+  				    .setDescription('» Du kannst Tic Tac Toe nicht mit dir alleine spielen?')
             	    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
 
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] TICTACTOE : ' + reciever.toString().replace(/\D/g, '') + ' : ' + amount + '€ : SAMEPERSON')
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] TICTACTOE : ' + user.toString().replace(/\D/g, '') + ' : ' + bet + '€ : SAMEPERSON')
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
@@ -226,22 +232,104 @@ module.exports = {
 			    		.setStyle(ButtonStyle.Danger),
 			    );
         }
+
+        eval('global.tttlc' + interaction.user.id.replace(/\D/g, '') + ' = true')
         
         // Create Embed
         let message = new EmbedBuilder()
         	.setTitle('» TICTACTOE')
-  			.setDescription('» <@' + interaction.user.id.replace(/\D/g, '') + '> challenges you, <@' + user.toString().replace(/\D/g, '') + '> to a battle of Tic Tac Toe! The Bet is **$' + bet + '**.\nDo you accept?')
+  			.setDescription('» <@' + interaction.user.id.replace(/\D/g, '') + '> challenges you, <@' + user.toString().replace(/\D/g, '') + '> to a battle of Tic Tac Toe! The Bet is **$' + bet + '**.\nDo you accept?\n\n» This Request expires <t:' + (Math.floor(+new Date() / 1000) + 29) + ':R>')
         	.setFooter({ text: '» ' + vote + ' » ' + version });
 
         if (interaction.guildLocale == "de") {
             message = new EmbedBuilder()
         	    .setTitle('» TICTACTOE')
-  			    .setDescription('» <@' + interaction.user.id.replace(/\D/g, '') + '> fordert dich, <@' + user.toString().replace(/\D/g, '') + '> zu einem Spiel von Tic Tac Toe heraus! Die Wette ist **' + bet + '€**.\nAkzeptierst du?')
+  			    .setDescription('» <@' + interaction.user.id.replace(/\D/g, '') + '> fordert dich, <@' + user.toString().replace(/\D/g, '') + '> zu einem Spiel von Tic Tac Toe heraus! Die Wette ist **' + bet + '€**.\nAkzeptierst du?\n\n» Diese Anfrage wird ungültig <t:' + (Math.floor(+new Date() / 1000) + 29) + ':R>')
         	    .setFooter({ text: '» ' + vote + ' » ' + version });
         }
 
         // Send Message
         console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] TICTACTOE : ' + user.toString().replace(/\D/g, '') + ' : ' + bet + '€')
-        return interaction.reply({ embeds: [message.toJSON()], components: [row] })
+        interaction.reply({ embeds: [message.toJSON()], components: [row] })
+
+        const expiration = async () => {
+            let run
+            try {
+                eval('ttts' + interaction.user.id.toString().replace(/\D/g, ''))
+                run = false
+            } catch (e) {
+                run = true
+            }
+            if (!run) return
+
+            // Check if Message wasnt already answered with NO
+            let sno
+            try {
+                eval('ttttf' + interaction.user.id.replace(/\D/g, ''))
+                sno = true
+            } catch (e) {
+                sno = false
+            }
+            let ano = false
+            if (sno) {
+                if (eval('ttttf' + interaction.user.id.replace(/\D/g, '') + ' == true')) { eval('delete ttttf' + interaction.user.id.replace(/\D/g, '')); ano = true }
+                if (ano) return
+            }
+
+            eval('delete tttlc' + interaction.user.id.replace(/\D/g, ''))
+
+            // Create Buttons
+            row = new ActionRowBuilder()
+			    .addComponents(
+			    	new ButtonBuilder()
+			    		.setLabel('YES')
+                        .setCustomId('TTT-YES-' + bet)
+                        .setEmoji('1017050442431209543')
+			    		.setStyle(ButtonStyle.Success)
+                        .setDisabled(true),
+
+                    new ButtonBuilder()
+			    		.setLabel('NO')
+                        .setCustomId('TTT-NO-' + bet)
+                        .setEmoji('1017050508252418068')
+			    		.setStyle(ButtonStyle.Danger)
+                        .setDisabled(true),
+			    );
+            if (interaction.guildLocale == "de") {
+                row = new ActionRowBuilder()
+			        .addComponents(
+			        	new ButtonBuilder()
+			        		.setLabel('JA')
+                            .setCustomId('TTT-YES-' + bet)
+                            .setEmoji('1017050442431209543')
+			        		.setStyle(ButtonStyle.Success)
+                            .setDisabled(true),
+
+                        new ButtonBuilder()
+			        		.setLabel('NEIN')
+                            .setCustomId('TTT-NO-' + bet)
+                            .setEmoji('1017050508252418068')
+			        		.setStyle(ButtonStyle.Danger)
+                            .setDisabled(true),
+			        );
+            }
+
+            message = new EmbedBuilder()
+                .setTitle('» TICTACTOE')
+                .setDescription('» The Request expired.')
+                .setFooter({ text: '» ' + vote + ' » ' + version });
+
+            if (interaction.guildLocale == "de") {
+                message = new EmbedBuilder()
+                    .setTitle('» TICTACTOE')
+                    .setDescription('» Die Anfrage ist abgelaufen.')
+                    .setFooter({ text: '» ' + vote + ' » ' + version });
+            }
+
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] TICTACTOE : ' + user.toString().replace(/\D/g, '') + ' : EXPIRED')
+            interaction.editReply({ embeds: [message.toJSON()], components: [row] }).catch((error) => {})
+        }
+
+        setTimeout(() => expiration(), 27000)
     },
 };
