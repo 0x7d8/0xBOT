@@ -281,7 +281,7 @@ module.exports = {
         // Set Variables
         eval('global.memorys' + sender.toString().replace(/\D/g, '') + ' = true')
         eval('global.memorys' + reciever.toString().replace(/\D/g, '') + ' = true')
-        eval('delete memorylc' + interaction.user.id.replace(/\D/g, ''))
+        eval('delete memorylc' + sender.replace(/\D/g, ''))
 
         eval('global.memorydatap' + sender.toString().replace(/\D/g, '') + ' = 0')
         eval('global.memorydatap' + reciever.toString().replace(/\D/g, '') + ' = 0')

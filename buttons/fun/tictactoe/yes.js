@@ -221,7 +221,7 @@ module.exports = {
         // Set Variables
         eval('global.ttts' + sender.toString().replace(/\D/g, '') + ' = true')
         eval('global.ttts' + reciever.toString().replace(/\D/g, '') + ' = true')
-        eval('delete tttlc' + interaction.user.id.replace(/\D/g, ''))
+        eval('delete tttlc' + sender.replace(/\D/g, ''))
 
         eval('global.tttdatap' + sender.toString().replace(/\D/g, '') + ' = 0')
         eval('global.tttdatap' + reciever.toString().replace(/\D/g, '') + ' = 0')

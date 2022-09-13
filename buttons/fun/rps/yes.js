@@ -205,7 +205,7 @@ module.exports = {
         // Set Variables
         eval('global.rpss' + sender.toString().replace(/\D/g, '') + ' = true')
         eval('global.rpss' + reciever.toString().replace(/\D/g, '') + ' = true')
-        eval('delete rpslc' + interaction.user.id.replace(/\D/g, ''))
+        eval('delete rpslc' + sender.replace(/\D/g, ''))
 
         // Transfer Money
         bals.rem(sender.toString().replace(/\D/g, ''), bet)
