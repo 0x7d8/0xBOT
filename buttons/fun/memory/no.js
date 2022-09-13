@@ -34,7 +34,7 @@ module.exports = {
 
         // Answer Timeout Function
         eval('global.ttttf' + sender.toString().replace(/\D/g, '') + ' = true')
-        eval('delete tttlc' + interaction.user.id.replace(/\D/g, ''))        
+        eval('delete tttlc' + sender.replace(/\D/g, ''))        
 
         // Create Buttons
         let row = new ActionRowBuilder()

@@ -34,7 +34,7 @@ module.exports = {
 
         // Answer Timeout Function
         eval('global.rpstf' + sender.toString().replace(/\D/g, '') + ' = true')
-        eval('delete rpslc' + interaction.user.id.replace(/\D/g, ''))
+        eval('delete rpslc' + sender.replace(/\D/g, ''))
 
         // Create Buttons
         let row = new ActionRowBuilder()
