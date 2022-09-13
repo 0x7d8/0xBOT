@@ -165,6 +165,9 @@ module.exports = {
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
+        // Defer Reply
+        await interaction.deferUpdate()
+
         // Create Buttons
         let row1 = new ActionRowBuilder()
 			.addComponents(
@@ -458,6 +461,6 @@ module.exports = {
 
         // Send Message
         console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] MEMORY : ' + sender.toString().replace(/\D/g, '') + ' : ACCEPT')
-        return interaction.update({ embeds: [message.toJSON()], components: [row1, row2, row3, row4] })
+        return interaction.editReply({ embeds: [message.toJSON()], components: [row1, row2, row3, row4] })
     }
 }
