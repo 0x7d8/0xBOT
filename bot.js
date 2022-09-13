@@ -302,18 +302,18 @@ if (dovotes != 'no') {
 		message = new EmbedBuilder()
 			.setTitle('» VOTING')
 			.setDescription('» Thanks for Voting! You got **$' + random + '** from me :)\n» Danke fürs Voten! Du hast **' + random + '€** von mir erhalten :)')
-			.setFooter({ text: '» ' + vote + ' » ' + version });
+			.setFooter({ text: '» ' + version });
 
 		if (await lang.get(vote.user) == 1) {
 			message = new EmbedBuilder()
 				.setTitle('» VOTING')
 				.setDescription('» Danke fürs Voten! Du hast **' + random + '€** von mir erhalten :)')
-				.setFooter({ text: '» ' + vote + ' » ' + version });
+				.setFooter({ text: '» ' + version });
 		} else {
 			message = new EmbedBuilder()
 				.setTitle('» VOTING')
 				.setDescription('» Thanks for Voting! You got **$' + random + '** from me :)')
-				.setFooter({ text: '» ' + vote + ' » ' + version });
+				.setFooter({ text: '» ' + version });
 		}
 
 		await bals.add(vote.user, parseInt(random))
