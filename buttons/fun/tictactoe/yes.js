@@ -269,11 +269,6 @@ module.exports = {
         eval('global.tttdatad8' + sender.toString().replace(/\D/g, '') + ' = false')
         eval('global.tttdatad9' + sender.toString().replace(/\D/g, '') + ' = false')
 
-        // Check if User Pressed Yes while Expiring
-        try {
-            await eval('tttlc' + sender.toString().replace(/\D/g, ''))
-        } catch (e) {return}
-
         // Transfer Money
         bals.rem(sender.toString().replace(/\D/g, ''), bet)
         bals.rem(reciever.toString().replace(/\D/g, ''), bet)
