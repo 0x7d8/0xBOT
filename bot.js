@@ -146,7 +146,7 @@ client.on('interactionCreate', async interaction => {
     				.setFooter({ text: '» ' + vote + ' » ' + version });
 
     			// Send Message
-				await await interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+				await interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
 			} catch (error) {
 				return
 			}
@@ -297,7 +297,7 @@ if (dovotes != 'no') {
 		if(!vote.user) { return false }
 
 		user = await client.users.fetch(vote.user);
-		random = Math.floor(Math.random() * (5000 - 1000 + 1)) + 1000;
+		random = Math.floor(Math.random() * (7500 - 2500 + 1)) + 2500;
 
 		message = new EmbedBuilder()
 			.setTitle('» VOTING')
