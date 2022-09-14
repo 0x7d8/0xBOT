@@ -1,5 +1,5 @@
 const { ShardingManager } = require('discord.js')
-const { token, mongo } = require('./config.json')
+const { token, mongo, clientId, clientSc, dbdl } = require('./config.json')
 
 const chalk = require('chalk')
 
@@ -112,6 +112,55 @@ console.log(chalk.bold(' \\______/ |__/  \\__/|_______/  \\______/    |__/   '))
 console.log(' ')
 console.log(chalk.bold('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$'))
 console.log(' ')
+
+/* Dashboard
+const DarkDashboard = require('dbd-dark-dashboard')
+const DBD = require("discord-dashboard")
+
+const { Client, GatewayIntentBits } = require('discord.js');
+const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+client.login(token);
+
+(async ()=>{
+    let DBD = require('discord-dashboard');
+    await DBD.useLicense(dbdl);
+    DBD.Dashboard = DBD.UpdatedClass();
+
+    const Dashboard = new DBD.Dashboard({
+        port: 25169,
+        client: {
+            id: clientId,
+            secret: clientSc
+        },
+        redirectUri: 'https://panel.0xBOT.de',
+        domain: 'https://panel.0xBOT.de',
+        bot: client,
+        theme: DarkDashboard(DBD.default_configs.dbdDarkDashboard),
+        settings: [
+            {
+                categoryId: 'setup',
+                categoryName: "Setup",
+                categoryDescription: "Setup your bot with default settings!",
+                categoryOptionsList: [
+                    {
+                        optionId: 'lang',
+                        optionName: "Language",
+                        optionDescription: "Change bot's language easily",
+                        optionType: DBD.formTypes.select({"Polish": 'pl', "English": 'en', "French": 'fr'}),
+                        getActualSet: async ({guild}) => {
+                            return langsSettings[guild.id] || null;
+                        },
+                        setNew: async ({guild,newData}) => {
+                            langsSettings[guild.id] = newData;
+                            return;
+                        }
+                    },
+                ]
+            },
+        ]
+    });
+    Dashboard.init();
+})(); */
 
 const manager = new ShardingManager('./bot.js', { token: token, shards: 'auto' });
 manager.on('shardCreate', shard => console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [STA] $$$$$ LAUNCHED SHARD #' + shard.id));

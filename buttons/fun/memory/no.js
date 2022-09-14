@@ -33,8 +33,8 @@ module.exports = {
         }
 
         // Answer Timeout Function
-        eval('global.ttttf' + sender.toString().replace(/\D/g, '') + ' = true')
-        eval('delete tttlc' + sender.replace(/\D/g, ''))        
+        eval('global.memorytf' + sender.toString().replace(/\D/g, '') + ' = true')
+        eval('delete memorylc' + sender.replace(/\D/g, ''))        
 
         // Create Buttons
         let row = new ActionRowBuilder()
