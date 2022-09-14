@@ -67,7 +67,7 @@ module.exports = {
 
         // Check if Reciever is already in a Lobby
         try {
-            eval('memorys' + reciever.toString().replace(/\D/g, ''))
+            eval('ttts' + reciever.toString().replace(/\D/g, ''))
             lobby = true
         } catch (e) {
             lobby = false
