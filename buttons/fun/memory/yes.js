@@ -457,6 +457,11 @@ module.exports = {
         }
         await rdo()
 
+        // Check if User Pressed Yes while Expiring
+        try {
+            await eval('memorylc' + sender.toString().replace(/\D/g, ''))
+        } catch (e) {return}
+
         // Transfer Money
         bals.rem(sender.toString().replace(/\D/g, ''), bet)
         bals.rem(reciever.toString().replace(/\D/g, ''), bet)

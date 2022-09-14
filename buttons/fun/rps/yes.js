@@ -207,6 +207,11 @@ module.exports = {
         eval('global.rpss' + reciever.toString().replace(/\D/g, '') + ' = true')
         eval('delete rpslc' + sender.replace(/\D/g, ''))
 
+        // Check if User Pressed Yes while Expiring
+        try {
+            await eval('rpslc' + sender.toString().replace(/\D/g, ''))
+        } catch (e) {return}
+
         // Transfer Money
         bals.rem(sender.toString().replace(/\D/g, ''), bet)
         bals.rem(reciever.toString().replace(/\D/g, ''), bet)
