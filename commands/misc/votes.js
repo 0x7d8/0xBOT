@@ -65,13 +65,13 @@ module.exports = {
         } else {
             message = new EmbedBuilder()
                 .setTitle('» THE VOTES OF ' + userinfo.username.toUpperCase() + '#' + userinfo.discriminator)
-  				.setDescription('» <@' + user + '> has **' + quotes + '** ' + word + '!')
+  				.setDescription('» <@' + user + '> has **' + votes + '** ' + word + '!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang.toString() == "de") {
                 message = new EmbedBuilder()
                     .setTitle('» DIE VOTES VON ' + userinfo.username.toUpperCase() + '#' + userinfo.discriminator)
-  				    .setDescription('» <@' + user + '> hat **' + quotes + '** ' + word + '!')
+  				    .setDescription('» <@' + user + '> hat **' + votes + '** ' + word + '!')
             	    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
         }
