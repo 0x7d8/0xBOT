@@ -112,7 +112,7 @@ client.on('interactionCreate', async interaction => {
 	if (parseInt(glang) == 1) { guildlang = "de" }
 
 	let votet = 'VOTED'
-	const lastVote = await votef.get(interaction.user.id)
+	const lastVote = await votef.get(interaction.user.id + '-T')
 	if (!lastVote) { votet = 'NOT VOTED -> /VOTE' }
 	if (lastVote < (Date.now() - 24*60*60*1000)) { vote = 'NOT VOTED' }
 	if (guildlang.toString() == "de") {
@@ -333,7 +333,8 @@ if (dovotes != 'no') {
 		await bals.add(vote.user, parseInt(random))
 		console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] VOTED : ' + user + ' : ' + random + '€')
 
-		votef.set(vote.user, Date.now()).then(() => {
+		votef.add(vote.user + '-A', 1)
+		votef.set(vote.user + '-T', Date.now()).then(() => {
 			user.send({ embeds: [message.toJSON()] })
 		})
 	}))

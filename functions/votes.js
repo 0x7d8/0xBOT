@@ -20,3 +20,18 @@ exports.set = (userId, votes) => {
         data.save();
     })
 }
+
+exports.add = (userId, votes) => {
+    voteschema.findOne({ userId }, async (err, data) => {
+        if(err) throw err;
+        if(data) {
+            data.votes += votes;
+        } else {
+            data = new voteschema({
+                userId,
+                votes
+            })
+        }
+        data.save();
+    })
+}
