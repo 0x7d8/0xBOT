@@ -70,17 +70,7 @@ stdin.addListener("data", function(d) {
     if (args[0].toUpperCase() == 'SETBAL') {
         if (typeof args[1] !== 'undefined' && typeof args[2] !== 'undefined') {
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] SET BALANCE OF ' + args[1] + ' TO ' + args[2] + '€')
-            const setbal = async () => {
-                const wait = require('node:timers/promises').setTimeout
-                const money = await bals.get(args[1].toString())
-
-                await bals.rem(args[1].toString(), parseInt(money))
-
-                await wait(100)
-
-                await bals.add(args[1].toString(), parseInt(args[2]))
-            }
-            setbal()
+            bals.set(args[1].toString(), parseInt(args[2]))
         } else {
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] USAGE: SETBAL [USERID] [AMOUNT]')
         }
@@ -138,29 +128,10 @@ if (dodshbr == "yes") {(async ()=>{
         },
         redirectUri: 'https://dsh.0xbot.de/discord/callback',
         sessionSaveSession: MongoStore.create({mongoUrl: mongo}),
-        domain: 'https://dsh.0xbot.de',
+        domain: 'dsh.0xbot.de',
         bot: client,
         minimizedConsoleLogs: true,
-        useThemeMaintenance: false,
-        ownerIDs: [],
-        useTheme404: true,
-        /*theme: DarkDashboard({
-            locales: {
-                enUS: {
-                    name: 'English',
-                    index: {
-                        feeds: ["Current Users", "CPU", "System Platform", "Server Count"],
-                        card: {
-                            category: "Soft UI",
-                            title: "Assistants - The center of everything",
-                            description: "Assistants Discord Bot management panel. Assistants Bot was created to give others the ability to do what they want. Just.<br>That's an example text. <br><br><b><i>Feel free to use HTML</i></b>",
-                            footer: "Learn More"
-                        },
-                        feedsTitle: "Feeds",
-                        graphTitle: "Graphs",
-                    },
-                }
-            },
+        theme: DarkDashboard({
             information: {
                 createdBy: "0x4096",
                 websiteTitle: "0xBOT DASHBOARD",
@@ -216,13 +187,12 @@ if (dodshbr == "yes") {(async ()=>{
         settings: [
             {
                 categoryId: 'general',
-                categoryName: "General",
+                categoryName: "GENERAL",
                 categoryDescription: "Setup your bot with default settings!",
                 categoryOptionsList: [
                     {
                         optionId: 'lang',
-                        optionName: "Language",
-                        optionDescription: "Change the Bot Language",
+                        optionDescription: "<center>Change the Bot Language",
                         optionType: DBD.formTypes.select({"German": 'de', "English": 'en'}),
                         getActualSet: async ({guild}) => {
                             const clang = await lang.get(guild.id)
@@ -248,21 +218,24 @@ if (dodshbr == "yes") {(async ()=>{
             },
             {
                 categoryId: 'economy',
-                categoryName: "Economy",
+                categoryName: "ECONOMY",
                 categoryDescription: "Setup your bot with default settings!",
                 categoryOptionsList: [
                     {
                         optionId: 'stocks',
-                        optionName: "Stocks",
-                        optionDescription: "Enable / Disable Stocks",
-                        optionType: DBD.formTypes.select({"Enabled": '0', "Disabled": '1'}),
+                        optionDescription: "<center>Stock System",
+                        optionType: DBD.formTypes.switch(),
                         getActualSet: async ({guild}) => {
                             const clang = await gopt.get(guild.id + '-STOCKS')
-                            return clang.toString()
+                            if (parseInt(clang) == 0) {
+                                return true
+                            } else {
+                                return false
+                            }
                         },
                         setNew: async ({guild,newData}) => {
                             const clang = await gopt.get(guild.id + '-STOCKS')
-	                        if (parseInt(newData) == 0) {
+	                        if (newData == true) {
                                 if (parseInt(clang) == 1) {
                                     gopt.rem(guild.id + '-STOCKS', 1)
                                 }
@@ -276,16 +249,19 @@ if (dodshbr == "yes") {(async ()=>{
                     },
                     {
                         optionId: 'roulette',
-                        optionName: "Roulette & Guess",
-                        optionDescription: "Enable / Disable Roulette & Guess",
-                        optionType: DBD.formTypes.select({"Enabled": '0', "Disabled": '1'}),
+                        optionDescription: "Roulette & Guess Commands",
+                        optionType: DBD.formTypes.switch(),
                         getActualSet: async ({guild}) => {
                             const clang = await gopt.get(guild.id + '-ROULETTE')
-                            return clang.toString()
+                            if (parseInt(clang) == 0) {
+                                return true
+                            } else {
+                                return false
+                            }
                         },
                         setNew: async ({guild,newData}) => {
                             const clang = await gopt.get(guild.id + '-ROULETTE')
-	                        if (parseInt(newData) == 0) {
+	                        if (newData == true) {
                                 if (parseInt(clang) == 1) {
                                     gopt.rem(guild.id + '-ROULETTE', 1)
                                 }
@@ -299,16 +275,19 @@ if (dodshbr == "yes") {(async ()=>{
                     },
                     {
                         optionId: 'work',
-                        optionName: "Work",
-                        optionDescription: "Enable / Disable the Work Command",
-                        optionType: DBD.formTypes.select({"Enabled": '0', "Disabled": '1'}),
+                        optionDescription: "Work Command",
+                        optionType: DBD.formTypes.switch(),
                         getActualSet: async ({guild}) => {
                             const clang = await gopt.get(guild.id + '-WORK')
-                            return clang.toString()
+                            if (parseInt(clang) == 0) {
+                                return true
+                            } else {
+                                return false
+                            }
                         },
                         setNew: async ({guild,newData}) => {
                             const clang = await gopt.get(guild.id + '-WORK')
-	                        if (parseInt(newData) == 0) {
+	                        if (newData == true) {
                                 if (parseInt(clang) == 1) {
                                     gopt.rem(guild.id + '-WORK', 1)
                                 }
@@ -322,16 +301,19 @@ if (dodshbr == "yes") {(async ()=>{
                     },
                     {
                         optionId: 'rob',
-                        optionName: "Rob",
-                        optionDescription: "Enable / Disable the Rob Command",
-                        optionType: DBD.formTypes.select({"Enabled": '0', "Disabled": '1'}),
+                        optionDescription: "Rob Command",
+                        optionType: DBD.formTypes.switch(),
                         getActualSet: async ({guild}) => {
                             const clang = await gopt.get(guild.id + '-ROB')
-                            return clang.toString()
+                            if (parseInt(clang) == 0) {
+                                return true
+                            } else {
+                                return false
+                            }
                         },
                         setNew: async ({guild,newData}) => {
                             const clang = await gopt.get(guild.id + '-ROB')
-	                        if (parseInt(newData) == 0) {
+	                        if (newData == true) {
                                 if (parseInt(clang) == 1) {
                                     gopt.rem(guild.id + '-ROB', 1)
                                 }
@@ -347,21 +329,24 @@ if (dodshbr == "yes") {(async ()=>{
             },
             {
                 categoryId: 'fun',
-                categoryName: "Fun",
+                categoryName: "FUN",
                 categoryDescription: "Setup your bot with default settings!",
                 categoryOptionsList: [
                     {
                         optionId: 'quotes',
-                        optionName: "Quotes",
-                        optionDescription: "Enable / Disable Quotes",
-                        optionType: DBD.formTypes.select({"Enabled": '0', "Disabled": '1'}),
+                        optionDescription: "<center>Quote Commands",
+                        optionType: DBD.formTypes.switch(),
                         getActualSet: async ({guild}) => {
                             const clang = await gopt.get(guild.id + '-QUOTES')
-                            return clang.toString()
+                            if (parseInt(clang) == 0) {
+                                return true
+                            } else {
+                                return false
+                            }
                         },
                         setNew: async ({guild,newData}) => {
                             const clang = await gopt.get(guild.id + '-QUOTES')
-	                        if (parseInt(newData) == 0) {
+	                        if (newData == true) {
                                 if (parseInt(clang) == 1) {
                                     gopt.rem(guild.id + '-QUOTES', 1)
                                 }
@@ -375,16 +360,19 @@ if (dodshbr == "yes") {(async ()=>{
                     },
                     {
                         optionId: 'minigames',
-                        optionName: "Minigames",
-                        optionDescription: "Enable / Disable Minigames",
-                        optionType: DBD.formTypes.select({"Enabled": '0', "Disabled": '1'}),
+                        optionDescription: "Minigame Commands",
+                        optionType: DBD.formTypes.switch(),
                         getActualSet: async ({guild}) => {
                             const clang = await gopt.get(guild.id + '-MINIGAMES')
-                            return clang.toString()
+                            if (parseInt(clang) == 0) {
+                                return true
+                            } else {
+                                return false
+                            }
                         },
                         setNew: async ({guild,newData}) => {
                             const clang = await gopt.get(guild.id + '-MINIGAMES')
-	                        if (parseInt(newData) == 0) {
+	                        if (newData == true) {
                                 if (parseInt(clang) == 1) {
                                     gopt.rem(guild.id + '-MINIGAMES', 1)
                                 }
@@ -398,21 +386,24 @@ if (dodshbr == "yes") {(async ()=>{
                     },
                     {
                         optionId: 'meme',
-                        optionName: "Meme",
-                        optionDescription: "Enable / Disable the Meme Command",
-                        optionType: DBD.formTypes.select({"Enabled": '0', "Disabled": '1'}),
+                        optionDescription: "Meme Command",
+                        optionType: DBD.formTypes.switch(),
                         getActualSet: async ({guild}) => {
                             const clang = await gopt.get(guild.id + '-MEME')
-                            return clang.toString()
+                            if (parseInt(clang) == 0) {
+                                return true
+                            } else {
+                                return false
+                            }
                         },
                         setNew: async ({guild,newData}) => {
                             const clang = await gopt.get(guild.id + '-MEME')
-	                        if (parseInt(newData) == 0) {
+	                        if (newData == true) {
                                 if (parseInt(clang) == 1) {
                                     gopt.rem(guild.id + '-MEME', 1)
                                 }
                             } else {
-                                if (parseInt(clang) == 0) {
+                                if (parseInt(clang) == false) {
                                     gopt.add(guild.id + '-MEME', 1)
                                 }
                             }
@@ -421,94 +412,10 @@ if (dodshbr == "yes") {(async ()=>{
                     },
                 ]
             },
-        ]
-    });*/
-    theme: SoftUI({
-        preloader: {
-            image: "/img/soft-ui.webp",
-            spinner: false,
-            text: "Page is loading",
-        },
-        customThemeOptions: {
-            index: async ({ req, res, config }) => {
-                return {
-                    values: [],
-                    graph: {},
-                    cards: [],
-                }
-            },
-        },
-        websiteName: "0xBOT DASHBOARD",
-        colorScheme: "blue",
-        supporteMail: "support@0xBOT.com",
-        icons: {
-            favicon: 'https://img.rjansen.de/profile/pfp.png',
-            noGuildIcon: "https://pnggrid.com/wp-content/uploads/2021/05/Discord-Logo-Circle-1024x1024.png",
-            sidebar: {
-                darkUrl: 'https://assistantscenter.com/img/logo.png',
-                lightUrl: 'https://assistanscenter.com/img/logo.png',
-                hideName: true,
-                borderRadius: false,
-                alignCenter: true
-            },
-        },
-        index: {
-            card: {
-                category: "0xBOT DASHBOARD",
-                title: "Assistants - The center of everything",
-                description: "Assistants Discord Bot management panel. <b><i>Feel free to use HTML</i></b>",
-                image: "/img/soft-ui.webp",
-                link: {
-                    enabled: true,
-                    url: "https://google.com"
-                }
-            },
-            graph: {
-                enabled: false,
-                lineGraph: false,
-                title: 'Memory Usage',
-                tag: 'Memory (MB)',
-                max: 100
-            },
-        },
-        sweetalert: {
-            errors: {},
-            success: {
-                login: "Logged in.",
-            }
-        },    
-        admin: {
-            pterodactyl: {
-                enabled: true,
-                apiKey: pteroapi,
-                panelLink: "https://panel.paperstudios.de",
-                serverUUIDs: []
-            }
-        },
-        commands: [],
-    }),
-    settings: [
-        optionType: SoftUI.formtypes.collapsable.modal(
-            {
-                optionId: 'collapsableSwitch',
-                disabled: false,
-                getActualSet: async ({guild}) => {},
-                setNew: async ({guild, newValue}) => {}
-            }, 
-            [
-                {
-                    optionId: 'subOption',
-                    optionName: "Sub dropdown option",
-                    optionType: DBD.formTypes.input("hello :(", 1, 16, false, true),
-                    getActualSet: async ({guild}) => {},
-                    setNew: async ({guild, newData}) => {}
-                },
-            ]
-        )        
-    ]
-});
+        ],
+    })
     Dashboard.init()
-})()}
+})()};
 
 const manager = new ShardingManager('./bot.js', { token: token, shards: 'auto' });
 manager.on('shardCreate', shard => console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [STA] $$$$$ LAUNCHED SHARD #' + shard.id));

@@ -3,7 +3,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const { EmbedBuilder } = require('@discordjs/builders');
 const { version } = require('../../config.json');
 const cooldown = new Collection();
-let time = 900000;
+let time = 1800000;
 
 module.exports = {
     data: new SlashCommandBuilder()

@@ -28,6 +28,7 @@ global.quts = require("./functions/quotes")
 global.apis = require("./functions/apis")
 global.lang = require("./functions/langs")
 global.gopt = require("./functions/gopts")
+global.votef = require("./functions/votes")
 
 
 global.sgrn = require("./functions/stocks/green")
@@ -110,14 +111,14 @@ client.on('interactionCreate', async interaction => {
 	}
 	if (parseInt(glang) == 1) { guildlang = "de" }
 
-	let vote = 'VOTED'
-	const lastVote = await db.get(interaction.user.id.toString())
-	if (!lastVote) { vote = 'NOT VOTED -> /VOTE' }
+	let votet = 'VOTED'
+	const lastVote = await votef.get(interaction.user.id)
+	if (!lastVote) { votet = 'NOT VOTED -> /VOTE' }
 	if (lastVote < (Date.now() - 24*60*60*1000)) { vote = 'NOT VOTED' }
 	if (guildlang.toString() == "de") {
-		vote = 'GEVOTED'
-		if (!lastVote) { vote = 'NICHT GEVOTED -> /VOTE' }
-		if (lastVote < (Date.now() - 24*60*60*1000)) { vote = 'NICHT GEVOTET' }
+		votet = 'GEVOTED'
+		if (!lastVote) { votet = 'NICHT GEVOTED -> /VOTE' }
+		if (lastVote < (Date.now() - 24*60*60*1000)) { votet = 'NICHT GEVOTET' }
 	}
 	
 	const clang = await lang.get(interaction.user.id)
@@ -146,7 +147,7 @@ client.on('interactionCreate', async interaction => {
 
 		// Execute Command
 		try {
-			await command.execute(interaction, client, guildlang, vote);
+			await command.execute(interaction, client, guildlang, votet);
 		} catch (error) {
 			try {
     			console.log('[0xBOT] [!] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] ERROR :')
@@ -156,7 +157,7 @@ client.on('interactionCreate', async interaction => {
     			const message = new EmbedBuilder()
         			.setTitle('» FEHLER')
   					.setDescription('**»» INFO**\n» WAS?\n`Ein Fehler ist beim ausführen dieses Befehls aufgetreten.`\n\n» WIESO?\n`Dies kann an vielem liegen, der Code wird für Fehler vorm Release einer neuen Version gecheckt und es kann sein, das ein Fehler enthalten war.`\n\n» WAS TUN?\n`Nichts. Einfach warten, der Befehl wurde geloggt und sollte in der nächsten Version schon behoben werden!`\n\n**»» KONTAKT**\n» EMAIL\n`kontakt@rjansen.de`')
-    				.setFooter({ text: '» ' + vote + ' » ' + version });
+    				.setFooter({ text: '» ' + votet + ' » ' + version });
 
     			// Send Message
 				await interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
@@ -188,7 +189,7 @@ client.on('interactionCreate', async interaction => {
 				sc = true
 
 				const button = client.buttons.get(editedinteraction.customId);
-				await button.execute(editedinteraction, client, guildlang, vote, reciever, amount);
+				await button.execute(editedinteraction, client, guildlang, votet, reciever, amount);
 			}
 			if (interaction.customId.toString().substring(0, 3) == 'RPS') {
 				const cache = interaction.customId.split('-');
@@ -203,7 +204,7 @@ client.on('interactionCreate', async interaction => {
 				sc = true
 
 				const button = client.buttons.get(editedinteraction.customId);
-				await button.execute(editedinteraction, client, guildlang, vote, bet);
+				await button.execute(editedinteraction, client, guildlang, votet, bet);
 			}
 			if (interaction.customId.toString().substring(0, 6) == 'MEMORY') {
 				const cache = interaction.customId.split('-');
@@ -216,7 +217,7 @@ client.on('interactionCreate', async interaction => {
 				sc = true
 
 				const button = client.buttons.get(editedinteraction.customId);
-				await button.execute(editedinteraction, client, guildlang, vote, bet, selection);
+				await button.execute(editedinteraction, client, guildlang, votet, bet, selection);
 			}
 			if (interaction.customId.toString().substring(0, 3) == 'TTT') {
 				const cache = interaction.customId.split('-');
@@ -229,7 +230,7 @@ client.on('interactionCreate', async interaction => {
 				sc = true
 
 				const button = client.buttons.get(editedinteraction.customId);
-				await button.execute(editedinteraction, client, guildlang, vote, bet, selection);
+				await button.execute(editedinteraction, client, guildlang, votet, bet, selection);
 			}
 
 
@@ -238,7 +239,7 @@ client.on('interactionCreate', async interaction => {
 				const button = client.buttons.get(interaction.customId);
 				if (!button) return;
 
-				await button.execute(interaction, client, guildlang, vote);
+				await button.execute(interaction, client, guildlang, votet);
 			}
 
 			return;
@@ -251,7 +252,7 @@ client.on('interactionCreate', async interaction => {
     			const message = new EmbedBuilder()
         			.setTitle('» FEHLER')
   					.setDescription('**»» INFO**\n» WAS?\n`Ein Fehler ist beim ausführen dieses Buttons aufgetreten.`\n\n» WIESO?\n`Dies kann an vielem liegen, der Code wird für Fehler vorm Release einer neuen Version gecheckt und es kann sein, das ein Fehler enthalten war.`\n\n» WAS TUN?\n`Nichts. Einfach warten, der Button wurde geloggt und sollte in der nächsten Version schon behoben werden!`\n\n**»» KONTAKT**\n» EMAIL\n`kontakt@rjansen.de`')
-    				.setFooter({ text: '» ' + vote + ' » ' + version });
+    				.setFooter({ text: '» ' + votet + ' » ' + version });
 
     			// Send Message
 				await interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
@@ -332,7 +333,7 @@ if (dovotes != 'no') {
 		await bals.add(vote.user, parseInt(random))
 		console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] VOTED : ' + user + ' : ' + random + '€')
 
-		db.set(vote.user, Date.now()).then(() => {
+		votef.set(vote.user, Date.now()).then(() => {
 			user.send({ embeds: [message.toJSON()] })
 		})
 	}))

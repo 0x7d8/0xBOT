@@ -6,6 +6,21 @@ exports.get = (userId) => new Promise(async ful => {
     ful(data.money);
 })
 
+exports.set = (userId, money) => {
+    moneySchema.findOne({ userId }, async (err, data) => {
+        if(err) throw err;
+        if(data) {
+            data.money = money;
+        } else {
+            data = new moneySchema({
+                userId,
+                money
+            })
+        }
+        data.save();
+    })
+}
+
 exports.add = (userId, money) => {
     moneySchema.findOne({ userId }, async (err, data) => {
         if(err) throw err;
