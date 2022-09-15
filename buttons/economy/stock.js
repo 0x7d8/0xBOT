@@ -2,6 +2,8 @@ const { EmbedBuilder } = require('@discordjs/builders');
 const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 const { version } = require('../../config.json');
 
+const fetch = require("node-fetch");
+
 module.exports = {
     data: {
         name: 'stock-next'
@@ -192,7 +194,7 @@ module.exports = {
         }
 
         // Send Message
-        if (stock == 'all') {
+        if (stock != 'all') {
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] STOCKNEXT : ' + stock.toUpperCase() + ' : ' + priceText + '€')
         } else {
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] STOCKNEXT : ALL : ' + green + '€ : ' + red + '€ : ' + yellow + '€ : ' + blue + '€')

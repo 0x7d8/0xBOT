@@ -235,6 +235,8 @@ client.on('interactionCreate', async interaction => {
 				let editedinteraction = interaction
 				editedinteraction.customId = "stock-next"
 
+				sc = true
+
 				const button = client.buttons.get(editedinteraction.customId);
 				await button.execute(editedinteraction, client, guildlang, votet, stock);
 			}
