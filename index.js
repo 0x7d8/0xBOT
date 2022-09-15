@@ -148,6 +148,10 @@ if (dodshbr == "yes") {(async ()=>{
                 preloader: " "
             },
 
+            custom_html: {
+                head: "<style>li:nth-child(3) {display: none !important;};select.col-md-12 > * {text-align: center;}select.col-md-12 {width: 25% !important;}</style>"
+            },
+
             index: {
                 card: {
                     category: "<center>0xBOT DASHBOARD</center>",
@@ -192,6 +196,7 @@ if (dodshbr == "yes") {(async ()=>{
                 categoryOptionsList: [
                     {
                         optionId: 'lang',
+                        optionName: "",
                         optionDescription: "<center>Change the Bot Language",
                         optionType: DBD.formTypes.select({"German": 'de', "English": 'en'}),
                         getActualSet: async ({guild}) => {
@@ -223,6 +228,7 @@ if (dodshbr == "yes") {(async ()=>{
                 categoryOptionsList: [
                     {
                         optionId: 'stocks',
+                        optionName: "",
                         optionDescription: "<center>Stock System",
                         optionType: DBD.formTypes.switch(),
                         getActualSet: async ({guild}) => {
@@ -249,6 +255,7 @@ if (dodshbr == "yes") {(async ()=>{
                     },
                     {
                         optionId: 'roulette',
+                        optionName: "",
                         optionDescription: "Roulette & Guess Commands",
                         optionType: DBD.formTypes.switch(),
                         getActualSet: async ({guild}) => {
@@ -275,6 +282,7 @@ if (dodshbr == "yes") {(async ()=>{
                     },
                     {
                         optionId: 'work',
+                        optionName: "",
                         optionDescription: "Work Command",
                         optionType: DBD.formTypes.switch(),
                         getActualSet: async ({guild}) => {
@@ -301,6 +309,7 @@ if (dodshbr == "yes") {(async ()=>{
                     },
                     {
                         optionId: 'rob',
+                        optionName: "",
                         optionDescription: "Rob Command",
                         optionType: DBD.formTypes.switch(),
                         getActualSet: async ({guild}) => {
@@ -334,6 +343,7 @@ if (dodshbr == "yes") {(async ()=>{
                 categoryOptionsList: [
                     {
                         optionId: 'quotes',
+                        optionName: "",
                         optionDescription: "<center>Quote Commands",
                         optionType: DBD.formTypes.switch(),
                         getActualSet: async ({guild}) => {
@@ -360,6 +370,7 @@ if (dodshbr == "yes") {(async ()=>{
                     },
                     {
                         optionId: 'minigames',
+                        optionName: "",
                         optionDescription: "Minigame Commands",
                         optionType: DBD.formTypes.switch(),
                         getActualSet: async ({guild}) => {
@@ -386,6 +397,7 @@ if (dodshbr == "yes") {(async ()=>{
                     },
                     {
                         optionId: 'meme',
+                        optionName: "",
                         optionDescription: "Meme Command",
                         optionType: DBD.formTypes.switch(),
                         getActualSet: async ({guild}) => {
