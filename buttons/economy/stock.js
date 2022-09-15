@@ -146,50 +146,50 @@ module.exports = {
                 message = new EmbedBuilder()
                     .setTitle('» ' + emoji + ' STOCK INFO')
                     .setDescription('» NEXT PRICES\n' + refresh + '\n\n» PRICE\n**<:DOWN:1009502386320056330> `$' + priceText + '`**')
-                    .setFooter({ text: '» ' + vote + ' » ' + version });
+                    .setFooter({ text: '» ' + version });
 
                 if (lang.toString() == "de") {
                     message = new EmbedBuilder()
                         .setTitle('» ' + emoji + ' AKTIEN INFO')
                         .setDescription('» NÄCHSTE PREISE\n' + refresh + '\n\n» PREIS\n**<:DOWN:1009502386320056330> `' + priceText + '€`**')
-                        .setFooter({ text: '» ' + vote + ' » ' + version });
+                        .setFooter({ text: '» ' + version });
                 }
             } else if (priceText > lastpriceText) {
                 message = new EmbedBuilder()
                     .setTitle('» ' + emoji + ' STOCK INFO')
                     .setDescription('» NEXT PRICES\n' + refresh + '\n\n» PRICE\n**<:UP:1009502422990860350> `$' + priceText + '`**')
-                    .setFooter({ text: '» ' + vote + ' » ' + version });
+                    .setFooter({ text: '» ' + version });
                 
                 if (lang.toString() == "de") {
                     message = new EmbedBuilder()
                         .setTitle('» ' + emoji + ' AKTIEN INFO')
                         .setDescription('» NÄCHSTE PREISE\n' + refresh + '\n\n» PREIS\n**<:UP:1009502422990860350> `' + priceText + '€`**')
-                        .setFooter({ text: '» ' + vote + ' » ' + version });
+                        .setFooter({ text: '» ' + version });
                 }
             } else {
                 message = new EmbedBuilder()
                     .setTitle('» ' + emoji + ' STOCK INFO')
                     .setDescription('» NEXT PRICES\n' + refresh + '\n\n» PRICE\n**🧐 `$' + priceText + '`**')
-                    .setFooter({ text: '» ' + vote + ' » ' + version });
+                    .setFooter({ text: '» ' + version });
 
                 if (lang.toString() == "de") {
                     message = new EmbedBuilder()
                         .setTitle('» ' + emoji + ' AKTIEN INFO')
                         .setDescription('» NÄCHSTE PREISE\n' + refresh + '\n\n» PREIS\n**🧐 `' + priceText + '€`**')
-                        .setFooter({ text: '» ' + vote + ' » ' + version });
+                        .setFooter({ text: '» ' + version });
                 }
             }
         } else {
             message = new EmbedBuilder()
                 .setTitle('» FULL STOCK INFO')
                 .setDescription('» NEXT PRICES\n' + refresh + '\n\n» 🟢 GREEN STOCK\n**' + greenp + ' `$' + green + '`**\n\n» 🔵 BLUE STOCK\n**' + bluep + ' `$' + blue + '`**\n\n» 🟡 YELLOW STOCK\n**' + yellowp + ' `$' + yellow + '`**\n\n» 🔴 RED STOCK\n**' + redp + ' `$' + red + '`**')
-                .setFooter({ text: '» ' + vote + ' » ' + version });
+                .setFooter({ text: '» ' + version });
             
             if (lang.toString() == "de") {
                 message = new EmbedBuilder()
                     .setTitle('» VOLLE AKTIEN INFOS')
                     .setDescription('» NÄCHSTE PREISE\n' + refresh + '\n\n» 🟢 GRÜNE AKTIE\n**' + greenp + ' `' + green + '€`**\n\n» 🔵 BLAUE AKTIE\n**' + bluep + ' `' + blue + '€`**\n\n» 🟡 GELBE AKTIE\n**' + yellowp + ' `' + yellow + '€`**\n\n» 🔴 ROTE AKTIE\n**' + redp + ' `' + red + '€`**')
-                    .setFooter({ text: '» ' + vote + ' » ' + version });
+                    .setFooter({ text: '» ' + version });
             }
         }
 
