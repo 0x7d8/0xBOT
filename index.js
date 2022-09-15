@@ -162,7 +162,7 @@ if (dodshbr == "yes") {(async ()=>{
                 information: {
                     category: "<center>UPDATE INFO</center>",
                     title: "<center>INFORMATION</center>",
-                    description: `<center>This Update added the following Features: <br/><br/>a Update Button to /stockinfo<br/>Some Minigame Fixes</center>`,
+                    description: `<center>This Update added the following Features: <br/><br/>a Update Button to /stockinfo<br/>Some Console and Fetch Fixes</center>`,
                     footer: "<center>VERSION 1.9.2</center>",
                 },
 
