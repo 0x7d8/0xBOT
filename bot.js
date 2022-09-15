@@ -4,9 +4,6 @@ const { getAllFilesFilter } = require('./utils/getAllFiles.js')
 const { version, apikey, webkey, dovotes } = require('./config.json')
 const { EmbedBuilder } = require('@discordjs/builders')
 
-// const { QuickDB } = require('quick.db')
-// const db = new QuickDB({ filePath: "./database/votes.sqlite" })
-
 // MongoDB
 console.log(' ')
 console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [STA] $$$$$ LOADING 0xBOT ' + version)
