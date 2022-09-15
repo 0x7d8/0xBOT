@@ -229,6 +229,15 @@ client.on('interactionCreate', async interaction => {
 				const button = client.buttons.get(editedinteraction.customId);
 				await button.execute(editedinteraction, client, guildlang, votet, bet, selection);
 			}
+			if (interaction.customId.toString().substring(0, 5) == 'stock') {
+				const cache = interaction.customId.split('-');
+				const [cmd, cmd2, stock] = cache;
+				let editedinteraction = interaction
+				editedinteraction.customId = "stock-next"
+
+				const button = client.buttons.get(editedinteraction.customId);
+				await button.execute(editedinteraction, client, guildlang, votet, stock);
+			}
 
 
 			// Other Button Cases

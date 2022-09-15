@@ -1,62 +1,12 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
 const { EmbedBuilder } = require('@discordjs/builders');
 const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
-const { version } = require('../../../config.json');
-
-const fetch = require("node-fetch");
-const wait = require('node:timers/promises').setTimeout;
+const { version } = require('../../config.json');
 
 module.exports = {
-    data: new SlashCommandBuilder()
-        .setName('stockinfo')
-    	.setDMPermission(false)
-        .setDescription('SEE STOCK PRICES')
-        .setDescriptionLocalizations({
-            de: 'SEHE AKTIEN PREISE'
-        })
-        .addStringOption(option =>
-            option.setName('stock')
-                .setNameLocalizations({
-                    de: 'aktie'
-                })
-                .setDescription('THE STOCK')
-                .setDescriptionLocalizations({
-                    de: 'DIE AKTIE'
-                })
-                .setRequired(true)
-    			.addChoices(
-                    // Setup Choices
-                    { name: '👀 ALLE AKTIEN', value: 'all' },
-                    { name: '🟢 GRÜNE AKTIE', value: 'green' },
-            		{ name: '🔵 BLAUE AKTIE', value: 'blue' },
-                    { name: '🟡 GELBE AKTIE', value: 'yellow' },
-                    { name: '🔴 ROTE AKTIE', value: 'red' },
-				)),
-    async execute(interaction, client, lang, vote) {
-        // Check if Stocks are Enabled in Server
-        const ses = await gopt.get(interaction.guild.id + '-STOCKS')
-        if (parseInt(ses) == 1) {
-            // Create Embed
-            let message = new EmbedBuilder()
-        		.setTitle('» ERROR')
-        		.setDescription('» Stocks are disabled on this Server!')
-        		.setFooter({ text: '» ' + vote + ' » ' + version });
-
-            if (lang.toString() == "de") {
-                message = new EmbedBuilder()
-        		    .setTitle('» FEHLER')
-        		    .setDescription('» Aktien sind auf diesem Server deaktiviert!')
-        		    .setFooter({ text: '» ' + vote + ' » ' + version });
-            }
-            
-            // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] STOCKINFO : DISABLED')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
-        }
-
-        // Set Variables
-        const stock = interaction.options.getString("stock")
-
+    data: {
+        name: 'stock-next'
+    },
+    async execute(interaction, client, lang, vote, stock) {
         // Set Emoji
         let emoji
         if (stock == 'green') { emoji = '🟢' }
@@ -64,64 +14,21 @@ module.exports = {
         if (stock == 'yellow') { emoji = '🟡' }
         if (stock == 'red') { emoji = '🔴' }
 
-        // Fetch Stock
-        let green, greenp
-        let blue, bluep
-        let yellow, yellowp
-        let red, redp
-        let unix, serverunix, unixtime
-        let refresh, refreshtransformed
-
-        let priceText
-        let lastpriceText
-
-        if (stock != 'all') {
+        // Get Stocks
+        let green, blue, yellow, red
+        let greeno, blueo, yellowo, redo
+        let greenp, bluep, yellowp, redp
+        let refresh, price, priceText, lastpriceText
+        if (stock == "all") {
             // Calculate Refresh
-            serverunix = await fetch("https://api.paperstudios.de/bot/stocks/unix");
-            unix = await serverunix.text();
-            unixtime = parseInt(unix) + 60
-            refreshtransformed = "<t:" + unixtime + ":R>"
+            const serverunix = await fetch("https://api.paperstudios.de/bot/stocks/unix");
+            const unix = await serverunix.text();
+            const unixtime = parseInt(unix) + 60
+            const refreshtransformed = "<t:" + unixtime + ":R>"
             refresh = refreshtransformed.replace(/(\r\n|\n|\r)/gm, "");
 
             // Get Stocks
-            cache = await fetch("https://api.paperstudios.de/bot/stocks/json");
-            const json = await cache.json();
-
-            // Set Variables
-            if (stock == 'green') {
-                price = json.green
-                priceText = json.green
-
-                lastpriceText = json.green_last
-            }
-            if (stock == 'blue') {
-                price = json.blue
-                priceText = json.blue
-
-                lastpriceText = json.blue_last
-            }
-            if (stock == 'yellow') {
-                price = json.yellow
-                priceText = json.yellow
-
-                lastpriceText = json.yellow_last
-            }
-            if (stock == 'red') {
-                price = json.red
-                priceText = json.red
-
-                lastpriceText = json.red_last
-            }
-        } else {
-            // Calculate Refresh
-            serverunix = await fetch("https://api.paperstudios.de/bot/stocks/unix");
-            unix = await serverunix.text();
-            unixtime = parseInt(unix) + 60
-            refreshtransformed = "<t:" + unixtime + ":R>"
-            refresh = refreshtransformed.replace(/(\r\n|\n|\r)/gm, "");
-
-            // Get Stocks
-            cache = await fetch("https://api.paperstudios.de/bot/stocks/json");
+            const cache = await fetch("https://api.paperstudios.de/bot/stocks/json");
             const json = await cache.json();
 
             green = json.green
@@ -172,6 +79,43 @@ module.exports = {
             }
             if (red == redo) {
                 redp = '🧐'
+            }
+        } else {
+            // Calculate Refresh
+            const serverunix = await fetch("https://api.paperstudios.de/bot/stocks/unix");
+            const unix = await serverunix.text();
+            const unixtime = parseInt(unix) + 60
+            const refreshtransformed = "<t:" + unixtime + ":R>"
+            refresh = refreshtransformed.replace(/(\r\n|\n|\r)/gm, "");
+
+            // Get Stocks
+            const cache = await fetch("https://api.paperstudios.de/bot/stocks/json");
+            const json = await cache.json();
+
+            // Set Variables
+            if (stock == 'green') {
+                price = json.green
+                priceText = json.green
+
+                lastpriceText = json.green_last
+            }
+            if (stock == 'blue') {
+                price = json.blue
+                priceText = json.blue
+
+                lastpriceText = json.blue_last
+            }
+            if (stock == 'yellow') {
+                price = json.yellow
+                priceText = json.yellow
+
+                lastpriceText = json.yellow_last
+            }
+            if (stock == 'red') {
+                price = json.red
+                priceText = json.red
+
+                lastpriceText = json.red_last
             }
         }
 
@@ -248,11 +192,11 @@ module.exports = {
         }
 
         // Send Message
-        if (stock != 'all') {
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] STOCKINFO : ' + stock.toUpperCase() + ' : ' + priceText + '€')
+        if (stock == 'all') {
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] STOCKNEXT : ' + stock.toUpperCase() + ' : ' + priceText + '€')
         } else {
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] STOCKINFO : ALL : ' + green + '€ : ' + red + '€ : ' + yellow + '€ : ' + blue + '€')
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] STOCKNEXT : ALL : ' + green + '€ : ' + red + '€ : ' + yellow + '€ : ' + blue + '€')
         }
-        return interaction.reply({ embeds: [message.toJSON()], components: [row] })
-    },
-};
+        return interaction.update({ embeds: [message.toJSON()], components: [row] }).catch((error) => {})
+    }
+}
