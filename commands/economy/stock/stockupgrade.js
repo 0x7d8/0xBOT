@@ -25,7 +25,28 @@ module.exports = {
             		{ name: '💰 [04] 300000€', value: '4' },
             		{ name: '💰 [05] 375000€', value: '5' },
 				)),
-    async execute(interaction, client, vote) {
+    async execute(interaction, client, lang, vote) {
+        // Check if Stocks are Enabled in Server
+        const ses = await gopt.get(interaction.guild.id + '-STOCKS')
+        if (parseInt(ses) == 1) {
+            // Create Embed
+            let message = new EmbedBuilder()
+        		.setTitle('» ERROR')
+        		.setDescription('» Stocks are disabled on this Server!')
+        		.setFooter({ text: '» ' + vote + ' » ' + version });
+
+            if (lang.toString() == "de") {
+                message = new EmbedBuilder()
+        		    .setTitle('» FEHLER')
+        		    .setDescription('» Aktien sind auf diesem Server deaktiviert!')
+        		    .setFooter({ text: '» ' + vote + ' » ' + version });
+            }
+            
+            // Send Message
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] STOCKUPGRADE : DISABLED')
+            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+        }
+
         // Set Variables
         const slots = interaction.options.getString("slots")
 
@@ -59,7 +80,7 @@ module.exports = {
   				.setDescription('» You dont have enough Money for that, you are missing **$' + missing + '**!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (interaction.guildLocale == "de") {
+            if (lang.toString() == "de") {
                 message = new EmbedBuilder()
             	    .setTitle('» FEHLER')
   				    .setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
@@ -88,7 +109,7 @@ module.exports = {
                 .setDescription('» You successfully bought **' + slots + '** extra Stock Slot for **$' + cost + '**!')
                 .setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (interaction.guildLocale == "de") {
+            if (lang.toString() == "de") {
                 message = new EmbedBuilder()
                     .setTitle('» AKTIEN SLOTS KAUFEN')
                     .setDescription('» Du hast erfolgreich **' + slots + '** extra Aktien Slot für **' + cost + '€** gekauft!')
@@ -100,7 +121,7 @@ module.exports = {
                 .setDescription('» You successfully bought **' + slots + '** extra Stock Slots for **$' + cost + '**!')
                 .setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (interaction.guildLocale == "de") {
+            if (lang.toString() == "de") {
                 message = new EmbedBuilder()
                     .setTitle('» AKTIEN SLOTS KAUFEN')
                     .setDescription('» Du hast erfolgreich **' + slots + '** extra Aktien Slots für **' + cost + '€** gekauft!')

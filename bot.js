@@ -4,8 +4,8 @@ const { getAllFilesFilter } = require('./utils/getAllFiles.js')
 const { version, apikey, webkey, dovotes } = require('./config.json')
 const { EmbedBuilder } = require('@discordjs/builders')
 
-const { QuickDB } = require('quick.db')
-const db = new QuickDB({ filePath: "./database/votes.sqlite" })
+// const { QuickDB } = require('quick.db')
+// const db = new QuickDB({ filePath: "./database/votes.sqlite" })
 
 // MongoDB
 console.log(' ')
@@ -27,6 +27,7 @@ global.bals = require("./functions/economy")
 global.quts = require("./functions/quotes")
 global.apis = require("./functions/apis")
 global.lang = require("./functions/langs")
+global.gopt = require("./functions/gopts")
 
 
 global.sgrn = require("./functions/stocks/green")
@@ -95,13 +96,25 @@ console.log(' ')
 console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [END] $$$$$ LOADED COMMANDS AND EVENTS')
 
 client.on('interactionCreate', async interaction => {
-	if (!interaction.isCommand() && !interaction.isButton()) return;
+	if (!interaction.isCommand() && !interaction.isButton()) return
+
+	// Get Guild Language
+	let guildlang = "en"
+	const glang = await lang.get(interaction.guild.id)
+	if (parseInt(glang) == 0) {
+		if (interaction.guildLocale == "de") {
+			await lang.add(interaction.guild.id, 1)
+		} else {
+			await lang.add(interaction.guild.id, 2)
+		}
+	}
+	if (parseInt(glang) == 1) { guildlang = "de" }
 
 	let vote = 'VOTED'
 	const lastVote = await db.get(interaction.user.id.toString())
 	if (!lastVote) { vote = 'NOT VOTED -> /VOTE' }
 	if (lastVote < (Date.now() - 24*60*60*1000)) { vote = 'NOT VOTED' }
-	if (interaction.guildLocale == "de") {
+	if (guildlang.toString() == "de") {
 		vote = 'GEVOTED'
 		if (!lastVote) { vote = 'NICHT GEVOTED -> /VOTE' }
 		if (lastVote < (Date.now() - 24*60*60*1000)) { vote = 'NICHT GEVOTET' }
@@ -133,7 +146,7 @@ client.on('interactionCreate', async interaction => {
 
 		// Execute Command
 		try {
-			await command.execute(interaction, client, vote);
+			await command.execute(interaction, client, guildlang, vote);
 		} catch (error) {
 			try {
     			console.log('[0xBOT] [!] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] ERROR :')
@@ -175,7 +188,7 @@ client.on('interactionCreate', async interaction => {
 				sc = true
 
 				const button = client.buttons.get(editedinteraction.customId);
-				await button.execute(editedinteraction, client, vote, reciever, amount);
+				await button.execute(editedinteraction, client, guildlang, vote, reciever, amount);
 			}
 			if (interaction.customId.toString().substring(0, 3) == 'RPS') {
 				const cache = interaction.customId.split('-');
@@ -190,7 +203,7 @@ client.on('interactionCreate', async interaction => {
 				sc = true
 
 				const button = client.buttons.get(editedinteraction.customId);
-				await button.execute(editedinteraction, client, vote, bet);
+				await button.execute(editedinteraction, client, guildlang, vote, bet);
 			}
 			if (interaction.customId.toString().substring(0, 6) == 'MEMORY') {
 				const cache = interaction.customId.split('-');
@@ -203,7 +216,7 @@ client.on('interactionCreate', async interaction => {
 				sc = true
 
 				const button = client.buttons.get(editedinteraction.customId);
-				await button.execute(editedinteraction, client, vote, bet, selection);
+				await button.execute(editedinteraction, client, guildlang, vote, bet, selection);
 			}
 			if (interaction.customId.toString().substring(0, 3) == 'TTT') {
 				const cache = interaction.customId.split('-');
@@ -216,7 +229,7 @@ client.on('interactionCreate', async interaction => {
 				sc = true
 
 				const button = client.buttons.get(editedinteraction.customId);
-				await button.execute(editedinteraction, client, vote, bet, selection);
+				await button.execute(editedinteraction, client, guildlang, vote, bet, selection);
 			}
 
 
@@ -225,7 +238,7 @@ client.on('interactionCreate', async interaction => {
 				const button = client.buttons.get(interaction.customId);
 				if (!button) return;
 
-				await button.execute(interaction, client, vote);
+				await button.execute(interaction, client, guildlang, vote);
 			}
 
 			return;

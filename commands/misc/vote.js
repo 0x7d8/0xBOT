@@ -11,7 +11,7 @@ module.exports = {
         .setDescriptionLocalizations({
             de: 'VOTE FÜR DEN BOT'
         }),
-    async execute(interaction, client, vote) {
+    async execute(interaction, client, lang, vote) {
         // Create Button
         let button = new ActionRowBuilder()
 			.addComponents(
@@ -37,7 +37,7 @@ module.exports = {
   			.setDescription('» Click below to go to Vote for the Bot!')
         	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-        if (interaction.guildLocale == "de") {
+        if (lang.toString() == "de") {
             message = new EmbedBuilder()
                 .setTitle('» TOP.GG')
   			    .setDescription('» Klicke unten um für den Bot zu voten!')

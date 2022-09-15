@@ -28,7 +28,7 @@ module.exports = {
             		{ name: '⭐ GARTIC PHONE', value: 'garticphone' },
             		{ name: '🧠 JKLM', value: 'jklm' },
 				)),
-    async execute(interaction, client, vote) {
+    async execute(interaction, client, lang, vote) {
         // Set Variables
         const spiel = interaction.options.getString("game")
 

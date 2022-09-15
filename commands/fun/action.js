@@ -39,7 +39,7 @@ module.exports = {
             		{ name: '🏁 FANGEN', value: 'Fangen' },
             		{ name: '😠 RUFEN', value: 'Rufen' },
 				)),
-    async execute(interaction, client, vote) {
+    async execute(interaction, client, lang, vote) {
         // Set Variables
         const user = interaction.options.getUser("user")
         const event = interaction.options.getString("action")

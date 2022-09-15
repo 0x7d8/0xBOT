@@ -20,7 +20,7 @@ module.exports = {
     			.addChoices(
             		{ name: '🗺️ STADT LAND FLUSS', value: 'stadtlandfluss' },
 				)),
-    async execute(interaction, client, vote) {
+    async execute(interaction, client, lang, vote) {
         // Set Variables
         const bingo = interaction.options.getString("bingo")
 

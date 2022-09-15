@@ -32,7 +32,7 @@ module.exports = {
 					{ name: '✅ JA & NEIN', value: 'question' },
             		{ name: '🧮 BUCHSTABEN VON A BIS E', value: 'vote' },
 				)),
-    async execute(interaction, client, vote) {
+    async execute(interaction, client, lang, vote) {
         // Set Variables
         const frage = interaction.options.getString("text")
         const reactions = interaction.options.getString("reactions")
@@ -43,7 +43,7 @@ module.exports = {
   			.setDescription('» ' + frage)
         	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-        if (interaction.guildLocale == "de") {
+        if (lang.toString() == "de") {
             let reactionsde
             if (reactions == "question") { reactionsde = "frage" }
             if (reactions == "vote") { reactionsde = "abstimmung" }

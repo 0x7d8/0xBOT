@@ -13,7 +13,28 @@ module.exports = {
         .setDescriptionLocalizations({
             de: 'ARBEITE FÜR GELD'
         }),
-    async execute(interaction, client, vote) {
+    async execute(interaction, client, lang, vote) {
+        // Check if Work is Enabled in Server
+        const wes = await gopt.get(interaction.guild.id + '-WORK')
+        if (parseInt(wes) == 1) {
+            // Create Embed
+            let message = new EmbedBuilder()
+        		.setTitle('» ERROR')
+        		.setDescription('» The **`/work`** Command is disabled on this Server!')
+        		.setFooter({ text: '» ' + vote + ' » ' + version });
+
+            if (lang.toString() == "de") {
+                message = new EmbedBuilder()
+        		    .setTitle('» FEHLER')
+        		    .setDescription('» Der **`/work`** Befehl ist auf diesem Server deaktiviert!')
+        		    .setFooter({ text: '» ' + vote + ' » ' + version });
+            }
+            
+            // Send Message
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] WORK : DISABLED')
+            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+        }
+
         // Set Variables
         const random = Math.floor(Math.random() * (4 - 1 + 1)) + 1;
 
@@ -33,7 +54,7 @@ module.exports = {
   				.setDescription('» You still have a Cooldown of **' + cdown.toFixed(0) + use + '**!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (interaction.guildLocale == "de") {
+            if (lang.toString() == "de") {
                 message = new EmbedBuilder()
             	    .setTitle('» FEHLER')
   				    .setDescription('» Du hast leider noch einen Cooldown von **' + cdown.toFixed(0) + use + '**!')
@@ -53,7 +74,7 @@ module.exports = {
         	if (random == '3') { job = 'MCDONALDS WORKER'; result = Math.floor(Math.random() * (120 - 30 + 1)) + 30; }
         	if (random == '4') { job = 'PAINTER'; result = Math.floor(Math.random() * (500 - 200 + 1)) + 200; }
 
-            if (interaction.guildLocale == "de") {
+            if (lang.toString() == "de") {
                 if (random == '1') { job = 'PROGRAMMIERER'; }
         	    if (random == '2') { job = 'HAUSMEISTER'; }
         	    if (random == '3') { job = 'MCDONALDS KASSIERER'; }
@@ -68,7 +89,7 @@ module.exports = {
             if (result >= 80) { extra = 'WONDERFUL!' }
             if (result >= 100) { extra = 'WOW!' }
 
-            if (interaction.guildLocale == "de") {
+            if (lang.toString() == "de") {
                 if (result < 40) { extra = 'MEH.' }
                 if (result >= 40) { extra = 'NICE.' }
                 if (result >= 60) { extra = 'PRIMA.' }
@@ -82,7 +103,7 @@ module.exports = {
   				.setDescription('» You work as **' + job + '** and earn **$' + result + '**! ' + extra)
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (interaction.guildLocale == "de") {
+            if (lang.toString() == "de") {
                 message = new EmbedBuilder()
             	    .setTitle('» ARBEIT')
   				    .setDescription('» Du arbeitest als **' + job + '** und verdienst **' + result + '€**! ' + extra)

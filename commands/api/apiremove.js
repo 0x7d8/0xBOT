@@ -26,7 +26,7 @@ module.exports = {
             		{ name: '💻 4', value: '4' },
             		{ name: '💻 5', value: '5' },
 				)),
-    async execute(interaction, client, vote) {
+    async execute(interaction, client, lang, vote) {
         // Set Variables
         const name = interaction.options.getString("name")
         const amount = await apis.get(interaction.user.id.replace(/\D/g, ''));
@@ -41,7 +41,7 @@ module.exports = {
   				.setDescription('You have deleted the API **' + name + '**!')
         		.setFooter({ text: '» ' + version + ' » SLOTS ' + newamount + '/5'});
 
-            if (interaction.guildLocale == "de") {
+            if (lang.toString() == "de") {
                 message = new EmbedBuilder()
             	    .setTitle('» PAPER API REMOVE')
   				    .setDescription('Du hast die API **' + name + '** gelöscht!')
@@ -62,7 +62,7 @@ module.exports = {
         		.setDescription('» This API doesnt exist!\n</apicreate:1002107281510506516> to Create one')
         		.setFooter({ text: '» ' + version + ' » SLOTS ' + amount + '/5'});
 
-            if (interaction.guildLocale == "de") {
+            if (lang.toString() == "de") {
                 message = new EmbedBuilder()
         		    .setTitle('» PAPER API EDIT')
         		    .setDescription('» Diese API existiert nicht!\n</apicreate:1002107281510506516> um eine zu erstellen')

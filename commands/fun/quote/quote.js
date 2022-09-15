@@ -33,7 +33,28 @@ module.exports = {
                     de: 'DER AUTOR'
                 })
                 .setRequired(false)),
-    async execute(interaction, client, vote) {
+    async execute(interaction, client, lang, vote) {
+        // Check if Quotes are Enabled in Server
+        const qes = await gopt.get(interaction.guild.id + '-QUOTES')
+        if (parseInt(qes) == 1) {
+            // Create Embed
+            let message = new EmbedBuilder()
+        		.setTitle('» ERROR')
+        		.setDescription('» Quotes are disabled on this Server!')
+        		.setFooter({ text: '» ' + vote + ' » ' + version });
+
+            if (lang.toString() == "de") {
+                message = new EmbedBuilder()
+        		    .setTitle('» FEHLER')
+        		    .setDescription('» Zitate sind auf diesem Server deaktiviert!')
+        		    .setFooter({ text: '» ' + vote + ' » ' + version });
+            }
+            
+            // Send Message
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] QUOTE : DISABLED')
+            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+        }
+
         // Set Variables
         const zitat = interaction.options.getString("quote")
         const autor = interaction.options.getUser("author")
@@ -50,7 +71,7 @@ module.exports = {
   				.setDescription('» You still have a Cooldown of **' + cdown.toFixed(0) + 's**!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (interaction.guildLocale == "de") {
+            if (lang.toString() == "de") {
                 message = new EmbedBuilder()
             	    .setTitle('» FEHLER')
   				    .setDescription('» Du hast leider noch einen Cooldown von **' + cdown.toFixed(0) + 's**!')
@@ -71,7 +92,7 @@ module.exports = {
   				.setDescription('» "' + zitat + '" ~<@' + interaction.user.id.replace(/\D/g, '') + '>')
             	.setFooter({ text: '» ' + version + ' » QUOTES: ' + amount});
 
-            if (interaction.guildLocale == "de") {
+            if (lang.toString() == "de") {
                 message = new EmbedBuilder()
             	    .setTitle('» EIN WEISES ZITAT')
   				    .setDescription('» "' + zitat + '" ~<@' + interaction.user.id.replace(/\D/g, '') + '>')
@@ -86,7 +107,7 @@ module.exports = {
   				.setDescription('» "' + zitat + '" ~<@' + autor + '>')
             	.setFooter({ text: '» ' + version + ' » QUOTES: ' + amount});
 
-            if (interaction.guildLocale == "de") {
+            if (lang.toString() == "de") {
                 message = new EmbedBuilder()
             	    .setTitle('» EIN ZITAT')
   				    .setDescription('» "' + zitat + '" ~<@' + autor + '>')

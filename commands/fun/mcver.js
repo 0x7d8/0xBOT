@@ -10,7 +10,7 @@ module.exports = {
         .setDescriptionLocalizations({
             de: 'GENERIERE EINE MINECRAFT VERSION'
         }),
-    async execute(interaction, client, vote) {
+    async execute(interaction, client, lang, vote) {
         // Set Variables
         const res = Math.floor(Math.random() * (19 - 0 + 1)) + 0;
 
@@ -20,7 +20,7 @@ module.exports = {
   			.setDescription('» I would choose **1.' + res + '**!')
         	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-        if (interaction.guildLocale == "de") {
+        if (lang.toString() == "de") {
             message = new EmbedBuilder()
         	    .setTitle('» ZUFÄLLIGE MINECRAFT VERSION')
   			    .setDescription('» Ich würde **1.' + res + '** nehmen!')

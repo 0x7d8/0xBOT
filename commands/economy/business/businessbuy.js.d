@@ -27,7 +27,7 @@ module.exports = {
             		{ name: '🔵 [390000€] PARKHAUS', value: '2' },
                     { name: '🟡 [520000€] BAHNHOF', value: '3' },
 				)),
-    async execute(interaction, client, vote) {
+    async execute(interaction, client, lang, vote) {
         // Set Variables
         const business = interaction.options.getString("business")
         const balance = await bals.get(interaction.user.id.replace(/\D/g, ''));

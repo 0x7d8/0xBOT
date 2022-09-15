@@ -6,7 +6,7 @@ module.exports = {
     data: {
         name: 'memory-no'
     },
-    async execute(interaction, client, vote, bet, sel) {
+    async execute(interaction, client, lang, vote, bet, sel) {
         // Get Users
         const cache = interaction.message.embeds
         const description = cache[0].description.toString().replace(/[^\d@!]/g, '').split('!')[0].substring(1).split("@");
@@ -20,7 +20,7 @@ module.exports = {
         		.setDescription('» <@' + reciever.toString().replace(/\D/g, '') + '> or <@' + sender.toString().replace(/\D/g, '') + '> has to decide this!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (interaction.guildLocale == "de") {
+            if (lang.toString() == "de") {
                 message = new EmbedBuilder()
         		    .setTitle('» FEHLER')
         		    .setDescription('» <@' + reciever.toString().replace(/\D/g, '') + '> oder <@' + sender.toString().replace(/\D/g, '') + '> muss das entscheiden!')
@@ -53,7 +53,7 @@ module.exports = {
 					.setStyle(ButtonStyle.Danger)
                     .setDisabled(true),
 			);
-        if (interaction.guildLocale == "de") {
+        if (lang.toString() == "de") {
             row = new ActionRowBuilder()
 			    .addComponents(
 			    	new ButtonBuilder()
@@ -78,7 +78,7 @@ module.exports = {
         .setDescription('» <@' + interaction.user.id.replace(/\D/g, '') + '> said **NO**.')
         .setFooter({ text: '» ' + vote + ' » ' + version });
 
-        if (interaction.guildLocale == "de") {
+        if (lang.toString() == "de") {
             message = new EmbedBuilder()
                 .setTitle('» MEMORY')
                 .setDescription('» <@' + interaction.user.id.replace(/\D/g, '') + '> hat **NEIN** gesagt.')

@@ -8,7 +8,7 @@ module.exports = {
     data: {
         name: 'ttt-choice'
     },
-    async execute(interaction, client, vote, bet, sel) {
+    async execute(interaction, client, lang, vote, bet, sel) {
         // Get Users
         const cache = interaction.message.embeds
         const description = cache[0].description.toString().replace(/[^\d@!]/g, '').split('!')[0].substring(1).split("@");
@@ -22,7 +22,7 @@ module.exports = {
         		.setDescription('» You arent playing!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (interaction.guildLocale == "de") {
+            if (lang.toString() == "de") {
                 message = new EmbedBuilder()
         		    .setTitle('» FEHLER')
         		    .setDescription('» Du spielst garnicht mit!')
@@ -43,7 +43,7 @@ module.exports = {
         		.setDescription('» Its not your turn!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (interaction.guildLocale == "de") {
+            if (lang.toString() == "de") {
                 message = new EmbedBuilder()
         		    .setTitle('» FEHLER')
         		    .setDescription('» Es ist nicht dein Zug!')
@@ -180,7 +180,7 @@ module.exports = {
             .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> is playing Tic Tac Toe with <@' + reciever.toString().replace(/\D/g, '') + '>!\nThe Bet is **$' + bet + '**\n\n🔵 » <@' + sender.toString().replace(/\D/g, '') + '>\n🔴 » <@' + reciever.toString().replace(/\D/g, '') + '>')
             .setFooter({ text: '» ' + version + ' » CURRENT TURN: ' + turnemoji });
 
-        if (interaction.guildLocale == "de") {
+        if (lang.toString() == "de") {
             message = new EmbedBuilder()
                 .setTitle('» TICTACTOE')
                 .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> spielt mit <@' + reciever.toString().replace(/\D/g, '') + '> Tic Tac Toe!\nDie Wette ist **' + bet + '€**\n\n🔵 » <@' + sender.toString().replace(/\D/g, '') + '>\n🔴 » <@' + reciever.toString().replace(/\D/g, '') + '>')
@@ -250,7 +250,7 @@ module.exports = {
         if(won || await eval('tttdatatuf' + sender.toString().replace(/\D/g, '') + ' == 9')) {
             // Check Who Won
             let winner = '**Noone**'
-            if (interaction.guildLocale == "de") { winner = '**Niemand**' }
+            if (lang.toString() == "de") { winner = '**Niemand**' }
             if (await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[0] == true') && await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[1] == true') && await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[2] == true')) {
                 winner = '<@' + sender.toString().replace(/\D/g, '') + '>'
                 await eval('global.tttdatabc1' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Success')
@@ -425,7 +425,7 @@ module.exports = {
                 .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> is playing Tic Tac Toe with <@' + reciever.toString().replace(/\D/g, '') + '>!\nThe Bet is **$' + bet + '**\n\n🔵 » <@' + sender.toString().replace(/\D/g, '') + '>\n🔴 » <@' + reciever.toString().replace(/\D/g, '') + '>\n\n' + winner + ' has won **$' + betwon + '**!')
                 .setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (interaction.guildLocale == "de") {
+            if (lang.toString() == "de") {
                 message = new EmbedBuilder()
                     .setTitle('» TICTACTOE')
                     .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> spielt mit <@' + reciever.toString().replace(/\D/g, '') + '> Tic Tac Toe!\nDie Wette ist **' + bet + '€**\n\n🔵 » <@' + sender.toString().replace(/\D/g, '') + '>\n🔴 » <@' + reciever.toString().replace(/\D/g, '') + '>\n\n' + winner + ' hat **' + betwon + '€** gewonnen!')

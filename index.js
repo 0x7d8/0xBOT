@@ -1,5 +1,6 @@
 const { ShardingManager } = require('discord.js')
-const { token, mongo, clientId, clientSc, dbdl } = require('./config.json')
+const { token, mongo, clientId, clientSc, dbdl, dodshbr, pteroapi } = require('./config.json')
+const MongoStore = require('connect-mongo')
 
 const chalk = require('chalk')
 
@@ -18,6 +19,7 @@ const bals = require("./functions/economy")
 const quts = require("./functions/quotes")
 const apis = require("./functions/apis")
 const lang = require("./functions/langs")
+const gopt = require("./functions/gopts")
 
 
 const sgrn = require("./functions/stocks/green")
@@ -58,7 +60,7 @@ stdin.addListener("data", function(d) {
     if (args[0].toUpperCase() == 'REMBAL') {
         if (typeof args[1] !== 'undefined' && typeof args[2] !== 'undefined') {
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] REMOVED ' + args[2] + '€ FROM ' + args[1])
-            bals.add(args[1].toString(), parseInt(args[2]))
+            bals.rem(args[1].toString(), parseInt(args[2]))
         } else {
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] USAGE: REMBAL [USERID] [AMOUNT]')
         }
@@ -89,7 +91,8 @@ stdin.addListener("data", function(d) {
     if (args[0].toUpperCase() == 'VIEWVAR') {
         if (typeof args[1] !== 'undefined') {
             try {
-                console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] CONTENT OF ' + args[1].toupperCase() + ': ' + eval(args[1]))
+                console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] CONTENT OF ' + args[1].toupperCase() + ': ' + eval(args[1]).toString())
+                return
             } catch (e) {
                 console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] THIS VARIABLE DOESNT EXIST')
             }
@@ -113,15 +116,16 @@ console.log(' ')
 console.log(chalk.bold('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$'))
 console.log(' ')
 
-/* Dashboard
+// Dashboard
 const DarkDashboard = require('dbd-dark-dashboard')
+const SoftUI = require('dbd-soft-ui')
 const DBD = require("discord-dashboard")
 
 const { Client, GatewayIntentBits } = require('discord.js');
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 client.login(token);
 
-(async ()=>{
+if (dodshbr == "yes") {(async ()=>{
     let DBD = require('discord-dashboard');
     await DBD.useLicense(dbdl);
     DBD.Dashboard = DBD.UpdatedClass();
@@ -132,35 +136,379 @@ client.login(token);
             id: clientId,
             secret: clientSc
         },
-        redirectUri: 'https://panel.0xBOT.de',
-        domain: 'https://panel.0xBOT.de',
+        redirectUri: 'https://dsh.0xbot.de/discord/callback',
+        sessionSaveSession: MongoStore.create({mongoUrl: mongo}),
+        domain: 'https://dsh.0xbot.de',
         bot: client,
-        theme: DarkDashboard(DBD.default_configs.dbdDarkDashboard),
+        minimizedConsoleLogs: true,
+        useThemeMaintenance: false,
+        ownerIDs: [],
+        useTheme404: true,
+        /*theme: DarkDashboard({
+            locales: {
+                enUS: {
+                    name: 'English',
+                    index: {
+                        feeds: ["Current Users", "CPU", "System Platform", "Server Count"],
+                        card: {
+                            category: "Soft UI",
+                            title: "Assistants - The center of everything",
+                            description: "Assistants Discord Bot management panel. Assistants Bot was created to give others the ability to do what they want. Just.<br>That's an example text. <br><br><b><i>Feel free to use HTML</i></b>",
+                            footer: "Learn More"
+                        },
+                        feedsTitle: "Feeds",
+                        graphTitle: "Graphs",
+                    },
+                }
+            },
+            information: {
+                createdBy: "0x4096",
+                websiteTitle: "0xBOT DASHBOARD",
+                websiteName: "0xBOT DASHBOARD",
+                websiteUrl: "https://dsh.0xbot.de/",
+                dashboardUrl: "https://dsh.0xbot.de/",
+                supporteMail: "support@0xBOT.de",
+                supportServer: "https://discord.gg/yYq4UgRRzz",
+                imageFavicon: "https://img.rjansen.de/profile/pfp.png",
+                iconURL: "https://img.rjansen.de/profile/pfp.png",
+                loggedIn: "Logged in.",
+                mainColor: "#2CA8FF",
+                subColor: "#ebdbdb",
+                preloader: " "
+            },
+
+            index: {
+                card: {
+                    category: "<center>0xBOT DASHBOARD</center>",
+                    title: `<center>Welcome to the 0xBOT Dashboard, here you can manage BOT Settings</center>`,
+                    footer: "<center>(c) 2022</center>",
+                },
+
+                information: {
+                    category: "<center>UPDATE INFO</center>",
+                    title: "<center>INFORMATION</center>",
+                    description: `<center>This Update added the following Features: <br/><br/>a Dashboard<br/>Fixes for CLI Commands</center>`,
+                    footer: "<center>VERSION 1.9.1</center>",
+                },
+
+                feeds: {
+                    category: "<center>UPDATE INFO</center>",
+                    title: "<center>INFORMATION</center>",
+                    description: `<center>This Update added the following Features: <br/><br/>fixes for Minigames<br/>More Vote Money</center>`,
+                    footer: "<center>VERSION 1.9.0</center>",
+                },
+            },
+
+            commands: [
+                {
+                    
+                    list: [{
+                        commandName: 'dashboard',
+                        commandUsage: `/dashboard`,
+                        commandDescription: `go to this dashboard`,
+                        commandAlias: 'none'
+                    },
+                    ],
+                },
+            ],
+        }),
+
         settings: [
             {
-                categoryId: 'setup',
-                categoryName: "Setup",
+                categoryId: 'general',
+                categoryName: "General",
                 categoryDescription: "Setup your bot with default settings!",
                 categoryOptionsList: [
                     {
                         optionId: 'lang',
                         optionName: "Language",
-                        optionDescription: "Change bot's language easily",
-                        optionType: DBD.formTypes.select({"Polish": 'pl', "English": 'en', "French": 'fr'}),
+                        optionDescription: "Change the Bot Language",
+                        optionType: DBD.formTypes.select({"German": 'de', "English": 'en'}),
                         getActualSet: async ({guild}) => {
-                            return langsSettings[guild.id] || null;
+                            const clang = await lang.get(guild.id)
+                            if (parseInt(clang) == '1') { return 'de' }
+                            if (parseInt(clang) == '2') { return 'en' }
                         },
                         setNew: async ({guild,newData}) => {
-                            langsSettings[guild.id] = newData;
-                            return;
+                            const clang = await lang.get(guild.id)
+	                        if (parseInt(clang) == 0) { lang.add(guild.id, 1) }
+	                        if (newData == "de") {
+		                        if (parseInt(clang) == 2) {
+			                        await lang.rem(guild.id, 1)
+		                        }
+	                        } else {
+		                        if (parseInt(clang) == 1) {
+			                        await lang.add(guild.id, 1)
+		                        }
+	                        }
+                            return
+                        }
+                    },
+                ]
+            },
+            {
+                categoryId: 'economy',
+                categoryName: "Economy",
+                categoryDescription: "Setup your bot with default settings!",
+                categoryOptionsList: [
+                    {
+                        optionId: 'stocks',
+                        optionName: "Stocks",
+                        optionDescription: "Enable / Disable Stocks",
+                        optionType: DBD.formTypes.select({"Enabled": '0', "Disabled": '1'}),
+                        getActualSet: async ({guild}) => {
+                            const clang = await gopt.get(guild.id + '-STOCKS')
+                            return clang.toString()
+                        },
+                        setNew: async ({guild,newData}) => {
+                            const clang = await gopt.get(guild.id + '-STOCKS')
+	                        if (parseInt(newData) == 0) {
+                                if (parseInt(clang) == 1) {
+                                    gopt.rem(guild.id + '-STOCKS', 1)
+                                }
+                            } else {
+                                if (parseInt(clang) == 0) {
+                                    gopt.add(guild.id + '-STOCKS', 1)
+                                }
+                            }
+                            return
+                        }
+                    },
+                    {
+                        optionId: 'roulette',
+                        optionName: "Roulette & Guess",
+                        optionDescription: "Enable / Disable Roulette & Guess",
+                        optionType: DBD.formTypes.select({"Enabled": '0', "Disabled": '1'}),
+                        getActualSet: async ({guild}) => {
+                            const clang = await gopt.get(guild.id + '-ROULETTE')
+                            return clang.toString()
+                        },
+                        setNew: async ({guild,newData}) => {
+                            const clang = await gopt.get(guild.id + '-ROULETTE')
+	                        if (parseInt(newData) == 0) {
+                                if (parseInt(clang) == 1) {
+                                    gopt.rem(guild.id + '-ROULETTE', 1)
+                                }
+                            } else {
+                                if (parseInt(clang) == 0) {
+                                    gopt.add(guild.id + '-ROULETTE', 1)
+                                }
+                            }
+                            return
+                        }
+                    },
+                    {
+                        optionId: 'work',
+                        optionName: "Work",
+                        optionDescription: "Enable / Disable the Work Command",
+                        optionType: DBD.formTypes.select({"Enabled": '0', "Disabled": '1'}),
+                        getActualSet: async ({guild}) => {
+                            const clang = await gopt.get(guild.id + '-WORK')
+                            return clang.toString()
+                        },
+                        setNew: async ({guild,newData}) => {
+                            const clang = await gopt.get(guild.id + '-WORK')
+	                        if (parseInt(newData) == 0) {
+                                if (parseInt(clang) == 1) {
+                                    gopt.rem(guild.id + '-WORK', 1)
+                                }
+                            } else {
+                                if (parseInt(clang) == 0) {
+                                    gopt.add(guild.id + '-WORK', 1)
+                                }
+                            }
+                            return
+                        }
+                    },
+                    {
+                        optionId: 'rob',
+                        optionName: "Rob",
+                        optionDescription: "Enable / Disable the Rob Command",
+                        optionType: DBD.formTypes.select({"Enabled": '0', "Disabled": '1'}),
+                        getActualSet: async ({guild}) => {
+                            const clang = await gopt.get(guild.id + '-ROB')
+                            return clang.toString()
+                        },
+                        setNew: async ({guild,newData}) => {
+                            const clang = await gopt.get(guild.id + '-ROB')
+	                        if (parseInt(newData) == 0) {
+                                if (parseInt(clang) == 1) {
+                                    gopt.rem(guild.id + '-ROB', 1)
+                                }
+                            } else {
+                                if (parseInt(clang) == 0) {
+                                    gopt.add(guild.id + '-ROB', 1)
+                                }
+                            }
+                            return
+                        }
+                    },
+                ]
+            },
+            {
+                categoryId: 'fun',
+                categoryName: "Fun",
+                categoryDescription: "Setup your bot with default settings!",
+                categoryOptionsList: [
+                    {
+                        optionId: 'quotes',
+                        optionName: "Quotes",
+                        optionDescription: "Enable / Disable Quotes",
+                        optionType: DBD.formTypes.select({"Enabled": '0', "Disabled": '1'}),
+                        getActualSet: async ({guild}) => {
+                            const clang = await gopt.get(guild.id + '-QUOTES')
+                            return clang.toString()
+                        },
+                        setNew: async ({guild,newData}) => {
+                            const clang = await gopt.get(guild.id + '-QUOTES')
+	                        if (parseInt(newData) == 0) {
+                                if (parseInt(clang) == 1) {
+                                    gopt.rem(guild.id + '-QUOTES', 1)
+                                }
+                            } else {
+                                if (parseInt(clang) == 0) {
+                                    gopt.add(guild.id + '-QUOTES', 1)
+                                }
+                            }
+                            return
+                        }
+                    },
+                    {
+                        optionId: 'minigames',
+                        optionName: "Minigames",
+                        optionDescription: "Enable / Disable Minigames",
+                        optionType: DBD.formTypes.select({"Enabled": '0', "Disabled": '1'}),
+                        getActualSet: async ({guild}) => {
+                            const clang = await gopt.get(guild.id + '-MINIGAMES')
+                            return clang.toString()
+                        },
+                        setNew: async ({guild,newData}) => {
+                            const clang = await gopt.get(guild.id + '-MINIGAMES')
+	                        if (parseInt(newData) == 0) {
+                                if (parseInt(clang) == 1) {
+                                    gopt.rem(guild.id + '-MINIGAMES', 1)
+                                }
+                            } else {
+                                if (parseInt(clang) == 0) {
+                                    gopt.add(guild.id + '-MINIGAMES', 1)
+                                }
+                            }
+                            return
+                        }
+                    },
+                    {
+                        optionId: 'meme',
+                        optionName: "Meme",
+                        optionDescription: "Enable / Disable the Meme Command",
+                        optionType: DBD.formTypes.select({"Enabled": '0', "Disabled": '1'}),
+                        getActualSet: async ({guild}) => {
+                            const clang = await gopt.get(guild.id + '-MEME')
+                            return clang.toString()
+                        },
+                        setNew: async ({guild,newData}) => {
+                            const clang = await gopt.get(guild.id + '-MEME')
+	                        if (parseInt(newData) == 0) {
+                                if (parseInt(clang) == 1) {
+                                    gopt.rem(guild.id + '-MEME', 1)
+                                }
+                            } else {
+                                if (parseInt(clang) == 0) {
+                                    gopt.add(guild.id + '-MEME', 1)
+                                }
+                            }
+                            return
                         }
                     },
                 ]
             },
         ]
-    });
-    Dashboard.init();
-})(); */
+    });*/
+    theme: SoftUI({
+        preloader: {
+            image: "/img/soft-ui.webp",
+            spinner: false,
+            text: "Page is loading",
+        },
+        customThemeOptions: {
+            index: async ({ req, res, config }) => {
+                return {
+                    values: [],
+                    graph: {},
+                    cards: [],
+                }
+            },
+        },
+        websiteName: "0xBOT DASHBOARD",
+        colorScheme: "blue",
+        supporteMail: "support@0xBOT.com",
+        icons: {
+            favicon: 'https://img.rjansen.de/profile/pfp.png',
+            noGuildIcon: "https://pnggrid.com/wp-content/uploads/2021/05/Discord-Logo-Circle-1024x1024.png",
+            sidebar: {
+                darkUrl: 'https://assistantscenter.com/img/logo.png',
+                lightUrl: 'https://assistanscenter.com/img/logo.png',
+                hideName: true,
+                borderRadius: false,
+                alignCenter: true
+            },
+        },
+        index: {
+            card: {
+                category: "0xBOT DASHBOARD",
+                title: "Assistants - The center of everything",
+                description: "Assistants Discord Bot management panel. <b><i>Feel free to use HTML</i></b>",
+                image: "/img/soft-ui.webp",
+                link: {
+                    enabled: true,
+                    url: "https://google.com"
+                }
+            },
+            graph: {
+                enabled: false,
+                lineGraph: false,
+                title: 'Memory Usage',
+                tag: 'Memory (MB)',
+                max: 100
+            },
+        },
+        sweetalert: {
+            errors: {},
+            success: {
+                login: "Logged in.",
+            }
+        },    
+        admin: {
+            pterodactyl: {
+                enabled: true,
+                apiKey: pteroapi,
+                panelLink: "https://panel.paperstudios.de",
+                serverUUIDs: []
+            }
+        },
+        commands: [],
+    }),
+    settings: [
+        optionType: SoftUI.formtypes.collapsable.modal(
+            {
+                optionId: 'collapsableSwitch',
+                disabled: false,
+                getActualSet: async ({guild}) => {},
+                setNew: async ({guild, newValue}) => {}
+            }, 
+            [
+                {
+                    optionId: 'subOption',
+                    optionName: "Sub dropdown option",
+                    optionType: DBD.formTypes.input("hello :(", 1, 16, false, true),
+                    getActualSet: async ({guild}) => {},
+                    setNew: async ({guild, newData}) => {}
+                },
+            ]
+        )        
+    ]
+});
+    Dashboard.init()
+})()}
 
 const manager = new ShardingManager('./bot.js', { token: token, shards: 'auto' });
 manager.on('shardCreate', shard => console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [STA] $$$$$ LAUNCHED SHARD #' + shard.id));

@@ -32,7 +32,7 @@ module.exports = {
                 })
                 .setRequired(true))
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
-    async execute(interaction, client, vote) {
+    async execute(interaction, client, lang, vote) {
         // Set Variables
         const titel = interaction.options.getString("title")
         const nachricht = interaction.options.getString("message")
@@ -45,7 +45,7 @@ module.exports = {
   			    .setDescription(nachricht)
         	    .setFooter({ text: '» ' + version + ' » NOT OFFICIAL' });
             
-            if (interaction.guildLocale == "de") {
+            if (lang.toString() == "de") {
                 message = new EmbedBuilder()
                     .setTitle(titel)
   			        .setDescription(nachricht)
@@ -55,7 +55,7 @@ module.exports = {
             message = new EmbedBuilder()
                 .setTitle(titel)
   			    .setDescription(nachricht)
-        	    .setFooter({ text: '» ' + vote + ' » ' + version });
+        	    .setFooter({ text: '» ' + version });
         }
 
         // Send Message

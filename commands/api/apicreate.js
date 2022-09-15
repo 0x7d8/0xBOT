@@ -36,7 +36,7 @@ module.exports = {
                     de: 'DER INHALT'
                 })
                 .setRequired(true)),
-    async execute(interaction, client, vote) {
+    async execute(interaction, client, lang, vote) {
         // Set Variables
         const name = interaction.options.getString("name")
         const inhalt = interaction.options.getString("content")
@@ -56,7 +56,7 @@ module.exports = {
         		.setDescription('» This API already exists!\n</apiedit:1002107281510506517> to change it\n</apiremove:1002107281510506518> to delete it')
         		.setFooter({ text: '» ' + version + ' » SLOTS ' + amount + '/5'});
 
-            if (interaction.guildLocale == "de") {
+            if (lang.toString() == "de") {
                 message = new EmbedBuilder()
         		    .setTitle('» PAPER API CREATE')
         		    .setDescription('» Diese API existiert schon!\n</apiedit:1002107281510506517> um sie zu ändern\n</apiremove:1002107281510506518> um sie zu löschen')
@@ -76,7 +76,7 @@ module.exports = {
         		.setDescription('» You have used all of your **5** API Slots!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (interaction.guildLocale == "de") {
+            if (lang.toString() == "de") {
                 message = new EmbedBuilder()
         		    .setTitle('» PAPER API CREATE')
         		    .setDescription('» Du hast alle deiner **5** API Slots genutzt!')
@@ -94,7 +94,7 @@ module.exports = {
   			.setDescription('You have created a new API!\nIts available here:\n**`https://api.paperstudios.de/user/' + interaction.user.id.replace(/\D/g, '') + '/' + name + '`**!')
         	.setFooter({ text: '» ' + version + ' » SLOTS ' + newamount + '/5'});
 
-        if (interaction.guildLocale == "de") {
+        if (lang.toString() == "de") {
             message = new EmbedBuilder()
                 .setTitle('» PAPER API EDIT')
   			    .setDescription('Du hast eine neue API erstellt!\nSie ist hier verfügbar:\n**`https://api.paperstudios.de/user/' + interaction.user.id.replace(/\D/g, '') + '/' + name + '`**!')

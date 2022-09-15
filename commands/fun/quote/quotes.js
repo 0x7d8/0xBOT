@@ -20,7 +20,28 @@ module.exports = {
                     de: 'DER NUTZER'
                 })
                 .setRequired(false)),
-    async execute(interaction, client, vote) {
+    async execute(interaction, client, lang, vote) {
+        // Check if Quotes are Enabled in Server
+        const qes = await gopt.get(interaction.guild.id + '-QUOTES')
+        if (parseInt(qes) == 1) {
+            // Create Embed
+            let message = new EmbedBuilder()
+        		.setTitle('» ERROR')
+        		.setDescription('» Quotes are disabled on this Server!')
+        		.setFooter({ text: '» ' + vote + ' » ' + version });
+
+            if (lang.toString() == "de") {
+                message = new EmbedBuilder()
+        		    .setTitle('» FEHLER')
+        		    .setDescription('» Zitate sind auf diesem Server deaktiviert!')
+        		    .setFooter({ text: '» ' + vote + ' » ' + version });
+            }
+            
+            // Send Message
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] QUOTES : DISABLED')
+            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+        }
+
         // Set Variables
         const user = interaction.options.getUser("user")
 
@@ -48,7 +69,7 @@ module.exports = {
             word = "Quotes";
         }
 
-        if (interaction.guildLocale == "de") {
+        if (lang.toString() == "de") {
             if (quotes == 1) {
                 word = "Zitat";
             } else {
@@ -64,7 +85,7 @@ module.exports = {
   				.setDescription('» You have **' + quotes + '** ' + word + '!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (interaction.guildLocale == "de") {
+            if (lang.toString() == "de") {
                 message = new EmbedBuilder()
             	    .setTitle('» DEINE ZITATE')
   				    .setDescription('» Du hast **' + quotes + '** ' + word + '!')
@@ -76,7 +97,7 @@ module.exports = {
   				.setDescription('» <@' + user + '> has **' + quotes + '** ' + word + '!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (interaction.guildLocale == "de") {
+            if (lang.toString() == "de") {
                 message = new EmbedBuilder()
                     .setTitle('» DIE ZITATE VON ' + userinfo.username.toUpperCase() + '#' + userinfo.discriminator)
   				    .setDescription('» <@' + user + '> hat **' + quotes + '** ' + word + '!')

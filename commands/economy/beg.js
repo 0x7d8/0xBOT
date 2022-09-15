@@ -31,7 +31,7 @@ module.exports = {
                     de: 'DER GRUND'
                 })
                 .setRequired(false)),
-    async execute(interaction, client, vote) {
+    async execute(interaction, client, lang, vote) {
         // Set Variables
         const amount = interaction.options.getInteger("amount")
         const reason = interaction.options.getString("reason")
@@ -44,7 +44,7 @@ module.exports = {
         		.setDescription('» You cant ask for negative Money!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (interaction.guildLocale == "de") {
+            if (lang.toString() == "de") {
                 message = new EmbedBuilder()
         		    .setTitle('» FEHLER')
         		    .setDescription('» Du kannst nicht nach negativem Geld fragen!')
@@ -64,7 +64,7 @@ module.exports = {
                 .setDescription('» You cant beg that much! **$5000** is the Maximum.')
                 .setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (interaction.guildLocale == "de") {
+            if (lang.toString() == "de") {
                 message = new EmbedBuilder()
                     .setTitle('» BETTELN')
                     .setDescription('» Du kannst nicht soviel erbetteln! **5000€** ist das Maximum.')
@@ -89,7 +89,7 @@ module.exports = {
 					.setStyle(ButtonStyle.Secondary),
 			);
 
-        if (interaction.guildLocale == "de") {
+        if (lang.toString() == "de") {
             button = new ActionRowBuilder()
 			    .addComponents(
 				    new ButtonBuilder()
@@ -107,7 +107,7 @@ module.exports = {
   			    .setDescription('» <@' + interaction.user.id + '> needs Money!')
         	    .setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (interaction.guildLocale == "de") {
+            if (lang.toString() == "de") {
                 message = new EmbedBuilder()
                     .setTitle('» BETTELN')
   			        .setDescription('» <@' + interaction.user.id + '> braucht Geld!')
@@ -119,7 +119,7 @@ module.exports = {
   			    .setDescription('» <@' + interaction.user.id + '> needs Money!\n*"' + reason.toString() + '"*')
         	    .setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (interaction.guildLocale == "de") {
+            if (lang.toString() == "de") {
                 message = new EmbedBuilder()
                     .setTitle('» BETTELN')
   			        .setDescription('» <@' + interaction.user.id + '> braucht Geld!\n*"' + reason.toString() + '"*')

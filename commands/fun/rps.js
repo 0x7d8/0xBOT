@@ -31,7 +31,28 @@ module.exports = {
                     de: 'DIE ANZAHL VON GELD'
                 })
                 .setRequired(false)),
-    async execute(interaction, client, vote) {
+    async execute(interaction, client, lang, vote) {
+        // Check if Minigames are Enabled in Server
+        const mes = await gopt.get(interaction.guild.id + '-MINIGAMES')
+        if (parseInt(mes) == 1) {
+            // Create Embed
+            let message = new EmbedBuilder()
+        		.setTitle('» ERROR')
+        		.setDescription('» Minigames are disabled on this Server!')
+        		.setFooter({ text: '» ' + vote + ' » ' + version });
+
+            if (lang.toString() == "de") {
+                message = new EmbedBuilder()
+        		    .setTitle('» FEHLER')
+        		    .setDescription('» Minispiele sind auf diesem Server deaktiviert!')
+        		    .setFooter({ text: '» ' + vote + ' » ' + version });
+            }
+            
+            // Send Message
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] RPS : DISABLED')
+            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+        }
+
         // Set Variables
         const user = interaction.options.getUser("user")
         let bet = interaction.options.getInteger("bet")
@@ -47,7 +68,7 @@ module.exports = {
         		.setDescription('» You cant play Rock Paper Scissors with a Bot!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (interaction.guildLocale == "de") {
+            if (lang.toString() == "de") {
                 message = new EmbedBuilder()
         		    .setTitle('» FEHLER')
         		    .setDescription('» Du kannst Schere Stein Papier nicht mit einem Bot spielen!')
@@ -80,7 +101,7 @@ module.exports = {
         		.setDescription('» You are already in a Lobby!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (interaction.guildLocale == "de") {
+            if (lang.toString() == "de") {
                 message = new EmbedBuilder()
         		    .setTitle('» FEHLER')
         		    .setDescription('» Du bist schon in einer Lobby!')
@@ -106,7 +127,7 @@ module.exports = {
         		.setDescription('» <@' + user.toString().replace(/\D/g, '') + '> is already in a Lobby!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (interaction.guildLocale == "de") {
+            if (lang.toString() == "de") {
                 message = new EmbedBuilder()
         		    .setTitle('» FEHLER')
         		    .setDescription('» <@' + user.toString().replace(/\D/g, '') + '> ist schon in einer Lobby!')
@@ -126,7 +147,7 @@ module.exports = {
         		.setDescription('» You cant bet negative Money!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (interaction.guildLocale == "de") {
+            if (lang.toString() == "de") {
                 message = new EmbedBuilder()
         		    .setTitle('» FEHLER')
         		    .setDescription('» Du kannst kein negatives Geld wetten!')
@@ -146,7 +167,7 @@ module.exports = {
   				.setDescription('» You cant play Rock Paper Scissors with yourself?')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (interaction.guildLocale == "de") {
+            if (lang.toString() == "de") {
                 message = new EmbedBuilder()
             	    .setTitle('» FEHLER')
   				    .setDescription('» Du kannst Schere Stein Papier nicht mit dir alleine spielen?')
@@ -168,7 +189,7 @@ module.exports = {
   				.setDescription('» You dont have enough Money for that, you are missing **$' + missing + '**!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (interaction.guildLocale == "de") {
+            if (lang.toString() == "de") {
                 message = new EmbedBuilder()
             	    .setTitle('» FEHLER')
   				    .setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
@@ -188,7 +209,7 @@ module.exports = {
   				.setDescription('» <@' + user.toString().replace(/\D/g, '') + '> doesnt have enough Money for that, he is Missing **$' + missing + '**!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (interaction.guildLocale == "de") {
+            if (lang.toString() == "de") {
                 message = new EmbedBuilder()
             	    .setTitle('» FEHLER')
   				    .setDescription('» <@' + user.toString().replace(/\D/g, '') + '> hat dafür nicht genug Geld, im fehlen **' + missing + '€**!')
@@ -216,7 +237,7 @@ module.exports = {
                     .setEmoji('1017050508252418068')
 					.setStyle(ButtonStyle.Danger),
 			);
-        if (interaction.guildLocale == "de") {
+        if (lang.toString() == "de") {
             row = new ActionRowBuilder()
 			    .addComponents(
 			    	new ButtonBuilder()
@@ -241,7 +262,7 @@ module.exports = {
   			.setDescription('» <@' + interaction.user.id.replace(/\D/g, '') + '> challenges you, <@' + user.toString().replace(/\D/g, '') + '> to a battle of Rock Paper Scissors! The Bet is **$' + bet + '**.\nDo you accept?\n\n» This Request expires <t:' + (Math.floor(+new Date() / 1000) + 29) + ':R>')
         	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-        if (interaction.guildLocale == "de") {
+        if (lang.toString() == "de") {
             message = new EmbedBuilder()
         	    .setTitle('» SCHERE STEIN PAPIER')
   			    .setDescription('» <@' + interaction.user.id.replace(/\D/g, '') + '> fordert dich, <@' + user.toString().replace(/\D/g, '') + '> zu einem Spiel von Schere Stein Papier heraus! Die Wette ist **' + bet + '€**.\nAkzeptierst du?\n\n» Diese Anfrage wird ungültig <t:' + (Math.floor(+new Date() / 1000) + 29) + ':R>')
@@ -295,7 +316,7 @@ module.exports = {
 			    		.setStyle(ButtonStyle.Danger)
                         .setDisabled(true),
 			    );
-            if (interaction.guildLocale == "de") {
+            if (lang.toString() == "de") {
                 row = new ActionRowBuilder()
 			        .addComponents(
 			        	new ButtonBuilder()
@@ -319,7 +340,7 @@ module.exports = {
                 .setDescription('» The Request expired.')
                 .setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (interaction.guildLocale == "de") {
+            if (lang.toString() == "de") {
                 message = new EmbedBuilder()
                     .setTitle('» SCHERE STEIN PAPIER')
                     .setDescription('» Die Anfrage ist abgelaufen.')

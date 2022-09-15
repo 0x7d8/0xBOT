@@ -10,7 +10,7 @@ module.exports = {
         .setDescriptionLocalizations({
             de: 'SPENDE DEM BOT'
         }),
-    async execute(interaction, client, vote) {
+    async execute(interaction, client, lang, vote) {
         // Create Embed
         let message = new EmbedBuilder()
         	.setTitle('» DONATE')
@@ -18,7 +18,7 @@ module.exports = {
     		.setImage("https://img.rjansen.de/bot/donate.png")
     		.setFooter({ text: '» ' + vote + ' » ' + version });
 
-        if (interaction.guildLocale == "de") {
+        if (lang.toString() == "de") {
             message = new EmbedBuilder()
         		.setTitle('» SPENDEN')
         		.setDescription('**»» SPENDEN**\n» LINK\nhttps://donate.rjansen.de\n» QR CODE')

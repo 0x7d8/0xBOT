@@ -5,7 +5,7 @@ module.exports = {
     data: {
         name: 'count'
     },
-    async execute(interaction, client, vote) {
+    async execute(interaction, client, lang, vote) {
         // Get Count
         const cache = interaction.message.embeds
         const number = parseInt(cache[0].description.toString().match(/\d+/g)) + 1
@@ -16,7 +16,7 @@ module.exports = {
           .setDescription('» Lets Count! Current Number: **' + number + '**')
         .setFooter({ text: '» ' + version });
 
-        if (interaction.guildLocale == "de") {
+        if (lang.toString() == "de") {
             message = new EmbedBuilder()
                 .setTitle('» ZÄHLEN')
                 .setDescription('» Komm Zählen! Aktuelle Nummer: **' + number + '**')

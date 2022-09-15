@@ -6,7 +6,7 @@ module.exports = {
     data: {
         name: 'rps-scissor'
     },
-    async execute(interaction, client, vote, bet) {
+    async execute(interaction, client, lang, vote, bet) {
         // Get Users
         const cache = interaction.message.embeds
         const description = cache[0].description.toString().replace(/[^\d@!]/g, '').split('!')[0].substring(1).split("@");
@@ -20,7 +20,7 @@ module.exports = {
         		.setDescription('» You arent playing!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (interaction.guildLocale == "de") {
+            if (lang.toString() == "de") {
                 message = new EmbedBuilder()
         		    .setTitle('» FEHLER')
         		    .setDescription('» Du spielst garnicht mit!')
@@ -60,7 +60,7 @@ module.exports = {
             if (win == 'ps') { winner = '<@' + sender.toString().replace(/\D/g, '') + '>' }
             if (win == 'pr') { winner = '<@' + reciever.toString().replace(/\D/g, '') + '>' }
             if (win == 'none') { winner = '**Noone**' }
-            if (win == 'none' && interaction.guildLocale == "de") { winner = '**Niemand**' }
+            if (win == 'none' && lang.toString() == "de") { winner = '**Niemand**' }
 
             // Transfer Money
             const betwon = parseInt(bet) * 2
@@ -86,7 +86,7 @@ module.exports = {
                 .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> selected **' + eval('rps' + sender.toString().replace(/\D/g, '')) + '**\n» <@' + reciever.toString().replace(/\D/g, '') + '> selected **' + eval('rps' + reciever.toString().replace(/\D/g, '')) + '**\n\n» ' + winner + ' won **$' + betwon + '**.')
                 .setFooter({ text: '» ' + version });
 
-            if (interaction.guildLocale == "de") {
+            if (lang.toString() == "de") {
                 if (eval('rps' + sender.toString().replace(/\D/g, '')) == 'SCISSORS') { send = '✂️ SCHERE' }
                 if (eval('rps' + sender.toString().replace(/\D/g, '')) == 'PAPER') { send = '📝 PAPIER' }
                 if (eval('rps' + sender.toString().replace(/\D/g, '')) == 'ROCK') { send = '🪨 STEIN' }
@@ -129,7 +129,7 @@ module.exports = {
                     .setDisabled(true),
 			);
 
-            if (interaction.guildLocale == "de") {
+            if (lang.toString() == "de") {
                 row = new ActionRowBuilder()
 		    	    .addComponents(
                          new ButtonBuilder()
@@ -163,7 +163,7 @@ module.exports = {
         .setDescription('» You selected **SCISSORS**!')
         .setFooter({ text: '» ' + vote + ' » ' + version });
 
-        if (interaction.guildLocale == "de") {
+        if (lang.toString() == "de") {
             message = new EmbedBuilder()
                 .setTitle('» SCHERE STEIN PAPIER')
                 .setDescription('» Du hast **SCHERE** ausgewählt!')

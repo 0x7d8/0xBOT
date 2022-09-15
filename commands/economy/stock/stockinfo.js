@@ -31,7 +31,28 @@ module.exports = {
                     { name: '🟡 GELBE AKTIE', value: 'yellow' },
                     { name: '🔴 ROTE AKTIE', value: 'red' },
 				)),
-    async execute(interaction, client, vote) {
+    async execute(interaction, client, lang, vote) {
+        // Check if Stocks are Enabled in Server
+        const ses = await gopt.get(interaction.guild.id + '-STOCKS')
+        if (parseInt(ses) == 1) {
+            // Create Embed
+            let message = new EmbedBuilder()
+        		.setTitle('» ERROR')
+        		.setDescription('» Stocks are disabled on this Server!')
+        		.setFooter({ text: '» ' + vote + ' » ' + version });
+
+            if (lang.toString() == "de") {
+                message = new EmbedBuilder()
+        		    .setTitle('» FEHLER')
+        		    .setDescription('» Aktien sind auf diesem Server deaktiviert!')
+        		    .setFooter({ text: '» ' + vote + ' » ' + version });
+            }
+            
+            // Send Message
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] STOCKINFO : DISABLED')
+            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+        }
+
         // Set Variables
         const stock = interaction.options.getString("stock")
 
@@ -162,7 +183,7 @@ module.exports = {
                     .setDescription('» NEXT PRICES\n' + refresh + '\n\n» PRICE\n**<:DOWN:1009502386320056330> `$' + priceText + '`**')
                     .setFooter({ text: '» ' + vote + ' » ' + version });
 
-                if (interaction.guildLocale == "de") {
+                if (lang.toString() == "de") {
                     message = new EmbedBuilder()
                         .setTitle('» ' + emoji + ' AKTIEN INFO')
                         .setDescription('» NÄCHSTE PREISE\n' + refresh + '\n\n» PREIS\n**<:DOWN:1009502386320056330> `' + priceText + '€`**')
@@ -174,7 +195,7 @@ module.exports = {
                     .setDescription('» NEXT PRICES\n' + refresh + '\n\n» PRICE\n**<:UP:1009502422990860350> `$' + priceText + '`**')
                     .setFooter({ text: '» ' + vote + ' » ' + version });
                 
-                if (interaction.guildLocale == "de") {
+                if (lang.toString() == "de") {
                     message = new EmbedBuilder()
                         .setTitle('» ' + emoji + ' AKTIEN INFO')
                         .setDescription('» NÄCHSTE PREISE\n' + refresh + '\n\n» PREIS\n**<:UP:1009502422990860350> `' + priceText + '€`**')
@@ -186,7 +207,7 @@ module.exports = {
                     .setDescription('» NEXT PRICES\n' + refresh + '\n\n» PRICE\n**🧐 `$' + priceText + '`**')
                     .setFooter({ text: '» ' + vote + ' » ' + version });
 
-                if (interaction.guildLocale == "de") {
+                if (lang.toString() == "de") {
                     message = new EmbedBuilder()
                         .setTitle('» ' + emoji + ' AKTIEN INFO')
                         .setDescription('» NÄCHSTE PREISE\n' + refresh + '\n\n» PREIS\n**🧐 `' + priceText + '€`**')
@@ -199,7 +220,7 @@ module.exports = {
                 .setDescription('» NEXT PRICES\n' + refresh + '\n\n» 🟢 GREEN STOCK\n**' + greenp + ' `$' + green + '`**\n\n» 🔵 BLUE STOCK\n**' + bluep + ' `$' + blue + '`**\n\n» 🟡 YELLOW STOCK\n**' + yellowp + ' `$' + yellow + '`**\n\n» 🔴 RED STOCK\n**' + redp + ' `$' + red + '`**')
                 .setFooter({ text: '» ' + vote + ' » ' + version });
             
-            if (interaction.guildLocale == "de") {
+            if (lang.toString() == "de") {
                 message = new EmbedBuilder()
                     .setTitle('» VOLLE AKTIEN INFOS')
                     .setDescription('» NÄCHSTE PREISE\n' + refresh + '\n\n» 🟢 GRÜNE AKTIE\n**' + greenp + ' `' + green + '€`**\n\n» 🔵 BLAUE AKTIE\n**' + bluep + ' `' + blue + '€`**\n\n» 🟡 GELBE AKTIE\n**' + yellowp + ' `' + yellow + '€`**\n\n» 🔴 ROTE AKTIE\n**' + redp + ' `' + red + '€`**')

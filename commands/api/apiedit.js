@@ -36,7 +36,7 @@ module.exports = {
                     de: 'DER INHALT'
                 })
                 .setRequired(true)),
-    async execute(interaction, client, vote) {
+    async execute(interaction, client, lang, vote) {
         // Set Variables
         const name = interaction.options.getString("name")
         const inhalt = interaction.options.getString("content")
@@ -55,7 +55,7 @@ module.exports = {
   				.setDescription('You edited the API **' + name + '**!')
         		.setFooter({ text: '» ' + version + ' » SLOTS ' + amount + '/5'});
 
-            if (interaction.guildLocale == "de") {
+            if (lang.toString() == "de") {
                 message = new EmbedBuilder()
             	    .setTitle('» PAPER API EDIT')
   				    .setDescription('Du hast die API **' + name + '** editiert!')
@@ -72,7 +72,7 @@ module.exports = {
         		.setDescription('» This API doesnt exist!\n</apicreate:1002107281510506516> to Create one')
         		.setFooter({ text: '» ' + version + ' » SLOTS ' + amount + '/5'});
 
-            if (interaction.guildLocale == "de") {
+            if (lang.toString() == "de") {
                 message = new EmbedBuilder()
         		    .setTitle('» PAPER API EDIT')
         		    .setDescription('» Diese API existiert nicht!\n</apicreate:1002107281510506516> um eine zu erstellen')

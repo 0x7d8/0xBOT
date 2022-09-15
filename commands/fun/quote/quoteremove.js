@@ -28,7 +28,28 @@ module.exports = {
             		{ name: '💰 [04] 400€', value: '4' },
             		{ name: '💰 [05] 500€', value: '5' },
 				)),
-    async execute(interaction, client, vote) {
+    async execute(interaction, client, lang, vote) {
+        // Check if Quotes are Enabled in Server
+        const qes = await gopt.get(interaction.guild.id + '-QUOTES')
+        if (parseInt(qes) == 1) {
+            // Create Embed
+            let message = new EmbedBuilder()
+        		.setTitle('» ERROR')
+        		.setDescription('» Quotes are disabled on this Server!')
+        		.setFooter({ text: '» ' + vote + ' » ' + version });
+
+            if (lang.toString() == "de") {
+                message = new EmbedBuilder()
+        		    .setTitle('» FEHLER')
+        		    .setDescription('» Zitate sind auf diesem Server deaktiviert!')
+        		    .setFooter({ text: '» ' + vote + ' » ' + version });
+            }
+            
+            // Send Message
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] QUOTEREMOVE : DISABLED')
+            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+        }
+
         // Set Variables
         const anzahl = interaction.options.getString("amount")
         
@@ -46,7 +67,7 @@ module.exports = {
   				.setDescription('» You dont have that many Quotes, you only have **' + quotes + '**!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (interaction.guildLocale == "de") {
+            if (lang.toString() == "de") {
                 message = new EmbedBuilder()
             	    .setTitle('» FEHLER')
   				    .setDescription('» Du hast garnicht so viele Zitate, du hast nur **' + quotes + '**!')
@@ -68,7 +89,7 @@ module.exports = {
   				.setDescription('» You dont have enough Money for that, you are Missing **$' + missing + '**!')
             	.setFooter({ text: '» ' + version + ' » QUOTES: ' + quotes});
 
-            if (interaction.guildLocale == "de") {
+            if (lang.toString() == "de") {
                 message = new EmbedBuilder()
             	    .setTitle('» FEHLER')
   				    .setDescription('» Du hast nicht genug Geld dafür, dir fehlen **' + missing + '€**!')
@@ -88,7 +109,7 @@ module.exports = {
             word = "Quotes";
         }
 
-        if (interaction.guildLocale == "de") {
+        if (lang.toString() == "de") {
             if (anzahl == 1) {
                 word = "Zitat";
             } else {
@@ -103,7 +124,7 @@ module.exports = {
   			.setDescription('» You successfully removed **' + anzahl + '** ' + word + ' for **$' + cost + '**!')
             .setFooter({ text: '» ' + version + ' » QUOTES: ' + newquotes});
 
-        if (interaction.guildLocale == "de") {
+        if (lang.toString() == "de") {
             message = new EmbedBuilder()
                 .setTitle('» ZITATE ENTFERNEN')
   			    .setDescription('» Du hast erfolgreich **' + anzahl + '** ' + word + ' für **' + cost + '€** entfernt!')

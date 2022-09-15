@@ -30,7 +30,7 @@ module.exports = {
                     de: 'DIE ANZAHL VON GELD'
                 })
                 .setRequired(true)),
-    async execute(interaction, client, vote) {
+    async execute(interaction, client, lang, vote) {
         // Set Variables
         const user = interaction.options.getUser("user")
         const anzahl = interaction.options.getInteger("amount")
@@ -44,7 +44,7 @@ module.exports = {
         		.setDescription('» You cant send negative Money!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (interaction.guildLocale == "de") {
+            if (lang.toString() == "de") {
                 message = new EmbedBuilder()
         		    .setTitle('» FEHLER')
         		    .setDescription('» Du kannst kein negatives Geld senden!')
@@ -65,7 +65,7 @@ module.exports = {
         		.setDescription('» You cant give a Bot Money!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (interaction.guildLocale == "de") {
+            if (lang.toString() == "de") {
                 message = new EmbedBuilder()
         		    .setTitle('» FEHLER')
         		    .setDescription('» Du kannst einem Bot kein Geld geben!')
@@ -87,7 +87,7 @@ module.exports = {
   			.setDescription('» You cant give yourself Money!')
         	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-        if (interaction.guildLocale == "de") {
+        if (lang.toString() == "de") {
             message = new EmbedBuilder()
                 .setTitle('» GELD GEBEN')
   			    .setDescription('» Du hast <@' + user + '> **' + anzahl + '€** gegeben!')
@@ -116,7 +116,7 @@ module.exports = {
   				.setDescription('» You dont have enough Money for that, you are missing **$' + missing + '**!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (interaction.guildLocale == "de") {
+            if (lang.toString() == "de") {
                 message = new EmbedBuilder()
             	    .setTitle('» FEHLER')
   				    .setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')

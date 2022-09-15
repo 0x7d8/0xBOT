@@ -20,7 +20,7 @@ module.exports = {
                     de: 'DIE ANZAHL'
                 })
                 .setRequired(false)),
-    async execute(interaction, client, vote) {
+    async execute(interaction, client, lang, vote) {
         // Set Variables
         let anzahl = interaction.options.getInteger("amount")
         let heads = 0
@@ -40,7 +40,7 @@ module.exports = {
         		.setDescription('» You need to throw atleast **1** Coin!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (interaction.guildLocale == "de") {
+            if (lang.toString() == "de") {
                 message = new EmbedBuilder()
         		    .setTitle('» FEHLER')
         		    .setDescription('» Du musst schon mindestens **1** Münze werfen!')
@@ -60,7 +60,7 @@ module.exports = {
         		.setDescription('» You cant throw more than **1000** Coins!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (interaction.guildLocale == "de") {
+            if (lang.toString() == "de") {
                 message = new EmbedBuilder()
         		    .setTitle('» FEHLER')
         		    .setDescription('» Du darfst nicht mehr als **1000** Münzen werfen!')
@@ -99,7 +99,7 @@ module.exports = {
   			    .setDescription('» The Coin Landed on **' + coin + '**!')
         	    .setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (interaction.guildLocale == "de") {
+            if (lang.toString() == "de") {
                 if (coin == "HEAD") { coin = "KOPF" }
                 if (coin == "TAIL") { coin = "ZAHL" }
 
@@ -114,7 +114,7 @@ module.exports = {
   			    .setDescription('» HEADS\n`' + heads + '`\n\n» TAILS\n`' + tails + '`')
         	    .setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (interaction.guildLocale == "de") {
+            if (lang.toString() == "de") {
                 message = new EmbedBuilder()
         	        .setTitle('» COINFLIP')
   			        .setDescription('» KÖPFE\n`' + heads + '`\n\n» ZAHLEN\n`' + tails + '`')

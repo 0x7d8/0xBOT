@@ -5,47 +5,47 @@ const { version } = require('../../config.json');
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('github')
+        .setName('dashboard')
     	.setDMPermission(false)
-        .setDescription('THE BOT ON GITHUB')
+        .setDescription('GO TO THE DASHBOARD')
         .setDescriptionLocalizations({
-            de: 'DER BOT AUF GITHUB'
+            de: 'GEHE ZUM DASHBOARD'
         }),
     async execute(interaction, client, lang, vote) {
         // Create Button
         let button = new ActionRowBuilder()
 			.addComponents(
 				new ButtonBuilder()
-					.setLabel('ANSCHAUEN')
-					.setURL('https://github.com/rotvproHD/0xBOT')
+					.setLabel('GO')
+					.setURL('https://dsh.0xBOT.de')
 					.setStyle(ButtonStyle.Link),
 			);
-        
-        if (lang.toString() == "de") {
+
+        if (interaction.guildLocale = "de") {
             button = new ActionRowBuilder()
 			    .addComponents(
-				    new ButtonBuilder()
-				    	.setLabel('VIEW')
-				    	.setURL('https://github.com/rotvproHD/0xBOT')
-				    	.setStyle(ButtonStyle.Link),
+			    	new ButtonBuilder()
+			    		.setLabel('LOS')
+			    		.setURL('https://dsh.0xBOT.de')
+			    		.setStyle(ButtonStyle.Link),
 			    );
         }
         
         // Create Embed
        	let message = new EmbedBuilder()
-            .setTitle('» GITHUB')
-  			.setDescription('» CLick below to go to the **GITHUB** Page of the Bot!')
+            .setTitle('» DASHBOARD')
+  			.setDescription('» Click below to go to the Dashboard!')
         	.setFooter({ text: '» ' + vote + ' » ' + version });
 
         if (lang.toString() == "de") {
             message = new EmbedBuilder()
-                .setTitle('» GITHUB')
-  			    .setDescription('» Klicke unten um auf die **GITHUB** Seite zu kommen!')
+                .setTitle('» DASHBOARD')
+  			    .setDescription('» Klicke unten um zum Dashboard zu gelangen!')
         	    .setFooter({ text: '» ' + vote + ' » ' + version });
         }
         
         // Send Message
-        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] GITHUB')
+        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] DASHBOARD')
         await interaction.reply({ embeds: [message.toJSON()], components: [button], ephemeral: true })
     },
 };

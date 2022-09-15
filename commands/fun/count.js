@@ -11,7 +11,7 @@ module.exports = {
             de: 'DRÜCKE EINEN KNOPF'
         })
     	.setDMPermission(false),
-    async execute(interaction, client, vote) {
+    async execute(interaction, client, lang, vote) {
         // Create Button
         let button = new ActionRowBuilder()
 			.addComponents(
@@ -27,7 +27,7 @@ module.exports = {
   			    .setDescription('» Lets Count! Current Number: **0**')
         	    .setFooter({ text: '» ' + version });
 
-        if (interaction.guildLocale == "de") {
+        if (lang.toString() == "de") {
             message = new EmbedBuilder()
                 .setTitle('» ZÄHLEN')
   		        .setDescription('» Komm Zählen! Aktuelle Nummer: **0**')

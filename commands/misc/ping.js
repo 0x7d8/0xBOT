@@ -10,7 +10,7 @@ module.exports = {
         .setDescriptionLocalizations({
             de: 'DER BOT PING'
         }),
-    async execute(interaction, client, vote) {
+    async execute(interaction, client, lang, vote) {
         // Set Variables
         const botping = Math.round(client.ws.ping)
 
@@ -20,7 +20,7 @@ module.exports = {
         		.setDescription('» The Bot Ping is **' + botping + 'ms**!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
-        if (interaction.guildLocale == "de") {
+        if (lang.toString() == "de") {
             message = new EmbedBuilder()
         		.setTitle('» BOT PING')
         		.setDescription('» Der Ping vom Bot ist **' + botping + 'ms**!')

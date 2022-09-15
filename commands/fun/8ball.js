@@ -21,7 +21,7 @@ module.exports = {
                     de: 'DIE FRAGE'
                 })
                 .setRequired(true)),
-    async execute(interaction, client, vote) {
+    async execute(interaction, client, lang, vote) {
         // Set Variables
         const frage = interaction.options.getString("question")
         const random = Math.floor(Math.random() * (20 - 1 + 1)) + 1;
@@ -49,7 +49,7 @@ module.exports = {
         if (random == '19') { result = 'I dont think so!' }
         if (random == '20') { result = 'I doubt it.' }
 
-        if (interaction.guildLocale == "de") {
+        if (lang.toString() == "de") {
             if (random == '1') { result = 'Sicherlich.' } 
             if (random == '2') { result = 'Es ist Garantiert!' } 
             if (random == '3') { result = 'Ohne Frage!' } 
@@ -86,7 +86,7 @@ module.exports = {
   			.setDescription('» "' + formatted + '" -> ' + result)
         	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-        if (interaction.guildLocale == "de") {
+        if (lang.toString() == "de") {
             message = new EmbedBuilder()
         	    .setTitle('» MAGISCHER BALL')
   			    .setDescription('» "' + formatted + '" -> ' + result)

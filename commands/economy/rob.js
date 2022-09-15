@@ -39,7 +39,28 @@ module.exports = {
                     { name: '🤑 [20%] 30€ - 50€', value: '20' },
                     { name: '💰 [05%] 60€ - 100€', value: '5' },
 				)),
-    async execute(interaction, client, vote) {
+    async execute(interaction, client, lang, vote) {
+        // Check if Rob is Enabled in Server
+        const res = await gopt.get(interaction.guild.id + '-ROB')
+        if (parseInt(res) == 1) {
+            // Create Embed
+            let message = new EmbedBuilder()
+        		.setTitle('» ERROR')
+        		.setDescription('» The **`/rob`** Command is disabled on this Server!')
+        		.setFooter({ text: '» ' + vote + ' » ' + version });
+
+            if (lang.toString() == "de") {
+                message = new EmbedBuilder()
+        		    .setTitle('» FEHLER')
+        		    .setDescription('» Der **`/rob`** Befehl ist auf diesem Server deaktiviert!')
+        		    .setFooter({ text: '» ' + vote + ' » ' + version });
+            }
+            
+            // Send Message
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] ROB : DISABLED')
+            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+        }
+
         // Set Variables
         const user = interaction.options.getUser("user")
         const money = interaction.options.getString("money")
@@ -58,7 +79,7 @@ module.exports = {
   				.setDescription('» You still have a Cooldown of **' + cdown.toFixed(0) + 's**!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (interaction.guildLocale == "de") {
+            if (lang.toString() == "de") {
                 message = new EmbedBuilder()
             	    .setTitle('» FEHLER')
   				    .setDescription('» Du hast leider noch einen Cooldown von **' + cdown.toFixed(0) + 's**!')
@@ -78,7 +99,7 @@ module.exports = {
   				.setDescription('» You cant rob yourself?!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (interaction.guildLocale == "de") {
+            if (lang.toString() == "de") {
                 message = new EmbedBuilder()
             	    .setTitle('» FEHLER')
   				    .setDescription('» Du kannst dich nicht selber ausrauben?!')
@@ -98,7 +119,7 @@ module.exports = {
         		.setDescription('» You cant rob a Bot!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (interaction.guildLocale == "de") {
+            if (lang.toString() == "de") {
                 message = new EmbedBuilder()
         		    .setTitle('» FEHLER')
         		    .setDescription('» Du kannst einem Bot kein Geld klauen!')
@@ -123,7 +144,7 @@ module.exports = {
   			.setDescription('» You dont have enough Money for that, you need atleast **$' + need + '**! BRUH.')
         	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-        if (interaction.guildLocale == "de") {
+        if (lang.toString() == "de") {
             notenoughmoney1 = new EmbedBuilder()
         	    .setTitle('» FEHLER')
   			    .setDescription('» Du hast nicht genug Geld dafür, du brauchst mindestens **' + need + '€**! BRUH.')
@@ -151,7 +172,7 @@ module.exports = {
   			.setDescription('» <@' + user + '> doesnt have enough Money for that, he needs atleast **$' + need + '**! LOL.')
         	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-        if (interaction.guildLocale == "de") {
+        if (lang.toString() == "de") {
             notenoughmoney2 = new EmbedBuilder()
         	    .setTitle('» FEHLER')
   			    .setDescription('» <@' + user + '> hat nicht genug Geld dafür, er braucht mindestens **' + need + '€**! LOL.')
@@ -206,7 +227,7 @@ module.exports = {
         if (amount >= 60) { extra = 'LOL.' }
         if (amount >= 80) { extra = 'A PRO??!!' }
 
-        if (interaction.guildLocale == "de") {
+        if (lang.toString() == "de") {
             if (amount < 20) { extra = 'NAJA.'}
             if (amount >= 20) { extra = 'NICE.' }
             if (amount >= 40) { extra = 'PRIMA.' }
@@ -225,7 +246,7 @@ module.exports = {
   			.setDescription('» You wanted to steal <@' + user + '> **$' + amount + '**, but the Police caught you! You had to pay **$' + punishment + '**! KEKW.')
         	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-        if (interaction.guildLocale == "de") {
+        if (lang.toString() == "de") {
             sucess = new EmbedBuilder()
                 .setTitle('» AUSRAUBEN')
   			    .setDescription('» Du hast <@' + user + '> **' + amount + '€** geklaut! ' + extra)
