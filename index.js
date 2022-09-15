@@ -121,7 +121,7 @@ if (dodshbr == "yes") {(async ()=>{
     DBD.Dashboard = DBD.UpdatedClass();
 
     const Dashboard = new DBD.Dashboard({
-        port: 25169,
+        port: 25150,
         client: {
             id: clientId,
             secret: clientSc
