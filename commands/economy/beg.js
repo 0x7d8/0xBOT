@@ -57,7 +57,7 @@ module.exports = {
         }
 
         // Check for Max Amount
-        if (amount > 5000) {
+        if (amount > 10000) {
             // Create Embed
             let message = new EmbedBuilder()
                 .setTitle('» BEGGING')
@@ -67,7 +67,7 @@ module.exports = {
             if (lang.toString() == "de") {
                 message = new EmbedBuilder()
                     .setTitle('» BETTELN')
-                    .setDescription('» Du kannst nicht soviel erbetteln! **5000€** ist das Maximum.')
+                    .setDescription('» Du kannst nicht soviel erbetteln! **10000€** ist das Maximum.')
                     .setFooter({ text: '» ' + vote + ' » ' + version });
             }
             
