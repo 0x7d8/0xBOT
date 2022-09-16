@@ -342,9 +342,8 @@ if (dovotes != 'no') {
 		console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] VOTED : ' + user + ' : ' + random + '€')
 
 		votef.add(vote.user + '-A', 1)
-		votef.set(vote.user + '-T', Date.now()).then(() => {
-			user.send({ embeds: [message.toJSON()] })
-		})
+		votef.set(vote.user + '-T', Date.now())
+		user.send({ embeds: [message.toJSON()] })
 	}))
 	app.listen(25252)
 }
