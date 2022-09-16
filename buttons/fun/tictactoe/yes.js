@@ -169,51 +169,51 @@ module.exports = {
         let row1 = new ActionRowBuilder()
 			.addComponents(
 				new ButtonBuilder()
-                    .setEmoji('1017050508252418068')
+                    .setEmoji('1020411843644243998')
                     .setCustomId('TTT-1-' + bet)
 					.setStyle(ButtonStyle.Secondary),
 
                 new ButtonBuilder()
-                    .setEmoji('1017050508252418068')
+                    .setEmoji('1020411843644243998')
                     .setCustomId('TTT-2-' + bet)
 					.setStyle(ButtonStyle.Secondary),
 
                 new ButtonBuilder()
-                    .setEmoji('1017050508252418068')
+                    .setEmoji('1020411843644243998')
                     .setCustomId('TTT-3-' + bet)
 					.setStyle(ButtonStyle.Secondary),
 			);
         let row2 = new ActionRowBuilder()
 			.addComponents(
 				new ButtonBuilder()
-                    .setEmoji('1017050508252418068')
+                    .setEmoji('1020411843644243998')
                     .setCustomId('TTT-4-' + bet)
 					.setStyle(ButtonStyle.Secondary),
 
                 new ButtonBuilder()
-                    .setEmoji('1017050508252418068')
+                    .setEmoji('1020411843644243998')
                     .setCustomId('TTT-5-' + bet)
 					.setStyle(ButtonStyle.Secondary),
 
                 new ButtonBuilder()
-                    .setEmoji('1017050508252418068')
+                    .setEmoji('1020411843644243998')
                     .setCustomId('TTT-6-' + bet)
 					.setStyle(ButtonStyle.Secondary),
 			);
         let row3 = new ActionRowBuilder()
 			.addComponents(
 				new ButtonBuilder()
-                    .setEmoji('1017050508252418068')
+                    .setEmoji('1020411843644243998')
                     .setCustomId('TTT-7-' + bet)
 					.setStyle(ButtonStyle.Secondary),
 
                 new ButtonBuilder()
-                    .setEmoji('1017050508252418068')
+                    .setEmoji('1020411843644243998')
                     .setCustomId('TTT-8-' + bet)
 					.setStyle(ButtonStyle.Secondary),
 
                 new ButtonBuilder()
-                    .setEmoji('1017050508252418068')
+                    .setEmoji('1020411843644243998')
                     .setCustomId('TTT-9-' + bet)
 					.setStyle(ButtonStyle.Secondary),
 			);
@@ -239,15 +239,15 @@ module.exports = {
         eval('global.tttdatapca' + sender.toString().replace(/\D/g, '') + ' = 0')
         eval('global.tttdatapca' + reciever.toString().replace(/\D/g, '') + ' = 0')
 
-        eval('global.tttdataf1' + sender.toString().replace(/\D/g, '') + ' = "1017050508252418068"')
-        eval('global.tttdataf2' + sender.toString().replace(/\D/g, '') + ' = "1017050508252418068"')
-        eval('global.tttdataf3' + sender.toString().replace(/\D/g, '') + ' = "1017050508252418068"')
-        eval('global.tttdataf4' + sender.toString().replace(/\D/g, '') + ' = "1017050508252418068"')
-        eval('global.tttdataf5' + sender.toString().replace(/\D/g, '') + ' = "1017050508252418068"')
-        eval('global.tttdataf6' + sender.toString().replace(/\D/g, '') + ' = "1017050508252418068"')
-        eval('global.tttdataf7' + sender.toString().replace(/\D/g, '') + ' = "1017050508252418068"')
-        eval('global.tttdataf8' + sender.toString().replace(/\D/g, '') + ' = "1017050508252418068"')
-        eval('global.tttdataf9' + sender.toString().replace(/\D/g, '') + ' = "1017050508252418068"')
+        eval('global.tttdataf1' + sender.toString().replace(/\D/g, '') + ' = "1020411843644243998"')
+        eval('global.tttdataf2' + sender.toString().replace(/\D/g, '') + ' = "1020411843644243998"')
+        eval('global.tttdataf3' + sender.toString().replace(/\D/g, '') + ' = "1020411843644243998"')
+        eval('global.tttdataf4' + sender.toString().replace(/\D/g, '') + ' = "1020411843644243998"')
+        eval('global.tttdataf5' + sender.toString().replace(/\D/g, '') + ' = "1020411843644243998"')
+        eval('global.tttdataf6' + sender.toString().replace(/\D/g, '') + ' = "1020411843644243998"')
+        eval('global.tttdataf7' + sender.toString().replace(/\D/g, '') + ' = "1020411843644243998"')
+        eval('global.tttdataf8' + sender.toString().replace(/\D/g, '') + ' = "1020411843644243998"')
+        eval('global.tttdataf9' + sender.toString().replace(/\D/g, '') + ' = "1020411843644243998"')
 
         eval('global.tttdatabc1' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Secondary')
         eval('global.tttdatabc2' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Secondary')

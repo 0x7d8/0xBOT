@@ -172,108 +172,108 @@ module.exports = {
         let row1 = new ActionRowBuilder()
 			.addComponents(
 				new ButtonBuilder()
-                    .setEmoji('1017050508252418068')
+                    .setEmoji('1020411843644243998')
                     .setCustomId('MEMORY-1-' + bet)
 					.setStyle(ButtonStyle.Secondary),
 
                 new ButtonBuilder()
-                    .setEmoji('1017050508252418068')
+                    .setEmoji('1020411843644243998')
                     .setCustomId('MEMORY-2-' + bet)
 					.setStyle(ButtonStyle.Secondary),
 
                 new ButtonBuilder()
-                    .setEmoji('1017050508252418068')
+                    .setEmoji('1020411843644243998')
                     .setCustomId('MEMORY-3-' + bet)
 					.setStyle(ButtonStyle.Secondary),
                 
                 new ButtonBuilder()
-                    .setEmoji('1017050508252418068')
+                    .setEmoji('1020411843644243998')
                     .setCustomId('MEMORY-4-' + bet)
 					.setStyle(ButtonStyle.Secondary),
 
                 new ButtonBuilder()
-                    .setEmoji('1017050508252418068')
+                    .setEmoji('1020411843644243998')
                     .setCustomId('MEMORY-5-' + bet)
 					.setStyle(ButtonStyle.Secondary),
 			);
         let row2 = new ActionRowBuilder()
 			.addComponents(
 				new ButtonBuilder()
-                    .setEmoji('1017050508252418068')
+                    .setEmoji('1020411843644243998')
                     .setCustomId('MEMORY-6-' + bet)
 					.setStyle(ButtonStyle.Secondary),
 
                 new ButtonBuilder()
-                    .setEmoji('1017050508252418068')
+                    .setEmoji('1020411843644243998')
                     .setCustomId('MEMORY-7-' + bet)
 					.setStyle(ButtonStyle.Secondary),
 
                 new ButtonBuilder()
-                    .setEmoji('1017050508252418068')
+                    .setEmoji('1020411843644243998')
                     .setCustomId('MEMORY-8-' + bet)
 					.setStyle(ButtonStyle.Secondary),
                 
                 new ButtonBuilder()
-                    .setEmoji('1017050508252418068')
+                    .setEmoji('1020411843644243998')
                     .setCustomId('MEMORY-9-' + bet)
 					.setStyle(ButtonStyle.Secondary),
 
                 new ButtonBuilder()
-                    .setEmoji('1017050508252418068')
+                    .setEmoji('1020411843644243998')
                     .setCustomId('MEMORY-10-' + bet)
 					.setStyle(ButtonStyle.Secondary),
 			);
         let row3 = new ActionRowBuilder()
 			.addComponents(
 				new ButtonBuilder()
-                    .setEmoji('1017050508252418068')
+                    .setEmoji('1020411843644243998')
                     .setCustomId('MEMORY-11-' + bet)
 					.setStyle(ButtonStyle.Secondary),
 
                 new ButtonBuilder()
-                    .setEmoji('1017050508252418068')
+                    .setEmoji('1020411843644243998')
                     .setCustomId('MEMORY-12-' + bet)
 					.setStyle(ButtonStyle.Secondary),
 
                 new ButtonBuilder()
-                    .setEmoji('1017050508252418068')
+                    .setEmoji('1020411843644243998')
                     .setCustomId('MEMORY-13-' + bet)
 					.setStyle(ButtonStyle.Secondary),
                 
                 new ButtonBuilder()
-                    .setEmoji('1017050508252418068')
+                    .setEmoji('1020411843644243998')
                     .setCustomId('MEMORY-14-' + bet)
 					.setStyle(ButtonStyle.Secondary),
 
                 new ButtonBuilder()
-                    .setEmoji('1017050508252418068')
+                    .setEmoji('1020411843644243998')
                     .setCustomId('MEMORY-15-' + bet)
 					.setStyle(ButtonStyle.Secondary),
 			);
         let row4 = new ActionRowBuilder()
 			.addComponents(
 				new ButtonBuilder()
-                    .setEmoji('1017050508252418068')
+                    .setEmoji('1020411843644243998')
                     .setCustomId('MEMORY-16-' + bet)
 					.setStyle(ButtonStyle.Secondary),
 
                 new ButtonBuilder()
-                    .setEmoji('1017050508252418068')
+                    .setEmoji('1020411843644243998')
                     .setCustomId('MEMORY-17-' + bet)
 					.setStyle(ButtonStyle.Secondary),
 
                 new ButtonBuilder()
-                    .setEmoji('1017050508252418068')
+                    .setEmoji('1020411843644243998')
                     .setCustomId('MEMORY-18-' + bet)
 					.setStyle(ButtonStyle.Secondary),
                 
                 new ButtonBuilder()
-                    .setEmoji('1017050508252418068')
+                    .setEmoji('1020411843644243998')
                     .setCustomId('MEMORY-19-' + bet)
 					.setStyle(ButtonStyle.Secondary),
 
                 new ButtonBuilder()
-                    .setEmoji('1017050508252418068')
+                    .setEmoji('1020411843644243998')
                     .setCustomId('MEMORY-20-' + bet)
 					.setStyle(ButtonStyle.Secondary),
 			);
@@ -295,26 +295,26 @@ module.exports = {
         eval('global.memorydatapca' + sender.toString().replace(/\D/g, '') + ' = 0')
         eval('global.memorydatapca' + reciever.toString().replace(/\D/g, '') + ' = 0')
 
-        eval('global.memorydataf1' + sender.toString().replace(/\D/g, '') + ' = "1017050508252418068"')
-        eval('global.memorydataf2' + sender.toString().replace(/\D/g, '') + ' = "1017050508252418068"')
-        eval('global.memorydataf3' + sender.toString().replace(/\D/g, '') + ' = "1017050508252418068"')
-        eval('global.memorydataf4' + sender.toString().replace(/\D/g, '') + ' = "1017050508252418068"')
-        eval('global.memorydataf5' + sender.toString().replace(/\D/g, '') + ' = "1017050508252418068"')
-        eval('global.memorydataf6' + sender.toString().replace(/\D/g, '') + ' = "1017050508252418068"')
-        eval('global.memorydataf7' + sender.toString().replace(/\D/g, '') + ' = "1017050508252418068"')
-        eval('global.memorydataf8' + sender.toString().replace(/\D/g, '') + ' = "1017050508252418068"')
-        eval('global.memorydataf9' + sender.toString().replace(/\D/g, '') + ' = "1017050508252418068"')
-        eval('global.memorydataf10' + sender.toString().replace(/\D/g, '') + ' = "1017050508252418068"')
-        eval('global.memorydataf11' + sender.toString().replace(/\D/g, '') + ' = "1017050508252418068"')
-        eval('global.memorydataf12' + sender.toString().replace(/\D/g, '') + ' = "1017050508252418068"')
-        eval('global.memorydataf13' + sender.toString().replace(/\D/g, '') + ' = "1017050508252418068"')
-        eval('global.memorydataf14' + sender.toString().replace(/\D/g, '') + ' = "1017050508252418068"')
-        eval('global.memorydataf15' + sender.toString().replace(/\D/g, '') + ' = "1017050508252418068"')
-        eval('global.memorydataf16' + sender.toString().replace(/\D/g, '') + ' = "1017050508252418068"')
-        eval('global.memorydataf17' + sender.toString().replace(/\D/g, '') + ' = "1017050508252418068"')
-        eval('global.memorydataf18' + sender.toString().replace(/\D/g, '') + ' = "1017050508252418068"')
-        eval('global.memorydataf19' + sender.toString().replace(/\D/g, '') + ' = "1017050508252418068"')
-        eval('global.memorydataf20' + sender.toString().replace(/\D/g, '') + ' = "1017050508252418068"')
+        eval('global.memorydataf1' + sender.toString().replace(/\D/g, '') + ' = "1020411843644243998"')
+        eval('global.memorydataf2' + sender.toString().replace(/\D/g, '') + ' = "1020411843644243998"')
+        eval('global.memorydataf3' + sender.toString().replace(/\D/g, '') + ' = "1020411843644243998"')
+        eval('global.memorydataf4' + sender.toString().replace(/\D/g, '') + ' = "1020411843644243998"')
+        eval('global.memorydataf5' + sender.toString().replace(/\D/g, '') + ' = "1020411843644243998"')
+        eval('global.memorydataf6' + sender.toString().replace(/\D/g, '') + ' = "1020411843644243998"')
+        eval('global.memorydataf7' + sender.toString().replace(/\D/g, '') + ' = "1020411843644243998"')
+        eval('global.memorydataf8' + sender.toString().replace(/\D/g, '') + ' = "1020411843644243998"')
+        eval('global.memorydataf9' + sender.toString().replace(/\D/g, '') + ' = "1020411843644243998"')
+        eval('global.memorydataf10' + sender.toString().replace(/\D/g, '') + ' = "1020411843644243998"')
+        eval('global.memorydataf11' + sender.toString().replace(/\D/g, '') + ' = "1020411843644243998"')
+        eval('global.memorydataf12' + sender.toString().replace(/\D/g, '') + ' = "1020411843644243998"')
+        eval('global.memorydataf13' + sender.toString().replace(/\D/g, '') + ' = "1020411843644243998"')
+        eval('global.memorydataf14' + sender.toString().replace(/\D/g, '') + ' = "1020411843644243998"')
+        eval('global.memorydataf15' + sender.toString().replace(/\D/g, '') + ' = "1020411843644243998"')
+        eval('global.memorydataf16' + sender.toString().replace(/\D/g, '') + ' = "1020411843644243998"')
+        eval('global.memorydataf17' + sender.toString().replace(/\D/g, '') + ' = "1020411843644243998"')
+        eval('global.memorydataf18' + sender.toString().replace(/\D/g, '') + ' = "1020411843644243998"')
+        eval('global.memorydataf19' + sender.toString().replace(/\D/g, '') + ' = "1020411843644243998"')
+        eval('global.memorydataf20' + sender.toString().replace(/\D/g, '') + ' = "1020411843644243998"')
 
         eval('global.memorydatabc1' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Secondary')
         eval('global.memorydatabc2' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Secondary')

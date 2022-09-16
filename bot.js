@@ -4,6 +4,8 @@ const { getAllFilesFilter } = require('./utils/getAllFiles.js')
 const { version, apikey, webkey, dovotes } = require('./config.json')
 const { EmbedBuilder } = require('@discordjs/builders')
 
+const fs = require("fs")
+
 // MongoDB
 console.log(' ')
 console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [STA] $$$$$ LOADING 0xBOT ' + version)
@@ -145,16 +147,38 @@ client.on('interactionCreate', async interaction => {
 		// Execute Command
 		try {
 			await command.execute(interaction, client, guildlang, votet);
-		} catch (error) {
+		} catch (e) {
 			try {
-    			console.log('[0xBOT] [!] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] ERROR :')
-				console.error(error);
+    			// Generate Error Code
+				const generator = require('generate-password')
+				const errorid = generator.generate({
+					length: 8,
+					numbers: true,
+					uppercase: true,
+					symbols: false,
+				});
+
+				// Log Error
+				console.log('[0xBOT] [!] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] ERROR : ' + errorid + ' :')
+				console.error(e)
+				const date_ob = new Date()
+				const day = ("0" + date_ob.getDate()).slice(-2)
+				const month = ("0" + (date_ob.getMonth() + 1)).slice(-2)
+				const year = date_ob.getFullYear()
+				fs.appendFileSync('logs/e' + day + '-' + month + '-' + year + '.log', '[0xBOT] [!] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] ERROR : ' + errorid + ' :\n')
+				fs.appendFileSync('logs/e' + day + '-' + month + '-' + year + '.log', e.stack + '\n\n')
         
     			// Create Error Embed
-    			const message = new EmbedBuilder()
-        			.setTitle('» FEHLER')
-  					.setDescription('**»» INFO**\n» WAS?\n`Ein Fehler ist beim ausführen dieses Befehls aufgetreten.`\n\n» WIESO?\n`Dies kann an vielem liegen, der Code wird für Fehler vorm Release einer neuen Version gecheckt und es kann sein, das ein Fehler enthalten war.`\n\n» WAS TUN?\n`Nichts. Einfach warten, der Befehl wurde geloggt und sollte in der nächsten Version schon behoben werden!`\n\n**»» KONTAKT**\n» EMAIL\n`kontakt@rjansen.de`')
-    				.setFooter({ text: '» ' + votet + ' » ' + version });
+    			let message = new EmbedBuilder()
+        			.setTitle('» ERROR')
+  					.setDescription('» <:ERROR:1020414987291861022> An Error has occured while executing this Command.\nThe Error has been logged and will be fixed soon!')
+    				.setFooter({ text: '» ' + votet + ' » ' + version + ' » ERROR: ' + errorid });
+				if (guildlang.toString() == 'de') {
+					message = new EmbedBuilder()
+        				.setTitle('» FEHLER')
+  						.setDescription('» <:ERROR:1020414987291861022> Ein Fehler ist beim ausführen dieses Befehls aufgetreten.\nDer Fehler wurde geloggt und wird bald behoben!')
+    					.setFooter({ text: '» ' + votet + ' » ' + version + ' » FEHLER: ' + errorid });
+				}
 
     			// Send Message
 				await interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
@@ -251,22 +275,42 @@ client.on('interactionCreate', async interaction => {
 			}
 
 			return;
-		} catch (error) {
+		} catch (e) {
 			try {
-				console.log('[0xBOT] [!] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] ERROR :')
-				console.error(error);
+				// Generate Error Code
+				const generator = require('generate-password')
+				const errorid = generator.generate({
+					length: 8,
+					numbers: true,
+					uppercase: true,
+					symbols: false,
+				});
+
+				// Log Error
+				console.log('[0xBOT] [!] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] ERROR : ' + errorid + ' :')
+				console.error(e)
+				const date_ob = new Date()
+				const day = ("0" + date_ob.getDate()).slice(-2)
+				const month = ("0" + (date_ob.getMonth() + 1)).slice(-2)
+				const year = date_ob.getFullYear()
+				fs.appendFileSync('logs/e' + day + '-' + month + '-' + year + '.log', '[0xBOT] [!] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] ERROR : ' + errorid + ' :\n')
+				fs.appendFileSync('logs/e' + day + '-' + month + '-' + year + '.log', e.stack + '\n\n')
         
     			// Create Error Embed
-    			const message = new EmbedBuilder()
-        			.setTitle('» FEHLER')
-  					.setDescription('**»» INFO**\n» WAS?\n`Ein Fehler ist beim ausführen dieses Buttons aufgetreten.`\n\n» WIESO?\n`Dies kann an vielem liegen, der Code wird für Fehler vorm Release einer neuen Version gecheckt und es kann sein, das ein Fehler enthalten war.`\n\n» WAS TUN?\n`Nichts. Einfach warten, der Button wurde geloggt und sollte in der nächsten Version schon behoben werden!`\n\n**»» KONTAKT**\n» EMAIL\n`kontakt@rjansen.de`')
-    				.setFooter({ text: '» ' + votet + ' » ' + version });
+    			let message = new EmbedBuilder()
+        			.setTitle('» ERROR')
+  					.setDescription('» <:ERROR:1020414987291861022> An Error has occured while executing this Button.\nThe Error has been logged and will be fixed soon!')
+    				.setFooter({ text: '» ' + votet + ' » ' + version + ' » ERROR: ' + errorid });
+				if (guildlang.toString() == 'de') {
+					message = new EmbedBuilder()
+        				.setTitle('» FEHLER')
+  						.setDescription('» <:ERROR:1020414987291861022> Ein Fehler ist beim ausführen dieses Buttons aufgetreten.\nDer Fehler wurde geloggt und wird bald behoben!')
+    					.setFooter({ text: '» ' + votet + ' » ' + version + ' » FEHLER: ' + errorid });
+				}
 
     			// Send Message
 				await interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
-			} catch (error) {
-				return
-			}
+			} catch (e) {return}
 		}
 
 	}

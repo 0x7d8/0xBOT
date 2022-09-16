@@ -319,8 +319,8 @@ module.exports = {
         await abtn()
 
         // Remove Emojis
-        await eval('global.memorydataf' + nums[0] + sender.toString().replace(/\D/g, '') + ' = "1017050508252418068"')
-        await eval('global.memorydataf' + nums[1] + sender.toString().replace(/\D/g, '') + ' = "1017050508252418068"')
+        await eval('global.memorydataf' + nums[0] + sender.toString().replace(/\D/g, '') + ' = "1020411843644243998"')
+        await eval('global.memorydataf' + nums[1] + sender.toString().replace(/\D/g, '') + ' = "1020411843644243998"')
         await wait(50)
         await eval('global.memorydatad' + nums[0] + sender.toString().replace(/\D/g, '') + ' = false')
         await eval('global.memorydatad' + nums[1] + sender.toString().replace(/\D/g, '') + ' = false')

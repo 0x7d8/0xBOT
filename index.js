@@ -162,15 +162,15 @@ if (dodshbr == "yes") {(async ()=>{
                 information: {
                     category: "<center>UPDATE INFO</center>",
                     title: "<center>INFORMATION</center>",
-                    description: `<center>This Update added the following Features: <br/><br/>a Update Button to /stockinfo<br/>Some Console and Fetch Fixes</center>`,
-                    footer: "<center>VERSION 1.9.2</center>",
+                    description: `<center>This Update added the following Features: <br/><br/>New Emojis for Memory and TicTacToe<br/>New Error Messages</center>`,
+                    footer: "<center>VERSION 1.9.3</center>",
                 },
 
                 feeds: {
                     category: "<center>UPDATE INFO</center>",
                     title: "<center>INFORMATION</center>",
-                    description: `<center>This Update added the following Features: <br/><br/>a Dashboard<br/>Fixes for CLI Commands</center>`,
-                    footer: "<center>VERSION 1.9.1</center>",
+                    description: `<center>This Update added the following Features: <br/><br/>a Update Button to /stockinfo<br/>Some Console and Fetch Fixes</center>`,
+                    footer: "<center>VERSION 1.9.2</center>",
                 },
             },
 
