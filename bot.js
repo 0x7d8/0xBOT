@@ -156,7 +156,13 @@ client.on('interactionCreate', async interaction => {
 					numbers: true,
 					uppercase: true,
 					symbols: false,
-				});
+				})
+
+				// Check if Log Folder exists
+				const dir = 'logs'
+        		if (!fs.existsSync(dir)) {
+            		fs.mkdirSync(dir)
+        		}
 
 				// Log Error
 				console.log('[0xBOT] [!] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] ERROR : ' + errorid + ' :')
@@ -284,7 +290,13 @@ client.on('interactionCreate', async interaction => {
 					numbers: true,
 					uppercase: true,
 					symbols: false,
-				});
+				})
+
+				// Check if Log Folder exists
+				const dir = 'logs'
+        		if (!fs.existsSync(dir)) {
+            		fs.mkdirSync(dir)
+        		}
 
 				// Log Error
 				console.log('[0xBOT] [!] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] ERROR : ' + errorid + ' :')
