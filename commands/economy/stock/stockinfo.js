@@ -179,7 +179,7 @@ module.exports = {
         let row = new ActionRowBuilder()
 			.addComponents(
 				new ButtonBuilder()
-					.setLabel('UPDATE')
+					.setLabel('🧭 UPDATE')
                     .setCustomId('stock-next-' + stock)
 					.setStyle(ButtonStyle.Secondary),
 			);
@@ -187,7 +187,7 @@ module.exports = {
             row = new ActionRowBuilder()
 			    .addComponents(
 			    	new ButtonBuilder()
-			    		.setLabel('AKTUALISIEREN')
+			    		.setLabel('🧭 AKTUALISIEREN')
                         .setCustomId('stock-next-' + stock)
 			    		.setStyle(ButtonStyle.Secondary),
 			    );
