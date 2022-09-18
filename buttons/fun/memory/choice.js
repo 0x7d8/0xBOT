@@ -342,6 +342,10 @@ module.exports = {
                 }
             }
 
+            // Answer Timeout Function
+            eval('global.memorytf' + sender.toString().replace(/\D/g, '') + ' = true')
+            eval('delete memorylc' + sender.replace(/\D/g, ''))    
+
             // Transfer Money
             const betwon = parseInt(bet) * 2
             if (winner != '**Noone**' && winner != '**Niemand**') {
