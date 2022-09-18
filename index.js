@@ -10,7 +10,6 @@ mongoose.connect(mongo, {
     useNewUrlParser: true
 }).then(console.log('[0xBOT] [!] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] CONNECTED TO MONGODB'))
 console.log(' ')
-console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [STA] $$$$$ LOADING COMMANDS AND EVENTS')
 
 // MongoDB Functions
 const cmds = require("./functions/cmds")
@@ -162,15 +161,15 @@ if (dodshbr == "yes") {(async ()=>{
                 information: {
                     category: "<center>UPDATE INFO</center>",
                     title: "<center>INFORMATION</center>",
-                    description: `<center>This Update added the following Features: <br/><br/>New Emojis for Memory and TicTacToe<br/>New Error Messages</center>`,
-                    footer: "<center>VERSION 1.9.3</center>",
+                    description: `<center>This Update added the following Features: <br/><br/>Percentages to Stockinfo<br/>Some Console Changes</center>`,
+                    footer: "<center>VERSION 1.9.4</center>",
                 },
 
                 feeds: {
                     category: "<center>UPDATE INFO</center>",
                     title: "<center>INFORMATION</center>",
-                    description: `<center>This Update added the following Features: <br/><br/>a Update Button to /stockinfo<br/>Some Console and Fetch Fixes</center>`,
-                    footer: "<center>VERSION 1.9.2</center>",
+                    description: `<center>This Update added the following Features: <br/><br/>New Emojis for Memory and TicTacToe<br/>New Error Messages</center>`,
+                    footer: "<center>VERSION 1.9.3</center>",
                 },
             },
 
