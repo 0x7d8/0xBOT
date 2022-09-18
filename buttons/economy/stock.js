@@ -4,6 +4,13 @@ const { version } = require('../../config.json');
 
 const fetch = require("node-fetch");
 
+// Percentage Function
+const pcalc = async (nval, oval) => {
+    let res = ((nval - oval)/oval) * 100
+    res = Math.round(res * 10) / 10
+    return (res<0?"":"+") + res
+}
+
 module.exports = {
     data: {
         name: 'stock-next'
@@ -145,51 +152,51 @@ module.exports = {
             if (lastpriceText > priceText) {
                 message = new EmbedBuilder()
                     .setTitle('» ' + emoji + ' STOCK INFO')
-                    .setDescription('» NEXT PRICES\n' + refresh + '\n\n» PRICE\n**<:DOWN:1009502386320056330> `$' + priceText + '`**')
-                    .setFooter({ text: '» ' + version });
+                    .setDescription('» NEXT PRICES\n' + refresh + '\n\n» PRICE\n**<:DOWN:1009502386320056330> `$' + priceText + '` (' + await pcalc(priceText, lastpriceText) + '%)**')
+                    .setFooter({ text: '» ' + vote + ' » ' + version });
 
                 if (lang.toString() == "de") {
                     message = new EmbedBuilder()
                         .setTitle('» ' + emoji + ' AKTIEN INFO')
-                        .setDescription('» NÄCHSTE PREISE\n' + refresh + '\n\n» PREIS\n**<:DOWN:1009502386320056330> `' + priceText + '€`**')
-                        .setFooter({ text: '» ' + version });
+                        .setDescription('» NÄCHSTE PREISE\n' + refresh + '\n\n» PREIS\n**<:DOWN:1009502386320056330> `' + priceText + '€` (' + await pcalc(priceText, lastpriceText) + '%)**')
+                        .setFooter({ text: '» ' + vote + ' » ' + version });
                 }
             } else if (priceText > lastpriceText) {
                 message = new EmbedBuilder()
                     .setTitle('» ' + emoji + ' STOCK INFO')
-                    .setDescription('» NEXT PRICES\n' + refresh + '\n\n» PRICE\n**<:UP:1009502422990860350> `$' + priceText + '`**')
-                    .setFooter({ text: '» ' + version });
+                    .setDescription('» NEXT PRICES\n' + refresh + '\n\n» PRICE\n**<:UP:1009502422990860350> `$' + priceText + '` (' + await pcalc(priceText, lastpriceText) + '%)**')
+                    .setFooter({ text: '» ' + vote + ' » ' + version });
                 
                 if (lang.toString() == "de") {
                     message = new EmbedBuilder()
                         .setTitle('» ' + emoji + ' AKTIEN INFO')
-                        .setDescription('» NÄCHSTE PREISE\n' + refresh + '\n\n» PREIS\n**<:UP:1009502422990860350> `' + priceText + '€`**')
-                        .setFooter({ text: '» ' + version });
+                        .setDescription('» NÄCHSTE PREISE\n' + refresh + '\n\n» PREIS\n**<:UP:1009502422990860350> `' + priceText + '€` (' + await pcalc(priceText, lastpriceText) + '%)**')
+                        .setFooter({ text: '» ' + vote + ' » ' + version });
                 }
             } else {
                 message = new EmbedBuilder()
                     .setTitle('» ' + emoji + ' STOCK INFO')
-                    .setDescription('» NEXT PRICES\n' + refresh + '\n\n» PRICE\n**🧐 `$' + priceText + '`**')
-                    .setFooter({ text: '» ' + version });
+                    .setDescription('» NEXT PRICES\n' + refresh + '\n\n» PRICE\n**🧐 `$' + priceText + '` (' + await pcalc(priceText, lastpriceText) + '%)**')
+                    .setFooter({ text: '» ' + vote + ' » ' + version });
 
                 if (lang.toString() == "de") {
                     message = new EmbedBuilder()
                         .setTitle('» ' + emoji + ' AKTIEN INFO')
-                        .setDescription('» NÄCHSTE PREISE\n' + refresh + '\n\n» PREIS\n**🧐 `' + priceText + '€`**')
-                        .setFooter({ text: '» ' + version });
+                        .setDescription('» NÄCHSTE PREISE\n' + refresh + '\n\n» PREIS\n**🧐 `' + priceText + '€` (' + await pcalc(priceText, lastpriceText) + '%)**')
+                        .setFooter({ text: '» ' + vote + ' » ' + version });
                 }
             }
         } else {
             message = new EmbedBuilder()
                 .setTitle('» FULL STOCK INFO')
-                .setDescription('» NEXT PRICES\n' + refresh + '\n\n» 🟢 GREEN STOCK\n**' + greenp + ' `$' + green + '`**\n\n» 🔵 BLUE STOCK\n**' + bluep + ' `$' + blue + '`**\n\n» 🟡 YELLOW STOCK\n**' + yellowp + ' `$' + yellow + '`**\n\n» 🔴 RED STOCK\n**' + redp + ' `$' + red + '`**')
-                .setFooter({ text: '» ' + version });
+                .setDescription('» NEXT PRICES\n' + refresh + '\n\n» 🟢 GREEN STOCK\n**' + greenp + ' `$' + green + '` (' + await pcalc(green, greeno) + '%)**\n\n» 🔵 BLUE STOCK\n**' + bluep + ' `$' + blue + '` (' + await pcalc(blue, blueo) + '%)**\n\n» 🟡 YELLOW STOCK\n**' + yellowp + ' `$' + yellow + '` (' + await pcalc(yellow, yellowo) + '%)**\n\n» 🔴 RED STOCK\n**' + redp + ' `$' + red + '` (' + await pcalc(red, redo) + '%)**')
+                .setFooter({ text: '» ' + vote + ' » ' + version });
             
             if (lang.toString() == "de") {
                 message = new EmbedBuilder()
                     .setTitle('» VOLLE AKTIEN INFOS')
-                    .setDescription('» NÄCHSTE PREISE\n' + refresh + '\n\n» 🟢 GRÜNE AKTIE\n**' + greenp + ' `' + green + '€`**\n\n» 🔵 BLAUE AKTIE\n**' + bluep + ' `' + blue + '€`**\n\n» 🟡 GELBE AKTIE\n**' + yellowp + ' `' + yellow + '€`**\n\n» 🔴 ROTE AKTIE\n**' + redp + ' `' + red + '€`**')
-                    .setFooter({ text: '» ' + version });
+                    .setDescription('» NÄCHSTE PREISE\n' + refresh + '\n\n» 🟢 GRÜNE AKTIE\n**' + greenp + ' `' + green + '€` (' + await pcalc(green, greeno) + '%)**\n\n» 🔵 BLAUE AKTIE\n**' + bluep + ' `' + blue + '€` (' + await pcalc(blue, blueo) + '%)**\n\n» 🟡 GELBE AKTIE\n**' + yellowp + ' `' + yellow + '€` (' + await pcalc(yellow, yellowo) + '%)**\n\n» 🔴 ROTE AKTIE\n**' + redp + ' `' + red + '€` (' + await pcalc(red, redo) + '%)**')
+                    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
         }
 
