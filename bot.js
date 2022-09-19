@@ -42,7 +42,7 @@ global.syllx = require("./functions/stocks/yellowmax")
 global.sredx = require("./functions/stocks/redmax")
 
 // Businesses
-global.market = require("./functions/business/market")
+global.bsns = require("./functions/businesses")
 
 
 // Deploy Commands

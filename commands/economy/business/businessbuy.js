@@ -46,26 +46,47 @@ module.exports = {
             return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
 
+        // Translate to Business ID
+        let businessid
+        if (business == 'market') { businessid = '1' }
+        if (business == 'parking garage') { businessid = '2' }
+        if (business == 'car dealership') { businessid = '3' }
+
         // Check if Business is Empty
         let businessowner, oldleft
-        if (business == 'market' && await market.get('g-' + interaction.guild.id + '-OWNER') != 0) {
+        if (business == 'market' && await bsns.get('g-' + interaction.guild.id + '-' + businessid + '-OWNER') != 0) {
             oldleft = true
-            businessowner = await market.get('g-' + interaction.guild.id + '-OWNER')
+            businessowner = await bsns.get('g-' + interaction.guild.id + '-' + businessid + '-OWNER')
             try {
                 await interaction.guild.members.fetch(businessowner)
             } catch (e) {return}
 
             // Create Embed
-            let message = new EmbedBuilder()
-        	    .setTitle('» ERROR')
-        	    .setDescription('» <@' + businessowner + '> already owns this Business!')
-        	    .setFooter({ text: '» ' + vote + ' » ' + version });
-
-            if (lang.toString() == 'de') {
+            let message
+            if (interaction.user.id !== businessowner) {
                 message = new EmbedBuilder()
-        	        .setTitle('» FEHLER')
-        	        .setDescription('» Dieses Geschäft gehört schon <@' + businessowner + '>!')
+        	        .setTitle('» ERROR')
+        	        .setDescription('» <@' + businessowner + '> already owns this Business!')
         	        .setFooter({ text: '» ' + vote + ' » ' + version });
+
+                if (lang.toString() == 'de') {
+                    message = new EmbedBuilder()
+        	            .setTitle('» FEHLER')
+        	            .setDescription('» Dieses Geschäft gehört schon <@' + businessowner + '>!')
+        	            .setFooter({ text: '» ' + vote + ' » ' + version });
+                }
+            } else {
+                message = new EmbedBuilder()
+        	        .setTitle('» ERROR')
+        	        .setDescription('» You already own this Business!')
+        	        .setFooter({ text: '» ' + vote + ' » ' + version });
+
+                if (lang.toString() == 'de') {
+                    message = new EmbedBuilder()
+        	            .setTitle('» FEHLER')
+        	            .setDescription('» Dieses Geschäft gehört schon dir!')
+        	            .setFooter({ text: '» ' + vote + ' » ' + version });
+                }
             }
             
             // Send Message
@@ -74,8 +95,8 @@ module.exports = {
         }
 
         // Check if User already has Business
-        if (await market.get('u-' + interaction.user.id + '-BUSINESS') !== 0) {
-            const userbusiness = await market.get('u-' + interaction.user.id + '-BUSINESS')
+        if (await bsns.get('u-' + interaction.user.id + '-BUSINESS') !== 0) {
+            const userbusiness = await bsns.get('u-' + interaction.user.id + '-BUSINESS')
 
             // Translate to Business Names
             let name
@@ -149,8 +170,8 @@ module.exports = {
 
         // Own Business
         if (business == 'market') {
-            market.set('g-' + interaction.guild.id + '-OWNER', interaction.user.id.replace(/\D/g, ''))
-            market.set('u-' + interaction.user.id + '-BUSINESS', business)
+            bsns.set('g-' + interaction.guild.id + '-' + businessid + '-OWNER', interaction.user.id.replace(/\D/g, ''))
+            bsns.set('u-' + interaction.user.id + '-BUSINESS', business)
         }
 
         // Create Embed

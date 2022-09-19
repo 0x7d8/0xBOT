@@ -46,12 +46,18 @@ module.exports = {
             return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
 
+        // Translate to Business ID
+        let businessid
+        if (business == 'market') { businessid = '1' }
+        if (business == 'parking garage') { businessid = '2' }
+        if (business == 'car dealership') { businessid = '3' }
+
         // Check if Business is Empty
         let businessowner, oldleft
-        if (business == 'market' && await market.get('g-' + interaction.guild.id + '-OWNER') != 0) {
+        if (await bsns.get('g-' + interaction.guild.id + '-' + businessid + '-OWNER') != 0) {
             oldleft = true
-            businessowner = await market.get('g-' + interaction.guild.id + '-OWNER')
-            businessearning = await market.get('g-' + interaction.guild.id + '-EARNING')
+            businessowner = await bsns.get('g-' + interaction.guild.id + '-' + businessid + '-OWNER')
+            businessearning = await bsns.get('g-' + interaction.guild.id + '-' + businessid + '-EARNING')
             try {
                 await interaction.guild.members.fetch(businessowner)
             } catch (e) {return}

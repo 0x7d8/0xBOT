@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 let Schema = new mongoose.Schema({
     userId: String,
-    market: String,
+    value: String,
 })
 
-module.exports = mongoose.model('market', Schema)
+module.exports = mongoose.model('businesses', Schema)
