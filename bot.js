@@ -19,7 +19,8 @@ mongoose.connect(mongo, {
 console.log(' ')
 console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [STA] $$$$$ LOADING COMMANDS AND EVENTS')
 
-// MongoDB Functions
+/// MongoDB Functions
+// General Value
 global.cmds = require("./functions/cmds")
 global.btns = require("./functions/btns")
 global.bals = require("./functions/economy")
@@ -29,7 +30,7 @@ global.lang = require("./functions/langs")
 global.gopt = require("./functions/gopts")
 global.votef = require("./functions/votes")
 
-
+// Stocks
 global.sgrn = require("./functions/stocks/green")
 global.sblu = require("./functions/stocks/blue")
 global.syll = require("./functions/stocks/yellow")
@@ -40,11 +41,9 @@ global.sblux = require("./functions/stocks/bluemax")
 global.syllx = require("./functions/stocks/yellowmax")
 global.sredx = require("./functions/stocks/redmax")
 
+// Businesses
+global.market = require("./functions/business/market")
 
-global.Lb1o = require("./functions/business/1/owner")
-global.Lb1e = require("./functions/business/1/earning")
-global.Lb1u = require("./functions/business/1/upgrade")
-global.Lb1t = require("./functions/business/1/timedunix")
 
 // Deploy Commands
 const { REST } = require('@discordjs/rest');

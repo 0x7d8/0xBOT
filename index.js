@@ -31,12 +31,6 @@ const sblux = require("./functions/stocks/bluemax")
 const syllx = require("./functions/stocks/yellowmax")
 const sredx = require("./functions/stocks/redmax")
 
-
-const Lb1o = require("./functions/business/1/owner")
-const Lb1e = require("./functions/business/1/earning")
-const Lb1u = require("./functions/business/1/upgrade")
-const Lb1t = require("./functions/business/1/timedunix")
-
 // CLI Commands
 const stdin = process.openStdin();
 
