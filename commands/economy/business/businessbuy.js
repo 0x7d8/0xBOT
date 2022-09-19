@@ -73,6 +73,39 @@ module.exports = {
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
+        // Check if User already has Business
+        if (await market.get('u-' + interaction.user.id + '-BUSINESS') !== 0) {
+            const userbusiness = await market.get('u-' + interaction.user.id + '-BUSINESS')
+
+            // Translate to Business Names
+            let name
+            if (userbusiness == 'market') { name = 'MARKET' }
+            if (userbusiness == 'parking garage') { name = 'PARKING GARAGE' }
+            if (userbusiness == 'car dealership') { name = 'CAR DEALERSHIP' }
+            if (lang.toString() == 'de') {
+                if (userbusiness == 'market') { name = 'SUPERMARKT' }
+                if (userbusiness == 'parking garage') { name = 'PARKHAUS' }
+                if (userbusiness == 'car dealership') { name = 'AUTOHAUS' }
+            }
+
+            // Create Embed
+            let message = new EmbedBuilder()
+        	    .setTitle('» ERROR')
+        	    .setDescription('» You already own a **' + name + '**!')
+        	    .setFooter({ text: '» ' + vote + ' » ' + version });
+
+            if (lang.toString() == 'de') {
+                message = new EmbedBuilder()
+        	        .setTitle('» FEHLER')
+        	        .setDescription('» Du besitzt schon ein **' + name + '**!')
+        	        .setFooter({ text: '» ' + vote + ' » ' + version });
+            }
+
+            // Send Message
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] BUSINESSBUY : ALREADYBUSINESS')
+            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+        }
+
         // Calculate Cost
         let cost
         if (business == 'market') { cost = 150000 }
@@ -116,7 +149,8 @@ module.exports = {
 
         // Own Business
         if (business == 'market') {
-            market.set(('g-' + interaction.guild.id + '-OWNER'), interaction.user.id.replace(/\D/g, ''))
+            market.set('g-' + interaction.guild.id + '-OWNER', interaction.user.id.replace(/\D/g, ''))
+            market.set('u-' + interaction.user.id + '-BUSINESS', business)
         }
 
         // Create Embed
