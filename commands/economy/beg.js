@@ -61,7 +61,7 @@ module.exports = {
             // Create Embed
             let message = new EmbedBuilder()
                 .setTitle('» BEGGING')
-                .setDescription('» You cant beg that much! **$5000** is the Maximum.')
+                .setDescription('» You cant beg that much! **$10000** is the Maximum.')
                 .setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang.toString() == "de") {
