@@ -29,6 +29,7 @@ global.apis = require("./functions/apis")
 global.lang = require("./functions/langs")
 global.gopt = require("./functions/gopts")
 global.votef = require("./functions/votes")
+global.item = require("./functions/items")
 
 // Stocks
 global.sgrn = require("./functions/stocks/green")

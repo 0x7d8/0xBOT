@@ -169,10 +169,8 @@ module.exports = {
         bals.rem(interaction.user.id.replace(/\D/g, ''), cost)
 
         // Own Business
-        if (business == 'market') {
-            bsns.set('g-' + interaction.guild.id + '-' + businessid + '-OWNER', interaction.user.id.replace(/\D/g, ''))
-            bsns.set('u-' + interaction.user.id + '-BUSINESS', business)
-        }
+        bsns.set('g-' + interaction.guild.id + '-' + businessid + '-OWNER', interaction.user.id.replace(/\D/g, ''))
+        bsns.set('u-' + interaction.user.id + '-BUSINESS', business)
 
         // Create Embed
         let message = new EmbedBuilder()

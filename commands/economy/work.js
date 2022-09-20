@@ -1,9 +1,10 @@
-const { Client, Intents, Collection } = require('discord.js');
+const { Collection } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { EmbedBuilder } = require('@discordjs/builders');
 const { version } = require('../../config.json');
+
 const cooldown = new Collection();
-let time = 1800000;
+const time = 1800000;
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -80,33 +81,61 @@ module.exports = {
         	    if (random == '3') { job = 'MCDONALDS KASSIERER'; }
         	    if (random == '4') { job = 'KÜNSTLER'; }
             }
+
+            // Check for Car Boost
+            let carboost = false
+            let carboostam
+            const car = await item.get(interaction.user.id.replace(/\D/g, '') + '-CAR', 'value')
+            if (car !== 0) {
+                carboost = true
+                carboostam = await item.get(interaction.user.id.replace(/\D/g, '') + '-CAR', 'amount')
+            }
+            console.log(car + '-' + carboost)
             
             // Set Extra Text
             let extra
-            if (result < 40) { extra = 'MEH.' }
-            if (result >= 40) { extra = 'NICE.' }
-            if (result >= 60) { extra = 'GREAT.' }
-            if (result >= 80) { extra = 'WONDERFUL!' }
-            if (result >= 100) { extra = 'WOW!' }
-
-            if (lang.toString() == "de") {
+            if (!carboost) {
                 if (result < 40) { extra = 'MEH.' }
                 if (result >= 40) { extra = 'NICE.' }
-                if (result >= 60) { extra = 'PRIMA.' }
-                if (result >= 80) { extra = 'TOLL!' }
+                if (result >= 60) { extra = 'GREAT.' }
+                if (result >= 80) { extra = 'WONDERFUL!' }
                 if (result >= 100) { extra = 'WOW!' }
+                if (lang.toString() == "de") {
+                    if (result < 40) { extra = 'MEH.' }
+                    if (result >= 40) { extra = 'NICE.' }
+                    if (result >= 60) { extra = 'PRIMA.' }
+                    if (result >= 80) { extra = 'TOLL!' }
+                    if (result >= 100) { extra = 'WOW!' }
+                }
+            } else {
+                if (result < 40) { extra = 'MEH.\n\n**+$' + carboostam + '** thanks to your Car!' }
+                if (result >= 40) { extra = 'NICE.\n\n**+$' + carboostam + '** thanks to your Car!' }
+                if (result >= 60) { extra = 'GREAT.\n\n**+$' + carboostam + '** thanks to your Car!' }
+                if (result >= 80) { extra = 'WONDERFUL!\n\n**+$' + carboostam + '** thanks to your Car!' }
+                if (result >= 100) { extra = 'WOW!\n\n**+$' + carboostam + '** thanks to your Car!' }
+                if (lang.toString() == "de") {
+                    if (result < 40) { extra = 'MEH.\n\n**+' + carboostam + '€** wegen deinem Auto!' }
+                    if (result >= 40) { extra = 'NICE.\n\n**+' + carboostam + '€** wegen deinem Auto!' }
+                    if (result >= 60) { extra = 'PRIMA.\n\n**+' + carboostam + '€** wegen deinem Auto!' }
+                    if (result >= 80) { extra = 'TOLL!\n\n**+' + carboostam + '€** wegen deinem Auto!' }
+                    if (result >= 100) { extra = 'WOW!\n\n**+' + carboostam + '€** wegen deinem Auto!' }
+                }
             }
+
+            // Calculate Result with Car
+            let resultcar
+            if (!carboost) { resultcar = result } else { resultcar = (result + carboostam) }
         
         	// Create Embed
       		let message = new EmbedBuilder()
             	.setTitle('» WORK')
-  				.setDescription('» You work as **' + job + '** and earn **$' + result + '**! ' + extra)
+  				.setDescription('» You work as **' + job + '** and earn **$' + resultcar + '**! ' + extra)
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang.toString() == "de") {
                 message = new EmbedBuilder()
             	    .setTitle('» ARBEIT')
-  				    .setDescription('» Du arbeitest als **' + job + '** und verdienst **' + result + '€**! ' + extra)
+  				    .setDescription('» Du arbeitest als **' + job + '** und verdienst **' + resultcar + '€**! ' + extra)
             	    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
         
