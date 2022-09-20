@@ -21,7 +21,7 @@ module.exports = {
         		.setDescription('» The **`/meme`** Command is disabled on this Server!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang.toString() == "de") {
+            if (lang == "de") {
                 message = new EmbedBuilder()
         		    .setTitle('» FEHLER')
         		    .setDescription('» Der **`/meme`** Befehl ist auf diesem Server deaktiviert!')
@@ -61,7 +61,7 @@ module.exports = {
             .setImage(random[0].data.children[0].data.url)
         	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-        if (lang.toString() == "de") {
+        if (lang == "de") {
             message = new EmbedBuilder()
                 .setTitle(`» ${random[0].data.children[0].data.title.toUpperCase()}`)
                 .setDescription('» SUBREDDIT:\n`r/' + subreddit + '`\n\n» UPVOTES:\n`' + upvotes + '`\n\n» KOMMENTARE:\n`' + comments + '`')

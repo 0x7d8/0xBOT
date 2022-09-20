@@ -83,7 +83,7 @@ module.exports = {
   				.setDescription('» You dont have enough Money for that, you are missing **$' + missing + '**!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang.toString() == "de") {
+            if (lang == "de") {
                 message = new EmbedBuilder()
             	    .setTitle('» FEHLER')
   				    .setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
@@ -110,7 +110,7 @@ module.exports = {
   				.setDescription('» You already own a **' + name + '**!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang.toString() == "de") {
+            if (lang == "de") {
                 message = new EmbedBuilder()
             	    .setTitle('» FEHLER')
   				    .setDescription('» Du besitzt schon einen **' + name +'**!')
@@ -139,7 +139,7 @@ module.exports = {
 					.setStyle(ButtonStyle.Danger)
                     .setDisabled(true),
 			);
-        if (lang.toString() == "de") {
+        if (lang == "de") {
             row = new ActionRowBuilder()
 			    .addComponents(
 			    	new ButtonBuilder()
@@ -164,7 +164,7 @@ module.exports = {
             .setDescription('» Do you want to buy a **' + name + '** for **$' + cost + '**?')
             .setFooter({ text: '» ' + vote + ' » ' + version });
 
-        if (lang.toString() == 'de') {
+        if (lang == 'de') {
             message = new EmbedBuilder()
                 .setTitle('» AUTO KAUFEN')
                 .setDescription('» Willst du einen **' + name + '** für **' + cost + '€** kaufen?')

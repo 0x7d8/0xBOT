@@ -45,7 +45,7 @@ module.exports = {
   			    .setDescription(nachricht)
         	    .setFooter({ text: '» ' + version + ' » NOT OFFICIAL' });
             
-            if (lang.toString() == "de") {
+            if (lang == "de") {
                 message = new EmbedBuilder()
                     .setTitle(titel)
   			        .setDescription(nachricht)

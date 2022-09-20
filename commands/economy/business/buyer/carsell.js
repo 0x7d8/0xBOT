@@ -63,7 +63,7 @@ module.exports = {
   				.setDescription('» You dont own a Car!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang.toString() == "de") {
+            if (lang == "de") {
                 message = new EmbedBuilder()
             	    .setTitle('» FEHLER')
   				    .setDescription('» Du besitzt kein Auto!')
@@ -92,7 +92,7 @@ module.exports = {
 					.setStyle(ButtonStyle.Danger)
                     .setDisabled(true),
 			);
-        if (lang.toString() == "de") {
+        if (lang == "de") {
             row = new ActionRowBuilder()
 			    .addComponents(
 			    	new ButtonBuilder()
@@ -117,7 +117,7 @@ module.exports = {
             .setDescription('» Do you want to sell your **' + name + '** for **$' + (cost/2) + '**?')
             .setFooter({ text: '» ' + vote + ' » ' + version });
 
-        if (lang.toString() == 'de') {
+        if (lang == 'de') {
             message = new EmbedBuilder()
                 .setTitle('» AUTO VERKAUFEN')
                 .setDescription('» Willst du deinen **' + name + '** für **' + (cost/2) + '€** verkaufen?')

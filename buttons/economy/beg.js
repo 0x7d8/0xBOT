@@ -19,7 +19,7 @@ module.exports = {
   				.setDescription('» You dont have enough Money for that, you are missing **$' + missing + '**!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang.toString() == "de") {
+            if (lang == "de") {
                 message = new EmbedBuilder()
             	    .setTitle('» FEHLER')
   				    .setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
@@ -39,7 +39,7 @@ module.exports = {
   				.setDescription('» You cant give yourself Money?')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang.toString() == "de") {
+            if (lang == "de") {
                 message = new EmbedBuilder()
             	    .setTitle('» FEHLER')
   				    .setDescription('» Du kannst dir selber kein Geld geben?')
@@ -61,7 +61,7 @@ module.exports = {
             .setDescription('» <@' + interaction.user.id + '> gave <@' + reciever.toString().replace(/\D/g, '') + '> **$' + amount + '**!')
             .setFooter({ text: '» ' + vote + ' » ' + version });
 
-        if (lang.toString() == "de") {
+        if (lang == "de") {
             message = new EmbedBuilder()
                 .setTitle('» BETTELN')
                 .setDescription('» <@' + interaction.user.id + '> hat <@' + reciever.toString().replace(/\D/g, '') + '> **' + amount + '€** gegeben!')

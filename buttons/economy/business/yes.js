@@ -29,7 +29,7 @@ module.exports = {
         if (business == 'market') { name = 'MARKET' }
         if (business == 'parking garage') { name = 'PARKING GARAGE' }
         if (business == 'car dealership') { name = 'CAR DEALERSHIP' }
-        if (lang.toString() == 'de') {
+        if (lang == 'de') {
             if (business == 'market') { name = 'SUPERMARKT' }
             if (business == 'parking garage') { name = 'PARKHAUS' }
             if (business == 'car dealership') { name = 'AUTOHAUS' }
@@ -43,7 +43,7 @@ module.exports = {
   				.setDescription('» This choice is up to <@' + userid + '>!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang.toString() == "de") {
+            if (lang == "de") {
                 message = new EmbedBuilder()
             	    .setTitle('» FEHLER')
   				    .setDescription('» Diese Frage ist für <@' + userid + '>!')
@@ -67,7 +67,7 @@ module.exports = {
   		    		.setDescription('» You dont have enough Money for that, you are missing **$' + missing + '**!')
                 	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-                if (lang.toString() == "de") {
+                if (lang == "de") {
                     message = new EmbedBuilder()
                 	    .setTitle('» FEHLER')
   			    	    .setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
@@ -88,7 +88,7 @@ module.exports = {
                 if (userbusiness == 'market') { name = 'MARKET' }
                 if (userbusiness == 'parking garage') { name = 'PARKING GARAGE' }
                 if (userbusiness == 'car dealership') { name = 'CAR DEALERSHIP' }
-                if (lang.toString() == 'de') {
+                if (lang == 'de') {
                     if (userbusiness == 'market') { name = 'SUPERMARKT' }
                     if (userbusiness == 'parking garage') { name = 'PARKHAUS' }
                     if (userbusiness == 'car dealership') { name = 'AUTOHAUS' }
@@ -100,7 +100,7 @@ module.exports = {
             	    .setDescription('» You already own a **' + name + '**!')
             	    .setFooter({ text: '» ' + vote + ' » ' + version });
 
-                if (lang.toString() == 'de') {
+                if (lang == 'de') {
                     message = new EmbedBuilder()
             	        .setTitle('» FEHLER')
             	        .setDescription('» Du besitzt schon ein **' + name + '**!')
@@ -129,7 +129,7 @@ module.exports = {
 		    			.setStyle(ButtonStyle.Danger)
                         .setDisabled(true),
 		    	);
-            if (lang.toString() == "de") {
+            if (lang == "de") {
                 row = new ActionRowBuilder()
 		    	    .addComponents(
 		    	    	new ButtonBuilder()
@@ -161,7 +161,7 @@ module.exports = {
                 .setDescription('» You successfully bought a **' + name + '** for **$' + cost + '**!')
                 .setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang.toString() == 'de') {
+            if (lang == 'de') {
                 message = new EmbedBuilder()
                     .setTitle('» GESCHÄFT KAUFEN')
                     .setDescription('» Du hast erfolgreich ein **' + name + '** für **' + cost + '€** gekauft!')
@@ -194,7 +194,7 @@ module.exports = {
   		    		.setDescription('» You dont own a Business!')
                 	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-                if (lang.toString() == "de") {
+                if (lang == "de") {
                     message = new EmbedBuilder()
                 	    .setTitle('» FEHLER')
   		    		    .setDescription('» Du besitzt kein Geschäft!')
@@ -223,7 +223,7 @@ module.exports = {
 		    			.setStyle(ButtonStyle.Danger)
                         .setDisabled(true),
 		    	);
-            if (lang.toString() == "de") {
+            if (lang == "de") {
                 row = new ActionRowBuilder()
 		    	    .addComponents(
 		    	    	new ButtonBuilder()
@@ -248,7 +248,7 @@ module.exports = {
                 .setDescription('» You successfully sold your **' + name + '** for **$' + (cost/2) + '**!')
                 .setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang.toString() == 'de') {
+            if (lang == 'de') {
                 message = new EmbedBuilder()
                     .setTitle('» GESCHÄFT VERKAUFEN')
                     .setDescription('» Du hast erfolgreich dein **' + name + '** für **' + (cost/2) + '€** verkauft!')

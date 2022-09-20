@@ -80,7 +80,7 @@ module.exports = {
   			.setDescription('» Click Below to look up results for **' + suche + '** on **' + engine + '**!')
         	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-        if (lang.toString() == "de") {
+        if (lang == "de") {
             message = new EmbedBuilder()
                 .setTitle('» SUCHEN')
   			    .setDescription('» Klicke unten um nach Ergebnissen für **' + suche + '** auf **' + engine + '** zu finden!')

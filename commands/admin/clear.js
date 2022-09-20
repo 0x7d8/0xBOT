@@ -41,7 +41,7 @@ module.exports = {
         		.setTitle('» ERROR')
         		.setDescription('» I dont think I have the **MANAGE MESSAGES** Permission!')
         		.setFooter({ text: '» ' + version });
-            if (lang.toString() == "de") {
+            if (lang == "de") {
                 message = new EmbedBuilder()
         		    .setTitle('» FEHLER')
         		    .setDescription('» Ich denke nicht, dass ich die **NACHRICHTEN VERWALTEN** Berechtigung habe!')
@@ -58,7 +58,7 @@ module.exports = {
         		.setTitle('» ERROR')
         		.setDescription('» I dont think I have the **VIEW CHANNEL** Permission!')
         		.setFooter({ text: '» ' + version });
-            if (lang.toString() == "de") {
+            if (lang == "de") {
                 message = new EmbedBuilder()
         		    .setTitle('» FEHLER')
         		    .setDescription('» Ich denke nicht, dass ich die **KANÄLE ANSEHEN** Berechtigung habe!')
@@ -83,7 +83,7 @@ module.exports = {
         		.setTitle('» ERROR')
         		.setDescription('» You have to delete atleast **1** Message!')
         		.setFooter({ text: '» ' + version });
-            if (lang.toString() == "de") {
+            if (lang == "de") {
 
                 message = new EmbedBuilder()
         		    .setTitle('» FEHLER')
@@ -117,7 +117,7 @@ module.exports = {
                         .setDescription('» You deleted **' + messages.size + '** Message from <@' + target + '>!')
                         .setFooter({ text: '» ' + version });
 
-                    if (lang.toString() == "de") {
+                    if (lang == "de") {
                         message = new EmbedBuilder()
                             .setTitle('» NACHRICHTEN LÖSCHEN')
                             .setDescription('» Du hast **' + messages.size + '** Nachricht von <@' + target + '> gelöscht!')
@@ -129,7 +129,7 @@ module.exports = {
                         .setDescription('» You deleted **' + messages.size + '** Messages from <@' + target + '>!')
                         .setFooter({ text: '» ' + version });
 
-                    if (lang.toString() == "de") {
+                    if (lang == "de") {
                         message = new EmbedBuilder()
                             .setTitle('» NACHRICHTEN LÖSCHEN')
                             .setDescription('» Du hast **' + messages.size + '** Nachrichten von <@' + target + '> gelöscht!')
@@ -151,7 +151,7 @@ module.exports = {
                         .setDescription('» You deleted **' + messages.size + '** Message!')
                         .setFooter({ text: '» ' + version });
 
-                    if (lang.toString() == "de") {
+                    if (lang == "de") {
                         message = new EmbedBuilder()
                             .setTitle('» NACHRICHTEN LÖSCHEN')
                             .setDescription('» Du hast **' + messages.size + '** Nachricht gelöscht!')
@@ -163,7 +163,7 @@ module.exports = {
                         .setDescription('» You deleted **' + messages.size + '** Messages!')
                         .setFooter({ text: '» ' + version });
 
-                    if (lang.toString() == "de") {
+                    if (lang == "de") {
                         message = new EmbedBuilder()
                             .setTitle('» NACHRICHTEN LÖSCHEN')
                             .setDescription('» Du hast **' + messages.size + '** Nachrichten gelöscht!')

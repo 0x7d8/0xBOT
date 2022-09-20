@@ -56,7 +56,7 @@ module.exports = {
   				.setDescription('» You have **' + votes + '** ' + word + '!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang.toString() == "de") {
+            if (lang == "de") {
                 message = new EmbedBuilder()
             	    .setTitle('» DEINE VOTES')
   				    .setDescription('» Du hast **' + votes + '** ' + word + '!')
@@ -68,7 +68,7 @@ module.exports = {
   				.setDescription('» <@' + user + '> has **' + votes + '** ' + word + '!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang.toString() == "de") {
+            if (lang == "de") {
                 message = new EmbedBuilder()
                     .setTitle('» DIE VOTES VON ' + userinfo.username.toUpperCase() + '#' + userinfo.discriminator)
   				    .setDescription('» <@' + user + '> hat **' + votes + '** ' + word + '!')

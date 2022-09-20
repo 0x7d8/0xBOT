@@ -24,7 +24,7 @@ module.exports = {
         if (business == 'market') { name = 'MARKET' }
         if (business == 'parking garage') { name = 'PARKING GARAGE' }
         if (business == 'car dealership') { name = 'CAR DEALERSHIP' }
-        if (lang.toString() == 'de') {
+        if (lang == 'de') {
             if (business == 'market') { name = 'SUPERMARKT' }
             if (business == 'parking garage') { name = 'PARKHAUS' }
             if (business == 'car dealership') { name = 'AUTOHAUS' }
@@ -38,7 +38,7 @@ module.exports = {
   				.setDescription('» This choice is up to <@' + userid + '>!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang.toString() == "de") {
+            if (lang == "de") {
                 message = new EmbedBuilder()
             	    .setTitle('» FEHLER')
   				    .setDescription('» Diese Frage ist für <@' + userid + '>!')
@@ -67,7 +67,7 @@ module.exports = {
 					.setStyle(ButtonStyle.Danger)
                     .setDisabled(true),
 			);
-        if (lang.toString() == "de") {
+        if (lang == "de") {
             row = new ActionRowBuilder()
 			    .addComponents(
 			    	new ButtonBuilder()
@@ -94,7 +94,7 @@ module.exports = {
                 .setDescription('» <@' + interaction.user.id + '> said **NO** to a **' + name + '**.')
                 .setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang.toString() == "de") {
+            if (lang == "de") {
                 message = new EmbedBuilder()
                     .setTitle('» GESCHÄFT KAUFEN')
                     .setDescription('» <@' + interaction.user.id + '> hat **NEIN** zu einem **' + name + '** gesagt.')
@@ -111,7 +111,7 @@ module.exports = {
                 .setDescription('» <@' + interaction.user.id + '> said **NO** to selling his **' + name + '**.')
                 .setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang.toString() == "de") {
+            if (lang == "de") {
                 message = new EmbedBuilder()
                     .setTitle('» GESCHÄFT VERKAUFEN')
                     .setDescription('» <@' + interaction.user.id + '> hat **NEIN** zum verkaufen von seinem **' + name + '** gesagt.')

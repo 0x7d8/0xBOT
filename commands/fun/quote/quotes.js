@@ -30,7 +30,7 @@ module.exports = {
         		.setDescription('» Quotes are disabled on this Server!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang.toString() == "de") {
+            if (lang == "de") {
                 message = new EmbedBuilder()
         		    .setTitle('» FEHLER')
         		    .setDescription('» Zitate sind auf diesem Server deaktiviert!')
@@ -69,7 +69,7 @@ module.exports = {
             word = "Quotes";
         }
 
-        if (lang.toString() == "de") {
+        if (lang == "de") {
             if (quotes == 1) {
                 word = "Zitat";
             } else {
@@ -85,7 +85,7 @@ module.exports = {
   				.setDescription('» You have **' + quotes + '** ' + word + '!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang.toString() == "de") {
+            if (lang == "de") {
                 message = new EmbedBuilder()
             	    .setTitle('» DEINE ZITATE')
   				    .setDescription('» Du hast **' + quotes + '** ' + word + '!')
@@ -97,7 +97,7 @@ module.exports = {
   				.setDescription('» <@' + user + '> has **' + quotes + '** ' + word + '!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang.toString() == "de") {
+            if (lang == "de") {
                 message = new EmbedBuilder()
                     .setTitle('» DIE ZITATE VON ' + userinfo.username.toUpperCase() + '#' + userinfo.discriminator)
   				    .setDescription('» <@' + user + '> hat **' + quotes + '** ' + word + '!')

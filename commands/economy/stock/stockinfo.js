@@ -49,7 +49,7 @@ module.exports = {
         		.setDescription('» Stocks are disabled on this Server!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang.toString() == "de") {
+            if (lang == "de") {
                 message = new EmbedBuilder()
         		    .setTitle('» FEHLER')
         		    .setDescription('» Aktien sind auf diesem Server deaktiviert!')
@@ -190,7 +190,7 @@ module.exports = {
                     .setCustomId('stock-next-' + stock)
 					.setStyle(ButtonStyle.Secondary),
 			);
-        if (lang.toString() == "de") {
+        if (lang == "de") {
             row = new ActionRowBuilder()
 			    .addComponents(
 			    	new ButtonBuilder()
@@ -209,7 +209,7 @@ module.exports = {
                     .setDescription('» NEXT PRICES\n' + refresh + '\n\n» PRICE\n**<:DOWN:1009502386320056330> `$' + priceText + '` (' + await pcalc(priceText, lastpriceText) + '%)**')
                     .setFooter({ text: '» ' + vote + ' » ' + version });
 
-                if (lang.toString() == "de") {
+                if (lang == "de") {
                     message = new EmbedBuilder()
                         .setTitle('» ' + emoji + ' AKTIEN INFO')
                         .setDescription('» NÄCHSTE PREISE\n' + refresh + '\n\n» PREIS\n**<:DOWN:1009502386320056330> `' + priceText + '€` (' + await pcalc(priceText, lastpriceText) + '%)**')
@@ -221,7 +221,7 @@ module.exports = {
                     .setDescription('» NEXT PRICES\n' + refresh + '\n\n» PRICE\n**<:UP:1009502422990860350> `$' + priceText + '` (' + await pcalc(priceText, lastpriceText) + '%)**')
                     .setFooter({ text: '» ' + vote + ' » ' + version });
                 
-                if (lang.toString() == "de") {
+                if (lang == "de") {
                     message = new EmbedBuilder()
                         .setTitle('» ' + emoji + ' AKTIEN INFO')
                         .setDescription('» NÄCHSTE PREISE\n' + refresh + '\n\n» PREIS\n**<:UP:1009502422990860350> `' + priceText + '€` (' + await pcalc(priceText, lastpriceText) + '%)**')
@@ -233,7 +233,7 @@ module.exports = {
                     .setDescription('» NEXT PRICES\n' + refresh + '\n\n» PRICE\n**🧐 `$' + priceText + '` (' + await pcalc(priceText, lastpriceText) + '%)**')
                     .setFooter({ text: '» ' + vote + ' » ' + version });
 
-                if (lang.toString() == "de") {
+                if (lang == "de") {
                     message = new EmbedBuilder()
                         .setTitle('» ' + emoji + ' AKTIEN INFO')
                         .setDescription('» NÄCHSTE PREISE\n' + refresh + '\n\n» PREIS\n**🧐 `' + priceText + '€` (' + await pcalc(priceText, lastpriceText) + '%)**')
@@ -246,7 +246,7 @@ module.exports = {
                 .setDescription('» NEXT PRICES\n' + refresh + '\n\n» 🟢 GREEN STOCK\n**' + greenp + ' `$' + green + '` (' + await pcalc(green, greeno) + '%)**\n\n» 🔵 BLUE STOCK\n**' + bluep + ' `$' + blue + '` (' + await pcalc(blue, blueo) + '%)**\n\n» 🟡 YELLOW STOCK\n**' + yellowp + ' `$' + yellow + '` (' + await pcalc(yellow, yellowo) + '%)**\n\n» 🔴 RED STOCK\n**' + redp + ' `$' + red + '` (' + await pcalc(red, redo) + '%)**')
                 .setFooter({ text: '» ' + vote + ' » ' + version });
             
-            if (lang.toString() == "de") {
+            if (lang == "de") {
                 message = new EmbedBuilder()
                     .setTitle('» VOLLE AKTIEN INFOS')
                     .setDescription('» NÄCHSTE PREISE\n' + refresh + '\n\n» 🟢 GRÜNE AKTIE\n**' + greenp + ' `' + green + '€` (' + await pcalc(green, greeno) + '%)**\n\n» 🔵 BLAUE AKTIE\n**' + bluep + ' `' + blue + '€` (' + await pcalc(blue, blueo) + '%)**\n\n» 🟡 GELBE AKTIE\n**' + yellowp + ' `' + yellow + '€` (' + await pcalc(yellow, yellowo) + '%)**\n\n» 🔴 ROTE AKTIE\n**' + redp + ' `' + red + '€` (' + await pcalc(red, redo) + '%)**')

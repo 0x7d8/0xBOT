@@ -43,7 +43,7 @@ module.exports = {
   			.setDescription('» ' + frage)
         	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-        if (lang.toString() == "de") {
+        if (lang == "de") {
             let reactionsde
             if (reactions == "question") { reactionsde = "frage" }
             if (reactions == "vote") { reactionsde = "abstimmung" }

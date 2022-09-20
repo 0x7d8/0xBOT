@@ -49,7 +49,7 @@ module.exports = {
         if (random == '19') { result = 'I dont think so!' }
         if (random == '20') { result = 'I doubt it.' }
 
-        if (lang.toString() == "de") {
+        if (lang == "de") {
             if (random == '1') { result = 'Sicherlich.' } 
             if (random == '2') { result = 'Es ist Garantiert!' } 
             if (random == '3') { result = 'Ohne Frage!' } 
@@ -86,7 +86,7 @@ module.exports = {
   			.setDescription('» "' + formatted + '" -> ' + result)
         	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-        if (lang.toString() == "de") {
+        if (lang == "de") {
             message = new EmbedBuilder()
         	    .setTitle('» MAGISCHER BALL')
   			    .setDescription('» "' + formatted + '" -> ' + result)

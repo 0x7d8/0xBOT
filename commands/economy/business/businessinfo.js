@@ -38,7 +38,7 @@ module.exports = {
         		.setDescription('» Businesses are disabled on this Server!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang.toString() == "de") {
+            if (lang == "de") {
                 message = new EmbedBuilder()
         		    .setTitle('» FEHLER')
         		    .setDescription('» Geschäfte sind auf diesem Server deaktiviert!')
@@ -89,7 +89,7 @@ module.exports = {
         	    .setDescription('» Business Infos:\n\nOwner: <@' + businessowner + '>\nEarnings: ' + businessearning + '€')
         	    .setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang.toString() == 'de') {
+            if (lang == 'de') {
                 message = new EmbedBuilder()
         	        .setTitle('» GESCHÄFTS INFO')
         	        .setDescription('» Geschäfts Infos:\n\nBesitzer: <@' + businessowner + '>\nEinkommen: ' + businessearning + '€')
@@ -107,7 +107,7 @@ module.exports = {
             .setDescription('» Noone owns this Business, people say its profitable though!\n*mhm, i say that for everything*')
             .setFooter({ text: '» ' + vote + ' » ' + version });
 
-        if (lang.toString() == 'de') {
+        if (lang == 'de') {
             message = new EmbedBuilder()
                 .setTitle('» GESCHÄFTS INFO')
                 .setDescription('» Niemanden gehört dieses Geschäft, es besagt sich es sei aber profitabel!\n*naja, das sag ich bei jedem*')

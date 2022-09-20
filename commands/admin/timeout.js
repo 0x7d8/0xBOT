@@ -45,7 +45,7 @@ module.exports = {
         		.setTitle('» ERROR')
         		.setDescription('» You have to timeout for atleast **1** Second!')
         		.setFooter({ text: '» ' + version });
-            if (lang.toString() == "de") {
+            if (lang == "de") {
 
                 message = new EmbedBuilder()
         		    .setTitle('» FEHLER')
@@ -65,7 +65,7 @@ module.exports = {
         		.setTitle('» ERROR')
         		.setDescription('» I dont think I have the **MODERATE MEMBERS** Permission!')
         		.setFooter({ text: '» ' + version });
-            if (lang.toString() == "de") {
+            if (lang == "de") {
                 message = new EmbedBuilder()
         		    .setTitle('» FEHLER')
         		    .setDescription('» Ich denke nicht, dass ich die **MITGLIEDER IM TIMEOUT** Berechtigung habe!')
@@ -83,7 +83,7 @@ module.exports = {
         	.setDescription('» Successfully gave <@' + user.id + '> a Timeout of **' + time + 's**!')
         	.setFooter({ text: '» ' + version });
 
-        if (lang.toString() == 'de') {
+        if (lang == 'de') {
             message = new EmbedBuilder()
         	    .setTitle('» TIMEOUT')
         	    .setDescription('» Erfolgreich <@' + user.id + '> einen Timeout von **' + time + 's** gegeben!')

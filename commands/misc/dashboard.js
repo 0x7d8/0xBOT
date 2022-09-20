@@ -37,7 +37,7 @@ module.exports = {
   			.setDescription('» Click below to go to the Dashboard!')
         	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-        if (lang.toString() == "de") {
+        if (lang == "de") {
             message = new EmbedBuilder()
                 .setTitle('» DASHBOARD')
   			    .setDescription('» Klicke unten um zum Dashboard zu gelangen!')

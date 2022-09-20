@@ -37,7 +37,7 @@ module.exports = {
   			.setDescription('» Click below to go to Vote for the Bot!')
         	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-        if (lang.toString() == "de") {
+        if (lang == "de") {
             message = new EmbedBuilder()
                 .setTitle('» TOP.GG')
   			    .setDescription('» Klicke unten um für den Bot zu voten!')

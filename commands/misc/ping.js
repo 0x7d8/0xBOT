@@ -20,7 +20,7 @@ module.exports = {
         		.setDescription('» The Bot Ping is **' + botping + 'ms**!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
-        if (lang.toString() == "de") {
+        if (lang == "de") {
             message = new EmbedBuilder()
         		.setTitle('» BOT PING')
         		.setDescription('» Der Ping vom Bot ist **' + botping + 'ms**!')

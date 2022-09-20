@@ -44,7 +44,7 @@ module.exports = {
         		.setDescription('» You cant ask for negative Money!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang.toString() == "de") {
+            if (lang == "de") {
                 message = new EmbedBuilder()
         		    .setTitle('» FEHLER')
         		    .setDescription('» Du kannst nicht nach negativem Geld fragen!')
@@ -64,7 +64,7 @@ module.exports = {
                 .setDescription('» You cant beg that much! **$10000** is the Maximum.')
                 .setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang.toString() == "de") {
+            if (lang == "de") {
                 message = new EmbedBuilder()
                     .setTitle('» BETTELN')
                     .setDescription('» Du kannst nicht soviel erbetteln! **10000€** ist das Maximum.')
@@ -89,7 +89,7 @@ module.exports = {
 					.setStyle(ButtonStyle.Secondary),
 			);
 
-        if (lang.toString() == "de") {
+        if (lang == "de") {
             button = new ActionRowBuilder()
 			    .addComponents(
 				    new ButtonBuilder()
@@ -107,7 +107,7 @@ module.exports = {
   			    .setDescription('» <@' + interaction.user.id + '> needs Money!')
         	    .setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang.toString() == "de") {
+            if (lang == "de") {
                 message = new EmbedBuilder()
                     .setTitle('» BETTELN')
   			        .setDescription('» <@' + interaction.user.id + '> braucht Geld!')
@@ -119,7 +119,7 @@ module.exports = {
   			    .setDescription('» <@' + interaction.user.id + '> needs Money!\n*"' + reason.toString() + '"*')
         	    .setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang.toString() == "de") {
+            if (lang == "de") {
                 message = new EmbedBuilder()
                     .setTitle('» BETTELN')
   			        .setDescription('» <@' + interaction.user.id + '> braucht Geld!\n*"' + reason.toString() + '"*')

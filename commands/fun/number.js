@@ -36,7 +36,7 @@ module.exports = {
   			.setDescription('» Between **' + min + '** and **' + max + '** I choose **' + res + '**!')
         	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-        if (lang.toString() == "de") {
+        if (lang == "de") {
             message = new EmbedBuilder()
         	    .setTitle('» ZUFÄLLIGE NUMMER')
   			    .setDescription('» Zwischen **' + min + '** und **' + max + '** wähle ich **' + res + '**!')

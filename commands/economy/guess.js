@@ -56,7 +56,7 @@ module.exports = {
         		.setDescription('» Luck Games are disabled on this Server!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang.toString() == "de") {
+            if (lang == "de") {
                 message = new EmbedBuilder()
         		    .setTitle('» FEHLER')
         		    .setDescription('» Glücksspiele sind auf diesem Server deaktiviert!')
@@ -85,7 +85,7 @@ module.exports = {
         		.setDescription('» You cant play with negative Money!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang.toString() == "de") {
+            if (lang == "de") {
                 message = new EmbedBuilder()
         		    .setTitle('» FEHLER')
         		    .setDescription('» Du kannst keine negativen Einsätze spielen!')
@@ -109,7 +109,7 @@ module.exports = {
   					.setDescription('» You cant bet that much! **$15000** is the Maximum.')
             		.setFooter({ text: '» ' + vote + ' » ' + version });
 
-                if (lang.toString() == "de") {
+                if (lang == "de") {
                     message = new EmbedBuilder()
             		    .setTitle('» FEHLER')
   					    .setDescription('» Du kannst nicht soviel Wetten! **15000€** ist das Maximum.')
@@ -129,7 +129,7 @@ module.exports = {
             if (bereich == '1000') { if (nummer == random1000) { status = 'WON'; result = wette * 6 } else { 
                 status = 'LOST'; result = wette } }
 
-            if (lang.toString() == "de") {
+            if (lang == "de") {
                 if (bereich == '10') { if (nummer == random10) { status = 'GEWONNEN'; result = wette * 2 } else { 
                     status = 'VERLOREN'; result = wette } }
                 if (bereich == '100') { if (nummer == random100) { status = 'GEWONNEN'; result = wette * 4 } else { 
@@ -146,7 +146,7 @@ module.exports = {
   				.setDescription('» You dont have enough Money for that, you are missing **$' + missing + '**!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang.toString() == "de") {
+            if (lang == "de") {
                 message = new EmbedBuilder()
             	    .setTitle('» FEHLER')
   				    .setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
@@ -164,7 +164,7 @@ module.exports = {
   			.setDescription('» You set **$' + wette + '** on **' + nummer + '** and **' + status + '** **$' + result + '**!')
         	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-        if (lang.toString() == "de") {
+        if (lang == "de") {
             message = new EmbedBuilder()
                 .setTitle('» RATEN')
   			    .setDescription('» Du hast **' + wette + '€** auf **' + nummer + '** gesetzt und **' + result + '€** **' + status + '**!')

@@ -27,7 +27,7 @@ module.exports = {
   			    .setDescription('» Lets Count! Current Number: **0**')
         	    .setFooter({ text: '» ' + version });
 
-        if (lang.toString() == "de") {
+        if (lang == "de") {
             message = new EmbedBuilder()
                 .setTitle('» ZÄHLEN')
   		        .setDescription('» Komm Zählen! Aktuelle Nummer: **0**')

@@ -38,7 +38,7 @@ module.exports = {
         		.setDescription('» Quotes are disabled on this Server!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang.toString() == "de") {
+            if (lang == "de") {
                 message = new EmbedBuilder()
         		    .setTitle('» FEHLER')
         		    .setDescription('» Zitate sind auf diesem Server deaktiviert!')
@@ -67,7 +67,7 @@ module.exports = {
   				.setDescription('» You dont have that many Quotes, you only have **' + quotes + '**!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang.toString() == "de") {
+            if (lang == "de") {
                 message = new EmbedBuilder()
             	    .setTitle('» FEHLER')
   				    .setDescription('» Du hast garnicht so viele Zitate, du hast nur **' + quotes + '**!')
@@ -89,7 +89,7 @@ module.exports = {
   				.setDescription('» You dont have enough Money for that, you are Missing **$' + missing + '**!')
             	.setFooter({ text: '» ' + version + ' » QUOTES: ' + quotes});
 
-            if (lang.toString() == "de") {
+            if (lang == "de") {
                 message = new EmbedBuilder()
             	    .setTitle('» FEHLER')
   				    .setDescription('» Du hast nicht genug Geld dafür, dir fehlen **' + missing + '€**!')
@@ -109,7 +109,7 @@ module.exports = {
             word = "Quotes";
         }
 
-        if (lang.toString() == "de") {
+        if (lang == "de") {
             if (anzahl == 1) {
                 word = "Zitat";
             } else {
@@ -124,7 +124,7 @@ module.exports = {
   			.setDescription('» You successfully removed **' + anzahl + '** ' + word + ' for **$' + cost + '**!')
             .setFooter({ text: '» ' + version + ' » QUOTES: ' + newquotes});
 
-        if (lang.toString() == "de") {
+        if (lang == "de") {
             message = new EmbedBuilder()
                 .setTitle('» ZITATE ENTFERNEN')
   			    .setDescription('» Du hast erfolgreich **' + anzahl + '** ' + word + ' für **' + cost + '€** entfernt!')

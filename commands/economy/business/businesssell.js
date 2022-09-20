@@ -23,7 +23,7 @@ module.exports = {
         		.setDescription('» Businesses are disabled on this Server!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang.toString() == "de") {
+            if (lang == "de") {
                 message = new EmbedBuilder()
         		    .setTitle('» FEHLER')
         		    .setDescription('» Geschäfte sind auf diesem Server deaktiviert!')
@@ -62,7 +62,7 @@ module.exports = {
         if (business == 'market') { name = 'MARKET' }
         if (business == 'parking garage') { name = 'PARKING GARAGE' }
         if (business == 'car dealership') { name = 'CAR DEALERSHIP' }
-        if (lang.toString() == 'de') {
+        if (lang == 'de') {
             if (business == 'market') { name = 'SUPERMARKT' }
             if (business == 'parking garage') { name = 'PARKHAUS' }
             if (business == 'car dealership') { name = 'AUTOHAUS' }
@@ -76,7 +76,7 @@ module.exports = {
   				.setDescription('» You dont own a Business!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang.toString() == "de") {
+            if (lang == "de") {
                 message = new EmbedBuilder()
             	    .setTitle('» FEHLER')
   				    .setDescription('» Du besitzt kein Geschäft!')
@@ -105,7 +105,7 @@ module.exports = {
 					.setStyle(ButtonStyle.Danger)
                     .setDisabled(true),
 			);
-        if (lang.toString() == "de") {
+        if (lang == "de") {
             row = new ActionRowBuilder()
 			    .addComponents(
 			    	new ButtonBuilder()
@@ -130,7 +130,7 @@ module.exports = {
             .setDescription('» Do you want to sell your **' + name + '** for **$' + (cost/2) + '**?')
             .setFooter({ text: '» ' + vote + ' » ' + version });
 
-        if (lang.toString() == 'de') {
+        if (lang == 'de') {
             message = new EmbedBuilder()
                 .setTitle('» GESCHÄFT VERKAUFEN')
                 .setDescription('» Willst du dein **' + name + '** für **' + (cost/2) + '€** verkaufen?')

@@ -34,7 +34,7 @@ module.exports = {
 
             const car = await item.get(interaction.user.id + '-CAR', 'value')
             carname = 'NONE'
-            if (lang.toString() == 'de') {
+            if (lang == 'de') {
                 carname = 'KEINS'
             }
             if (car == 'jeep') { carname = '2016 JEEP PATRIOT SPORT' }
@@ -49,7 +49,7 @@ module.exports = {
 
             const car = await item.get(user.id + '-CAR', 'value')
             carname = 'NONE'
-            if (lang.toString() == 'de') {
+            if (lang == 'de') {
                 carname = 'KEINS'
             }
             if (car == 'jeep') { carname = '2016 JEEP PATRIOT SPORT' }
@@ -72,7 +72,7 @@ module.exports = {
                 .setDescription('» <:NBOMB:1021783222520127508> NORMAL BOMBS\n**`' + nbombs + '/10`**\n\n» <:MBOMB:1021783295211601940> MEDIUM BOMBS\n**`' + mbombs + '/10`**\n\n» <:HBOMB:1021783351947952158> HYPER BOMBS\n**`' + hbombs + '/10`**\n\n» <:CBOMB:1021783405161091162> CRAZY BOMBS\n**`' + cbombs + '/10`**\n\n» <:CAR:1021844412998877294> CAR\n**`' + carname + '`**')
                 .setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang.toString() == "de") {
+            if (lang == "de") {
                 message = new EmbedBuilder()
                     .setTitle('» DEIN INVENTAR')
                     .setDescription('» <:NBOMB:1021783222520127508> NORMALE BOMBEN\n**`' + nbombs + '/10`**\n\n» <:MBOMB:1021783295211601940> MEDIUM BOMBEN\n**`' + mbombs + '/10`**\n\n» <:HBOMB:1021783351947952158> HYPER BOMBEN\n**`' + hbombs + '/10`**\n\n» <:CBOMB:1021783405161091162> CRAZY BOMBEN\n**`' + cbombs + '/10`**\n\n» <:CAR:1021844412998877294> AUTO\n**`' + carname + '`**')
@@ -84,7 +84,7 @@ module.exports = {
                 .setDescription('» <:NBOMB:1021783222520127508> NORMAL BOMBS\n**`' + nbombs + '/10`**\n\n» <:MBOMB:1021783295211601940> MEDIUM BOMBS\n**`' + mbombs + '/10`**\n\n» <:HBOMB:1021783351947952158> HYPER BOMBS\n**`' + hbombs + '/10`**\n\n» <:CBOMB:1021783405161091162> CRAZY BOMBS\n**`' + cbombs + '/10`**\n\n» <:CAR:1021844412998877294> CAR\n**`' + carname + '`**')
                 .setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang.toString() == "de") {
+            if (lang == "de") {
                 message = new EmbedBuilder()
                     .setTitle('» DAS INVENTAR VON ' + username.username.toUpperCase() + '#' + username.discriminator)
                     .setDescription('» <:NBOMB:1021783222520127508> NORMALE BOMBEN\n**`' + nbombs + '/10`**\n\n» <:MBOMB:1021783295211601940> MEDIUM BOMBEN\n**`' + mbombs + '/10`**\n\n» <:HBOMB:1021783351947952158> HYPER BOMBEN\n**`' + hbombs + '/10`**\n\n» <:CBOMB:1021783405161091162> CRAZY BOMBEN\n**`' + cbombs + '/10`**\n\n» <:CAR:1021844412998877294> AUTO\n**`' + carname + '`**')

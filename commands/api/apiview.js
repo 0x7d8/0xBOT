@@ -44,7 +44,7 @@ module.exports = {
   				.setDescription('» The Content of **' + name + '**:\n`' + data + '`\n» The Link:\n**`https://api.paperstudios.de/user/' + interaction.user.id + '/' + name + '`**')
         		.setFooter({ text: '» ' + version + ' » SLOTS ' + amount + '/5'});
 
-            if (lang.toString() == "de") {
+            if (lang == "de") {
                 message = new EmbedBuilder()
             	    .setTitle('» PAPER API EDIT')
   				    .setDescription('» Der Inhalt von **' + name + '**:\n`' + data + '`\n» Der Link:\n**`https://api.paperstudios.de/user/' + interaction.user.id + '/' + name + '`**')
@@ -61,7 +61,7 @@ module.exports = {
         		.setDescription('» This API doesnt exist!\n</apicreate:1002107281510506516> to Create one')
         		.setFooter({ text: '» ' + version + ' » SLOTS ' + amount + '/5'});
 
-            if (lang.toString() == "de") {
+            if (lang == "de") {
                 message = new EmbedBuilder()
         		    .setTitle('» PAPER API EDIT')
         		    .setDescription('» Diese API existiert nicht!\n</apicreate:1002107281510506516> um eine zu erstellen')

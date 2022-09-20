@@ -124,7 +124,7 @@ client.on('interactionCreate', async interaction => {
 	const lastVote = await votef.get(interaction.user.id + '-T')
 	if (!lastVote) { votet = 'NOT VOTED -> /VOTE' }
 	if (lastVote < (Date.now() - 24*60*60*1000)) { vote = 'NOT VOTED' }
-	if (guildlang.toString() == "de") {
+	if (guildlang == "de") {
 		votet = 'GEVOTED'
 		if (!lastVote) { votet = 'NICHT GEVOTED -> /VOTE' }
 		if (lastVote < (Date.now() - 24*60*60*1000)) { votet = 'NICHT GEVOTET' }
@@ -185,7 +185,7 @@ client.on('interactionCreate', async interaction => {
         			.setTitle('» ERROR')
   					.setDescription('» <:ERROR:1020414987291861022> An Error has occured while executing this Command.\nThe Error has been logged and will be fixed soon!')
     				.setFooter({ text: '» ' + votet + ' » ' + version + ' » ERROR: ' + errorid });
-				if (guildlang.toString() == 'de') {
+				if (guildlang == 'de') {
 					message = new EmbedBuilder()
         				.setTitle('» FEHLER')
   						.setDescription('» <:ERROR:1020414987291861022> Ein Fehler ist beim ausführen dieses Befehls aufgetreten.\nDer Fehler wurde geloggt und wird bald behoben!')
@@ -339,7 +339,7 @@ client.on('interactionCreate', async interaction => {
         			.setTitle('» ERROR')
   					.setDescription('» <:ERROR:1020414987291861022> An Error has occured while executing this Button.\nThe Error has been logged and will be fixed soon!')
     				.setFooter({ text: '» ' + votet + ' » ' + version + ' » ERROR: ' + errorid });
-				if (guildlang.toString() == 'de') {
+				if (guildlang == 'de') {
 					message = new EmbedBuilder()
         				.setTitle('» FEHLER')
   						.setDescription('» <:ERROR:1020414987291861022> Ein Fehler ist beim ausführen dieses Buttons aufgetreten.\nDer Fehler wurde geloggt und wird bald behoben!')
