@@ -34,10 +34,10 @@ module.exports = {
         let money
         if (user == null) {
             money = await bals.get(interaction.user.id.replace(/\D/g, ''));
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] BALANCE : ' + money + '€');
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] BALANCE : ' + money + '€');
         } else {
             money = await bals.get(user.toString().replace(/\D/g, ''));
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] BALANCE : ' + user + ' : ' + money + '€');
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] BALANCE : ' + user + ' : ' + money + '€');
         }
         
         // Create Embed

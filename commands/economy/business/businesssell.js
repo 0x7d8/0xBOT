@@ -31,10 +31,10 @@ module.exports = {
             }
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] BUSINESS : DISABLED')
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] BUSINESS : DISABLED')
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
-        
+
         // Set Variables
         const business = await bsns.get('u-' + interaction.user.id.replace(/\D/g, '') + '-BUSINESS')
 
@@ -84,7 +84,7 @@ module.exports = {
             }
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] BUSINESSSELL : DONTOWNBUSINESS')
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] BUSINESSSELL : DONTOWNBUSINESS')
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
@@ -138,7 +138,7 @@ module.exports = {
         }
 
         // Send Message
-        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] BUSINESSSELL : ' + name + ' : ' + cost + '€')
+        bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] BUSINESSSELL : ' + name + ' : ' + cost + '€')
         return interaction.reply({ embeds: [message.toJSON()], components: [row] })
     },
 };

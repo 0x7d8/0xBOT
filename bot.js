@@ -26,6 +26,9 @@ global.addper = (oval, pval) => {
 	return (oval + percentage)
 }
 
+// Bot Functions
+global.bot = require("./functions/bot")
+
 /// MongoDB Functions
 // General Value
 global.cmds = require("./functions/cmds")

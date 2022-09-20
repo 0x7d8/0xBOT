@@ -30,7 +30,7 @@ module.exports = {
             }
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] MEMORY : NOTPLAYING')
+            bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] MEMORY : NOTPLAYING')
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
@@ -51,7 +51,7 @@ module.exports = {
             }
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] MEMORY : NOTTURN')
+            bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] MEMORY : NOTTURN')
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
@@ -290,7 +290,7 @@ module.exports = {
         }
 
         // Send Message
-        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] MEMORY : ' + sel + ' : ' + eval('memorydataf' + sel + sender.toString().replace(/\D/g, '')))
+        bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] MEMORY : ' + sel + ' : ' + eval('memorydataf' + sel + sender.toString().replace(/\D/g, '')))
         interaction.editReply({ embeds: [message.toJSON()], components: [row1, row2, row3, row4], ephemeral: true })
 
         // Update Message

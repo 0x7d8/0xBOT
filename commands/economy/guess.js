@@ -64,7 +64,7 @@ module.exports = {
             }
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] ROULETTE : DISABLED')
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROULETTE : DISABLED')
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
         
@@ -93,7 +93,7 @@ module.exports = {
             }
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] GUESS : NEGATIVEMONEY : ' + wette + '€')
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] GUESS : NEGATIVEMONEY : ' + wette + '€')
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
         
@@ -117,7 +117,7 @@ module.exports = {
                 }
                 
                 // Send Message
-            	console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] GUESS : TOOMUCHMONEY : ' + wette + '€')
+            	bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] GUESS : TOOMUCHMONEY : ' + wette + '€')
         		return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
             }
             
@@ -154,7 +154,7 @@ module.exports = {
             }
 
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] GUESS : NOTENOUGHMONEY : ' + missing + '€')
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] GUESS : NOTENOUGHMONEY : ' + missing + '€')
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
         
@@ -178,7 +178,7 @@ module.exports = {
         }
 
         // Send Message
-       	console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] GUESS : ' + nummer + ' : ' + status + ' : ' + result + '€')
+       	bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] GUESS : ' + nummer + ' : ' + status + ' : ' + result + '€')
         return interaction.reply({ embeds: [message.toJSON()] })
     },
 };

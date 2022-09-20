@@ -53,7 +53,7 @@ module.exports = {
 
         	// Send Message
         	apis.rem(interaction.user.id.replace(/\D/g, ''), 1)
-        	console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] APIREMOVE : ' + name)
+        	bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] APIREMOVE : ' + name)
         	return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         } catch (err) {
             // Create Embed
@@ -70,7 +70,7 @@ module.exports = {
             }
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] APIREMOVE : ' + name + ' : NOTFOUND')
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] APIREMOVE : ' + name + ' : NOTFOUND')
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
     },

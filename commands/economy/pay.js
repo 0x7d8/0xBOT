@@ -52,7 +52,7 @@ module.exports = {
             }
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] PAY : NEGATIVEMONEY : ' + anzahl + '€')
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] PAY : NEGATIVEMONEY : ' + anzahl + '€')
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
@@ -73,7 +73,7 @@ module.exports = {
             }
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] PAY : ' + user + ' : BOT : ' + anzahl + '€')
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] PAY : ' + user + ' : BOT : ' + anzahl + '€')
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
         
@@ -124,12 +124,12 @@ module.exports = {
             }
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] PAY : ' + user + ' : NOTENOUGHMONEY : ' + anzahl + '€')
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] PAY : ' + user + ' : NOTENOUGHMONEY : ' + anzahl + '€')
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
         // Send Message
-        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] PAY : ' + user + ' : ' + anzahl + '€')
+        bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] PAY : ' + user + ' : ' + anzahl + '€')
         return interaction.reply({ embeds: [message.toJSON()] })
     },
 };

@@ -46,10 +46,10 @@ module.exports = {
             }
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] BUSINESS : DISABLED')
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] BUSINESS : DISABLED')
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
-        
+
         // Set Variables
         const business = interaction.options.getString("business")
         const balance = await bals.get(interaction.user.id.replace(/\D/g, ''));
@@ -97,7 +97,7 @@ module.exports = {
             }
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] BUSINESSINFO : ' + business.toUpperCase())
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] BUSINESSINFO : ' + business.toUpperCase())
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
@@ -115,7 +115,7 @@ module.exports = {
         }
 
         // Send Message
-        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] BUSINESSINFO : ' + business.toUpperCase() + ' : NOTOWNED')
+        bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] BUSINESSINFO : ' + business.toUpperCase() + ' : NOTOWNED')
         return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
     },
 };

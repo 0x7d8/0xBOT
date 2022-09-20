@@ -32,7 +32,7 @@ module.exports = {
             }
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] WORK : DISABLED')
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] WORK : DISABLED')
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
@@ -63,7 +63,7 @@ module.exports = {
             }
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] WORK : ONCOOLDOWN : ' + cdown.toFixed(0) + use);
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] WORK : ONCOOLDOWN : ' + cdown.toFixed(0) + use);
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         } else {
             
@@ -140,7 +140,7 @@ module.exports = {
         
         	// Send Money
         	bals.add(interaction.user.id.replace(/\D/g, ''), resultcar)
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] WORK : ' + resultcar + '€');
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] WORK : ' + resultcar + '€');
             
             // Set Cooldown
 			cooldown.set(interaction.user.id.replace(/\D/g, ''), Date.now() + time);

@@ -34,10 +34,10 @@ module.exports = {
         let votes
         if (user == null) {
             votes = await votef.get(interaction.user.id.replace(/\D/g, '') + '-A');
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] VOTES : ' + votes);
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] VOTES : ' + votes);
         } else {
             votes = await votef.get(user.toString().replace(/\D/g, '') + '-A');
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] VOTES : ' + user + ' : ' + votes);
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] VOTES : ' + user + ' : ' + votes);
         }
         
         // Check if Plural or not

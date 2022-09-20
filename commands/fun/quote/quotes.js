@@ -38,7 +38,7 @@ module.exports = {
             }
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] QUOTES : DISABLED')
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] QUOTES : DISABLED')
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
@@ -55,10 +55,10 @@ module.exports = {
         let quotes
         if (user == null) {
             quotes = await quts.get(interaction.user.id.replace(/\D/g, ''));
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] QUOTES : ' + quotes);
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] QUOTES : ' + quotes);
         } else {
             quotes = await quts.get(user.toString().replace(/\D/g, ''));
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] QUOTES : ' + user + ' : ' + quotes);
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] QUOTES : ' + user + ' : ' + quotes);
         }
         
         // Check if Plural or not

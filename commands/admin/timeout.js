@@ -54,7 +54,7 @@ module.exports = {
             }
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] TIMEOUT : NOTENOUGHTIME : ' + time + 's')
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] TIMEOUT : NOTENOUGHTIME : ' + time + 's')
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
@@ -73,7 +73,7 @@ module.exports = {
             }
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] TIMEOUT : NOPERM')
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] TIMEOUT : NOPERM')
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
@@ -95,7 +95,7 @@ module.exports = {
         member.timeout(parseInt(time) * 1000, 'TIMEOUT COMMAND FROM ' + interaction.user.id).catch((error) => {return})
         
         // Send Message
-        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] TIMEOUT : ' + user.toString().replace(/\D/g, '') + ' : ' + time + 's')
+        bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] TIMEOUT : ' + user.toString().replace(/\D/g, '') + ' : ' + time + 's')
         return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
     },
 };

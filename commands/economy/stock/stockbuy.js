@@ -57,7 +57,7 @@ module.exports = {
             }
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] STOCKBUY : DISABLED')
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] STOCKBUY : DISABLED')
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
@@ -103,7 +103,7 @@ module.exports = {
             }
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] STOCKBUY : NEGATIVEMONEY : ' + amount + '€')
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] STOCKBUY : NEGATIVEMONEY : ' + amount + '€')
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
@@ -123,7 +123,7 @@ module.exports = {
             }
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] STOCKBUY : MAXGREEN : ' + amount + '€')
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] STOCKBUY : MAXGREEN : ' + amount + '€')
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
         if (stock == 'blue' && blues > bluemax) {
@@ -141,7 +141,7 @@ module.exports = {
             }
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] STOCKBUY : MAXBLUE : ' + amount + '€')
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] STOCKBUY : MAXBLUE : ' + amount + '€')
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
         if (stock == 'yellow' && yellows > yellowmax) {
@@ -159,7 +159,7 @@ module.exports = {
             }
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] STOCKBUY : MAXYELLOW : ' + amount + '€')
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] STOCKBUY : MAXYELLOW : ' + amount + '€')
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
         if (stock == 'red' && reds > redmax) {
@@ -177,7 +177,7 @@ module.exports = {
             }
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] STOCKBUY : MAXRED : ' + amount + '€')
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] STOCKBUY : MAXRED : ' + amount + '€')
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
@@ -207,7 +207,7 @@ module.exports = {
             }
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] STOCKBUY : ' + stock.toUpperCase() + ' : ' + amount + ' : ' + cost + '€ : NOTENOUGHMONEY')
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] STOCKBUY : ' + stock.toUpperCase() + ' : ' + amount + ' : ' + cost + '€ : NOTENOUGHMONEY')
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
@@ -250,7 +250,7 @@ module.exports = {
         }
 
         // Send Message
-        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] STOCKBUY : ' + stock.toUpperCase() + ' : ' + amount + ' : ' + cost + '€')
+        bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] STOCKBUY : ' + stock.toUpperCase() + ' : ' + amount + ' : ' + cost + '€')
         return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
     },
 };

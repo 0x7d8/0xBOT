@@ -33,7 +33,7 @@ module.exports = {
         const item = interaction.options.getString("item")
 
         // Send Message
-        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] ITEMINFO : ' + item.toUpperCase())
+        bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ITEMINFO : ' + item.toUpperCase())
         if (item === 'nbomb') {
 			// Create Embed
 			message = new EmbedBuilder()

@@ -49,7 +49,7 @@ module.exports = {
             }
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] RPS : DISABLED')
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] RPS : DISABLED')
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
@@ -76,7 +76,7 @@ module.exports = {
             }
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] RPS : ' + user.toString().replace(/\D/g, '') + ' : BOT')
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] RPS : ' + user.toString().replace(/\D/g, '') + ' : BOT')
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
@@ -109,7 +109,7 @@ module.exports = {
             }
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] RPS : ' + user.toString().replace(/\D/g, '') + ' : ALREADYLOBBY')
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] RPS : ' + user.toString().replace(/\D/g, '') + ' : ALREADYLOBBY')
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
@@ -135,7 +135,7 @@ module.exports = {
             }
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] RPS : ' + user.toString().replace(/\D/g, '') + ' : ALREADYLOBBY')
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] RPS : ' + user.toString().replace(/\D/g, '') + ' : ALREADYLOBBY')
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
@@ -155,7 +155,7 @@ module.exports = {
             }
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] RPS : ' + user.toString().replace(/\D/g, '') + ' : NEGATIVEMONEY : ' + bet + '€')
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] RPS : ' + user.toString().replace(/\D/g, '') + ' : NEGATIVEMONEY : ' + bet + '€')
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
@@ -175,7 +175,7 @@ module.exports = {
             }
 
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] RPS : ' + user.toString().replace(/\D/g, '') + ' : ' + bet + '€ : SAMEPERSON')
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] RPS : ' + user.toString().replace(/\D/g, '') + ' : ' + bet + '€ : SAMEPERSON')
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
@@ -197,7 +197,7 @@ module.exports = {
             }
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] RPS : ' + user.toString().replace(/\D/g, '') + ' : NOTENOUGHMONEY')
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] RPS : ' + user.toString().replace(/\D/g, '') + ' : NOTENOUGHMONEY')
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
         if (othermoney < bet && bet != null) {
@@ -217,7 +217,7 @@ module.exports = {
             }
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] RPS : ' + user.toString().replace(/\D/g, '') + ' : NOTENOUGHMONEY')
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] RPS : ' + user.toString().replace(/\D/g, '') + ' : NOTENOUGHMONEY')
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
@@ -270,7 +270,7 @@ module.exports = {
         }
 
         // Send Message
-        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] RPS : ' + user.toString().replace(/\D/g, '') + ' : ' + bet + '€')
+        bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] RPS : ' + user.toString().replace(/\D/g, '') + ' : ' + bet + '€')
         interaction.reply({ embeds: [message.toJSON()], components: [row] })
 
         const expiration = async () => {
@@ -347,7 +347,7 @@ module.exports = {
                     .setFooter({ text: '» ' + vote + ' » ' + version });
             }
 
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] RPS : ' + user.toString().replace(/\D/g, '') + ' : EXPIRED')
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] RPS : ' + user.toString().replace(/\D/g, '') + ' : EXPIRED')
             interaction.editReply({ embeds: [message.toJSON()], components: [row] }).catch((error) => {})
         }
 

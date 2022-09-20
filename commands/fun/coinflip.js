@@ -48,7 +48,7 @@ module.exports = {
             }
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] COINFLIP : NOTENOUGHCOINS : ' + anzahl)
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] COINFLIP : NOTENOUGHCOINS : ' + anzahl)
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
@@ -68,7 +68,7 @@ module.exports = {
             }
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] COINFLIP : TOOMANYCOINS : ' + anzahl)
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] COINFLIP : TOOMANYCOINS : ' + anzahl)
             return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
 
@@ -124,7 +124,7 @@ module.exports = {
 
         
         // Send Message
-        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] COINFLIP : H[' + heads + '] : T[' + tails + ']')
+        bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] COINFLIP : H[' + heads + '] : T[' + tails + ']')
         return interaction.reply({ embeds: [message.toJSON()] })
     },
 };

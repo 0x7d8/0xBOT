@@ -51,7 +51,7 @@ module.exports = {
             }
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] QUOTE : DISABLED')
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] QUOTE : DISABLED')
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
@@ -79,7 +79,7 @@ module.exports = {
             }
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] QUOTE : ONCOOLDOWN : ' + cdown.toFixed(0) + 's');
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] QUOTE : ONCOOLDOWN : ' + cdown.toFixed(0) + 's');
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
         
@@ -99,7 +99,7 @@ module.exports = {
             	    .setFooter({ text: '» ' + version + ' » ZITATE: ' + amount});
             }
             
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] QUOTE : ' + zitat.toUpperCase())
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] QUOTE : ' + zitat.toUpperCase())
         } else {
             const amount = await quts.get(autor.toString().replace(/\D/g, '')) + 1;
         	message = new EmbedBuilder()
@@ -114,7 +114,7 @@ module.exports = {
             	    .setFooter({ text: '» ' + version + ' » ZITATE: ' + amount});
             }
             
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] QUOTE : ' + zitat.toUpperCase() + ' : ~' + autor)
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] QUOTE : ' + zitat.toUpperCase() + ' : ~' + autor)
             quts.add(autor.toString().replace(/\D/g, ''), 1);
         }
         

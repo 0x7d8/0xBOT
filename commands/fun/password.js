@@ -41,7 +41,7 @@ module.exports = {
         		    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
             
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] PASSWORD : TOOBIG : ' + lenght)
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] PASSWORD : TOOBIG : ' + lenght)
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
 
         }
@@ -61,7 +61,7 @@ module.exports = {
         		    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
             
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] PASSWORD : TOOSMALL : ' + lenght)
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] PASSWORD : TOOSMALL : ' + lenght)
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
 
         }
@@ -88,7 +88,7 @@ module.exports = {
         }
 
         // Send Message
-        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] PASSWORD : ' + lenght + ' : SUCCESS')
+        bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] PASSWORD : ' + lenght + ' : SUCCESS')
         return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
     },
 };

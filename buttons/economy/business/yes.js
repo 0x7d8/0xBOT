@@ -51,7 +51,7 @@ module.exports = {
             }
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] BUSINESSBUY : NOTSENDER')
+            bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] BUSINESSBUY : NOTSENDER')
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
@@ -75,7 +75,7 @@ module.exports = {
                 }
             
                 // Send Message
-                console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] BUSINESSBUY : ' + name.toUpperCase() + ' : NOTENOUGHMONEY : ' + cost + '€')
+                bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] BUSINESSBUY : ' + name.toUpperCase() + ' : NOTENOUGHMONEY : ' + cost + '€')
                 return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
             }
 
@@ -108,7 +108,7 @@ module.exports = {
                 }
 
                 // Send Message
-                console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] BUSINESSBUY : ALREADYBUSINESS')
+                bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] BUSINESSBUY : ALREADYBUSINESS')
                 return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
             }
 
@@ -169,7 +169,7 @@ module.exports = {
             }
 
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] BUSINESSBUY : ' + name + ' : CONFIRM')
+            bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] BUSINESSBUY : ' + name + ' : CONFIRM')
             return interaction.update({ embeds: [message.toJSON()], components: [row] })
         } else if (type === 'sell') {
             const business = await bsns.get('u-' + interaction.user.id.replace(/\D/g, '') + '-BUSINESS')
@@ -202,7 +202,7 @@ module.exports = {
                 }
 
                 // Send Message
-                console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] BUSINESSSELL : DONTOWNBUSINESS')
+                bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] BUSINESSSELL : DONTOWNBUSINESS')
                 return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
             }
 
@@ -263,7 +263,7 @@ module.exports = {
             bsns.set('g-' + interaction.guild.id + '-' + businessid + '-OWNER', 0)
 
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] CARSELL : ' + name + ' : CONFIRM')
+            bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] CARSELL : ' + name + ' : CONFIRM')
             return interaction.update({ embeds: [message.toJSON()], components: [row] })
         }
     }

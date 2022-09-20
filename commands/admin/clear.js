@@ -49,7 +49,7 @@ module.exports = {
             }
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] CLEAR : NOPERM')
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] CLEAR : NOPERM')
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
         if (!interaction.appPermissions.has('ViewChannel')) {
@@ -66,7 +66,7 @@ module.exports = {
             }
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] CLEAR : NOPERM')
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] CLEAR : NOPERM')
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
@@ -92,7 +92,7 @@ module.exports = {
             }
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] CLEAR : NOTENOUGH : ' + amount)
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] CLEAR : NOTENOUGH : ' + amount)
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
@@ -138,7 +138,7 @@ module.exports = {
                 }
 
                 // Send Message
-                console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] CLEAR : ' + target + ' : ' + amount)
+                bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] CLEAR : ' + target + ' : ' + amount)
                 return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
             })
         } else {
@@ -172,7 +172,7 @@ module.exports = {
                 }
 
                 // Send Message
-                console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] CLEAR : ' + amount)
+                bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] CLEAR : ' + amount)
                 return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
             })
         }

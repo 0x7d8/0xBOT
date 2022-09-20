@@ -57,7 +57,7 @@ module.exports = {
             }
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] ROB : DISABLED')
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : DISABLED')
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
@@ -86,7 +86,7 @@ module.exports = {
             	    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
             
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] ROB : ONCOOLDOWN : ' + cdown.toFixed(0) + 's');
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : ONCOOLDOWN : ' + cdown.toFixed(0) + 's');
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
         
@@ -106,7 +106,7 @@ module.exports = {
             	    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
             
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] ROB : ' + user.toString().replace(/\D/g, '') + ' : ' + money + '€ : SAMEPERSON')
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : ' + user.toString().replace(/\D/g, '') + ' : ' + money + '€ : SAMEPERSON')
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
@@ -127,7 +127,7 @@ module.exports = {
             }
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] ROB : ' + user + ' : BOT')
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : ' + user + ' : BOT')
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
         
@@ -153,15 +153,15 @@ module.exports = {
             
         // Check Money
         if (money == 35 && moneysnd < 20) {
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] ROB : ' + user + ' : NOTENOUGHMONEY')
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : ' + user + ' : NOTENOUGHMONEY')
             return interaction.reply({ embeds: [notenoughmoney1.toJSON()], ephemeral: true })
      	};
         if (money == 20 && moneysnd < 50) {
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] ROB : ' + user + ' : NOTENOUGHMONEY')
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : ' + user + ' : NOTENOUGHMONEY')
             return interaction.reply({ embeds: [notenoughmoney1.toJSON()], ephemeral: true })
      	};
         if (money == 5 && moneysnd < 100) {
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] ROB : ' + user + ' : NOTENOUGHMONEY')
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : ' + user + ' : NOTENOUGHMONEY')
             return interaction.reply({ embeds: [notenoughmoney1.toJSON()], ephemeral: true })
      	};
             
@@ -181,15 +181,15 @@ module.exports = {
             
         // Check Money
         if (money == 35 && moneytar < 20) {
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] ROB : ' + user + ' : NOTENOUGHMONEY')
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : ' + user + ' : NOTENOUGHMONEY')
             return interaction.reply({ embeds: [notenoughmoney2.toJSON()], ephemeral: true })
      	};
         if (money == 20 && moneytar < 50) {
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] ROB : ' + user + ' : NOTENOUGHMONEY')
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : ' + user + ' : NOTENOUGHMONEY')
             return interaction.reply({ embeds: [notenoughmoney2.toJSON()], ephemeral: true })
      	};
         if (money == 5 && moneytar < 100) {
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] ROB : ' + user + ' : NOTENOUGHMONEY')
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : ' + user + ' : NOTENOUGHMONEY')
             return interaction.reply({ embeds: [notenoughmoney2.toJSON()], ephemeral: true })
      	};
         
@@ -264,7 +264,7 @@ module.exports = {
 			cooldown.set(interaction.user.id.replace(/\D/g, ''), Date.now() + time);
         	setTimeout(() => cooldown.delete(), time)
             
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] ROB : ' + user + ' : ' + amount + '€ : FAILURE : ' + punishment + '€')
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : ' + user + ' : ' + amount + '€ : FAILURE : ' + punishment + '€')
         	bals.rem(interaction.user.id.replace(/\D/g, ''), punishment)
         	return interaction.reply({ embeds: [failure.toJSON()] })
         }
@@ -278,7 +278,7 @@ module.exports = {
         bals.add(interaction.user.id.replace(/\D/g, ''), amount)
         
         // Send Message
-        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] ROB : ' + user + ' : ' + amount + '€ : SUCCESS')
+        bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : ' + user + ' : ' + amount + '€ : SUCCESS')
         return interaction.reply({ embeds: [sucess.toJSON()] })
     },
 };

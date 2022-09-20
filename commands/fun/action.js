@@ -83,12 +83,12 @@ module.exports = {
         
         // Check if User is Sender
         if (sender == user) {
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] ACTION : SAMEPERSON : ' + user)
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ACTION : SAMEPERSON : ' + user)
             return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
         }
         
         // Send Message
-        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] ACTION : ' + user + ' : ' + event.toUpperCase())
+        bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ACTION : ' + user + ' : ' + event.toUpperCase())
         if (event == 'Schlagen') {
         	return interaction.reply({ embeds: [box.toJSON()] })
         }
