@@ -80,22 +80,22 @@ module.exports = {
         // Create Embed
         let message = new EmbedBuilder()
         	.setTitle('» TIMEOUT')
-        	.setDescription('» Successfully gave <@' + user.toString().replace(/\D/g, '') + '> a Timeout of **' + time + 's**!')
+        	.setDescription('» Successfully gave <@' + user.id + '> a Timeout of **' + time + 's**!')
         	.setFooter({ text: '» ' + version });
 
         if (lang.toString() == 'de') {
             message = new EmbedBuilder()
         	    .setTitle('» TIMEOUT')
-        	    .setDescription('» Erfolgreich <@' + user.toString().replace(/\D/g, '') + '> einen Timeout von **' + time + 's** gegeben!')
+        	    .setDescription('» Erfolgreich <@' + user.id + '> einen Timeout von **' + time + 's** gegeben!')
         	    .setFooter({ text: '» ' + version });
         }
 
         // Timeout User
-        const member = await interaction.guild.members.fetch(user.toString().replace(/\D/g, ''))
+        const member = await interaction.guild.members.fetch(user.id)
         member.timeout(parseInt(time) * 1000, 'TIMEOUT COMMAND FROM ' + interaction.user.id).catch((error) => {return})
         
         // Send Message
-        bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] TIMEOUT : ' + user.toString().replace(/\D/g, '') + ' : ' + time + 's')
+        bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] TIMEOUT : ' + user.id + ' : ' + time + 's')
         return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
     },
 };

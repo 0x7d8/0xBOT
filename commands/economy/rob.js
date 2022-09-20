@@ -64,13 +64,13 @@ module.exports = {
         // Set Variables
         const user = interaction.options.getUser("user")
         const money = interaction.options.getString("money")
-        const moneysnd = await bals.get(interaction.user.id.replace(/\D/g, ''));
-        const moneytar = await bals.get(user.toString().replace(/\D/g, ''));
+        const moneysnd = await bals.get(interaction.user.id);
+        const moneytar = await bals.get(user.id);
 
         // Cooldown
-        if (cooldown.get(interaction.user.id.replace(/\D/g, '')) - Date.now() > 0) {
+        if (cooldown.get(interaction.user.id) - Date.now() > 0) {
             // Translate Vars
-        	const timeLeft = cooldown.get(interaction.user.id.replace(/\D/g, '')) - Date.now(); 
+        	const timeLeft = cooldown.get(interaction.user.id) - Date.now(); 
             const cdown = timeLeft / 1000;
             
             // Create Embed
@@ -91,7 +91,7 @@ module.exports = {
         }
         
         // Check if User is Author
-        if (interaction.user.id.replace(/\D/g, '') == user) {
+        if (interaction.user.id == user) {
             
             // Create Embed
             let message = new EmbedBuilder()
@@ -106,7 +106,7 @@ module.exports = {
             	    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
             
-            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : ' + user.toString().replace(/\D/g, '') + ' : ' + money + '€ : SAMEPERSON')
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : ' + user.id + ' : ' + money + '€ : SAMEPERSON')
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
@@ -261,21 +261,21 @@ module.exports = {
         // Set Money
         if (status == false) {
             // Set Cooldown
-			cooldown.set(interaction.user.id.replace(/\D/g, ''), Date.now() + time);
+			cooldown.set(interaction.user.id, Date.now() + time);
         	setTimeout(() => cooldown.delete(), time)
             
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : ' + user + ' : ' + amount + '€ : FAILURE : ' + punishment + '€')
-        	bals.rem(interaction.user.id.replace(/\D/g, ''), punishment)
+        	bals.rem(interaction.user.id, punishment)
         	return interaction.reply({ embeds: [failure.toJSON()] })
         }
         
         // Set Cooldown
-		cooldown.set(interaction.user.id.replace(/\D/g, ''), Date.now() + time);
+		cooldown.set(interaction.user.id, Date.now() + time);
         setTimeout(() => cooldown.delete(), time)
 
         // Set Money
-        bals.rem(user.toString().replace(/\D/g, ''), amount)
-        bals.add(interaction.user.id.replace(/\D/g, ''), amount)
+        bals.rem(user.id, amount)
+        bals.add(interaction.user.id, amount)
         
         // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : ' + user + ' : ' + amount + '€ : SUCCESS')

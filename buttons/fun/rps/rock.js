@@ -13,7 +13,7 @@ module.exports = {
         const [sender, reciever] = description
 
         // Check if User is playing
-        if (sender.toString().replace(/\D/g, '') != interaction.user.id.replace(/\D/g, '') && reciever.toString().replace(/\D/g, '') != interaction.user.id.replace(/\D/g, '')) {
+        if (sender.toString().replace(/\D/g, '') != interaction.user.id && reciever.toString().replace(/\D/g, '') != interaction.user.id) {
             // Create Embed
             let message = new EmbedBuilder()
         		.setTitle('» ERROR')
@@ -33,7 +33,7 @@ module.exports = {
         }
 
         // Set Variable
-        eval('global.rps' + interaction.user.id.replace(/\D/g, '') + ' = "ROCK"')
+        eval('global.rps' + interaction.user.id + ' = "ROCK"')
 
         // Check if Game is Done
         let done

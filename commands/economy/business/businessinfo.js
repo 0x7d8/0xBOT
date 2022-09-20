@@ -52,10 +52,10 @@ module.exports = {
 
         // Set Variables
         const business = interaction.options.getString("business")
-        const balance = await bals.get(interaction.user.id.replace(/\D/g, ''));
+        const balance = await bals.get(interaction.user.id);
 
         // Check if Command is Allowed :P
-        if (interaction.user.id.replace(/\D/g, '') != "745619551865012274" && interaction.user.id.replace(/\D/g, '') != "994495187617321010") {
+        if (interaction.user.id != "745619551865012274" && interaction.user.id != "994495187617321010") {
             // Create Embed
             const err = new EmbedBuilder()
                 .setTitle('» FEHLER')

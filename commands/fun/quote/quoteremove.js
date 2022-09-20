@@ -56,8 +56,8 @@ module.exports = {
         const cost = anzahl * 100
 
         // Get User Balances
-        const quotes = await quts.get(interaction.user.id.replace(/\D/g, ''));
-        const money = await bals.get(interaction.user.id.replace(/\D/g, ''));
+        const quotes = await quts.get(interaction.user.id);
+        const money = await bals.get(interaction.user.id);
         
         // Check if not in Minus Quotes
         if (quotes - anzahl < 0) {
@@ -132,8 +132,8 @@ module.exports = {
         }
 
         // Set Money and Quotes
-        bals.rem(interaction.user.id.replace(/\D/g, ''), cost);
-        quts.rem(interaction.user.id.replace(/\D/g, ''), anzahl);
+        bals.rem(interaction.user.id, cost);
+        quts.rem(interaction.user.id, anzahl);
         
         // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] QUOTEREMOVE : ' + anzahl + ' : ' + cost + '€');

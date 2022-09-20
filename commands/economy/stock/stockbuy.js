@@ -65,27 +65,27 @@ module.exports = {
         const stock = interaction.options.getString("stock")
         const amount = interaction.options.getInteger("amount")
 
-        const green = await sgrn.get(interaction.user.id.replace(/\D/g, ''));
-        const blue = await sblu.get(interaction.user.id.replace(/\D/g, ''));
-        const yellow = await syll.get(interaction.user.id.replace(/\D/g, ''));
-        const red = await sred.get(interaction.user.id.replace(/\D/g, ''));
+        const green = await sgrn.get(interaction.user.id);
+        const blue = await sblu.get(interaction.user.id);
+        const yellow = await syll.get(interaction.user.id);
+        const red = await sred.get(interaction.user.id);
         const greens = green + amount
         const blues = blue + amount
         const yellows = yellow + amount
         const reds = red + amount
 
-        let greenmax = await sgrnx.get(interaction.user.id.replace(/\D/g, ''));
-        let bluemax = await sblux.get(interaction.user.id.replace(/\D/g, ''));
-        let yellowmax = await syllx.get(interaction.user.id.replace(/\D/g, ''));
-        let redmax = await sredx.get(interaction.user.id.replace(/\D/g, ''));
+        let greenmax = await sgrnx.get(interaction.user.id);
+        let bluemax = await sblux.get(interaction.user.id);
+        let yellowmax = await syllx.get(interaction.user.id);
+        let redmax = await sredx.get(interaction.user.id);
 
-        const balance = await bals.get(interaction.user.id.replace(/\D/g, ''));
+        const balance = await bals.get(interaction.user.id);
 
         // Convert Max Stocks
-        if (greenmax == 0) { greenmax = 10; sgrnx.add(interaction.user.id.replace(/\D/g, ''), 10) }
-        if (bluemax == 0) { bluemax = 10; sblux.add(interaction.user.id.replace(/\D/g, ''), 10) }
-        if (yellowmax == 0) { yellowmax = 10; syllx.add(interaction.user.id.replace(/\D/g, ''), 10) }
-        if (redmax == 0) { redmax = 10; sredx.add(interaction.user.id.replace(/\D/g, ''), 10) }
+        if (greenmax == 0) { greenmax = 10; sgrnx.add(interaction.user.id, 10) }
+        if (bluemax == 0) { bluemax = 10; sblux.add(interaction.user.id, 10) }
+        if (yellowmax == 0) { yellowmax = 10; syllx.add(interaction.user.id, 10) }
+        if (redmax == 0) { redmax = 10; sredx.add(interaction.user.id, 10) }
 
         // Check if Amount is Negative
         if (amount < 0) {
@@ -221,20 +221,20 @@ module.exports = {
 
         // Add Stock Amount
         if (stock == 'green') {
-            sgrn.add(interaction.user.id.replace(/\D/g, ''), amount)
+            sgrn.add(interaction.user.id, amount)
         }
         if (stock == 'blue') {
-            sblu.add(interaction.user.id.replace(/\D/g, ''), amount)
+            sblu.add(interaction.user.id, amount)
         }
         if (stock == 'yellow') { 
-            syll.add(interaction.user.id.replace(/\D/g, ''), amount)
+            syll.add(interaction.user.id, amount)
         }
         if (stock == 'red') {
-            sred.add(interaction.user.id.replace(/\D/g, ''), amount)
+            sred.add(interaction.user.id, amount)
         }
 
         // Remove Money
-        bals.rem(interaction.user.id.replace(/\D/g, ''), cost)
+        bals.rem(interaction.user.id, cost)
 
         // Create Embed
         let message = new EmbedBuilder()

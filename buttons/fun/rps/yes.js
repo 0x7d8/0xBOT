@@ -17,7 +17,7 @@ module.exports = {
         const otherbalance = await bals.get(sender.toString().replace(/\D/g, ''))
 
         // Check if User is Authorized
-        if (interaction.user.id.replace(/\D/g, '') != reciever.toString().replace(/\D/g, '')) {
+        if (interaction.user.id != reciever.toString().replace(/\D/g, '')) {
             // Create Embed
             let message = new EmbedBuilder()
         		.setTitle('» ERROR')
@@ -72,7 +72,7 @@ module.exports = {
         }
         if (lobby) {
             // Check if Reciever is Person
-            if (interaction.user.id.replace(/\D/g, '') == reciever.toString().replace(/\D/g, '')) return
+            if (interaction.user.id == reciever.toString().replace(/\D/g, '')) return
 
             // Create Embed
             let message = new EmbedBuilder()
@@ -101,7 +101,7 @@ module.exports = {
         }
         if (lobby) {
             // Check if Sender is Person
-            if (interaction.user.id.replace(/\D/g, '') == sender.toString().replace(/\D/g, '')) return
+            if (interaction.user.id == sender.toString().replace(/\D/g, '')) return
 
             // Create Embed
             let message = new EmbedBuilder()

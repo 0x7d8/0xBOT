@@ -40,14 +40,14 @@ module.exports = {
         // Set Variables
         const name = interaction.options.getString("name")
         const inhalt = interaction.options.getString("content")
-        const amount = await apis.get(interaction.user.id.replace(/\D/g, ''));
+        const amount = await apis.get(interaction.user.id);
 
        	// Check if API even exists
-        const path = '/paper-api/' + interaction.user.id.replace(/\D/g, '') + '/' + name
+        const path = '/paper-api/' + interaction.user.id + '/' + name
         if (fs.existsSync(path)) {
         
             // Edit File
-        	fs.writeFile('/paper-api/' + interaction.user.id.replace(/\D/g, '') + '/' + name, inhalt, function(err) {})
+        	fs.writeFile('/paper-api/' + interaction.user.id + '/' + name, inhalt, function(err) {})
             
         	// Create Embed
         	let message = new EmbedBuilder()

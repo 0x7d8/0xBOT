@@ -89,16 +89,16 @@ module.exports = {
         let stocks
 
         if (stock == 'green') {
-            stocks = await sgrn.get(interaction.user.id.replace(/\D/g, ''))
+            stocks = await sgrn.get(interaction.user.id)
         }
         if (stock == 'blue') {
-            stocks = await sblu.get(interaction.user.id.replace(/\D/g, ''))
+            stocks = await sblu.get(interaction.user.id)
         }
         if (stock == 'yellow') { 
-            stocks = await syll.get(interaction.user.id.replace(/\D/g, ''))
+            stocks = await syll.get(interaction.user.id)
         }
         if (stock == 'red') {
-            stocks = await sred.get(interaction.user.id.replace(/\D/g, ''))
+            stocks = await sred.get(interaction.user.id)
         }
 
         // Set Emoji
@@ -131,20 +131,20 @@ module.exports = {
         }
 
         // Add Money
-        bals.add(interaction.user.id.replace(/\D/g, ''), cash)
+        bals.add(interaction.user.id, cash)
 
         // Remove Stock Amount
         if (stock == 'green') {
-            sgrn.rem(interaction.user.id.replace(/\D/g, ''), amount)
+            sgrn.rem(interaction.user.id, amount)
         }
         if (stock == 'blue') {
-            sblu.rem(interaction.user.id.replace(/\D/g, ''), amount)
+            sblu.rem(interaction.user.id, amount)
         }
         if (stock == 'yellow') { 
-            syll.rem(interaction.user.id.replace(/\D/g, ''), amount)
+            syll.rem(interaction.user.id, amount)
         }
         if (stock == 'red') {
-            sred.rem(interaction.user.id.replace(/\D/g, ''), amount)
+            sred.rem(interaction.user.id, amount)
         }
 
         // Create Embed

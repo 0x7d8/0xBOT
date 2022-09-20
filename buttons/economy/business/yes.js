@@ -10,7 +10,7 @@ module.exports = {
     },
     async execute(interaction, client, lang, vote, business, userid, type) {
         // Set Variables
-        const balance = await bals.get(interaction.user.id.replace(/\D/g, ''))
+        const balance = await bals.get(interaction.user.id)
 
         // Translate to Business ID
         let businessid
@@ -149,10 +149,10 @@ module.exports = {
             }
 
             // Remove Money
-            bals.rem(interaction.user.id.replace(/\D/g, ''), cost)
+            bals.rem(interaction.user.id, cost)
 
             // Own Business
-            bsns.set('g-' + interaction.guild.id + '-' + businessid + '-OWNER', interaction.user.id.replace(/\D/g, ''))
+            bsns.set('g-' + interaction.guild.id + '-' + businessid + '-OWNER', interaction.user.id)
             bsns.set('u-' + interaction.user.id + '-BUSINESS', business)
 
             // Create Embed
@@ -172,7 +172,7 @@ module.exports = {
             bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] BUSINESSBUY : ' + name + ' : CONFIRM')
             return interaction.update({ embeds: [message.toJSON()], components: [row] })
         } else if (type === 'sell') {
-            const business = await bsns.get('u-' + interaction.user.id.replace(/\D/g, '') + '-BUSINESS')
+            const business = await bsns.get('u-' + interaction.user.id + '-BUSINESS')
 
             // Translate to Business ID
             let businessid
@@ -187,7 +187,7 @@ module.exports = {
             if (business == 'car dealership') { cost = 520000 }
 
             // Check if User has a Business
-            if (await bsns.get('u-' + interaction.user.id.replace(/\D/g, '') + '-BUSINESS', 'amount') === '0') {
+            if (await bsns.get('u-' + interaction.user.id + '-BUSINESS', 'amount') === '0') {
                 // Create Embed
                 let message = new EmbedBuilder()
                 	.setTitle('» ERROR')
@@ -256,10 +256,10 @@ module.exports = {
             }
 
             // Add Money
-            bals.add(interaction.user.id.replace(/\D/g, ''), (cost/2))
+            bals.add(interaction.user.id, (cost/2))
 
             // unOwn Business
-            bsns.set('u-' + interaction.user.id.replace(/\D/g, '') + '-BUSINESS', 0)
+            bsns.set('u-' + interaction.user.id + '-BUSINESS', 0)
             bsns.set('g-' + interaction.guild.id + '-' + businessid + '-OWNER', 0)
 
             // Send Message

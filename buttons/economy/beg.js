@@ -7,7 +7,7 @@ module.exports = {
     },
     async execute(interaction, client, lang, vote, reciever, amount) {
         // Set Variables
-        const balance = await bals.get(interaction.user.id.replace(/\D/g, ''));
+        const balance = await bals.get(interaction.user.id);
 
         // Check for enough Money
         if (balance < amount) {
@@ -52,7 +52,7 @@ module.exports = {
         }
 
         // Transfer Money
-        bals.rem(interaction.user.id.replace(/\D/g, ''), parseInt(amount))
+        bals.rem(interaction.user.id, parseInt(amount))
         bals.add(reciever.toString().replace(/\D/g, ''), parseInt(amount))
 
         // Create Embeds

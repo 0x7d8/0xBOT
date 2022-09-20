@@ -33,10 +33,10 @@ module.exports = {
         // Get Money
         let money
         if (user == null) {
-            money = await bals.get(interaction.user.id.replace(/\D/g, ''));
+            money = await bals.get(interaction.user.id);
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] BALANCE : ' + money + '€');
         } else {
-            money = await bals.get(user.toString().replace(/\D/g, ''));
+            money = await bals.get(user.id);
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] BALANCE : ' + user + ' : ' + money + '€');
         }
         

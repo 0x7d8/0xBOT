@@ -40,12 +40,12 @@ module.exports = {
         // Set Variables
         const name = interaction.options.getString("name")
         const inhalt = interaction.options.getString("content")
-        const amount = await apis.get(interaction.user.id.replace(/\D/g, ''));
+        const amount = await apis.get(interaction.user.id);
         const newamount = amount + 1
 
         // Check if API exists
-        const dir = '/paper-api/' + interaction.user.id.replace(/\D/g, '')
-        const path = '/paper-api/' + interaction.user.id.replace(/\D/g, '') + '/' + name
+        const dir = '/paper-api/' + interaction.user.id
+        const path = '/paper-api/' + interaction.user.id + '/' + name
         if (!fs.existsSync(dir)) {
             fs.mkdirSync(dir)
         }
@@ -91,21 +91,21 @@ module.exports = {
         // Create Embed
         let message = new EmbedBuilder()
             .setTitle('» PAPER API EDIT')
-  			.setDescription('You have created a new API!\nIts available here:\n**`https://api.paperstudios.de/user/' + interaction.user.id.replace(/\D/g, '') + '/' + name + '`**!')
+  			.setDescription('You have created a new API!\nIts available here:\n**`https://api.paperstudios.de/user/' + interaction.user.id + '/' + name + '`**!')
         	.setFooter({ text: '» ' + version + ' » SLOTS ' + newamount + '/5'});
 
         if (lang.toString() == "de") {
             message = new EmbedBuilder()
                 .setTitle('» PAPER API EDIT')
-  			    .setDescription('Du hast eine neue API erstellt!\nSie ist hier verfügbar:\n**`https://api.paperstudios.de/user/' + interaction.user.id.replace(/\D/g, '') + '/' + name + '`**!')
+  			    .setDescription('Du hast eine neue API erstellt!\nSie ist hier verfügbar:\n**`https://api.paperstudios.de/user/' + interaction.user.id + '/' + name + '`**!')
         	    .setFooter({ text: '» ' + version + ' » SLOTS ' + newamount + '/5'});
         }
         
         // Write File
-        fs.writeFile('/paper-api/' + interaction.user.id.replace(/\D/g, '') + '/' + name, inhalt, function(err) {})
+        fs.writeFile('/paper-api/' + interaction.user.id + '/' + name, inhalt, function(err) {})
 
         // Send Message
-        apis.add(interaction.user.id.replace(/\D/g, ''), 1)
+        apis.add(interaction.user.id, 1)
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] APICREATE : ' + name + ' : ' + inhalt.toUpperCase())
         return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
     },

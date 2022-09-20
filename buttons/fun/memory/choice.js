@@ -15,7 +15,7 @@ module.exports = {
         const [sender, reciever] = description
 
         // Check if User is playing
-        if (sender.toString().replace(/\D/g, '') != interaction.user.id.replace(/\D/g, '') && reciever.toString().replace(/\D/g, '') != interaction.user.id.replace(/\D/g, '')) {
+        if (sender.toString().replace(/\D/g, '') != interaction.user.id && reciever.toString().replace(/\D/g, '') != interaction.user.id) {
             // Create Embed
             let message = new EmbedBuilder()
         		.setTitle('» ERROR')
@@ -36,7 +36,7 @@ module.exports = {
 
         // Check Turn
         const turn = await eval('memorydatatu' + sender.toString().replace(/\D/g, ''))
-        if (interaction.user.id.replace(/\D/g, '') != turn) {
+        if (interaction.user.id != turn) {
             // Create Embed
             let message = new EmbedBuilder()
         		.setTitle('» ERROR')
@@ -70,41 +70,41 @@ module.exports = {
         // Set Variables
         await eval('global.memorydataf' + sel + sender.toString().replace(/\D/g, '') + ' = memorydatag' + sel + sender.toString().replace(/\D/g, ''))
         await eval('global.memorydatad' + sel + sender.toString().replace(/\D/g, '') + ' = true')
-        await eval('global.memorydatapca' + interaction.user.id.replace(/\D/g, '') + ' = memorydatapca' + interaction.user.id.replace(/\D/g, '') + ' + 1')
+        await eval('global.memorydatapca' + interaction.user.id + ' = memorydatapca' + interaction.user.id + ' + 1')
         let se = false
         let sno = false
         let nums = []
-        if (await eval('memorydatapca' + interaction.user.id.replace(/\D/g, '')) + ' < 2') {
-            if (await eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '.includes("' + await eval('memorydataf' + sel + sender.toString().replace(/\D/g, '')) + '")')) {
-                await eval('global.memorydatap' + interaction.user.id.replace(/\D/g, '') + ' = memorydatap' + interaction.user.id.replace(/\D/g, '') + ' + 1')
-                await eval('global.memorydatapca' + interaction.user.id.replace(/\D/g, '') + ' = 0')
+        if (await eval('memorydatapca' + interaction.user.id) + ' < 2') {
+            if (await eval('memorydatapc' + interaction.user.id + '.includes("' + await eval('memorydataf' + sel + sender.toString().replace(/\D/g, '')) + '")')) {
+                await eval('global.memorydatap' + interaction.user.id + ' = memorydatap' + interaction.user.id + ' + 1')
+                await eval('global.memorydatapca' + interaction.user.id + ' = 0')
 
-                if (interaction.user.id.replace(/\D/g, '') == sender.toString().replace(/\D/g, '')) {
-                    eval('global.memorydatabc' + await eval('memorydatapcn' + interaction.user.id.replace(/\D/g, '') + '[0]') + sender.replace(/\D/g, '') + ' = ButtonStyle.Primary')
+                if (interaction.user.id == sender.toString().replace(/\D/g, '')) {
+                    eval('global.memorydatabc' + await eval('memorydatapcn' + interaction.user.id + '[0]') + sender.replace(/\D/g, '') + ' = ButtonStyle.Primary')
                     eval('global.memorydatabc' + sel + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Primary')
                 }
-                if (interaction.user.id.replace(/\D/g, '') == reciever.toString().replace(/\D/g, '')) {
-                    eval('global.memorydatabc' + await eval('memorydatapcn' + interaction.user.id.replace(/\D/g, '') + '[0]') + sender.replace(/\D/g, '') + ' = ButtonStyle.Danger')
+                if (interaction.user.id == reciever.toString().replace(/\D/g, '')) {
+                    eval('global.memorydatabc' + await eval('memorydatapcn' + interaction.user.id + '[0]') + sender.replace(/\D/g, '') + ' = ButtonStyle.Danger')
                     eval('global.memorydatabc' + sel + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Danger')
                 }
-                await eval('global.memorydatapc' + interaction.user.id.replace(/\D/g, '') + ' = []')
-                await eval('global.memorydatapcn' + interaction.user.id.replace(/\D/g, '') + ' = []')
+                await eval('global.memorydatapc' + interaction.user.id + ' = []')
+                await eval('global.memorydatapcn' + interaction.user.id + ' = []')
                 sno = true
                 se = true
             }
         }
-        if (await eval('memorydatapca' + interaction.user.id.replace(/\D/g, '')) + ' < 2' && !sno) {
-            if (!await eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '.includes("' + await eval('memorydataf' + sel + sender.toString().replace(/\D/g, '')) + '")')) {
-                await eval('memorydatapc' + interaction.user.id.replace(/\D/g, '') + '.push("' + await eval('memorydataf' + sel + sender.toString().replace(/\D/g, '')) + '")')
-                await eval('memorydatapcn' + interaction.user.id.replace(/\D/g, '') + '.push("' + sel + '")')
+        if (await eval('memorydatapca' + interaction.user.id) + ' < 2' && !sno) {
+            if (!await eval('memorydatapc' + interaction.user.id + '.includes("' + await eval('memorydataf' + sel + sender.toString().replace(/\D/g, '')) + '")')) {
+                await eval('memorydatapc' + interaction.user.id + '.push("' + await eval('memorydataf' + sel + sender.toString().replace(/\D/g, '')) + '")')
+                await eval('memorydatapcn' + interaction.user.id + '.push("' + sel + '")')
                 await eval('global.memorydatad' + sel + sender.toString().replace(/\D/g, '') + ' = true')
                 se = false
             }
         }
-        if (await eval('memorydatapca' + interaction.user.id.replace(/\D/g, '') + ' > 1')) {
+        if (await eval('memorydatapca' + interaction.user.id + ' > 1')) {
             nums = []
-            nums[0] = (await eval('memorydatapcn' + interaction.user.id.replace(/\D/g, '') + '[0]'))
-            nums[1] = (await eval('memorydatapcn' + interaction.user.id.replace(/\D/g, '') + '[1]'))
+            nums[0] = (await eval('memorydatapcn' + interaction.user.id + '[0]'))
+            nums[1] = (await eval('memorydatapcn' + interaction.user.id + '[1]'))
 
 
             // Turn Switcher
@@ -118,9 +118,9 @@ module.exports = {
             }
 
 
-            await eval('global.memorydatapca' + interaction.user.id.replace(/\D/g, '') + ' = 0')
-            await eval('global.memorydatapc' + interaction.user.id.replace(/\D/g, '') + ' = []')
-            await eval('global.memorydatapcn' + interaction.user.id.replace(/\D/g, '') + ' = []')
+            await eval('global.memorydatapca' + interaction.user.id + ' = 0')
+            await eval('global.memorydatapc' + interaction.user.id + ' = []')
+            await eval('global.memorydatapcn' + interaction.user.id + ' = []')
             se = true
         }
 

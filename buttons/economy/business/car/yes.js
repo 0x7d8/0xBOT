@@ -10,7 +10,7 @@ module.exports = {
     },
     async execute(interaction, client, lang, vote, car, userid, type) {
         // Set Variables
-        const balance = await bals.get(interaction.user.id.replace(/\D/g, ''))
+        const balance = await bals.get(interaction.user.id)
 
         // Set Car Value
         let carvalue
@@ -89,9 +89,9 @@ module.exports = {
             }
 
             // Check if User already has a Car
-            if (await item.get(interaction.user.id.replace(/\D/g, '') + '-CAR', 'amount') !== 0) {
+            if (await item.get(interaction.user.id + '-CAR', 'amount') !== 0) {
                 // Translate to Car Names
-                const dbcar = await item.get(interaction.user.id.replace(/\D/g, '') + '-CAR', 'value')
+                const dbcar = await item.get(interaction.user.id + '-CAR', 'value')
                 if (dbcar == 'jeep') { name = '2016 JEEP PATRIOT SPORT' }
                 if (dbcar == 'kia') { name = '2022 KIA SORENTO' }
                 if (dbcar == 'tesla') { name = 'TESLA MODEL Y' }
@@ -165,17 +165,17 @@ module.exports = {
             }
 
             // Remove Money
-            bals.rem(interaction.user.id.replace(/\D/g, ''), cost)
+            bals.rem(interaction.user.id, cost)
 
             // Own Car
-            item.set(interaction.user.id.replace(/\D/g, '') + '-CAR', car, carvalue)
+            item.set(interaction.user.id + '-CAR', car, carvalue)
 
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] CARBUY : ' + name + ' : CONFIRM')
             return interaction.update({ embeds: [message.toJSON()], components: [row] })
         } else if (type === 'sell') {
             // Check if User has a Car
-            if (await item.get(interaction.user.id.replace(/\D/g, '') + '-CAR', 'amount') === 0) {
+            if (await item.get(interaction.user.id + '-CAR', 'amount') === 0) {
                 // Create Embed
                 let message = new EmbedBuilder()
                 	.setTitle('» ERROR')
@@ -244,10 +244,10 @@ module.exports = {
             }
 
             // Add Money
-            bals.add(interaction.user.id.replace(/\D/g, ''), (cost/2))
+            bals.add(interaction.user.id, (cost/2))
 
             // unOwn Car
-            item.set(interaction.user.id.replace(/\D/g, '') + '-CAR', '0', 0)
+            item.set(interaction.user.id + '-CAR', '0', 0)
 
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] CARSELL : ' + name + ' : CONFIRM')

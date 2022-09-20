@@ -36,10 +36,10 @@ module.exports = {
         }
 
         // Set Variables
-        const business = await bsns.get('u-' + interaction.user.id.replace(/\D/g, '') + '-BUSINESS')
+        const business = await bsns.get('u-' + interaction.user.id + '-BUSINESS')
 
         // Check if Command is Allowed :P
-        if (interaction.user.id.replace(/\D/g, '') != "745619551865012274" && interaction.user.id.replace(/\D/g, '') != "994495187617321010") {
+        if (interaction.user.id != "745619551865012274" && interaction.user.id != "994495187617321010") {
             // Create Embed
             const err = new EmbedBuilder()
                 .setTitle('» FEHLER')
@@ -69,7 +69,7 @@ module.exports = {
         }
 
         // Check if User has a Business
-        if (await bsns.get('u-' + interaction.user.id.replace(/\D/g, '') + '-BUSINESS') === '0') {
+        if (await bsns.get('u-' + interaction.user.id + '-BUSINESS') === '0') {
             // Create Embed
             let message = new EmbedBuilder()
             	.setTitle('» ERROR')

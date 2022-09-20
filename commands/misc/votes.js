@@ -33,10 +33,10 @@ module.exports = {
         // Set User ID
         let votes
         if (user == null) {
-            votes = await votef.get(interaction.user.id.replace(/\D/g, '') + '-A');
+            votes = await votef.get(interaction.user.id + '-A');
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] VOTES : ' + votes);
         } else {
-            votes = await votef.get(user.toString().replace(/\D/g, '') + '-A');
+            votes = await votef.get(user.id + '-A');
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] VOTES : ' + user + ' : ' + votes);
         }
         

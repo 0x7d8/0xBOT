@@ -40,11 +40,11 @@ module.exports = {
         const random = Math.floor(Math.random() * (4 - 1 + 1)) + 1;
 
         // Cooldown
-        if (cooldown.get(interaction.user.id.replace(/\D/g, '')) - Date.now() > 0) {
+        if (cooldown.get(interaction.user.id) - Date.now() > 0) {
         	// Translate Vars
             let use
             let cdown
-        	const timeLeft = cooldown.get(interaction.user.id.replace(/\D/g, '')) - Date.now();
+        	const timeLeft = cooldown.get(interaction.user.id) - Date.now();
             use = 's'
             cdown = timeLeft / 1000;
             if (cdown > 60) { cdown = timeLeft / 1000 / 60; use = 'm' }
@@ -85,10 +85,10 @@ module.exports = {
             // Check for Car Boost
             let carboost = false
             let carboostam
-            const car = await item.get(interaction.user.id.replace(/\D/g, '') + '-CAR', 'value')
+            const car = await item.get(interaction.user.id + '-CAR', 'value')
             if (car !== 0) {
                 carboost = true
-                carboostam = await item.get(interaction.user.id.replace(/\D/g, '') + '-CAR', 'amount')
+                carboostam = await item.get(interaction.user.id + '-CAR', 'amount')
             }
             
             // Set Extra Text
@@ -139,11 +139,11 @@ module.exports = {
             }
         
         	// Send Money
-        	bals.add(interaction.user.id.replace(/\D/g, ''), resultcar)
+        	bals.add(interaction.user.id, resultcar)
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] WORK : ' + resultcar + '€');
             
             // Set Cooldown
-			cooldown.set(interaction.user.id.replace(/\D/g, ''), Date.now() + time);
+			cooldown.set(interaction.user.id, Date.now() + time);
             setTimeout(() => cooldown.delete(), time)
             
             // Send Message

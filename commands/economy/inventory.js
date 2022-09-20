@@ -32,10 +32,10 @@ module.exports = {
             hbombs = await item.get(interaction.user.id + '-HBOMBS-' + interaction.guild.id, 'amount')
             cbombs = await item.get(interaction.user.id + '-CBOMBS-' + interaction.guild.id, 'amount')
         } else {
-            nbombs = await item.get(user.toString().replace(/\D/g, '') + '-NBOMBS-' + interaction.guild.id, 'amount')
-            mbombs = await item.get(user.toString().replace(/\D/g, '') + '-MBOMBS-' + interaction.guild.id, 'amount')
-            hbombs = await item.get(user.toString().replace(/\D/g, '') + '-HBOMBS-' + interaction.guild.id, 'amount')
-            cbombs = await item.get(user.toString().replace(/\D/g, '') + '-CBOMBS-' + interaction.guild.id, 'amount')
+            nbombs = await item.get(user.id + '-NBOMBS-' + interaction.guild.id, 'amount')
+            mbombs = await item.get(user.id + '-MBOMBS-' + interaction.guild.id, 'amount')
+            hbombs = await item.get(user.id + '-HBOMBS-' + interaction.guild.id, 'amount')
+            cbombs = await item.get(user.id + '-CBOMBS-' + interaction.guild.id, 'amount')
         }
 
         // Get Userinfo

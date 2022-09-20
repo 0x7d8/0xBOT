@@ -13,7 +13,7 @@ module.exports = {
         const [sender, reciever] = description
 
         // Check if User is Authorized
-        if (interaction.user.id.replace(/\D/g, '') != reciever.toString().replace(/\D/g, '') && interaction.user.id.replace(/\D/g, '') != sender.toString().replace(/\D/g, '')) {
+        if (interaction.user.id != reciever.toString().replace(/\D/g, '') && interaction.user.id != sender.toString().replace(/\D/g, '')) {
             // Create Embed
             let message = new EmbedBuilder()
         		.setTitle('» ERROR')
@@ -75,13 +75,13 @@ module.exports = {
         // Create Embed
         let message = new EmbedBuilder()
         .setTitle('» TICTACTOE')
-        .setDescription('» <@' + interaction.user.id.replace(/\D/g, '') + '> said **NO**.')
+        .setDescription('» <@' + interaction.user.id + '> said **NO**.')
         .setFooter({ text: '» ' + vote + ' » ' + version });
 
         if (lang.toString() == "de") {
             message = new EmbedBuilder()
                 .setTitle('» TICTACTOE')
-                .setDescription('» <@' + interaction.user.id.replace(/\D/g, '') + '> hat **NEIN** gesagt.')
+                .setDescription('» <@' + interaction.user.id + '> hat **NEIN** gesagt.')
                 .setFooter({ text: '» ' + vote + ' » ' + version });
         }
 

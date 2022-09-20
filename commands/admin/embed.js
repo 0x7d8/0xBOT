@@ -39,7 +39,7 @@ module.exports = {
 
         // Create Embed
         let message
-        if (interaction.user.id.replace(/\D/g, '') != '745619551865012274') {
+        if (interaction.user.id != '745619551865012274') {
             message = new EmbedBuilder()
                 .setTitle(titel)
   			    .setDescription(nachricht)

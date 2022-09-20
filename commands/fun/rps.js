@@ -56,8 +56,8 @@ module.exports = {
         // Set Variables
         const user = interaction.options.getUser("user")
         let bet = interaction.options.getInteger("bet")
-        const money = await bals.get(interaction.user.id.replace(/\D/g, ''));
-        const othermoney = await bals.get(user.toString().replace(/\D/g, ''));
+        const money = await bals.get(interaction.user.id);
+        const othermoney = await bals.get(user.id);
 
         // Check if Target is Bot
         const userinfo = await client.users.fetch(user);
@@ -76,7 +76,7 @@ module.exports = {
             }
             
             // Send Message
-            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] RPS : ' + user.toString().replace(/\D/g, '') + ' : BOT')
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] RPS : ' + user.id + ' : BOT')
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
@@ -89,7 +89,7 @@ module.exports = {
             lobby = false
         }
         try {
-            eval('rpslc' + interaction.user.id.replace(/\D/g, ''))
+            eval('rpslc' + interaction.user.id)
             lobby = true
         } catch (e) {
             if (lobby) { lobby = false }
@@ -109,13 +109,13 @@ module.exports = {
             }
             
             // Send Message
-            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] RPS : ' + user.toString().replace(/\D/g, '') + ' : ALREADYLOBBY')
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] RPS : ' + user.id + ' : ALREADYLOBBY')
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
         // Check if Reciever is already in a Lobby
         try {
-            eval('rpss' + user.toString().replace(/\D/g, ''))
+            eval('rpss' + user.id)
             lobby = true
         } catch (e) {
             lobby = false
@@ -124,18 +124,18 @@ module.exports = {
             // Create Embed
             let message = new EmbedBuilder()
         		.setTitle('» ERROR')
-        		.setDescription('» <@' + user.toString().replace(/\D/g, '') + '> is already in a Lobby!')
+        		.setDescription('» <@' + user.id + '> is already in a Lobby!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang.toString() == "de") {
                 message = new EmbedBuilder()
         		    .setTitle('» FEHLER')
-        		    .setDescription('» <@' + user.toString().replace(/\D/g, '') + '> ist schon in einer Lobby!')
+        		    .setDescription('» <@' + user.id + '> ist schon in einer Lobby!')
         		    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
             
             // Send Message
-            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] RPS : ' + user.toString().replace(/\D/g, '') + ' : ALREADYLOBBY')
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] RPS : ' + user.id + ' : ALREADYLOBBY')
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
@@ -155,12 +155,12 @@ module.exports = {
             }
             
             // Send Message
-            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] RPS : ' + user.toString().replace(/\D/g, '') + ' : NEGATIVEMONEY : ' + bet + '€')
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] RPS : ' + user.id + ' : NEGATIVEMONEY : ' + bet + '€')
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
         // Check if User is Author
-        if (interaction.user.id == user.toString().replace(/\D/g, '')) {
+        if (interaction.user.id == user.id) {
             // Create Embed
             let message = new EmbedBuilder()
             	.setTitle('» ERROR')
@@ -175,7 +175,7 @@ module.exports = {
             }
 
             // Send Message
-            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] RPS : ' + user.toString().replace(/\D/g, '') + ' : ' + bet + '€ : SAMEPERSON')
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] RPS : ' + user.id + ' : ' + bet + '€ : SAMEPERSON')
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
@@ -197,7 +197,7 @@ module.exports = {
             }
             
             // Send Message
-            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] RPS : ' + user.toString().replace(/\D/g, '') + ' : NOTENOUGHMONEY')
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] RPS : ' + user.id + ' : NOTENOUGHMONEY')
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
         if (othermoney < bet && bet != null) {
@@ -206,18 +206,18 @@ module.exports = {
             // Create Embed
             let message = new EmbedBuilder()
             	.setTitle('» ERROR')
-  				.setDescription('» <@' + user.toString().replace(/\D/g, '') + '> doesnt have enough Money for that, he is Missing **$' + missing + '**!')
+  				.setDescription('» <@' + user.id + '> doesnt have enough Money for that, he is Missing **$' + missing + '**!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang.toString() == "de") {
                 message = new EmbedBuilder()
             	    .setTitle('» FEHLER')
-  				    .setDescription('» <@' + user.toString().replace(/\D/g, '') + '> hat dafür nicht genug Geld, im fehlen **' + missing + '€**!')
+  				    .setDescription('» <@' + user.id + '> hat dafür nicht genug Geld, im fehlen **' + missing + '€**!')
             	    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
             
             // Send Message
-            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] RPS : ' + user.toString().replace(/\D/g, '') + ' : NOTENOUGHMONEY')
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] RPS : ' + user.id + ' : NOTENOUGHMONEY')
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
@@ -254,23 +254,23 @@ module.exports = {
 			    );
         }
 
-        eval('global.rpslc' + interaction.user.id.replace(/\D/g, '') + ' = true')
+        eval('global.rpslc' + interaction.user.id + ' = true')
         
         // Create Embed
         let message = new EmbedBuilder()
         	.setTitle('» ROCK PAPER SCISSORS')
-  			.setDescription('» <@' + interaction.user.id.replace(/\D/g, '') + '> challenges you, <@' + user.toString().replace(/\D/g, '') + '> to a battle of Rock Paper Scissors! The Bet is **$' + bet + '**.\nDo you accept?\n\n» This Request expires <t:' + (Math.floor(+new Date() / 1000) + 29) + ':R>')
+  			.setDescription('» <@' + interaction.user.id + '> challenges you, <@' + user.id + '> to a battle of Rock Paper Scissors! The Bet is **$' + bet + '**.\nDo you accept?\n\n» This Request expires <t:' + (Math.floor(+new Date() / 1000) + 29) + ':R>')
         	.setFooter({ text: '» ' + vote + ' » ' + version });
 
         if (lang.toString() == "de") {
             message = new EmbedBuilder()
         	    .setTitle('» SCHERE STEIN PAPIER')
-  			    .setDescription('» <@' + interaction.user.id.replace(/\D/g, '') + '> fordert dich, <@' + user.toString().replace(/\D/g, '') + '> zu einem Spiel von Schere Stein Papier heraus! Die Wette ist **' + bet + '€**.\nAkzeptierst du?\n\n» Diese Anfrage wird ungültig <t:' + (Math.floor(+new Date() / 1000) + 29) + ':R>')
+  			    .setDescription('» <@' + interaction.user.id + '> fordert dich, <@' + user.id + '> zu einem Spiel von Schere Stein Papier heraus! Die Wette ist **' + bet + '€**.\nAkzeptierst du?\n\n» Diese Anfrage wird ungültig <t:' + (Math.floor(+new Date() / 1000) + 29) + ':R>')
         	    .setFooter({ text: '» ' + vote + ' » ' + version });
         }
 
         // Send Message
-        bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] RPS : ' + user.toString().replace(/\D/g, '') + ' : ' + bet + '€')
+        bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] RPS : ' + user.id + ' : ' + bet + '€')
         interaction.reply({ embeds: [message.toJSON()], components: [row] })
 
         const expiration = async () => {
@@ -286,18 +286,18 @@ module.exports = {
             // Check if Message wasnt already answered with NO
             let sno
             try {
-                eval('rpstf' + interaction.user.id.replace(/\D/g, ''))
+                eval('rpstf' + interaction.user.id)
                 sno = true
             } catch (e) {
                 sno = false
             }
             let ano = false
             if (sno) {
-                if (eval('rpstf' + interaction.user.id.replace(/\D/g, '') + ' == true')) { eval('delete rpstf' + interaction.user.id.replace(/\D/g, '')); ano = true }
+                if (eval('rpstf' + interaction.user.id + ' == true')) { eval('delete rpstf' + interaction.user.id); ano = true }
                 if (ano) return
             }
 
-            eval('delete rpslc' + interaction.user.id.replace(/\D/g, ''))
+            eval('delete rpslc' + interaction.user.id)
 
             // Create Buttons
             row = new ActionRowBuilder()
@@ -347,7 +347,7 @@ module.exports = {
                     .setFooter({ text: '» ' + vote + ' » ' + version });
             }
 
-            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] RPS : ' + user.toString().replace(/\D/g, '') + ' : EXPIRED')
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] RPS : ' + user.id + ' : EXPIRED')
             interaction.editReply({ embeds: [message.toJSON()], components: [row] }).catch((error) => {})
         }
 

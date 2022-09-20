@@ -50,22 +50,22 @@ module.exports = {
         // Set Variables
         const slots = interaction.options.getString("slots")
 
-        const balance = await bals.get(interaction.user.id.replace(/\D/g, ''));
+        const balance = await bals.get(interaction.user.id);
 
-        green = await sgrn.get(interaction.user.id.replace(/\D/g, ''));
-        greenmax = await sgrnx.get(interaction.user.id.replace(/\D/g, ''));
-        blue = await sblu.get(interaction.user.id.replace(/\D/g, ''));
-        bluemax = await sblux.get(interaction.user.id.replace(/\D/g, ''));
-        yellow = await syll.get(interaction.user.id.replace(/\D/g, ''));
-        yellowmax = await syllx.get(interaction.user.id.replace(/\D/g, ''));
-        red = await sred.get(interaction.user.id.replace(/\D/g, ''));
-        redmax = await sredx.get(interaction.user.id.replace(/\D/g, ''));
+        green = await sgrn.get(interaction.user.id);
+        greenmax = await sgrnx.get(interaction.user.id);
+        blue = await sblu.get(interaction.user.id);
+        bluemax = await sblux.get(interaction.user.id);
+        yellow = await syll.get(interaction.user.id);
+        yellowmax = await syllx.get(interaction.user.id);
+        red = await sred.get(interaction.user.id);
+        redmax = await sredx.get(interaction.user.id);
 
         // Convert Max Stocks
-        if (greenmax == 0) { greenmax = 10; sgrnx.add(interaction.user.id.replace(/\D/g, ''), 10) }
-        if (bluemax == 0) { bluemax = 10; sblux.add(interaction.user.id.replace(/\D/g, ''), 10) }
-        if (yellowmax == 0) { yellowmax = 10; syllx.add(interaction.user.id.replace(/\D/g, ''), 10) }
-        if (redmax == 0) { redmax = 10; sredx.add(interaction.user.id.replace(/\D/g, ''), 10) }
+        if (greenmax == 0) { greenmax = 10; sgrnx.add(interaction.user.id, 10) }
+        if (bluemax == 0) { bluemax = 10; sblux.add(interaction.user.id, 10) }
+        if (yellowmax == 0) { yellowmax = 10; syllx.add(interaction.user.id, 10) }
+        if (redmax == 0) { redmax = 10; sredx.add(interaction.user.id, 10) }
 
         // Calculate Cost
         const cost = parseInt(slots) * 75000
@@ -93,13 +93,13 @@ module.exports = {
         }
 
         // Add Stock Amount
-        sgrnx.add(interaction.user.id.replace(/\D/g, ''), parseInt(slots))
-        sblux.add(interaction.user.id.replace(/\D/g, ''), parseInt(slots))
-        syllx.add(interaction.user.id.replace(/\D/g, ''), parseInt(slots))
-        sredx.add(interaction.user.id.replace(/\D/g, ''), parseInt(slots))
+        sgrnx.add(interaction.user.id, parseInt(slots))
+        sblux.add(interaction.user.id, parseInt(slots))
+        syllx.add(interaction.user.id, parseInt(slots))
+        sredx.add(interaction.user.id, parseInt(slots))
 
         // Remove Money
-        bals.rem(interaction.user.id.replace(/\D/g, ''), cost)
+        bals.rem(interaction.user.id, cost)
 
         // Create Embed
         let message

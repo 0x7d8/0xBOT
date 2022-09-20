@@ -91,13 +91,13 @@ module.exports = {
             // Create Embed
             let message = new EmbedBuilder()
                 .setTitle('» BUY BUSINESS')
-                .setDescription('» <@' + interaction.user.id.replace(/\D/g, '') + '> said **NO** to a **' + name + '**.')
+                .setDescription('» <@' + interaction.user.id + '> said **NO** to a **' + name + '**.')
                 .setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang.toString() == "de") {
                 message = new EmbedBuilder()
                     .setTitle('» GESCHÄFT KAUFEN')
-                    .setDescription('» <@' + interaction.user.id.replace(/\D/g, '') + '> hat **NEIN** zu einem **' + name + '** gesagt.')
+                    .setDescription('» <@' + interaction.user.id + '> hat **NEIN** zu einem **' + name + '** gesagt.')
                     .setFooter({ text: '» ' + vote + ' » ' + version });
             }
 
@@ -108,13 +108,13 @@ module.exports = {
             // Create Embed
             let message = new EmbedBuilder()
                 .setTitle('» SELL BUSINESS')
-                .setDescription('» <@' + interaction.user.id.replace(/\D/g, '') + '> said **NO** to selling his **' + name + '**.')
+                .setDescription('» <@' + interaction.user.id + '> said **NO** to selling his **' + name + '**.')
                 .setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang.toString() == "de") {
                 message = new EmbedBuilder()
                     .setTitle('» GESCHÄFT VERKAUFEN')
-                    .setDescription('» <@' + interaction.user.id.replace(/\D/g, '') + '> hat **NEIN** zum verkaufen von seinem **' + name + '** gesagt.')
+                    .setDescription('» <@' + interaction.user.id + '> hat **NEIN** zum verkaufen von seinem **' + name + '** gesagt.')
                     .setFooter({ text: '» ' + vote + ' » ' + version });
             }
 

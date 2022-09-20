@@ -171,13 +171,13 @@ client.on('interactionCreate', async interaction => {
         		}
 
 				// Log Error
-				console.log('[0xBOT] [!] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] ERROR : ' + errorid + ' :')
+				console.log('[0xBOT] [!] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] [CMD] ERROR : ' + errorid + ' :')
 				console.error(e)
 				const date_ob = new Date()
 				const day = ("0" + date_ob.getDate()).slice(-2)
 				const month = ("0" + (date_ob.getMonth() + 1)).slice(-2)
 				const year = date_ob.getFullYear()
-				fs.appendFileSync('logs/e' + day + '-' + month + '-' + year + '.log', '[0xBOT] [!] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] ERROR : ' + errorid + ' :\n')
+				fs.appendFileSync('logs/e' + day + '-' + month + '-' + year + '.log', '[0xBOT] [!] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] [CMD] ERROR : ' + errorid + ' :\n')
 				fs.appendFileSync('logs/e' + day + '-' + month + '-' + year + '.log', e.stack + '\n\n')
         
     			// Create Error Embed
@@ -325,13 +325,13 @@ client.on('interactionCreate', async interaction => {
         		}
 
 				// Log Error
-				console.log('[0xBOT] [!] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] ERROR : ' + errorid + ' :')
+				console.log('[0xBOT] [!] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] [BTN] ERROR : ' + errorid + ' :')
 				console.error(e)
 				const date_ob = new Date()
 				const day = ("0" + date_ob.getDate()).slice(-2)
 				const month = ("0" + (date_ob.getMonth() + 1)).slice(-2)
 				const year = date_ob.getFullYear()
-				fs.appendFileSync('logs/e' + day + '-' + month + '-' + year + '.log', '[0xBOT] [!] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] ERROR : ' + errorid + ' :\n')
+				fs.appendFileSync('logs/e' + day + '-' + month + '-' + year + '.log', '[0xBOT] [!] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] [BTN] ERROR : ' + errorid + ' :\n')
 				fs.appendFileSync('logs/e' + day + '-' + month + '-' + year + '.log', e.stack + '\n\n')
         
     			// Create Error Embed

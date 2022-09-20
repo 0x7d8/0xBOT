@@ -29,10 +29,10 @@ module.exports = {
     async execute(interaction, client, lang, vote) {
         // Set Variables
         const name = interaction.options.getString("name")
-        const amount = await apis.get(interaction.user.id.replace(/\D/g, ''));
+        const amount = await apis.get(interaction.user.id);
 
        	// Check if API even exists
-        const path = '/paper-api/' + interaction.user.id.replace(/\D/g, '') + '/' + name
+        const path = '/paper-api/' + interaction.user.id + '/' + name
         try {
         	
             // Read File
@@ -41,13 +41,13 @@ module.exports = {
         	// Create Embed
         	let message = new EmbedBuilder()
             	.setTitle('» PAPER API EDIT')
-  				.setDescription('» The Content of **' + name + '**:\n`' + data + '`\n» The Link:\n**`https://api.paperstudios.de/user/' + interaction.user.id.replace(/\D/g, '') + '/' + name + '`**')
+  				.setDescription('» The Content of **' + name + '**:\n`' + data + '`\n» The Link:\n**`https://api.paperstudios.de/user/' + interaction.user.id + '/' + name + '`**')
         		.setFooter({ text: '» ' + version + ' » SLOTS ' + amount + '/5'});
 
             if (lang.toString() == "de") {
                 message = new EmbedBuilder()
             	    .setTitle('» PAPER API EDIT')
-  				    .setDescription('» Der Inhalt von **' + name + '**:\n`' + data + '`\n» Der Link:\n**`https://api.paperstudios.de/user/' + interaction.user.id.replace(/\D/g, '') + '/' + name + '`**')
+  				    .setDescription('» Der Inhalt von **' + name + '**:\n`' + data + '`\n» Der Link:\n**`https://api.paperstudios.de/user/' + interaction.user.id + '/' + name + '`**')
         		    .setFooter({ text: '» ' + version + ' » SLOTS ' + amount + '/5'});
             }
 

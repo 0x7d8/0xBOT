@@ -15,7 +15,7 @@ module.exports = {
         const [sender, reciever] = description
 
         // Check if User is playing
-        if (sender.toString().replace(/\D/g, '') != interaction.user.id.replace(/\D/g, '') && reciever.toString().replace(/\D/g, '') != interaction.user.id.replace(/\D/g, '')) {
+        if (sender.toString().replace(/\D/g, '') != interaction.user.id && reciever.toString().replace(/\D/g, '') != interaction.user.id) {
             // Create Embed
             let message = new EmbedBuilder()
         		.setTitle('» ERROR')
@@ -36,7 +36,7 @@ module.exports = {
 
         // Check Turn
         const turn = await eval('tttdatatu' + sender.toString().replace(/\D/g, ''))
-        if (interaction.user.id.replace(/\D/g, '') != turn) {
+        if (interaction.user.id != turn) {
             // Create Embed
             let message = new EmbedBuilder()
         		.setTitle('» ERROR')
@@ -72,12 +72,12 @@ module.exports = {
         await eval('global.tttdatad' + sel + sender.toString().replace(/\D/g, '') + ' = true')
 
         const msel = sel - 1
-        if (interaction.user.id.replace(/\D/g, '') == sender.toString().replace(/\D/g, '')) {
+        if (interaction.user.id == sender.toString().replace(/\D/g, '')) {
             await eval('global.tttdataf' + sel + sender.toString().replace(/\D/g, '') + ' = "1020411088245903451"')
             await eval('global.tttdatabc' + sel + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Primary')
             await eval('global.tttdata1a' + sender.toString().replace(/\D/g, '') + '[' + msel+ '] = true')
         }
-        if (interaction.user.id.replace(/\D/g, '') == reciever.toString().replace(/\D/g, '')) {
+        if (interaction.user.id == reciever.toString().replace(/\D/g, '')) {
             await eval('global.tttdataf' + sel + sender.toString().replace(/\D/g, '') + ' = "1020411023414542447"')
             await eval('global.tttdatabc' + sel + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Danger')
             await eval('global.tttdata2a' + sender.toString().replace(/\D/g, '') + '[' + msel + '] = true')

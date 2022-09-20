@@ -29,11 +29,11 @@ module.exports = {
     async execute(interaction, client, lang, vote) {
         // Set Variables
         const name = interaction.options.getString("name")
-        const amount = await apis.get(interaction.user.id.replace(/\D/g, ''));
+        const amount = await apis.get(interaction.user.id);
         const newamount = amount - 1
 
        	// Check if API even exists
-        const path = '/paper-api/' + interaction.user.id.replace(/\D/g, '') + '/' + name
+        const path = '/paper-api/' + interaction.user.id + '/' + name
         try {
         	// Create Embed
         	let message = new EmbedBuilder()
@@ -52,7 +52,7 @@ module.exports = {
         	fs.unlinkSync(path)
 
         	// Send Message
-        	apis.rem(interaction.user.id.replace(/\D/g, ''), 1)
+        	apis.rem(interaction.user.id, 1)
         	bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] APIREMOVE : ' + name)
         	return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         } catch (err) {

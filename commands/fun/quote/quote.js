@@ -60,9 +60,9 @@ module.exports = {
         const autor = interaction.options.getUser("author")
      
         // Cooldown
-        if (cooldown.get(interaction.user.id.replace(/\D/g, '')) - Date.now() > 0) {
+        if (cooldown.get(interaction.user.id) - Date.now() > 0) {
             // Translate Vars
-        	const timeLeft = cooldown.get(interaction.user.id.replace(/\D/g, '')) - Date.now(); 
+        	const timeLeft = cooldown.get(interaction.user.id) - Date.now(); 
             const cdown = timeLeft / 1000;
             
             // Create Embed
@@ -86,16 +86,16 @@ module.exports = {
         // Check if there is a author specified
         let message
         if (autor == null) {
-            const amount = await quts.get(interaction.user.id.replace(/\D/g, '')) + 1;
+            const amount = await quts.get(interaction.user.id) + 1;
         	message = new EmbedBuilder()
             	.setTitle('» A WISE QUOTE')
-  				.setDescription('» "' + zitat + '" ~<@' + interaction.user.id.replace(/\D/g, '') + '>')
+  				.setDescription('» "' + zitat + '" ~<@' + interaction.user.id + '>')
             	.setFooter({ text: '» ' + version + ' » QUOTES: ' + amount});
 
             if (lang.toString() == "de") {
                 message = new EmbedBuilder()
             	    .setTitle('» EIN WEISES ZITAT')
-  				    .setDescription('» "' + zitat + '" ~<@' + interaction.user.id.replace(/\D/g, '') + '>')
+  				    .setDescription('» "' + zitat + '" ~<@' + interaction.user.id + '>')
             	    .setFooter({ text: '» ' + version + ' » ZITATE: ' + amount});
             }
             
@@ -119,7 +119,7 @@ module.exports = {
         }
         
         // Set Cooldown
-		cooldown.set(interaction.user.id.replace(/\D/g, ''), Date.now() + time);
+		cooldown.set(interaction.user.id, Date.now() + time);
         setTimeout(() => cooldown.delete(), time)
 
         // Send Message

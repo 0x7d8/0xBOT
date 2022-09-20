@@ -51,35 +51,35 @@ module.exports = {
         let red, redmax
 
         if (user == null) {
-            green = await sgrn.get(interaction.user.id.replace(/\D/g, ''));
-            greenmax = await sgrnx.get(interaction.user.id.replace(/\D/g, ''));
-            blue = await sblu.get(interaction.user.id.replace(/\D/g, ''));
-            bluemax = await sblux.get(interaction.user.id.replace(/\D/g, ''));
-            yellow = await syll.get(interaction.user.id.replace(/\D/g, ''));
-            yellowmax = await syllx.get(interaction.user.id.replace(/\D/g, ''));
-            red = await sred.get(interaction.user.id.replace(/\D/g, ''));
-            redmax = await sredx.get(interaction.user.id.replace(/\D/g, ''));
+            green = await sgrn.get(interaction.user.id);
+            greenmax = await sgrnx.get(interaction.user.id);
+            blue = await sblu.get(interaction.user.id);
+            bluemax = await sblux.get(interaction.user.id);
+            yellow = await syll.get(interaction.user.id);
+            yellowmax = await syllx.get(interaction.user.id);
+            red = await sred.get(interaction.user.id);
+            redmax = await sredx.get(interaction.user.id);
 
             // Convert Max Stocks
-            if (greenmax == 0) { greenmax = 10; sgrnx.add(interaction.user.id.replace(/\D/g, ''), 10) }
-            if (bluemax == 0) { bluemax = 10; sblux.add(interaction.user.id.replace(/\D/g, ''), 10) }
-            if (yellowmax == 0) { yellowmax = 10; syllx.add(interaction.user.id.replace(/\D/g, ''), 10) }
-            if (redmax == 0) { redmax = 10; sredx.add(interaction.user.id.replace(/\D/g, ''), 10) }
+            if (greenmax == 0) { greenmax = 10; sgrnx.add(interaction.user.id, 10) }
+            if (bluemax == 0) { bluemax = 10; sblux.add(interaction.user.id, 10) }
+            if (yellowmax == 0) { yellowmax = 10; syllx.add(interaction.user.id, 10) }
+            if (redmax == 0) { redmax = 10; sredx.add(interaction.user.id, 10) }
         } else {
-            green = await sgrn.get(user.toString().replace(/\D/g, ''));
-            greenmax = await sgrnx.get(user.toString().replace(/\D/g, ''));
-            blue = await sblu.get(user.toString().replace(/\D/g, ''));
-            bluemax = await sblux.get(user.toString().replace(/\D/g, ''));
-            yellow = await syll.get(user.toString().replace(/\D/g, ''));
-            yellowmax = await syllx.get(user.toString().replace(/\D/g, ''));
-            red = await sred.get(user.toString().replace(/\D/g, ''));
-            redmax = await sredx.get(user.toString().replace(/\D/g, ''));
+            green = await sgrn.get(user.id);
+            greenmax = await sgrnx.get(user.id);
+            blue = await sblu.get(user.id);
+            bluemax = await sblux.get(user.id);
+            yellow = await syll.get(user.id);
+            yellowmax = await syllx.get(user.id);
+            red = await sred.get(user.id);
+            redmax = await sredx.get(user.id);
 
             // Convert Max Stocks
-            if (greenmax == 0) { greenmax = 10; sgrnx.add(user.toString().replace(/\D/g, ''), 10) }
-            if (bluemax == 0) { bluemax = 10; sblux.add(user.toString().replace(/\D/g, ''), 10) }
-            if (yellowmax == 0) { yellowmax = 10; syllx.add(user.toString().replace(/\D/g, ''), 10) }
-            if (redmax == 0) { redmax = 10; sredx.add(user.toString().replace(/\D/g, ''), 10) }
+            if (greenmax == 0) { greenmax = 10; sgrnx.add(user.id, 10) }
+            if (bluemax == 0) { bluemax = 10; sblux.add(user.id, 10) }
+            if (yellowmax == 0) { yellowmax = 10; syllx.add(user.id, 10) }
+            if (redmax == 0) { redmax = 10; sredx.add(user.id, 10) }
         }
 
         // Get Userinfo

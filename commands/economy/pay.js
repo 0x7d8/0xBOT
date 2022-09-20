@@ -34,7 +34,7 @@ module.exports = {
         // Set Variables
         const user = interaction.options.getUser("user")
         const anzahl = interaction.options.getInteger("amount")
-        const money = await bals.get(interaction.user.id.replace(/\D/g, ''));
+        const money = await bals.get(interaction.user.id);
 
         // Check if Balance is Minus
         if (anzahl < 0) {
@@ -99,14 +99,14 @@ module.exports = {
         }
         
         // Check if User is Author
-        if (interaction.user.id.replace(/\D/g, '') == user) {
+        if (interaction.user.id == user) {
             return interaction.reply({ embeds: [err2.toJSON()], ephemeral: true })
         }
         
         // Set Money
         if (money >= anzahl) {
-        	bals.rem(interaction.user.id.replace(/\D/g, ''), anzahl)
-        	bals.add(user.toString().replace(/\D/g, ''), anzahl)
+        	bals.rem(interaction.user.id, anzahl)
+        	bals.add(user.id, anzahl)
         } else {
             const missing = anzahl - money
             

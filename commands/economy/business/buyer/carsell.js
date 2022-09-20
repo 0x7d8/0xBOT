@@ -15,10 +15,10 @@ module.exports = {
         }),
     async execute(interaction, client, lang, vote) {
         // Set Variables
-        const car = await item.get(interaction.user.id.replace(/\D/g, '') + '-CAR', 'value')
+        const car = await item.get(interaction.user.id + '-CAR', 'value')
 
         // Check if Command is Allowed :P
-        if (interaction.user.id.replace(/\D/g, '') != "745619551865012274" && interaction.user.id.replace(/\D/g, '') != "994495187617321010") {
+        if (interaction.user.id != "745619551865012274" && interaction.user.id != "994495187617321010") {
             // Create Embed
             const err = new EmbedBuilder()
                 .setTitle('» FEHLER')
@@ -56,7 +56,7 @@ module.exports = {
         if (car == 'porsche') { name = '2019 PORSCHE 911 GT2RS' }
 
         // Check if User has a Car
-        if (await item.get(interaction.user.id.replace(/\D/g, '') + '-CAR', 'amount') === 0) {
+        if (await item.get(interaction.user.id + '-CAR', 'amount') === 0) {
             // Create Embed
             let message = new EmbedBuilder()
             	.setTitle('» ERROR')

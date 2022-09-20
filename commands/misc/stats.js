@@ -14,10 +14,10 @@ module.exports = {
         // Set Variables
         const totalcmd = await cmds.get('t-all');
         const guildcmd = await cmds.get('g-' + interaction.guild.id);
-        const usercmd = await cmds.get('u-' + interaction.user.id.replace(/\D/g, ''))
+        const usercmd = await cmds.get('u-' + interaction.user.id)
         const totalbtn = await btns.get('t-all');
         const guildbtn = await btns.get('g-' + interaction.guild.id);
-        const userbtn = await btns.get('u-' + interaction.user.id.replace(/\D/g, ''))
+        const userbtn = await btns.get('u-' + interaction.user.id)
 
         // Create Embed
         let message = new EmbedBuilder()

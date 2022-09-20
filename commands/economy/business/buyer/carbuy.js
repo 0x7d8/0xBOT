@@ -33,10 +33,10 @@ module.exports = {
     async execute(interaction, client, lang, vote) {
         // Set Variables
         const car = interaction.options.getString("car")
-        const balance = await bals.get(interaction.user.id.replace(/\D/g, ''));
+        const balance = await bals.get(interaction.user.id);
 
         // Check if Command is Allowed :P
-        if (interaction.user.id.replace(/\D/g, '') != "745619551865012274" && interaction.user.id.replace(/\D/g, '') != "994495187617321010") {
+        if (interaction.user.id != "745619551865012274" && interaction.user.id != "994495187617321010") {
             // Create Embed
             const err = new EmbedBuilder()
                 .setTitle('» FEHLER')
@@ -96,9 +96,9 @@ module.exports = {
         }
 
         // Check if User already has a Car
-        if (await item.get(interaction.user.id.replace(/\D/g, '') + '-CAR', 'amount') !== 0) {
+        if (await item.get(interaction.user.id + '-CAR', 'amount') !== 0) {
             // Translate to Car Names
-            const dbcar = await item.get(interaction.user.id.replace(/\D/g, '') + '-CAR', 'value')
+            const dbcar = await item.get(interaction.user.id + '-CAR', 'value')
             if (dbcar == 'jeep') { name = '2016 JEEP PATRIOT SPORT' }
             if (dbcar == 'kia') { name = '2022 KIA SORENTO' }
             if (dbcar == 'tesla') { name = 'TESLA MODEL Y' }
