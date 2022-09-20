@@ -270,12 +270,24 @@ client.on('interactionCreate', async interaction => {
 				const cache = interaction.customId.split('-');
 				const [cmd, cmd2, stock] = cache;
 				let editedinteraction = interaction
-				editedinteraction.customId = "stock-next"
 
+				editedinteraction.customId = "stock-next"
 				sc = true
 
 				const button = client.buttons.get(editedinteraction.customId);
 				await button.execute(editedinteraction, client, guildlang, votet, stock);
+			}
+			if (interaction.customId.toString().substring(0, 3) == 'CAR') {
+				const cache = interaction.customId.split('-');
+				const [cmd, selection, car, userid] = cache;
+				let editedinteraction = interaction
+
+				if (selection == 'YES') { editedinteraction.customId = "car-yes" }
+				if (selection == 'NO') { editedinteraction.customId = "car-no" }
+				sc = true
+
+				const button = client.buttons.get(editedinteraction.customId);
+				await button.execute(editedinteraction, client, guildlang, votet, car, userid);
 			}
 
 

@@ -124,8 +124,6 @@ module.exports = {
             // Calculate Result with Car
             let resultcar
             if (!carboost) { resultcar = result } else { resultcar = await Math.round(addper(result, carboostam)) }
-            console.log(result)
-            console.log(resultcar)
         
         	// Create Embed
       		let message = new EmbedBuilder()
@@ -141,7 +139,7 @@ module.exports = {
             }
         
         	// Send Money
-        	bals.add(interaction.user.id.replace(/\D/g, ''), result)
+        	bals.add(interaction.user.id.replace(/\D/g, ''), resultcar)
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] WORK : ' + resultcar + '€');
             
             // Set Cooldown

@@ -1,0 +1,90 @@
+const { EmbedBuilder } = require('@discordjs/builders');
+const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
+const { version } = require('../../../../config.json');
+
+module.exports = {
+    data: {
+        name: 'car-no'
+    },
+    async execute(interaction, client, lang, vote, car, userid) {
+        // Translate to Car Names
+        let name
+        if (car == 'jeep') { name = '2016 JEEP PATRIOT SPORT' }
+        if (car == 'kia') { name = '2022 KIA SORENTO' }
+        if (car == 'tesla') { name = 'TESLA MODEL Y' }
+        if (car == 'porsche') { name = '2019 PORSCHE 911 GT2RS' }
+
+        // Check if User is Authorized
+        if (interaction.user.id !== userid) {
+            // Create Embed
+            let message = new EmbedBuilder()
+            	.setTitle('» ERROR')
+  				.setDescription('» This choice is up to <@' + userid + '>!')
+            	.setFooter({ text: '» ' + vote + ' » ' + version });
+
+            if (lang.toString() == "de") {
+                message = new EmbedBuilder()
+            	    .setTitle('» FEHLER')
+  				    .setDescription('» Diese Frage ist für <@' + userid + '>!')
+            	    .setFooter({ text: '» ' + vote + ' » ' + version });
+            }
+            
+            // Send Message
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] CARBUY : NOTSENDER')
+            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+        }    
+
+        // Create Buttons
+        let row = new ActionRowBuilder()
+			.addComponents(
+				new ButtonBuilder()
+					.setLabel('YES')
+                    .setCustomId('CAR-YES-' + car + '-' + interaction.user.id)
+                    .setEmoji('1017050442431209543')
+					.setStyle(ButtonStyle.Success)
+                    .setDisabled(true),
+
+                new ButtonBuilder()
+					.setLabel('NO')
+                    .setCustomId('CAR-NO-' + car + '-' + interaction.user.id)
+                    .setEmoji('1017050508252418068')
+					.setStyle(ButtonStyle.Danger)
+                    .setDisabled(true),
+			);
+        if (lang.toString() == "de") {
+            row = new ActionRowBuilder()
+			    .addComponents(
+			    	new ButtonBuilder()
+			    		.setLabel('JA')
+                        .setCustomId('CAR-YES-' + car + '-' + interaction.user.id)
+                        .setEmoji('1017050442431209543')
+			    		.setStyle(ButtonStyle.Success)
+                        .setDisabled(true),
+
+                    new ButtonBuilder()
+			    		.setLabel('NEIN')
+                        .setCustomId('CAR-NO-' + car + '-' + interaction.user.id)
+                        .setEmoji('1017050508252418068')
+			    		.setStyle(ButtonStyle.Danger)
+                        .setDisabled(true),
+			    );
+        }
+
+        // Create Embed
+        let message = new EmbedBuilder()
+        .setTitle('» MEMORY')
+        .setDescription('» <@' + interaction.user.id.replace(/\D/g, '') + '> said **NO** to a **' + name + '**.')
+        .setFooter({ text: '» ' + vote + ' » ' + version });
+
+        if (lang.toString() == "de") {
+            message = new EmbedBuilder()
+                .setTitle('» MEMORY')
+                .setDescription('» <@' + interaction.user.id.replace(/\D/g, '') + '> hat **NEIN** zu einem **' + name + '** gesagt.')
+                .setFooter({ text: '» ' + vote + ' » ' + version });
+        }
+
+        // Send Message
+        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] CARBUY : ' + name + ' : DENY')
+        return interaction.update({ embeds: [message.toJSON()], components: [row] })
+    }
+}

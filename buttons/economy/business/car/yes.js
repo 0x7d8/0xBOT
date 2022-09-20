@@ -1,52 +1,23 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
+const { EmbedBuilder } = require('@discordjs/builders')
 const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js')
-const { EmbedBuilder } = require('@discordjs/builders');
-const { version } = require('../../../../config.json');
+const { version } = require('../../../../config.json')
 
-const fetch = require("node-fetch");
+const wait = require('node:timers/promises').setTimeout
 
 module.exports = {
-    data: new SlashCommandBuilder()
-        .setName('carbuy')
-    	.setDMPermission(false)
-        .setDescription('BUY CARS')
-        .setDescriptionLocalizations({
-            de: 'KAUFE AUTOS'
-        })
-        .addStringOption(option =>
-            option.setName('car')
-                .setNameLocalizations({
-                    de: 'auto'
-                })
-                .setDescription('THE CAR')
-                .setDescriptionLocalizations({
-                    de: 'DAS AUTO'
-                })
-                .setRequired(true)
-    			.addChoices(
-                    // Setup Choices
-                    { name: '🟢 [10000€-25000€] 2016 JEEP PATRIOT SPORT', value: 'jeep' },
-            		{ name: '🔵 [50000€-75000€] 2022 KIA SORENTO', value: 'kia' },
-                    { name: '🟡 [100000€-200000€] TESLA MODEL Y', value: 'tesla' },
-                    { name: '🟡 [500000€-1000000€] 2019 PORSCHE 911 GT2RS', value: 'porsche' },
-				)),
-    async execute(interaction, client, lang, vote) {
+    data: {
+        name: 'car-yes'
+    },
+    async execute(interaction, client, lang, vote, car, userid) {
         // Set Variables
-        const car = interaction.options.getString("car")
-        const balance = await bals.get(interaction.user.id.replace(/\D/g, ''));
+        const balance = await bals.get(interaction.user.id.replace(/\D/g, ''))
 
-        // Check if Command is Allowed :P
-        if (interaction.user.id.replace(/\D/g, '') != "745619551865012274" && interaction.user.id.replace(/\D/g, '') != "994495187617321010") {
-            // Create Embed
-            const err = new EmbedBuilder()
-                .setTitle('» FEHLER')
-                .setDescription('» Nur für Devs!')
-                .setFooter({ text: '» ' + vote + ' » ' + version });
-    
-            // Send Message
-            console.log(interaction.user.id + ' is a lol')
-            return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
-        }
+        // Set Car Value
+        let carvalue
+        if (car == 'jeep') { carvalue = 25 }
+        if (car == 'kia') { carvalue = 50 }
+        if (car == 'tesla') { carvalue = 100 }
+        if (car == 'porsche') { carvalue = 200 }
 
         // Calculate Cost
         let cost
@@ -61,6 +32,26 @@ module.exports = {
         if (car == 'kia') { name = '2022 KIA SORENTO' }
         if (car == 'tesla') { name = 'TESLA MODEL Y' }
         if (car == 'porsche') { name = '2019 PORSCHE 911 GT2RS' }
+
+        // Check if User is Authorized
+        if (interaction.user.id !== userid) {
+            // Create Embed
+            let message = new EmbedBuilder()
+            	.setTitle('» ERROR')
+  				.setDescription('» This choice is up to <@' + userid + '>!')
+            	.setFooter({ text: '» ' + vote + ' » ' + version });
+
+            if (lang.toString() == "de") {
+                message = new EmbedBuilder()
+            	    .setTitle('» FEHLER')
+  				    .setDescription('» Diese Frage ist für <@' + userid + '>!')
+            	    .setFooter({ text: '» ' + vote + ' » ' + version });
+            }
+            
+            // Send Message
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] CARBUY : NOTSENDER')
+            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+        }
 
         // Check if User has enough Money
         if (balance < cost) {
@@ -80,7 +71,7 @@ module.exports = {
             }
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] CARBUY : ' + name.toUpperCase() + ' : NOTENOUGHMONEY : ' + cost + '€')
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] CARBUY : ' + name.toUpperCase() + ' : NOTENOUGHMONEY : ' + cost + '€')
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
@@ -107,7 +98,7 @@ module.exports = {
             }
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] CARBUY : : ALREADYOWNCAR : ' + name)
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] CARBUY : : ALREADYOWNCAR : ' + name)
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
@@ -136,32 +127,38 @@ module.exports = {
                         .setCustomId('CAR-YES-' + car + '-' + interaction.user.id)
                         .setEmoji('1017050442431209543')
 			    		.setStyle(ButtonStyle.Success)
-                        .setDisabled(false),
+                        .setDisabled(true),
 
                     new ButtonBuilder()
 			    		.setLabel('NEIN')
                         .setCustomId('CAR-NO-' + car + '-' + interaction.user.id)
                         .setEmoji('1017050508252418068')
 			    		.setStyle(ButtonStyle.Danger)
-                        .setDisabled(false),
+                        .setDisabled(true),
 			    );
         }
 
         // Create Embed
         let message = new EmbedBuilder()
             .setTitle('» BUY CAR')
-            .setDescription('» Do you want to buy a **' + name + '** for **$' + cost + '**?')
+            .setDescription('» You successfully bought a **' + name + '** for **$' + cost + '**!')
             .setFooter({ text: '» ' + vote + ' » ' + version });
 
         if (lang.toString() == 'de') {
             message = new EmbedBuilder()
                 .setTitle('» AUTO KAUFEN')
-                .setDescription('» Willst du einen **' + name + '** für **' + cost + '€** kaufen?')
+                .setDescription('» Du hast erfolgreich einen **' + name + '** für **' + cost + '€** gekauft!')
                 .setFooter({ text: '» ' + vote + ' » ' + version });
         }
 
+        // Remove Money
+        bals.rem(interaction.user.id.replace(/\D/g, ''), cost)
+
+        // Own Car
+        item.set(interaction.user.id.replace(/\D/g, '') + '-CAR', car, carvalue)
+
         // Send Message
-        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] CARBUY : ' + name.toUpperCase() + ' : ' + cost + '€')
-        return interaction.reply({ embeds: [message.toJSON()], components: [row] })
-    },
-};
+        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] CARBUY : ' + name + ' : CONFIRM')
+        return interaction.update({ embeds: [message.toJSON()], components: [row] })
+    }
+}
