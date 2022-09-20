@@ -34,6 +34,42 @@ module.exports = {
                 .setRequired(false))
         .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages),
     async execute(interaction, client, lang, vote) {
+        // Check if Bot has Permission
+        if (!interaction.appPermissions.has('ManageMessages')) {
+            // Create Embed
+            let message = new EmbedBuilder()
+        		.setTitle('» ERROR')
+        		.setDescription('» I dont think I have the **MANAGE MESSAGES** Permission!')
+        		.setFooter({ text: '» ' + version });
+            if (lang.toString() == "de") {
+                message = new EmbedBuilder()
+        		    .setTitle('» FEHLER')
+        		    .setDescription('» Ich denke nicht, dass ich die **NACHRICHTEN VERWALTEN** Berechtigung habe!')
+        		    .setFooter({ text: '» ' + version });
+            }
+            
+            // Send Message
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] CLEAR : NOPERM')
+            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+        }
+        if (!interaction.appPermissions.has('ViewChannel')) {
+            // Create Embed
+            let message = new EmbedBuilder()
+        		.setTitle('» ERROR')
+        		.setDescription('» I dont think I have the **VIEW CHANNEL** Permission!')
+        		.setFooter({ text: '» ' + version });
+            if (lang.toString() == "de") {
+                message = new EmbedBuilder()
+        		    .setTitle('» FEHLER')
+        		    .setDescription('» Ich denke nicht, dass ich die **KANÄLE ANSEHEN** Berechtigung habe!')
+        		    .setFooter({ text: '» ' + version });
+            }
+            
+            // Send Message
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] CLEAR : NOPERM')
+            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+        }
+
         // Set Variables
         const amount = interaction.options.getInteger("amount")
         const target = interaction.options.getUser("user")
