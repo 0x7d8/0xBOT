@@ -29,6 +29,27 @@ module.exports = {
                     { name: '🟡 AUTOHAUS', value: 'car dealership' },
 				)),
     async execute(interaction, client, lang, vote) {
+        // Check if Businesses are Enabled in Server
+        const bes = await gopt.get(interaction.guild.id + '-BUSINESS')
+        if (parseInt(bes) == 1) {
+            // Create Embed
+            let message = new EmbedBuilder()
+        		.setTitle('» ERROR')
+        		.setDescription('» Businesses are disabled on this Server!')
+        		.setFooter({ text: '» ' + vote + ' » ' + version });
+
+            if (lang.toString() == "de") {
+                message = new EmbedBuilder()
+        		    .setTitle('» FEHLER')
+        		    .setDescription('» Geschäfte sind auf diesem Server deaktiviert!')
+        		    .setFooter({ text: '» ' + vote + ' » ' + version });
+            }
+            
+            // Send Message
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] BUSINESS : DISABLED')
+            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+        }
+        
         // Set Variables
         const business = interaction.options.getString("business")
         const balance = await bals.get(interaction.user.id.replace(/\D/g, ''));
