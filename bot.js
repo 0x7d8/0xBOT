@@ -143,12 +143,8 @@ client.on('interactionCreate', async interaction => {
 	}
 
 	if (interaction.isChatInputCommand()) {
-		// Count to Global Commands
-		cmds.add('t-all', 1)
-        
-		// Count Guild Commands and User
-		cmds.add('g-' + interaction.guild.id, 1)
-		cmds.add('u-' + interaction.user.id.replace(/\D/g, ''), 1)
+		// Stats
+		bot.stats('cmd', interaction.user.id, interaction.guild.id)
 
 		// Check if Command Exists
 		const command = client.commands.get(interaction.commandName);
@@ -206,12 +202,8 @@ client.on('interactionCreate', async interaction => {
 	}
 
 	if (interaction.isButton()) {
-		// Count to Global Buttons
-		btns.add('t-all', 1)
-        
-		// Count Guild Buttons and User
-		btns.add('g-' + interaction.guild.id, 1)
-		btns.add('u-' + interaction.user.id.replace(/\D/g, ''), 1)
+		// Stats
+		bot.stats('btn', interaction.user.id, interaction.guild.id)
 
 		// Execute Button
 		try {
