@@ -49,25 +49,25 @@ module.exports = {
         if (user == null) {
             message = new EmbedBuilder()
                 .setTitle('» YOUR INVENTORY')
-                .setDescription('» <:NBOMB:1021783222520127508> NORMAL BOMBS\n`' + nbombs + '`\n\n» <:MBOMB:1021783295211601940> MEDIUM BOMBS\n`' + mbombs + '`\n\n» <:HBOMB:1021783351947952158> HYPER BOMBS\n`' + hbombs + '`\n\n» <:CBOMB:1021783405161091162> CRAZY BOMBS\n`' + cbombs + '`')
+                .setDescription('» <:NBOMB:1021783222520127508> NORMAL BOMBS\n`' + nbombs + '/10`\n\n» <:MBOMB:1021783295211601940> MEDIUM BOMBS\n`' + mbombs + '/10`\n\n» <:HBOMB:1021783351947952158> HYPER BOMBS\n`' + hbombs + '/10`\n\n» <:CBOMB:1021783405161091162> CRAZY BOMBS\n`' + cbombs + '`')
                 .setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang.toString() == "de") {
                 message = new EmbedBuilder()
                     .setTitle('» DEIN INVENTAR')
-                    .setDescription('» <:NBOMB:1021783222520127508> NORMALE BOMBEN\n`' + nbombs + '`\n\n» <:MBOMB:1021783295211601940> MEDIUM BOMBEN\n`' + mbombs + '`\n\n» <:HBOMB:1021783351947952158> HYPER BOMBEN\n`' + hbombs + '`\n\n» <:CBOMB:1021783405161091162> CRAZY BOMBEN\n`' + cbombs + '`')
+                    .setDescription('» <:NBOMB:1021783222520127508> NORMALE BOMBEN\n`' + nbombs + '/10`\n\n» <:MBOMB:1021783295211601940> MEDIUM BOMBEN\n`' + mbombs + '/10`\n\n» <:HBOMB:1021783351947952158> HYPER BOMBEN\n`' + hbombs + '/10`\n\n» <:CBOMB:1021783405161091162> CRAZY BOMBEN\n`' + cbombs + '`')
                     .setFooter({ text: '» ' + vote + ' » ' + version });
             }
         } else {
             message = new EmbedBuilder()
                 .setTitle('» THE INVENTOR OF ' + username.username.toUpperCase() + '#' + username.discriminator)
-                .setDescription('» <:NBOMB:1021783222520127508> NORMAL BOMBS\n`' + nbombs + '`\n\n» <:MBOMB:1021783295211601940> MEDIUM BOMBS\n`' + mbombs + '`\n\n» <:HBOMB:1021783351947952158> HYPER BOMBS\n`' + hbombs + '`\n\n» <:CBOMB:1021783405161091162> CRAZY BOMBS\n`' + cbombs + '`')
+                .setDescription('» <:NBOMB:1021783222520127508> NORMAL BOMBS\n`' + nbombs + '/10`\n\n» <:MBOMB:1021783295211601940> MEDIUM BOMBS\n`' + mbombs + '/10`\n\n» <:HBOMB:1021783351947952158> HYPER BOMBS\n`' + hbombs + '/10`\n\n» <:CBOMB:1021783405161091162> CRAZY BOMBS\n`' + cbombs + '`')
                 .setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang.toString() == "de") {
                 message = new EmbedBuilder()
                     .setTitle('» DAS INVENTAR VON ' + username.username.toUpperCase() + '#' + username.discriminator)
-                    .setDescription('» <:NBOMB:1021783222520127508> NORMALE BOMBEN\n`' + nbombs + '`\n\n» <:MBOMB:1021783295211601940> MEDIUM BOMBEN\n`' + mbombs + '`\n\n» <:HBOMB:1021783351947952158> HYPER BOMBEN\n`' + hbombs + '`\n\n» <:CBOMB:1021783405161091162> CRAZY BOMBEN\n`' + cbombs + '`')
+                    .setDescription('» <:NBOMB:1021783222520127508> NORMALE BOMBEN\n`' + nbombs + '/10`\n\n» <:MBOMB:1021783295211601940> MEDIUM BOMBEN\n`' + mbombs + '/10`\n\n» <:HBOMB:1021783351947952158> HYPER BOMBEN\n`' + hbombs + '/10`\n\n» <:CBOMB:1021783405161091162> CRAZY BOMBEN\n`' + cbombs + '`')
                     .setFooter({ text: '» ' + vote + ' » ' + version });
             }
         }
