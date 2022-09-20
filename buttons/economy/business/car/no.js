@@ -6,7 +6,7 @@ module.exports = {
     data: {
         name: 'car-no'
     },
-    async execute(interaction, client, lang, vote, car, userid) {
+    async execute(interaction, client, lang, vote, car, userid, type) {
         // Translate to Car Names
         let name
         if (car == 'jeep') { name = '2016 JEEP PATRIOT SPORT' }
@@ -70,21 +70,41 @@ module.exports = {
 			    );
         }
 
-        // Create Embed
-        let message = new EmbedBuilder()
-        .setTitle('» MEMORY')
-        .setDescription('» <@' + interaction.user.id.replace(/\D/g, '') + '> said **NO** to a **' + name + '**.')
-        .setFooter({ text: '» ' + vote + ' » ' + version });
-
-        if (lang.toString() == "de") {
-            message = new EmbedBuilder()
+        // Split Button with type
+        if (type === 'buy') {
+            // Create Embed
+            let message = new EmbedBuilder()
                 .setTitle('» MEMORY')
-                .setDescription('» <@' + interaction.user.id.replace(/\D/g, '') + '> hat **NEIN** zu einem **' + name + '** gesagt.')
+                .setDescription('» <@' + interaction.user.id.replace(/\D/g, '') + '> said **NO** to a **' + name + '**.')
                 .setFooter({ text: '» ' + vote + ' » ' + version });
-        }
 
-        // Send Message
-        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] CARBUY : ' + name + ' : DENY')
-        return interaction.update({ embeds: [message.toJSON()], components: [row] })
+            if (lang.toString() == "de") {
+                message = new EmbedBuilder()
+                    .setTitle('» MEMORY')
+                    .setDescription('» <@' + interaction.user.id.replace(/\D/g, '') + '> hat **NEIN** zu einem **' + name + '** gesagt.')
+                    .setFooter({ text: '» ' + vote + ' » ' + version });
+            }
+
+            // Send Message
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] CARBUY : ' + name + ' : DENY')
+            return interaction.update({ embeds: [message.toJSON()], components: [row] })
+        } else {
+            // Create Embed
+            let message = new EmbedBuilder()
+                .setTitle('» MEMORY')
+                .setDescription('» <@' + interaction.user.id.replace(/\D/g, '') + '> said **NO** to selling his **' + name + '**.')
+                .setFooter({ text: '» ' + vote + ' » ' + version });
+
+            if (lang.toString() == "de") {
+                message = new EmbedBuilder()
+                    .setTitle('» MEMORY')
+                    .setDescription('» <@' + interaction.user.id.replace(/\D/g, '') + '> hat **NEIN** zum verkaufen von seinem **' + name + '** gesagt.')
+                    .setFooter({ text: '» ' + vote + ' » ' + version });
+            }
+
+            // Send Message
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] CARSELL : ' + name + ' : DENY')
+            return interaction.update({ embeds: [message.toJSON()], components: [row] })
+        }
     }
 }

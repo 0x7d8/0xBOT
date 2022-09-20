@@ -8,7 +8,7 @@ module.exports = {
     data: {
         name: 'car-yes'
     },
-    async execute(interaction, client, lang, vote, car, userid) {
+    async execute(interaction, client, lang, vote, car, userid, type) {
         // Set Variables
         const balance = await bals.get(interaction.user.id.replace(/\D/g, ''))
 
@@ -53,112 +53,194 @@ module.exports = {
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
-        // Check if User has enough Money
-        if (balance < cost) {
-            const missing = cost - balance
-            
-            // Create Embed
-            let message = new EmbedBuilder()
-            	.setTitle('» ERROR')
-  				.setDescription('» You dont have enough Money for that, you are missing **$' + missing + '**!')
-            	.setFooter({ text: '» ' + vote + ' » ' + version });
+        // Split Button with type
+        if (type === 'buy') {
+            // Check if User has enough Money
+            if (balance < cost) {
+                const missing = cost - balance
+                
+                // Create Embed
+                let message = new EmbedBuilder()
+                	.setTitle('» ERROR')
+  		    		.setDescription('» You dont have enough Money for that, you are missing **$' + missing + '**!')
+                	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang.toString() == "de") {
-                message = new EmbedBuilder()
-            	    .setTitle('» FEHLER')
-  				    .setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
-            	    .setFooter({ text: '» ' + vote + ' » ' + version });
+                if (lang.toString() == "de") {
+                    message = new EmbedBuilder()
+                	    .setTitle('» FEHLER')
+  			    	    .setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
+                	    .setFooter({ text: '» ' + vote + ' » ' + version });
+                }
+            
+                // Send Message
+                console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] CARBUY : ' + name.toUpperCase() + ' : NOTENOUGHMONEY : ' + cost + '€')
+                return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
             }
-            
-            // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] CARBUY : ' + name.toUpperCase() + ' : NOTENOUGHMONEY : ' + cost + '€')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
-        }
 
-        // Check if User already has a Car
-        if (await item.get(interaction.user.id.replace(/\D/g, '') + '-CAR', 'value') !== 0) {
-            // Translate to Car Names
-            const dbcar = await item.get(interaction.user.id.replace(/\D/g, '') + '-CAR', 'value')
-            if (dbcar == 'jeep') { name = '2016 JEEP PATRIOT SPORT' }
-            if (dbcar == 'kia') { name = '2022 KIA SORENTO' }
-            if (dbcar == 'tesla') { name = 'TESLA MODEL Y' }
-            if (dbcar == 'porsche') { name = '2019 PORSCHE 911 GT2RS' }
+            // Check if User already has a Car
+            if (await item.get(interaction.user.id.replace(/\D/g, '') + '-CAR', 'amount') !== 0) {
+                // Translate to Car Names
+                const dbcar = await item.get(interaction.user.id.replace(/\D/g, '') + '-CAR', 'value')
+                if (dbcar == 'jeep') { name = '2016 JEEP PATRIOT SPORT' }
+                if (dbcar == 'kia') { name = '2022 KIA SORENTO' }
+                if (dbcar == 'tesla') { name = 'TESLA MODEL Y' }
+                if (dbcar == 'porsche') { name = '2019 PORSCHE 911 GT2RS' }
 
-            // Create Embed
-            let message = new EmbedBuilder()
-            	.setTitle('» ERROR')
-  				.setDescription('» You already own a **' + name + '**!')
-            	.setFooter({ text: '» ' + vote + ' » ' + version });
+                // Create Embed
+                let message = new EmbedBuilder()
+                	.setTitle('» ERROR')
+  		    		.setDescription('» You already own a **' + name + '**!')
+                	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang.toString() == "de") {
-                message = new EmbedBuilder()
-            	    .setTitle('» FEHLER')
-  				    .setDescription('» Du besitzt schon einen **' + name +'**!')
-            	    .setFooter({ text: '» ' + vote + ' » ' + version });
+                if (lang.toString() == "de") {
+                    message = new EmbedBuilder()
+                	    .setTitle('» FEHLER')
+  		    		    .setDescription('» Du besitzt schon einen **' + name +'**!')
+                	    .setFooter({ text: '» ' + vote + ' » ' + version });
+                }
+                
+                // Send Message
+                console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] CARBUY : : ALREADYOWNCAR : ' + name)
+                return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
             }
-            
-            // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] CARBUY : : ALREADYOWNCAR : ' + name)
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
-        }
 
-        // Create Buttons
-        let row = new ActionRowBuilder()
-			.addComponents(
-				new ButtonBuilder()
-					.setLabel('YES')
-                    .setCustomId('CAR-YES-' + car + '-' + interaction.user.id)
-                    .setEmoji('1017050442431209543')
-					.setStyle(ButtonStyle.Success)
-                    .setDisabled(true),
-
-                new ButtonBuilder()
-					.setLabel('NO')
-                    .setCustomId('CAR-NO-' + car + '-' + interaction.user.id)
-                    .setEmoji('1017050508252418068')
-					.setStyle(ButtonStyle.Danger)
-                    .setDisabled(true),
-			);
-        if (lang.toString() == "de") {
-            row = new ActionRowBuilder()
-			    .addComponents(
-			    	new ButtonBuilder()
-			    		.setLabel('JA')
+            // Create Buttons
+            let row = new ActionRowBuilder()
+		    	.addComponents(
+		    		new ButtonBuilder()
+		    			.setLabel('YES')
                         .setCustomId('CAR-YES-' + car + '-' + interaction.user.id)
                         .setEmoji('1017050442431209543')
-			    		.setStyle(ButtonStyle.Success)
+		    			.setStyle(ButtonStyle.Success)
                         .setDisabled(true),
 
                     new ButtonBuilder()
-			    		.setLabel('NEIN')
+		    			.setLabel('NO')
                         .setCustomId('CAR-NO-' + car + '-' + interaction.user.id)
                         .setEmoji('1017050508252418068')
-			    		.setStyle(ButtonStyle.Danger)
+		    			.setStyle(ButtonStyle.Danger)
                         .setDisabled(true),
-			    );
-        }
+		    	);
+            if (lang.toString() == "de") {
+                row = new ActionRowBuilder()
+		    	    .addComponents(
+		    	    	new ButtonBuilder()
+		    	    		.setLabel('JA')
+                            .setCustomId('CAR-YES-' + car + '-' + interaction.user.id)
+                            .setEmoji('1017050442431209543')
+		    	    		.setStyle(ButtonStyle.Success)
+                            .setDisabled(true),
 
-        // Create Embed
-        let message = new EmbedBuilder()
-            .setTitle('» BUY CAR')
-            .setDescription('» You successfully bought a **' + name + '** for **$' + cost + '**!')
-            .setFooter({ text: '» ' + vote + ' » ' + version });
+                        new ButtonBuilder()
+		    	    		.setLabel('NEIN')
+                            .setCustomId('CAR-NO-' + car + '-' + interaction.user.id)
+                            .setEmoji('1017050508252418068')
+		    	    		.setStyle(ButtonStyle.Danger)
+                            .setDisabled(true),
+		    	    );
+            }
 
-        if (lang.toString() == 'de') {
-            message = new EmbedBuilder()
-                .setTitle('» AUTO KAUFEN')
-                .setDescription('» Du hast erfolgreich einen **' + name + '** für **' + cost + '€** gekauft!')
+            // Create Embed
+            let message = new EmbedBuilder()
+                .setTitle('» BUY CAR')
+                .setDescription('» You successfully bought a **' + name + '** for **$' + cost + '**!')
                 .setFooter({ text: '» ' + vote + ' » ' + version });
+
+            if (lang.toString() == 'de') {
+                message = new EmbedBuilder()
+                    .setTitle('» AUTO KAUFEN')
+                    .setDescription('» Du hast erfolgreich einen **' + name + '** für **' + cost + '€** gekauft!')
+                    .setFooter({ text: '» ' + vote + ' » ' + version });
+            }
+
+            // Remove Money
+            bals.rem(interaction.user.id.replace(/\D/g, ''), cost)
+
+            // Own Car
+            item.set(interaction.user.id.replace(/\D/g, '') + '-CAR', car, carvalue)
+
+            // Send Message
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] CARBUY : ' + name + ' : CONFIRM')
+            return interaction.update({ embeds: [message.toJSON()], components: [row] })
+        } else {
+            // Check if User has a Car
+            if (await item.get(interaction.user.id.replace(/\D/g, '') + '-CAR', 'amount') === 0) {
+                // Create Embed
+                let message = new EmbedBuilder()
+                	.setTitle('» ERROR')
+  		    		.setDescription('» You dont own a Car!')
+                	.setFooter({ text: '» ' + vote + ' » ' + version });
+
+                if (lang.toString() == "de") {
+                    message = new EmbedBuilder()
+                	    .setTitle('» FEHLER')
+  		    		    .setDescription('» Du besitzt kein Auto!')
+                	    .setFooter({ text: '» ' + vote + ' » ' + version });
+                }
+
+                // Send Message
+                console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] CARSELL : DONTOWNCAR')
+                return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            }
+
+            // Create Buttons
+            let row = new ActionRowBuilder()
+		    	.addComponents(
+		    		new ButtonBuilder()
+		    			.setLabel('YES')
+                        .setCustomId('CAR-YES-' + car + '-' + interaction.user.id)
+                        .setEmoji('1017050442431209543')
+		    			.setStyle(ButtonStyle.Success)
+                        .setDisabled(true),
+
+                    new ButtonBuilder()
+		    			.setLabel('NO')
+                        .setCustomId('CAR-NO-' + car + '-' + interaction.user.id)
+                        .setEmoji('1017050508252418068')
+		    			.setStyle(ButtonStyle.Danger)
+                        .setDisabled(true),
+		    	);
+            if (lang.toString() == "de") {
+                row = new ActionRowBuilder()
+		    	    .addComponents(
+		    	    	new ButtonBuilder()
+		    	    		.setLabel('JA')
+                            .setCustomId('CAR-YES-' + car + '-' + interaction.user.id)
+                            .setEmoji('1017050442431209543')
+		    	    		.setStyle(ButtonStyle.Success)
+                            .setDisabled(true),
+
+                        new ButtonBuilder()
+		    	    		.setLabel('NEIN')
+                            .setCustomId('CAR-NO-' + car + '-' + interaction.user.id)
+                            .setEmoji('1017050508252418068')
+		    	    		.setStyle(ButtonStyle.Danger)
+                            .setDisabled(true),
+		    	    );
+            }
+
+            // Create Embed
+            let message = new EmbedBuilder()
+                .setTitle('» SELL CAR')
+                .setDescription('» You successfully sold your **' + name + '** for **$' + (cost/2) + '**!')
+                .setFooter({ text: '» ' + vote + ' » ' + version });
+
+            if (lang.toString() == 'de') {
+                message = new EmbedBuilder()
+                    .setTitle('» AUTO VERKAUFEN')
+                    .setDescription('» Du hast erfolgreich deinen **' + name + '** für **' + (cost/2) + '€** verkauft!')
+                    .setFooter({ text: '» ' + vote + ' » ' + version });
+            }
+
+            // Add Money
+            bals.add(interaction.user.id.replace(/\D/g, ''), (cost/2))
+
+            // unOwn Car
+            item.set(interaction.user.id.replace(/\D/g, '') + '-CAR', '0', 0)
+
+            // Send Message
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] CARSELL : ' + name + ' : CONFIRM')
+            return interaction.update({ embeds: [message.toJSON()], components: [row] })
         }
-
-        // Remove Money
-        bals.rem(interaction.user.id.replace(/\D/g, ''), cost)
-
-        // Own Car
-        item.set(interaction.user.id.replace(/\D/g, '') + '-CAR', car, carvalue)
-
-        // Send Message
-        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] CARBUY : ' + name + ' : CONFIRM')
-        return interaction.update({ embeds: [message.toJSON()], components: [row] })
     }
 }

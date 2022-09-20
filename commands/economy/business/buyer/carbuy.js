@@ -85,7 +85,7 @@ module.exports = {
         }
 
         // Check if User already has a Car
-        if (await item.get(interaction.user.id.replace(/\D/g, '') + '-CAR', 'value') !== 0) {
+        if (await item.get(interaction.user.id.replace(/\D/g, '') + '-CAR', 'amount') !== 0) {
             // Translate to Car Names
             const dbcar = await item.get(interaction.user.id.replace(/\D/g, '') + '-CAR', 'value')
             if (dbcar == 'jeep') { name = '2016 JEEP PATRIOT SPORT' }
@@ -116,14 +116,14 @@ module.exports = {
 			.addComponents(
 				new ButtonBuilder()
 					.setLabel('YES')
-                    .setCustomId('CAR-YES-' + car + '-' + interaction.user.id)
+                    .setCustomId('CAR-BUY-YES-' + car + '-' + interaction.user.id)
                     .setEmoji('1017050442431209543')
 					.setStyle(ButtonStyle.Success)
                     .setDisabled(true),
 
                 new ButtonBuilder()
 					.setLabel('NO')
-                    .setCustomId('CAR-NO-' + car + '-' + interaction.user.id)
+                    .setCustomId('CAR-BUY-NO-' + car + '-' + interaction.user.id)
                     .setEmoji('1017050508252418068')
 					.setStyle(ButtonStyle.Danger)
                     .setDisabled(true),
@@ -133,14 +133,14 @@ module.exports = {
 			    .addComponents(
 			    	new ButtonBuilder()
 			    		.setLabel('JA')
-                        .setCustomId('CAR-YES-' + car + '-' + interaction.user.id)
+                        .setCustomId('CAR-BUY-YES-' + car + '-' + interaction.user.id)
                         .setEmoji('1017050442431209543')
 			    		.setStyle(ButtonStyle.Success)
                         .setDisabled(false),
 
                     new ButtonBuilder()
 			    		.setLabel('NEIN')
-                        .setCustomId('CAR-NO-' + car + '-' + interaction.user.id)
+                        .setCustomId('CAR-BUY-NO-' + car + '-' + interaction.user.id)
                         .setEmoji('1017050508252418068')
 			    		.setStyle(ButtonStyle.Danger)
                         .setDisabled(false),

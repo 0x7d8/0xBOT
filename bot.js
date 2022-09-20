@@ -279,7 +279,7 @@ client.on('interactionCreate', async interaction => {
 			}
 			if (interaction.customId.toString().substring(0, 3) == 'CAR') {
 				const cache = interaction.customId.split('-');
-				const [cmd, selection, car, userid] = cache;
+				const [cmd, type, selection, car, userid] = cache;
 				let editedinteraction = interaction
 
 				if (selection == 'YES') { editedinteraction.customId = "car-yes" }
@@ -287,7 +287,7 @@ client.on('interactionCreate', async interaction => {
 				sc = true
 
 				const button = client.buttons.get(editedinteraction.customId);
-				await button.execute(editedinteraction, client, guildlang, votet, car, userid);
+				await button.execute(editedinteraction, client, guildlang, votet, car, userid, type.toLowerCase());
 			}
 
 
