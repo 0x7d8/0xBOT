@@ -172,7 +172,99 @@ module.exports = {
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] BUSINESSBUY : ' + name + ' : CONFIRM')
             return interaction.update({ embeds: [message.toJSON()], components: [row] })
         } else if (type === 'sell') {
-            
+            const business = await bsns.get('u-' + interaction.user.id.replace(/\D/g, '') + '-BUSINESS')
+
+            // Translate to Business ID
+            let businessid
+            if (business == 'market') { businessid = '1' }
+            if (business == 'parking garage') { businessid = '2' }
+            if (business == 'car dealership') { businessid = '3' }
+
+            // Calculate Cost
+            let cost
+            if (business == 'market') { cost = 150000 }
+            if (business == 'parking garage') { cost = 390000 }
+            if (business == 'car dealership') { cost = 520000 }
+
+            // Check if User has a Business
+            if (await bsns.get('u-' + interaction.user.id.replace(/\D/g, '') + '-BUSINESS', 'amount') === '0') {
+                // Create Embed
+                let message = new EmbedBuilder()
+                	.setTitle('» ERROR')
+  		    		.setDescription('» You dont own a Business!')
+                	.setFooter({ text: '» ' + vote + ' » ' + version });
+
+                if (lang.toString() == "de") {
+                    message = new EmbedBuilder()
+                	    .setTitle('» FEHLER')
+  		    		    .setDescription('» Du besitzt kein Geschäft!')
+                	    .setFooter({ text: '» ' + vote + ' » ' + version });
+                }
+
+                // Send Message
+                console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] BUSINESSSELL : DONTOWNBUSINESS')
+                return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            }
+
+            // Create Buttons
+            let row = new ActionRowBuilder()
+		    	.addComponents(
+		    		new ButtonBuilder()
+		    			.setLabel('YES')
+                        .setCustomId('BUSINESS-YES-' + business + '-' + interaction.user.id)
+                        .setEmoji('1017050442431209543')
+		    			.setStyle(ButtonStyle.Success)
+                        .setDisabled(true),
+
+                    new ButtonBuilder()
+		    			.setLabel('NO')
+                        .setCustomId('BUSINESS-NO-' + business + '-' + interaction.user.id)
+                        .setEmoji('1017050508252418068')
+		    			.setStyle(ButtonStyle.Danger)
+                        .setDisabled(true),
+		    	);
+            if (lang.toString() == "de") {
+                row = new ActionRowBuilder()
+		    	    .addComponents(
+		    	    	new ButtonBuilder()
+		    	    		.setLabel('JA')
+                            .setCustomId('BUSINESS-YES-' + business + '-' + interaction.user.id)
+                            .setEmoji('1017050442431209543')
+		    	    		.setStyle(ButtonStyle.Success)
+                            .setDisabled(true),
+
+                        new ButtonBuilder()
+		    	    		.setLabel('NEIN')
+                            .setCustomId('BUSINESS-NO-' + business + '-' + interaction.user.id)
+                            .setEmoji('1017050508252418068')
+		    	    		.setStyle(ButtonStyle.Danger)
+                            .setDisabled(true),
+		    	    );
+            }
+
+            // Create Embed
+            let message = new EmbedBuilder()
+                .setTitle('» SELL BUSINESS')
+                .setDescription('» You successfully sold your **' + name + '** for **$' + (cost/2) + '**!')
+                .setFooter({ text: '» ' + vote + ' » ' + version });
+
+            if (lang.toString() == 'de') {
+                message = new EmbedBuilder()
+                    .setTitle('» GESCHÄFT VERKAUFEN')
+                    .setDescription('» Du hast erfolgreich dein **' + name + '** für **' + (cost/2) + '€** verkauft!')
+                    .setFooter({ text: '» ' + vote + ' » ' + version });
+            }
+
+            // Add Money
+            bals.add(interaction.user.id.replace(/\D/g, ''), (cost/2))
+
+            // unOwn Business
+            bsns.set('u-' + interaction.user.id.replace(/\D/g, '') + '-BUSINESS', 0)
+            bsns.set('g-' + interaction.guild.id + '-' + businessid + '-OWNER', 0)
+
+            // Send Message
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] CARSELL : ' + name + ' : CONFIRM')
+            return interaction.update({ embeds: [message.toJSON()], components: [row] })
         }
     }
 }

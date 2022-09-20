@@ -55,7 +55,7 @@ module.exports = {
 
         // Check if Business is Empty
         let businessowner, oldleft
-        if (business == 'market' && await bsns.get('g-' + interaction.guild.id + '-' + businessid + '-OWNER') != 0) {
+        if (await bsns.get('g-' + interaction.guild.id + '-' + businessid + '-OWNER') !== '0') {
             oldleft = true
             businessowner = await bsns.get('g-' + interaction.guild.id + '-' + businessid + '-OWNER')
             try {
@@ -96,7 +96,7 @@ module.exports = {
         }
 
         // Check if User already has Business
-        if (await bsns.get('u-' + interaction.user.id + '-BUSINESS') !== 0) {
+        if (await bsns.get('u-' + interaction.user.id + '-BUSINESS') !== '0') {
             const userbusiness = await bsns.get('u-' + interaction.user.id + '-BUSINESS')
 
             // Translate to Business Names

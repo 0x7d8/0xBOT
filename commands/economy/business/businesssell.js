@@ -1,21 +1,21 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js')
 const { EmbedBuilder } = require('@discordjs/builders');
-const { version } = require('../../../../config.json');
+const { version } = require('../../../config.json');
 
 const fetch = require("node-fetch");
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('carsell')
+        .setName('businesssell')
     	.setDMPermission(false)
-        .setDescription('SELL YOUR CAR')
+        .setDescription('SELL YOUR BUSINESS')
         .setDescriptionLocalizations({
-            de: 'VERKAUFE DEIN AUTO'
+            de: 'VERKAUFE DEIN GESCHÄFT'
         }),
     async execute(interaction, client, lang, vote) {
         // Set Variables
-        const car = await item.get(interaction.user.id.replace(/\D/g, '') + '-CAR', 'value')
+        const business = await bsns.get('u-' + interaction.user.id.replace(/\D/g, '') + '-BUSINESS')
 
         // Check if Command is Allowed :P
         if (interaction.user.id.replace(/\D/g, '') != "745619551865012274" && interaction.user.id.replace(/\D/g, '') != "994495187617321010") {
@@ -32,35 +32,38 @@ module.exports = {
 
         // Calculate Cost
         let cost
-        if (car == 'jeep') { cost = 150000/2 }
-        if (car == 'kia') { cost = 390000/2 }
-        if (car == 'tesla') { cost = 520000/2 }
-        if (car == 'porsche') { cost = 520000/2 }
+        if (business == 'market') { cost = 150000 }
+        if (business == 'parking garage') { cost = 390000 }
+        if (business == 'car dealership') { cost = 520000 }
 
-        // Translate to Car Names
+        // Translate to Business Names
         let name
-        if (car == 'jeep') { name = '2016 JEEP PATRIOT SPORT' }
-        if (car == 'kia') { name = '2022 KIA SORENTO' }
-        if (car == 'tesla') { name = 'TESLA MODEL Y' }
-        if (car == 'porsche') { name = '2019 PORSCHE 911 GT2RS' }
+        if (business == 'market') { name = 'MARKET' }
+        if (business == 'parking garage') { name = 'PARKING GARAGE' }
+        if (business == 'car dealership') { name = 'CAR DEALERSHIP' }
+        if (lang.toString() == 'de') {
+            if (business == 'market') { name = 'SUPERMARKT' }
+            if (business == 'parking garage') { name = 'PARKHAUS' }
+            if (business == 'car dealership') { name = 'AUTOHAUS' }
+        }
 
-        // Check if User has a Car
-        if (await item.get(interaction.user.id.replace(/\D/g, '') + '-CAR', 'amount') === 0) {
+        // Check if User has a Business
+        if (await bsns.get('u-' + interaction.user.id.replace(/\D/g, '') + '-BUSINESS') === '0') {
             // Create Embed
             let message = new EmbedBuilder()
             	.setTitle('» ERROR')
-  				.setDescription('» You dont own a Car!')
+  				.setDescription('» You dont own a Business!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang.toString() == "de") {
                 message = new EmbedBuilder()
             	    .setTitle('» FEHLER')
-  				    .setDescription('» Du besitzt kein Auto!')
+  				    .setDescription('» Du besitzt kein Geschäft!')
             	    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
             
             // Send Message
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] CARSELL : DONTOWNCAR')
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] BUSINESSSELL : DONTOWNBUSINESS')
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
@@ -69,14 +72,14 @@ module.exports = {
 			.addComponents(
 				new ButtonBuilder()
 					.setLabel('YES')
-                    .setCustomId('CAR-SELL-YES-' + car + '-' + interaction.user.id)
+                    .setCustomId('BUSINESS-SELL-YES-' + business + '-' + interaction.user.id)
                     .setEmoji('1017050442431209543')
 					.setStyle(ButtonStyle.Success)
                     .setDisabled(true),
 
                 new ButtonBuilder()
 					.setLabel('NO')
-                    .setCustomId('CAR-SELL-NO-' + car + '-' + interaction.user.id)
+                    .setCustomId('BUSINESS-SELL-NO-' + business + '-' + interaction.user.id)
                     .setEmoji('1017050508252418068')
 					.setStyle(ButtonStyle.Danger)
                     .setDisabled(true),
@@ -86,14 +89,14 @@ module.exports = {
 			    .addComponents(
 			    	new ButtonBuilder()
 			    		.setLabel('JA')
-                        .setCustomId('CAR-SELL-YES-' + car + '-' + interaction.user.id)
+                        .setCustomId('BUSINESS-SELL-YES-' + business + '-' + interaction.user.id)
                         .setEmoji('1017050442431209543')
 			    		.setStyle(ButtonStyle.Success)
                         .setDisabled(false),
 
                     new ButtonBuilder()
 			    		.setLabel('NEIN')
-                        .setCustomId('CAR-SELL-NO-' + car + '-' + interaction.user.id)
+                        .setCustomId('BUSINESS-SELL-NO-' + business + '-' + interaction.user.id)
                         .setEmoji('1017050508252418068')
 			    		.setStyle(ButtonStyle.Danger)
                         .setDisabled(false),
@@ -102,19 +105,19 @@ module.exports = {
 
         // Create Embed
         let message = new EmbedBuilder()
-            .setTitle('» SELL CAR')
+            .setTitle('» SELL BUSINESS')
             .setDescription('» Do you want to sell your **' + name + '** for **$' + (cost/2) + '**?')
             .setFooter({ text: '» ' + vote + ' » ' + version });
 
         if (lang.toString() == 'de') {
             message = new EmbedBuilder()
-                .setTitle('» AUTO VERKAUFEN')
-                .setDescription('» Willst du deinen **' + name + '** für **' + (cost/2) + '€** verkaufen?')
+                .setTitle('» GESCHÄFT VERKAUFEN')
+                .setDescription('» Willst du dein **' + name + '** für **' + (cost/2) + '€** verkaufen?')
                 .setFooter({ text: '» ' + vote + ' » ' + version });
         }
 
         // Send Message
-        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] CARSELL : ' + name.toUpperCase() + ' : ' + cost + '€')
+        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] BUSINESSSELL : ' + name + ' : ' + cost + '€')
         return interaction.reply({ embeds: [message.toJSON()], components: [row] })
     },
 };
