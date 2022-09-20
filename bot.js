@@ -277,6 +277,18 @@ client.on('interactionCreate', async interaction => {
 				const button = client.buttons.get(editedinteraction.customId);
 				await button.execute(editedinteraction, client, guildlang, votet, stock);
 			}
+			if (interaction.customId.toString().substring(0, 8) == 'BUSINESS') {
+				const cache = interaction.customId.split('-');
+				const [cmd, type, selection, business, userid] = cache;
+				let editedinteraction = interaction
+
+				if (selection == 'YES') { editedinteraction.customId = "business-yes" }
+				if (selection == 'NO') { editedinteraction.customId = "business-no" }
+				sc = true
+
+				const button = client.buttons.get(editedinteraction.customId);
+				await button.execute(editedinteraction, client, guildlang, votet, business, userid, type.toLowerCase());
+			}
 			if (interaction.customId.toString().substring(0, 3) == 'CAR') {
 				const cache = interaction.customId.split('-');
 				const [cmd, type, selection, car, userid] = cache;

@@ -100,7 +100,7 @@ module.exports = {
                 }
                 
                 // Send Message
-                console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] CARBUY : : ALREADYOWNCAR : ' + name)
+                console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] CARBUY : ALREADYOWNCAR : ' + name)
                 return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
             }
 
@@ -162,7 +162,7 @@ module.exports = {
             // Send Message
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [BTN] CARBUY : ' + name + ' : CONFIRM')
             return interaction.update({ embeds: [message.toJSON()], components: [row] })
-        } else {
+        } else if (type === 'sell') {
             // Check if User has a Car
             if (await item.get(interaction.user.id.replace(/\D/g, '') + '-CAR', 'amount') === 0) {
                 // Create Embed

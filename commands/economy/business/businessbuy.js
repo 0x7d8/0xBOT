@@ -1,5 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { EmbedBuilder } = require('@discordjs/builders');
+const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js')
 const { version } = require('../../../config.json');
 
 const fetch = require("node-fetch");
@@ -144,6 +145,7 @@ module.exports = {
             if (business == 'car dealership') { name = 'AUTOHAUS' }
         }
 
+        // Check if User has enough Money
         if (balance < cost) {
             const missing = cost - balance
             
@@ -165,28 +167,57 @@ module.exports = {
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
-        // Remove Money
-        bals.rem(interaction.user.id.replace(/\D/g, ''), cost)
+        // Create Buttons
+        let row = new ActionRowBuilder()
+			.addComponents(
+				new ButtonBuilder()
+					.setLabel('YES')
+                    .setCustomId('BUSINESS-BUY-YES-' + business + '-' + interaction.user.id)
+                    .setEmoji('1017050442431209543')
+					.setStyle(ButtonStyle.Success)
+                    .setDisabled(true),
 
-        // Own Business
-        bsns.set('g-' + interaction.guild.id + '-' + businessid + '-OWNER', interaction.user.id.replace(/\D/g, ''))
-        bsns.set('u-' + interaction.user.id + '-BUSINESS', business)
+                new ButtonBuilder()
+					.setLabel('NO')
+                    .setCustomId('BUSINESS-BUY-NO-' + business + '-' + interaction.user.id)
+                    .setEmoji('1017050508252418068')
+					.setStyle(ButtonStyle.Danger)
+                    .setDisabled(true),
+			);
+        if (lang.toString() == "de") {
+            row = new ActionRowBuilder()
+			    .addComponents(
+			    	new ButtonBuilder()
+			    		.setLabel('JA')
+                        .setCustomId('BUSINESS-BUY-YES-' + business + '-' + interaction.user.id)
+                        .setEmoji('1017050442431209543')
+			    		.setStyle(ButtonStyle.Success)
+                        .setDisabled(false),
+
+                    new ButtonBuilder()
+			    		.setLabel('NEIN')
+                        .setCustomId('BUSINESS-BUY-NO-' + business + '-' + interaction.user.id)
+                        .setEmoji('1017050508252418068')
+			    		.setStyle(ButtonStyle.Danger)
+                        .setDisabled(false),
+			    );
+        }
 
         // Create Embed
         let message = new EmbedBuilder()
             .setTitle('» BUY BUSINESS')
-            .setDescription('» You successfully bought a **' + name + '** for **$' + cost + '**!')
+            .setDescription('» Do you want to buy a **' + name + '** for **$' + cost + '**?')
             .setFooter({ text: '» ' + vote + ' » ' + version });
 
         if (lang.toString() == 'de') {
             message = new EmbedBuilder()
                 .setTitle('» GESCHÄFT KAUFEN')
-                .setDescription('» Du hast erfolgreich ein **' + name + '** für **' + cost + '€** gekauft!')
+                .setDescription('» Willst du ein **' + name + '** für **' + cost + '€** kaufen?')
                 .setFooter({ text: '» ' + vote + ' » ' + version });
         }
 
         // Send Message
         console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] BUSINESSBUY : ' + name.toUpperCase() + ' : ' + cost + '€')
-        return interaction.reply({ embeds: [message.toJSON()] })
+        return interaction.reply({ embeds: [message.toJSON()], components: [row] })
     },
 };
