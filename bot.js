@@ -296,6 +296,18 @@ client.on('interactionCreate', async interaction => {
 				const button = client.buttons.get(editedinteraction.customId);
 				await button.execute(editedinteraction, client, guildlang, votet, car, userid, type.toLowerCase());
 			}
+			if (interaction.customId.toString().substring(0, 4) == 'ITEM') {
+				const cache = interaction.customId.split('-');
+				const [cmd, type, selection, item, userid, amount] = cache;
+				let editedinteraction = interaction
+
+				if (selection == 'YES') { editedinteraction.customId = "item-yes" }
+				if (selection == 'NO') { editedinteraction.customId = "item-no" }
+				sc = true
+
+				const button = client.buttons.get(editedinteraction.customId);
+				await button.execute(editedinteraction, client, guildlang, votet, item, userid, type.toLowerCase(), amount);
+			}
 
 
 			// Other Button Cases

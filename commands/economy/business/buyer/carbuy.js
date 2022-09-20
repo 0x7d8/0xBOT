@@ -98,7 +98,7 @@ module.exports = {
         // Check if User already has a Car
         if (await item.get(interaction.user.id + '-CAR-' + interaction.guild.id, 'amount') !== 0) {
             // Translate to Car Names
-            const dbcar = await item.get(interaction.user.id + '-CAR', 'value')
+            const dbcar = await item.get(interaction.user.id + '-CAR-' + interaction.guild.id, 'value')
             if (dbcar == 'jeep') { name = '2016 JEEP PATRIOT SPORT' }
             if (dbcar == 'kia') { name = '2022 KIA SORENTO' }
             if (dbcar == 'tesla') { name = 'TESLA MODEL Y' }

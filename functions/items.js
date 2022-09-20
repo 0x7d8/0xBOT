@@ -41,7 +41,7 @@ exports.add = (userId, value, amount) => {
                 data.value += value;
             }
             if (amount != null) {
-                data.amount += amount;
+                data.amount += parseInt(amount);
             }
         } else {
             data = new valueSchema({
@@ -62,7 +62,7 @@ exports.rem = (userId, value, amount) => {
                 data.value -= value;
             }
             if (amount != null) {
-                data.amount -= amount;
+                data.amount -= parseInt(amount);
             }
         } else {
             data = new valueSchema({
