@@ -112,10 +112,10 @@ module.exports = {
 
         // Set Car Value
         let carvalue
-        if (car == 'jeep') { carvalue = 500 }
-        if (car == 'kia') { carvalue = 2000 }
-        if (car == 'tesla') { carvalue = 5000 }
-        if (car == 'porsche') { carvalue = 10000 }
+        if (car == 'jeep') { carvalue = 25 }
+        if (car == 'kia') { carvalue = 50 }
+        if (car == 'tesla') { carvalue = 100 }
+        if (car == 'porsche') { carvalue = 200 }
 
         // Remove Money
         bals.rem(interaction.user.id.replace(/\D/g, ''), cost)

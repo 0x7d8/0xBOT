@@ -19,6 +19,13 @@ mongoose.connect(mongo, {
 console.log(' ')
 console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [STA] $$$$$ LOADING COMMANDS AND EVENTS')
 
+/// Useful Math Functions
+// Add Percentage to Number
+global.addper = (oval, pval) => {
+	const percentage = ((pval/100) * oval)
+	return (oval + percentage)
+}
+
 /// MongoDB Functions
 // General Value
 global.cmds = require("./functions/cmds")

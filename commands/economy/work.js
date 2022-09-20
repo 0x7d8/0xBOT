@@ -90,7 +90,6 @@ module.exports = {
                 carboost = true
                 carboostam = await item.get(interaction.user.id.replace(/\D/g, '') + '-CAR', 'amount')
             }
-            console.log(car + '-' + carboost)
             
             // Set Extra Text
             let extra
@@ -108,23 +107,25 @@ module.exports = {
                     if (result >= 100) { extra = 'WOW!' }
                 }
             } else {
-                if (result < 40) { extra = 'MEH.\n\n**+$' + carboostam + '** thanks to your Car!' }
-                if (result >= 40) { extra = 'NICE.\n\n**+$' + carboostam + '** thanks to your Car!' }
-                if (result >= 60) { extra = 'GREAT.\n\n**+$' + carboostam + '** thanks to your Car!' }
-                if (result >= 80) { extra = 'WONDERFUL!\n\n**+$' + carboostam + '** thanks to your Car!' }
-                if (result >= 100) { extra = 'WOW!\n\n**+$' + carboostam + '** thanks to your Car!' }
+                if (result < 40) { extra = 'MEH.\n\n**+' + carboostam + '%** thanks to your Car!' }
+                if (result >= 40) { extra = 'NICE.\n\n**+' + carboostam + '%** thanks to your Car!' }
+                if (result >= 60) { extra = 'GREAT.\n\n**+' + carboostam + '%** thanks to your Car!' }
+                if (result >= 80) { extra = 'WONDERFUL!\n\n**+' + carboostam + '%** thanks to your Car!' }
+                if (result >= 100) { extra = 'WOW!\n\n**+' + carboostam + '%** thanks to your Car!' }
                 if (lang.toString() == "de") {
-                    if (result < 40) { extra = 'MEH.\n\n**+' + carboostam + '€** wegen deinem Auto!' }
-                    if (result >= 40) { extra = 'NICE.\n\n**+' + carboostam + '€** wegen deinem Auto!' }
-                    if (result >= 60) { extra = 'PRIMA.\n\n**+' + carboostam + '€** wegen deinem Auto!' }
-                    if (result >= 80) { extra = 'TOLL!\n\n**+' + carboostam + '€** wegen deinem Auto!' }
-                    if (result >= 100) { extra = 'WOW!\n\n**+' + carboostam + '€** wegen deinem Auto!' }
+                    if (result < 40) { extra = 'MEH.\n\n**+' + carboostam + '%** wegen deinem Auto!' }
+                    if (result >= 40) { extra = 'NICE.\n\n**+' + carboostam + '%** wegen deinem Auto!' }
+                    if (result >= 60) { extra = 'PRIMA.\n\n**+' + carboostam + '%** wegen deinem Auto!' }
+                    if (result >= 80) { extra = 'TOLL!\n\n**+' + carboostam + '%** wegen deinem Auto!' }
+                    if (result >= 100) { extra = 'WOW!\n\n**+' + carboostam + '%** wegen deinem Auto!' }
                 }
             }
 
             // Calculate Result with Car
             let resultcar
-            if (!carboost) { resultcar = result } else { resultcar = (result + carboostam) }
+            if (!carboost) { resultcar = result } else { resultcar = await Math.round(addper(result, carboostam)) }
+            console.log(result)
+            console.log(resultcar)
         
         	// Create Embed
       		let message = new EmbedBuilder()
@@ -141,7 +142,7 @@ module.exports = {
         
         	// Send Money
         	bals.add(interaction.user.id.replace(/\D/g, ''), result)
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] WORK : ' + result + '€');
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id.replace(/\D/g, '') + ' @ ' + interaction.guild.id + '] [CMD] WORK : ' + resultcar + '€');
             
             // Set Cooldown
 			cooldown.set(interaction.user.id.replace(/\D/g, ''), Date.now() + time);
