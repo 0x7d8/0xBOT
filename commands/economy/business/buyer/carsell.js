@@ -56,7 +56,7 @@ module.exports = {
         if (car == 'porsche') { name = '2019 PORSCHE 911 GT2RS' }
 
         // Check if User has a Car
-        if (await item.get(interaction.user.id + '-CAR', 'amount') === 0) {
+        if (await item.get(interaction.user.id + '-CAR-' + interaction.guild.id, 'amount') === 0) {
             // Create Embed
             let message = new EmbedBuilder()
             	.setTitle('» ERROR')

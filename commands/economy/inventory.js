@@ -32,7 +32,7 @@ module.exports = {
             hbombs = await item.get(interaction.user.id + '-HBOMBS-' + interaction.guild.id, 'amount')
             cbombs = await item.get(interaction.user.id + '-CBOMBS-' + interaction.guild.id, 'amount')
 
-            const car = await item.get(interaction.user.id + '-CAR', 'value')
+            const car = await item.get(interaction.user.id + '-CAR-' + interaction.guild.id, 'value')
             carname = 'NONE'
             if (lang == 'de') {
                 carname = 'KEINS'
@@ -47,7 +47,7 @@ module.exports = {
             hbombs = await item.get(user.id + '-HBOMBS-' + interaction.guild.id, 'amount')
             cbombs = await item.get(user.id + '-CBOMBS-' + interaction.guild.id, 'amount')
 
-            const car = await item.get(user.id + '-CAR', 'value')
+            const car = await item.get(user.id + '-CAR-' + interaction.guild.id, 'value')
             carname = 'NONE'
             if (lang == 'de') {
                 carname = 'KEINS'
