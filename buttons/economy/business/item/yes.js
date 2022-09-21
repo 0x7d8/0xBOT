@@ -38,6 +38,7 @@ module.exports = {
 
         // Calculate Cost
         let cost
+        let dopay = false
         if (await bsns.get('g-' + interaction.guild.id + '-1-PRICES') === '0' || await bsns.get('g-' + interaction.guild.id + '-1-PRICES') === 0) {
             if (itemid == 'nbomb') { cost = 500*costmul }
             if (itemid == 'mbomb') { cost = 1000*costmul }
@@ -52,6 +53,8 @@ module.exports = {
             if (itemid == 'mbomb') { cost = parseInt(k)*costmul }
             if (itemid == 'hbomb') { cost = parseInt(t)*costmul }
             if (itemid == 'cbomb') { cost = parseInt(p)*costmul }
+
+            dopay = true
         }
 
         // Translate to itemid Names
@@ -109,6 +112,26 @@ module.exports = {
         
                 // Send Message
                 bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] ITEMBUY : ' + itemid.toUpperCase() + ' : MAXSLOTS')
+                return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            }
+
+            // Check if Business has Stock
+            if (dopay && await bsns.get('g-' + interaction.guild.id + '-1-STOCK-' + itemid.toUpperCase()) < 1) {
+                // Create Embed
+                let message = new EmbedBuilder()
+                	.setTitle('» ERROR')
+  		    		.setDescription('» The Business doesnt have any Stock!')
+                	.setFooter({ text: '» ' + vote + ' » ' + version });
+
+                if (lang == "de") {
+                    message = new EmbedBuilder()
+                	    .setTitle('» FEHLER')
+  		    		    .setDescription('» Das Geschäft hat nichts auf Lager!')
+                	    .setFooter({ text: '» ' + vote + ' » ' + version });
+                }
+                
+                // Send Message
+                bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] ITEMBUY : NOSTOCK : ' + name)
                 return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
             }
 
@@ -178,6 +201,13 @@ module.exports = {
 
             // Remove Money
             bals.rem(interaction.user.id, cost)
+
+            // Transfer Money if Business is owned
+            if (dopay) {
+                const businessowner = await bsns.get('g-' + interaction.guild.id + '-1-OWNER')
+                bals.add(businessowner, cost)
+                bsns.rem('g-' + interaction.guild.id + '-1-STOCK-' + itemid.toUpperCase(), amount)
+            }
 
             // Own itemid(s)
             item.add(interaction.user.id + '-' + itemid.toUpperCase() + 'S-' + interaction.guild.id, 'x', amount)

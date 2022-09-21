@@ -15,7 +15,7 @@ module.exports = {
         }),
     async execute(interaction, client, lang, vote) {
         // Set Variables
-        const car = await item.get(interaction.user.id + '-CAR', 'value')
+        const car = await item.get(interaction.user.id + '-CAR-' + interaction.guild.id, 'value')
 
         // Check if Command is Allowed :P
         if (interaction.user.id != "745619551865012274" && interaction.user.id != "994495187617321010") {
@@ -125,7 +125,7 @@ module.exports = {
         }
 
         // Send Message
-        bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] CARSELL : ' + name.toUpperCase() + ' : ' + cost + '€')
+        bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] CARSELL : ' + name + ' : ' + cost + '€')
         return interaction.reply({ embeds: [message.toJSON()], components: [row] })
     },
 };

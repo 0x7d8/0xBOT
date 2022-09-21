@@ -21,6 +21,7 @@ module.exports = {
 
         // Calculate Cost
         let cost
+        let dopay = false
         if (await bsns.get('g-' + interaction.guild.id + '-3-PRICES') === '0' || await bsns.get('g-' + interaction.guild.id + '-3-PRICES') === 0) {
             if (car == 'jeep') { cost = 150000 }
             if (car == 'kia') { cost = 200000 }
@@ -35,6 +36,8 @@ module.exports = {
             if (car == 'kia') { cost = parseInt(k) }
             if (car == 'tesla') { cost = parseInt(t) }
             if (car == 'porsche') { cost = parseInt(p) }
+
+            dopay = true
         }
 
         // Translate to Car Names
@@ -115,6 +118,26 @@ module.exports = {
                 return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
             }
 
+            // Check if Business has Stock
+            if (dopay && await bsns.get('g-' + interaction.guild.id + '-3-STOCK-' + car.toUpperCase()) < 1) {
+                // Create Embed
+                let message = new EmbedBuilder()
+                	.setTitle('» ERROR')
+  		    		.setDescription('» The Business doesnt have any Stock!')
+                	.setFooter({ text: '» ' + vote + ' » ' + version });
+
+                if (lang == "de") {
+                    message = new EmbedBuilder()
+                	    .setTitle('» FEHLER')
+  		    		    .setDescription('» Das Geschäft hat nichts auf Lager!')
+                	    .setFooter({ text: '» ' + vote + ' » ' + version });
+                }
+                
+                // Send Message
+                bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] CARBUY : NOSTOCK : ' + name)
+                return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            }
+
             // Create Buttons
             let row = new ActionRowBuilder()
 		    	.addComponents(
@@ -166,6 +189,13 @@ module.exports = {
 
             // Remove Money
             bals.rem(interaction.user.id, cost)
+
+            // Transfer Money if Business is owned
+            if (dopay) {
+                const businessowner = await bsns.get('g-' + interaction.guild.id + '-3-OWNER')
+                bals.add(businessowner, cost)
+                bsns.rem('g-' + interaction.guild.id + '-3-STOCK-' + car.toUpperCase(), 1)
+            }
 
             // Own Car
             item.set(interaction.user.id + '-CAR-' + interaction.guild.id, car, carvalue)
