@@ -81,7 +81,7 @@ module.exports = {
             if (itemid == 'cbomb') { cost = parseInt(p)*costmul }
         }
 
-        // Translate to itemid Names
+        // Translate to Item Names
         let name
         if (itemid == 'nbomb') { name = '<:NBOMB:1021783222520127508> NORMAL BOMB' }
         if (itemid == 'mbomb') { name = '<:MBOMB:1021783295211601940> MEDIUM BOMB' }

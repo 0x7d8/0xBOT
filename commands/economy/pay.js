@@ -73,14 +73,14 @@ module.exports = {
             }
             
             // Send Message
-            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] PAY : ' + user + ' : BOT : ' + anzahl + '€')
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] PAY : ' + user.id + ' : BOT : ' + anzahl + '€')
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
         
         // Create Embeds
       	let message = new EmbedBuilder()
             .setTitle('» GIVE MONEY')
-  			.setDescription('» You gave <@' + user + '> **$' + anzahl + '**!')
+  			.setDescription('» You gave <@' + user.id + '> **$' + anzahl + '**!')
         	.setFooter({ text: '» ' + vote + ' » ' + version });
         let err2 = new EmbedBuilder()
             .setTitle('» GIVE MONEY')
@@ -90,7 +90,7 @@ module.exports = {
         if (lang == "de") {
             message = new EmbedBuilder()
                 .setTitle('» GELD GEBEN')
-  			    .setDescription('» Du hast <@' + user + '> **' + anzahl + '€** gegeben!')
+  			    .setDescription('» Du hast <@' + user.id + '> **' + anzahl + '€** gegeben!')
         	    .setFooter({ text: '» ' + vote + ' » ' + version });
             err2 = new EmbedBuilder()
                 .setTitle('» GELD GEBEN')
@@ -99,7 +99,7 @@ module.exports = {
         }
         
         // Check if User is Author
-        if (interaction.user.id == user) {
+        if (interaction.user.id == user.id) {
             return interaction.reply({ embeds: [err2.toJSON()], ephemeral: true })
         }
         
@@ -129,7 +129,7 @@ module.exports = {
         }
 
         // Send Message
-        bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] PAY : ' + user + ' : ' + anzahl + '€')
+        bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] PAY : ' + user.id + ' : ' + anzahl + '€')
         return interaction.reply({ embeds: [message.toJSON()] })
     },
 };

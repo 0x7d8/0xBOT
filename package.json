@@ -33,6 +33,7 @@
     "fs": "0.0.1-security",
     "generate-password": "1.7.0",
     "lib": "4.3.3",
+    "mathjs": "^11.2.1",
     "mongoose": "6.6.1",
     "ms": "2.1.3",
     "node-fetch": "2.6.7",

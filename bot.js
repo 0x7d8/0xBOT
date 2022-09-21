@@ -55,6 +55,8 @@ global.sredx = require("./functions/stocks/redmax")
 // Businesses
 global.bsns = require("./functions/businesses")
 
+// Caches
+global.bombcache = []
 
 // Deploy Commands
 const { REST } = require('@discordjs/rest');
@@ -307,6 +309,17 @@ client.on('interactionCreate', async interaction => {
 
 				const button = client.buttons.get(editedinteraction.customId);
 				await button.execute(editedinteraction, client, guildlang, votet, item, userid, type.toLowerCase(), amount);
+			}
+			if (interaction.customId.toString().substring(0, 4) == 'BOMB') {
+				const cache = interaction.customId.split('-');
+				const [cmd, solution, choice, solbtn, btn, item, reciever] = cache;
+				let editedinteraction = interaction
+
+				editedinteraction.customId = 'item-bomb'
+				sc = true
+
+				const button = client.buttons.get(editedinteraction.customId);
+				await button.execute(editedinteraction, client, guildlang, votet, solution, choice, solbtn, btn, item, reciever);
 			}
 
 

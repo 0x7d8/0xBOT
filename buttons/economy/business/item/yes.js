@@ -209,7 +209,7 @@ module.exports = {
                 bsns.rem('g-' + interaction.guild.id + '-1-STOCK-' + itemid.toUpperCase(), amount)
             }
 
-            // Own itemid(s)
+            // Own Item(s)
             item.add(interaction.user.id + '-' + itemid.toUpperCase() + 'S-' + interaction.guild.id, 'x', amount)
 
             // Send Message
