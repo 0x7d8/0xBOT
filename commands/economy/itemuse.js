@@ -131,8 +131,8 @@ module.exports = {
         // Generate Math Questions
         let math
         if (itemid == 'nbomb') { math = (Math.floor(Math.random() * (1000 - 80 + 1)) + 80) + ' + ' + (Math.floor(Math.random() * (20 - 10 + 1)) + 10) + ' - ' + (Math.floor(Math.random() * (200 - 150 + 1)) + 150) }
-        if (itemid == 'hbomb') { math = (Math.floor(Math.random() * (20 - 10 + 1)) + 10) + ' * ' + (Math.floor(Math.random() * (30 - 10 + 1)) + 10) + ' - ' + (Math.floor(Math.random() * (100 - 60 + 1)) + 60) }
-        if (itemid == 'mbomb') { math = (Math.floor(Math.random() * (20 - 10 + 1)) + 10) + ' * ' + (Math.floor(Math.random() * (40 - 10 + 1)) + 10) + ' / ' + (Math.floor(Math.random() * (100 - 60 + 1)) + 60) }
+        if (itemid == 'mbomb') { math = (Math.floor(Math.random() * (20 - 10 + 1)) + 10) + ' * ' + (Math.floor(Math.random() * (30 - 10 + 1)) + 10) + ' - ' + (Math.floor(Math.random() * (100 - 60 + 1)) + 60) }
+        if (itemid == 'hbomb') { math = (Math.floor(Math.random() * (20 - 10 + 1)) + 10) + ' * ' + (Math.floor(Math.random() * (40 - 10 + 1)) + 10) + ' * ' + (Math.floor(Math.random() * (100 - 60 + 1)) + 60) }
         if (itemid == 'cbomb') { math = (Math.floor(Math.random() * (40 - 10 + 1)) + 10) + ' * (' + (Math.floor(Math.random() * (4000 - 100 + 1)) + 100) + ' + ' + (Math.floor(Math.random() * (2000 - 600 + 1)) + 600) + ')' }
 
         // Solve the Math Question
@@ -216,15 +216,15 @@ module.exports = {
 
                 // Punish User
                 if (itemid == 'nbomb') {
-                    const member = await interaction.guild.members.fetch(interaction.user.id)
+                    const member = await interaction.guild.members.fetch(user.id)
                     member.timeout(30 * 1000, 'BOMB TIMEOUT FROM ' + interaction.user.id).catch((error) => {})
                 }
                 if (itemid == 'mbomb') {
-                    const member = await interaction.guild.members.fetch(interaction.user.id)
+                    const member = await interaction.guild.members.fetch(user.id)
                     member.timeout(60 * 1000, 'BOMB TIMEOUT FROM ' + interaction.user.id).catch((error) => {})
                 }
                 if (itemid == 'hbomb') {
-                    const member = await interaction.guild.members.fetch(interaction.user.id)
+                    const member = await interaction.guild.members.fetch(user.id)
                     member.timeout(90 * 1000, 'BOMB TIMEOUT FROM ' + interaction.user.id).catch((error) => {})
                 }
                 if (itemid == 'cbomb') {
