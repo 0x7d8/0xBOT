@@ -33,8 +33,7 @@ module.exports = {
         }
 
         // Answer Timeout Function
-        eval('global.rpstf' + sender.toString().replace(/\D/g, '') + ' = true')
-        eval('delete rpslc' + sender.replace(/\D/g, ''))
+        eval('delete rpstf' + sender)
 
         // Create Buttons
         let row = new ActionRowBuilder()

@@ -340,11 +340,7 @@ module.exports = {
                 if (lang == "de") {
                     winner = '**Niemand**'
                 }
-            }
-
-            // Answer Timeout Function
-            eval('global.memorytf' + sender.toString().replace(/\D/g, '') + ' = true')
-            eval('delete memorylc' + sender.replace(/\D/g, ''))    
+            } 
 
             // Transfer Money
             const betwon = parseInt(bet) * 2

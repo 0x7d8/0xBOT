@@ -100,10 +100,6 @@ module.exports = {
                     .setFooter({ text: '» ' + version });
             }
 
-            // Answer Timeout Function
-            eval('global.rpstf' + sender.toString().replace(/\D/g, '') + ' = true')
-            eval('delete rpslc' + sender.replace(/\D/g, ''))
-
             // Delete Variables
             eval('delete rps' + sender.toString().replace(/\D/g, ''))
             eval('delete rps' + reciever.toString().replace(/\D/g, ''))

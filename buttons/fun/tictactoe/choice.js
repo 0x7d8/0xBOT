@@ -349,10 +349,6 @@ module.exports = {
                 await eval('global.tttdatabc7' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Success')
             }
 
-            // Answer Timeout Function
-            eval('global.ttttf' + sender.toString().replace(/\D/g, '') + ' = true')
-            eval('delete tttlc' + sender.replace(/\D/g, ''))    
-
             // Transfer Money
             const betwon = parseInt(bet) * 2
             if (winner != '**Noone**' && winner != '**Niemand**') {

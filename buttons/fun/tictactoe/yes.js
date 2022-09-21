@@ -165,6 +165,9 @@ module.exports = {
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
+        // Answer Timeout Function
+        eval('delete ttttf' + sender)
+
         // Create Buttons
         let row1 = new ActionRowBuilder()
 			.addComponents(

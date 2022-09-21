@@ -88,12 +88,6 @@ module.exports = {
         } catch (e) {
             lobby = false
         }
-        try {
-            eval('memorylc' + interaction.user.id)
-            lobby = true
-        } catch (e) {
-            if (lobby) { lobby = false }
-        }
         if (lobby) {
             // Create Embed
             let message = new EmbedBuilder()
@@ -221,6 +215,9 @@ module.exports = {
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
+        // Init Timeout Function
+        eval('global.memorytf' + interaction.user.id + ' = true')
+
         // Create Buttons
         if (bet == null) { bet = 0 }
         let row = new ActionRowBuilder()
@@ -253,8 +250,6 @@ module.exports = {
 			    		.setStyle(ButtonStyle.Danger),
 			    );
         }
-
-        eval('global.memorylc' + interaction.user.id + ' = true')
         
         // Create Embed
         let message = new EmbedBuilder()
@@ -274,16 +269,7 @@ module.exports = {
         interaction.reply({ embeds: [message.toJSON()], components: [row] })
 
         const expiration = async () => {
-            let run
-            try {
-                eval('memorys' + interaction.user.id.toString().replace(/\D/g, ''))
-                run = false
-            } catch (e) {
-                run = true
-            }
-            if (!run) return
-
-            // Check if Message wasnt already answered with NO
+            // Check if Message wasnt already answered
             let sno
             try {
                 eval('memorytf' + interaction.user.id)
@@ -291,13 +277,8 @@ module.exports = {
             } catch (e) {
                 sno = false
             }
-            let ano = false
-            if (sno) {
-                if (eval('memorytf' + interaction.user.id + ' == true')) { eval('delete memorytf' + interaction.user.id); ano = true }
-                if (ano) return
-            }
-
-            eval('delete memorylc' + interaction.user.id)
+            if (!sno) return
+            eval('delete memorytf' + interaction.user.id)
 
             // Create Buttons
             row = new ActionRowBuilder()

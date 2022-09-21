@@ -163,6 +163,9 @@ module.exports = {
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
+        // Answer Timeout Function
+        eval('delete rpstf' + sender)
+
         // Create Buttons
         let row = new ActionRowBuilder()
 			.addComponents(

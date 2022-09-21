@@ -168,6 +168,9 @@ module.exports = {
         // Defer Reply
         await interaction.deferUpdate()
 
+        // Answer Timeout Function
+        eval('delete memorytf' + sender)
+
         // Create Buttons
         let row1 = new ActionRowBuilder()
 			.addComponents(
