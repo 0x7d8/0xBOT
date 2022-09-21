@@ -70,13 +70,13 @@ module.exports = {
 			// Create Embed
 			message = new EmbedBuilder()
                 .setTitle('» ITEM INFO')
-                .setDescription('» The **<:HBOMB:1021783351947952158> HYPER BOMB** is used to temporarily mute people, yes, mute people.\nIts alot harder and has a longer mute time than the **<:NBOMB:1021783222520127508> NORMAL BOMB** and the **<:MBOMB:1021783295211601940> MEDIUM BOMB**.')
+                .setDescription('» The **<:HBOMB:1022102357938536458> HYPER BOMB** is used to temporarily mute people, yes, mute people.\nIts alot harder and has a longer mute time than the **<:NBOMB:1021783222520127508> NORMAL BOMB** and the **<:MBOMB:1021783295211601940> MEDIUM BOMB**.')
                 .setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang == "de") {
                 message = new EmbedBuilder()
                     .setTitle('» ITEM INFO')
-                    .setDescription('» Die **<:HBOMB:1021783351947952158> HYPER BOMBE** ist genutzt um Leute temporär zu muten, ja, muten.\nSie ist deutlich schwieriger und hat eine längere Mute Zeit als die **<:NBOMB:1021783222520127508> NORMALE BOMBE** und die **<:MBOMB:1021783295211601940> MEDIUM BOMBE**.')
+                    .setDescription('» Die **<:HBOMB:1022102357938536458> HYPER BOMBE** ist genutzt um Leute temporär zu muten, ja, muten.\nSie ist deutlich schwieriger und hat eine längere Mute Zeit als die **<:NBOMB:1021783222520127508> NORMALE BOMBE** und die **<:MBOMB:1021783295211601940> MEDIUM BOMBE**.')
                     .setFooter({ text: '» ' + vote + ' » ' + version });
             }
 
