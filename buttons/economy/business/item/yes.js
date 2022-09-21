@@ -93,7 +93,7 @@ module.exports = {
 
             // Check if Max Slots are used
             const oldamount = await item.get(interaction.user.id + '-' + itemid.toUpperCase() + 'S-' + interaction.guild.id, 'amount')
-            if ((parseInt(amount) + oldamount) > 10) {
+            if ((parseInt(amount) + oldamount) > 15) {
                 // Create Embed
                 let message = new EmbedBuilder()
                     .setTitle('» ERROR')
