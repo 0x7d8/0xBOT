@@ -57,14 +57,14 @@ module.exports = {
         // Send Message
         await interaction.reply({ embeds: [message.toJSON()] })
         const sendcache = await interaction.fetchReply();
-        bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] VOTE : ' + frage.toUpperCase() + ' : ' + reactions.toUpperCase())
+        bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] POLL : ' + frage.toUpperCase() + ' : ' + reactions.toUpperCase())
         
         // Add the correct Reactions
-		if (reactions == 'frage') {
+		if (reactions == 'question') {
             sendcache.react('<:YES:1017050442431209543>');
 			sendcache.react('<:NO:1017050508252418068>');
         }
-        if (reactions == 'abstimmung') {
+        if (reactions == 'vote') {
             sendcache.react('🇦');
 			sendcache.react('🇧');
             sendcache.react('🇨');
