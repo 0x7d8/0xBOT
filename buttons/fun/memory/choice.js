@@ -156,60 +156,6 @@ module.exports = {
             doflush = true
         }
 
-        /*let se = false
-        let sno = false
-        let nums = []
-        if (bot.memory.get('A_PLAYERSELECT-' + interaction.user.id) < 2) {
-            if (bot.memory.get('E_PLAYERSELECT-' + interaction.user.id).includes(bot.memory.get('D_EMOJI-' + sel + '-' + sender))) {
-                bot.memory.set('POINTS-' + interaction.user.id, (parseInt(bot.memory.get('POINTS-' + interaction.user.id))+1))
-                bot.memory.set('A_PLAYERSTYLE-' + interaction.user.id, 0)
-
-                if (interaction.user.id == sender.toString().replace(/\D/g, '')) {
-                    bot.memory.set('STYLE-' + bot.memory.get('B_PLAYERSELECT-' + interaction.user.id)[0] + '-' + sender, ButtonStyle.Primary)
-                    bot.memory.set('STYLE-' + sel + '-' + sender, ButtonStyle.Primary)
-                }
-                if (interaction.user.id == reciever.toString().replace(/\D/g, '')) {
-                    bot.memory.set('STYLE-' + bot.memory.get('B_PLAYERSELECT-' + interaction.user.id)[0] + '-' + sender, ButtonStyle.Danger)
-                    bot.memory.set('STYLE-' + sel + '-' + sender, ButtonStyle.Danger)
-                }
-                bot.memory.set('E-PLAYERSELECT-' + interaction.user.id, [])
-                bot.memory.set('B-PLAYERSELECT-' + interaction.user.id, [])
-                sno = true
-                se = true
-            }
-        }
-        if (bot.memory.get('A_PLAYERSELECT-' + interaction.user.id) < 2 && !sno) {
-            if (!bot.memory.get('E_PLAYERSELECT-' + interaction.user.id).includes(bot.memory.get('D_EMOJI-' + sel + '-' + sender))) {
-                bot.memory.get('E_PLAYERSELECT-' + interaction.user.id).push(bot.memory.get('D_EMOJI-' + sel + '-' + sender))
-                bot.memory.get('B_PLAYERSELECT-' + interaction.user.id).push(sel)
-                bot.memory.set('DISABLED-' + sel + '-' + sender, true)
-                se = false
-            }
-        }
-        if (bot.memory.get('A_PLAYERSELECT-' + interaction.user.id) > 1) {
-            nums = []
-            nums[0] = bot.memory.get('B_PLAYERSELECT-' + interaction.user.id)[0]
-            nums[1] = bot.memory.get('B_PLAYERSELECT-' + interaction.user.id)[1]
-
-
-            // Turn Switcher
-            if (bot.memory.get('TURN-' + sender) == sender) {
-                bot.memory.set('TURN-' + sender, reciever)
-                turnemoji = '🔴'
-            }
-            if (bot.memory.get('TURN-' + sender) == reciever) {
-                bot.memory.set('TURN-' + sender, sender)
-                turnemoji = '🔵'
-            }
-
-
-            bot.memory.set('A_PLAYERSELECT-' + interaction.user.id, 0)
-            bot.memory.set('A_PLAYERSELECT-' + interaction.user.id, [])
-            bot.memory.set('B_PLAYERSELECT-' + interaction.user.id, [])
-            se = true
-        }
-        console.log(bot.memory.get('A_PLAYERSELECT-' + interaction.user.id))*/
-
         // Edit Buttons
         if (doflush) {
             let i
