@@ -46,6 +46,27 @@ module.exports = {
         const cache = itemstr.split('-');
         const [itemid, itemcat] = cache
 
+        // Check if Bombs are Enabled in Server
+        const bes = await gopt.get(interaction.guild.id + '-BOMBS')
+        if (parseInt(bes) == 1 && itemcat == bomb) {
+            // Create Embed
+            let message = new EmbedBuilder()
+        		.setTitle('» ERROR')
+        		.setDescription('» Bombs are disabled on this Server!')
+        		.setFooter({ text: '» ' + vote + ' » ' + version });
+
+            if (lang == "de") {
+                message = new EmbedBuilder()
+        		    .setTitle('» FEHLER')
+        		    .setDescription('» Bomben sind auf diesem Server deaktiviert!')
+        		    .setFooter({ text: '» ' + vote + ' » ' + version });
+            }
+            
+            // Send Message
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] BOMB : DISABLED')
+            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+        }
+
         // Translate to Item Names
         let name
         if (itemid == 'nbomb') { name = '<:NBOMB:1021783222520127508> NORMAL BOMB' }

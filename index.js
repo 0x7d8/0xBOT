@@ -301,6 +301,33 @@ if (dodshbr == "yes") {(async ()=>{
                         }
                     },
                     {
+                        optionId: 'bombs',
+                        optionName: "",
+                        optionDescription: "<center>Bombs",
+                        optionType: DBD.formTypes.switch(),
+                        getActualSet: async ({guild}) => {
+                            const clang = await gopt.get(guild.id + '-BOMBS')
+                            if (parseInt(clang) == 0) {
+                                return true
+                            } else {
+                                return false
+                            }
+                        },
+                        setNew: async ({guild,newData}) => {
+                            const clang = await gopt.get(guild.id + '-BOMBS')
+	                        if (newData == true) {
+                                if (parseInt(clang) == 1) {
+                                    gopt.rem(guild.id + '-BOMBS', 1)
+                                }
+                            } else {
+                                if (parseInt(clang) == 0) {
+                                    gopt.add(guild.id + '-BOMBS', 1)
+                                }
+                            }
+                            return
+                        }
+                    },
+                    {
                         optionId: 'roulette',
                         optionName: "",
                         optionDescription: "Roulette & Guess Commands",
