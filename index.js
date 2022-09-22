@@ -274,6 +274,33 @@ if (dodshbr == "yes") {(async ()=>{
                         }
                     },
                     {
+                        optionId: 'cars',
+                        optionName: "",
+                        optionDescription: "<center>Car System",
+                        optionType: DBD.formTypes.switch(),
+                        getActualSet: async ({guild}) => {
+                            const clang = await gopt.get(guild.id + '-CAR')
+                            if (parseInt(clang) == 0) {
+                                return true
+                            } else {
+                                return false
+                            }
+                        },
+                        setNew: async ({guild,newData}) => {
+                            const clang = await gopt.get(guild.id + '-CAR')
+	                        if (newData == true) {
+                                if (parseInt(clang) == 1) {
+                                    gopt.rem(guild.id + '-CAR', 1)
+                                }
+                            } else {
+                                if (parseInt(clang) == 0) {
+                                    gopt.add(guild.id + '-CAR', 1)
+                                }
+                            }
+                            return
+                        }
+                    },
+                    {
                         optionId: 'roulette',
                         optionName: "",
                         optionDescription: "Roulette & Guess Commands",

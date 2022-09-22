@@ -14,6 +14,27 @@ module.exports = {
             de: 'VERKAUFE DEIN AUTO'
         }),
     async execute(interaction, client, lang, vote) {
+        // Check if Cars are Enabled in Server
+        const ces = await gopt.get(interaction.guild.id + '-CAR')
+        if (parseInt(ces) == 1) {
+            // Create Embed
+            let message = new EmbedBuilder()
+        		.setTitle('» ERROR')
+        		.setDescription('» Cars are disabled on this Server!')
+        		.setFooter({ text: '» ' + vote + ' » ' + version });
+
+            if (lang == "de") {
+                message = new EmbedBuilder()
+        		    .setTitle('» FEHLER')
+        		    .setDescription('» Autos sind auf diesem Server deaktiviert!')
+        		    .setFooter({ text: '» ' + vote + ' » ' + version });
+            }
+            
+            // Send Message
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] CAR : DISABLED')
+            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+        }
+
         // Set Variables
         const car = await item.get(interaction.user.id + '-CAR-' + interaction.guild.id, 'value')
 
