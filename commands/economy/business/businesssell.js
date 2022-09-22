@@ -38,19 +38,6 @@ module.exports = {
         // Set Variables
         const business = await bsns.get('u-' + interaction.user.id + '-BUSINESS')
 
-        // Check if Command is Allowed :P
-        if (interaction.user.id != "745619551865012274" && interaction.user.id != "994495187617321010") {
-            // Create Embed
-            const err = new EmbedBuilder()
-                .setTitle('» FEHLER')
-                .setDescription('» Nur für Devs!')
-                .setFooter({ text: '» ' + vote + ' » ' + version });
-    
-            // Send Message
-            console.log(interaction.user.id + ' is a lol')
-            return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
-        }
-
         // Calculate Cost
         let cost
         if (business == 'market') { cost = 150000 }

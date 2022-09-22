@@ -50,19 +50,6 @@ module.exports = {
         let costmul
         if (amount == null) { costmul = 1 } else { costmul = amount }
 
-        // Check if Command is Allowed :P
-        if (interaction.user.id != "745619551865012274" && interaction.user.id != "994495187617321010") {
-            // Create Embed
-            const err = new EmbedBuilder()
-                .setTitle('» FEHLER')
-                .setDescription('» Nur für Devs!')
-                .setFooter({ text: '» ' + vote + ' » ' + version });
-    
-            // Send Message
-            console.log(interaction.user.id + ' is a lol')
-            return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
-        }
-
         // Calculate Cost
         let cost
         if (await bsns.get('g-' + interaction.guild.id + '-1-PRICES') === '0' || await bsns.get('g-' + interaction.guild.id + '-1-PRICES') === 0) {
