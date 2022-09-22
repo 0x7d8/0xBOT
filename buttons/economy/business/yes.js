@@ -154,6 +154,7 @@ module.exports = {
             // Own Business
             bsns.set('g-' + interaction.guild.id + '-' + businessid + '-OWNER', interaction.user.id)
             bsns.set('u-' + interaction.user.id + '-BUSINESS', business)
+            if (business === 'market') { bsns.set('g-' + interaction.guild.id + '-1-PRICES', '500-1000-5000-15000')}
 
             // Create Embed
             let message = new EmbedBuilder()

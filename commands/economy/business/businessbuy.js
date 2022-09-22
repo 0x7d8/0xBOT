@@ -63,12 +63,14 @@ module.exports = {
 
         // Check if Business is Empty
         let businessowner, oldleft
-        if (await bsns.get('g-' + interaction.guild.id + '-' + businessid + '-OWNER') !== '0') {
-            oldleft = true
+        console.log(1)
+        if (await bsns.get('g-' + interaction.guild.id + '-' + businessid + '-OWNER') !== '0' && await bsns.get('g-' + interaction.guild.id + '-' + businessid + '-OWNER') !== 0) {
+            oldleft = false
             businessowner = await bsns.get('g-' + interaction.guild.id + '-' + businessid + '-OWNER')
-            try {
-                await interaction.guild.members.fetch(businessowner)
-            } catch (e) {return}
+            const fetchc = await interaction.guild.members.fetch(businessowner)
+            if (typeof fetchc === 'undefined') { oldleft = true }
+
+            if (!oldleft) return
 
             // Create Embed
             let message
@@ -102,9 +104,10 @@ module.exports = {
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] BUSINESSBUY : ALREADYOWNED')
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
+        console.log(2)
 
         // Check if User already has Business
-        if (await bsns.get('u-' + interaction.user.id + '-BUSINESS') !== '0') {
+        if (await bsns.get('u-' + interaction.user.id + '-BUSINESS') !== '0' && await bsns.get('u-' + interaction.user.id + '-BUSINESS') !== 0) {
             const userbusiness = await bsns.get('u-' + interaction.user.id + '-BUSINESS')
 
             // Translate to Business Names
