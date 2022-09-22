@@ -203,7 +203,7 @@ module.exports = {
         }
 
         // Init Timeout Function
-        eval('global.memorytf' + interaction.user.id + ' = true')
+        bot.memory.set('TIMEOUT-' + interaction.user.id, true)
 
         // Create Buttons
         if (bet == null) { bet = 0 }
@@ -257,15 +257,8 @@ module.exports = {
 
         const expiration = async () => {
             // Check if Message wasnt already answered
-            let sno
-            try {
-                eval('memorytf' + interaction.user.id)
-                sno = true
-            } catch (e) {
-                sno = false
-            }
-            if (!sno) return
-            eval('delete memorytf' + interaction.user.id)
+            if (!bot.memory.has('TIMEOUT-' + interaction.user.id)) return
+            bot.memory.delete('TIMEOUT-' + interaction.user.id)
 
             // Create Buttons
             row = new ActionRowBuilder()

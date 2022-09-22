@@ -216,7 +216,7 @@ module.exports = {
         }
 
         // Init Timeout Function
-        eval('global.ttttf' + interaction.user.id + ' = true')
+        bot.ttt.set('TIMEOUT-' + interaction.user.id)
 
         // Create Buttons
         if (bet == null) { bet = 0 }
@@ -270,15 +270,8 @@ module.exports = {
 
         const expiration = async () => {
             // Check if Message wasnt already answered
-            let sno
-            try {
-                eval('ttttf' + interaction.user.id)
-                sno = true
-            } catch (e) {
-                sno = false
-            }
-            if (!sno) return
-            eval('delete ttttf' + interaction.user.id)
+            if (!bot.ttt.has('TIMEOUT-' + interaction.user.id)) return
+            bot.ttt.delete('TIMEOUT-' + interaction.user.id)
 
             // Create Buttons
             row = new ActionRowBuilder()

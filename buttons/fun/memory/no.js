@@ -33,7 +33,7 @@ module.exports = {
         }
 
         // Answer Timeout Function
-        eval('delete memorytf' + sender)
+        bot.memory.delete('TIMEOUT-' + sender)
 
         // Create Buttons
         let row = new ActionRowBuilder()

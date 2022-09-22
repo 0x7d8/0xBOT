@@ -164,7 +164,7 @@ module.exports = {
         }
 
         // Answer Timeout Function
-        eval('delete rpstf' + sender)
+        bot.rps.delete('TIMEOUT-' + sender)
 
         // Create Buttons
         let row = new ActionRowBuilder()

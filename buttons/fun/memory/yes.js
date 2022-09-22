@@ -124,7 +124,7 @@ module.exports = {
         await interaction.deferUpdate()
 
         // Answer Timeout Function
-        eval('delete memorytf' + sender)
+        bot.memory.delete('TIMEOUT-' + sender)
 
         // Create Buttons
         let row1 = new ActionRowBuilder()

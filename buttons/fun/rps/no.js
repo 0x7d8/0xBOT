@@ -33,7 +33,7 @@ module.exports = {
         }
 
         // Answer Timeout Function
-        eval('delete rpstf' + sender)
+        bot.ttt.delete('TIMEOUT-' + sender)
 
         // Create Buttons
         let row = new ActionRowBuilder()
