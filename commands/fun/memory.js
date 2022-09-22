@@ -81,14 +81,7 @@ module.exports = {
         }
 
         // Check if Sender is already in a Lobby
-        let lobby
-        try {
-            eval('memorys' + interaction.user.id.toString().replace(/\D/g, ''))
-            lobby = true
-        } catch (e) {
-            lobby = false
-        }
-        if (lobby) {
+        if (bot.game.has('PLAYING-' + interaction.user.id)) {
             // Create Embed
             let message = new EmbedBuilder()
         		.setTitle('» ERROR')
@@ -108,13 +101,7 @@ module.exports = {
         }
 
         // Check if Reciever is already in a Lobby
-        try {
-            eval('memorys' + user.id)
-            lobby = true
-        } catch (e) {
-            lobby = false
-        }
-        if (lobby) {
+        if (bot.game.has('PLAYING-' + user.id)) {
             // Create Embed
             let message = new EmbedBuilder()
         		.setTitle('» ERROR')

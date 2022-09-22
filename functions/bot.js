@@ -26,3 +26,7 @@ exports.stats = (type, uid, gid) => {
 		btns.add('u-' + uid, 1)
     }
 }
+
+// Game Caches
+exports.game = new Map()
+exports.memory = new Map()

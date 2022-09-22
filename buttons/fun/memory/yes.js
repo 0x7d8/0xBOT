@@ -39,14 +39,7 @@ module.exports = {
         }
 
         // Check if Person is already in a Lobby
-        let lobby
-        try {
-            eval('memorys' + interaction.user.id.toString().replace(/\D/g, ''))
-            lobby = true
-        } catch (e) {
-            lobby = false
-        }
-        if (lobby) {
+        if (bot.game.has('PLAYING-' + reciever)) {
             // Create Embed
             let message = new EmbedBuilder()
         		.setTitle('» ERROR')
@@ -65,61 +58,23 @@ module.exports = {
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
-        // Check if Reciever is already in a Lobby
-        try {
-            eval('memorys' + reciever.toString().replace(/\D/g, ''))
-            lobby = true
-        } catch (e) {
-            lobby = false
-        }
-        if (lobby) {
-            // Check if Reciever is Person
-            if (interaction.user.id == reciever.toString().replace(/\D/g, '')) return
-
+        // Check if Other Person is already in a Lobby
+        if (bot.game.has('PLAYING-' + sender)) {
             // Create Embed
             let message = new EmbedBuilder()
         		.setTitle('» ERROR')
-        		.setDescription('» <@' + reciever.toString().replace(/\D/g, '') + '> is already in a Lobby!')
+        		.setDescription('» <@' + sender + '> is already in a Lobby!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang == "de") {
                 message = new EmbedBuilder()
         		    .setTitle('» FEHLER')
-        		    .setDescription('» <@' + reciever.toString().replace(/\D/g, '') + '> ist schon in einer Lobby!')
+        		    .setDescription('» <@' + sender + '> ist schon in einer Lobby!')
         		    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] MEMORY : ' + sender.toString().replace(/\D/g, '') + ' : ALREADYLOBBY')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
-        }
-
-        // Check if Sender is already in a Lobby
-        try {
-            eval('memorys' + sender.toString().replace(/\D/g, ''))
-            lobby = true
-        } catch (e) {
-            lobby = false
-        }
-        if (lobby) {
-            // Check if Sender is Person
-            if (interaction.user.id == sender.toString().replace(/\D/g, '')) return
-
-            // Create Embed
-            let message = new EmbedBuilder()
-        		.setTitle('» ERROR')
-        		.setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> is already in a Lobby!')
-        		.setFooter({ text: '» ' + vote + ' » ' + version });
-
-            if (lang == "de") {
-                message = new EmbedBuilder()
-        		    .setTitle('» FEHLER')
-        		    .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> ist schon in einer Lobby!')
-        		    .setFooter({ text: '» ' + vote + ' » ' + version });
-            }
-            
-            // Send Message
-            bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] MEMORY : ' + reciever.toString().replace(/\D/g, '') + ' : ALREADYLOBBY')
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
@@ -282,89 +237,24 @@ module.exports = {
 			);
 
         // Set Variables
-        eval('global.memorys' + sender.toString().replace(/\D/g, '') + ' = true')
-        eval('global.memorys' + reciever.toString().replace(/\D/g, '') + ' = true')
-        eval('delete memorylc' + sender.replace(/\D/g, ''))
+        bot.game.set('PLAYING-' + sender, 'MEMORY')
+        bot.game.set('PLAYING-' + reciever, 'MEMORY')
 
-        eval('global.memorydatap' + sender.toString().replace(/\D/g, '') + ' = 0')
-        eval('global.memorydatap' + reciever.toString().replace(/\D/g, '') + ' = 0')
+        bot.memory.set('A_PLAYERSELECT-' + sender, 0)
+        bot.memory.set('A_PLAYERSELECT-' + reciever, 0)
+        bot.memory.set('POINTS-' + sender, 0)
+        bot.memory.set('POINTS-' + reciever, 0)
 
-        eval('global.memorydatatu' + sender.toString().replace(/\D/g, '') + ' = ' + sender.toString().replace(/\D/g, ''))
-
-        eval('global.memorydatapc' + sender.toString().replace(/\D/g, '') + ' = []')
-        eval('global.memorydatapc' + reciever.toString().replace(/\D/g, '') + ' = []')
-        eval('global.memorydatapcn' + sender.toString().replace(/\D/g, '') + ' = []')
-        eval('global.memorydatapcn' + reciever.toString().replace(/\D/g, '') + ' = []')
-        eval('global.memorydatapca' + sender.toString().replace(/\D/g, '') + ' = 0')
-        eval('global.memorydatapca' + reciever.toString().replace(/\D/g, '') + ' = 0')
-
-        eval('global.memorydataf1' + sender.toString().replace(/\D/g, '') + ' = "1020411843644243998"')
-        eval('global.memorydataf2' + sender.toString().replace(/\D/g, '') + ' = "1020411843644243998"')
-        eval('global.memorydataf3' + sender.toString().replace(/\D/g, '') + ' = "1020411843644243998"')
-        eval('global.memorydataf4' + sender.toString().replace(/\D/g, '') + ' = "1020411843644243998"')
-        eval('global.memorydataf5' + sender.toString().replace(/\D/g, '') + ' = "1020411843644243998"')
-        eval('global.memorydataf6' + sender.toString().replace(/\D/g, '') + ' = "1020411843644243998"')
-        eval('global.memorydataf7' + sender.toString().replace(/\D/g, '') + ' = "1020411843644243998"')
-        eval('global.memorydataf8' + sender.toString().replace(/\D/g, '') + ' = "1020411843644243998"')
-        eval('global.memorydataf9' + sender.toString().replace(/\D/g, '') + ' = "1020411843644243998"')
-        eval('global.memorydataf10' + sender.toString().replace(/\D/g, '') + ' = "1020411843644243998"')
-        eval('global.memorydataf11' + sender.toString().replace(/\D/g, '') + ' = "1020411843644243998"')
-        eval('global.memorydataf12' + sender.toString().replace(/\D/g, '') + ' = "1020411843644243998"')
-        eval('global.memorydataf13' + sender.toString().replace(/\D/g, '') + ' = "1020411843644243998"')
-        eval('global.memorydataf14' + sender.toString().replace(/\D/g, '') + ' = "1020411843644243998"')
-        eval('global.memorydataf15' + sender.toString().replace(/\D/g, '') + ' = "1020411843644243998"')
-        eval('global.memorydataf16' + sender.toString().replace(/\D/g, '') + ' = "1020411843644243998"')
-        eval('global.memorydataf17' + sender.toString().replace(/\D/g, '') + ' = "1020411843644243998"')
-        eval('global.memorydataf18' + sender.toString().replace(/\D/g, '') + ' = "1020411843644243998"')
-        eval('global.memorydataf19' + sender.toString().replace(/\D/g, '') + ' = "1020411843644243998"')
-        eval('global.memorydataf20' + sender.toString().replace(/\D/g, '') + ' = "1020411843644243998"')
-
-        eval('global.memorydatabc1' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Secondary')
-        eval('global.memorydatabc2' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Secondary')
-        eval('global.memorydatabc3' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Secondary')
-        eval('global.memorydatabc4' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Secondary')
-        eval('global.memorydatabc5' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Secondary')
-        eval('global.memorydatabc6' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Secondary')
-        eval('global.memorydatabc7' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Secondary')
-        eval('global.memorydatabc8' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Secondary')
-        eval('global.memorydatabc9' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Secondary')
-        eval('global.memorydatabc10' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Secondary')
-        eval('global.memorydatabc11' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Secondary')
-        eval('global.memorydatabc12' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Secondary')
-        eval('global.memorydatabc13' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Secondary')
-        eval('global.memorydatabc14' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Secondary')
-        eval('global.memorydatabc15' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Secondary')
-        eval('global.memorydatabc16' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Secondary')
-        eval('global.memorydatabc17' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Secondary')
-        eval('global.memorydatabc18' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Secondary')
-        eval('global.memorydatabc19' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Secondary')
-        eval('global.memorydatabc20' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Secondary')
-
-        eval('global.memorydatad1' + sender.toString().replace(/\D/g, '') + ' = false')
-        eval('global.memorydatad2' + sender.toString().replace(/\D/g, '') + ' = false')
-        eval('global.memorydatad3' + sender.toString().replace(/\D/g, '') + ' = false')
-        eval('global.memorydatad4' + sender.toString().replace(/\D/g, '') + ' = false')
-        eval('global.memorydatad5' + sender.toString().replace(/\D/g, '') + ' = false')
-        eval('global.memorydatad6' + sender.toString().replace(/\D/g, '') + ' = false')
-        eval('global.memorydatad7' + sender.toString().replace(/\D/g, '') + ' = false')
-        eval('global.memorydatad8' + sender.toString().replace(/\D/g, '') + ' = false')
-        eval('global.memorydatad9' + sender.toString().replace(/\D/g, '') + ' = false')
-        eval('global.memorydatad10' + sender.toString().replace(/\D/g, '') + ' = false')
-        eval('global.memorydatad11' + sender.toString().replace(/\D/g, '') + ' = false')
-        eval('global.memorydatad12' + sender.toString().replace(/\D/g, '') + ' = false')
-        eval('global.memorydatad13' + sender.toString().replace(/\D/g, '') + ' = false')
-        eval('global.memorydatad14' + sender.toString().replace(/\D/g, '') + ' = false')
-        eval('global.memorydatad15' + sender.toString().replace(/\D/g, '') + ' = false')
-        eval('global.memorydatad16' + sender.toString().replace(/\D/g, '') + ' = false')
-        eval('global.memorydatad17' + sender.toString().replace(/\D/g, '') + ' = false')
-        eval('global.memorydatad18' + sender.toString().replace(/\D/g, '') + ' = false')
-        eval('global.memorydatad19' + sender.toString().replace(/\D/g, '') + ' = false')
-        eval('global.memorydatad20' + sender.toString().replace(/\D/g, '') + ' = false')
-
-        const emojis = []
-        const emojis2 = []
+        bot.memory.set('E_PLAYERSELECT-' + sender, [])
+        bot.memory.set('E_PLAYERSELECT-' + reciever, [])
+        bot.memory.set('B_PLAYERSELECT-' + reciever, [])
+        bot.memory.set('B_PLAYERSELECT-' + sender, [])
+        bot.memory.set('C_PLAYERSELECT-' + reciever, [])
+        bot.memory.set('C_PLAYERSELECT-' + sender, [])
 
         // Generate Emoji Grid
+        const emojis = []
+        const emojis2 = []
         const emojilistraw = [
             "1017444934904729611",
             "1017445104685961236",
@@ -426,11 +316,11 @@ module.exports = {
                 const emoji = await emojilist[emojirandom - 1]
                 skipother = false
 
-                if (await typeof emoji !== 'undefined' && await typeof emojinumber !== 'undefined') {
-                    if (await !emojis.includes(emoji)) {
+                if (typeof emoji !== 'undefined' && typeof emojinumber !== 'undefined') {
+                    if (!emojis.includes(emoji)) {
                         emojis[emojinumber - 1] = await emoji
                         await wait(25)
-                        await eval('global.memorydatag' + emojinumber + sender.toString().replace(/\D/g, '') + ' = "' + emoji + '"')
+                        bot.memory.set('I_EMOJI-' + emojinumber + '-' + sender, emoji.toString())
                         emojinumber = emojinumber + 1
                         if (emojinumber > 20) {
                             emojistate = true
@@ -438,10 +328,10 @@ module.exports = {
                         }
                         skipother = true
                     }
-                    if (await !emojis2.includes(emoji) && skipother != true) {
+                    if (!emojis2.includes(emoji) && skipother != true) {
                         emojis2[emojinumber - 1] = await emoji
                         await wait(25)
-                        await eval('global.memorydatag' + emojinumber + sender.toString().replace(/\D/g, '') + ' = "' + emoji + '"')
+                        bot.memory.set('I_EMOJI-' + emojinumber + '-' + sender, emoji.toString())
                         emojinumber = emojinumber + 1
                         if (emojinumber > 20) {
                             emojistate = true
@@ -469,6 +359,14 @@ module.exports = {
                 .setTitle('» MEMORY')
                 .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> spielt mit <@' + reciever.toString().replace(/\D/g, '') + '> Memory!\nDie Wette ist **' + bet + '€**\n\n🔵 » Punkte von <@' + sender.toString().replace(/\D/g, '') + '> sind **0**\n🔴 » Punkte von <@' + reciever.toString().replace(/\D/g, '') + '> sind **0**')
                 .setFooter({ text: '» ' + version + ' » AM ZUG: 🔵' });
+        }
+
+        // Set Default Button Values
+        bot.memory.set('TURN-' + sender, sender)
+        for (i = 0; i < 20; i++) {
+            bot.memory.set('STYLE-' + (i+1) + '-' + sender, ButtonStyle.Secondary)
+            bot.memory.set('DISABLED-' + (i+1) + '-' + sender, false)
+            bot.memory.set('D_EMOJI-' + (i+1) + '-' + sender, { id: '1020411843644243998', name: 'MEMORY' })
         }
 
         // Send Message

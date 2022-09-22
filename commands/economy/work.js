@@ -85,10 +85,10 @@ module.exports = {
             // Check for Car Boost
             let carboost = false
             let carboostam
-            const car = await item.get(interaction.user.id + '-CAR', 'value')
+            const car = await item.get(interaction.user.id + '-CAR-' + interaction.guild.id, 'value')
             if (car !== 0) {
                 carboost = true
-                carboostam = await item.get(interaction.user.id + '-CAR', 'amount')
+                carboostam = await item.get(interaction.user.id + '-CAR-' + interaction.guild.id, 'amount')
             }
             
             // Set Extra Text

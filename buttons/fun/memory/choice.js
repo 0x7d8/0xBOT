@@ -1,8 +1,23 @@
 const { EmbedBuilder } = require('@discordjs/builders');
 const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
+const memory = require('../../../commands/fun/memory');
 const { version } = require('../../../config.json');
 
 const wait = require('node:timers/promises').setTimeout;
+
+// Function for Button Row Grabber
+const rowget = async (button) => {
+    let row, btn
+    if (button < 21) { row = 3; btn = button-15 }
+    if (button < 16) { row = 2; btn = button-10 }
+    if (button < 11) { row = 1; btn = button-5 }
+    if (button < 6) { row = 0; btn = button }
+
+    const output = []
+    output[0] = btn-1 // -1 So I dont have to do it before
+    output[1] = row
+    return output
+}
 
 module.exports = {
     data: {
@@ -35,8 +50,7 @@ module.exports = {
         }
 
         // Check Turn
-        const turn = await eval('memorydatatu' + sender.toString().replace(/\D/g, ''))
-        if (interaction.user.id != turn) {
+        if (interaction.user.id != bot.memory.get('TURN-' + sender)) {
             // Create Embed
             let message = new EmbedBuilder()
         		.setTitle('» ERROR')
@@ -60,281 +74,210 @@ module.exports = {
 
         // Translate Turn to Emoji
         let turnemoji
-        if (turn == sender.toString().replace(/\D/g, '')) {
+        if (bot.memory.get('TURN-' + sender) == sender) {
             turnemoji = '🔵'
         }
-        if (turn == reciever.toString().replace(/\D/g, '')) {
+        if (bot.memory.get('TURN-' + sender) == reciever) {
             turnemoji = '🔴'
         }
 
-        // Set Variables
-        await eval('global.memorydataf' + sel + sender.toString().replace(/\D/g, '') + ' = memorydatag' + sel + sender.toString().replace(/\D/g, ''))
-        await eval('global.memorydatad' + sel + sender.toString().replace(/\D/g, '') + ' = true')
-        await eval('global.memorydatapca' + interaction.user.id + ' = memorydatapca' + interaction.user.id + ' + 1')
-        let se = false
+        /// Set Variables
+        let doflush = false
+        // Select Field
+        bot.memory.set('D_EMOJI-' + sel + '-' + sender, { id: bot.memory.get('I_EMOJI-' + sel + '-' + sender), name: 'MEMORY' })
+        bot.memory.set('DISABLED-' + sel + '-' + sender, true)
+        const comp = await rowget(parseInt(sel))
+        interaction.message.components[comp[1]].components[comp[0]].data.disabled = true
+        interaction.message.components[comp[1]].components[comp[0]].data.emoji = bot.memory.get('D_EMOJI-' + sel + '-' + sender)
+
+        // Add Field Values to Cache
+        bot.memory.get('C_PLAYERSELECT-' + interaction.user.id).push(bot.memory.get('I_EMOJI-' + sel + '-' + sender))
+        bot.memory.get('B_PLAYERSELECT-' + interaction.user.id).push(sel)
+
+        // Count Player Interactions Up by 1
+        bot.memory.set('A_PLAYERSELECT-' + interaction.user.id, (parseInt(bot.memory.get('A_PLAYERSELECT-' + interaction.user.id))+1))
+
+        // Check if its the 2nd Player Interaction
+        if (bot.memory.get('A_PLAYERSELECT-' + interaction.user.id) === 2) {
+            // Check if Both Fields have the same Emoji
+            if (bot.memory.get('C_PLAYERSELECT-' + interaction.user.id)[0] === bot.memory.get('C_PLAYERSELECT-' + interaction.user.id)[1]) {
+                // Add Point
+                bot.memory.set('POINTS-' + interaction.user.id, (parseInt(bot.memory.get('POINTS-' + interaction.user.id))+1))
+
+                // Get Button Position
+                const comp1 = await rowget(bot.memory.get('B_PLAYERSELECT-' + interaction.user.id)[0])
+                const comp2 = await rowget(bot.memory.get('B_PLAYERSELECT-' + interaction.user.id)[1])
+
+                // Color the Fields
+                if (interaction.user.id == sender) {
+                    bot.memory.set('STYLE-' + bot.memory.get('B_PLAYERSELECT-' + interaction.user.id)[0] + '-' + sender, ButtonStyle.Primary)
+                    interaction.message.components[comp1[1]].components[comp1[0]].data.style = ButtonStyle.Primary
+                    bot.memory.set('STYLE-' + bot.memory.get('B_PLAYERSELECT-' + interaction.user.id)[1] + '-' + sender, ButtonStyle.Primary)
+                    interaction.message.components[comp2[1]].components[comp2[0]].data.style = ButtonStyle.Primary
+                }
+                if (interaction.user.id == reciever) {
+                    bot.memory.set('STYLE-' + bot.memory.get('B_PLAYERSELECT-' + interaction.user.id)[0] + '-' + sender, ButtonStyle.Danger)
+                    interaction.message.components[comp1[1]].components[comp1[0]].data.style = ButtonStyle.Danger
+                    bot.memory.set('STYLE-' + bot.memory.get('B_PLAYERSELECT-' + interaction.user.id)[1] + '-' + sender, ButtonStyle.Danger)
+                    interaction.message.components[comp2[1]].components[comp2[0]].data.style = ButtonStyle.Danger
+                }
+
+                // Clear Cache Arrays
+                bot.memory.set('A_PLAYERSELECT-' + interaction.user.id, 0)
+                bot.memory.set('B_PLAYERSELECT-' + interaction.user.id, [])
+                bot.memory.set('C_PLAYERSELECT-' + interaction.user.id, [])
+            } else { // If they dont have the same Emoji
+                // Get Button Positions
+                const comp1 = await rowget(bot.memory.get('B_PLAYERSELECT-' + interaction.user.id)[0])
+                const comp2 = await rowget(bot.memory.get('B_PLAYERSELECT-' + interaction.user.id)[1])
+
+                // Clear the Fields
+                interaction.message.components[comp1[1]].components[comp1[0]].data.disabled = false
+                interaction.message.components[comp1[1]].components[comp1[0]].data.emoji = { id: '1020411843644243998', name: 'MEMORY' }
+                interaction.message.components[comp2[1]].components[comp2[0]].data.disabled = false
+                interaction.message.components[comp2[1]].components[comp2[0]].data.emoji = { id: '1020411843644243998', name: 'MEMORY' }
+
+                bot.memory.set('DISABLED-' + bot.memory.get('B_PLAYERSELECT-' + interaction.user.id)[0] + '-' + sender, false)
+                bot.memory.set('DISABLED-' + bot.memory.get('B_PLAYERSELECT-' + interaction.user.id)[1] + '-' + sender, false)
+
+                // Turn Switcher
+                console.log(bot.memory.get('TURN-' + sender))
+                if (bot.memory.get('TURN-' + sender) == sender) {
+                    bot.memory.set('TURN-' + sender, reciever)
+                    turnemoji = '🔴'
+                } else {
+                    bot.memory.set('TURN-' + sender, sender)
+                    turnemoji = '🔵'
+                }
+            }
+
+            /// Actions that run in both Cases
+            // DoFlush
+            doflush = true
+        }
+
+        /*let se = false
         let sno = false
         let nums = []
-        if (await eval('memorydatapca' + interaction.user.id) + ' < 2') {
-            if (await eval('memorydatapc' + interaction.user.id + '.includes("' + await eval('memorydataf' + sel + sender.toString().replace(/\D/g, '')) + '")')) {
-                await eval('global.memorydatap' + interaction.user.id + ' = memorydatap' + interaction.user.id + ' + 1')
-                await eval('global.memorydatapca' + interaction.user.id + ' = 0')
+        if (bot.memory.get('A_PLAYERSELECT-' + interaction.user.id) < 2) {
+            if (bot.memory.get('E_PLAYERSELECT-' + interaction.user.id).includes(bot.memory.get('D_EMOJI-' + sel + '-' + sender))) {
+                bot.memory.set('POINTS-' + interaction.user.id, (parseInt(bot.memory.get('POINTS-' + interaction.user.id))+1))
+                bot.memory.set('A_PLAYERSTYLE-' + interaction.user.id, 0)
 
                 if (interaction.user.id == sender.toString().replace(/\D/g, '')) {
-                    eval('global.memorydatabc' + await eval('memorydatapcn' + interaction.user.id + '[0]') + sender.replace(/\D/g, '') + ' = ButtonStyle.Primary')
-                    eval('global.memorydatabc' + sel + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Primary')
+                    bot.memory.set('STYLE-' + bot.memory.get('B_PLAYERSELECT-' + interaction.user.id)[0] + '-' + sender, ButtonStyle.Primary)
+                    bot.memory.set('STYLE-' + sel + '-' + sender, ButtonStyle.Primary)
                 }
                 if (interaction.user.id == reciever.toString().replace(/\D/g, '')) {
-                    eval('global.memorydatabc' + await eval('memorydatapcn' + interaction.user.id + '[0]') + sender.replace(/\D/g, '') + ' = ButtonStyle.Danger')
-                    eval('global.memorydatabc' + sel + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Danger')
+                    bot.memory.set('STYLE-' + bot.memory.get('B_PLAYERSELECT-' + interaction.user.id)[0] + '-' + sender, ButtonStyle.Danger)
+                    bot.memory.set('STYLE-' + sel + '-' + sender, ButtonStyle.Danger)
                 }
-                await eval('global.memorydatapc' + interaction.user.id + ' = []')
-                await eval('global.memorydatapcn' + interaction.user.id + ' = []')
+                bot.memory.set('E-PLAYERSELECT-' + interaction.user.id, [])
+                bot.memory.set('B-PLAYERSELECT-' + interaction.user.id, [])
                 sno = true
                 se = true
             }
         }
-        if (await eval('memorydatapca' + interaction.user.id) + ' < 2' && !sno) {
-            if (!await eval('memorydatapc' + interaction.user.id + '.includes("' + await eval('memorydataf' + sel + sender.toString().replace(/\D/g, '')) + '")')) {
-                await eval('memorydatapc' + interaction.user.id + '.push("' + await eval('memorydataf' + sel + sender.toString().replace(/\D/g, '')) + '")')
-                await eval('memorydatapcn' + interaction.user.id + '.push("' + sel + '")')
-                await eval('global.memorydatad' + sel + sender.toString().replace(/\D/g, '') + ' = true')
+        if (bot.memory.get('A_PLAYERSELECT-' + interaction.user.id) < 2 && !sno) {
+            if (!bot.memory.get('E_PLAYERSELECT-' + interaction.user.id).includes(bot.memory.get('D_EMOJI-' + sel + '-' + sender))) {
+                bot.memory.get('E_PLAYERSELECT-' + interaction.user.id).push(bot.memory.get('D_EMOJI-' + sel + '-' + sender))
+                bot.memory.get('B_PLAYERSELECT-' + interaction.user.id).push(sel)
+                bot.memory.set('DISABLED-' + sel + '-' + sender, true)
                 se = false
             }
         }
-        if (await eval('memorydatapca' + interaction.user.id + ' > 1')) {
+        if (bot.memory.get('A_PLAYERSELECT-' + interaction.user.id) > 1) {
             nums = []
-            nums[0] = (await eval('memorydatapcn' + interaction.user.id + '[0]'))
-            nums[1] = (await eval('memorydatapcn' + interaction.user.id + '[1]'))
+            nums[0] = bot.memory.get('B_PLAYERSELECT-' + interaction.user.id)[0]
+            nums[1] = bot.memory.get('B_PLAYERSELECT-' + interaction.user.id)[1]
 
 
             // Turn Switcher
-            if (turn == sender.toString().replace(/\D/g, '')) {
-                await eval('global.memorydatatu' + sender.toString().replace(/\D/g, '') + ' = ' + reciever.toString().replace(/\D/g, ''))
+            if (bot.memory.get('TURN-' + sender) == sender) {
+                bot.memory.set('TURN-' + sender, reciever)
                 turnemoji = '🔴'
             }
-            if (turn == reciever.toString().replace(/\D/g, '')) {
-                await eval('global.memorydatatu' + sender.toString().replace(/\D/g, '') + ' = ' + sender.toString().replace(/\D/g, ''))
+            if (bot.memory.get('TURN-' + sender) == reciever) {
+                bot.memory.set('TURN-' + sender, sender)
                 turnemoji = '🔵'
             }
 
 
-            await eval('global.memorydatapca' + interaction.user.id + ' = 0')
-            await eval('global.memorydatapc' + interaction.user.id + ' = []')
-            await eval('global.memorydatapcn' + interaction.user.id + ' = []')
+            bot.memory.set('A_PLAYERSELECT-' + interaction.user.id, 0)
+            bot.memory.set('A_PLAYERSELECT-' + interaction.user.id, [])
+            bot.memory.set('B_PLAYERSELECT-' + interaction.user.id, [])
             se = true
         }
+        console.log(bot.memory.get('A_PLAYERSELECT-' + interaction.user.id))*/
 
-        // Deactivate all Buttons
-        const buttondatas = []
-        let buttoncount = 1
-        let donebutton = false
-        const dbtn = async () => {
-            while (donebutton == false) {
-                await wait(10)
-                if (await eval('memorydatad' + buttoncount + sender.toString().replace(/\D/g, '') + ' == false')) {
-                    await eval('global.memorydatad' + buttoncount + sender.toString().replace(/\D/g, '') + ' = true')
-                    buttondatas.push(buttoncount.toString())
-                }
-                buttoncount = buttoncount + 1
-                if (buttoncount == 21) {
-                    donebutton = true
-                    return
-                }
+        // Edit Buttons
+        if (doflush) {
+            let i
+            for (i = 0; i < 20; i++) {
+                const row = Math.floor(i / 5);
+                const button = interaction.message.components[row].components[i % 5];
+              
+                button.data.label = null
+                button.data.emoji = bot.memory.get('D_EMOJI-' + (i+1) + '-' + sender)
+                button.data.style = bot.memory.get('STYLE-' + (i+1) + '-' + sender)
+                button.data.disabled = true
             }
         }
-        if (se == true) {
-            await dbtn()
-        }
-
-        // Create Buttons
-        let row1 = new ActionRowBuilder()
-			.addComponents(
-				new ButtonBuilder()
-                    .setEmoji(eval('memorydataf1' + sender.toString().replace(/\D/g, '')))
-                    .setCustomId('MEMORY-1-' + bet)
-					.setStyle(eval('memorydatabc1' + sender.toString().replace(/\D/g, '')))
-                    .setDisabled(eval('memorydatad1' + sender.toString().replace(/\D/g, ''))),
-
-                new ButtonBuilder()
-                    .setEmoji(eval('memorydataf2' + sender.toString().replace(/\D/g, '')))
-                    .setCustomId('MEMORY-2-' + bet)
-					.setStyle(eval('memorydatabc2' + sender.toString().replace(/\D/g, '')))
-                    .setDisabled(eval('memorydatad2' + sender.toString().replace(/\D/g, ''))),
-
-                new ButtonBuilder()
-                    .setEmoji(eval('memorydataf3' + sender.toString().replace(/\D/g, '')))
-                    .setCustomId('MEMORY-3-' + bet)
-					.setStyle(eval('memorydatabc3' + sender.toString().replace(/\D/g, '')))
-                    .setDisabled(eval('memorydatad3' + sender.toString().replace(/\D/g, ''))),
-                
-                new ButtonBuilder()
-                    .setEmoji(eval('memorydataf4' + sender.toString().replace(/\D/g, '')))
-                    .setCustomId('MEMORY-4-' + bet)
-					.setStyle(eval('memorydatabc4' + sender.toString().replace(/\D/g, '')))
-                    .setDisabled(eval('memorydatad4' + sender.toString().replace(/\D/g, ''))),
-
-                new ButtonBuilder()
-                    .setEmoji(eval('memorydataf5' + sender.toString().replace(/\D/g, '')))
-                    .setCustomId('MEMORY-5-' + bet)
-					.setStyle(eval('memorydatabc5' + sender.toString().replace(/\D/g, '')))
-                    .setDisabled(eval('memorydatad5' + sender.toString().replace(/\D/g, ''))),
-			);
-        let row2 = new ActionRowBuilder()
-			.addComponents(
-				new ButtonBuilder()
-                    .setEmoji(eval('memorydataf6' + sender.toString().replace(/\D/g, '')))
-                    .setCustomId('MEMORY-6-' + bet)
-					.setStyle(eval('memorydatabc6' + sender.toString().replace(/\D/g, '')))
-                    .setDisabled(eval('memorydatad6' + sender.toString().replace(/\D/g, ''))),
-
-                new ButtonBuilder()
-                    .setEmoji(eval('memorydataf7' + sender.toString().replace(/\D/g, '')))
-                    .setCustomId('MEMORY-7-' + bet)
-					.setStyle(eval('memorydatabc7' + sender.toString().replace(/\D/g, '')))
-                    .setDisabled(eval('memorydatad7' + sender.toString().replace(/\D/g, ''))),
-
-                new ButtonBuilder()
-                    .setEmoji(eval('memorydataf8' + sender.toString().replace(/\D/g, '')))
-                    .setCustomId('MEMORY-8-' + bet)
-					.setStyle(eval('memorydatabc8' + sender.toString().replace(/\D/g, '')))
-                    .setDisabled(eval('memorydatad8' + sender.toString().replace(/\D/g, ''))),
-                
-                new ButtonBuilder()
-                    .setEmoji(eval('memorydataf9' + sender.toString().replace(/\D/g, '')))
-                    .setCustomId('MEMORY-9-' + bet)
-					.setStyle(eval('memorydatabc9' + sender.toString().replace(/\D/g, '')))
-                    .setDisabled(eval('memorydatad9' + sender.toString().replace(/\D/g, ''))),
-
-                new ButtonBuilder()
-                    .setEmoji(eval('memorydataf10' + sender.toString().replace(/\D/g, '')))
-                    .setCustomId('MEMORY-10-' + bet)
-					.setStyle(eval('memorydatabc10' + sender.toString().replace(/\D/g, '')))
-                    .setDisabled(eval('memorydatad10' + sender.toString().replace(/\D/g, ''))),
-			);
-        let row3 = new ActionRowBuilder()
-			.addComponents(
-				new ButtonBuilder()
-                    .setEmoji(eval('memorydataf11' + sender.toString().replace(/\D/g, '')))
-                    .setCustomId('MEMORY-11-' + bet)
-					.setStyle(eval('memorydatabc11' + sender.toString().replace(/\D/g, '')))
-                    .setDisabled(eval('memorydatad11' + sender.toString().replace(/\D/g, ''))),
-
-                new ButtonBuilder()
-                    .setEmoji(eval('memorydataf12' + sender.toString().replace(/\D/g, '')))
-                    .setCustomId('MEMORY-12-' + bet)
-					.setStyle(eval('memorydatabc12' + sender.toString().replace(/\D/g, '')))
-                    .setDisabled(eval('memorydatad12' + sender.toString().replace(/\D/g, ''))),
-
-                new ButtonBuilder()
-                    .setEmoji(eval('memorydataf13' + sender.toString().replace(/\D/g, '')))
-                    .setCustomId('MEMORY-13-' + bet)
-					.setStyle(eval('memorydatabc13' + sender.toString().replace(/\D/g, '')))
-                    .setDisabled(eval('memorydatad13' + sender.toString().replace(/\D/g, ''))),
-                
-                new ButtonBuilder()
-                    .setEmoji(eval('memorydataf14' + sender.toString().replace(/\D/g, '')))
-                    .setCustomId('MEMORY-14-' + bet)
-					.setStyle(eval('memorydatabc14' + sender.toString().replace(/\D/g, '')))
-                    .setDisabled(eval('memorydatad14' + sender.toString().replace(/\D/g, ''))),
-
-                new ButtonBuilder()
-                    .setEmoji(eval('memorydataf15' + sender.toString().replace(/\D/g, '')))
-                    .setCustomId('MEMORY-15-' + bet)
-					.setStyle(eval('memorydatabc15' + sender.toString().replace(/\D/g, '')))
-                    .setDisabled(eval('memorydatad15' + sender.toString().replace(/\D/g, ''))),
-			);
-        let row4 = new ActionRowBuilder()
-			.addComponents(
-				new ButtonBuilder()
-                    .setEmoji(eval('memorydataf16' + sender.toString().replace(/\D/g, '')))
-                    .setCustomId('MEMORY-16-' + bet)
-					.setStyle(eval('memorydatabc16' + sender.toString().replace(/\D/g, '')))
-                    .setDisabled(eval('memorydatad16' + sender.toString().replace(/\D/g, ''))),
-
-                new ButtonBuilder()
-                    .setEmoji(eval('memorydataf17' + sender.toString().replace(/\D/g, '')))
-                    .setCustomId('MEMORY-17-' + bet)
-					.setStyle(eval('memorydatabc17' + sender.toString().replace(/\D/g, '')))
-                    .setDisabled(eval('memorydatad17' + sender.toString().replace(/\D/g, ''))),
-
-                new ButtonBuilder()
-                    .setEmoji(eval('memorydataf18' + sender.toString().replace(/\D/g, '')))
-                    .setCustomId('MEMORY-18-' + bet)
-					.setStyle(eval('memorydatabc18' + sender.toString().replace(/\D/g, '')))
-                    .setDisabled(eval('memorydatad18' + sender.toString().replace(/\D/g, ''))),
-                
-                new ButtonBuilder()
-                    .setEmoji(eval('memorydataf19' + sender.toString().replace(/\D/g, '')))
-                    .setCustomId('MEMORY-19-' + bet)
-					.setStyle(eval('memorydatabc19' + sender.toString().replace(/\D/g, '')))
-                    .setDisabled(eval('memorydatad19' + sender.toString().replace(/\D/g, ''))),
-
-                new ButtonBuilder()
-                    .setEmoji(eval('memorydataf20' + sender.toString().replace(/\D/g, '')))
-                    .setCustomId('MEMORY-20-' + bet)
-					.setStyle(eval('memorydatabc20' + sender.toString().replace(/\D/g, '')))
-                    .setDisabled(eval('memorydatad20' + sender.toString().replace(/\D/g, ''))),
-			);
 
         // Create Embed
         let message = new EmbedBuilder()
             .setTitle('» MEMORY')
-            .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> is playing Memory with <@' + reciever.toString().replace(/\D/g, '') + '>!\nThe Bet is **$' + bet + '**\n\n🔵 » Points of <@' + sender.toString().replace(/\D/g, '') + '> are **' + eval('memorydatap' + sender.toString().replace(/\D/g, '')) + '**\n🔴 » Points of <@' + reciever.toString().replace(/\D/g, '') + '> are **' + eval('memorydatap' + reciever.toString().replace(/\D/g, '')) + '**')
+            .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> is playing Memory with <@' + reciever.toString().replace(/\D/g, '') + '>!\nThe Bet is **$' + bet + '**\n\n🔵 » Points of <@' + sender.toString().replace(/\D/g, '') + '> are **' + bot.memory.get('POINTS-' + sender)+ '**\n🔴 » Points of <@' + reciever.toString().replace(/\D/g, '') + '> are **' + bot.memory.get('POINTS-' + reciever) + '**')
             .setFooter({ text: '» ' + version + ' » CURRENT TURN: ' + turnemoji });
 
         if (lang == "de") {
             message = new EmbedBuilder()
                 .setTitle('» MEMORY')
-                .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> spielt mit <@' + reciever.toString().replace(/\D/g, '') + '> Memory!\nDie Wette ist **' + bet + '€**\n\n🔵 » Punkte von <@' + sender.toString().replace(/\D/g, '') + '> sind **' + eval('memorydatap' + sender.toString().replace(/\D/g, '')) + '**\n🔴 » Punkte von <@' + reciever.toString().replace(/\D/g, '') + '> sind **' + eval('memorydatap' + reciever.toString().replace(/\D/g, '')) +'**')
+                .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> spielt mit <@' + reciever.toString().replace(/\D/g, '') + '> Memory!\nDie Wette ist **' + bet + '€**\n\n🔵 » Punkte von <@' + sender.toString().replace(/\D/g, '') + '> sind **' + bot.memory.get('POINTS-' + sender) + '**\n🔴 » Punkte von <@' + reciever.toString().replace(/\D/g, '') + '> sind **' + bot.memory.get('POINTS-' + reciever) +'**')
                 .setFooter({ text: '» ' + version + ' » AM ZUG: ' + turnemoji });
         }
 
         // Send Message
-        bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] MEMORY : ' + sel + ' : ' + eval('memorydataf' + sel + sender.toString().replace(/\D/g, '')))
-        interaction.editReply({ embeds: [message.toJSON()], components: [row1, row2, row3, row4], ephemeral: true })
-
-        // Update Message
-        await interaction.message.edit({ embeds: [message.toJSON()], components: [row1, row2, row3, row4], ephemeral: true })
+        bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] MEMORY : ' + sel + ' : ' + bot.memory.get('I_EMOJI-' + sel + '-' + sender))
+        interaction.editReply({ embeds: [message.toJSON()], components: interaction.message.components, ephemeral: true })
 
         // Check for Special Conditions
-        if (se == false) return
-        await wait(2500)
-
-        // Activate all Deactivated Buttons
-        buttoncount = 0
-        donebutton = false
-        const abtn = async () => {
-            while (donebutton == false) {
-                await wait(25)
-                if (buttondatas.includes(buttoncount.toString())) {
-                    await eval('global.memorydatad' + buttoncount + sender.toString().replace(/\D/g, '') + ' = false')
-                }
-                buttoncount = buttoncount + 1
-                if (buttoncount == 21) {
-                    donebutton = true
-                    return
-                }
-            }
-        }
-        await abtn()
+        if (!doflush) return
+        await wait(2000)
 
         // Remove Emojis
-        await eval('global.memorydataf' + nums[0] + sender.toString().replace(/\D/g, '') + ' = "1020411843644243998"')
-        await eval('global.memorydataf' + nums[1] + sender.toString().replace(/\D/g, '') + ' = "1020411843644243998"')
-        await wait(50)
-        await eval('global.memorydatad' + nums[0] + sender.toString().replace(/\D/g, '') + ' = false')
-        await eval('global.memorydatad' + nums[1] + sender.toString().replace(/\D/g, '') + ' = false')
+        bot.memory.set('D_EMOJI-' + bot.memory.get('B_PLAYERSELECT-' + interaction.user.id)[0] + '-' + sender, { id: '1020411843644243998', name: 'MEMORY' })
+        bot.memory.set('D_EMOJI-' + bot.memory.get('B_PLAYERSELECT-' + interaction.user.id)[1] + '-' + sender, { id: '1020411843644243998', name: 'MEMORY' })
+        bot.memory.set('DISABLED-' + bot.memory.get('B_PLAYERSELECT-' + interaction.user.id)[0] + '-' + sender, false)
+        bot.memory.set('DISABLED-' + bot.memory.get('B_PLAYERSELECT-' + interaction.user.id)[1] + '-' + sender, false)
+
+        // Clear Cache Arrays
+        bot.memory.set('A_PLAYERSELECT-' + interaction.user.id, 0)
+        bot.memory.set('B_PLAYERSELECT-' + interaction.user.id, [])
+        bot.memory.set('C_PLAYERSELECT-' + interaction.user.id, [])
+
+        // Edit Buttons
+        let i
+        for (i = 0; i < 20; i++) {
+            const row = Math.floor(i / 5);
+            const button = interaction.message.components[row].components[i % 5];
+            
+            button.data.label = null
+            button.data.emoji = bot.memory.get('D_EMOJI-' + (i+1) + '-' + sender)
+            button.data.style = bot.memory.get('STYLE-' + (i+1) + '-' + sender)
+            button.data.disabled = bot.memory.get('DISABLED-' + (i+1) + '-' + sender)
+        }
 
         // Check if Round has ended
-        if(await eval('parseInt(memorydatap' + sender.toString().replace(/\D/g, '') + ') + parseInt(memorydatap' + reciever.toString().replace(/\D/g, '') + ') == 10')) {
+        if((bot.memory.get('POINTS-' + sender) + bot.memory.get('POINTS-' + reciever)) == 10) {
             // Check Who Won
-            const senderpoints = await eval('memorydatap' + sender.toString().replace(/\D/g, ''))
-            const recieverpoints = await eval('memorydatap' + reciever.toString().replace(/\D/g, ''))
+            const senderpoints = bot.memory.get('POINTS-' + sender)
+            const recieverpoints = bot.memory.get('POINTS-' + reciever)
             let winner
             if (parseInt(senderpoints) > parseInt(recieverpoints)) {
-                winner = '<@' + sender.toString().replace(/\D/g, '') + '>'
+                winner = '<@' + sender + '>'
             } else if (parseInt(senderpoints) < parseInt(recieverpoints)) {
-                winner = '<@' + reciever.toString().replace(/\D/g, '') + '>'
+                winner = '<@' + reciever + '>'
             } else {
                 winner = '**Noone**'
                 if (lang == "de") {
@@ -354,250 +297,38 @@ module.exports = {
             // Create Embed
             message = new EmbedBuilder()
                 .setTitle('» MEMORY')
-                .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> is playing Memory with <@' + reciever.toString().replace(/\D/g, '') + '>!\nThe Bet is **$' + bet + '**\n\n🔵 » Points of <@' + sender.toString().replace(/\D/g, '') + '> are **' + eval('memorydatap' + sender.toString().replace(/\D/g, '')) + '**\n🔴 » Points of <@' + reciever.toString().replace(/\D/g, '') + '> are **' + eval('memorydatap' + reciever.toString().replace(/\D/g, '')) + '**\n\n' + winner + ' has won **$' + betwon + '**!')
+                .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> is playing Memory with <@' + reciever.toString().replace(/\D/g, '') + '>!\nThe Bet is **$' + bet + '**\n\n🔵 » Points of <@' + sender.toString().replace(/\D/g, '') + '> are **' + bot.memory.get('POINTS-' + sender) + '**\n🔴 » Points of <@' + reciever.toString().replace(/\D/g, '') + '> are **' + bot.memory.get('POINTS-' + reciever) + '**\n\n' + winner + ' has won **$' + betwon + '**!')
                 .setFooter({ text: '» ' + version });
 
             if (lang == "de") {
                 message = new EmbedBuilder()
                     .setTitle('» MEMORY')
-                    .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> spielt mit <@' + reciever.toString().replace(/\D/g, '') + '> Memory!\nDie Wette ist **' + bet + '€**\n\n🔵 » Punkte von <@' + sender.toString().replace(/\D/g, '') + '> sind **' + eval('memorydatap' + sender.toString().replace(/\D/g, '')) + '**\n🔴 » Punkte von <@' + reciever.toString().replace(/\D/g, '') + '> sind **' + eval('memorydatap' + reciever.toString().replace(/\D/g, '')) +'**\n\n' + winner + ' hat **' + betwon + '€** gewonnen!')
+                    .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> spielt mit <@' + reciever.toString().replace(/\D/g, '') + '> Memory!\nDie Wette ist **' + bet + '€**\n\n🔵 » Punkte von <@' + sender.toString().replace(/\D/g, '') + '> sind **' + bot.memory.get('POINTS-' + sender) + '**\n🔴 » Punkte von <@' + reciever.toString().replace(/\D/g, '') + '> sind **' + bot.memory.get('POINTS-' + reciever) +'**\n\n' + winner + ' hat **' + betwon + '€** gewonnen!')
                     .setFooter({ text: '» ' + version });
             }
 
             // Delete Variables
-            eval('delete memorydatatu' + sender.toString().replace(/\D/g, ''))
+            bot.game.delete('PLAYING-' + sender)
+            bot.game.delete('PLAYING-' + reciever)
 
-            eval('delete memorydataf1' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydataf2' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydataf3' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydataf4' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydataf5' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydataf6' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydataf7' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydataf8' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydataf9' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydataf10' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydataf11' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydataf12' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydataf13' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydataf14' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydataf15' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydataf16' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydataf17' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydataf18' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydataf19' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydataf20' + sender.toString().replace(/\D/g, ''))
+            bot.memory.delete('TURN-' + sender,)
+            bot.memory.delete('A_PLAYERSELECT-' + sender,)
+            bot.memory.delete('A_PLAYERSELECT-' + reciever)
+            bot.memory.delete('POINTS-' + sender)
+            bot.memory.delete('POINTS-' + reciever)
 
-            eval('delete memorydatag1' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydatag2' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydatag3' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydatag4' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydatag5' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydatag6' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydatag7' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydatag8' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydatag9' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydatag10' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydatag11' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydatag12' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydatag13' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydatag14' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydatag15' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydatag16' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydatag17' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydatag18' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydatag19' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydatag20' + sender.toString().replace(/\D/g, ''))
-
-            eval('delete memorydatabc1' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydatabc2' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydatabc3' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydatabc4' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydatabc5' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydatabc6' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydatabc7' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydatabc8' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydatabc9' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydatabc10' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydatabc11' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydatabc12' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydatabc13' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydatabc14' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydatabc15' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydatabc16' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydatabc17' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydatabc18' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydatabc19' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydatabc20' + sender.toString().replace(/\D/g, ''))
-
-            eval('delete memorydatad1' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydatad2' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydatad3' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydatad4' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydatad5' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydatad6' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydatad7' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydatad8' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydatad9' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydatad10' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydatad11' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydatad12' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydatad13' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydatad14' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydatad15' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydatad16' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydatad17' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydatad18' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydatad19' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydatad20' + sender.toString().replace(/\D/g, ''))
-
-            eval('delete memorydatap' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydatap' + reciever.toString().replace(/\D/g, ''))
-            eval('delete memorydatapc' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydatapc' + reciever.toString().replace(/\D/g, ''))
-            eval('delete memorydatapcn' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydatapcn' + reciever.toString().replace(/\D/g, ''))
-            eval('delete memorydatapca' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorydatapca' + reciever.toString().replace(/\D/g, ''))
-
-            eval('delete memorys' + sender.toString().replace(/\D/g, ''))
-            eval('delete memorys' + reciever.toString().replace(/\D/g, ''))
+            bot.memory.delete('E_PLAYERSELECT-' + sender)
+            bot.memory.delete('E_PLAYERSELECT-' + reciever)
+            bot.memory.delete('B_PLAYERSELECT-' + reciever)
+            bot.memory.delete('B_PLAYERSELECT-' + sender)
+            bot.memory.delete('C_PLAYERSELECT-' + reciever)
+            bot.memory.delete('C_PLAYERSELECT-' + sender)
 
             // Update Message
-            return interaction.message.edit({ embeds: [message.toJSON()], components: [row1, row2, row3, row4], ephemeral: true })
+            return interaction.message.edit({ embeds: [message.toJSON()], components: interaction.message.components, ephemeral: true })
         }
 
-        // Create Buttons
-        row1 = new ActionRowBuilder()
-			.addComponents(
-				new ButtonBuilder()
-                    .setEmoji(eval('memorydataf1' + sender.toString().replace(/\D/g, '')))
-                    .setCustomId('MEMORY-1-' + bet)
-					.setStyle(eval('memorydatabc1' + sender.toString().replace(/\D/g, '')))
-                    .setDisabled(eval('memorydatad1' + sender.toString().replace(/\D/g, ''))),
-
-                new ButtonBuilder()
-                    .setEmoji(eval('memorydataf2' + sender.toString().replace(/\D/g, '')))
-                    .setCustomId('MEMORY-2-' + bet)
-					.setStyle(eval('memorydatabc2' + sender.toString().replace(/\D/g, '')))
-                    .setDisabled(eval('memorydatad2' + sender.toString().replace(/\D/g, ''))),
-
-                new ButtonBuilder()
-                    .setEmoji(eval('memorydataf3' + sender.toString().replace(/\D/g, '')))
-                    .setCustomId('MEMORY-3-' + bet)
-					.setStyle(eval('memorydatabc3' + sender.toString().replace(/\D/g, '')))
-                    .setDisabled(eval('memorydatad3' + sender.toString().replace(/\D/g, ''))),
-                
-                new ButtonBuilder()
-                    .setEmoji(eval('memorydataf4' + sender.toString().replace(/\D/g, '')))
-                    .setCustomId('MEMORY-4-' + bet)
-					.setStyle(eval('memorydatabc4' + sender.toString().replace(/\D/g, '')))
-                    .setDisabled(eval('memorydatad4' + sender.toString().replace(/\D/g, ''))),
-
-                new ButtonBuilder()
-                    .setEmoji(eval('memorydataf5' + sender.toString().replace(/\D/g, '')))
-                    .setCustomId('MEMORY-5-' + bet)
-					.setStyle(eval('memorydatabc5' + sender.toString().replace(/\D/g, '')))
-                    .setDisabled(eval('memorydatad5' + sender.toString().replace(/\D/g, ''))),
-			);
-        row2 = new ActionRowBuilder()
-			.addComponents(
-				new ButtonBuilder()
-                    .setEmoji(eval('memorydataf6' + sender.toString().replace(/\D/g, '')))
-                    .setCustomId('MEMORY-6-' + bet)
-					.setStyle(eval('memorydatabc6' + sender.toString().replace(/\D/g, '')))
-                    .setDisabled(eval('memorydatad6' + sender.toString().replace(/\D/g, ''))),
-
-                new ButtonBuilder()
-                    .setEmoji(eval('memorydataf7' + sender.toString().replace(/\D/g, '')))
-                    .setCustomId('MEMORY-7-' + bet)
-					.setStyle(eval('memorydatabc7' + sender.toString().replace(/\D/g, '')))
-                    .setDisabled(eval('memorydatad7' + sender.toString().replace(/\D/g, ''))),
-
-                new ButtonBuilder()
-                    .setEmoji(eval('memorydataf8' + sender.toString().replace(/\D/g, '')))
-                    .setCustomId('MEMORY-8-' + bet)
-					.setStyle(eval('memorydatabc8' + sender.toString().replace(/\D/g, '')))
-                    .setDisabled(eval('memorydatad8' + sender.toString().replace(/\D/g, ''))),
-                
-                new ButtonBuilder()
-                    .setEmoji(eval('memorydataf9' + sender.toString().replace(/\D/g, '')))
-                    .setCustomId('MEMORY-9-' + bet)
-					.setStyle(eval('memorydatabc9' + sender.toString().replace(/\D/g, '')))
-                    .setDisabled(eval('memorydatad9' + sender.toString().replace(/\D/g, ''))),
-
-                new ButtonBuilder()
-                    .setEmoji(eval('memorydataf10' + sender.toString().replace(/\D/g, '')))
-                    .setCustomId('MEMORY-10-' + bet)
-					.setStyle(eval('memorydatabc10' + sender.toString().replace(/\D/g, '')))
-                    .setDisabled(eval('memorydatad10' + sender.toString().replace(/\D/g, ''))),
-			);
-        row3 = new ActionRowBuilder()
-			.addComponents(
-				new ButtonBuilder()
-                    .setEmoji(eval('memorydataf11' + sender.toString().replace(/\D/g, '')))
-                    .setCustomId('MEMORY-11-' + bet)
-					.setStyle(eval('memorydatabc11' + sender.toString().replace(/\D/g, '')))
-                    .setDisabled(eval('memorydatad11' + sender.toString().replace(/\D/g, ''))),
-
-                new ButtonBuilder()
-                    .setEmoji(eval('memorydataf12' + sender.toString().replace(/\D/g, '')))
-                    .setCustomId('MEMORY-12-' + bet)
-					.setStyle(eval('memorydatabc12' + sender.toString().replace(/\D/g, '')))
-                    .setDisabled(eval('memorydatad12' + sender.toString().replace(/\D/g, ''))),
-
-                new ButtonBuilder()
-                    .setEmoji(eval('memorydataf13' + sender.toString().replace(/\D/g, '')))
-                    .setCustomId('MEMORY-13-' + bet)
-					.setStyle(eval('memorydatabc13' + sender.toString().replace(/\D/g, '')))
-                    .setDisabled(eval('memorydatad13' + sender.toString().replace(/\D/g, ''))),
-                
-                new ButtonBuilder()
-                    .setEmoji(eval('memorydataf14' + sender.toString().replace(/\D/g, '')))
-                    .setCustomId('MEMORY-14-' + bet)
-					.setStyle(eval('memorydatabc14' + sender.toString().replace(/\D/g, '')))
-                    .setDisabled(eval('memorydatad14' + sender.toString().replace(/\D/g, ''))),
-
-                new ButtonBuilder()
-                    .setEmoji(eval('memorydataf15' + sender.toString().replace(/\D/g, '')))
-                    .setCustomId('MEMORY-15-' + bet)
-					.setStyle(eval('memorydatabc15' + sender.toString().replace(/\D/g, '')))
-                    .setDisabled(eval('memorydatad15' + sender.toString().replace(/\D/g, ''))),
-			);
-        row4 = new ActionRowBuilder()
-			.addComponents(
-				new ButtonBuilder()
-                    .setEmoji(eval('memorydataf16' + sender.toString().replace(/\D/g, '')))
-                    .setCustomId('MEMORY-16-' + bet)
-					.setStyle(eval('memorydatabc16' + sender.toString().replace(/\D/g, '')))
-                    .setDisabled(eval('memorydatad16' + sender.toString().replace(/\D/g, ''))),
-
-                new ButtonBuilder()
-                    .setEmoji(eval('memorydataf17' + sender.toString().replace(/\D/g, '')))
-                    .setCustomId('MEMORY-17-' + bet)
-					.setStyle(eval('memorydatabc17' + sender.toString().replace(/\D/g, '')))
-                    .setDisabled(eval('memorydatad17' + sender.toString().replace(/\D/g, ''))),
-
-                new ButtonBuilder()
-                    .setEmoji(eval('memorydataf18' + sender.toString().replace(/\D/g, '')))
-                    .setCustomId('MEMORY-18-' + bet)
-					.setStyle(eval('memorydatabc18' + sender.toString().replace(/\D/g, '')))
-                    .setDisabled(eval('memorydatad18' + sender.toString().replace(/\D/g, ''))),
-                
-                new ButtonBuilder()
-                    .setEmoji(eval('memorydataf19' + sender.toString().replace(/\D/g, '')))
-                    .setCustomId('MEMORY-19-' + bet)
-					.setStyle(eval('memorydatabc19' + sender.toString().replace(/\D/g, '')))
-                    .setDisabled(eval('memorydatad19' + sender.toString().replace(/\D/g, ''))),
-
-                new ButtonBuilder()
-                    .setEmoji(eval('memorydataf20' + sender.toString().replace(/\D/g, '')))
-                    .setCustomId('MEMORY-20-' + bet)
-					.setStyle(eval('memorydatabc20' + sender.toString().replace(/\D/g, '')))
-                    .setDisabled(eval('memorydatad20' + sender.toString().replace(/\D/g, ''))),
-			);
-
         // Update Message
-        return interaction.message.edit({ embeds: [message.toJSON()], components: [row1, row2, row3, row4], ephemeral: true })
+        return interaction.message.edit({ embeds: [message.toJSON()], components: interaction.message.components, ephemeral: true })
     }
 }
