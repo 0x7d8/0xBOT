@@ -63,48 +63,46 @@ module.exports = {
 
         // Check if Business is Empty
         let businessowner, oldleft
-        console.log(1)
         if (await bsns.get('g-' + interaction.guild.id + '-' + businessid + '-OWNER') !== '0' && await bsns.get('g-' + interaction.guild.id + '-' + businessid + '-OWNER') !== 0) {
             oldleft = false
             businessowner = await bsns.get('g-' + interaction.guild.id + '-' + businessid + '-OWNER')
             const fetchc = await interaction.guild.members.fetch(businessowner)
             if (typeof fetchc === 'undefined') { oldleft = true }
 
-            if (!oldleft) return
-
-            // Create Embed
-            let message
-            if (interaction.user.id !== businessowner) {
-                message = new EmbedBuilder()
-        	        .setTitle('» ERROR')
-        	        .setDescription('» <@' + businessowner + '> already owns this Business!')
-        	        .setFooter({ text: '» ' + vote + ' » ' + version });
-
-                if (lang == 'de') {
+            if (!oldleft) {
+                // Create Embed
+                let message
+                if (interaction.user.id !== businessowner) {
                     message = new EmbedBuilder()
-        	            .setTitle('» FEHLER')
-        	            .setDescription('» Dieses Geschäft gehört schon <@' + businessowner + '>!')
+        	            .setTitle('» ERROR')
+        	            .setDescription('» <@' + businessowner + '> already owns this Business!')
         	            .setFooter({ text: '» ' + vote + ' » ' + version });
-                }
-            } else {
-                message = new EmbedBuilder()
-        	        .setTitle('» ERROR')
-        	        .setDescription('» You already own this Business!')
-        	        .setFooter({ text: '» ' + vote + ' » ' + version });
 
-                if (lang == 'de') {
+                    if (lang == 'de') {
+                        message = new EmbedBuilder()
+        	                .setTitle('» FEHLER')
+        	                .setDescription('» Dieses Geschäft gehört schon <@' + businessowner + '>!')
+        	                .setFooter({ text: '» ' + vote + ' » ' + version });
+                    }
+                } else {
                     message = new EmbedBuilder()
-        	            .setTitle('» FEHLER')
-        	            .setDescription('» Dieses Geschäft gehört schon dir!')
+        	            .setTitle('» ERROR')
+        	            .setDescription('» You already own this Business!')
         	            .setFooter({ text: '» ' + vote + ' » ' + version });
+
+                    if (lang == 'de') {
+                        message = new EmbedBuilder()
+        	                .setTitle('» FEHLER')
+        	                .setDescription('» Dieses Geschäft gehört schon dir!')
+        	                .setFooter({ text: '» ' + vote + ' » ' + version });
+                    }
                 }
-            }
             
-            // Send Message
-            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] BUSINESSBUY : ALREADYOWNED')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+                // Send Message
+                bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] BUSINESSBUY : ALREADYOWNED')
+                return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            }
         }
-        console.log(2)
 
         // Check if User already has Business
         if (await bsns.get('u-' + interaction.user.id + '-BUSINESS') !== '0' && await bsns.get('u-' + interaction.user.id + '-BUSINESS') !== 0) {

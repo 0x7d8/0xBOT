@@ -262,6 +262,7 @@ module.exports = {
             // unOwn Business
             bsns.set('u-' + interaction.user.id + '-BUSINESS', 0)
             bsns.set('g-' + interaction.guild.id + '-' + businessid + '-OWNER', 0)
+            if (business === 'market') { bsns.set('g-' + interaction.guild.id + '-1-PRICES', '500-1000-5000-15000')}
 
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] CARSELL : ' + name + ' : CONFIRM')
