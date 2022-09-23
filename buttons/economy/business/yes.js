@@ -155,6 +155,7 @@ module.exports = {
             bsns.set('g-' + interaction.guild.id + '-' + businessid + '-OWNER', interaction.user.id)
             bsns.set('u-' + interaction.user.id + '-BUSINESS', business)
             if (business === 'market') { bsns.set('g-' + interaction.guild.id + '-1-PRICES', '500-1000-5000-15000')}
+            if (business === 'car dealership') { bsns.set('g-' + interaction.guild.id + '-3-PRICES', '10000-75000-250000-520000')}
 
             // Create Embed
             let message = new EmbedBuilder()
@@ -263,6 +264,7 @@ module.exports = {
             bsns.set('u-' + interaction.user.id + '-BUSINESS', 0)
             bsns.set('g-' + interaction.guild.id + '-' + businessid + '-OWNER', 0)
             if (business === 'market') { bsns.set('g-' + interaction.guild.id + '-1-PRICES', '500-1000-5000-15000')}
+            if (business === 'car dealership') { bsns.set('g-' + interaction.guild.id + '-3-PRICES', '10000-75000-250000-520000')}
 
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] CARSELL : ' + name + ' : CONFIRM')

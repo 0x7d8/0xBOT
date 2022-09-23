@@ -5,30 +5,35 @@ const { version } = require('../../../config.json');
 
 const fetch = require("node-fetch");
 
+// In Range Function
+function inRange(x, min, max) {
+    return ((x-min)*(x-max) <= 0);
+}
+
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('itemprice')
+        .setName('carprice')
     	.setDMPermission(false)
-        .setDescription('SET STORE PRICES')
+        .setDescription('SET CAR PRICES')
         .setDescriptionLocalizations({
-            de: 'SETZE SHOP PREISE'
+            de: 'SETZE AUTO PREISE'
         })
         .addStringOption(option =>
-            option.setName('item')
+            option.setName('car')
                 .setNameLocalizations({
-                    de: 'gegenstand'
+                    de: 'auto'
                 })
-                .setDescription('THE ITEM')
+                .setDescription('THE CAR')
                 .setDescriptionLocalizations({
-                    de: 'DER GEGENSTAND'
+                    de: 'DAS AUTO'
                 })
                 .setRequired(true)
     			.addChoices(
                     // Setup Choices
-                    { name: '💣 [250€-1500€] NORMALE BOMBE', value: 'nbomb' },
-            		{ name: '💣 [750€-5000€] MEDIUM BOMBE', value: 'mbomb' },
-            		{ name: '💣 [2500€-15000€] HYPER BOMBE', value: 'hbomb' },
-            		{ name: '💣 [7500€-20000€] CRAZY BOMBE', value: 'cbomb' },
+                    { name: '🟢 [5000€-15000€] 2016 JEEP PATRIOT SPORT', value: 'jeep' },
+            		{ name: '🔵 [50000€-90000€] 2022 KIA SORENTO', value: 'kia' },
+                    { name: '🟡 [220000€-260000€] TESLA MODEL Y', value: 'tesla' },
+                    { name: '🔴 [400000€-500000€] 2019 PORSCHE 911 GT2RS', value: 'porsche' },
 				))
         .addIntegerOption(option =>
             option.setName('price')
@@ -39,7 +44,7 @@ module.exports = {
                 .setDescriptionLocalizations({
                     de: 'DER NEUE PREIS [DIE ERSTE ZAHL IST DER PRODUKTIONS PREIS]'
                 })
-                .setRequired(true)),
+            .   setRequired(true)),
     async execute(interaction, client, lang, vote) {
         // Check if Businesses are Enabled in Server
         const bes = await gopt.get(interaction.guild.id + '-BUSINESS')
@@ -63,11 +68,11 @@ module.exports = {
         }
 
         // Set Variables
-        const itemid = interaction.options.getString("item")
+        const car = interaction.options.getString("car")
         const newprice = interaction.options.getInteger("price")
 
         // Check if User owns Business
-        if (await bsns.get('g-' + interaction.guild.id + '-1-OWNER') !== interaction.user.id) {
+        if (await bsns.get('g-' + interaction.guild.id + '-3-OWNER') !== interaction.user.id) {
             // Create Embed
             let message = new EmbedBuilder()
             	.setTitle('» ERROR')
@@ -82,16 +87,16 @@ module.exports = {
             }
             
             // Send Message
-            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ITEMPRICE : NOTOWNER')
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] CARPRICE : NOTOWNER')
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
         // Check if Price is valid
         let doscream = false
-        if (itemid == 'nbomb' && !inRange(parseInt(newprice), 250, 1500)) { doscream = true }
-        if (itemid == 'mbomb' && !inRange(parseInt(newprice), 750, 5000)) { doscream = true }
-        if (itemid == 'hbomb' && !inRange(parseInt(newprice), 2500, 15000)) { doscream = true }
-        if (itemid == 'cbomb' && !inRange(parseInt(newprice), 7500, 20000)) { doscream = true }
+        if (car == 'jeep' && !inRange(parseInt(newprice), 5000, 15000)) { doscream = true }
+        if (car == 'kia' && !inRange(parseInt(newprice), 50000, 90000)) { doscream = true }
+        if (car == 'tesla' && !inRange(parseInt(newprice), 220000, 260000)) { doscream = true }
+        if (car == 'porsche' && !inRange(parseInt(newprice), 400000, 500000)) { doscream = true }
         if (doscream) {
             // Create Embed
             let message = new EmbedBuilder()
@@ -107,20 +112,20 @@ module.exports = {
             }
             
             // Send Message
-            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ITEMPRICE : NOTLIMIT')
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] CARPRICE : NOTLIMIT')
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
         // Adjust Prices
         let resp
-        const oldp = await bsns.get('g-' + interaction.guild.id + '-1-PRICES')
+        const oldp = await bsns.get('g-' + interaction.guild.id + '-3-PRICES')
         const cache = oldp.toString().split('-')
         const [o1, o2, o3, o4] = cache
-        if (itemid == 'nbomb') { resp = (newprice.toString() + '-' + o2.toString() + '-' + o3.toString() + '-' + o4.toString()) }
-        if (itemid == 'mbomb') { resp = (o1.toString() + '-' + newprice.toString() + '-' + o3.toString() + '-' + o4.toString()) }
-        if (itemid == 'hbomb') { resp = (o1.toString() + '-' + o2.toString() + '-' + newprice.toString() + '-' + o4.toString()) }
-        if (itemid == 'cbomb') { resp = (o1.toString() + '-' + o2.toString() + '-' + o3.toString() + '-' + newprice.toString()) }
-        bsns.set('g-' + interaction.guild.id + '-1-PRICES', resp.toString())
+        if (car == 'jeep') { resp = (newprice.toString() + '-' + o2.toString() + '-' + o3.toString() + '-' + o4.toString()) }
+        if (car == 'kia') { resp = (o1.toString() + '-' + newprice.toString() + '-' + o3.toString() + '-' + o4.toString()) }
+        if (car == 'tesla') { resp = (o1.toString() + '-' + o2.toString() + '-' + newprice.toString() + '-' + o4.toString()) }
+        if (car == 'porsche') { resp = (o1.toString() + '-' + o2.toString() + '-' + o3.toString() + '-' + newprice.toString()) }
+        bsns.set('g-' + interaction.guild.id + '-3-PRICES', resp.toString())
 
         // Create Embed
         let message = new EmbedBuilder()
@@ -136,7 +141,7 @@ module.exports = {
         }
 
         // Send Message
-        bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ITEMPRICE : ' + itemid.toUpperCase() + ' : ' + newprice + '€')
+        bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] CARPRICE : ' + car.toUpperCase() + ' : ' + newprice + '€')
         return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
     },
 };
