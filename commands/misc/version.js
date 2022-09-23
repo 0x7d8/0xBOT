@@ -14,13 +14,13 @@ module.exports = {
         // Create Embed
         let message = new EmbedBuilder()
         		.setTitle('» BOT VERSION')
-        		.setDescription('» VERSION\n`' + version + '`\n\n» FRAMEWORK\n`discord.js v14 (14.3.0)`\n\n» AUTHOR\n`0x4096#7678`')
+        		.setDescription('» VERSION\n`' + version + '`\n\n» FRAMEWORK\n`discord.js v14 (14.4.0)`\n\n» AUTHOR\n`0x4096#7678`')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
         if (lang == "de") {
             message = new EmbedBuilder()
         		.setTitle('» BOT VERSION')
-        		.setDescription('» VERSION\n`' + version + '`\n\n» FRAMEWORK\n`discord.js v14 (14.3.0)`\n\n» AUTOR\n`0x4096#7678`')
+        		.setDescription('» VERSION\n`' + version + '`\n\n» FRAMEWORK\n`discord.js v14 (14.4.0)`\n\n» AUTOR\n`0x4096#7678`')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
         }
 
