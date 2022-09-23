@@ -1,9 +1,13 @@
 const valueSchema = require('../schema/businesses');
 
-exports.get = (userId) => new Promise(async ful => {
+exports.get = (userId, type) => new Promise(async ful => {
     const data = await valueSchema.findOne({ userId });
     if(!data) return ful(0);
-    ful(data.value);
+    if (!type) {
+        ful(data.value);
+    } else {
+        ful(data.integer);
+    }
 })
 
 exports.set = (userId, value) => {
@@ -21,15 +25,15 @@ exports.set = (userId, value) => {
     })
 }
 
-exports.add = (userId, value) => {
+exports.add = (userId, integer) => {
     valueSchema.findOne({ userId }, async (err, data) => {
         if(err) throw err;
         if(data) {
-            data.value += value;
+            data.integer += parseInt(integer);
         } else {
             data = new valueSchema({
                 userId,
-                value
+                integer
             })
         }
         data.save();

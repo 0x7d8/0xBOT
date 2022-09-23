@@ -64,7 +64,7 @@ module.exports = {
         if (await bsns.get('g-' + interaction.guild.id + '-' + businessid + '-OWNER') != 0) {
             oldleft = true
             businessowner = await bsns.get('g-' + interaction.guild.id + '-' + businessid + '-OWNER')
-            businessearning = await bsns.get('g-' + interaction.guild.id + '-' + businessid + '-EARNING')
+            businessearning = await bsns.get('g-' + interaction.guild.id + '-' + businessid + '-EARNING', true)
             try {
                 await interaction.guild.members.fetch(businessowner)
             } catch (e) {return}

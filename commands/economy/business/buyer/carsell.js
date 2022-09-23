@@ -40,21 +40,10 @@ module.exports = {
 
         // Calculate Cost
         let cost
-        if (await bsns.get('g-' + interaction.guild.id + '-3-PRICES') === '0' || await bsns.get('g-' + interaction.guild.id + '-3-PRICES') === 0) {
-            if (car == 'jeep') { cost = 150000 }
-            if (car == 'kia') { cost = 200000 }
-            if (car == 'tesla') { cost = 340000 }
-            if (car == 'porsche') { cost = 490000 }
-        } else {
-            const dbprices = await bsns.get('g-' + interaction.guild.id + '-3-PRICES')
-            const cache = dbprices.split('-')
-			const [j, k, t, p] = cache
-
-            if (car == 'jeep') { cost = parseInt(j) }
-            if (car == 'kia') { cost = parseInt(k) }
-            if (car == 'tesla') { cost = parseInt(t) }
-            if (car == 'porsche') { cost = parseInt(p) }
-        }
+        if (car == 'jeep') { cost = 15000 }
+        if (car == 'kia') { cost = 75000 }
+        if (car == 'tesla') { cost = 240000 }
+        if (car == 'porsche') { cost = 490000 }
 
         // Translate to Car Names
         let name
