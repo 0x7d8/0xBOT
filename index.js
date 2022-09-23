@@ -156,7 +156,7 @@ if (dodshbr == "yes") {(async ()=>{
                     category: "<center>UPDATE INFO</center>",
                     title: "<center>INFORMATION</center>",
                     description: `<center>This Update added the following Features: <br/><br/>Business Commands<br/>Cars<br/>Items<br/>Inventories<br/>Memory Rewrite<br/>Numerous Fixes</center>`,
-                    footer: "<center>VERSION 2.0.0-1</center>",
+                    footer: "<center>VERSION 2.0.0</center>",
                 },
 
                 feeds: {
