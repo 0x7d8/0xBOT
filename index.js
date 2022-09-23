@@ -155,15 +155,15 @@ if (dodshbr == "yes") {(async ()=>{
                 information: {
                     category: "<center>UPDATE INFO</center>",
                     title: "<center>INFORMATION</center>",
-                    description: `<center>This Update added the following Features: <br/><br/>Percentages to Stockinfo<br/>Some Console Changes</center>`,
-                    footer: "<center>VERSION 1.9.4</center>",
+                    description: `<center>This Update added the following Features: <br/><br/>Business Commands<br/>Cars<br/>Items<br/>Inventories<br/>Memory Rewrite<br/>Numerous Fixes</center>`,
+                    footer: "<center>VERSION 2.0.0-1</center>",
                 },
 
                 feeds: {
                     category: "<center>UPDATE INFO</center>",
                     title: "<center>INFORMATION</center>",
-                    description: `<center>This Update added the following Features: <br/><br/>New Emojis for Memory and TicTacToe<br/>New Error Messages</center>`,
-                    footer: "<center>VERSION 1.9.3</center>",
+                    description: `<center>This Update added the following Features: <br/><br/>Percentages to Stockinfo<br/>Some Console Changes</center>`,
+                    footer: "<center>VERSION 1.9.4</center>",
                 },
             },
 
