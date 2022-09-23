@@ -26,7 +26,7 @@ module.exports = {
     			.addChoices(
                     // Setup Choices
                     { name: '🟢 [150000€] SUPERMARKT', value: 'market' },
-            		{ name: '🔵 [390000€] PARKHAUS', value: 'parking garage' },
+            		{ name: '🔵 [390000€] PARKHAUS (WIP)', value: 'parking garage' },
                     { name: '🟡 [520000€] AUTOHAUS', value: 'car dealership' },
 				)),
     async execute(interaction, client, lang, vote) {
@@ -53,7 +53,27 @@ module.exports = {
 
         // Set Variables
         const business = interaction.options.getString("business")
-        const balance = await bals.get(interaction.user.id);
+        const balance = await bals.get(interaction.user.id)
+
+        // Check if User Selected Parking Garage
+        if (business == 'parking garage') {
+            // Create Embed
+            let message = new EmbedBuilder()
+        		.setTitle('» ERROR')
+        		.setDescription('» This Business will be included in **2.0.5**!')
+        		.setFooter({ text: '» ' + vote + ' » ' + version });
+
+            if (lang == "de") {
+                message = new EmbedBuilder()
+        		    .setTitle('» FEHLER')
+        		    .setDescription('» Dieses Geschäft wird in **2.0.5** hinzugefügt!')
+        		    .setFooter({ text: '» ' + vote + ' » ' + version });
+            }
+            
+            // Send Message
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] BUSINESSBUY : WIP')
+            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+        }
 
         // Translate to Business ID
         let businessid
