@@ -118,26 +118,6 @@ module.exports = {
                 return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
             }
 
-            // Check if Business has Stock
-            if (dopay && await bsns.get('g-' + interaction.guild.id + '-3-STOCK-' + car.toUpperCase()) < 1) {
-                // Create Embed
-                let message = new EmbedBuilder()
-                	.setTitle('» ERROR')
-  		    		.setDescription('» The Business doesnt have any Stock!')
-                	.setFooter({ text: '» ' + vote + ' » ' + version });
-
-                if (lang == "de") {
-                    message = new EmbedBuilder()
-                	    .setTitle('» FEHLER')
-  		    		    .setDescription('» Das Geschäft hat nichts auf Lager!')
-                	    .setFooter({ text: '» ' + vote + ' » ' + version });
-                }
-                
-                // Send Message
-                bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] CARBUY : NOSTOCK : ' + name)
-                return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
-            }
-
             // Create Buttons
             let row = new ActionRowBuilder()
 		    	.addComponents(
@@ -193,8 +173,10 @@ module.exports = {
             // Transfer Money if Business is owned
             if (dopay) {
                 const businessowner = await bsns.get('g-' + interaction.guild.id + '-3-OWNER')
-                bals.add(businessowner, cost)
-                bsns.rem('g-' + interaction.guild.id + '-3-STOCK-' + car.toUpperCase(), 1)
+                if (car == 'jeep') { bals.add(businessowner, cost-5000); bsns.add('g-' + interaction.guild.id + '-3-EARNING', cost-5000) }
+                if (car == 'kia') { bals.add(businessowner, cost-50000); bsns.add('g-' + interaction.guild.id + '-3-EARNING', cost-50000) }
+                if (car == 'tesla') { bals.add(businessowner, cost-220000); bsns.add('g-' + interaction.guild.id + '-3-EARNING', cost-260000) }
+                if (car == 'porsche') { bals.add(businessowner, cost-400000); bsns.add('g-' + interaction.guild.id + '-3-EARNING', cost-500000) }
             }
 
             // Own Car
@@ -205,7 +187,7 @@ module.exports = {
             return interaction.update({ embeds: [message.toJSON()], components: [row] })
         } else if (type === 'sell') {
             // Check if User has a Car
-            if (await item.get(interaction.user.id + '-CAR', 'amount') === 0) {
+            if (await item.get(interaction.user.id + '-CAR-' + interaction.guild.id, 'amount') === 0) {
                 // Create Embed
                 let message = new EmbedBuilder()
                 	.setTitle('» ERROR')
@@ -277,7 +259,7 @@ module.exports = {
             bals.add(interaction.user.id, (cost/2))
 
             // unOwn Car
-            item.set(interaction.user.id + '-CAR', '0', 0)
+            item.set(interaction.user.id + '-CAR-' + interaction.guild.id, '0', 0)
 
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] CARSELL : ' + name + ' : CONFIRM')

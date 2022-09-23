@@ -115,26 +115,6 @@ module.exports = {
                 return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
             }
 
-            // Check if Business has Stock
-            if (dopay && await bsns.get('g-' + interaction.guild.id + '-1-STOCK-' + itemid.toUpperCase()) < 1) {
-                // Create Embed
-                let message = new EmbedBuilder()
-                	.setTitle('» ERROR')
-  		    		.setDescription('» The Business doesnt have any Stock!')
-                	.setFooter({ text: '» ' + vote + ' » ' + version });
-
-                if (lang == "de") {
-                    message = new EmbedBuilder()
-                	    .setTitle('» FEHLER')
-  		    		    .setDescription('» Das Geschäft hat nichts auf Lager!')
-                	    .setFooter({ text: '» ' + vote + ' » ' + version });
-                }
-                
-                // Send Message
-                bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] ITEMBUY : NOSTOCK : ' + name)
-                return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
-            }
-
             // Create Buttons
             let row = new ActionRowBuilder()
 		    	.addComponents(
@@ -205,8 +185,10 @@ module.exports = {
             // Transfer Money if Business is owned
             if (dopay) {
                 const businessowner = await bsns.get('g-' + interaction.guild.id + '-1-OWNER')
-                bals.add(businessowner, cost)
-                bsns.rem('g-' + interaction.guild.id + '-1-STOCK-' + itemid.toUpperCase(), amount)
+                if (itemid == 'nbomb') { bals.add(businessowner, cost-250); bsns.add('g-' + interaction.guild.id + '-1-EARNING', cost-250) }
+                if (itemid == 'mbomb') { bals.add(businessowner, cost-750); bsns.add('g-' + interaction.guild.id + '-1-EARNING', cost-750) }
+                if (itemid == 'hbomb') { bals.add(businessowner, cost-2500); bsns.add('g-' + interaction.guild.id + '-1-EARNING', cost-2500) }
+                if (itemid == 'cbomb') { bals.add(businessowner, cost-7500); bsns.add('g-' + interaction.guild.id + '-1-EARNING', cost-7500) }
             }
 
             // Own Item(s)
