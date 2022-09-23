@@ -225,17 +225,19 @@ client.on('interactionCreate', async interaction => {
 			if (interaction.customId.toString().substring(0, 3) == 'RPS') {
 				const cache = interaction.customId.split('-');
 				const [cmd, selection, bet] = cache;
+
+				let choice
 				let editedinteraction = interaction
-				if (selection == '1') { editedinteraction.customId = "rps-rock" }
-				if (selection == '2') { editedinteraction.customId = "rps-paper" }
-				if (selection == '3') { editedinteraction.customId = "rps-scissor" }
+				if (selection == '1') { editedinteraction.customId = "rps-choice"; choice = 'ROCK' }
+				if (selection == '2') { editedinteraction.customId = "rps-choice"; choice = 'PAPER' }
+				if (selection == '3') { editedinteraction.customId = "rps-choice"; choice = 'SCISSORS' }
 
 				if (selection == 'YES') { editedinteraction.customId = "rps-yes" }
 				if (selection == 'NO') { editedinteraction.customId = "rps-no" }
 				sc = true
 
 				const button = client.buttons.get(editedinteraction.customId);
-				await button.execute(editedinteraction, client, guildlang, votet, bet);
+				await button.execute(editedinteraction, client, guildlang, votet, bet, choice);
 			}
 			if (interaction.customId.toString().substring(0, 6) == 'MEMORY') {
 				const cache = interaction.customId.split('-');
