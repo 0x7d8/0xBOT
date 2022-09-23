@@ -1,6 +1,10 @@
 const { version } = require('../config.json')
 const { ActivityType } = require('discord.js')
 
+const fetch = require("node-fetch");
+const wait = require('node:timers/promises').setTimeout
+const moneySchema = require('../schema/money');
+
 module.exports = {
 	name: 'START BOT',
 	event: 'ready',
@@ -13,6 +17,26 @@ module.exports = {
 		console.log(' ')
 
 		// Set Status
-		client.user.setActivity(client.guilds.cache.size + ' Servers!', { type: ActivityType.Watching })
+		const status = async () => {
+			while (true) {
+				client.user.setActivity(client.guilds.cache.size + ' Servers', { type: ActivityType.Watching })
+				await wait(20000)
+				const commits = await fetch('https://api.paperstudios.de/git/repo/commits/?user=rotvproHD&repo=0xBOT')
+				client.user.setActivity(await commits.text() + ' Commits', { type: ActivityType.Watching })
+				await wait(20000)
+				client.user.setActivity(await cmds.get('t-all') + ' Commands Used', { type: ActivityType.Watching })
+				await wait(10000)
+				client.user.setActivity(await btns.get('t-all') + ' Buttons Clicked', { type: ActivityType.Watching })
+				await wait(20000)
+				const rawvalues = await moneySchema.find({})
+				let conrun = true; let number = 0; let total = 0
+				while (conrun) {
+					try { total = (total + rawvalues[number].money); number++ }
+					catch (e) { conrun = false } }
+				client.user.setActivity('$' + total + ' Total', { type: ActivityType.Watching })
+				await wait(20000)
+			}
+		}
+		status()
 	},
 };
