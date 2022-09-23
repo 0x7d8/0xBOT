@@ -22,11 +22,11 @@ module.exports = {
                 .setRequired(true)
     			.addChoices(
                     // Setup Choices
-            		{ name: '💰 [01] 100€', value: '1' },
-                    { name: '💰 [02] 200€', value: '2' },
-                    { name: '💰 [03] 300€', value: '3' },
-            		{ name: '💰 [04] 400€', value: '4' },
-            		{ name: '💰 [05] 500€', value: '5' },
+            		{ name: '💰 [01] 1000€', value: '1' },
+                    { name: '💰 [02] 2000€', value: '2' },
+                    { name: '💰 [03] 3000€', value: '3' },
+            		{ name: '💰 [04] 4000€', value: '4' },
+            		{ name: '💰 [05] 5000€', value: '5' },
 				)),
     async execute(interaction, client, lang, vote) {
         // Check if Quotes are Enabled in Server
@@ -53,7 +53,7 @@ module.exports = {
         // Set Variables
         const anzahl = interaction.options.getString("amount")
         
-        const cost = anzahl * 100
+        const cost = anzahl * 1000
 
         // Get User Balances
         const quotes = await quts.get(interaction.user.id);
