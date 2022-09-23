@@ -22,11 +22,13 @@ module.exports = {
         if (stock == 'blue') { emoji = '🔵' }
         if (stock == 'yellow') { emoji = '🟡' }
         if (stock == 'red') { emoji = '🔴' }
+        if (stock == 'white') { emoji = '⚪' }
+        if (stock == 'black') { emoji = '⚫' }
 
         // Get Stocks
-        let green, blue, yellow, red
-        let greeno, blueo, yellowo, redo
-        let greenp, bluep, yellowp, redp
+        let green, blue, yellow, red, white, black
+        let greeno, blueo, yellowo, redo, whiteo, blacko
+        let greenp, bluep, yellowp, redp, whitep, blackp
         let refresh, price, priceText, lastpriceText
         if (stock == "all") {
             // Calculate Refresh
@@ -51,6 +53,12 @@ module.exports = {
 
             red = json.red
             redo = json.red_last
+
+            white = json.white
+            whiteo = json.white_last
+
+            black = json.black
+            blacko = json.black_last
 
             // Calculate Stock Percentage
             if (greeno > green) {
@@ -89,6 +97,24 @@ module.exports = {
             if (red == redo) {
                 redp = '🧐'
             }
+            if (whiteo > white) {
+                whitep = '<:DOWN:1009502386320056330>'
+            }
+            if (white > whiteo) {
+                whitep = '<:UP:1009502422990860350>'
+            }
+            if (white == whiteo) {
+                whitep = '🧐'
+            }
+            if (blacko > black) {
+                blackp = '<:DOWN:1009502386320056330>'
+            }
+            if (black > blacko) {
+                blackp = '<:UP:1009502422990860350>'
+            }
+            if (black == blacko) {
+                blackp = '🧐'
+            }
         } else {
             // Calculate Refresh
             const serverunix = await fetch("https://api.paperstudios.de/bot/stocks/unix");
@@ -125,6 +151,18 @@ module.exports = {
                 priceText = json.red
 
                 lastpriceText = json.red_last
+            }
+            if (stock == 'white') {
+                price = json.white
+                priceText = json.white
+
+                lastpriceText = json.white_last
+            }
+            if (stock == 'black') {
+                price = json.black
+                priceText = json.black
+
+                lastpriceText = json.black_last
             }
         }
 
@@ -189,13 +227,13 @@ module.exports = {
         } else {
             message = new EmbedBuilder()
                 .setTitle('» FULL STOCK INFO')
-                .setDescription('» NEXT PRICES\n' + refresh + '\n\n» 🟢 GREEN STOCK\n**' + greenp + ' `$' + green + '` (' + await pcalc(green, greeno) + '%)**\n\n» 🔵 BLUE STOCK\n**' + bluep + ' `$' + blue + '` (' + await pcalc(blue, blueo) + '%)**\n\n» 🟡 YELLOW STOCK\n**' + yellowp + ' `$' + yellow + '` (' + await pcalc(yellow, yellowo) + '%)**\n\n» 🔴 RED STOCK\n**' + redp + ' `$' + red + '` (' + await pcalc(red, redo) + '%)**')
+                .setDescription('» NEXT PRICES\n' + refresh + '\n\n» 🟢 GREEN STOCK\n**' + greenp + ' `$' + green + '` (' + await pcalc(green, greeno) + '%)**\n\n» 🔵 BLUE STOCK\n**' + bluep + ' `$' + blue + '` (' + await pcalc(blue, blueo) + '%)**\n\n» 🟡 YELLOW STOCK\n**' + yellowp + ' `$' + yellow + '` (' + await pcalc(yellow, yellowo) + '%)**\n\n» 🔴 RED STOCK\n**' + redp + ' `$' + red + '` (' + await pcalc(red, redo) + '%)**\n\n» ⚪ WHITE STOCK\n**' + whitep + ' `$' + white + '` (' + await pcalc(white, whiteo) + '%)**\n\n» ⚫ BLACK STOCK\n**' + blackp + ' `$' + black + '` (' + await pcalc(black, blacko) + '%)**')
                 .setFooter({ text: '» ' + vote + ' » ' + version });
             
             if (lang == "de") {
                 message = new EmbedBuilder()
                     .setTitle('» VOLLE AKTIEN INFOS')
-                    .setDescription('» NÄCHSTE PREISE\n' + refresh + '\n\n» 🟢 GRÜNE AKTIE\n**' + greenp + ' `' + green + '€` (' + await pcalc(green, greeno) + '%)**\n\n» 🔵 BLAUE AKTIE\n**' + bluep + ' `' + blue + '€` (' + await pcalc(blue, blueo) + '%)**\n\n» 🟡 GELBE AKTIE\n**' + yellowp + ' `' + yellow + '€` (' + await pcalc(yellow, yellowo) + '%)**\n\n» 🔴 ROTE AKTIE\n**' + redp + ' `' + red + '€` (' + await pcalc(red, redo) + '%)**')
+                    .setDescription('» NÄCHSTE PREISE\n' + refresh + '\n\n» 🟢 GRÜNE AKTIE\n**' + greenp + ' `' + green + '€` (' + await pcalc(green, greeno) + '%)**\n\n» 🔵 BLAUE AKTIE\n**' + bluep + ' `' + blue + '€` (' + await pcalc(blue, blueo) + '%)**\n\n» 🟡 GELBE AKTIE\n**' + yellowp + ' `' + yellow + '€` (' + await pcalc(yellow, yellowo) + '%)**\n\n» 🔴 ROTE AKTIE\n**' + redp + ' `' + red + '€` (' + await pcalc(red, redo) + '%)**\n\n» ⚪ WEISSE AKTIE\n**' + whitep + ' `' + white + '€` (' + await pcalc(white, whiteo) + '%)**\n\n» ⚫ SCHWARZE AKTIE\n**' + blackp + ' `' + black + '€` (' + await pcalc(black, blacko) + '%)**')
                     .setFooter({ text: '» ' + vote + ' » ' + version });
             }
         }
@@ -204,7 +242,7 @@ module.exports = {
         if (stock != 'all') {
             bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] STOCKNEXT : ' + stock.toUpperCase() + ' : ' + priceText + '€')
         } else {
-            bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] STOCKNEXT : ALL : ' + green + '€ : ' + red + '€ : ' + yellow + '€ : ' + blue + '€')
+            bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] STOCKINFO : ALL : ' + green + '€ : ' + blue + '€ : ' + yellow + '€ : ' + red + '€ : ' + white + '€ : ' + black + '€')
         }
         return interaction.update({ embeds: [message.toJSON()], components: [row] }).catch((error) => {})
     }
