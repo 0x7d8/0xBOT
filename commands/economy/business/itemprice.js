@@ -5,6 +5,11 @@ const { version } = require('../../../config.json');
 
 const fetch = require("node-fetch");
 
+// In Range Function
+function inRange(x, min, max) {
+    return ((x-min)*(x-max) <= 0);
+}
+
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('itemprice')
