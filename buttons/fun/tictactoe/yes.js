@@ -39,14 +39,7 @@ module.exports = {
         }
 
         // Check if Person is already in a Lobby
-        let lobby
-        try {
-            eval('memorys' + interaction.user.id.toString().replace(/\D/g, ''))
-            lobby = true
-        } catch (e) {
-            lobby = false
-        }
-        if (lobby) {
+        if (bot.game.has('PLAYING-' + reciever)) {
             // Create Embed
             let message = new EmbedBuilder()
         		.setTitle('» ERROR')
@@ -65,61 +58,23 @@ module.exports = {
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
-        // Check if Reciever is already in a Lobby
-        try {
-            eval('ttts' + reciever.toString().replace(/\D/g, ''))
-            lobby = true
-        } catch (e) {
-            lobby = false
-        }
-        if (lobby) {
-            // Check if Reciever is Person
-            if (interaction.user.id == reciever.toString().replace(/\D/g, '')) return
-
+        // Check if Other Person is already in a Lobby
+        if (bot.game.has('PLAYING-' + sender)) {
             // Create Embed
             let message = new EmbedBuilder()
         		.setTitle('» ERROR')
-        		.setDescription('» <@' + reciever.toString().replace(/\D/g, '') + '> is already in a Lobby!')
+        		.setDescription('» <@' + sender + '> is already in a Lobby!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang == "de") {
                 message = new EmbedBuilder()
         		    .setTitle('» FEHLER')
-        		    .setDescription('» <@' + reciever.toString().replace(/\D/g, '') + '> ist schon in einer Lobby!')
+        		    .setDescription('» <@' + sender + '> ist schon in einer Lobby!')
         		    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] TICTACTOE : ' + sender.toString().replace(/\D/g, '') + ' : ALREADYLOBBY')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
-        }
-
-        // Check if Sender is already in a Lobby
-        try {
-            eval('memorys' + sender.toString().replace(/\D/g, ''))
-            lobby = true
-        } catch (e) {
-            lobby = false
-        }
-        if (lobby) {
-            // Check if Sender is Person
-            if (interaction.user.id == sender.toString().replace(/\D/g, '')) return
-
-            // Create Embed
-            let message = new EmbedBuilder()
-        		.setTitle('» ERROR')
-        		.setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> is already in a Lobby!')
-        		.setFooter({ text: '» ' + vote + ' » ' + version });
-
-            if (lang == "de") {
-                message = new EmbedBuilder()
-        		    .setTitle('» FEHLER')
-        		    .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> ist schon in einer Lobby!')
-        		    .setFooter({ text: '» ' + vote + ' » ' + version });
-            }
-            
-            // Send Message
-            bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] TICTACTOE : ' + reciever.toString().replace(/\D/g, '') + ' : ALREADYLOBBY')
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
@@ -164,6 +119,11 @@ module.exports = {
             bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] TICTACTOE : ' + reciever.toString().replace(/\D/g, '') + ' : ' + bet + '€ : NOTENOUGHMONEY')
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
+
+        // Deactivate Buttons so NO cant be pressed anymore
+        interaction.message.components[0].components[0].data.disabled = true
+        interaction.message.components[0].components[1].data.disabled = true
+        interaction.message.edit({ components: interaction.message.components })
 
         // Answer Timeout Function
         bot.ttt.delete('TIMEOUT-' + sender + '-' + interaction.message.id)
@@ -291,6 +251,6 @@ module.exports = {
 
         // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] TICTACTOE : ' + sender.toString().replace(/\D/g, '') + ' : ACCEPT')
-        return interaction.update({ embeds: [message.toJSON()], components: [row1, row2, row3] })
+        return interaction.update({ content: '', embeds: [message.toJSON()], components: [row1, row2, row3] })
     }
 }

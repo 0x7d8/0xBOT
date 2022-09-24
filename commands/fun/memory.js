@@ -250,7 +250,7 @@ module.exports = {
 
         // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] MEMORY : ' + user.id + ' : ' + bet + '€')
-        const msg = await interaction.reply({ embeds: [message.toJSON()], components: [row], fetchReply: true })
+        const msg = await interaction.reply({ content: '<@' + user.id + '>', embeds: [message.toJSON()], components: [row], fetchReply: true })
 
         // Init Timeout Function
         bot.memory.set('TIMEOUT-' + interaction.user.id + '-' + msg.id, true)
@@ -277,7 +277,7 @@ module.exports = {
             }
 
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] MEMORY : ' + user.id + ' : EXPIRED')
-            interaction.editReply({ embeds: [message.toJSON()], components: msg.components }).catch((error) => {})
+            interaction.editReply({ content: '', embeds: [message.toJSON()], components: msg.components }).catch((error) => {})
         }
 
         setTimeout(() => expiration(), 27000)

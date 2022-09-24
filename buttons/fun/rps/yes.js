@@ -37,14 +37,7 @@ module.exports = {
         }
 
         // Check if Person is already in a Lobby
-        let lobby
-        try {
-            eval('rpss' + interaction.user.id.toString().replace(/\D/g, ''))
-            lobby = true
-        } catch (e) {
-            lobby = false
-        }
-        if (lobby) {
+        if (bot.game.has('PLAYING-' + reciever)) {
             // Create Embed
             let message = new EmbedBuilder()
         		.setTitle('» ERROR')
@@ -63,61 +56,23 @@ module.exports = {
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
-        // Check if Reciever is already in a Lobby
-        try {
-            eval('rpss' + reciever.toString().replace(/\D/g, ''))
-            lobby = true
-        } catch (e) {
-            lobby = false
-        }
-        if (lobby) {
-            // Check if Reciever is Person
-            if (interaction.user.id == reciever.toString().replace(/\D/g, '')) return
-
+        // Check if Other Person is already in a Lobby
+        if (bot.game.has('PLAYING-' + sender)) {
             // Create Embed
             let message = new EmbedBuilder()
         		.setTitle('» ERROR')
-        		.setDescription('» <@' + reciever.toString().replace(/\D/g, '') + '> is already in a Lobby!')
+        		.setDescription('» <@' + sender + '> is already in a Lobby!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang == "de") {
                 message = new EmbedBuilder()
         		    .setTitle('» FEHLER')
-        		    .setDescription('» <@' + reciever.toString().replace(/\D/g, '') + '> ist schon in einer Lobby!')
+        		    .setDescription('» <@' + sender + '> ist schon in einer Lobby!')
         		    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] RPS : ' + sender.toString().replace(/\D/g, '') + ' : ALREADYLOBBY')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
-        }
-
-        // Check if Sender is already in a Lobby
-        try {
-            eval('rpss' + sender.toString().replace(/\D/g, ''))
-            lobby = true
-        } catch (e) {
-            lobby = false
-        }
-        if (lobby) {
-            // Check if Sender is Person
-            if (interaction.user.id == sender.toString().replace(/\D/g, '')) return
-
-            // Create Embed
-            let message = new EmbedBuilder()
-        		.setTitle('» ERROR')
-        		.setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> is already in a Lobby!')
-        		.setFooter({ text: '» ' + vote + ' » ' + version });
-
-            if (lang == "de") {
-                message = new EmbedBuilder()
-        		    .setTitle('» FEHLER')
-        		    .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> ist schon in einer Lobby!')
-        		    .setFooter({ text: '» ' + vote + ' » ' + version });
-            }
-            
-            // Send Message
-            bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] RPS : ' + reciever.toString().replace(/\D/g, '') + ' : ALREADYLOBBY')
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
@@ -163,6 +118,11 @@ module.exports = {
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
+        // Deactivate Buttons so NO cant be pressed anymore
+        interaction.message.components[0].components[0].data.disabled = true
+        interaction.message.components[0].components[1].data.disabled = true
+        interaction.message.edit({ components: interaction.message.components })
+
         // Answer Timeout Function
         bot.rps.delete('TIMEOUT-' + sender + '-' + interaction.message.id)
 
@@ -205,11 +165,6 @@ module.exports = {
 			);
         }
 
-        // Set Variables
-        eval('global.rpss' + sender.toString().replace(/\D/g, '') + ' = true')
-        eval('global.rpss' + reciever.toString().replace(/\D/g, '') + ' = true')
-        eval('delete rpslc' + sender.replace(/\D/g, ''))
-
         // Transfer Money
         bals.rem(sender.toString().replace(/\D/g, ''), bet)
         bals.rem(reciever.toString().replace(/\D/g, ''), bet)
@@ -229,6 +184,6 @@ module.exports = {
 
         // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] RPS : ' + sender.toString().replace(/\D/g, '') + ' : ACCEPT')
-        return interaction.update({ embeds: [message.toJSON()], components: [row] })
+        return interaction.update({ content: '', embeds: [message.toJSON()], components: [row] })
     }
 }

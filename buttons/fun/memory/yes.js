@@ -123,6 +123,11 @@ module.exports = {
         // Defer Reply
         await interaction.deferUpdate()
 
+        // Deactivate Buttons so NO cant be pressed anymore
+        interaction.message.components[0].components[0].data.disabled = true
+        interaction.message.components[0].components[1].data.disabled = true
+        interaction.message.edit({ components: interaction.message.components })
+
         // Answer Timeout Function
         bot.memory.delete('TIMEOUT-' + sender + '-' + interaction.message.id)
 
@@ -371,6 +376,6 @@ module.exports = {
 
         // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] MEMORY : ' + sender.toString().replace(/\D/g, '') + ' : ACCEPT')
-        return interaction.editReply({ embeds: [message.toJSON()], components: [row1, row2, row3, row4] })
+        return interaction.editReply({ content: '', embeds: [message.toJSON()], components: [row1, row2, row3, row4] })
     }
 }

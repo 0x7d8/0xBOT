@@ -54,6 +54,6 @@ module.exports = {
 
         // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] TICTACTOE : ' + sender.toString().replace(/\D/g, '') + ' : DENY')
-        return interaction.update({ embeds: [message.toJSON()], components: interaction.message.components })
+        return interaction.update({ content: '', embeds: [message.toJSON()], components: interaction.message.components })
     }
 }
