@@ -166,24 +166,6 @@ module.exports = {
             }
         }
 
-        // Create Button
-        let row = new ActionRowBuilder()
-			.addComponents(
-				new ButtonBuilder()
-					.setLabel('🧭 UPDATE')
-                    .setCustomId('stock-next-' + stock)
-					.setStyle(ButtonStyle.Secondary),
-			);
-        if (lang == "de") {
-            row = new ActionRowBuilder()
-			    .addComponents(
-			    	new ButtonBuilder()
-			    		.setLabel('🧭 AKTUALISIEREN')
-                        .setCustomId('stock-next-' + stock)
-			    		.setStyle(ButtonStyle.Secondary),
-			    );
-        }
-
         // Create Embed
         let message
         if (stock != 'all') {
@@ -244,6 +226,6 @@ module.exports = {
         } else {
             bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] STOCKINFO : ALL : ' + green + '€ : ' + blue + '€ : ' + yellow + '€ : ' + red + '€ : ' + white + '€ : ' + black + '€')
         }
-        return interaction.update({ embeds: [message.toJSON()], components: [row] }).catch((error) => {})
+        return interaction.update({ embeds: [message.toJSON()] }).catch((error) => {})
     }
 }
