@@ -4,6 +4,7 @@ const { EmbedBuilder } = require('@discordjs/builders');
 const { version } = require('../../../../config.json');
 
 const fetch = require("node-fetch");
+const { ImmutableDenseMatrixDependencies } = require('mathjs');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -52,7 +53,7 @@ module.exports = {
 
         // Calculate Cost
         let cost
-        if (await bsns.get('g-' + interaction.guild.id + '-1-PRICES') === '0' || await bsns.get('g-' + interaction.guild.id + '-1-PRICES') === 0) {
+        if (await bsns.get('g-' + interaction.guild.id + '-1-PRICE-' + itemid.toUpperCase()) === '0' || await bsns.get('g-' + interaction.guild.id + '-1-PRICE-' + itemid.toUpperCase()) === 0) {
             if (itemid == 'nbomb') { cost = 500*costmul }
             if (itemid == 'mbomb') { cost = 1000*costmul }
             if (itemid == 'hbomb') { cost = 5000*costmul }

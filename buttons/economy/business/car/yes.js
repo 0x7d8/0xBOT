@@ -22,7 +22,7 @@ module.exports = {
         // Calculate Cost
         let cost
         let dopay = false
-        if (await bsns.get('g-' + interaction.guild.id + '-3-PRICES') === '0' || await bsns.get('g-' + interaction.guild.id + '-3-PRICES') === 0) {
+        if (await bsns.get('g-' + interaction.guild.id + '-3-PRICE-' + car.toUpperCase()) === '0' || await bsns.get('g-' + interaction.guild.id + '-3-PRICE-' + car.toUpperCase()) === 0) {
             if (car == 'jeep') { cost = 15000 }
             if (car == 'kia') { cost = 75000 }
             if (car == 'tesla') { cost = 240000 }
