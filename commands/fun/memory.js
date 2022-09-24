@@ -202,9 +202,6 @@ module.exports = {
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
-        // Init Timeout Function
-        bot.memory.set('TIMEOUT-' + interaction.user.id, true)
-
         // Create Buttons
         if (bet == null) { bet = 0 }
         let row = new ActionRowBuilder()
@@ -253,48 +250,19 @@ module.exports = {
 
         // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] MEMORY : ' + user.id + ' : ' + bet + '€')
-        interaction.reply({ embeds: [message.toJSON()], components: [row] })
+        const msg = await interaction.reply({ embeds: [message.toJSON()], components: [row], fetchReply: true })
+
+        // Init Timeout Function
+        bot.memory.set('TIMEOUT-' + interaction.user.id + '-' + msg.id, true)
 
         const expiration = async () => {
             // Check if Message wasnt already answered
-            if (!bot.memory.has('TIMEOUT-' + interaction.user.id)) return
-            bot.memory.delete('TIMEOUT-' + interaction.user.id)
+            if (!bot.memory.has('TIMEOUT-' + interaction.user.id + '-' + msg.id)) return
+            bot.memory.delete('TIMEOUT-' + interaction.user.id + '-' + msg.id)
 
-            // Create Buttons
-            row = new ActionRowBuilder()
-			    .addComponents(
-			    	new ButtonBuilder()
-			    		.setLabel('YES')
-                        .setCustomId('MEMORY-YES-' + bet)
-                        .setEmoji('1017050442431209543')
-			    		.setStyle(ButtonStyle.Success)
-                        .setDisabled(true),
-
-                    new ButtonBuilder()
-			    		.setLabel('NO')
-                        .setCustomId('MEMORY-NO-' + bet)
-                        .setEmoji('1017050508252418068')
-			    		.setStyle(ButtonStyle.Danger)
-                        .setDisabled(true),
-			    );
-            if (lang == "de") {
-                row = new ActionRowBuilder()
-			        .addComponents(
-			        	new ButtonBuilder()
-			        		.setLabel('JA')
-                            .setCustomId('MEMORY-YES-' + bet)
-                            .setEmoji('1017050442431209543')
-			        		.setStyle(ButtonStyle.Success)
-                            .setDisabled(true),
-
-                        new ButtonBuilder()
-			        		.setLabel('NEIN')
-                            .setCustomId('MEMORY-NO-' + bet)
-                            .setEmoji('1017050508252418068')
-			        		.setStyle(ButtonStyle.Danger)
-                            .setDisabled(true),
-			        );
-            }
+            // Edit Buttons
+            msg.components[0].components[0].data.disabled = true
+            msg.components[0].components[1].data.disabled = true
 
             message = new EmbedBuilder()
                 .setTitle('» MEMORY')
@@ -309,7 +277,7 @@ module.exports = {
             }
 
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] MEMORY : ' + user.id + ' : EXPIRED')
-            interaction.editReply({ embeds: [message.toJSON()], components: [row] }).catch((error) => {})
+            interaction.editReply({ embeds: [message.toJSON()], components: msg.components }).catch((error) => {})
         }
 
         setTimeout(() => expiration(), 27000)

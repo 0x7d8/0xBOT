@@ -33,43 +33,11 @@ module.exports = {
         }
 
         // Answer Timeout Function
-        bot.memory.delete('TIMEOUT-' + sender)
+        bot.memory.delete('TIMEOUT-' + sender + '-' + interaction.message.id)
 
-        // Create Buttons
-        let row = new ActionRowBuilder()
-			.addComponents(
-				new ButtonBuilder()
-					.setLabel('YES')
-                    .setCustomId('MEMORY-YES-' + bet)
-                    .setEmoji('1017050442431209543')
-					.setStyle(ButtonStyle.Success)
-                    .setDisabled(true),
-
-                new ButtonBuilder()
-					.setLabel('NO')
-                    .setCustomId('MEMORY-NO-' + bet)
-                    .setEmoji('1017050508252418068')
-					.setStyle(ButtonStyle.Danger)
-                    .setDisabled(true),
-			);
-        if (lang == "de") {
-            row = new ActionRowBuilder()
-			    .addComponents(
-			    	new ButtonBuilder()
-			    		.setLabel('JA')
-                        .setCustomId('MEMORY-YES-' + bet)
-                        .setEmoji('1017050442431209543')
-			    		.setStyle(ButtonStyle.Success)
-                        .setDisabled(true),
-
-                    new ButtonBuilder()
-			    		.setLabel('NEIN')
-                        .setCustomId('MEMORY-NO-' + bet)
-                        .setEmoji('1017050508252418068')
-			    		.setStyle(ButtonStyle.Danger)
-                        .setDisabled(true),
-			    );
-        }
+        // Edit Buttons
+        interaction.message.components[0].components[0].data.disabled = true
+        interaction.message.components[0].components[1].data.disabled = true
 
         // Create Embed
         let message = new EmbedBuilder()
@@ -86,6 +54,6 @@ module.exports = {
 
         // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] MEMORY : ' + sender.toString().replace(/\D/g, '') + ' : DENY')
-        return interaction.update({ embeds: [message.toJSON()], components: [row] })
+        return interaction.update({ embeds: [message.toJSON()], components: interaction.message.components })
     }
 }

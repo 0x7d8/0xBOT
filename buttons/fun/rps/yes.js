@@ -164,7 +164,7 @@ module.exports = {
         }
 
         // Answer Timeout Function
-        bot.rps.delete('TIMEOUT-' + sender)
+        bot.rps.delete('TIMEOUT-' + sender + '-' + interaction.message.id)
 
         // Create Buttons
         let row = new ActionRowBuilder()

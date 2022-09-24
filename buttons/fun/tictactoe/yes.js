@@ -166,7 +166,7 @@ module.exports = {
         }
 
         // Answer Timeout Function
-        bot.ttt.delete('TIMEOUT-' + sender)
+        bot.ttt.delete('TIMEOUT-' + sender + '-' + interaction.message.id)
 
         // Create Buttons
         let row1 = new ActionRowBuilder()
