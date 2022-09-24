@@ -147,22 +147,22 @@ if (dodshbr == "yes") {(async ()=>{
             index: {
                 card: {
                     category: "<center>0xBOT DASHBOARD</center>",
-                    title: `<center>Welcome to the 0xBOT Dashboard, here you can manage BOT Settings</center>`,
+                    title: `<center>Welcome to the 0xBOT Dashboard, here you can manage the Bots Settings</center>`,
                     footer: "<center>(c) 2022</center>",
                 },
 
                 information: {
                     category: "<center>UPDATE INFO</center>",
                     title: "<center>INFORMATION</center>",
-                    description: `<center>This Update added the following Features: <br/><br/>New Car (Audi R8)<br/>Timeout Fixes<br/>New Schema for Prices<br/>More Efficient Button Disabling<br/>New Bot Statuses<br/>New Stocks (White & Black)</center>`,
-                    footer: "<center>VERSION 2.0.1</center>",
+                    description: `<center>This Update added the following Features: <br/><br/>Fixes for Minigames<br/>Fix DuckDuckGo in Search Command<br/>Add Message & Character Counting Functions<br/>Disable Buttons in Questions earlier<br/>Ping Poeple on Minigame Request</center>`,
+                    footer: "<center>VERSION 2.0.2</center>",
                 },
 
                 feeds: {
                     category: "<center>UPDATE INFO</center>",
                     title: "<center>INFORMATION</center>",
-                    description: `<center>This Update added the following Features: <br/><br/>Business Commands<br/>Cars<br/>Items<br/>Inventories<br/>Memory Rewrite<br/>Numerous Fixes</center>`,
-                    footer: "<center>VERSION 2.0.0</center>",
+                    description: `<center>This Update added the following Features: <br/><br/>New Car (Audi R8)<br/>Timeout Fixes<br/>New Schema for Prices<br/>More Efficient Button Disabling<br/>New Bot Statuses<br/>New Stocks (White & Black)</center>`,
+                    footer: "<center>VERSION 2.0.1</center>",
                 },
             },
 
