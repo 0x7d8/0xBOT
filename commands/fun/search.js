@@ -18,7 +18,7 @@ module.exports = {
                 })
                 .setDescription('THE QUERY')
                 .setDescriptionLocalizations({
-                    de: 'SIE SUCHE'
+                    de: 'DIE SUCHE'
                 })
                 .setRequired(true))
     	.addStringOption(option =>
@@ -70,7 +70,7 @@ module.exports = {
 			.addComponents(
 				new ButtonBuilder()
 					.setLabel('ANSCHAUEN')
-					.setURL("https://duckduckgo.com/search?q=" + query)
+					.setURL("https://duckduckgo.com/?q=" + query)
 					.setStyle(ButtonStyle.Link),
 			);
         
