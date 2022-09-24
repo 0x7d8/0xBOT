@@ -33,7 +33,6 @@ const sredx = require("./functions/stocks/redmax")
 
 // CLI Commands
 const stdin = process.openStdin();
-
 stdin.addListener("data", function(d) {
     // Get Arguments
     const args = d.toString().trim().split(" ")

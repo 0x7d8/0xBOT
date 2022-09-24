@@ -33,13 +33,14 @@ global.bot = require("./functions/bot")
 // General Value
 global.cmds = require("./functions/cmds")
 global.btns = require("./functions/btns")
+global.msgs = require("./functions/msgs")
 global.bals = require("./functions/economy")
 global.quts = require("./functions/quotes")
 global.apis = require("./functions/apis")
 global.lang = require("./functions/langs")
 global.gopt = require("./functions/gopts")
-global.votef = require("./functions/votes")
 global.item = require("./functions/items")
+global.votef = require("./functions/votes")
 
 // Stocks
 global.sgrn = require("./functions/stocks/green")
@@ -65,7 +66,11 @@ const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
 
 // Create Client
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+const client = new Client({ intents: [
+	GatewayIntentBits.Guilds,
+	GatewayIntentBits.GuildMessages,
+	GatewayIntentBits.MessageContent
+] });
 
 // Load all Events
 const eventFiles = getAllFilesFilter('./events', '.js');
@@ -109,6 +114,7 @@ for (const file of buttonFiles) {
 console.log(' ')
 console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [END] $$$$$ LOADED COMMANDS AND EVENTS')
 
+// Interaction Handler
 client.on('interactionCreate', async interaction => {
 	if (!interaction.isCommand() && !interaction.isButton()) return
 
@@ -382,6 +388,17 @@ client.on('interactionCreate', async interaction => {
 
 	}
 
+});
+
+// Message Handler
+client.on('messageCreate', async message => {
+	// Message & Character Counter
+	if (!message.author.bot) {
+		msgs.add('u-' + message.author.id + '-TOTAL-A', 1)
+		msgs.add('u-' + message.author.id + '-' + message.guildId + '-A', 1)
+		msgs.add('u-' + message.author.id + '-TOTAL-C', message.content.length)
+		msgs.add('u-' + message.author.id + '-' + message.guildId + '-C', message.content.length)
+	}
 });
 
 // Deploy Commands
