@@ -115,41 +115,9 @@ module.exports = {
                 return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
             }
 
-            // Create Buttons
-            let row = new ActionRowBuilder()
-		    	.addComponents(
-		    		new ButtonBuilder()
-		    			.setLabel('YES')
-                        .setCustomId('ITEM-YES-' + itemid + '-' + interaction.user.id)
-                        .setEmoji('1017050442431209543')
-		    			.setStyle(ButtonStyle.Success)
-                        .setDisabled(true),
-
-                    new ButtonBuilder()
-		    			.setLabel('NO')
-                        .setCustomId('ITEM-NO-' + itemid + '-' + interaction.user.id)
-                        .setEmoji('1017050508252418068')
-		    			.setStyle(ButtonStyle.Danger)
-                        .setDisabled(true),
-		    	);
-            if (lang == "de") {
-                row = new ActionRowBuilder()
-		    	    .addComponents(
-		    	    	new ButtonBuilder()
-		    	    		.setLabel('JA')
-                            .setCustomId('ITEM-YES-' + itemid + '-' + interaction.user.id)
-                            .setEmoji('1017050442431209543')
-		    	    		.setStyle(ButtonStyle.Success)
-                            .setDisabled(true),
-
-                        new ButtonBuilder()
-		    	    		.setLabel('NEIN')
-                            .setCustomId('ITEM-NO-' + itemid + '-' + interaction.user.id)
-                            .setEmoji('1017050508252418068')
-		    	    		.setStyle(ButtonStyle.Danger)
-                            .setDisabled(true),
-		    	    );
-            }
+            // Edit Buttons
+            interaction.message.components[0].components[0].data.disabled = true
+            interaction.message.components[0].components[1].data.disabled = true
 
             // Create Embed
             let message
@@ -196,7 +164,7 @@ module.exports = {
 
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] ITEMBUY : ' + itemid.toUpperCase() + ' : CONFIRM')
-            return interaction.update({ embeds: [message.toJSON()], components: [row] })
+            return interaction.update({ embeds: [message.toJSON()], components: interaction.message.components })
         } else if (type === 'sell') {
 
         }

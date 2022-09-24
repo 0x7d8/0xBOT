@@ -104,6 +104,7 @@ module.exports = {
                 const dbcar = await item.get(interaction.user.id + '-CAR-' + interaction.guild.id, 'value')
                 if (dbcar == 'jeep') { name = '2016 JEEP PATRIOT SPORT' }
                 if (dbcar == 'kia') { name = '2022 KIA SORENTO' }
+                if (dbcar == 'audi') { name = 'AUDI R8 COUPE V10' }
                 if (dbcar == 'tesla') { name = 'TESLA MODEL Y' }
                 if (dbcar == 'porsche') { name = '2019 PORSCHE 911 GT2RS' }
 
@@ -125,41 +126,9 @@ module.exports = {
                 return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
             }
 
-            // Create Buttons
-            let row = new ActionRowBuilder()
-		    	.addComponents(
-		    		new ButtonBuilder()
-		    			.setLabel('YES')
-                        .setCustomId('CAR-YES-' + car + '-' + interaction.user.id)
-                        .setEmoji('1017050442431209543')
-		    			.setStyle(ButtonStyle.Success)
-                        .setDisabled(true),
-
-                    new ButtonBuilder()
-		    			.setLabel('NO')
-                        .setCustomId('CAR-NO-' + car + '-' + interaction.user.id)
-                        .setEmoji('1017050508252418068')
-		    			.setStyle(ButtonStyle.Danger)
-                        .setDisabled(true),
-		    	);
-            if (lang == "de") {
-                row = new ActionRowBuilder()
-		    	    .addComponents(
-		    	    	new ButtonBuilder()
-		    	    		.setLabel('JA')
-                            .setCustomId('CAR-YES-' + car + '-' + interaction.user.id)
-                            .setEmoji('1017050442431209543')
-		    	    		.setStyle(ButtonStyle.Success)
-                            .setDisabled(true),
-
-                        new ButtonBuilder()
-		    	    		.setLabel('NEIN')
-                            .setCustomId('CAR-NO-' + car + '-' + interaction.user.id)
-                            .setEmoji('1017050508252418068')
-		    	    		.setStyle(ButtonStyle.Danger)
-                            .setDisabled(true),
-		    	    );
-            }
+            // Edit Buttons
+            interaction.message.components[0].components[0].data.disabled = true
+            interaction.message.components[0].components[1].data.disabled = true
 
             // Create Embed
             let message = new EmbedBuilder()
@@ -182,6 +151,7 @@ module.exports = {
                 const businessowner = await bsns.get('g-' + interaction.guild.id + '-3-OWNER')
                 if (car == 'jeep') { bals.add(businessowner, cost-5000); bsns.add('g-' + interaction.guild.id + '-3-EARNING', cost-5000) }
                 if (car == 'kia') { bals.add(businessowner, cost-50000); bsns.add('g-' + interaction.guild.id + '-3-EARNING', cost-50000) }
+                if (car == 'audi') { bals.add(businessowner, cost-150000); bsns.add('g-' + interaction.guild.id + '-3-EARNING', cost-150000) }
                 if (car == 'tesla') { bals.add(businessowner, cost-220000); bsns.add('g-' + interaction.guild.id + '-3-EARNING', cost-260000) }
                 if (car == 'porsche') { bals.add(businessowner, cost-400000); bsns.add('g-' + interaction.guild.id + '-3-EARNING', cost-500000) }
             }
@@ -191,7 +161,7 @@ module.exports = {
 
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] CARBUY : ' + name + ' : CONFIRM')
-            return interaction.update({ embeds: [message.toJSON()], components: [row] })
+            return interaction.update({ embeds: [message.toJSON()], components: interaction.message.components })
         } else if (type === 'sell') {
             // Check if User has a Car
             if (await item.get(interaction.user.id + '-CAR-' + interaction.guild.id, 'amount') === 0) {
@@ -213,41 +183,9 @@ module.exports = {
                 return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
             }
 
-            // Create Buttons
-            let row = new ActionRowBuilder()
-		    	.addComponents(
-		    		new ButtonBuilder()
-		    			.setLabel('YES')
-                        .setCustomId('CAR-YES-' + car + '-' + interaction.user.id)
-                        .setEmoji('1017050442431209543')
-		    			.setStyle(ButtonStyle.Success)
-                        .setDisabled(true),
-
-                    new ButtonBuilder()
-		    			.setLabel('NO')
-                        .setCustomId('CAR-NO-' + car + '-' + interaction.user.id)
-                        .setEmoji('1017050508252418068')
-		    			.setStyle(ButtonStyle.Danger)
-                        .setDisabled(true),
-		    	);
-            if (lang == "de") {
-                row = new ActionRowBuilder()
-		    	    .addComponents(
-		    	    	new ButtonBuilder()
-		    	    		.setLabel('JA')
-                            .setCustomId('CAR-YES-' + car + '-' + interaction.user.id)
-                            .setEmoji('1017050442431209543')
-		    	    		.setStyle(ButtonStyle.Success)
-                            .setDisabled(true),
-
-                        new ButtonBuilder()
-		    	    		.setLabel('NEIN')
-                            .setCustomId('CAR-NO-' + car + '-' + interaction.user.id)
-                            .setEmoji('1017050508252418068')
-		    	    		.setStyle(ButtonStyle.Danger)
-                            .setDisabled(true),
-		    	    );
-            }
+            // Edit Buttons
+            interaction.message.components[0].components[0].data.disabled = true
+            interaction.message.components[0].components[1].data.disabled = true
 
             // Create Embed
             let message = new EmbedBuilder()
@@ -270,7 +208,7 @@ module.exports = {
 
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] CARSELL : ' + name + ' : CONFIRM')
-            return interaction.update({ embeds: [message.toJSON()], components: [row] })
+            return interaction.update({ embeds: [message.toJSON()], components: interaction.message.components })
         }
     }
 }

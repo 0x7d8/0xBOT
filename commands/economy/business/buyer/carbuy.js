@@ -27,6 +27,7 @@ module.exports = {
                     // Setup Choices
                     { name: '🟢 2016 JEEP PATRIOT SPORT', value: 'jeep' },
             		{ name: '🔵 2022 KIA SORENTO', value: 'kia' },
+                    { name: '🟠 AUDI R8 COUPE V10', value: 'audi' },
                     { name: '🟡 TESLA MODEL Y', value: 'tesla' },
                     { name: '🔴 2019 PORSCHE 911 GT2RS', value: 'porsche' },
 				)),
@@ -64,20 +65,14 @@ module.exports = {
             if (car == 'tesla') { cost = 240000 }
             if (car == 'porsche') { cost = 490000 }
         } else {
-            const dbprices = await bsns.get('g-' + interaction.guild.id + '-3-PRICES')
-            const cache = dbprices.split('-')
-			const [j, k, t, p] = cache
-
-            if (car == 'jeep') { cost = parseInt(j) }
-            if (car == 'kia') { cost = parseInt(k) }
-            if (car == 'tesla') { cost = parseInt(t) }
-            if (car == 'porsche') { cost = parseInt(p) }
+            cost = await bsns.get('g-' + interaction.guild.id + '-3-PRICE-' + car.toUpperCase())
         }
 
         // Translate to Car Names
         let name
         if (car == 'jeep') { name = '2016 JEEP PATRIOT SPORT' }
         if (car == 'kia') { name = '2022 KIA SORENTO' }
+        if (car == 'audi') { name = 'AUDI R8 COUPE V10' }
         if (car == 'tesla') { name = 'TESLA MODEL Y' }
         if (car == 'porsche') { name = '2019 PORSCHE 911 GT2RS' }
 
@@ -109,6 +104,7 @@ module.exports = {
             const dbcar = await item.get(interaction.user.id + '-CAR-' + interaction.guild.id, 'value')
             if (dbcar == 'jeep') { name = '2016 JEEP PATRIOT SPORT' }
             if (dbcar == 'kia') { name = '2022 KIA SORENTO' }
+            if (dbcar == 'audi') { name = 'AUDI R8 COUPE V10' }
             if (dbcar == 'tesla') { name = 'TESLA MODEL Y' }
             if (dbcar == 'porsche') { name = '2019 PORSCHE 911 GT2RS' }
 

@@ -112,41 +112,9 @@ module.exports = {
                 return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
             }
 
-            // Create Buttons
-            let row = new ActionRowBuilder()
-		    	.addComponents(
-		    		new ButtonBuilder()
-		    			.setLabel('YES')
-                        .setCustomId('BUSINESS-YES-' + business + '-' + interaction.user.id)
-                        .setEmoji('1017050442431209543')
-		    			.setStyle(ButtonStyle.Success)
-                        .setDisabled(true),
-
-                    new ButtonBuilder()
-		    			.setLabel('NO')
-                        .setCustomId('BUSINESS-NO-' + business + '-' + interaction.user.id)
-                        .setEmoji('1017050508252418068')
-		    			.setStyle(ButtonStyle.Danger)
-                        .setDisabled(true),
-		    	);
-            if (lang == "de") {
-                row = new ActionRowBuilder()
-		    	    .addComponents(
-		    	    	new ButtonBuilder()
-		    	    		.setLabel('JA')
-                            .setCustomId('BUSINESS-YES-' + business + '-' + interaction.user.id)
-                            .setEmoji('1017050442431209543')
-		    	    		.setStyle(ButtonStyle.Success)
-                            .setDisabled(true),
-
-                        new ButtonBuilder()
-		    	    		.setLabel('NEIN')
-                            .setCustomId('BUSINESS-NO-' + business + '-' + interaction.user.id)
-                            .setEmoji('1017050508252418068')
-		    	    		.setStyle(ButtonStyle.Danger)
-                            .setDisabled(true),
-		    	    );
-            }
+            // Edit Buttons
+            interaction.message.components[0].components[0].data.disabled = true
+            interaction.message.components[0].components[1].data.disabled = true
 
             // Remove Money
             bals.rem(interaction.user.id, cost)
@@ -154,8 +122,19 @@ module.exports = {
             // Own Business
             bsns.set('g-' + interaction.guild.id + '-' + businessid + '-OWNER', interaction.user.id)
             bsns.set('u-' + interaction.user.id + '-BUSINESS', business)
-            if (business === 'market') { bsns.set('g-' + interaction.guild.id + '-1-PRICES', '500-1000-5000-15000')}
-            if (business === 'car dealership') { bsns.set('g-' + interaction.guild.id + '-3-PRICES', '10000-75000-250000-520000')}
+            if (business === 'market') {
+                bsns.set('g-' + interaction.guild.id + '-1-PRICE-NBOMB', '500')
+                bsns.set('g-' + interaction.guild.id + '-1-PRICE-MBOMB', '1500')
+                bsns.set('g-' + interaction.guild.id + '-1-PRICE-HBOMB', '5000')
+                bsns.set('g-' + interaction.guild.id + '-1-PRICE-CBOMB', '15000')
+            }
+            if (business === 'car dealership') {
+                bsns.set('g-' + interaction.guild.id + '-3-PRICE-JEEP', '10000')
+                bsns.set('g-' + interaction.guild.id + '-3-PRICE-KIA', '75000')
+                bsns.set('g-' + interaction.guild.id + '-3-PRICE-AUDI', '180000')
+                bsns.set('g-' + interaction.guild.id + '-3-PRICE-TESLA', '250000')
+                bsns.set('g-' + interaction.guild.id + '-3-PRICE-PORSCHE', '520000')
+            }
 
             // Create Embed
             let message = new EmbedBuilder()
@@ -172,7 +151,7 @@ module.exports = {
 
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] BUSINESSBUY : ' + name + ' : CONFIRM')
-            return interaction.update({ embeds: [message.toJSON()], components: [row] })
+            return interaction.update({ embeds: [message.toJSON()], components: interaction.message.components })
         } else if (type === 'sell') {
             const business = await bsns.get('u-' + interaction.user.id + '-BUSINESS')
 
@@ -208,41 +187,9 @@ module.exports = {
                 return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
             }
 
-            // Create Buttons
-            let row = new ActionRowBuilder()
-		    	.addComponents(
-		    		new ButtonBuilder()
-		    			.setLabel('YES')
-                        .setCustomId('BUSINESS-YES-' + business + '-' + interaction.user.id)
-                        .setEmoji('1017050442431209543')
-		    			.setStyle(ButtonStyle.Success)
-                        .setDisabled(true),
-
-                    new ButtonBuilder()
-		    			.setLabel('NO')
-                        .setCustomId('BUSINESS-NO-' + business + '-' + interaction.user.id)
-                        .setEmoji('1017050508252418068')
-		    			.setStyle(ButtonStyle.Danger)
-                        .setDisabled(true),
-		    	);
-            if (lang == "de") {
-                row = new ActionRowBuilder()
-		    	    .addComponents(
-		    	    	new ButtonBuilder()
-		    	    		.setLabel('JA')
-                            .setCustomId('BUSINESS-YES-' + business + '-' + interaction.user.id)
-                            .setEmoji('1017050442431209543')
-		    	    		.setStyle(ButtonStyle.Success)
-                            .setDisabled(true),
-
-                        new ButtonBuilder()
-		    	    		.setLabel('NEIN')
-                            .setCustomId('BUSINESS-NO-' + business + '-' + interaction.user.id)
-                            .setEmoji('1017050508252418068')
-		    	    		.setStyle(ButtonStyle.Danger)
-                            .setDisabled(true),
-		    	    );
-            }
+            // Edit Buttons
+            interaction.message.components[0].components[0].data.disabled = true
+            interaction.message.components[0].components[1].data.disabled = true
 
             // Create Embed
             let message = new EmbedBuilder()
@@ -263,12 +210,23 @@ module.exports = {
             // unOwn Business
             bsns.set('u-' + interaction.user.id + '-BUSINESS', 0)
             bsns.set('g-' + interaction.guild.id + '-' + businessid + '-OWNER', 0)
-            if (business === 'market') { bsns.set('g-' + interaction.guild.id + '-1-PRICES', '500-1000-5000-15000')}
-            if (business === 'car dealership') { bsns.set('g-' + interaction.guild.id + '-3-PRICES', '10000-75000-250000-520000')}
+            if (business === 'market') {
+                bsns.set('g-' + interaction.guild.id + '-1-PRICE-NBOMB', '500')
+                bsns.set('g-' + interaction.guild.id + '-1-PRICE-MBOMB', '1500')
+                bsns.set('g-' + interaction.guild.id + '-1-PRICE-HBOMB', '5000')
+                bsns.set('g-' + interaction.guild.id + '-1-PRICE-CBOMB', '15000')
+            }
+            if (business === 'car dealership') {
+                bsns.set('g-' + interaction.guild.id + '-3-PRICE-JEEP', '10000')
+                bsns.set('g-' + interaction.guild.id + '-3-PRICE-KIA', '75000')
+                bsns.set('g-' + interaction.guild.id + '-3-PRICE-AUDI', '180000')
+                bsns.set('g-' + interaction.guild.id + '-3-PRICE-TESLA', '250000')
+                bsns.set('g-' + interaction.guild.id + '-3-PRICE-PORSCHE', '520000')
+            }
 
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] CARSELL : ' + name + ' : CONFIRM')
-            return interaction.update({ embeds: [message.toJSON()], components: [row] })
+            return interaction.update({ embeds: [message.toJSON()], components: interaction.message.components })
         }
     }
 }

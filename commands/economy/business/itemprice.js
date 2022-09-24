@@ -117,15 +117,7 @@ module.exports = {
         }
 
         // Adjust Prices
-        let resp
-        const oldp = await bsns.get('g-' + interaction.guild.id + '-1-PRICES')
-        const cache = oldp.toString().split('-')
-        const [o1, o2, o3, o4] = cache
-        if (itemid == 'nbomb') { resp = (newprice.toString() + '-' + o2.toString() + '-' + o3.toString() + '-' + o4.toString()) }
-        if (itemid == 'mbomb') { resp = (o1.toString() + '-' + newprice.toString() + '-' + o3.toString() + '-' + o4.toString()) }
-        if (itemid == 'hbomb') { resp = (o1.toString() + '-' + o2.toString() + '-' + newprice.toString() + '-' + o4.toString()) }
-        if (itemid == 'cbomb') { resp = (o1.toString() + '-' + o2.toString() + '-' + o3.toString() + '-' + newprice.toString()) }
-        bsns.set('g-' + interaction.guild.id + '-1-PRICES', resp.toString())
+        bsns.set('g-' + interaction.guild.id + '-1-PRICE-' + itemid.toUpperCase(), newprice.toString())
 
         // Create Embed
         let message = new EmbedBuilder()

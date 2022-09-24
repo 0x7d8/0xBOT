@@ -117,25 +117,17 @@ module.exports = {
         }
 
         // Adjust Prices
-        let resp
-        const oldp = await bsns.get('g-' + interaction.guild.id + '-3-PRICES')
-        const cache = oldp.toString().split('-')
-        const [o1, o2, o3, o4] = cache
-        if (car == 'jeep') { resp = (newprice.toString() + '-' + o2.toString() + '-' + o3.toString() + '-' + o4.toString()) }
-        if (car == 'kia') { resp = (o1.toString() + '-' + newprice.toString() + '-' + o3.toString() + '-' + o4.toString()) }
-        if (car == 'tesla') { resp = (o1.toString() + '-' + o2.toString() + '-' + newprice.toString() + '-' + o4.toString()) }
-        if (car == 'porsche') { resp = (o1.toString() + '-' + o2.toString() + '-' + o3.toString() + '-' + newprice.toString()) }
-        bsns.set('g-' + interaction.guild.id + '-3-PRICES', resp.toString())
+        bsns.set('g-' + interaction.guild.id + '-3-PRICE-' + car.toUppercase(), newprice.toString())
 
         // Create Embed
         let message = new EmbedBuilder()
-            .setTitle('» MARKET PRICES')
+            .setTitle('» CAR PRICES')
             .setDescription('» Successfully set the price to **$' + newprice + '**.')
             .setFooter({ text: '» ' + vote + ' » ' + version });
 
         if (lang == 'de') {
             message = new EmbedBuilder()
-                .setTitle('» SHOP PREISE')
+                .setTitle('» AUTO PREISE')
                 .setDescription('» Erfolgreich den Preis auf **' + newprice + '€** gesetzt.')
                 .setFooter({ text: '» ' + vote + ' » ' + version });
         }
