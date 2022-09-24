@@ -39,6 +39,7 @@ module.exports = {
             }
             if (car == 'jeep') { carname = '2016 JEEP PATRIOT SPORT' }
             if (car == 'kia') { carname = '2022 KIA SORENTO' }
+            if (car == 'audi') { carname = 'AUDI R8 COUPE V10' }
             if (car == 'tesla') { carname = 'TESLA MODEL Y' }
             if (car == 'porsche') { carname = '2019 PORSCHE 911 GT2RS' }
         } else {
@@ -54,6 +55,7 @@ module.exports = {
             }
             if (car == 'jeep') { carname = '2016 JEEP PATRIOT SPORT' }
             if (car == 'kia') { carname = '2022 KIA SORENTO' }
+            if (car == 'audi') { carname = 'AUDI R8 COUPE V10' }
             if (car == 'tesla') { carname = 'TESLA MODEL Y' }
             if (car == 'porsche') { carname = '2019 PORSCHE 911 GT2RS' }
         }

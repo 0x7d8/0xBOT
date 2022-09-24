@@ -62,6 +62,7 @@ module.exports = {
         if (await bsns.get('g-' + interaction.guild.id + '-3-PRICE-' + car.toUpperCase()) === '0' || await bsns.get('g-' + interaction.guild.id + '-3-PRICE-' + car.toUpperCase()) === 0) {
             if (car == 'jeep') { cost = 15000 }
             if (car == 'kia') { cost = 75000 }
+            if (car == 'audi') { cost = 160000 }
             if (car == 'tesla') { cost = 240000 }
             if (car == 'porsche') { cost = 490000 }
         } else {
