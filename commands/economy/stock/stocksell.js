@@ -27,6 +27,8 @@ module.exports = {
             		{ name: '🔵 BLAUE AKTIE', value: 'blue' },
                     { name: '🟡 GELBE AKTIE', value: 'yellow' },
                     { name: '🔴 ROTE AKTIE', value: 'red' },
+                    { name: '⚪ WEISSE AKTIE', value: 'white' },
+                    { name: '⚫ SCHWARZE AKTIE', value: 'black' },
 				))
         .addIntegerOption(option =>
             option.setName('amount')
@@ -100,6 +102,12 @@ module.exports = {
         if (stock == 'red') {
             stocks = await sred.get(interaction.user.id)
         }
+        if (stock == 'white') { 
+            stocks = await swhi.get(interaction.user.id)
+        }
+        if (stock == 'black') {
+            stocks = await sblk.get(interaction.user.id)
+        }
 
         // Set Emoji
         let emoji
@@ -107,6 +115,8 @@ module.exports = {
         if (stock == 'blue') { emoji = '🔵' }
         if (stock == 'yellow') { emoji = '🟡' }
         if (stock == 'red') { emoji = '🔴' }
+        if (stock == 'white') { emoji = '⚪' }
+        if (stock == 'black') { emoji = '⚫' }
 
         // Check for enough Stocks
         if (stocks < amount) {
@@ -145,6 +155,12 @@ module.exports = {
         }
         if (stock == 'red') {
             sred.rem(interaction.user.id, amount)
+        }
+        if (stock == 'white') { 
+            swhi.rem(interaction.user.id, amount)
+        }
+        if (stock == 'black') {
+            sblk.rem(interaction.user.id, amount)
         }
 
         // Create Embed

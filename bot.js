@@ -46,6 +46,8 @@ global.sgrn = require("./functions/stocks/green")
 global.sblu = require("./functions/stocks/blue")
 global.syll = require("./functions/stocks/yellow")
 global.sred = require("./functions/stocks/red")
+global.swhi = require("./functions/stocks/white")
+global.sblk = require("./functions/stocks/black")
 
 global.sgrnx = require("./functions/stocks/greenmax")
 global.sblux = require("./functions/stocks/bluemax")

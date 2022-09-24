@@ -28,6 +28,8 @@ module.exports = {
             		{ name: '🔵 BLAUE AKTIE', value: 'blue' },
                     { name: '🟡 GELBE AKTIE', value: 'yellow' },
                     { name: '🔴 ROTE AKTIE', value: 'red' },
+                    { name: '⚪ WEISSE AKTIE', value: 'white' },
+                    { name: '⚫ SCHWARZE AKTIE', value: 'black' }
 				))
         .addIntegerOption(option =>
             option.setName('amount')
@@ -69,15 +71,21 @@ module.exports = {
         const blue = await sblu.get(interaction.user.id);
         const yellow = await syll.get(interaction.user.id);
         const red = await sred.get(interaction.user.id);
+        const white = await swhi.get(interaction.user.id);
+        const black = await sblk.get(interaction.user.id);
         const greens = green + amount
         const blues = blue + amount
         const yellows = yellow + amount
         const reds = red + amount
+        const whites = white + amount
+        const blacks = black + amount
 
         let greenmax = await sgrnx.get(interaction.user.id);
         let bluemax = await sblux.get(interaction.user.id);
         let yellowmax = await syllx.get(interaction.user.id);
         let redmax = await sredx.get(interaction.user.id);
+        let whitemax = await sredx.get(interaction.user.id);
+        let blackmax = await sredx.get(interaction.user.id);
 
         const balance = await bals.get(interaction.user.id);
 
@@ -86,6 +94,8 @@ module.exports = {
         if (bluemax == 0) { bluemax = 10; sblux.add(interaction.user.id, 10) }
         if (yellowmax == 0) { yellowmax = 10; syllx.add(interaction.user.id, 10) }
         if (redmax == 0) { redmax = 10; sredx.add(interaction.user.id, 10) }
+        if (whitemax == 0) { whitemax = 10 }
+        if (blackmax == 0) { blackmax = 10 }
 
         // Check if Amount is Negative
         if (amount < 0) {
@@ -180,6 +190,42 @@ module.exports = {
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] STOCKBUY : MAXRED : ' + amount + '€')
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
+        if (stock == 'white' && whites > whitemax) {
+            // Create Embed
+            let message = new EmbedBuilder()
+        		.setTitle('» ERROR')
+        		.setDescription('» You cant buy more than **' + redmax + '** ⚪!')
+        		.setFooter({ text: '» ' + vote + ' » ' + version });
+
+            if (lang == "de") {
+                message = new EmbedBuilder()
+        		    .setTitle('» FEHLER')
+        		    .setDescription('» Du kannst nicht mehr als **' + redmax + '** ⚪ Kaufen!')
+        		    .setFooter({ text: '» ' + vote + ' » ' + version });
+            }
+            
+            // Send Message
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] STOCKBUY : MAXWHITE : ' + amount + '€')
+            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+        }
+        if (stock == 'black' && blacks > blackmax) {
+            // Create Embed
+            let message = new EmbedBuilder()
+        		.setTitle('» ERROR')
+        		.setDescription('» You cant buy more than **' + redmax + '** ⚫!')
+        		.setFooter({ text: '» ' + vote + ' » ' + version });
+
+            if (lang == "de") {
+                message = new EmbedBuilder()
+        		    .setTitle('» FEHLER')
+        		    .setDescription('» Du kannst nicht mehr als **' + redmax + '** ⚫ Kaufen!')
+        		    .setFooter({ text: '» ' + vote + ' » ' + version });
+            }
+            
+            // Send Message
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] STOCKBUY : MAXBLACK : ' + amount + '€')
+            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+        }
 
         // Fetch Stock
         const price = await fetch("https://api.paperstudios.de/bot/stocks/" + stock);
@@ -218,6 +264,8 @@ module.exports = {
         if (stock == 'blue') { emoji = '🔵' }
         if (stock == 'yellow') { emoji = '🟡' }
         if (stock == 'red') { emoji = '🔴' }
+        if (stock == 'white') { emoji = '⚪' }
+        if (stock == 'black') { emoji = '⚫' }
 
         // Add Stock Amount
         if (stock == 'green') {
@@ -231,6 +279,12 @@ module.exports = {
         }
         if (stock == 'red') {
             sred.add(interaction.user.id, amount)
+        }
+        if (stock == 'white') {
+            swhi.add(interaction.user.id, amount)
+        }
+        if (stock == 'black') {
+            sblk.add(interaction.user.id, amount)
         }
 
         // Remove Money
