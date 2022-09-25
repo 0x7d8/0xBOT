@@ -56,7 +56,7 @@ module.exports = {
         }
 
         // Send Message
-        bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] RPS :' + choice)
+        bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] RPS : ' + choice)
         interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
 
         // Set Variable
