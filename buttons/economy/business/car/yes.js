@@ -31,15 +31,7 @@ module.exports = {
             if (car == 'porsche') { cost = 490000 }
         } else {
             if (type == 'buy') {
-                const dbprices = await bsns.get('g-' + interaction.guild.id + '-3-PRICES')
-                const cache = dbprices.split('-')
-			    const [j, k, t, p] = cache
-
-                if (car == 'jeep') { cost = parseInt(j) }
-                if (car == 'kia') { cost = parseInt(k) }
-                if (car == 'tesla') { cost = parseInt(t) }
-                if (car == 'porsche') { cost = parseInt(p) }
-
+                cost = await bsns.get('g-' + interaction.guild.id + '-3-PRICE-' + car.toUpperCase())
                 dopay = true
             } else {
                 if (car == 'jeep') { cost = 15000 }

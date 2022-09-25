@@ -45,16 +45,7 @@ module.exports = {
             if (itemid == 'hbomb') { cost = 5000*costmul }
             if (itemid == 'cbomb') { cost = 15000*costmul }
         } else {
-            const dbprices = await bsns.get('g-' + interaction.guild.id + '-1-PRICES')
-            const cache = dbprices.split('-')
-			const [j, k, t, p] = cache
-
-            if (itemid == 'nbomb') { cost = parseInt(j)*costmul }
-            if (itemid == 'mbomb') { cost = parseInt(k)*costmul }
-            if (itemid == 'hbomb') { cost = parseInt(t)*costmul }
-            if (itemid == 'cbomb') { cost = parseInt(p)*costmul }
-
-            dopay = true
+            cost = await bsns.get('g-' + interaction.guild.id + '-1-PRICE-' + itemid.toUpperCase())
         }
 
         // Translate to itemid Names
