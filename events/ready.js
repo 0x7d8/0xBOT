@@ -4,6 +4,7 @@ const { apikey } = require('../config.json')
 
 const fetch = require("node-fetch");
 const wait = require('node:timers/promises').setTimeout
+const commitCount = require('git-commit-count')
 const moneySchema = require('../schema/money');
 
 module.exports = {
@@ -22,8 +23,8 @@ module.exports = {
 			while (true) {
 				client.user.setActivity(client.guilds.cache.size + ' Servers', { type: ActivityType.Watching })
 				await wait(20000)
-				const commits = await fetch('https://api.paperstudios.de/git/repo/commits/?user=rotvproHD&repo=0xBOT')
-				client.user.setActivity(await commits.text() + ' Commits', { type: ActivityType.Watching })
+				const commits = await commitCount('rotvproHD/0xBOT')
+				client.user.setActivity(commits + ' Commits', { type: ActivityType.Watching })
 				await wait(20000)
 				client.user.setActivity(await cmds.get('t-all') + ' Commands Used', { type: ActivityType.Watching })
 				await wait(10000)
