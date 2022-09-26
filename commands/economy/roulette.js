@@ -125,15 +125,9 @@ module.exports = {
             
         	// Set Money
             let resultmul
-            if (color == farbe && color == 'grün') {
-                resultmul = 4
-            }
-            if (color == farbe && color != 'grün') {
-                resultmul = 2
-            }
-            if (color != farbe) {
-                resultmul = 0
-            }
+            if (color == farbe && color == 'grün') { resultmul = 4 }
+            if (color == farbe && color != 'grün') { resultmul = 2 }
+            if (color != farbe) { resultmul = 0 }
 
             const result = wette * resultmul
             const resultadd = result - wette
