@@ -447,7 +447,7 @@ if (dovotes != 'no') {
 		if(!vote.user) { return false }
 
 		user = await client.users.fetch(vote.user);
-		random = Math.floor(Math.random() * (7500 - 2500 + 1)) + 2500;
+		random = Math.floor(Math.random() * (15000 - 7500 + 1)) + 7500;
 
 		message = new EmbedBuilder()
 			.setTitle('» VOTING')
