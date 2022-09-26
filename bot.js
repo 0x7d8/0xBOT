@@ -474,13 +474,13 @@ if (dovotes != 'no') {
 		}
 		messagebonus = new EmbedBuilder()
 			.setTitle('» VOTING')
-			.setDescription('» Thanks for Voting **' + await votef.get(vote.user + '-A') + '** times!\nAs A Gift I give you extra **$' + extra + '**!')
+			.setDescription('» Thanks for Voting **' + (parseInt(await votef.get(vote.user + '-A'))+1) + '** times!\nAs A Gift I give you extra **$' + extra + '**!')
 			.setFooter({ text: '» ' + version });
 
 		if (await lang.get(vote.user) == 1) {
 			messagebonus = new EmbedBuilder()
 				.setTitle('» VOTING')
-				.setDescription('» Danke, dass du **' + await votef.get(vote.user + '-A') + '** mal gevotet hast!\nAls Geschenk gebe ich dir extra **' + extra + '€**!')
+				.setDescription('» Danke, dass du **' + (parseInt(await votef.get(vote.user + '-A'))+1) + '** mal gevotet hast!\nAls Geschenk gebe ich dir extra **' + extra + '€**!')
 				.setFooter({ text: '» ' + version });
 		}
 
