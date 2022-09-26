@@ -490,6 +490,7 @@ if (dovotes != 'no') {
 		user.send({ embeds: [message.toJSON()] })
 
 		if (parseInt(await votef.get(vote.user + '-A')+1) % 10 === 0) {
+			bals.add(vote.user, parseInt(extra))
 			user.send({ embeds: [messagebonus.toJSON()] })
 		}
 
