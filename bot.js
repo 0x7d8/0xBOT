@@ -451,8 +451,8 @@ if (dovotes != 'no') {
 
 		// Calculate Extra
 		let extra
-		if (parseInt(await votef.get(vote.user + '-A')) % 10 === 0) {
-			extra = (parseInt(await votef.get(vote.user + '-A')) * 10000)/2
+		if (parseInt(await votef.get(vote.user + '-A')+1) % 10 === 0) {
+			extra = (parseInt(await votef.get(vote.user + '-A')+1) * 10000)/2
 		}
 
 		// Create Embeds
@@ -487,13 +487,14 @@ if (dovotes != 'no') {
 		await bals.add(vote.user, parseInt(random))
 		console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] VOTED : ' + user + ' : ' + random + '€')
 
-		votef.add(vote.user + '-A', 1)
-		votef.set(vote.user + '-T', Date.now())
 		user.send({ embeds: [message.toJSON()] })
 
-		if (parseInt(await votef.get(vote.user + '-A')) % 10 === 0) {
+		if (parseInt(await votef.get(vote.user + '-A')+1) % 10 === 0) {
 			user.send({ embeds: [messagebonus.toJSON()] })
 		}
+
+		votef.add(vote.user + '-A', 1)
+		votef.set(vote.user + '-T', Date.now())
 	}))
 	app.listen(25252)
 }
