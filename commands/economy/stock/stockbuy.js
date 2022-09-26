@@ -1,8 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { EmbedBuilder } = require('@discordjs/builders');
 const { version } = require('../../../config.json');
-const fetch = require("node-fetch");
-const gopts = require('../../../schema/gopts');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -228,9 +226,8 @@ module.exports = {
         }
 
         // Fetch Stock
-        const price = await fetch("https://api.paperstudios.de/bot/stocks/" + stock);
-        const pricetransformed = await price.text();
-        const priceText = pricetransformed.replace(/(\r\n|\n|\r)/gm, "");
+        const price = await stkp.get(stock)
+        const priceText = price[0]
 
         // Calculate Cost
         const cost = amount * priceText

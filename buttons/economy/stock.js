@@ -32,33 +32,34 @@ module.exports = {
         let refresh, price, priceText, lastpriceText
         if (stock == "all") {
             // Calculate Refresh
-            const serverunix = await fetch("https://api.paperstudios.de/bot/stocks/unix");
-            const unix = await serverunix.text();
-            const unixtime = parseInt(unix) + 60
-            const refreshtransformed = "<t:" + unixtime + ":R>"
-            refresh = refreshtransformed.replace(/(\r\n|\n|\r)/gm, "");
+            unix = await stkp.get('unix')
+            unixtime = parseInt(unix[0]) + 60
+            refresh = "<t:" + unixtime + ":R>"
 
             // Get Stocks
-            const cache = await fetch("https://api.paperstudios.de/bot/stocks/json");
-            const json = await cache.json();
+            cache = await stkp.get('green')
+            green = cache[0]
+            greeno = cache[1]
 
-            green = json.green
-            greeno = json.green_last
+            cache = await stkp.get('blue')
+            blue = cache[0]
+            blueo = cache[1]
 
-            blue = json.blue
-            blueo = json.blue_last
+            cache = await stkp.get('yellow')
+            yellow = cache[0]
+            yellowo = cache[1]
 
-            yellow = json.yellow
-            yellowo = json.yellow_last
+            cache = await stkp.get('red')
+            red = cache[0]
+            redo = cache[1]
 
-            red = json.red
-            redo = json.red_last
+            cache = await stkp.get('white')
+            white = cache[0]
+            whiteo = cache[1]
 
-            white = json.white
-            whiteo = json.white_last
-
-            black = json.black
-            blacko = json.black_last
+            cache = await stkp.get('black')
+            black = cache[0]
+            blacko = cache[1]
 
             // Calculate Stock Percentage
             if (greeno > green) {
@@ -117,53 +118,15 @@ module.exports = {
             }
         } else {
             // Calculate Refresh
-            const serverunix = await fetch("https://api.paperstudios.de/bot/stocks/unix");
-            const unix = await serverunix.text();
-            const unixtime = parseInt(unix) + 60
-            const refreshtransformed = "<t:" + unixtime + ":R>"
-            refresh = refreshtransformed.replace(/(\r\n|\n|\r)/gm, "");
+            unix = await stkp.get('unix')
+            unixtime = parseInt(unix[0]) + 60
+            refresh = "<t:" + unixtime + ":R>"
 
-            // Get Stocks
-            const cache = await fetch("https://api.paperstudios.de/bot/stocks/json");
-            const json = await cache.json();
-
-            // Set Variables
-            if (stock == 'green') {
-                price = json.green
-                priceText = json.green
-
-                lastpriceText = json.green_last
-            }
-            if (stock == 'blue') {
-                price = json.blue
-                priceText = json.blue
-
-                lastpriceText = json.blue_last
-            }
-            if (stock == 'yellow') {
-                price = json.yellow
-                priceText = json.yellow
-
-                lastpriceText = json.yellow_last
-            }
-            if (stock == 'red') {
-                price = json.red
-                priceText = json.red
-
-                lastpriceText = json.red_last
-            }
-            if (stock == 'white') {
-                price = json.white
-                priceText = json.white
-
-                lastpriceText = json.white_last
-            }
-            if (stock == 'black') {
-                price = json.black
-                priceText = json.black
-
-                lastpriceText = json.black_last
-            }
+            // Get Stock
+            cache = await stkp.get(stock)
+            price = cache[0]
+            priceText = cache[0]
+            lastpriceText = cache[1]
         }
 
         // Create Embed
