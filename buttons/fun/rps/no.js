@@ -33,7 +33,7 @@ module.exports = {
         }
 
         // Answer Timeout Function
-        bot.ttt.delete('TIMEOUT-' + sender + '-' + interaction.message.id)
+        bot.rps.delete('TIMEOUT-' + sender + '-' + interaction.message.id)
 
         // Edit Buttons
         interaction.message.components[0].components[0].data.disabled = true
