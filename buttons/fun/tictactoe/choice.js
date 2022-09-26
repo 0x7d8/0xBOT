@@ -172,6 +172,10 @@ module.exports = {
         bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] TICTACTOE : ' + sel)
         interaction.editReply({ embeds: [message.toJSON()], components: [row1, row2, row3], ephemeral: true })
 
+        // Update Message
+        await interaction.message.edit({ embeds: [message.toJSON()], components: [row1, row2, row3], ephemeral: true })
+        await wait(1000)
+
         // Check if Anyone Won
         let won = false
         if (await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[0] == true') && await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[1] == true') && await eval('tttdata1a' + sender.toString().replace(/\D/g, '') + '[2] == true')) {
@@ -325,6 +329,26 @@ module.exports = {
                 await eval('global.tttdatabc7' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Success')
             }
 
+            // Deactivate all Buttons
+            const buttondatas = []
+            let buttoncount = 1
+            let donebutton = false
+            const dbtn = async () => {
+                while (donebutton == false) {
+                    await wait(10)
+                    if (await eval('tttdatad' + buttoncount + sender.toString().replace(/\D/g, '') + ' == false')) {
+                        await eval('global.tttdatad' + buttoncount + sender.toString().replace(/\D/g, '') + ' = true')
+                        buttondatas.push(buttoncount.toString())
+                    }
+                    buttoncount = buttoncount + 1
+                    if (buttoncount == 10) {
+                        donebutton = true
+                        return
+                    }
+                }
+            }
+        await dbtn()
+
             // Transfer Money
             const betwon = parseInt(bet) * 2
             if (winner != '**Noone**' && winner != '**Niemand**') {
@@ -458,6 +482,24 @@ module.exports = {
             // Update Message
             return interaction.message.edit({ embeds: [message.toJSON()], components: [row1, row2, row3], ephemeral: true })
         }
+
+        // Activate all Deactivated Buttons
+        buttoncount = 0
+        donebutton = false
+        const abtn = async () => {
+            while (donebutton == false) {
+                await wait(25)
+                if (buttondatas.includes(buttoncount.toString())) {
+                    await eval('global.tttdatad' + buttoncount + sender.toString().replace(/\D/g, '') + ' = false')
+                }
+                buttoncount = buttoncount + 1
+                if (buttoncount == 10) {
+                    donebutton = true
+                    return
+                }
+            }
+        }
+        await abtn()
 
         // Create Buttons
         row1 = new ActionRowBuilder()
