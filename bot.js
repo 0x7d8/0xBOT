@@ -434,7 +434,7 @@ if (apikey != 'none') {
 }
 
 // Top.gg Voting
-let user, random, message
+let user, random, message, messagebonus
 if (dovotes != 'no') {
 	const Topgg = require("@top-gg/sdk")
 	const express = require("express")
@@ -446,9 +446,16 @@ if (dovotes != 'no') {
 		if(!vote) { return false }
 		if(!vote.user) { return false }
 
-		user = await client.users.fetch(vote.user);
-		random = Math.floor(Math.random() * (15000 - 7500 + 1)) + 7500;
+		user = await client.users.fetch(vote.user)
+		random = Math.floor(Math.random() * (15000 - 7500 + 1)) + 7500
 
+		// Calculate Extra
+		let extra
+		if (parseInt(await votef.get(vote.user + '-A')) % 10 === 0) {
+			extra = (parseInt(await votef.get(vote.user + '-A')) * 10000)/2
+		}
+
+		// Create Embeds
 		message = new EmbedBuilder()
 			.setTitle('» VOTING')
 			.setDescription('» Thanks for Voting! You got **$' + random + '** from me :)\n» Danke fürs Voten! Du hast **' + random + '€** von mir erhalten :)')
@@ -465,6 +472,17 @@ if (dovotes != 'no') {
 				.setDescription('» Thanks for Voting! You got **$' + random + '** from me :)')
 				.setFooter({ text: '» ' + version });
 		}
+		messagebonus = new EmbedBuilder()
+			.setTitle('» VOTING')
+			.setDescription('» Thanks for Voting **' + await votef.get(vote.user + '-A') + '** times!\nAs A Gift I give you extra **$' + extra + '**!')
+			.setFooter({ text: '» ' + version });
+
+		if (await lang.get(vote.user) == 1) {
+			messagebonus = new EmbedBuilder()
+				.setTitle('» VOTING')
+				.setDescription('» Danke, dass du **' + await votef.get(vote.user + '-A') + '** mal gevotet hast!\nAls Geschenk gebe ich dir extra **' + extra + '€**!')
+				.setFooter({ text: '» ' + version });
+		}
 
 		await bals.add(vote.user, parseInt(random))
 		console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] VOTED : ' + user + ' : ' + random + '€')
@@ -472,6 +490,10 @@ if (dovotes != 'no') {
 		votef.add(vote.user + '-A', 1)
 		votef.set(vote.user + '-T', Date.now())
 		user.send({ embeds: [message.toJSON()] })
+
+		if (parseInt(await votef.get(vote.user + '-A')) % 10 === 0) {
+			user.send({ embeds: [message.toJSON()] })
+		}
 	}))
 	app.listen(25252)
 }
