@@ -492,7 +492,7 @@ if (dovotes != 'no') {
 		user.send({ embeds: [message.toJSON()] })
 
 		if (parseInt(await votef.get(vote.user + '-A')) % 10 === 0) {
-			user.send({ embeds: [message.toJSON()] })
+			user.send({ embeds: [messagebonus.toJSON()] })
 		}
 	}))
 	app.listen(25252)
