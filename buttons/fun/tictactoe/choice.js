@@ -483,24 +483,6 @@ module.exports = {
             return interaction.message.edit({ embeds: [message.toJSON()], components: [row1, row2, row3], ephemeral: true })
         }
 
-        // Activate all Deactivated Buttons
-        buttoncount = 0
-        donebutton = false
-        const abtn = async () => {
-            while (donebutton == false) {
-                await wait(25)
-                if (buttondatas.includes(buttoncount.toString())) {
-                    await eval('global.tttdatad' + buttoncount + sender.toString().replace(/\D/g, '') + ' = false')
-                }
-                buttoncount = buttoncount + 1
-                if (buttoncount == 10) {
-                    donebutton = true
-                    return
-                }
-            }
-        }
-        await abtn()
-
         // Create Buttons
         row1 = new ActionRowBuilder()
 			.addComponents(
