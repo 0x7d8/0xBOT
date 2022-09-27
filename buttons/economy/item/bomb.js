@@ -70,15 +70,15 @@ module.exports = {
         if (solution != choice) {
             if (itemid == 'nbomb') {
                 const member = await interaction.guild.members.fetch(interaction.user.id)
-                member.timeout(30 * 1000, 'BOMB TIMEOUT FROM ' + interaction.user.id).catch((error) => {})
+                member.timeout(15 * 1000, 'BOMB TIMEOUT FROM ' + interaction.user.id).catch((error) => {})
             }
             if (itemid == 'mbomb') {
                 const member = await interaction.guild.members.fetch(interaction.user.id)
-                member.timeout(60 * 1000, 'BOMB TIMEOUT FROM ' + interaction.user.id).catch((error) => {})
+                member.timeout(30 * 1000, 'BOMB TIMEOUT FROM ' + interaction.user.id).catch((error) => {})
             }
             if (itemid == 'hbomb') {
                 const member = await interaction.guild.members.fetch(interaction.user.id)
-                member.timeout(90 * 1000, 'BOMB TIMEOUT FROM ' + interaction.user.id).catch((error) => {})
+                member.timeout(45 * 1000, 'BOMB TIMEOUT FROM ' + interaction.user.id).catch((error) => {})
             }
             if (itemid == 'cbomb') {
                 const messages = bombcache[interaction.user.id]
