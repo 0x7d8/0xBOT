@@ -27,8 +27,8 @@ module.exports = {
                     // Setup Choices
                     { name: '🟢 2016 JEEP PATRIOT SPORT', value: 'jeep' },
             		{ name: '🔵 2022 KIA SORENTO', value: 'kia' },
-                    { name: '🟠 AUDI R8 COUPE V10', value: 'audi' },
-                    { name: '🟡 TESLA MODEL Y', value: 'tesla' },
+                    { name: '🟡 AUDI R8 COUPE V10', value: 'audi' },
+                    { name: '🟠 TESLA MODEL Y', value: 'tesla' },
                     { name: '🔴 2019 PORSCHE 911 GT2RS', value: 'porsche' },
 				)),
     async execute(interaction, client, lang, vote) {
