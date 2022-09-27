@@ -263,6 +263,8 @@ module.exports = {
             // Edit Buttons
             msg.components[0].components[0].data.disabled = true
             msg.components[0].components[1].data.disabled = true
+            msg.components[0].components[0].data.style = 2
+            msg.components[0].components[1].data.style = 2
 
             message = new EmbedBuilder()
                 .setTitle('<:GAMEPAD:1024395990679167066> » ROCK PAPER SCISSORS')
