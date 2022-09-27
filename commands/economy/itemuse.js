@@ -1,5 +1,5 @@
 const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
-const { evaluate, pi, pow, round, sqrt } = require('mathjs')
+const { evaluate, pi, pow, round, sqrt, map } = require('mathjs')
 const { SlashCommandBuilder } = require('@discordjs/builders')
 const { EmbedBuilder } = require('@discordjs/builders')
 const { version } = require('../../config.json')
@@ -141,13 +141,33 @@ module.exports = {
             return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
         }
 
+        // Check if Reciever is already being Bombed
+        if (bot.bomb.has('TIMEOUT-' + user.id + '-' + interaction.guild.id)) {
+            // Create Embed
+            let message = new EmbedBuilder()
+            	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
+  				.setDescription('» <@' + user.id + '> is already being bombed!')
+            	.setFooter({ text: '» ' + vote + ' » ' + version });
+
+            if (lang == "de") {
+                message = new EmbedBuilder()
+            	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
+  				    .setDescription('» <@' + user.id + '> wird schon bombadiert!')
+            	    .setFooter({ text: '» ' + vote + ' » ' + version });
+            }
+
+            // Send Message
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ITEMUSE : ' + user.id + ' : ' + itemid.toUpperCase())
+            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+        }
+
         // Fetch Channel for Later
         const channel = interaction.channel
         const messages = channel.messages.fetch()
         bombcache[user.id] = messages
 
         // Init Timeout Function
-        eval('global.bombtf' + user.id + ' = true')
+        bot.bomb.set('TIMEOUT-' + user.id + '-' + interaction.guild.id, true)
 
         // Generate Math Questions
         let math
@@ -217,16 +237,8 @@ module.exports = {
 
             const expiration = async () => {
                 // Check if Message wasnt already answered
-                let sno
-                try {
-                    eval('bombtf' + user.id)
-                    sno = true
-                } catch (e) {
-                    sno = false
-                }
-                if (!sno) return
-                eval('delete bombtf' + user.id)
-                eval('delete bombm' + user.id)
+                if (!bot.bomb.has('TIMEOUT-' + user.id + '-' + interaction.guild.id)) return
+                bot.bomb.delete('TIMEOUT-' + user.id + '-' + interaction.guild.id)
     
                 // Edit Buttons
                 msg.components[0].components[0].data.disabled = true

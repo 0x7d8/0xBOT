@@ -28,7 +28,7 @@ module.exports = {
         }
 
         // Answer Timeout Function
-        eval('delete bombtf' + interaction.user.id)
+        bot.bomb.delete('TIMEOUT-' + reciever + '-' + interaction.guild.id)
 
         // Edit Buttons
         interaction.message.components[0].components[0].data.disabled = true

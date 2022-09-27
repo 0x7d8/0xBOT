@@ -28,6 +28,7 @@ exports.stats = (type, uid, gid) => {
 }
 
 // Game Caches
+exports.bomb = new Map()
 exports.game = new Map()
 exports.memory = new Map()
 exports.rps = new Map()
