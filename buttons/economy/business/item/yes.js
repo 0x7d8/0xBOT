@@ -45,6 +45,7 @@ module.exports = {
             if (itemid == 'hbomb') { cost = 5000*costmul }
             if (itemid == 'cbomb') { cost = 15000*costmul }
         } else {
+            dopay = true
             cost = await bsns.get('g-' + interaction.guild.id + '-1-PRICE-' + itemid.toUpperCase())
         }
 
