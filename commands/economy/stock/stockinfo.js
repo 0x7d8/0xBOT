@@ -185,7 +185,8 @@ module.exports = {
         let row = new ActionRowBuilder()
 			.addComponents(
 				new ButtonBuilder()
-					.setLabel('🧭 UPDATE')
+					.setLabel('UPDATE')
+                    .setEmoji('1024375540783779870')
                     .setCustomId('stock-next-' + stock)
 					.setStyle(ButtonStyle.Secondary),
 			);
@@ -193,7 +194,8 @@ module.exports = {
             row = new ActionRowBuilder()
 			    .addComponents(
 			    	new ButtonBuilder()
-			    		.setLabel('🧭 AKTUALISIEREN')
+			    		.setLabel('AKTUALISIEREN')
+                        .setEmoji('1024375540783779870')
                         .setCustomId('stock-next-' + stock)
 			    		.setStyle(ButtonStyle.Secondary),
 			    );
