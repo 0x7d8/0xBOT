@@ -84,7 +84,8 @@ module.exports = {
         let button = new ActionRowBuilder()
 			.addComponents(
 				new ButtonBuilder()
-					.setLabel('💰 GIVE ' + userinfo.username.toUpperCase() + ' $' + amount)
+					.setLabel('GIVE ' + userinfo.username.toUpperCase() + ' $' + amount)
+                    .setEmoji('1024354631721173062')
                     .setCustomId('BEG-' + interaction.user.id + '-' + amount)
 					.setStyle(ButtonStyle.Secondary),
 			);
@@ -93,7 +94,8 @@ module.exports = {
             button = new ActionRowBuilder()
 			    .addComponents(
 				    new ButtonBuilder()
-				    	.setLabel('💰 GEBE ' + userinfo.username.toUpperCase() + ' ' + amount + '€')
+				    	.setLabel('GEBE ' + userinfo.username.toUpperCase() + ' ' + amount + '€')
+                        .setEmoji('1024354631721173062')
                         .setCustomId('BEG-' + interaction.user.id + '-' + amount)
 				    	.setStyle(ButtonStyle.Secondary),
 			    );
