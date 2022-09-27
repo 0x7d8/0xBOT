@@ -31,7 +31,7 @@ module.exports = {
             if (car == 'porsche') { cost = 490000 }
         } else {
             if (type == 'buy') {
-                cost = await bsns.get('g-' + interaction.guild.id + '-3-PRICE-' + car.toUpperCase())
+                cost = parseInt(await bsns.get('g-' + interaction.guild.id + '-3-PRICE-' + car.toUpperCase()))*costmul
                 dopay = true
             } else {
                 if (car == 'jeep') { cost = 15000 }
