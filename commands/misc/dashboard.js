@@ -17,16 +17,16 @@ module.exports = {
 			.addComponents(
 				new ButtonBuilder()
 					.setLabel('GO')
-					.setURL('https://dsh.0xBOT.de')
+					.setURL('https://dsh.0xbot.de')
 					.setStyle(ButtonStyle.Link),
 			);
 
-        if (interaction.guildLocale = "de") {
+        if (lang == "de") {
             button = new ActionRowBuilder()
 			    .addComponents(
 			    	new ButtonBuilder()
 			    		.setLabel('LOS')
-			    		.setURL('https://dsh.0xBOT.de')
+			    		.setURL('https://dsh.0xbot.de')
 			    		.setStyle(ButtonStyle.Link),
 			    );
         }

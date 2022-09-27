@@ -154,15 +154,15 @@ if (dodshbr == "yes") {(async ()=>{
                 information: {
                     category: "<center>UPDATE INFO</center>",
                     title: "<center>INFORMATION</center>",
-                    description: `<center>This Update added the following Features: <br/><br/>Fixes for Minigames<br/>Fix DuckDuckGo in Search Command<br/>Add Message & Character Counting Functions<br/>Disable Buttons in Questions earlier<br/>Ping Poeple on Minigame Request</center>`,
-                    footer: "<center>VERSION 2.0.2</center>",
+                    description: `<center>This Update added the following Features: <br/><br/>Optimized Stockinfo Command<br/>Fix some Buttons not following Languages<br/>Add Status Command</center>`,
+                    footer: "<center>VERSION 2.0.3</center>",
                 },
 
                 feeds: {
                     category: "<center>UPDATE INFO</center>",
                     title: "<center>INFORMATION</center>",
-                    description: `<center>This Update added the following Features: <br/><br/>New Car (Audi R8)<br/>Timeout Fixes<br/>New Schema for Prices<br/>More Efficient Button Disabling<br/>New Bot Statuses<br/>New Stocks (White & Black)</center>`,
-                    footer: "<center>VERSION 2.0.1</center>",
+                    description: `<center>This Update added the following Features: <br/><br/>Fixes for Minigames<br/>Fix DuckDuckGo in Search Command<br/>Add Message & Character Counting Functions<br/>Disable Buttons in Questions earlier<br/>Ping Poeple on Minigame Request</center>`,
+                    footer: "<center>VERSION 2.0.2</center>",
                 },
             },
 

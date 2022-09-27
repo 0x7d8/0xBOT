@@ -5,19 +5,19 @@ const { version } = require('../../config.json');
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('vote')
+        .setName('status')
     	.setDMPermission(false)
-        .setDescription('VOTE FOR THE BOT')
+        .setDescription('GO TO THE STATUS PAGE')
         .setDescriptionLocalizations({
-            de: 'VOTE FÜR DEN BOT'
+            de: 'GEHE ZUR STATUS SEITE'
         }),
     async execute(interaction, client, lang, vote) {
         // Create Button
         let button = new ActionRowBuilder()
 			.addComponents(
 				new ButtonBuilder()
-					.setLabel('VOTE')
-					.setURL('https://top.gg/bot/1001944224545128588/vote')
+					.setLabel('GO')
+					.setURL('https://status.0xbot.de')
 					.setStyle(ButtonStyle.Link),
 			);
 
@@ -25,27 +25,27 @@ module.exports = {
             button = new ActionRowBuilder()
 			    .addComponents(
 			    	new ButtonBuilder()
-			    		.setLabel('VOTEN')
-			    		.setURL('https://top.gg/bot/1001944224545128588/vote')
+			    		.setLabel('LOS')
+			    		.setURL('https://status.0xbot.de')
 			    		.setStyle(ButtonStyle.Link),
 			    );
         }
         
         // Create Embed
        	let message = new EmbedBuilder()
-            .setTitle('» VOTE')
-  			.setDescription('» Click below to go to Vote for the Bot!')
+            .setTitle('» STATUS')
+  			.setDescription('» Click below to go to the Status Page!')
         	.setFooter({ text: '» ' + vote + ' » ' + version });
 
         if (lang == "de") {
             message = new EmbedBuilder()
-                .setTitle('» VOTEN')
-  			    .setDescription('» Klicke unten um für den Bot zu voten!')
+                .setTitle('» STATUS')
+  			    .setDescription('» Klicke unten um zur Status Seite zu gelangen!')
         	    .setFooter({ text: '» ' + vote + ' » ' + version });
         }
         
         // Send Message
-        bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] VOTE')
+        bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] STATUS')
         await interaction.reply({ embeds: [message.toJSON()], components: [button], ephemeral: true })
     },
 };
