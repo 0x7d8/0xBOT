@@ -33,13 +33,13 @@ module.exports = {
         
         // Create Embed
        	let message = new EmbedBuilder()
-            .setTitle('» STATUS')
+            .setTitle('<:GLOBE:1024403680503529583> » STATUS')
   			.setDescription('» Click below to go to the Status Page!')
         	.setFooter({ text: '» ' + vote + ' » ' + version });
 
         if (lang == "de") {
             message = new EmbedBuilder()
-                .setTitle('» STATUS')
+                .setTitle('<:GLOBE:1024403680503529583> » STATUS')
   			    .setDescription('» Klicke unten um zur Status Seite zu gelangen!')
         	    .setFooter({ text: '» ' + vote + ' » ' + version });
         }

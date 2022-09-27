@@ -18,13 +18,13 @@ module.exports = {
         if (interaction.user.id !== userid) {
             // Create Embed
             let message = new EmbedBuilder()
-            	.setTitle('» ERROR')
+            	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   				.setDescription('» This choice is up to <@' + userid + '>!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang == "de") {
                 message = new EmbedBuilder()
-            	    .setTitle('» FEHLER')
+            	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Diese Frage ist für <@' + userid + '>!')
             	    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
@@ -43,13 +43,13 @@ module.exports = {
         if (type === 'buy') {
             // Create Embed
             let message = new EmbedBuilder()
-                .setTitle('» BUY CAR')
+                .setTitle('<:BOXCHECK:1024401101589590156> » BUY CAR')
                 .setDescription('» <@' + interaction.user.id + '> said **NO** to a **' + name + '**.')
                 .setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang == "de") {
                 message = new EmbedBuilder()
-                    .setTitle('» AUTO KAUFEN')
+                    .setTitle('<:BOXCHECK:1024401101589590156> » AUTO KAUFEN')
                     .setDescription('» <@' + interaction.user.id + '> hat **NEIN** zu einem **' + name + '** gesagt.')
                     .setFooter({ text: '» ' + vote + ' » ' + version });
             }
@@ -60,13 +60,13 @@ module.exports = {
         } else if (type === 'sell') {
             // Create Embed
             let message = new EmbedBuilder()
-                .setTitle('» SELL CAR')
+                .setTitle('<:BOXDOLLAR:1024402261784403999> » SELL CAR')
                 .setDescription('» <@' + interaction.user.id + '> said **NO** to selling his **' + name + '**.')
                 .setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang == "de") {
                 message = new EmbedBuilder()
-                    .setTitle('» AUTO VERKAUFEN')
+                    .setTitle('<:BOXDOLLAR:1024402261784403999> » AUTO VERKAUFEN')
                     .setDescription('» <@' + interaction.user.id + '> hat **NEIN** zum verkaufen von seinem **' + name + '** gesagt.')
                     .setFooter({ text: '» ' + vote + ' » ' + version });
             }

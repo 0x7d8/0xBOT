@@ -44,25 +44,25 @@ module.exports = {
         let message
         if (user == null) {
         	message = new EmbedBuilder()
-            	.setTitle('» YOUR BALANCE')
+            	.setTitle('<:WALLET:1024387370793050273> » YOUR BALANCE')
   				.setDescription('» Your Balance is **$' + money + '**!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang == "de") {
                 message = new EmbedBuilder()
-            	    .setTitle('» DEIN GELDSTAND')
+            	    .setTitle('<:WALLET:1024387370793050273> » DEIN GELDSTAND')
   				    .setDescription('» Dein Geldstand beträgt **' + money + '€**!')
             	    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
         } else {
             message = new EmbedBuilder()
-            	.setTitle('» THE BALANCE OF ' + userinfo.username.toUpperCase() + '#' + userinfo.discriminator)
+            	.setTitle('<:WALLET:1024387370793050273> » THE BALANCE OF ' + userinfo.username.toUpperCase() + '#' + userinfo.discriminator)
   				.setDescription('» The Balance of <@' + user + '> is **$' + money + '**!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang == "de") {
                 message = new EmbedBuilder()
-            	    .setTitle('» DER GELDSTAND VON ' + userinfo.username.toUpperCase() + '#' + userinfo.discriminator)
+            	    .setTitle('<:WALLET:1024387370793050273> » DER GELDSTAND VON ' + userinfo.username.toUpperCase() + '#' + userinfo.discriminator)
   				    .setDescription('» Der Geldstand von <@' + user + '> ist **' + money + '€**!')
             	    .setFooter({ text: '» ' + vote + ' » ' + version });
             }

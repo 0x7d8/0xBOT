@@ -16,13 +16,13 @@ module.exports = {
         if (sender.toString().replace(/\D/g, '') != interaction.user.id && reciever.toString().replace(/\D/g, '') != interaction.user.id) {
             // Create Embed
             let message = new EmbedBuilder()
-        		.setTitle('» ERROR')
+        		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» You arent playing!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang == "de") {
                 message = new EmbedBuilder()
-        		    .setTitle('» FEHLER')
+        		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Du spielst garnicht mit!')
         		    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
@@ -39,7 +39,7 @@ module.exports = {
         if (choice == 'SCISSORS') { choiceen = '✂️ SCISSORS' }
 
         let message = new EmbedBuilder()
-            .setTitle('» ROCK PAPER SCISSORS')
+            .setTitle('<:GAMEPAD:1024395990679167066> » ROCK PAPER SCISSORS')
             .setDescription('» You selected **' + choiceen + '**!')
             .setFooter({ text: '» ' + vote + ' » ' + version });
 
@@ -50,7 +50,7 @@ module.exports = {
             if (choice == 'SCISSORS') { choicede = '✂️ SCHERE' }
 
             message = new EmbedBuilder()
-                .setTitle('» SCHERE STEIN PAPIER')
+                .setTitle('<:GAMEPAD:1024395990679167066> » SCHERE STEIN PAPIER')
                 .setDescription('» Du hast **' + choicede + '** ausgewählt!')
                 .setFooter({ text: '» ' + vote + ' » ' + version });
         }
@@ -100,8 +100,8 @@ module.exports = {
             if (prc == 'SCISSORS') { reci = '✂️ SCISSORS' }
 
             message = new EmbedBuilder()
-                .setTitle('» ROCK PAPER SCISSORS')
-                .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> selected **' + bot.rps.get('CHOICE-' + sender) + '**\n» <@' + reciever.toString().replace(/\D/g, '') + '> selected **' + bot.rps.get('CHOICE-' + reciever) + '**\n\n» ' + winner + ' won **$' + betwon + '**.')
+                .setTitle('<:GAMEPAD:1024395990679167066> » ROCK PAPER SCISSORS')
+                .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> selected **' + bot.rps.get('CHOICE-' + sender) + '**\n» <@' + reciever.toString().replace(/\D/g, '') + '> selected **' + bot.rps.get('CHOICE-' + reciever) + '**\n\n<:AWARD:1024385473524793445> ' + winner + ' won **$' + betwon + '**.')
                 .setFooter({ text: '» ' + version });
 
             if (lang == "de") {
@@ -113,8 +113,8 @@ module.exports = {
                 if (prc == 'SCISSORS') { reci = '✂️ SCHERE' }
 
                 message = new EmbedBuilder()
-                    .setTitle('» SCHERE STEIN PAPIER')
-                    .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> wählte **' + send + '**\n» <@' + reciever.toString().replace(/\D/g, '') + '> wählte **' + reci + '**\n\n» ' + winner + ' hat **' + betwon + '€** gewonnen.')
+                    .setTitle('<:GAMEPAD:1024395990679167066> » SCHERE STEIN PAPIER')
+                    .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> wählte **' + send + '**\n» <@' + reciever.toString().replace(/\D/g, '') + '> wählte **' + reci + '**\n\n<:AWARD:1024385473524793445> ' + winner + ' hat **' + betwon + '€** gewonnen.')
                     .setFooter({ text: '» ' + version });
             }
 

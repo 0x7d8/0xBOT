@@ -40,13 +40,13 @@ module.exports = {
         if (amount < 0) {
             // Create Embed
             let message = new EmbedBuilder()
-        		.setTitle('» ERROR')
+        		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» You cant ask for negative Money!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang == "de") {
                 message = new EmbedBuilder()
-        		    .setTitle('» FEHLER')
+        		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Du kannst nicht nach negativem Geld fragen!')
         		    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
@@ -85,7 +85,7 @@ module.exports = {
 			.addComponents(
 				new ButtonBuilder()
 					.setLabel('GIVE ' + userinfo.username.toUpperCase() + ' $' + amount)
-                    .setEmoji('1024354631721173062')
+                    .setEmoji('1024382935618572299')
                     .setCustomId('BEG-' + interaction.user.id + '-' + amount)
 					.setStyle(ButtonStyle.Secondary),
 			);
@@ -95,7 +95,7 @@ module.exports = {
 			    .addComponents(
 				    new ButtonBuilder()
 				    	.setLabel('GEBE ' + userinfo.username.toUpperCase() + ' ' + amount + '€')
-                        .setEmoji('1024354631721173062')
+                        .setEmoji('1024382935618572299')
                         .setCustomId('BEG-' + interaction.user.id + '-' + amount)
 				    	.setStyle(ButtonStyle.Secondary),
 			    );
@@ -105,25 +105,25 @@ module.exports = {
         let message
         if (reason == null) {
       	    message = new EmbedBuilder()
-                .setTitle('» BEGGING')
+                .setTitle('<:DONATE:1024397357988720711> » BEGGING')
   			    .setDescription('» <@' + interaction.user.id + '> needs Money!')
         	    .setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang == "de") {
                 message = new EmbedBuilder()
-                    .setTitle('» BETTELN')
+                    .setTitle('<:DONATE:1024397357988720711> » BETTELN')
   			        .setDescription('» <@' + interaction.user.id + '> braucht Geld!')
         	        .setFooter({ text: '» ' + vote + ' » ' + version });
             }
         } else {
             message = new EmbedBuilder()
-                .setTitle('» BEGGING')
+                .setTitle('<:DONATE:1024397357988720711> » BEGGING')
   			    .setDescription('» <@' + interaction.user.id + '> needs Money!\n*"' + reason.toString() + '"*')
         	    .setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang == "de") {
                 message = new EmbedBuilder()
-                    .setTitle('» BETTELN')
+                    .setTitle('<:DONATE:1024397357988720711> » BETTELN')
   			        .setDescription('» <@' + interaction.user.id + '> braucht Geld!\n*"' + reason.toString() + '"*')
         	        .setFooter({ text: '» ' + vote + ' » ' + version });
             }

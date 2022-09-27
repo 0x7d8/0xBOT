@@ -16,13 +16,13 @@ module.exports = {
         if (interaction.user.id != reciever.toString().replace(/\D/g, '') && interaction.user.id != sender.toString().replace(/\D/g, '')) {
             // Create Embed
             let message = new EmbedBuilder()
-        		.setTitle('» ERROR')
+        		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» <@' + reciever.toString().replace(/\D/g, '') + '> or <@' + sender.toString().replace(/\D/g, '') + '> has to decide this!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang == "de") {
                 message = new EmbedBuilder()
-        		    .setTitle('» FEHLER')
+        		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» <@' + reciever.toString().replace(/\D/g, '') + '> oder <@' + sender.toString().replace(/\D/g, '') + '> muss das entscheiden!')
         		    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
@@ -42,13 +42,13 @@ module.exports = {
 
         // Create Embed
         let message = new EmbedBuilder()
-        .setTitle('» TICTACTOE')
+        .setTitle('<:GAMEPAD:1024395990679167066> » TICTACTOE')
         .setDescription('» <@' + interaction.user.id + '> said **NO**.')
         .setFooter({ text: '» ' + vote + ' » ' + version });
 
         if (lang == "de") {
             message = new EmbedBuilder()
-                .setTitle('» TICTACTOE')
+                .setTitle('<:GAMEPAD:1024395990679167066> » TICTACTOE')
                 .setDescription('» <@' + interaction.user.id + '> hat **NEIN** gesagt.')
                 .setFooter({ text: '» ' + vote + ' » ' + version });
         }

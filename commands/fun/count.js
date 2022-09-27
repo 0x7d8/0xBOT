@@ -58,13 +58,13 @@ module.exports = {
         
         // Create Embed
       	let message = new EmbedBuilder()
-                .setTitle('» COUNTING')
+                .setTitle('<:INFINITE:1024406060380979300> » COUNTING')
   			    .setDescription('» Lets Count! Current Number: **0**')
         	    .setFooter({ text: '» ' + version });
 
         if (lang == "de") {
             message = new EmbedBuilder()
-                .setTitle('» ZÄHLEN')
+                .setTitle('<:INFINITE:1024406060380979300> » ZÄHLEN')
   		        .setDescription('» Komm Zählen! Aktuelle Nummer: **0**')
                 .setFooter({ text: '» ' + version });
         }

@@ -42,13 +42,13 @@ module.exports = {
         if (parseInt(res) == 1) {
             // Create Embed
             let message = new EmbedBuilder()
-        		.setTitle('» ERROR')
+        		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» Luck Games are disabled on this Server!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang == "de") {
                 message = new EmbedBuilder()
-        		    .setTitle('» FEHLER')
+        		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Glücksspiele sind auf diesem Server deaktiviert!')
         		    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
@@ -69,13 +69,13 @@ module.exports = {
         if (wette < 0) {
             // Create Embed
             let message = new EmbedBuilder()
-        		.setTitle('» ERROR')
+        		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» You cant play with negative Money!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang == "de") {
                 message = new EmbedBuilder()
-        		    .setTitle('» FEHLER')
+        		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Du kannst keine negativen Einsätze spielen!')
         		    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
@@ -107,13 +107,13 @@ module.exports = {
             if (wette > 15000) {
                 // Create Embed
                 let message = new EmbedBuilder()
-            		.setTitle('» ERROR')
+            		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   					.setDescription('» You cant bet that much! **$15000** is the Maximum.')
             		.setFooter({ text: '» ' + vote + ' » ' + version });
 
                 if (lang == "de") {
                     message = new EmbedBuilder()
-            		    .setTitle('» FEHLER')
+            		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   					    .setDescription('» Du kannst nicht soviel Wetten! **15000€** ist das Maximum.')
             		    .setFooter({ text: '» ' + vote + ' » ' + version });
                 }
@@ -146,13 +146,13 @@ module.exports = {
         
         	// Create Embed
       		let message = new EmbedBuilder()
-            	.setTitle('» ROULETTE')
+            	.setTitle('<:CLOVER:1024388649418235925> » ROULETTE')
   				.setDescription('» You bet **$' + wette + '** on **' + colordis.toUpperCase() + '** and **' + status + '** **$' + resultdis + '**!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang == "de") {
                 message = new EmbedBuilder()
-            	    .setTitle('» ROULETTE')
+            	    .setTitle('<:CLOVER:1024388649418235925> » ROULETTE')
   				    .setDescription('» Du hast **' + wette + '€** auf **' + farbe.toUpperCase() + '** gesetzt und **' + resultdis + '€** **' + status + '**!')
             	    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
@@ -173,13 +173,13 @@ module.exports = {
             
             // Create Embed
             let message = new EmbedBuilder()
-            	.setTitle('» ERROR')
+            	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   				.setDescription('» You dont have enough Money for that, you are missing **$' + missing + '**!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang == "de") {
                 message = new EmbedBuilder()
-            	    .setTitle('» FEHLER')
+            	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
             	    .setFooter({ text: '» ' + vote + ' » ' + version });
             }

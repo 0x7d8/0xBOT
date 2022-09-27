@@ -38,12 +38,12 @@ module.exports = {
         if (!interaction.appPermissions.has('ManageMessages')) {
             // Create Embed
             let message = new EmbedBuilder()
-        		.setTitle('» ERROR')
+        		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» I dont think I have the **MANAGE MESSAGES** Permission!')
         		.setFooter({ text: '» ' + version });
             if (lang == "de") {
                 message = new EmbedBuilder()
-        		    .setTitle('» FEHLER')
+        		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Ich denke nicht, dass ich die **NACHRICHTEN VERWALTEN** Berechtigung habe!')
         		    .setFooter({ text: '» ' + version });
             }
@@ -55,12 +55,12 @@ module.exports = {
         if (!interaction.appPermissions.has('ViewChannel')) {
             // Create Embed
             let message = new EmbedBuilder()
-        		.setTitle('» ERROR')
+        		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» I dont think I have the **VIEW CHANNEL** Permission!')
         		.setFooter({ text: '» ' + version });
             if (lang == "de") {
                 message = new EmbedBuilder()
-        		    .setTitle('» FEHLER')
+        		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Ich denke nicht, dass ich die **KANÄLE ANSEHEN** Berechtigung habe!')
         		    .setFooter({ text: '» ' + version });
             }
@@ -80,13 +80,13 @@ module.exports = {
         if (amount < 1) {
             // Create Embed
             let message = new EmbedBuilder()
-        		.setTitle('» ERROR')
+        		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» You have to delete atleast **1** Message!')
         		.setFooter({ text: '» ' + version });
             if (lang == "de") {
 
                 message = new EmbedBuilder()
-        		    .setTitle('» FEHLER')
+        		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Du musst mindestens **1** Nachricht löschen!')
         		    .setFooter({ text: '» ' + version });
             }

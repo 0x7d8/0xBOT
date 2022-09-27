@@ -30,13 +30,13 @@ module.exports = {
 
             // Create Embed
             let message = new EmbedBuilder()
-        		.setTitle('» ERROR')
+        		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» The Maximum Size is **256**!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang == "de") {
                 message = new EmbedBuilder()
-        		    .setTitle('» FEHLER')
+        		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Die Maximale Größe ist **128**!')
         		    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
@@ -50,13 +50,13 @@ module.exports = {
 
             // Create Embed
             let message = new EmbedBuilder()
-        		.setTitle('» ERROR')
+        		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» The Minimum Size is **4**!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang == "de") {
                 message = new EmbedBuilder()
-        		    .setTitle('» FEHLER')
+        		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Die Minimale Größe ist **4**!')
         		    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
@@ -76,13 +76,13 @@ module.exports = {
         
         // Create Embed
         let message = new EmbedBuilder()
-        	.setTitle('» GENERATE PASSWORD')
+        	.setTitle('<:KEY:1024392167130664980> » GENERATE PASSWORD')
   			.setDescription('» This is the Password I choose:\n`' + password + '`')
         	.setFooter({ text: '» ' + vote + ' » ' + version });
 
         if (lang == "de") {
             message = new EmbedBuilder()
-        	    .setTitle('» PASSWORT GENERIEREN')
+        	    .setTitle('<:KEY:1024392167130664980> » PASSWORT GENERIEREN')
   			    .setDescription('» Das hier ist mein ausgedachtes Passwort:\n`' + password + '`')
         	    .setFooter({ text: '» ' + vote + ' » ' + version });
         }

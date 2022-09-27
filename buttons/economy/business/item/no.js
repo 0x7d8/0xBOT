@@ -24,13 +24,13 @@ module.exports = {
         if (interaction.user.id !== userid) {
             // Create Embed
             let message = new EmbedBuilder()
-            	.setTitle('» ERROR')
+            	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   				.setDescription('» This choice is up to <@' + userid + '>!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang == "de") {
                 message = new EmbedBuilder()
-            	    .setTitle('» FEHLER')
+            	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Diese Frage ist für <@' + userid + '>!')
             	    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
@@ -51,25 +51,25 @@ module.exports = {
             let message
             if (amount == 1) {
                 message = new EmbedBuilder()
-                    .setTitle('» BUY ITEM')
+                    .setTitle('<:BOXCHECK:1024401101589590156> » BUY ITEM')
                     .setDescription('» <@' + interaction.user.id + '> said **NO** to a **' + name + '**.')
                     .setFooter({ text: '» ' + vote + ' » ' + version });
 
                 if (lang == "de") {
                     message = new EmbedBuilder()
-                        .setTitle('» GEGENSTAND KAUFEN')
+                        .setTitle('<:BOXCHECK:1024401101589590156> » GEGENSTAND KAUFEN')
                         .setDescription('» <@' + interaction.user.id + '> hat **NEIN** zu einer **' + name + '** gesagt.')
                         .setFooter({ text: '» ' + vote + ' » ' + version });
                 }
             } else {
                 message = new EmbedBuilder()
-                    .setTitle('» BUY ITEMS')
+                    .setTitle('<:BOXCHECK:1024401101589590156> » BUY ITEMS')
                     .setDescription('» <@' + interaction.user.id + '> said **NO** to **' + amount + 'x** **' + name + '**.')
                     .setFooter({ text: '» ' + vote + ' » ' + version });
 
                 if (lang == "de") {
                     message = new EmbedBuilder()
-                        .setTitle('» GEGENSTÄNDE KAUFEN')
+                        .setTitle('<:BOXCHECK:1024401101589590156> » GEGENSTÄNDE KAUFEN')
                         .setDescription('» <@' + interaction.user.id + '> hat **NEIN** zu **' + amount + 'x** **' + name + '** gesagt.')
                         .setFooter({ text: '» ' + vote + ' » ' + version });
                 }

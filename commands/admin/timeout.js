@@ -42,13 +42,13 @@ module.exports = {
         if (time < 1) {
             // Create Embed
             let message = new EmbedBuilder()
-        		.setTitle('» ERROR')
+        		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» You have to timeout for atleast **1** Second!')
         		.setFooter({ text: '» ' + version });
             if (lang == "de") {
 
                 message = new EmbedBuilder()
-        		    .setTitle('» FEHLER')
+        		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Du musst mindestens **1** Sekunde Timeouten!')
         		    .setFooter({ text: '» ' + version });
             }
@@ -62,12 +62,12 @@ module.exports = {
         if (!interaction.appPermissions.has('ModerateMembers')) {
             // Create Embed
             let message = new EmbedBuilder()
-        		.setTitle('» ERROR')
+        		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» I dont think I have the **MODERATE MEMBERS** Permission!')
         		.setFooter({ text: '» ' + version });
             if (lang == "de") {
                 message = new EmbedBuilder()
-        		    .setTitle('» FEHLER')
+        		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Ich denke nicht, dass ich die **MITGLIEDER IM TIMEOUT** Berechtigung habe!')
         		    .setFooter({ text: '» ' + version });
             }

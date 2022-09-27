@@ -20,13 +20,13 @@ module.exports = {
         if (parseInt(wes) == 1) {
             // Create Embed
             let message = new EmbedBuilder()
-        		.setTitle('» ERROR')
+        		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» The **`/work`** Command is disabled on this Server!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang == "de") {
                 message = new EmbedBuilder()
-        		    .setTitle('» FEHLER')
+        		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Der **`/work`** Befehl ist auf diesem Server deaktiviert!')
         		    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
@@ -51,13 +51,13 @@ module.exports = {
             
             // Create Embed
             let message = new EmbedBuilder()
-            	.setTitle('» ERROR')
+            	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   				.setDescription('» You still have a Cooldown of **' + cdown.toFixed(0) + use + '**!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang == "de") {
                 message = new EmbedBuilder()
-            	    .setTitle('» FEHLER')
+            	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Du hast leider noch einen Cooldown von **' + cdown.toFixed(0) + use + '**!')
             	    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
@@ -127,13 +127,13 @@ module.exports = {
         
         	// Create Embed
       		let message = new EmbedBuilder()
-            	.setTitle('» WORK')
+            	.setTitle('<:HAMMER:1024388163747184662> » WORK')
   				.setDescription('» You work as **' + job + '** and earn **$' + resultcar + '**! ' + extra)
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang == "de") {
                 message = new EmbedBuilder()
-            	    .setTitle('» ARBEIT')
+            	    .setTitle('<:HAMMER:1024388163747184662> » ARBEIT')
   				    .setDescription('» Du arbeitest als **' + job + '** und verdienst **' + resultcar + '€**! ' + extra)
             	    .setFooter({ text: '» ' + vote + ' » ' + version });
             }

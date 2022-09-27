@@ -193,14 +193,14 @@ client.on('interactionCreate', async interaction => {
         
     			// Create Error Embed
     			let message = new EmbedBuilder()
-        			.setTitle('» ERROR')
+        			.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   					.setDescription('» <:ERROR:1020414987291861022> An Error has occured while executing this Command.\nThe Error has been logged and will be fixed soon!')
-    				.setFooter({ text: '» ' + votet + ' » ' + version + ' » ERROR: ' + errorid });
+    				.setFooter({ text: '» ' + votet + ' » ' + version + ' <:EXCLAMATION:1024407166460891166> » ERROR: ' + errorid });
 				if (guildlang == 'de') {
 					message = new EmbedBuilder()
-        				.setTitle('» FEHLER')
+        				.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   						.setDescription('» <:ERROR:1020414987291861022> Ein Fehler ist beim ausführen dieses Befehls aufgetreten.\nDer Fehler wurde geloggt und wird bald behoben!')
-    					.setFooter({ text: '» ' + votet + ' » ' + version + ' » FEHLER: ' + errorid });
+    					.setFooter({ text: '» ' + votet + ' » ' + version + ' <:EXCLAMATION:1024407166460891166> » FEHLER: ' + errorid });
 				}
 
     			// Send Message
@@ -383,14 +383,14 @@ client.on('interactionCreate', async interaction => {
         
     			// Create Error Embed
     			let message = new EmbedBuilder()
-        			.setTitle('» ERROR')
+        			.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   					.setDescription('» <:ERROR:1020414987291861022> An Error has occured while executing this Button.\nThe Error has been logged and will be fixed soon!')
-    				.setFooter({ text: '» ' + votet + ' » ' + version + ' » ERROR: ' + errorid });
+    				.setFooter({ text: '» ' + votet + ' » ' + version + ' <:EXCLAMATION:1024407166460891166> » ERROR: ' + errorid });
 				if (guildlang == 'de') {
 					message = new EmbedBuilder()
-        				.setTitle('» FEHLER')
+        				.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   						.setDescription('» <:ERROR:1020414987291861022> Ein Fehler ist beim ausführen dieses Buttons aufgetreten.\nDer Fehler wurde geloggt und wird bald behoben!')
-    					.setFooter({ text: '» ' + votet + ' » ' + version + ' » FEHLER: ' + errorid });
+    					.setFooter({ text: '» ' + votet + ' » ' + version + ' <:EXCLAMATION:1024407166460891166> » FEHLER: ' + errorid });
 				}
 
     			// Send Message

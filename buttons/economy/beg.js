@@ -15,13 +15,13 @@ module.exports = {
             
             // Create Embed
             let message = new EmbedBuilder()
-            	.setTitle('» ERROR')
+            	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   				.setDescription('» You dont have enough Money for that, you are missing **$' + missing + '**!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang == "de") {
                 message = new EmbedBuilder()
-            	    .setTitle('» FEHLER')
+            	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
             	    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
@@ -35,13 +35,13 @@ module.exports = {
         if (interaction.user.id == reciever.toString().replace(/\D/g, '')) {
             // Create Embed
             let message = new EmbedBuilder()
-            	.setTitle('» ERROR')
+            	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   				.setDescription('» You cant give yourself Money?')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang == "de") {
                 message = new EmbedBuilder()
-            	    .setTitle('» FEHLER')
+            	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Du kannst dir selber kein Geld geben?')
             	    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
@@ -57,13 +57,13 @@ module.exports = {
 
         // Create Embeds
       	let message = new EmbedBuilder()
-            .setTitle('» BEGGING')
+            .setTitle('<:DONATE:1024397357988720711> » BEGGING')
             .setDescription('» <@' + interaction.user.id + '> gave <@' + reciever.toString().replace(/\D/g, '') + '> **$' + amount + '**!')
             .setFooter({ text: '» ' + vote + ' » ' + version });
 
         if (lang == "de") {
             message = new EmbedBuilder()
-                .setTitle('» BETTELN')
+                .setTitle('<:DONATE:1024397357988720711> » BETTELN')
                 .setDescription('» <@' + interaction.user.id + '> hat <@' + reciever.toString().replace(/\D/g, '') + '> **' + amount + '€** gegeben!')
                 .setFooter({ text: '» ' + vote + ' » ' + version });
         }

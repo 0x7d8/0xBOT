@@ -52,25 +52,25 @@ module.exports = {
         let message
         if (user == null) {
         	message = new EmbedBuilder()
-            	.setTitle('» YOUR VOTES')
+            	.setTitle('<:GLOBE:1024403680503529583> » YOUR VOTES')
   				.setDescription('» You have **' + votes + '** ' + word + '!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang == "de") {
                 message = new EmbedBuilder()
-            	    .setTitle('» DEINE VOTES')
+            	    .setTitle('<:GLOBE:1024403680503529583> » DEINE VOTES')
   				    .setDescription('» Du hast **' + votes + '** ' + word + '!')
             	    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
         } else {
             message = new EmbedBuilder()
-                .setTitle('» THE VOTES OF ' + userinfo.username.toUpperCase() + '#' + userinfo.discriminator)
+                .setTitle('<:GLOBE:1024403680503529583> » THE VOTES OF ' + userinfo.username.toUpperCase() + '#' + userinfo.discriminator)
   				.setDescription('» <@' + user + '> has **' + votes + '** ' + word + '!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang == "de") {
                 message = new EmbedBuilder()
-                    .setTitle('» DIE VOTES VON ' + userinfo.username.toUpperCase() + '#' + userinfo.discriminator)
+                    .setTitle('<:GLOBE:1024403680503529583> » DIE VOTES VON ' + userinfo.username.toUpperCase() + '#' + userinfo.discriminator)
   				    .setDescription('» <@' + user + '> hat **' + votes + '** ' + word + '!')
             	    .setFooter({ text: '» ' + vote + ' » ' + version });
             }

@@ -32,13 +32,13 @@ module.exports = {
 
         // Create Embed
         let message = new EmbedBuilder()
-        	.setTitle('» RANDOM NUMBER')
+        	.setTitle('<:GEAR:1024404241701417011> » RANDOM NUMBER')
   			.setDescription('» Between **' + min + '** and **' + max + '** I choose **' + res + '**!')
         	.setFooter({ text: '» ' + vote + ' » ' + version });
 
         if (lang == "de") {
             message = new EmbedBuilder()
-        	    .setTitle('» ZUFÄLLIGE NUMMER')
+        	    .setTitle('<:GEAR:1024404241701417011> » ZUFÄLLIGE NUMMER')
   			    .setDescription('» Zwischen **' + min + '** und **' + max + '** wähle ich **' + res + '**!')
         	    .setFooter({ text: '» ' + vote + ' » ' + version });
         }

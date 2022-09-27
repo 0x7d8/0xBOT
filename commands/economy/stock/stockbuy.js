@@ -45,13 +45,13 @@ module.exports = {
         if (parseInt(ses) == 1) {
             // Create Embed
             let message = new EmbedBuilder()
-        		.setTitle('» ERROR')
+        		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» Stocks are disabled on this Server!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang == "de") {
                 message = new EmbedBuilder()
-        		    .setTitle('» FEHLER')
+        		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Aktien sind auf diesem Server deaktiviert!')
         		    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
@@ -99,13 +99,13 @@ module.exports = {
         if (amount < 0) {
             // Create Embed
             let message = new EmbedBuilder()
-        		.setTitle('» ERROR')
+        		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» You cant buy a negative amount of Stocks!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang == "de") {
                 message = new EmbedBuilder()
-        		    .setTitle('» FEHLER')
+        		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Du kannst keine negativen Anzahlen kaufen!')
         		    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
@@ -119,13 +119,13 @@ module.exports = {
         if (stock == 'green' && greens > greenmax) {
             // Create Embed
             let message = new EmbedBuilder()
-        		.setTitle('» ERROR')
+        		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» You cant buy more than **' + greenmax + '** 🟢!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang == "de") {
                 message = new EmbedBuilder()
-        		    .setTitle('» FEHLER')
+        		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Du kannst nicht mehr als **' + greenmax + '** 🟢 Kaufen!')
         		    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
@@ -137,13 +137,13 @@ module.exports = {
         if (stock == 'blue' && blues > bluemax) {
             // Create Embed
             let message = new EmbedBuilder()
-        		.setTitle('» ERROR')
+        		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» You cant buy more than **' + bluemax + '** 🔵!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang == "de") {
                 message = new EmbedBuilder()
-        		    .setTitle('» FEHLER')
+        		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Du kannst nicht mehr als **' + bluemax + '** 🔵 Kaufen!')
         		    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
@@ -155,13 +155,13 @@ module.exports = {
         if (stock == 'yellow' && yellows > yellowmax) {
             // Create Embed
             let message = new EmbedBuilder()
-        		.setTitle('» ERROR')
+        		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» You cant buy more than **' + yellowmax + '** 🟡!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang == "de") {
                 message = new EmbedBuilder()
-        		    .setTitle('» FEHLER')
+        		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Du kannst nicht mehr als **' + yellowmax + '** 🟡 Kaufen!')
         		    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
@@ -173,13 +173,13 @@ module.exports = {
         if (stock == 'red' && reds > redmax) {
             // Create Embed
             let message = new EmbedBuilder()
-        		.setTitle('» ERROR')
+        		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» You cant buy more than **' + redmax + '** 🔴!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang == "de") {
                 message = new EmbedBuilder()
-        		    .setTitle('» FEHLER')
+        		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Du kannst nicht mehr als **' + redmax + '** 🔴 Kaufen!')
         		    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
@@ -191,13 +191,13 @@ module.exports = {
         if (stock == 'white' && whites > whitemax) {
             // Create Embed
             let message = new EmbedBuilder()
-        		.setTitle('» ERROR')
+        		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» You cant buy more than **' + redmax + '** ⚪!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang == "de") {
                 message = new EmbedBuilder()
-        		    .setTitle('» FEHLER')
+        		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Du kannst nicht mehr als **' + redmax + '** ⚪ Kaufen!')
         		    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
@@ -209,13 +209,13 @@ module.exports = {
         if (stock == 'black' && blacks > blackmax) {
             // Create Embed
             let message = new EmbedBuilder()
-        		.setTitle('» ERROR')
+        		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» You cant buy more than **' + redmax + '** ⚫!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang == "de") {
                 message = new EmbedBuilder()
-        		    .setTitle('» FEHLER')
+        		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Du kannst nicht mehr als **' + redmax + '** ⚫ Kaufen!')
         		    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
@@ -238,13 +238,13 @@ module.exports = {
             
             // Create Embed
             let message = new EmbedBuilder()
-            	.setTitle('» ERROR')
+            	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   				.setDescription('» You dont have enough Money for that, you are missing **$' + missing + '**!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang == "de") {
                 message = new EmbedBuilder()
-            	    .setTitle('» FEHLER')
+            	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
             	    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
@@ -289,13 +289,13 @@ module.exports = {
 
         // Create Embed
         let message = new EmbedBuilder()
-            .setTitle('» ' + emoji + ' BUY STOCKS')
+            .setTitle('<:CHART:1024398298204876941> » BUY STOCKS')
             .setDescription('» You successfully bought **' + amount + '** ' + emoji + ' for **$' + cost + '**! (**$' + priceText + '** per Stock)')
             .setFooter({ text: '» ' + vote + ' » ' + version });
 
         if (lang == "de") {
             message = new EmbedBuilder()
-                .setTitle('» ' + emoji + ' AKTIE KAUFEN')
+                .setTitle('<:CHART:1024398298204876941> » AKTIEN KAUFEN')
                 .setDescription('» Du hast erfolgreich **' + amount + '** ' + emoji + ' für **' + cost + '€** gekauft! (**' + priceText + '€** pro Aktie)')
                 .setFooter({ text: '» ' + vote + ' » ' + version });
         }

@@ -34,13 +34,13 @@ module.exports = {
         if (parseInt(qes) == 1) {
             // Create Embed
             let message = new EmbedBuilder()
-        		.setTitle('» ERROR')
+        		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» Quotes are disabled on this Server!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang == "de") {
                 message = new EmbedBuilder()
-        		    .setTitle('» FEHLER')
+        		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Zitate sind auf diesem Server deaktiviert!')
         		    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
@@ -63,13 +63,13 @@ module.exports = {
         if (quotes - anzahl < 0) {
             // Create Embed
             let message = new EmbedBuilder()
-            	.setTitle('» ERROR')
+            	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   				.setDescription('» You dont have that many Quotes, you only have **' + quotes + '**!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang == "de") {
                 message = new EmbedBuilder()
-            	    .setTitle('» FEHLER')
+            	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Du hast garnicht so viele Zitate, du hast nur **' + quotes + '**!')
             	    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
@@ -85,13 +85,13 @@ module.exports = {
             
             // Create Embed
             let message = new EmbedBuilder()
-            	.setTitle('» ERROR')
+            	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   				.setDescription('» You dont have enough Money for that, you are Missing **$' + missing + '**!')
             	.setFooter({ text: '» ' + version + ' » QUOTES: ' + quotes});
 
             if (lang == "de") {
                 message = new EmbedBuilder()
-            	    .setTitle('» FEHLER')
+            	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Du hast nicht genug Geld dafür, dir fehlen **' + missing + '€**!')
             	    .setFooter({ text: '» ' + version + ' » QUOTES: ' + quotes});
             }
@@ -120,13 +120,13 @@ module.exports = {
         // Create Embed
         const newquotes = quotes - 1
         let message = new EmbedBuilder()
-            .setTitle('» ZITATE ENTFERNEN')
+            .setTitle('<:QUOTES:1024406448127623228> » ZITATE ENTFERNEN')
   			.setDescription('» You successfully removed **' + anzahl + '** ' + word + ' for **$' + cost + '**!')
             .setFooter({ text: '» ' + version + ' » QUOTES: ' + newquotes});
 
         if (lang == "de") {
             message = new EmbedBuilder()
-                .setTitle('» ZITATE ENTFERNEN')
+                .setTitle('<:QUOTES:1024406448127623228> » ZITATE ENTFERNEN')
   			    .setDescription('» Du hast erfolgreich **' + anzahl + '** ' + word + ' für **' + cost + '€** entfernt!')
                 .setFooter({ text: '» ' + version + ' » QUOTES: ' + newquotes});
         }

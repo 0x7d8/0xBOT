@@ -33,13 +33,13 @@ module.exports = {
         
         // Create Embed
        	let message = new EmbedBuilder()
-            .setTitle('» VOTE')
+            .setTitle('<:GLOBE:1024403680503529583> » VOTE')
   			.setDescription('» Click below to go to Vote for the Bot!')
         	.setFooter({ text: '» ' + vote + ' » ' + version });
 
         if (lang == "de") {
             message = new EmbedBuilder()
-                .setTitle('» VOTEN')
+                .setTitle('<:GLOBE:1024403680503529583> » VOTEN')
   			    .setDescription('» Klicke unten um für den Bot zu voten!')
         	    .setFooter({ text: '» ' + vote + ' » ' + version });
         }

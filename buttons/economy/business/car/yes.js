@@ -36,6 +36,7 @@ module.exports = {
             } else {
                 if (car == 'jeep') { cost = 15000 }
                 if (car == 'kia') { cost = 75000 }
+                if (car == 'audi') { cost = 150000 }
                 if (car == 'tesla') { cost = 240000 }
                 if (car == 'porsche') { cost = 490000 }
             }
@@ -52,13 +53,13 @@ module.exports = {
         if (interaction.user.id !== userid) {
             // Create Embed
             let message = new EmbedBuilder()
-            	.setTitle('» ERROR')
+            	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   				.setDescription('» This choice is up to <@' + userid + '>!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang == "de") {
                 message = new EmbedBuilder()
-            	    .setTitle('» FEHLER')
+            	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Diese Frage ist für <@' + userid + '>!')
             	    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
@@ -76,13 +77,13 @@ module.exports = {
                 
                 // Create Embed
                 let message = new EmbedBuilder()
-                	.setTitle('» ERROR')
+                	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   		    		.setDescription('» You dont have enough Money for that, you are missing **$' + missing + '**!')
                 	.setFooter({ text: '» ' + vote + ' » ' + version });
 
                 if (lang == "de") {
                     message = new EmbedBuilder()
-                	    .setTitle('» FEHLER')
+                	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   			    	    .setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
                 	    .setFooter({ text: '» ' + vote + ' » ' + version });
                 }
@@ -104,13 +105,13 @@ module.exports = {
 
                 // Create Embed
                 let message = new EmbedBuilder()
-                	.setTitle('» ERROR')
+                	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   		    		.setDescription('» You already own a **' + name + '**!')
                 	.setFooter({ text: '» ' + vote + ' » ' + version });
 
                 if (lang == "de") {
                     message = new EmbedBuilder()
-                	    .setTitle('» FEHLER')
+                	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   		    		    .setDescription('» Du besitzt schon einen **' + name +'**!')
                 	    .setFooter({ text: '» ' + vote + ' » ' + version });
                 }
@@ -127,13 +128,13 @@ module.exports = {
 
             // Create Embed
             let message = new EmbedBuilder()
-                .setTitle('» BUY CAR')
+                .setTitle('<:BOXCHECK:1024401101589590156> » BUY CAR')
                 .setDescription('» You successfully bought a **' + name + '** for **$' + cost + '**!')
                 .setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang == 'de') {
                 message = new EmbedBuilder()
-                    .setTitle('» AUTO KAUFEN')
+                    .setTitle('<:BOXCHECK:1024401101589590156> » AUTO KAUFEN')
                     .setDescription('» Du hast erfolgreich einen **' + name + '** für **' + cost + '€** gekauft!')
                     .setFooter({ text: '» ' + vote + ' » ' + version });
             }
@@ -162,13 +163,13 @@ module.exports = {
             if (await item.get(interaction.user.id + '-CAR-' + interaction.guild.id, 'amount') === 0) {
                 // Create Embed
                 let message = new EmbedBuilder()
-                	.setTitle('» ERROR')
+                	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   		    		.setDescription('» You dont own a Car!')
                 	.setFooter({ text: '» ' + vote + ' » ' + version });
 
                 if (lang == "de") {
                     message = new EmbedBuilder()
-                	    .setTitle('» FEHLER')
+                	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   		    		    .setDescription('» Du besitzt kein Auto!')
                 	    .setFooter({ text: '» ' + vote + ' » ' + version });
                 }
@@ -185,13 +186,13 @@ module.exports = {
 
             // Create Embed
             let message = new EmbedBuilder()
-                .setTitle('» SELL CAR')
+                .setTitle('<:BOXDOLLAR:1024402261784403999> » SELL CAR')
                 .setDescription('» You successfully sold your **' + name + '** for **$' + (cost/2) + '**!')
                 .setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang == 'de') {
                 message = new EmbedBuilder()
-                    .setTitle('» AUTO VERKAUFEN')
+                    .setTitle('<:BOXDOLLAR:1024402261784403999> » AUTO VERKAUFEN')
                     .setDescription('» Du hast erfolgreich deinen **' + name + '** für **' + (cost/2) + '€** verkauft!')
                     .setFooter({ text: '» ' + vote + ' » ' + version });
             }

@@ -45,13 +45,13 @@ module.exports = {
         if (parseInt(ses) == 1) {
             // Create Embed
             let message = new EmbedBuilder()
-        		.setTitle('» ERROR')
+        		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» Stocks are disabled on this Server!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang == "de") {
                 message = new EmbedBuilder()
-        		    .setTitle('» FEHLER')
+        		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Aktien sind auf diesem Server deaktiviert!')
         		    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
@@ -69,7 +69,7 @@ module.exports = {
         if (amount < 0) {
             // Create Embed
             const err = new EmbedBuilder()
-        		.setTitle('» FEHLER')
+        		.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		.setDescription('» Du kannst keine negativen Einsätze verkaufen!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
             
@@ -122,13 +122,13 @@ module.exports = {
             
             // Create Embed
             let message = new EmbedBuilder()
-            	.setTitle('» ERROR')
+            	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   				.setDescription('» You dont have enough Stocks for that, you are missing **' + missing + '** ' + emoji + ' !')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (interaction.guildLocale) {
                 message = new EmbedBuilder()
-            	    .setTitle('» FEHLER')
+            	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Du hast dafür nicht genug Aktien, dir fehlen **' + missing + '** ' + emoji + ' !')
             	    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
@@ -163,13 +163,13 @@ module.exports = {
 
         // Create Embed
         let message = new EmbedBuilder()
-            .setTitle('» ' + emoji + ' STOCK SELL')
+            .setTitle('<:CHART:1024398298204876941> » SELL STOCKS')
             .setDescription('» You successfully sold **' + amount + '** ' + emoji + ' for **$' + cash + '**! (**$' + priceText + '** per Stock)')
             .setFooter({ text: '» ' + vote + ' » ' + version });
 
         if (lang == "de") {
             message = new EmbedBuilder()
-                .setTitle('» ' + emoji + ' AKTIE VERKAUFEN')
+                .setTitle('<:CHART:1024398298204876941> » AKTIEN VERKAUFEN')
                 .setDescription('» Du hast erfolgreich **' + amount + '** ' + emoji + ' für **' + cash + '€** verkauft! (**' + priceText + '€** pro Aktie)')
                 .setFooter({ text: '» ' + vote + ' » ' + version });
         }

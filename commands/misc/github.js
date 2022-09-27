@@ -33,13 +33,13 @@ module.exports = {
         
         // Create Embed
        	let message = new EmbedBuilder()
-            .setTitle('» GITHUB')
+            .setTitle('<:GLOBE:1024403680503529583> » GITHUB')
   			.setDescription('» CLick below to go to the **GITHUB** Page of the Bot!')
         	.setFooter({ text: '» ' + vote + ' » ' + version });
 
         if (lang == "de") {
             message = new EmbedBuilder()
-                .setTitle('» GITHUB')
+                .setTitle('<:GLOBE:1024403680503529583> » GITHUB')
   			    .setDescription('» Klicke unten um auf die **GITHUB** Seite zu kommen!')
         	    .setFooter({ text: '» ' + vote + ' » ' + version });
         }

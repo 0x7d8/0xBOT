@@ -39,7 +39,7 @@ module.exports = {
 
         // Create Embed
        	let message = new EmbedBuilder()
-            .setTitle('» A ' + reactions.toUpperCase())
+            .setTitle('<:POLL:1024391847092703365> » A ' + reactions.toUpperCase())
   			.setDescription('» ' + frage)
         	.setFooter({ text: '» ' + vote + ' » ' + version });
 
@@ -49,7 +49,7 @@ module.exports = {
             if (reactions == "vote") { reactionsde = "abstimmung" }
 
             message = new EmbedBuilder()
-                .setTitle('» EINE ' + reactionsde.toUpperCase())
+                .setTitle('<:POLL:1024391847092703365> » EINE ' + reactionsde.toUpperCase())
   			    .setDescription('» ' + frage)
         	    .setFooter({ text: '» ' + vote + ' » ' + version });
         }

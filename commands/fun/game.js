@@ -64,19 +64,19 @@ module.exports = {
 			
         // Create Embeds
         const slf = new EmbedBuilder()
-        		.setTitle('» STADT LAND FLUSS REGELN')
+        		.setTitle('<:GAMEPAD:1024395990679167066> » STADT LAND FLUSS REGELN')
         		.setDescription('**»» PERSONEN**\n» 100000+ ABONNENTEN\n» DEUTSCHE PERSON\n\n**»» STÄDTE**\n» 5000+ BEWOHNER\n» DEUTSCHE STADTNAMEN\n\n**»» SÄTZE**\n» KONTEXT WICHTIG\n» NUR DEUTSCH')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
         const sio = new EmbedBuilder()
-        		.setTitle('» SCRIBBL.IO REGELN')
+        		.setTitle('<:GAMEPAD:1024395990679167066> » SCRIBBL.IO REGELN')
         		.setDescription('**»» MALEN**\n» KEINEN TEXT\n\n**»» WÖRTER**\n» WÖRTER DIE JEDER KENNT\n\n**»» CHAT**\n» KEIN SPAMMING')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
         const gtf = new EmbedBuilder()
-        		.setTitle('» GARTICPHONE REGELN')
+        		.setTitle('<:GAMEPAD:1024395990679167066> » GARTICPHONE REGELN')
         		.setDescription('**»» MALEN**\n» KEINEN TEXT\n» MUSS ZUM SATZ PASSEN\n\n**»» SÄTZE**\n» SÄTZE DIE JEDER VERSTEHT')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
         const jkl = new EmbedBuilder()
-        		.setTitle('» JKLM.FUN REGELN')
+        		.setTitle('<:GAMEPAD:1024395990679167066> » JKLM.FUN REGELN')
         		.setDescription('**»» GENERELL**\n» KEINE REGELN')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 

@@ -19,13 +19,13 @@ module.exports = {
         if (parseInt(bes) == 1) {
             // Create Embed
             let message = new EmbedBuilder()
-        		.setTitle('» ERROR')
+        		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» Businesses are disabled on this Server!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang == "de") {
                 message = new EmbedBuilder()
-        		    .setTitle('» FEHLER')
+        		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Geschäfte sind auf diesem Server deaktiviert!')
         		    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
@@ -59,13 +59,13 @@ module.exports = {
         if (await bsns.get('u-' + interaction.user.id + '-BUSINESS') === '0') {
             // Create Embed
             let message = new EmbedBuilder()
-            	.setTitle('» ERROR')
+            	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   				.setDescription('» You dont own a Business!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang == "de") {
                 message = new EmbedBuilder()
-            	    .setTitle('» FEHLER')
+            	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Du besitzt kein Geschäft!')
             	    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
@@ -81,16 +81,16 @@ module.exports = {
 				new ButtonBuilder()
 					.setLabel('YES')
                     .setCustomId('BUSINESS-SELL-YES-' + business + '-' + interaction.user.id)
-                    .setEmoji('1024354494051516496')
+                    .setEmoji('1024382942153285632')
 					.setStyle(ButtonStyle.Success)
-                    .setDisabled(true),
+                    .setDisabled(false),
 
                 new ButtonBuilder()
 					.setLabel('NO')
                     .setCustomId('BUSINESS-SELL-NO-' + business + '-' + interaction.user.id)
-                    .setEmoji('1024354574426964060')
+                    .setEmoji('1024382939020152982')
 					.setStyle(ButtonStyle.Danger)
-                    .setDisabled(true),
+                    .setDisabled(false),
 			);
         if (lang == "de") {
             row = new ActionRowBuilder()
@@ -98,14 +98,14 @@ module.exports = {
 			    	new ButtonBuilder()
 			    		.setLabel('JA')
                         .setCustomId('BUSINESS-SELL-YES-' + business + '-' + interaction.user.id)
-                        .setEmoji('1024354494051516496')
+                        .setEmoji('1024382942153285632')
 			    		.setStyle(ButtonStyle.Success)
                         .setDisabled(false),
 
                     new ButtonBuilder()
 			    		.setLabel('NEIN')
                         .setCustomId('BUSINESS-SELL-NO-' + business + '-' + interaction.user.id)
-                        .setEmoji('1024354574426964060')
+                        .setEmoji('1024382939020152982')
 			    		.setStyle(ButtonStyle.Danger)
                         .setDisabled(false),
 			    );
@@ -113,13 +113,13 @@ module.exports = {
 
         // Create Embed
         let message = new EmbedBuilder()
-            .setTitle('» SELL BUSINESS')
+            .setTitle('<:BOXDOLLAR:1024402261784403999> » SELL BUSINESS')
             .setDescription('» Do you want to sell your **' + name + '** for **$' + (cost/2) + '**?')
             .setFooter({ text: '» ' + vote + ' » ' + version });
 
         if (lang == 'de') {
             message = new EmbedBuilder()
-                .setTitle('» GESCHÄFT VERKAUFEN')
+                .setTitle('<:BOXDOLLAR:1024402261784403999> » GESCHÄFT VERKAUFEN')
                 .setDescription('» Willst du dein **' + name + '** für **' + (cost/2) + '€** verkaufen?')
                 .setFooter({ text: '» ' + vote + ' » ' + version });
         }

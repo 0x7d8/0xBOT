@@ -76,13 +76,13 @@ module.exports = {
         
         // Create Embed
        	let message = new EmbedBuilder()
-            .setTitle('» SEARCH')
+            .setTitle('<:SEARCH:1024389710279348354> » SEARCH')
   			.setDescription('» Click Below to look up results for **' + suche + '** on **' + engine + '**!')
         	.setFooter({ text: '» ' + vote + ' » ' + version });
 
         if (lang == "de") {
             message = new EmbedBuilder()
-                .setTitle('» SUCHEN')
+                .setTitle('<:SEARCH:1024389710279348354> » SUCHEN')
   			    .setDescription('» Klicke unten um nach Ergebnissen für **' + suche + '** auf **' + engine + '** zu finden!')
         	    .setFooter({ text: '» ' + vote + ' » ' + version });
         }

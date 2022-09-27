@@ -51,13 +51,13 @@ module.exports = {
         if (parseInt(bes) == 1 && itemcat == bomb) {
             // Create Embed
             let message = new EmbedBuilder()
-        		.setTitle('» ERROR')
+        		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» Bombs are disabled on this Server!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang == "de") {
                 message = new EmbedBuilder()
-        		    .setTitle('» FEHLER')
+        		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Bomben sind auf diesem Server deaktiviert!')
         		    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
@@ -85,13 +85,13 @@ module.exports = {
         if (userinfo.bot == true) {
             // Create Embed
             let message = new EmbedBuilder()
-        		.setTitle('» ERROR')
-        		.setDescription('» You cant use itemids on Bots!')
+        		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
+        		.setDescription('» You cant use Items on Bots!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang == "de") {
                 message = new EmbedBuilder()
-        		    .setTitle('» FEHLER')
+        		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Du kannst keine Gegenstände auf einem Bot nutzen!')
         		    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
@@ -105,13 +105,13 @@ module.exports = {
         if (await item.get(interaction.user.id + '-' + itemid.toUpperCase() + 'S-' + interaction.guild.id, 'amount') < 1) {
             // Create Embed
             let message = new EmbedBuilder()
-        		.setTitle('» ERROR')
+        		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» You dont have enough of that Item!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang == "de") {
                 message = new EmbedBuilder()
-        		    .setTitle('» FEHLER')
+        		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Du hast nicht genug von dem Gegenstand!')
         		    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
@@ -125,13 +125,13 @@ module.exports = {
         if (interaction.user.id == user.id && itemcat == 'bomb') {
             // Create Embed
             let message = new EmbedBuilder()
-            	.setTitle('» ERROR')
+            	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   				.setDescription('» You cant use Bombs on yourself?')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang == "de") {
                 message = new EmbedBuilder()
-            	    .setTitle('» FEHLER')
+            	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Du kannst Bomben nicht auf dir selber nutzen?')
             	    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
@@ -195,13 +195,13 @@ module.exports = {
         let message
         if (itemcat == 'bomb') {
       	    message = new EmbedBuilder()
-                .setTitle('» USE ITEM')
+                .setTitle('<:BOXOPEN:1024395281460101213> » USE ITEM')
   		    	.setDescription('» Oh <@' + user.id + '>, <@' + interaction.user.id + '> used a **' + name + '** on you!\nIf you solve this Math Equation, it wont do anything.\n\n**```' + math + '```**\nThe Bomb explodes <t:' + (Math.floor(+new Date() / 1000) + 10) + ':R>')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang == "de") {
                 message = new EmbedBuilder()
-                    .setTitle('» GEGENSTAND NUTZEN')
+                    .setTitle('<:BOXOPEN:1024395281460101213> » GEGENSTAND NUTZEN')
   		    	    .setDescription('» Oh <@' + user.id + '>, <@' + interaction.user.id + '> hat eine **' + name + '** an dir benutzt!\nFalls du dieses Mathe Rätsel löst, passiert nichts.\n\n**```' + math + '```**\nDie Bombe explodiert <t:' + (Math.floor(+new Date() / 1000) + 10) + ':R>')
             	    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
@@ -266,13 +266,13 @@ module.exports = {
     
                 // Create Embed
                 message = new EmbedBuilder()
-            	    .setTitle('» USE ITEM')
+            	    .setTitle('<:BOXOPEN:1024395281460101213> » USE ITEM')
   		    	    .setDescription('» <@' + user.id + '> has failed to diffused the Bomb! OHNO')
             	    .setFooter({ text: '» ' + vote + ' » ' + version });
 
                 if (lang == "de") {
                     message = new EmbedBuilder()
-                	    .setTitle('» GEGENSTAND NUTZEN')
+                	    .setTitle('<:BOXOPEN:1024395281460101213> » GEGENSTAND NUTZEN')
   		        	    .setDescription('» <@' + user.id + '> hat es nicht geschafft, die Bombe zu entschärfen! OH')
                 	    .setFooter({ text: '» ' + vote + ' » ' + version });
                 }

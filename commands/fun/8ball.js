@@ -82,13 +82,13 @@ module.exports = {
         
         // Create Embeds
         let message = new EmbedBuilder()
-        	.setTitle('» MAGIC BALL')
+        	.setTitle('<:QUESTION:1024402860210921503> » MAGIC BALL')
   			.setDescription('» "' + formatted + '" -> ' + result)
         	.setFooter({ text: '» ' + vote + ' » ' + version });
 
         if (lang == "de") {
             message = new EmbedBuilder()
-        	    .setTitle('» MAGISCHER BALL')
+        	    .setTitle('<:QUESTION:1024402860210921503> » MAGISCHER BALL')
   			    .setDescription('» "' + formatted + '" -> ' + result)
         	    .setFooter({ text: '» ' + vote + ' » ' + version });
         }

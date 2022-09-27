@@ -154,7 +154,7 @@ if (dodshbr == "yes") {(async ()=>{
                 information: {
                     category: "<center>UPDATE INFO</center>",
                     title: "<center>INFORMATION</center>",
-                    description: `<center>This Update added the following Features: <br/><br/>Optimized Stockinfo Command<br/>Fix some Buttons not following Languages<br/>Add Status Command<br/>Add another Mode to /count<br/>Update Emojis<br/>Update Buttons</center>`,
+                    description: `<center>This Update added the following Features: <br/><br/>Optimized Stockinfo Command<br/>Fix some Buttons not following Languages<br/>Add Status Command<br/>Add another Mode to /count<br/>Update Emojis<br/>Add Emojis in Titles</center>`,
                     footer: "<center>VERSION 2.0.3</center>",
                 },
 

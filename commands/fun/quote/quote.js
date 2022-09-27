@@ -39,13 +39,13 @@ module.exports = {
         if (parseInt(qes) == 1) {
             // Create Embed
             let message = new EmbedBuilder()
-        		.setTitle('» ERROR')
+        		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» Quotes are disabled on this Server!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang == "de") {
                 message = new EmbedBuilder()
-        		    .setTitle('» FEHLER')
+        		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Zitate sind auf diesem Server deaktiviert!')
         		    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
@@ -67,13 +67,13 @@ module.exports = {
             
             // Create Embed
             let message = new EmbedBuilder()
-            	.setTitle('» ERROR')
+            	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   				.setDescription('» You still have a Cooldown of **' + cdown.toFixed(0) + 's**!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang == "de") {
                 message = new EmbedBuilder()
-            	    .setTitle('» FEHLER')
+            	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Du hast leider noch einen Cooldown von **' + cdown.toFixed(0) + 's**!')
             	    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
@@ -88,13 +88,13 @@ module.exports = {
         if (autor == null) {
             const amount = await quts.get(interaction.user.id) + 1;
         	message = new EmbedBuilder()
-            	.setTitle('» A WISE QUOTE')
+            	.setTitle('<:QUOTES:1024406448127623228> » A WISE QUOTE')
   				.setDescription('» "' + zitat + '" ~<@' + interaction.user.id + '>')
             	.setFooter({ text: '» ' + version + ' » QUOTES: ' + amount});
 
             if (lang == "de") {
                 message = new EmbedBuilder()
-            	    .setTitle('» EIN WEISES ZITAT')
+            	    .setTitle('<:QUOTES:1024406448127623228> » EIN WEISES ZITAT')
   				    .setDescription('» "' + zitat + '" ~<@' + interaction.user.id + '>')
             	    .setFooter({ text: '» ' + version + ' » ZITATE: ' + amount});
             }
@@ -103,13 +103,13 @@ module.exports = {
         } else {
             const amount = await quts.get(autor.toString().replace(/\D/g, '')) + 1;
         	message = new EmbedBuilder()
-            	.setTitle('» A QUOTE')
+            	.setTitle('<:QUOTES:1024406448127623228> » A QUOTE')
   				.setDescription('» "' + zitat + '" ~<@' + autor + '>')
             	.setFooter({ text: '» ' + version + ' » QUOTES: ' + amount});
 
             if (lang == "de") {
                 message = new EmbedBuilder()
-            	    .setTitle('» EIN ZITAT')
+            	    .setTitle('<:QUOTES:1024406448127623228> » EIN ZITAT')
   				    .setDescription('» "' + zitat + '" ~<@' + autor + '>')
             	    .setFooter({ text: '» ' + version + ' » ZITATE: ' + amount});
             }

@@ -81,13 +81,13 @@ module.exports = {
             
             // Create Embed
             let message = new EmbedBuilder()
-            	.setTitle('» ERROR')
+            	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   				.setDescription('» You dont have enough Money for that, you are missing **$' + missing + '**!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang == "de") {
                 message = new EmbedBuilder()
-            	    .setTitle('» FEHLER')
+            	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
             	    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
@@ -106,13 +106,13 @@ module.exports = {
         if ((pamount + oldamount) > 15) {
             // Create Embed
             let message = new EmbedBuilder()
-                .setTitle('» ERROR')
+                .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» You dont have enough Slots for that!')
                 .setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang == "de") {
                 message = new EmbedBuilder()
-                    .setTitle('» FEHLER')
+                    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
                     .setDescription('» Du hast nicht genug Slots dafür!')
                     .setFooter({ text: '» ' + vote + ' » ' + version });
             }
@@ -128,16 +128,16 @@ module.exports = {
 				new ButtonBuilder()
 					.setLabel('YES')
                     .setCustomId('ITEM-BUY-YES-' + itemid + '-' + interaction.user.id + '-' + pamount)
-                    .setEmoji('1024354631721173062')
+                    .setEmoji('1024382935618572299')
 					.setStyle(ButtonStyle.Success)
-                    .setDisabled(true),
+                    .setDisabled(false),
 
                 new ButtonBuilder()
 					.setLabel('NO')
                     .setCustomId('ITEM-BUY-NO-' + itemid + '-' + interaction.user.id + '-' + pamount)
-                    .setEmoji('1024354574426964060')
+                    .setEmoji('1024382939020152982')
 					.setStyle(ButtonStyle.Danger)
-                    .setDisabled(true),
+                    .setDisabled(false),
 			);
         if (lang == "de") {
             row = new ActionRowBuilder()
@@ -145,14 +145,14 @@ module.exports = {
 			    	new ButtonBuilder()
 			    		.setLabel('JA')
                         .setCustomId('ITEM-BUY-YES-' + itemid + '-' + interaction.user.id + '-' + pamount)
-                        .setEmoji('1024354631721173062')
+                        .setEmoji('1024382935618572299')
 			    		.setStyle(ButtonStyle.Success)
                         .setDisabled(false),
 
                     new ButtonBuilder()
 			    		.setLabel('NEIN')
                         .setCustomId('ITEM-BUY-NO-' + itemid + '-' + interaction.user.id + '-' + pamount)
-                        .setEmoji('1024354574426964060')
+                        .setEmoji('1024382939020152982')
 			    		.setStyle(ButtonStyle.Danger)
                         .setDisabled(false),
 			    );
@@ -162,25 +162,25 @@ module.exports = {
         let message
         if (amount == null || amount == 1) {
             message = new EmbedBuilder()
-                .setTitle('» BUY itemid')
+                .setTitle('<:BOXCHECK:1024401101589590156> » BUY ITEM')
                 .setDescription('» Do you want to buy a **' + name + '** for **$' + cost + '**?')
                 .setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang == 'de') {
                 message = new EmbedBuilder()
-                    .setTitle('» GEGENSTAND KAUFEN')
+                    .setTitle('<:BOXCHECK:1024401101589590156> » GEGENSTAND KAUFEN')
                     .setDescription('» Willst du eine **' + name + '** für **' + cost + '€** kaufen?')
                     .setFooter({ text: '» ' + vote + ' » ' + version });
             }
         } else {
             message = new EmbedBuilder()
-                .setTitle('» BUY itemidS')
+                .setTitle('<:BOXCHECK:1024401101589590156> » BUY ITEMS')
                 .setDescription('» Do you want to buy **' + amount + 'x** **' + name + '** for **$' + cost + '**?')
                 .setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang == 'de') {
                 message = new EmbedBuilder()
-                    .setTitle('» GEGENSTÄNDE KAUFEN')
+                    .setTitle('<:BOXCHECK:1024401101589590156> » GEGENSTÄNDE KAUFEN')
                     .setDescription('» Willst du **' + amount + 'x** **' + name + '** für **' + cost + '€** kaufen?')
                     .setFooter({ text: '» ' + vote + ' » ' + version });
             }

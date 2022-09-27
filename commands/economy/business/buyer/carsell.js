@@ -19,13 +19,13 @@ module.exports = {
         if (parseInt(ces) == 1) {
             // Create Embed
             let message = new EmbedBuilder()
-        		.setTitle('» ERROR')
+        		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» Cars are disabled on this Server!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang == "de") {
                 message = new EmbedBuilder()
-        		    .setTitle('» FEHLER')
+        		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Autos sind auf diesem Server deaktiviert!')
         		    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
@@ -56,13 +56,13 @@ module.exports = {
         if (await item.get(interaction.user.id + '-CAR-' + interaction.guild.id, 'amount') === 0) {
             // Create Embed
             let message = new EmbedBuilder()
-            	.setTitle('» ERROR')
+            	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   				.setDescription('» You dont own a Car!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang == "de") {
                 message = new EmbedBuilder()
-            	    .setTitle('» FEHLER')
+            	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Du besitzt kein Auto!')
             	    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
@@ -78,16 +78,16 @@ module.exports = {
 				new ButtonBuilder()
 					.setLabel('YES')
                     .setCustomId('CAR-SELL-YES-' + car + '-' + interaction.user.id)
-                    .setEmoji('1024354494051516496')
+                    .setEmoji('1024382942153285632')
 					.setStyle(ButtonStyle.Success)
-                    .setDisabled(true),
+                    .setDisabled(false),
 
                 new ButtonBuilder()
 					.setLabel('NO')
                     .setCustomId('CAR-SELL-NO-' + car + '-' + interaction.user.id)
-                    .setEmoji('1024354574426964060')
+                    .setEmoji('1024382939020152982')
 					.setStyle(ButtonStyle.Danger)
-                    .setDisabled(true),
+                    .setDisabled(false),
 			);
         if (lang == "de") {
             row = new ActionRowBuilder()
@@ -95,14 +95,14 @@ module.exports = {
 			    	new ButtonBuilder()
 			    		.setLabel('JA')
                         .setCustomId('CAR-SELL-YES-' + car + '-' + interaction.user.id)
-                        .setEmoji('1024354494051516496')
+                        .setEmoji('1024382942153285632')
 			    		.setStyle(ButtonStyle.Success)
                         .setDisabled(false),
 
                     new ButtonBuilder()
 			    		.setLabel('NEIN')
                         .setCustomId('CAR-SELL-NO-' + car + '-' + interaction.user.id)
-                        .setEmoji('1024354574426964060')
+                        .setEmoji('1024382939020152982')
 			    		.setStyle(ButtonStyle.Danger)
                         .setDisabled(false),
 			    );
@@ -110,13 +110,13 @@ module.exports = {
 
         // Create Embed
         let message = new EmbedBuilder()
-            .setTitle('» SELL CAR')
+            .setTitle('<:BOXDOLLAR:1024402261784403999> » SELL CAR')
             .setDescription('» Do you want to sell your **' + name + '** for **$' + (cost/2) + '**?')
             .setFooter({ text: '» ' + vote + ' » ' + version });
 
         if (lang == 'de') {
             message = new EmbedBuilder()
-                .setTitle('» AUTO VERKAUFEN')
+                .setTitle('<:BOXDOLLAR:1024402261784403999> » AUTO VERKAUFEN')
                 .setDescription('» Willst du deinen **' + name + '** für **' + (cost/2) + '€** verkaufen?')
                 .setFooter({ text: '» ' + vote + ' » ' + version });
         }

@@ -26,13 +26,13 @@ module.exports = {
         if (parseInt(qes) == 1) {
             // Create Embed
             let message = new EmbedBuilder()
-        		.setTitle('» ERROR')
+        		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» Quotes are disabled on this Server!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang == "de") {
                 message = new EmbedBuilder()
-        		    .setTitle('» FEHLER')
+        		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Zitate sind auf diesem Server deaktiviert!')
         		    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
@@ -81,25 +81,25 @@ module.exports = {
         let message
         if (user == null) {
         	message = new EmbedBuilder()
-            	.setTitle('» YOUR QUOTES')
+            	.setTitle('<:QUOTES:1024406448127623228> » YOUR QUOTES')
   				.setDescription('» You have **' + quotes + '** ' + word + '!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang == "de") {
                 message = new EmbedBuilder()
-            	    .setTitle('» DEINE ZITATE')
+            	    .setTitle('<:QUOTES:1024406448127623228> » DEINE ZITATE')
   				    .setDescription('» Du hast **' + quotes + '** ' + word + '!')
             	    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
         } else {
             message = new EmbedBuilder()
-                .setTitle('» THE QUOTES OF ' + userinfo.username.toUpperCase() + '#' + userinfo.discriminator)
+                .setTitle('<:QUOTES:1024406448127623228> » THE QUOTES OF ' + userinfo.username.toUpperCase() + '#' + userinfo.discriminator)
   				.setDescription('» <@' + user + '> has **' + quotes + '** ' + word + '!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang == "de") {
                 message = new EmbedBuilder()
-                    .setTitle('» DIE ZITATE VON ' + userinfo.username.toUpperCase() + '#' + userinfo.discriminator)
+                    .setTitle('<:QUOTES:1024406448127623228> » DIE ZITATE VON ' + userinfo.username.toUpperCase() + '#' + userinfo.discriminator)
   				    .setDescription('» <@' + user + '> hat **' + quotes + '** ' + word + '!')
             	    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
