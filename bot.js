@@ -332,6 +332,17 @@ client.on('interactionCreate', async interaction => {
 				const button = client.buttons.get(editedinteraction.customId);
 				await button.execute(editedinteraction, client, guildlang, votet, solution, choice, solbtn, btn, item, reciever);
 			}
+			if (interaction.customId.toString().substring(0, 5) == 'COUNT') {
+				const cache = interaction.customId.split('-');
+				const [cmd, type] = cache;
+				let editedinteraction = interaction
+
+				editedinteraction.customId = 'count'
+				sc = true
+
+				const button = client.buttons.get(editedinteraction.customId);
+				await button.execute(editedinteraction, client, guildlang, votet, type.toLowerCase());
+			}
 
 
 			// Other Button Cases
