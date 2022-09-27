@@ -123,11 +123,6 @@ module.exports = {
         // Defer Reply
         await interaction.deferUpdate()
 
-        // Deactivate Buttons so NO cant be pressed anymore
-        interaction.message.components[0].components[0].data.disabled = true
-        interaction.message.components[0].components[1].data.disabled = true
-        interaction.message.edit({ components: interaction.message.components })
-
         // Answer Timeout Function
         bot.memory.delete('TIMEOUT-' + sender + '-' + interaction.message.id)
 

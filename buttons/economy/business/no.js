@@ -53,6 +53,7 @@ module.exports = {
         // Edit Buttons
         interaction.message.components[0].components[0].data.disabled = true
         interaction.message.components[0].components[1].data.disabled = true
+        interaction.message.components[0].components[0].data.style = 2
 
         // Split Button with type
         if (type === 'buy') {
