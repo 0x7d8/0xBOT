@@ -209,13 +209,13 @@ module.exports = {
 				new ButtonBuilder()
 					.setLabel('YES')
                     .setCustomId('MEMORY-YES-' + bet)
-                    .setEmoji('1017050442431209543')
+                    .setEmoji('1024354494051516496')
 					.setStyle(ButtonStyle.Success),
 
                 new ButtonBuilder()
 					.setLabel('NO')
                     .setCustomId('MEMORY-NO-' + bet)
-                    .setEmoji('1017050508252418068')
+                    .setEmoji('1024354574426964060')
 					.setStyle(ButtonStyle.Danger),
 			);
         if (lang == "de") {
@@ -224,13 +224,13 @@ module.exports = {
 			    	new ButtonBuilder()
 			    		.setLabel('JA')
                         .setCustomId('MEMORY-YES-' + bet)
-                        .setEmoji('1017050442431209543')
+                        .setEmoji('1024354494051516496')
 			    		.setStyle(ButtonStyle.Success),
 
                     new ButtonBuilder()
 			    		.setLabel('NEIN')
                         .setCustomId('MEMORY-NO-' + bet)
-                        .setEmoji('1017050508252418068')
+                        .setEmoji('1024354574426964060')
 			    		.setStyle(ButtonStyle.Danger),
 			    );
         }

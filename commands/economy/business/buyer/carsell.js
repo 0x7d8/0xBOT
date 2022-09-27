@@ -78,14 +78,14 @@ module.exports = {
 				new ButtonBuilder()
 					.setLabel('YES')
                     .setCustomId('CAR-SELL-YES-' + car + '-' + interaction.user.id)
-                    .setEmoji('1017050442431209543')
+                    .setEmoji('1024354494051516496')
 					.setStyle(ButtonStyle.Success)
                     .setDisabled(true),
 
                 new ButtonBuilder()
 					.setLabel('NO')
                     .setCustomId('CAR-SELL-NO-' + car + '-' + interaction.user.id)
-                    .setEmoji('1017050508252418068')
+                    .setEmoji('1024354574426964060')
 					.setStyle(ButtonStyle.Danger)
                     .setDisabled(true),
 			);
@@ -95,14 +95,14 @@ module.exports = {
 			    	new ButtonBuilder()
 			    		.setLabel('JA')
                         .setCustomId('CAR-SELL-YES-' + car + '-' + interaction.user.id)
-                        .setEmoji('1017050442431209543')
+                        .setEmoji('1024354494051516496')
 			    		.setStyle(ButtonStyle.Success)
                         .setDisabled(false),
 
                     new ButtonBuilder()
 			    		.setLabel('NEIN')
                         .setCustomId('CAR-SELL-NO-' + car + '-' + interaction.user.id)
-                        .setEmoji('1017050508252418068')
+                        .setEmoji('1024354574426964060')
 			    		.setStyle(ButtonStyle.Danger)
                         .setDisabled(false),
 			    );

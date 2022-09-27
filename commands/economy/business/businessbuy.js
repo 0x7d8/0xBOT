@@ -202,14 +202,14 @@ module.exports = {
 				new ButtonBuilder()
 					.setLabel('YES')
                     .setCustomId('BUSINESS-BUY-YES-' + business + '-' + interaction.user.id)
-                    .setEmoji('1017050442431209543')
+                    .setEmoji('1024354631721173062')
 					.setStyle(ButtonStyle.Success)
                     .setDisabled(true),
 
                 new ButtonBuilder()
 					.setLabel('NO')
                     .setCustomId('BUSINESS-BUY-NO-' + business + '-' + interaction.user.id)
-                    .setEmoji('1017050508252418068')
+                    .setEmoji('1024354574426964060')
 					.setStyle(ButtonStyle.Danger)
                     .setDisabled(true),
 			);
@@ -219,14 +219,14 @@ module.exports = {
 			    	new ButtonBuilder()
 			    		.setLabel('JA')
                         .setCustomId('BUSINESS-BUY-YES-' + business + '-' + interaction.user.id)
-                        .setEmoji('1017050442431209543')
+                        .setEmoji('1024354631721173062')
 			    		.setStyle(ButtonStyle.Success)
                         .setDisabled(false),
 
                     new ButtonBuilder()
 			    		.setLabel('NEIN')
                         .setCustomId('BUSINESS-BUY-NO-' + business + '-' + interaction.user.id)
-                        .setEmoji('1017050508252418068')
+                        .setEmoji('1024354574426964060')
 			    		.setStyle(ButtonStyle.Danger)
                         .setDisabled(false),
 			    );
