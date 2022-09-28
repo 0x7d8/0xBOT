@@ -201,7 +201,7 @@ module.exports = {
             bals.add(interaction.user.id, (cost/2))
 
             // unOwn Car
-            item.set(interaction.user.id + '-CAR-' + interaction.guild.id, '0', 0)
+            item.del(interaction.user.id + '-CAR-' + interaction.guild.id)
 
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] CARSELL : ' + name + ' : CONFIRM')

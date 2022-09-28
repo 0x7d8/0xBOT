@@ -60,13 +60,13 @@ module.exports = {
             // Create Embed
             let message = new EmbedBuilder()
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-        		.setDescription('» This Business will be included in **2.0.5**!')
+        		.setDescription('» This Business will be included in **2.5.0**!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang == "de") {
                 message = new EmbedBuilder()
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-        		    .setDescription('» Dieses Geschäft wird in **2.0.5** hinzugefügt!')
+        		    .setDescription('» Dieses Geschäft wird in **2.5.0** hinzugefügt!')
         		    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
             
@@ -83,7 +83,7 @@ module.exports = {
 
         // Check if Business is Empty
         let businessowner, oldleft
-        if (await bsns.get('g-' + interaction.guild.id + '-' + businessid + '-OWNER') !== '0' && await bsns.get('g-' + interaction.guild.id + '-' + businessid + '-OWNER') !== 0) {
+        if (await bsns.get('g-' + interaction.guild.id + '-' + businessid + '-OWNER') !== 0) {
             oldleft = false
             businessowner = await bsns.get('g-' + interaction.guild.id + '-' + businessid + '-OWNER')
             const fetchc = await interaction.guild.members.fetch(businessowner)
@@ -125,7 +125,7 @@ module.exports = {
         }
 
         // Check if User already has Business
-        if (await bsns.get('u-' + interaction.user.id + '-BUSINESS') !== '0' && await bsns.get('u-' + interaction.user.id + '-BUSINESS') !== 0) {
+        if (await bsns.get('u-' + interaction.user.id + '-BUSINESS') !== 0) {
             const userbusiness = await bsns.get('u-' + interaction.user.id + '-BUSINESS')
 
             // Translate to Business Names
@@ -231,6 +231,10 @@ module.exports = {
                         .setDisabled(false),
 			    );
         }
+
+        // Delete Old Data as Left User is Confirmed
+        bsns.del('g-' + interaction.guild.id + '-' + businessid + '-OWNER')
+        bsns.del('u-' + businessowner + '-' + interaction.guild.id + '-BUSINESS')
 
         // Create Embed
         let message = new EmbedBuilder()

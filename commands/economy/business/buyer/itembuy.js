@@ -3,9 +3,6 @@ const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js')
 const { EmbedBuilder } = require('@discordjs/builders');
 const { version } = require('../../../../config.json');
 
-const fetch = require("node-fetch");
-const { ImmutableDenseMatrixDependencies } = require('mathjs');
-
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('itembuy')
@@ -59,7 +56,7 @@ module.exports = {
             if (itemid == 'hbomb') { cost = 5000*costmul }
             if (itemid == 'cbomb') { cost = 15000*costmul }
         } else {
-            cost = await bsns.get('g-' + interaction.guild.id + '-1-PRICE-' + itemid.toUpperCase())
+            cost = parseInt(await bsns.get('g-' + interaction.guild.id + '-1-PRICE-' + itemid.toUpperCase()))*costmul
         }
 
         // Translate to Item Names

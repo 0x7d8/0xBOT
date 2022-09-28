@@ -32,6 +32,7 @@ global.bot = require("./functions/bot")
 /// MongoDB Functions
 // General Value
 global.stkp = require("./functions/stockprices")
+global.uapi = require("./functions/userapis")
 global.cmds = require("./functions/cmds")
 global.btns = require("./functions/btns")
 global.msgs = require("./functions/msgs")

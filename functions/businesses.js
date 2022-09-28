@@ -54,3 +54,7 @@ exports.rem = (userId, value) => {
         data.save();
     })
 }
+
+exports.del = (userId) => {
+    valueSchema.findOneAndDelete({ userId }, async (err, data) => {})
+}

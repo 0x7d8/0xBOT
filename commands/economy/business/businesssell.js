@@ -36,7 +36,7 @@ module.exports = {
         }
 
         // Set Variables
-        const business = await bsns.get('u-' + interaction.user.id + '-BUSINESS')
+        const business = await bsns.get('u-' + interaction.user.id + '-' + interaction.guild.id + '-BUSINESS')
 
         // Calculate Cost
         let cost
@@ -56,7 +56,7 @@ module.exports = {
         }
 
         // Check if User has a Business
-        if (await bsns.get('u-' + interaction.user.id + '-BUSINESS') === '0') {
+        if (await bsns.get('u-' + interaction.user.id + '-' + interaction.guild.id + '-BUSINESS') === 0) {
             // Create Embed
             let message = new EmbedBuilder()
             	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
