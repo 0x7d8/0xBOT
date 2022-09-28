@@ -67,6 +67,8 @@ module.exports = {
         }
 
         // Punish User if Lost
+        const messages = bot.bomb.get('MESSAGES-' + reciever + '-' + interaction.guild.id)
+        bot.bomb.delete('MESSAGES-' + reciever + '-' + interaction.guild.id)
         if (solution != choice) {
             if (itemid == 'nbomb') {
                 const member = await interaction.guild.members.fetch(interaction.user.id)
@@ -81,9 +83,6 @@ module.exports = {
                 member.timeout(45 * 1000, 'BOMB TIMEOUT FROM ' + interaction.user.id).catch((error) => {})
             }
             if (itemid == 'cbomb') {
-                const messages = bombcache[interaction.user.id]
-                bombcache.splice(interaction.user.id, interaction.user.id)
-
                 let i = 0;
                 const filtered = [];
 

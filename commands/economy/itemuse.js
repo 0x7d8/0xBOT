@@ -164,7 +164,7 @@ module.exports = {
         // Fetch Channel for Later
         const channel = interaction.channel
         const messages = channel.messages.fetch()
-        bombcache[user.id] = messages
+        bot.bomb.set('MESSAGES-' + user.id + '-' + interaction.guild.id, messages)
 
         // Init Timeout Function
         bot.bomb.set('TIMEOUT-' + user.id + '-' + interaction.guild.id, true)
@@ -239,6 +239,7 @@ module.exports = {
                 // Check if Message wasnt already answered
                 if (!bot.bomb.has('TIMEOUT-' + user.id + '-' + interaction.guild.id)) return
                 bot.bomb.delete('TIMEOUT-' + user.id + '-' + interaction.guild.id)
+                bot.bomb.delete('MESSAGES-' + user.id + '-' + interaction.guild.id)
     
                 // Edit Buttons
                 msg.components[0].components[0].data.disabled = true
@@ -261,8 +262,6 @@ module.exports = {
                     member.timeout(45 * 1000, 'BOMB TIMEOUT FROM ' + interaction.user.id).catch((error) => {})
                 }
                 if (itemid == 'cbomb') {
-                    bombcache.splice(user.id, user.id)
-
                     let i = 0;
                     const filtered = [];
 

@@ -60,9 +60,6 @@ global.sredx = require("./functions/stocks/redmax")
 // Businesses
 global.bsns = require("./functions/businesses")
 
-// Caches
-global.bombcache = []
-
 // Deploy Commands
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
