@@ -48,28 +48,28 @@ module.exports = {
         const google = new ActionRowBuilder()
 			.addComponents(
 				new ButtonBuilder()
-					.setLabel('ANSCHAUEN')
+					.setLabel('👀 ANSCHAUEN')
 					.setURL("https://google.com/search?q=" + query)
 					.setStyle(ButtonStyle.Link),
 			);
         const bing = new ActionRowBuilder()
 			.addComponents(
 				new ButtonBuilder()
-					.setLabel('ANSCHAUEN')
+					.setLabel('👀 ANSCHAUEN')
 					.setURL("https://bing.com/search?q=" + query)
 					.setStyle(ButtonStyle.Link),
 			);
         const yahoo = new ActionRowBuilder()
 			.addComponents(
 				new ButtonBuilder()
-					.setLabel('ANSCHAUEN')
+					.setLabel('👀 ANSCHAUEN')
 					.setURL("https://search.yahoo.com/search?q=" + query)
 					.setStyle(ButtonStyle.Link),
 			);
         const duck = new ActionRowBuilder()
 			.addComponents(
 				new ButtonBuilder()
-					.setLabel('ANSCHAUEN')
+					.setLabel('👀 ANSCHAUEN')
 					.setURL("https://duckduckgo.com/?q=" + query)
 					.setStyle(ButtonStyle.Link),
 			);
@@ -88,7 +88,7 @@ module.exports = {
         }
         
         // Send Message
-        bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] SEARCH : "' + suche.toUpperCase() + '" : ' + engine.toUpperCase())
+        bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] SEARCH : ' + suche.toUpperCase() + ' : ' + engine.toUpperCase())
         if (engine == 'Google') {
         	await interaction.reply({ embeds: [message.toJSON()], components: [google] })
         }

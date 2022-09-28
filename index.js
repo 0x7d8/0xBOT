@@ -1,7 +1,7 @@
 const { ShardingManager } = require('discord.js')
 const { token, mongo, clientId, clientSc, dbdl, dodshbr, pteroapi } = require('./config.json')
-const MongoStore = require('connect-mongo')
 
+const MongoStore = require('connect-mongo')
 const chalk = require('chalk')
 
 const mongoose = require('mongoose')
@@ -19,17 +19,6 @@ const quts = require("./functions/quotes")
 const apis = require("./functions/apis")
 const lang = require("./functions/langs")
 const gopt = require("./functions/gopts")
-
-
-const sgrn = require("./functions/stocks/green")
-const sblu = require("./functions/stocks/blue")
-const syll = require("./functions/stocks/yellow")
-const sred = require("./functions/stocks/red")
-
-const sgrnx = require("./functions/stocks/greenmax")
-const sblux = require("./functions/stocks/bluemax")
-const syllx = require("./functions/stocks/yellowmax")
-const sredx = require("./functions/stocks/redmax")
 
 // CLI Commands
 const stdin = process.openStdin();
