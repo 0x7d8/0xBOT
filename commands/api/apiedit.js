@@ -1,7 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { EmbedBuilder } = require('@discordjs/builders');
 const { version } = require('../../config.json');
-const fs = require('fs');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -43,11 +42,10 @@ module.exports = {
         const amount = await apis.get(interaction.user.id);
 
        	// Check if API even exists
-        const path = '/paper-api/' + interaction.user.id + '/' + name
-        if (fs.existsSync(path)) {
+        if (await uapi.get(interaction.user.id + '-' + name) !== 'N-EXIST') {
         
             // Edit File
-        	fs.writeFile('/paper-api/' + interaction.user.id + '/' + name, inhalt, function(err) {})
+        	uapi.set(interaction.user.id + '-' + name, inhalt)
             
         	// Create Embed
         	let message = new EmbedBuilder()

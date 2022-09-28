@@ -1,7 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { EmbedBuilder } = require('@discordjs/builders');
 const { version } = require('../../config.json');
-const fs = require('fs');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -44,12 +43,7 @@ module.exports = {
         const newamount = amount + 1
 
         // Check if API exists
-        const dir = '/paper-api/' + interaction.user.id
-        const path = '/paper-api/' + interaction.user.id + '/' + name
-        if (!fs.existsSync(dir)) {
-            fs.mkdirSync(dir)
-        }
-  		if (fs.existsSync(path)) {
+  		if (await uapi.get(interaction.user.id + '-' + name) !== 'N-EXIST') {
             // Create Embed
             let message = new EmbedBuilder()
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
@@ -69,7 +63,7 @@ module.exports = {
   		}
         
         // Check if Slots are Free
-        if (amount > '4') {
+        if (amount > 4) {
             // Create Embed
             let message = new EmbedBuilder()
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
@@ -102,7 +96,7 @@ module.exports = {
         }
         
         // Write File
-        fs.writeFile('/paper-api/' + interaction.user.id + '/' + name, inhalt, function(err) {})
+        uapi.set(interaction.user.id + '-' + name, inhalt)
 
         // Send Message
         apis.add(interaction.user.id, 1)

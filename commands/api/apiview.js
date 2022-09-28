@@ -1,7 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { EmbedBuilder } = require('@discordjs/builders');
 const { version } = require('../../config.json');
-const fs = require('fs');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -32,11 +31,10 @@ module.exports = {
         const amount = await apis.get(interaction.user.id);
 
        	// Check if API even exists
-        const path = '/paper-api/' + interaction.user.id + '/' + name
-        try {
+        if (await uapi.get(interaction.user.id + '-' + name) !== 'N-EXIST') {
         	
             // Read File
-            const data = fs.readFileSync(path, "utf8");
+            const data = await uapi.get(interaction.user.id + '-' + name)
             
         	// Create Embed
         	let message = new EmbedBuilder()
@@ -54,7 +52,7 @@ module.exports = {
         	// Send Message
         	bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] APIVIEW : ' + name + ' : ' + data.toUpperCase())
         	return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
-        } catch (err) {
+        } else {
             // Create Embed
             let message = new EmbedBuilder()
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')

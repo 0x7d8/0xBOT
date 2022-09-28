@@ -1,7 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { EmbedBuilder } = require('@discordjs/builders');
 const { version } = require('../../config.json');
-const fs = require('fs');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -33,8 +32,7 @@ module.exports = {
         const newamount = amount - 1
 
        	// Check if API even exists
-        const path = '/paper-api/' + interaction.user.id + '/' + name
-        try {
+        if (await uapi.get(interaction.user.id + '-' + name) !== 'N-EXIST') {
         	// Create Embed
         	let message = new EmbedBuilder()
             	.setTitle('<:CODE:1024400109741551686> » PAPER API REMOVE')
@@ -49,13 +47,13 @@ module.exports = {
             }
 
         	// Remove File
-        	fs.unlinkSync(path)
+        	uapi.del(interaction.user.id + '-' + name)
 
         	// Send Message
         	apis.rem(interaction.user.id, 1)
         	bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] APIREMOVE : ' + name)
         	return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
-        } catch (err) {
+        } else {
             // Create Embed
             let message = new EmbedBuilder()
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
