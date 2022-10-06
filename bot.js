@@ -4,20 +4,21 @@ const { getAllFilesFilter } = require('./utils/getAllFiles.js')
 const { version, apikey, webkey, dovotes } = require('./config.json')
 const { EmbedBuilder } = require('@discordjs/builders')
 
+const chalk = require('chalk')
 const fs = require("fs")
 
 // MongoDB
 console.log(' ')
-console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [STA] $$$$$ LOADING 0xBOT ' + version)
+console.log(`[0xBOT] ${chalk.bold('[i]')} [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [STA] $$$$$ LOADING 0xBOT ${version}`)
 console.log(' ')
-console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] CONNECTING TO MONGODB')
+console.log(`[0xBOT] ${chalk.bold('[i]')} [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] CONNECTING TO MONGODB`)
 const mongoose = require('mongoose')
 mongoose.connect(mongo, {
     useUnifiedTopology: true,
     useNewUrlParser: true
-}).then(console.log('[0xBOT] [!] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] CONNECTED TO MONGODB'))
+}).then(console.log(`[0xBOT] ${chalk.bold('[!]')} [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] CONNECTED TO MONGODB`))
 console.log(' ')
-console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [STA] $$$$$ LOADING COMMANDS AND EVENTS')
+console.log(`[0xBOT] ${chalk.bold('[i]')} [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [STA] $$$$$ LOADING COMMANDS AND EVENTS`)
 
 /// Useful Math Functions
 // Add Percentage to Number
@@ -81,7 +82,7 @@ for (const file of eventFiles) {
 		client.on(event.event, (...args) => event.execute(...args));
 	}
 	let evt = event.name.toUpperCase()
-	console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] LOADING EVENT ${evt}`);
+	console.log(`[0xBOT] ${chalk.bold('[i]')} [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] LOADING EVENT ${evt}`);
 }
 
 console.log(' ')
@@ -94,7 +95,7 @@ for (const file of commandFiles) {
 	const command = require(file);
 	client.commands.set(command.data.name, command);
     let cmd = command.data.name.toUpperCase()
-	console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] LOADING COMMAND ${cmd}`);
+	console.log(`[0xBOT] ${chalk.bold('[i]')} [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] LOADING COMMAND ${cmd}`);
 }
 
 console.log(' ')
@@ -107,11 +108,11 @@ for (const file of buttonFiles) {
 	const button = require(file);
 	client.buttons.set(button.data.name, button);
     let btn = button.data.name.toUpperCase()
-	console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] LOADING BUTTON ${btn}`);
+	console.log(`[0xBOT] ${chalk.bold('[i]')} [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] LOADING BUTTON ${btn}`);
 }
 
 console.log(' ')
-console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [END] $$$$$ LOADED COMMANDS AND EVENTS')
+console.log(`[0xBOT] ${chalk.bold('[i]')} [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [END] $$$$$ LOADED COMMANDS AND EVENTS`)
 
 // Interaction Handler
 client.on('interactionCreate', async interaction => {
@@ -425,9 +426,9 @@ rest.put(
 	{ body: commands },
 );
 
-console.log('[0xBOT] [!] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] INTERACTIONS REGISTERED')
+console.log(`[0xBOT] ${chalk.bold('[i]')} [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] INTERACTIONS REGISTERED`)
 console.log(' ')
-console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] LOGGING IN')
+console.log(`[0xBOT] ${chalk.bold('[i]')} [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] LOGGING IN`)
 
 // Login
 client.login(token)
