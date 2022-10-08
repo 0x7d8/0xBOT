@@ -44,12 +44,6 @@ module.exports = {
 
         // Set Variables
         const user = interaction.options.getUser("user")
-
-        // Get Userinfo
-        let userinfo
-        if (user != null) {
-            userinfo = await client.users.fetch(user);
-        }
         
         // Set User ID
         let quotes
@@ -93,13 +87,13 @@ module.exports = {
             }
         } else {
             message = new EmbedBuilder()
-                .setTitle('<:QUOTES:1024406448127623228> » THE QUOTES OF ' + userinfo.username.toUpperCase() + '#' + userinfo.discriminator)
+                .setTitle('<:QUOTES:1024406448127623228> » THE QUOTES OF ' + user.username.toUpperCase())
   				.setDescription('» <@' + user + '> has **' + quotes + '** ' + word + '!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang == "de") {
                 message = new EmbedBuilder()
-                    .setTitle('<:QUOTES:1024406448127623228> » DIE ZITATE VON ' + userinfo.username.toUpperCase() + '#' + userinfo.discriminator)
+                    .setTitle('<:QUOTES:1024406448127623228> » DIE ZITATE VON ' + user.username.toUpperCase())
   				    .setDescription('» <@' + user + '> hat **' + quotes + '** ' + word + '!')
             	    .setFooter({ text: '» ' + vote + ' » ' + version });
             }

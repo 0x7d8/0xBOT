@@ -70,19 +70,14 @@ const client = new Client({ intents: [
 	GatewayIntentBits.Guilds,
 	GatewayIntentBits.GuildMessages,
 	GatewayIntentBits.MessageContent
-] });
+] })
 
 // Load all Events
 const eventFiles = getAllFilesFilter('./events', '.js');
 for (const file of eventFiles) {
 	const event = require(file);
-	if (event.once) {
-		client.once(event.event, (...args) => event.execute(...args));
-	} else {
-		client.on(event.event, (...args) => event.execute(...args));
-	}
-	let evt = event.name.toUpperCase()
-	console.log(`[0xBOT] ${chalk.bold('[i]')} [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] LOADING EVENT ${evt}`);
+	if (event.once) { client.once(event.event, (...args) => event.execute(...args)) } else { client.on(event.event, (...args) => event.execute(...args)) }
+	console.log(`[0xBOT] ${chalk.bold('[i]')} [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] LOADING EVENT ${event.name.toUpperCase()}`);
 }
 
 console.log(' ')
@@ -94,8 +89,7 @@ const commandFiles = getAllFilesFilter('./commands', '.js');
 for (const file of commandFiles) {
 	const command = require(file);
 	client.commands.set(command.data.name, command);
-    let cmd = command.data.name.toUpperCase()
-	console.log(`[0xBOT] ${chalk.bold('[i]')} [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] LOADING COMMAND ${cmd}`);
+	console.log(`[0xBOT] ${chalk.bold('[i]')} [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] LOADING COMMAND ${command.data.name.toUpperCase()}`);
 }
 
 console.log(' ')
@@ -107,8 +101,7 @@ const buttonFiles = getAllFilesFilter('./buttons', '.js');
 for (const file of buttonFiles) {
 	const button = require(file);
 	client.buttons.set(button.data.name, button);
-    let btn = button.data.name.toUpperCase()
-	console.log(`[0xBOT] ${chalk.bold('[i]')} [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] LOADING BUTTON ${btn}`);
+	console.log(`[0xBOT] ${chalk.bold('[i]')} [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] LOADING BUTTON ${button.data.name.toUpperCase()}`);
 }
 
 console.log(' ')
@@ -204,9 +197,7 @@ client.on('interactionCreate', async interaction => {
 
     			// Send Message
 				await interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
-			} catch (error) {
-				return
-			}
+			} catch (e) { return }
 		}
 
 	}
@@ -220,139 +211,110 @@ client.on('interactionCreate', async interaction => {
 			let sc = false
 
 			// Special Button Cases
-			if (interaction.customId.toString().substring(0, 3) == 'BEG') {
-				const cache = interaction.customId.split('-');
-				const [cmd, reciever, amount] = cache;
+			const args = interaction.customId.split('-')
+			if (args[0] == 'BEG') {
 				let editedinteraction = interaction
 				editedinteraction.customId = "beg"
 				sc = true
 
 				const button = client.buttons.get(editedinteraction.customId);
-				await button.execute(editedinteraction, client, guildlang, votet, reciever, amount);
-			}
-			if (interaction.customId.toString().substring(0, 3) == 'RPS') {
-				const cache = interaction.customId.split('-');
-				const [cmd, selection, bet] = cache;
-
+				await button.execute(editedinteraction, client, guildlang, votet, args[1], args[2]);
+			}; if (args[0] == 'RPS') {
 				let choice
 				let editedinteraction = interaction
-				if (selection == '1') { editedinteraction.customId = "rps-choice"; choice = 'ROCK' }
-				if (selection == '2') { editedinteraction.customId = "rps-choice"; choice = 'PAPER' }
-				if (selection == '3') { editedinteraction.customId = "rps-choice"; choice = 'SCISSORS' }
+				if (args[1] == '1') { editedinteraction.customId = "rps-choice"; choice = 'ROCK' }
+				if (args[1] == '2') { editedinteraction.customId = "rps-choice"; choice = 'PAPER' }
+				if (args[1] == '3') { editedinteraction.customId = "rps-choice"; choice = 'SCISSORS' }
 
-				if (selection == 'YES') { editedinteraction.customId = "rps-yes" }
-				if (selection == 'NO') { editedinteraction.customId = "rps-no" }
+				if (args[1] == 'YES') { editedinteraction.customId = "rps-yes" }
+				if (args[1] == 'NO') { editedinteraction.customId = "rps-no" }
 				sc = true
 
 				const button = client.buttons.get(editedinteraction.customId);
-				await button.execute(editedinteraction, client, guildlang, votet, bet, choice);
-			}
-			if (interaction.customId.toString().substring(0, 6) == 'MEMORY') {
-				const cache = interaction.customId.split('-');
-				const [cmd, selection, bet] = cache;
+				await button.execute(editedinteraction, client, guildlang, votet, args[2], choice);
+			}; if (args[0] == 'MEMORY') {
 				let editedinteraction = interaction
 				editedinteraction.customId = "memory-choice"
 
-				if (selection == 'YES') { editedinteraction.customId = "memory-yes" }
-				if (selection == 'NO') { editedinteraction.customId = "memory-no" }
+				if (args[1] == 'YES') { editedinteraction.customId = "memory-yes" }
+				if (args[1] == 'NO') { editedinteraction.customId = "memory-no" }
 				sc = true
 
 				const button = client.buttons.get(editedinteraction.customId);
-				await button.execute(editedinteraction, client, guildlang, votet, bet, selection);
-			}
-			if (interaction.customId.toString().substring(0, 3) == 'TTT') {
-				const cache = interaction.customId.split('-');
-				const [cmd, selection, bet] = cache;
+				await button.execute(editedinteraction, client, guildlang, votet, args[2], args[1]);
+			}; if (args[0] == 'TTT') {
 				let editedinteraction = interaction
 				editedinteraction.customId = "ttt-choice"
 
-				if (selection == 'YES') { editedinteraction.customId = "ttt-yes" }
-				if (selection == 'NO') { editedinteraction.customId = "ttt-no" }
+				if (args[1] == 'YES') { editedinteraction.customId = "ttt-yes" }
+				if (args[1] == 'NO') { editedinteraction.customId = "ttt-no" }
 				sc = true
 
 				const button = client.buttons.get(editedinteraction.customId);
-				await button.execute(editedinteraction, client, guildlang, votet, bet, selection);
-			}
-			if (interaction.customId.toString().substring(0, 5) == 'stock') {
-				const cache = interaction.customId.split('-');
-				const [cmd, cmd2, stock] = cache;
+				await button.execute(editedinteraction, client, guildlang, votet, args[2], args[1]);
+			}; if (args[0] == 'stock') {
 				let editedinteraction = interaction
 
 				editedinteraction.customId = "stock-next"
 				sc = true
 
 				const button = client.buttons.get(editedinteraction.customId);
-				await button.execute(editedinteraction, client, guildlang, votet, stock);
-			}
-			if (interaction.customId.toString().substring(0, 8) == 'BUSINESS') {
-				const cache = interaction.customId.split('-');
-				const [cmd, type, selection, business, userid] = cache;
+				await button.execute(editedinteraction, client, guildlang, votet, args[2]);
+			}; if (args[0] == 'BUSINESS') {
 				let editedinteraction = interaction
 
-				if (selection == 'YES') { editedinteraction.customId = "business-yes" }
-				if (selection == 'NO') { editedinteraction.customId = "business-no" }
+				if (args[2] == 'YES') { editedinteraction.customId = "business-yes" }
+				if (args[2] == 'NO') { editedinteraction.customId = "business-no" }
 				sc = true
 
 				const button = client.buttons.get(editedinteraction.customId);
-				await button.execute(editedinteraction, client, guildlang, votet, business, userid, type.toLowerCase());
-			}
-			if (interaction.customId.toString().substring(0, 3) == 'CAR') {
-				const cache = interaction.customId.split('-');
-				const [cmd, type, selection, car, userid] = cache;
+				await button.execute(editedinteraction, client, guildlang, votet, args[3], args[4], args[1].toLowerCase());
+			}; if (args[0] == 'CAR') {
 				let editedinteraction = interaction
 
-				if (selection == 'YES') { editedinteraction.customId = "car-yes" }
-				if (selection == 'NO') { editedinteraction.customId = "car-no" }
+				if (args[2] == 'YES') { editedinteraction.customId = "car-yes" }
+				if (args[2] == 'NO') { editedinteraction.customId = "car-no" }
 				sc = true
 
 				const button = client.buttons.get(editedinteraction.customId);
-				await button.execute(editedinteraction, client, guildlang, votet, car, userid, type.toLowerCase());
-			}
-			if (interaction.customId.toString().substring(0, 4) == 'ITEM') {
-				const cache = interaction.customId.split('-');
-				const [cmd, type, selection, item, userid, amount] = cache;
+				await button.execute(editedinteraction, client, guildlang, votet, args[3], args[4], args[1].toLowerCase());
+			}; if (args[0] == 'ITEM') {
 				let editedinteraction = interaction
 
-				if (selection == 'YES') { editedinteraction.customId = "item-yes" }
-				if (selection == 'NO') { editedinteraction.customId = "item-no" }
+				if (args[2] == 'YES') { editedinteraction.customId = "item-yes" }
+				if (args[2] == 'NO') { editedinteraction.customId = "item-no" }
 				sc = true
 
 				const button = client.buttons.get(editedinteraction.customId);
-				await button.execute(editedinteraction, client, guildlang, votet, item, userid, type.toLowerCase(), amount);
-			}
-			if (interaction.customId.toString().substring(0, 4) == 'BOMB') {
-				const cache = interaction.customId.split('-');
-				const [cmd, solution, choice, solbtn, btn, item, reciever] = cache;
+				await button.execute(editedinteraction, client, guildlang, votet, args[3], args[4], args[1].toLowerCase(), args[5]);
+			}; if (args[0] == 'BOMB') {
 				let editedinteraction = interaction
 
 				editedinteraction.customId = 'item-bomb'
 				sc = true
 
 				const button = client.buttons.get(editedinteraction.customId);
-				await button.execute(editedinteraction, client, guildlang, votet, solution, choice, solbtn, btn, item, reciever);
-			}
-			if (interaction.customId.toString().substring(0, 5) == 'COUNT') {
-				const cache = interaction.customId.split('-');
-				const [cmd, type] = cache;
+				await button.execute(editedinteraction, client, guildlang, votet, args[1], args[2], args[3], args[4], args[5], args[6]);
+			}; if (args[0] == 'COUNT') {
 				let editedinteraction = interaction
 
 				editedinteraction.customId = 'count'
 				sc = true
 
 				const button = client.buttons.get(editedinteraction.customId);
-				await button.execute(editedinteraction, client, guildlang, votet, type.toLowerCase());
+				await button.execute(editedinteraction, client, guildlang, votet, args[1].toLowerCase());
 			}
 
 
 			// Other Button Cases
-			if (sc == false) {
-				const button = client.buttons.get(interaction.customId);
-				if (!button) return;
+			if (!sc) {
+				const button = client.buttons.get(interaction.customId)
+				if (!button) return
 
-				await button.execute(interaction, client, guildlang, votet);
+				await button.execute(interaction, client, guildlang, votet)
 			}
 
-			return;
+			return
 		} catch (e) {
 			try {
 				// Generate Error Code
@@ -394,7 +356,7 @@ client.on('interactionCreate', async interaction => {
 
     			// Send Message
 				await interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
-			} catch (e) {return}
+			} catch (e) { return }
 		}
 
 	}
@@ -413,18 +375,15 @@ client.on('messageCreate', async message => {
 });
 
 // Deploy Commands
-const commands = [];
-
+const commands = []
 for (const file of commandFiles) {
-	const command = require(file);
-	commands.push(command.data.toJSON());
-}
-
-const rest = new REST({ version: '9' }).setToken(token);
+	const command = require(file)
+	commands.push(command.data.toJSON())
+}; const rest = new REST({ version: '9' }).setToken(token)
 rest.put(
 	Routes.applicationCommands(clientId),
 	{ body: commands },
-);
+)
 
 console.log(`[0xBOT] ${chalk.bold('[i]')} [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] INTERACTIONS REGISTERED`)
 console.log(' ')

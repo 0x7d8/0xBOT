@@ -24,12 +24,6 @@ module.exports = {
         // Set Variables
         const user = interaction.options.getUser("user")
 
-        // Get Userinfo
-        let userinfo
-        if (user != null) {
-            userinfo = await client.users.fetch(user);
-        }
-
         // Get Money
         let money
         if (user == null) {
@@ -56,13 +50,13 @@ module.exports = {
             }
         } else {
             message = new EmbedBuilder()
-            	.setTitle('<:WALLET:1024387370793050273> » THE BALANCE OF ' + userinfo.username.toUpperCase() + '#' + userinfo.discriminator)
+            	.setTitle('<:WALLET:1024387370793050273> » THE BALANCE OF ' + user.username.toUpperCase())
   				.setDescription('» The Balance of <@' + user + '> is **$' + money + '**!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang == "de") {
                 message = new EmbedBuilder()
-            	    .setTitle('<:WALLET:1024387370793050273> » DER GELDSTAND VON ' + userinfo.username.toUpperCase() + '#' + userinfo.discriminator)
+            	    .setTitle('<:WALLET:1024387370793050273> » DER GELDSTAND VON ' + user.username.toUpperCase())
   				    .setDescription('» Der Geldstand von <@' + user + '> ist **' + money + '€**!')
             	    .setFooter({ text: '» ' + vote + ' » ' + version });
             }

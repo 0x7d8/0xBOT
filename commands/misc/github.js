@@ -16,7 +16,7 @@ module.exports = {
         let button = new ActionRowBuilder()
 			.addComponents(
 				new ButtonBuilder()
-					.setLabel('ANSCHAUEN')
+					.setLabel('VIEW')
 					.setURL('https://github.com/rotvproHD/0xBOT')
 					.setStyle(ButtonStyle.Link),
 			);
@@ -25,7 +25,7 @@ module.exports = {
             button = new ActionRowBuilder()
 			    .addComponents(
 				    new ButtonBuilder()
-				    	.setLabel('VIEW')
+				    	.setLabel('ANSCHAUEN')
 				    	.setURL('https://github.com/rotvproHD/0xBOT')
 				    	.setStyle(ButtonStyle.Link),
 			    );

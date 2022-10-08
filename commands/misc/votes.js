@@ -23,12 +23,6 @@ module.exports = {
     async execute(interaction, client, lang, vote) {
         // Set Variables
         const user = interaction.options.getUser("user")
-
-        // Get Userinfo
-        let userinfo
-        if (user != null) {
-            userinfo = await client.users.fetch(user);
-        }
         
         // Set User ID
         let votes
@@ -64,13 +58,13 @@ module.exports = {
             }
         } else {
             message = new EmbedBuilder()
-                .setTitle('<:GLOBE:1024403680503529583> » THE VOTES OF ' + userinfo.username.toUpperCase() + '#' + userinfo.discriminator)
+                .setTitle('<:GLOBE:1024403680503529583> » THE VOTES OF ' + username.username.toUpperCase())
   				.setDescription('» <@' + user + '> has **' + votes + '** ' + word + '!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang == "de") {
                 message = new EmbedBuilder()
-                    .setTitle('<:GLOBE:1024403680503529583> » DIE VOTES VON ' + userinfo.username.toUpperCase() + '#' + userinfo.discriminator)
+                    .setTitle('<:GLOBE:1024403680503529583> » DIE VOTES VON ' + username.username.toUpperCase())
   				    .setDescription('» <@' + user + '> hat **' + votes + '** ' + word + '!')
             	    .setFooter({ text: '» ' + vote + ' » ' + version });
             }

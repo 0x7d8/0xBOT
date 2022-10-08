@@ -96,12 +96,6 @@ module.exports = {
             if (blackmax == 0) { blackmax = 10 }
         }
 
-        // Get Userinfo
-        let username
-        if (user != null) {
-            username = await client.users.fetch(user);
-        }
-
         // Create Embed
         let message
         if (user == null) {
@@ -118,13 +112,13 @@ module.exports = {
             }
         } else {
             message = new EmbedBuilder()
-                .setTitle('<:CHART:1024398298204876941> » THE STOCKS OF ' + username.username.toUpperCase() + '#' + username.discriminator)
+                .setTitle('<:CHART:1024398298204876941> » THE STOCKS OF ' + user.username.toUpperCase())
                 .setDescription('» 🟢 GREEN STOCKS\n`' + green + '/' + greenmax + '`\n\n» 🔵 BLUE STOCKS\n`' + blue + '/' + bluemax + '`\n\n» 🟡 YELLOW STOCKS\n`' + yellow + '/' + yellowmax + '`\n\n» 🔴 RED STOCKS\n`' + red + '/' + redmax + '`\n\n» ⚪ WHITE STOCKS\n`' + white + '/' + whitemax + '`\n\n» ⚫ BLACK STOCKS\n`' + black + '/' + blackmax + '`')
                 .setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang == "de") {
                 message = new EmbedBuilder()
-                    .setTitle('<:CHART:1024398298204876941> » DIE AKTIEN VON ' + username.username.toUpperCase() + '#' + username.discriminator)
+                    .setTitle('<:CHART:1024398298204876941> » DIE AKTIEN VON ' + user.username.toUpperCase())
                     .setDescription('» 🟢 GRÜNE AKTIEN\n`' + green + '/' + greenmax + '`\n\n» 🔵 BLAUE AKTIEN\n`' + blue + '/' + bluemax + '`\n\n» 🟡 GELBE AKTIEN\n`' + yellow + '/' + yellowmax + '`\n\n» 🔴 ROTE AKTIEN\n`' + red + '/' + redmax + '`\n\n» ⚪ WEISSE AKTIEN\n`' + white + '/' + whitemax + '`\n\n» ⚫ SCHWARZE AKTIEN\n`' + black + '/' + blackmax + '`')
                     .setFooter({ text: '» ' + vote + ' » ' + version });
             }
