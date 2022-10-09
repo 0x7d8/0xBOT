@@ -58,13 +58,13 @@ module.exports = {
             }
         } else {
             message = new EmbedBuilder()
-                .setTitle('<:GLOBE:1024403680503529583> » THE VOTES OF ' + username.username.toUpperCase())
+                .setTitle('<:GLOBE:1024403680503529583> » THE VOTES OF ' + user.username.toUpperCase())
   				.setDescription('» <@' + user + '> has **' + votes + '** ' + word + '!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang == "de") {
                 message = new EmbedBuilder()
-                    .setTitle('<:GLOBE:1024403680503529583> » DIE VOTES VON ' + username.username.toUpperCase())
+                    .setTitle('<:GLOBE:1024403680503529583> » DIE VOTES VON ' + user.username.toUpperCase())
   				    .setDescription('» <@' + user + '> hat **' + votes + '** ' + word + '!')
             	    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
