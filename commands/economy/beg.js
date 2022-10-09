@@ -78,7 +78,14 @@ module.exports = {
 
         // Get Userinfo
         let userinfo
-        userinfo = await client.users.fetch(interaction.user.id);
+        userinfo = await client.users.fetch(interaction.user.id)
+
+        // Set Reason Type
+        let reasontype
+        if (reason === null) { reasontype = 'NONE' }
+        else { reasontype = 'SET' }
+        let reasonres = reason
+        if (reason === null) { reasonres = 'NULL' }
 
         // Create Button
         let button = new ActionRowBuilder()
@@ -86,7 +93,7 @@ module.exports = {
 				new ButtonBuilder()
 					.setLabel('GIVE ' + userinfo.username.toUpperCase() + ' $' + amount)
                     .setEmoji('1024382935618572299')
-                    .setCustomId('BEG-' + interaction.user.id + '-' + amount)
+                    .setCustomId('BEG-' + interaction.user.id + '-' + amount + '-' + reasontype + '-' + reasonres.toString())
 					.setStyle(ButtonStyle.Secondary),
 			);
 
@@ -96,7 +103,7 @@ module.exports = {
 				    new ButtonBuilder()
 				    	.setLabel('GEBE ' + userinfo.username.toUpperCase() + ' ' + amount + '€')
                         .setEmoji('1024382935618572299')
-                        .setCustomId('BEG-' + interaction.user.id + '-' + amount)
+                        .setCustomId('BEG-' + interaction.user.id + '-' + amount + '-' + reasontype + '-' + reasonres.toString())
 				    	.setStyle(ButtonStyle.Secondary),
 			    );
         }
@@ -106,25 +113,25 @@ module.exports = {
         if (reason == null) {
       	    message = new EmbedBuilder()
                 .setTitle('<:DONATE:1024397357988720711> » BEGGING')
-  			    .setDescription('» <@' + interaction.user.id + '> needs Money!')
+  			    .setDescription('» <@' + interaction.user.id + '> needs Money!\nTotal Earnings: **$0**')
         	    .setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang == "de") {
                 message = new EmbedBuilder()
                     .setTitle('<:DONATE:1024397357988720711> » BETTELN')
-  			        .setDescription('» <@' + interaction.user.id + '> braucht Geld!')
+  			        .setDescription('» <@' + interaction.user.id + '> braucht Geld!\nInsgesamte Einnahmen: **0€**')
         	        .setFooter({ text: '» ' + vote + ' » ' + version });
             }
         } else {
             message = new EmbedBuilder()
                 .setTitle('<:DONATE:1024397357988720711> » BEGGING')
-  			    .setDescription('» <@' + interaction.user.id + '> needs Money!\n*"' + reason.toString() + '"*')
+  			    .setDescription('» <@' + interaction.user.id + '> needs Money!\nTotal Earnings: **$0**\n*"' + reason.toString() + '"*')
         	    .setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang == "de") {
                 message = new EmbedBuilder()
                     .setTitle('<:DONATE:1024397357988720711> » BETTELN')
-  			        .setDescription('» <@' + interaction.user.id + '> braucht Geld!\n*"' + reason.toString() + '"*')
+  			        .setDescription('» <@' + interaction.user.id + '> braucht Geld!\nInsgesamte Einnahmen: **0€**\n*"' + reason.toString() + '"*')
         	        .setFooter({ text: '» ' + vote + ' » ' + version });
             }
         }

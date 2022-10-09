@@ -123,6 +123,7 @@ client.on('interactionCreate', async interaction => {
 	}
 	if (parseInt(glang) == 1) { guildlang = "de" }
 
+	// Get Vote Status
 	let votet = 'VOTED'
 	const lastVote = await votef.get(interaction.user.id + '-T')
 	if (!lastVote) { votet = 'NOT VOTED -> /VOTE' }
@@ -133,6 +134,7 @@ client.on('interactionCreate', async interaction => {
 		if (lastVote < (Date.now() - 24*60*60*1000)) { votet = 'NICHT GEVOTET' }
 	}
 	
+	// Set Language
 	const clang = await lang.get(interaction.user.id)
 	if (parseInt(clang) == 0) { lang.add(interaction.user.id, 1) }
 	if (interaction.locale == "de") {
@@ -218,7 +220,7 @@ client.on('interactionCreate', async interaction => {
 				sc = true
 
 				const button = client.buttons.get(editedinteraction.customId);
-				await button.execute(editedinteraction, client, guildlang, votet, args[1], args[2]);
+				await button.execute(editedinteraction, client, guildlang, votet, args[1], args[2], args[3], args[4]);
 			}; if (args[0] == 'RPS') {
 				let choice
 				let editedinteraction = interaction

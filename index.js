@@ -143,15 +143,15 @@ if (dodshbr == "yes") {(async ()=>{
                 information: {
                     category: "<center>UPDATE INFO</center>",
                     title: "<center>INFORMATION</center>",
-                    description: `<center>This Update added the following Features: <br/><br/>Fixes for Itembuy<br/>Fix some Buttons being Disabled<br/>Add Emojis to Command Titles<br/>Migrate User APIs to DB<br/>Clean up Code</center>`,
-                    footer: "<center>VERSION 2.1.0</center>",
+                    description: `<center>This Update added the following Features: <br/><br/>Fixes for Minigames<br/>Add Total Earnings Amount to /beg</center>`,
+                    footer: "<center>VERSION 2.1.4</center>",
                 },
 
                 feeds: {
                     category: "<center>UPDATE INFO</center>",
                     title: "<center>INFORMATION</center>",
-                    description: `<center>This Update added the following Features: <br/><br/>Optimized Stockinfo Command<br/>Fix some Buttons not following Languages<br/>Add Status Command<br/>Add another Mode to /count<br/>Update Emojis</center>`,
-                    footer: "<center>VERSION 2.0.3</center>",
+                    description: `<center>This Update added the following Features: <br/><br/>Fixes for Itembuy<br/>Fix some Buttons being Disabled<br/>Add Emojis to Command Titles<br/>Migrate User APIs to DB<br/>Clean up Code</center>`,
+                    footer: "<center>VERSION 2.1.0</center>",
                 },
             },
 
