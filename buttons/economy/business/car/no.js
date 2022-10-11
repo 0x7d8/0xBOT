@@ -1,5 +1,4 @@
 const { EmbedBuilder } = require('@discordjs/builders');
-const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 const { version } = require('../../../../config.json');
 
 module.exports = {
@@ -9,10 +8,10 @@ module.exports = {
     async execute(interaction, client, lang, vote, car, userid, type) {
         // Translate to Car Names
         let name
-        if (car == 'jeep') { name = '2016 JEEP PATRIOT SPORT' }
-        if (car == 'kia') { name = '2022 KIA SORENTO' }
-        if (car == 'tesla') { name = 'TESLA MODEL Y' }
-        if (car == 'porsche') { name = '2019 PORSCHE 911 GT2RS' }
+        if (car === 'jeep') { name = '2016 JEEP PATRIOT SPORT' }
+        if (car === 'kia') { name = '2022 KIA SORENTO' }
+        if (car === 'tesla') { name = 'TESLA MODEL Y' }
+        if (car === 'porsche') { name = '2019 PORSCHE 911 GT2RS' }
 
         // Check if User is Authorized
         if (interaction.user.id !== userid) {

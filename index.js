@@ -1,11 +1,11 @@
 const { ShardingManager } = require('discord.js')
-const { token, mongo, clientId, clientSc, dbdl, dodshbr, pteroapi } = require('./config.json')
 
+const config = require('./config.json')
 const MongoStore = require('connect-mongo')
 const chalk = require('chalk')
 
 const mongoose = require('mongoose')
-mongoose.connect(mongo, {
+mongoose.connect(config.mongo, {
     useUnifiedTopology: true,
     useNewUrlParser: true
 }).then(console.log('[0xBOT] [!] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] CONNECTED TO MONGODB'))
@@ -89,26 +89,24 @@ console.log(' ')
 
 // Dashboard
 const DarkDashboard = require('dbd-dark-dashboard')
-const SoftUI = require('dbd-soft-ui')
-const DBD = require("discord-dashboard")
 
 const { Client, GatewayIntentBits } = require('discord.js');
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
-client.login(token);
+client.login(config.client.token);
 
-if (dodshbr == "yes") {(async ()=>{
+if (config.web.dashboard) {(async ()=>{
     let DBD = require('discord-dashboard');
-    await DBD.useLicense(dbdl);
+    await DBD.useLicense(config.web.keys.dashkey);
     DBD.Dashboard = DBD.UpdatedClass();
 
     const Dashboard = new DBD.Dashboard({
         port: 25150,
         client: {
-            id: clientId,
-            secret: clientSc
+            id: config.client.id,
+            secret: config.client.secret
         },
         redirectUri: 'https://dsh.0xbot.de/discord/callback',
-        sessionSaveSession: MongoStore.create({mongoUrl: mongo}),
+        sessionSaveSession: MongoStore.create({mongoUrl: config.mongo}),
         domain: 'dsh.0xbot.de',
         bot: client,
         minimizedConsoleLogs: true,
@@ -489,8 +487,8 @@ if (dodshbr == "yes") {(async ()=>{
         ],
     })
     Dashboard.init()
-})()};
+})()}
 
-const manager = new ShardingManager('./bot.js', { token: token, shards: 'auto' });
-manager.on('shardCreate', shard => console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [STA] $$$$$ LAUNCHED SHARD #' + shard.id));
-manager.spawn();
+const manager = new ShardingManager('./bot.js', { token: config.client.token, shards: 'auto' })
+manager.on('shardCreate', shard => console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [STA] $$$$$ LAUNCHED SHARD #' + shard.id))
+manager.spawn()

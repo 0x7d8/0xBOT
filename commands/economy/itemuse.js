@@ -1,5 +1,5 @@
 const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
-const { evaluate, pi, pow, round, sqrt, map } = require('mathjs')
+const { evaluate } = require('mathjs')
 const { SlashCommandBuilder } = require('@discordjs/builders')
 const { EmbedBuilder } = require('@discordjs/builders')
 const { version } = require('../../config.json')

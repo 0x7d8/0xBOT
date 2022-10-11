@@ -1,8 +1,5 @@
 const { EmbedBuilder } = require('@discordjs/builders')
-const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js')
 const { version } = require('../../../../config.json')
-
-const wait = require('node:timers/promises').setTimeout
 
 module.exports = {
     data: {
@@ -14,21 +11,21 @@ module.exports = {
 
         // Set Car Value
         let carvalue
-        if (car == 'jeep') { carvalue = 25 }
-        if (car == 'kia') { carvalue = 50 }
-        if (car == 'audi') { carvalue = 75 }
-        if (car == 'tesla') { carvalue = 100 }
-        if (car == 'porsche') { carvalue = 200 }
+        if (car === 'jeep') { carvalue = 25 }
+        if (car === 'kia') { carvalue = 50 }
+        if (car === 'audi') { carvalue = 75 }
+        if (car === 'tesla') { carvalue = 100 }
+        if (car === 'porsche') { carvalue = 200 }
 
         // Calculate Cost
         let cost
         let dopay = false
         if (await bsns.get('g-' + interaction.guild.id + '-3-PRICE-' + car.toUpperCase()) === '0' || await bsns.get('g-' + interaction.guild.id + '-3-PRICE-' + car.toUpperCase()) === 0) {
-            if (car == 'jeep') { cost = 15000 }
-            if (car == 'kia') { cost = 75000 }
-            if (car == 'audi') { cost = 150000 }
-            if (car == 'tesla') { cost = 240000 }
-            if (car == 'porsche') { cost = 490000 }
+            if (car === 'jeep') { cost = 15000 }
+            if (car === 'kia') { cost = 75000 }
+            if (car === 'audi') { cost = 150000 }
+            if (car === 'tesla') { cost = 240000 }
+            if (car === 'porsche') { cost = 490000 }
         } else {
             if (type == 'buy') {
                 cost = parseInt(await bsns.get('g-' + interaction.guild.id + '-3-PRICE-' + car.toUpperCase()))*costmul

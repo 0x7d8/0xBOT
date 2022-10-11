@@ -1,19 +1,18 @@
 const { Client, Collection, GatewayIntentBits } = require('discord.js')
-const { token, clientId, mongo } = require('./config.json')
 const { getAllFilesFilter } = require('./utils/getAllFiles.js')
-const { version, apikey, webkey, dovotes } = require('./config.json')
 const { EmbedBuilder } = require('@discordjs/builders')
 
+const config = require('./config.json')
 const chalk = require('chalk')
 const fs = require("fs")
 
 // MongoDB
 console.log(' ')
-console.log(`[0xBOT] ${chalk.bold('[i]')} [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [STA] $$$$$ LOADING 0xBOT ${version}`)
+console.log(`[0xBOT] ${chalk.bold('[i]')} [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [STA] $$$$$ LOADING 0xBOT ${config.version}`)
 console.log(' ')
 console.log(`[0xBOT] ${chalk.bold('[i]')} [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] CONNECTING TO MONGODB`)
 const mongoose = require('mongoose')
-mongoose.connect(mongo, {
+mongoose.connect(config.mongo, {
     useUnifiedTopology: true,
     useNewUrlParser: true
 }).then(console.log(`[0xBOT] ${chalk.bold('[!]')} [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] CONNECTED TO MONGODB`))
@@ -75,33 +74,31 @@ const client = new Client({ intents: [
 // Load all Events
 const eventFiles = getAllFilesFilter('./events', '.js');
 for (const file of eventFiles) {
-	const event = require(file);
+	const event = require(file)
 	if (event.once) { client.once(event.event, (...args) => event.execute(...args)) } else { client.on(event.event, (...args) => event.execute(...args)) }
-	console.log(`[0xBOT] ${chalk.bold('[i]')} [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] LOADING EVENT ${event.name.toUpperCase()}`);
+	console.log(`[0xBOT] ${chalk.bold('[i]')} [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] LOADING EVENT ${event.name.toUpperCase()}`)
 }
 
 console.log(' ')
 
 // Load all Commands
 client.commands = new Collection();
-
 const commandFiles = getAllFilesFilter('./commands', '.js');
 for (const file of commandFiles) {
-	const command = require(file);
-	client.commands.set(command.data.name, command);
-	console.log(`[0xBOT] ${chalk.bold('[i]')} [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] LOADING COMMAND ${command.data.name.toUpperCase()}`);
+	const command = require(file)
+	client.commands.set(command.data.name, command)
+	console.log(`[0xBOT] ${chalk.bold('[i]')} [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] LOADING COMMAND ${command.data.name.toUpperCase()}`)
 }
 
 console.log(' ')
 
 // Load all Buttons
 client.buttons = new Collection();
-
 const buttonFiles = getAllFilesFilter('./buttons', '.js');
 for (const file of buttonFiles) {
-	const button = require(file);
-	client.buttons.set(button.data.name, button);
-	console.log(`[0xBOT] ${chalk.bold('[i]')} [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] LOADING BUTTON ${button.data.name.toUpperCase()}`);
+	const button = require(file)
+	client.buttons.set(button.data.name, button)
+	console.log(`[0xBOT] ${chalk.bold('[i]')} [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] LOADING BUTTON ${button.data.name.toUpperCase()}`)
 }
 
 console.log(' ')
@@ -117,11 +114,8 @@ client.on('interactionCreate', async interaction => {
 	if (parseInt(glang) == 0) {
 		if (interaction.guildLocale == "de") {
 			await lang.add(interaction.guild.id, 1)
-		} else {
-			await lang.add(interaction.guild.id, 2)
-		}
-	}
-	if (parseInt(glang) == 1) { guildlang = "de" }
+		} else { await lang.add(interaction.guild.id, 2) }
+	}; if (parseInt(glang) == 1) { guildlang = "de" }
 
 	// Get Vote Status
 	let votet = 'VOTED'
@@ -138,15 +132,12 @@ client.on('interactionCreate', async interaction => {
 	const clang = await lang.get(interaction.user.id)
 	if (parseInt(clang) == 0) { lang.add(interaction.user.id, 1) }
 	if (interaction.locale == "de") {
-		if (parseInt(clang) == 2) {
-			lang.rem(interaction.user.id, 1)
-		}
+		if (parseInt(clang) == 2) { lang.rem(interaction.user.id, 1) }
 	} else {
-		if (parseInt(clang) == 1) {
-			lang.add(interaction.user.id, 1)
-		}
+		if (parseInt(clang) == 1) { lang.add(interaction.user.id, 1) }
 	}
 
+	// Handle Commands
 	if (interaction.isChatInputCommand()) {
 		// Stats
 		bot.stats('cmd', interaction.user.id, interaction.guild.id)
@@ -189,12 +180,12 @@ client.on('interactionCreate', async interaction => {
     			let message = new EmbedBuilder()
         			.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   					.setDescription('» <:ERROR:1020414987291861022> An Error has occured while executing this Command.\nThe Error has been logged and will be fixed soon!')
-    				.setFooter({ text: '» ' + votet + ' » ' + version + ' <:EXCLAMATION:1024407166460891166> » ERROR: ' + errorid });
+    				.setFooter({ text: '» ' + votet + ' » ' + config.version + ' <:EXCLAMATION:1024407166460891166> » ERROR: ' + errorid });
 				if (guildlang == 'de') {
 					message = new EmbedBuilder()
         				.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   						.setDescription('» <:ERROR:1020414987291861022> Ein Fehler ist beim ausführen dieses Befehls aufgetreten.\nDer Fehler wurde geloggt und wird bald behoben!')
-    					.setFooter({ text: '» ' + votet + ' » ' + version + ' <:EXCLAMATION:1024407166460891166> » FEHLER: ' + errorid });
+    					.setFooter({ text: '» ' + votet + ' » ' + config.version + ' <:EXCLAMATION:1024407166460891166> » FEHLER: ' + errorid });
 				}
 
     			// Send Message
@@ -204,6 +195,7 @@ client.on('interactionCreate', async interaction => {
 
 	}
 
+	// Handle Buttons
 	if (interaction.isButton()) {
 		// Stats
 		bot.stats('btn', interaction.user.id, interaction.guild.id)
@@ -348,12 +340,12 @@ client.on('interactionCreate', async interaction => {
     			let message = new EmbedBuilder()
         			.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   					.setDescription('» <:ERROR:1020414987291861022> An Error has occured while executing this Button.\nThe Error has been logged and will be fixed soon!')
-    				.setFooter({ text: '» ' + votet + ' » ' + version + ' <:EXCLAMATION:1024407166460891166> » ERROR: ' + errorid });
+    				.setFooter({ text: '» ' + votet + ' » ' + config.version + ' <:EXCLAMATION:1024407166460891166> » ERROR: ' + errorid });
 				if (guildlang == 'de') {
 					message = new EmbedBuilder()
         				.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   						.setDescription('» <:ERROR:1020414987291861022> Ein Fehler ist beim ausführen dieses Buttons aufgetreten.\nDer Fehler wurde geloggt und wird bald behoben!')
-    					.setFooter({ text: '» ' + votet + ' » ' + version + ' <:EXCLAMATION:1024407166460891166> » FEHLER: ' + errorid });
+    					.setFooter({ text: '» ' + votet + ' » ' + config.version + ' <:EXCLAMATION:1024407166460891166> » FEHLER: ' + errorid });
 				}
 
     			// Send Message
@@ -363,7 +355,7 @@ client.on('interactionCreate', async interaction => {
 
 	}
 
-});
+})
 
 // Message Handler
 client.on('messageCreate', async message => {
@@ -374,16 +366,16 @@ client.on('messageCreate', async message => {
 		msgs.add('u-' + message.author.id + '-TOTAL-C', message.content.length)
 		msgs.add('u-' + message.author.id + '-' + message.guildId + '-C', message.content.length)
 	}
-});
+})
 
 // Deploy Commands
 const commands = []
 for (const file of commandFiles) {
 	const command = require(file)
 	commands.push(command.data.toJSON())
-}; const rest = new REST({ version: '9' }).setToken(token)
+}; const rest = new REST({ version: '9' }).setToken(config.client.token)
 rest.put(
-	Routes.applicationCommands(clientId),
+	Routes.applicationCommands(config.client.id),
 	{ body: commands },
 )
 
@@ -392,13 +384,12 @@ console.log(' ')
 console.log(`[0xBOT] ${chalk.bold('[i]')} [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] LOGGING IN`)
 
 // Login
-client.login(token)
+client.login(config.client.token)
 
 // Top.gg Stats
-if (apikey != 'none') {
+if (config.web.stats) {
 	const { AutoPoster } = require('topgg-autoposter')
-
-	const ap = AutoPoster(apikey, client)
+	const ap = AutoPoster(config.web.keys.apikey, client)
 
 	ap.on('posted', () => {
 		console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] TOP.GG STATS POSTED')
@@ -406,20 +397,19 @@ if (apikey != 'none') {
 }
 
 // Top.gg Voting
-let user, random, message, messagebonus
-if (dovotes != 'no') {
+if (config.web.votes) {
 	const Topgg = require("@top-gg/sdk")
 	const express = require("express")
 
 	const app = express()
-	const webhook = new Topgg.Webhook(webkey)
+	const webhook = new Topgg.Webhook(config.web.keys.webkey)
 
-	app.post("/dblwebhook", webhook.listener(async (vote) => {
+	app.post("/dblwebhook", webhook.listener(async vote => {
 		if(!vote) { return false }
 		if(!vote.user) { return false }
 
-		user = await client.users.fetch(vote.user)
-		random = Math.floor(Math.random() * (15000 - 7500 + 1)) + 7500
+		const user = await client.users.fetch(vote.user)
+		const random = Math.floor(Math.random() * (15000 - 7500 + 1)) + 7500
 
 		// Calculate Extra
 		let extra
@@ -428,45 +418,43 @@ if (dovotes != 'no') {
 		}
 
 		// Create Embeds
-		message = new EmbedBuilder()
+		let message = new EmbedBuilder()
 			.setTitle('» VOTING')
 			.setDescription('» Thanks for Voting! You got **$' + random + '** from me :)\n» Danke fürs Voten! Du hast **' + random + '€** von mir erhalten :)')
-			.setFooter({ text: '» ' + version });
-
+			.setFooter({ text: '» ' + config.version });
 		if (await lang.get(vote.user) == 1) {
 			message = new EmbedBuilder()
 				.setTitle('» VOTING')
 				.setDescription('» Danke fürs Voten! Du hast **' + random + '€** von mir erhalten :)')
-				.setFooter({ text: '» ' + version });
+				.setFooter({ text: '» ' + config.version });
 		} else {
 			message = new EmbedBuilder()
 				.setTitle('» VOTING')
 				.setDescription('» Thanks for Voting! You got **$' + random + '** from me :)')
-				.setFooter({ text: '» ' + version });
-		}
-		messagebonus = new EmbedBuilder()
+				.setFooter({ text: '» ' + config.version });
+		}; let messagebonus = new EmbedBuilder()
 			.setTitle('» VOTING')
 			.setDescription('» Thanks for Voting **' + (parseInt(await votef.get(vote.user + '-A'))+1) + '** times!\nAs A Gift I give you extra **$' + extra + '**!')
-			.setFooter({ text: '» ' + version });
-
+			.setFooter({ text: '» ' + config.version });
 		if (await lang.get(vote.user) == 1) {
 			messagebonus = new EmbedBuilder()
 				.setTitle('» VOTING')
 				.setDescription('» Danke, dass du **' + (parseInt(await votef.get(vote.user + '-A'))+1) + '** mal gevotet hast!\nAls Geschenk gebe ich dir extra **' + extra + '€**!')
-				.setFooter({ text: '» ' + version });
+				.setFooter({ text: '» ' + config.version });
 		}
 
+		// Add Money
 		await bals.add(vote.user, parseInt(random))
 		console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] VOTED : ' + user + ' : ' + random + '€')
 
+		// Send Message
 		user.send({ embeds: [message.toJSON()] })
 
+		// Count to Stats
 		if (parseInt(await votef.get(vote.user + '-A')+1) % 10 === 0) {
 			bals.add(vote.user, parseInt(extra))
 			user.send({ embeds: [messagebonus.toJSON()] })
-		}
-
-		votef.add(vote.user + '-A', 1)
+		}; votef.add(vote.user + '-A', 1)
 		votef.set(vote.user + '-T', Date.now())
 	}))
 	app.listen(25252)

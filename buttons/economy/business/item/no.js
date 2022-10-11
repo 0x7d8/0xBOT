@@ -1,5 +1,4 @@
 const { EmbedBuilder } = require('@discordjs/builders');
-const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 const { version } = require('../../../../config.json');
 
 module.exports = {

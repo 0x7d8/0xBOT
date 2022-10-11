@@ -1,6 +1,5 @@
 const { EmbedBuilder } = require('@discordjs/builders');
-const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
-const memory = require('../../../commands/fun/memory');
+const { ButtonStyle } = require('discord.js');
 const { version } = require('../../../config.json');
 
 const wait = require('node:timers/promises').setTimeout;
