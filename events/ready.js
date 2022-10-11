@@ -1,7 +1,7 @@
 const { version } = require('../config.json')
 const { ActivityType } = require('discord.js')
-const { apikey } = require('../config.json')
 
+const config = require('../config.json')
 const fetch = require("node-fetch");
 const wait = require('node:timers/promises').setTimeout
 const commitCount = require('git-commit-count')
@@ -38,9 +38,8 @@ module.exports = {
 			client.user.setActivity('$' + total + ' Total Cash', { type: ActivityType.Watching })
 			await wait(20000)
 			headers = {
-				"Authorization": apikey
-			}
-			const cache = await fetch('https://top.gg/api/bots/1001944224545128588', { method: 'GET', headers: headers})
+				"Authorization": config.web.keys.apikey
+			}; const cache = await fetch('https://top.gg/api/bots/1001944224545128588', { method: 'GET', headers: headers})
 			const json = await cache.json()
 			client.user.setActivity(json.monthlyPoints + ' Votes this Month', { type: ActivityType.Watching })
 			await wait(20000)
