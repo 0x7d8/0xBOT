@@ -70,13 +70,13 @@ module.exports = {
         
         // Create Embed
         let message = new EmbedBuilder()
-        	.setTitle('<:WALLET:1024387370793050273> » TOP BALANCES')
+        	.setTitle('<:WALLET:1024387370793050273> » TOP BALANCES [' + listtype.toUpperCase() + ']')
   			.setDescription(embedDesc)
         	.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
         if (lang === 'de') {
             message = new EmbedBuilder()
-        	    .setTitle('<:WALLET:1024387370793050273> » TOP KONTOSTÄNDE')
+        	    .setTitle('<:WALLET:1024387370793050273> » TOP KONTOSTÄNDE [' + listtype.toUpperCase() + ']')
   			    .setDescription(embedDesc)
         	    .setFooter({ text: '» ' + vote + ' » ' + config.version });
         }
