@@ -33,7 +33,7 @@ module.exports = {
                 .addChoices(
                     // Setup Choices
             		{ name: '🌍 GLOBAL', value: 'global' },
-                    { name: '🏘️ SERVER', value: 'local' },
+                    { name: '🏘️ SERVER', value: 'server' },
 				)),
     async execute(interaction, client, lang, vote) {
         // Set Variables
