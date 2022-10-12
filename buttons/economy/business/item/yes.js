@@ -138,15 +138,15 @@ module.exports = {
             }
 
             // Remove Money
-            bot.money.rem(interaction.user.id, cost)
+            bot.money.rem(interaction, interaction.user.id, cost)
 
             // Transfer Money if Business is owned
             if (dopay) {
                 const businessowner = await bot.businesses.get('g-' + interaction.guild.id + '-1-OWNER')
-                if (itemid == 'nbomb') { bot.money.add(businessowner, cost-250); bot.businesses.add('g-' + interaction.guild.id + '-1-EARNING', cost-250) }
-                if (itemid == 'mbomb') { bot.money.add(businessowner, cost-750); bot.businesses.add('g-' + interaction.guild.id + '-1-EARNING', cost-750) }
-                if (itemid == 'hbomb') { bot.money.add(businessowner, cost-2500); bot.businesses.add('g-' + interaction.guild.id + '-1-EARNING', cost-2500) }
-                if (itemid == 'cbomb') { bot.money.add(businessowner, cost-7500); bot.businesses.add('g-' + interaction.guild.id + '-1-EARNING', cost-7500) }
+                if (itemid == 'nbomb') { bot.money.add(interaction, businessowner, cost-250); bot.businesses.add('g-' + interaction.guild.id + '-1-EARNING', cost-250) }
+                if (itemid == 'mbomb') { bot.money.add(interaction, businessowner, cost-750); bot.businesses.add('g-' + interaction.guild.id + '-1-EARNING', cost-750) }
+                if (itemid == 'hbomb') { bot.money.add(interaction, businessowner, cost-2500); bot.businesses.add('g-' + interaction.guild.id + '-1-EARNING', cost-2500) }
+                if (itemid == 'cbomb') { bot.money.add(interaction, businessowner, cost-7500); bot.businesses.add('g-' + interaction.guild.id + '-1-EARNING', cost-7500) }
             }
 
             // Own Item(s)

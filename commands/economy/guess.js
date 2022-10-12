@@ -172,9 +172,9 @@ module.exports = {
         }
         
         // Set Money
-        bot.money.rem(interaction.user.id, result)
+        bot.money.rem(interaction, interaction.user.id, result)
         if (status == 'GEWONNEN' || status == 'WON') {
-        	bot.money.add(interaction.user.id, result)
+        	bot.money.add(interaction, interaction.user.id, result)
         }
 
         // Send Message

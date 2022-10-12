@@ -161,8 +161,8 @@ module.exports = {
         }
 
         // Transfer Money
-        bot.money.rem(sender.toString().replace(/\D/g, ''), bet)
-        bot.money.rem(reciever.toString().replace(/\D/g, ''), bet)
+        bot.money.rem(interaction, sender.toString().replace(/\D/g, ''), bet)
+        bot.money.rem(interaction, reciever.toString().replace(/\D/g, ''), bet)
 
         // Create Embed
         let message = new EmbedBuilder()

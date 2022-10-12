@@ -265,7 +265,7 @@ module.exports = {
         	setTimeout(() => cooldown.delete(), time)
             
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : ' + user + ' : ' + amount + '€ : FAILURE : ' + punishment + '€')
-        	bot.money.rem(interaction.user.id, punishment)
+        	bot.money.rem(interaction, interaction.user.id, punishment)
         	return interaction.reply({ embeds: [failure.toJSON()] })
         }
         
@@ -274,8 +274,8 @@ module.exports = {
         setTimeout(() => cooldown.delete(), time)
 
         // Set Money
-        bot.money.rem(user.id, amount)
-        bot.money.add(interaction.user.id, amount)
+        bot.money.rem(interaction, user.id, amount)
+        bot.money.add(interaction, interaction.user.id, amount)
         
         // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : ' + user + ' : ' + amount + '€ : SUCCESS')

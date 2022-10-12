@@ -54,8 +54,8 @@ module.exports = {
         }
 
         // Transfer Money
-        bot.money.rem(interaction.user.id, parseInt(amount))
-        bot.money.add(reciever, parseInt(amount))
+        bot.money.rem(interaction, interaction.user.id, parseInt(amount))
+        bot.money.add(interaction, reciever, parseInt(amount))
 
         // Create Embeds
         let message

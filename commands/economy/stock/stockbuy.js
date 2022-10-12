@@ -285,7 +285,7 @@ module.exports = {
         }
 
         // Remove Money
-        bot.money.rem(interaction.user.id, cost)
+        bot.money.rem(interaction, interaction.user.id, cost)
 
         // Create Embed
         let message = new EmbedBuilder()

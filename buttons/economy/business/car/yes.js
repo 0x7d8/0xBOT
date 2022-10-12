@@ -137,16 +137,16 @@ module.exports = {
             }
 
             // Remove Money
-            bot.money.rem(interaction.user.id, cost)
+            bot.money.rem(interaction, interaction.user.id, cost)
 
             // Transfer Money if Business is owned
             if (dopay) {
                 const businessowner = await bot.businesses.get('g-' + interaction.guild.id + '-3-OWNER')
-                if (car == 'jeep') { bot.money.add(businessowner, cost-5000); bot.businesses.add('g-' + interaction.guild.id + '-3-EARNING', cost-5000) }
-                if (car == 'kia') { bot.money.add(businessowner, cost-50000); bot.businesses.add('g-' + interaction.guild.id + '-3-EARNING', cost-50000) }
-                if (car == 'audi') { bot.money.add(businessowner, cost-150000); bot.businesses.add('g-' + interaction.guild.id + '-3-EARNING', cost-150000) }
-                if (car == 'tesla') { bot.money.add(businessowner, cost-220000); bot.businesses.add('g-' + interaction.guild.id + '-3-EARNING', cost-260000) }
-                if (car == 'porsche') { bot.money.add(businessowner, cost-400000); bot.businesses.add('g-' + interaction.guild.id + '-3-EARNING', cost-500000) }
+                if (car == 'jeep') { bot.money.add(interaction, businessowner, cost-5000); bot.businesses.add('g-' + interaction.guild.id + '-3-EARNING', cost-5000) }
+                if (car == 'kia') { bot.money.add(interaction, businessowner, cost-50000); bot.businesses.add('g-' + interaction.guild.id + '-3-EARNING', cost-50000) }
+                if (car == 'audi') { bot.money.add(interaction, businessowner, cost-150000); bot.businesses.add('g-' + interaction.guild.id + '-3-EARNING', cost-150000) }
+                if (car == 'tesla') { bot.money.add(interaction, businessowner, cost-220000); bot.businesses.add('g-' + interaction.guild.id + '-3-EARNING', cost-260000) }
+                if (car == 'porsche') { bot.money.add(interaction, businessowner, cost-400000); bot.businesses.add('g-' + interaction.guild.id + '-3-EARNING', cost-500000) }
             }
 
             // Own Car
@@ -195,7 +195,7 @@ module.exports = {
             }
 
             // Add Money
-            bot.money.add(interaction.user.id, (cost/2))
+            bot.money.add(interaction, interaction.user.id, (cost/2))
 
             // unOwn Car
             bot.items.del(interaction.user.id + '-CAR-' + interaction.guild.id)

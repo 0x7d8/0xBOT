@@ -57,6 +57,7 @@ const { Routes } = require('discord-api-types/v9')
 const client = new Client({
     intents: [
 	    GatewayIntentBits.Guilds,
+		GatewayIntentBits.GuildMembers,
 	    GatewayIntentBits.GuildMessages,
 	    GatewayIntentBits.MessageContent
     ]
@@ -431,7 +432,7 @@ if (config.web.votes) {
 		}
 
 		// Add Money
-		await bot.money.add(vote.user, parseInt(random))
+		await bot.money.add(interaction, vote.user, parseInt(random))
 		console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] VOTED : ' + user + ' : ' + random + '€')
 
 		// Send Message
@@ -439,7 +440,7 @@ if (config.web.votes) {
 
 		// Count to Stats
 		if (parseInt(await bot.votes.get(vote.user + '-A')+1) % 10 === 0) {
-			bot.money.add(vote.user, parseInt(extra))
+			bot.money.add(interaction, vote.user, parseInt(extra))
 			user.send({ embeds: [messagebonus.toJSON()] })
 		}; bot.votes.add(vote.user + '-A', 1)
 		bot.votes.set(vote.user + '-T', Date.now())

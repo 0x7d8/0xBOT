@@ -139,7 +139,7 @@ module.exports = {
         }
 
         // Add Money
-        bot.money.add(interaction.user.id, cash)
+        bot.money.add(interaction, interaction.user.id, cash)
 
         // Remove Stock Amount
         if (stock == 'green') {

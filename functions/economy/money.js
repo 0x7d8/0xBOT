@@ -17,15 +17,18 @@ exports.get = (userid) => new Promise(async ful => {
 })
 
 // Set Function
-exports.set = (userid, value) => new Promise(async ful => {
+exports.set = (i, userid, value) => new Promise(async ful => {
     const data = await db.query(`select * from usermoney where userid = $1;`, [userid])
     if (data.rowCount !== 1) {
-        await db.query(`insert into usermoney values ($1, $2)`, [
+        await db.query(`insert into usermoney values ($1, $2, {$3})`, [
             userid,
-            value
+            value,
+            i.guild.id
         ]); return ful('Y-CREATE')
     } else {
-        await db.query(`update usermoney set money = $1 where userid = $2;`, [
+        if (!data.rows[0].guilds.includes(i.guild.id)) {
+            await db.query(`update usermoney set guilds = array_append(guilds, $1) where userid = $2`, [i.guild.id, userid])
+        }; await db.query(`update usermoney set money = $1 where userid = $2;`, [
             value,
             userid
         ]); return ful('Y-WRITE')
@@ -33,15 +36,18 @@ exports.set = (userid, value) => new Promise(async ful => {
 })
 
 // Add Function
-exports.add = (userid, value) => new Promise(async ful => {
+exports.add = (i, userid, value) => new Promise(async ful => {
     const data = await db.query(`select * from usermoney where userid = $1;`, [userid])
     if (data.rowCount !== 1) {
-        await db.query(`insert into usermoney values ($1, $2)`, [
+        await db.query(`insert into usermoney values ($1, $2 , {$3})`, [
             userid,
-            value
+            value,
+            i.guild.id
         ]); return ful('Y-CREATE')
     } else {
-        await db.query(`update usermoney set money = money + $1 where userid = $2;`, [
+        if (!data.rows[0].guilds.includes(i.guild.id)) {
+            await db.query(`update usermoney set guilds = array_append(guilds, $1) where userid = $2`, [i.guild.id, userid])
+        }; await db.query(`update usermoney set money = money + $1 where userid = $2;`, [
             value,
             userid
         ]); return ful('Y-WRITE')
@@ -49,14 +55,16 @@ exports.add = (userid, value) => new Promise(async ful => {
 })
 
 // Rem Function
-exports.rem = (userid, value) => new Promise(async ful => {
+exports.rem = (i, userid, value) => new Promise(async ful => {
     const data = await db.query(`select * from usermoney where userid = $1;`, [userid])
     if (data.rowCount !== 1) {
         await db.query(`insert into usermoney values ($1, 0)`, [
             userid
         ]); return ful('Y-CREATE')
     } else {
-        await db.query(`update usermoney set money = money - $1 where userid = $2;`, [
+        if (!data.rows[0].guilds.includes(i.guild.id)) {
+            await db.query(`update usermoney set guilds = array_append(guilds, $1) where userid = $2`, [i.guild.id, userid])
+        }; await db.query(`update usermoney set money = money - $1 where userid = $2;`, [
             value,
             userid
         ]); return ful('Y-WRITE')

@@ -33,7 +33,7 @@ module.exports = {
                 .addChoices(
                     // Setup Choices
             		{ name: '🌍 GLOBAL', value: 'global' },
-                    //{ name: '🏘️ LOKAL', value: 'local' },
+                    { name: '🏘️ SERVER', value: 'local' },
 				)),
     async execute(interaction, client, lang, vote) {
         // Set Variables
@@ -59,20 +59,14 @@ module.exports = {
                 }
             }
         } else {
-            const rawvalues = await db.query(`select * from usermoney order by money DESC`)
+            const rawvalues = await db.query(`select * from usermoney where $1 = any(guilds) order by money DESC limit 10`, [interaction.guild.id])
             for (const element of rawvalues.rows) {
-                if (count >= 10) break
-
-                let skip = false
-                const userinfo = await interaction.guild.members.get(element.userid).catch((e) => skip = true)
-                if (!skip) {
-                    count++
-                    let formattedcount = count
-                    if (count < 10) { formattedcount = '0' + count }
-                    embedDesc = embedDesc + `\`${formattedcount}.\` » ${userinfo.user.username}#${userinfo.user.discriminator} (**${element.money}€**)\n`
-                }
+                count++
+                let formattedcount = count
+                if (count < 10) { formattedcount = '0' + count }
+                embedDesc = embedDesc + `\`${formattedcount}.\` » <@${element.userid}> (**${element.money}€**)\n`
             }
-        }
+        }; if (embedDesc === '') { embedDesc = 'Nothing to Display.'; if (lang === 'de') { embedDesc = 'Nichts zum Anzeigen.' } }
         
         // Create Embed
         let message = new EmbedBuilder()

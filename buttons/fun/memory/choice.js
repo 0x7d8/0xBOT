@@ -232,10 +232,10 @@ module.exports = {
             // Transfer Money
             const betwon = parseInt(bet) * 2
             if (winner != '**Noone**' && winner != '**Niemand**') {
-                bot.money.add(winner.toString().replace(/\D/g, ''), parseInt(betwon))
+                bot.money.add(interaction, winner.toString().replace(/\D/g, ''), parseInt(betwon))
             } else {
-                bot.money.add(sender.toString().replace(/\D/g, ''), parseInt(bet))
-                bot.money.add(reciever.toString().replace(/\D/g, ''), parseInt(bet))
+                bot.money.add(interaction, sender.toString().replace(/\D/g, ''), parseInt(bet))
+                bot.money.add(interaction, reciever.toString().replace(/\D/g, ''), parseInt(bet))
             }
 
             // Create Embed

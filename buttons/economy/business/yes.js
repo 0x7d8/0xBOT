@@ -115,7 +115,7 @@ module.exports = {
             interaction.message.components[0].components[1].data.style = 2
 
             // Remove Money
-            bot.money.rem(interaction.user.id, cost)
+            bot.money.rem(interaction, interaction.user.id, cost)
 
             // Own Business
             bot.businesses.set('g-' + interaction.guild.id + '-' + businessid + '-OWNER', interaction.user.id)
@@ -204,7 +204,7 @@ module.exports = {
             }
 
             // Add Money
-            bot.money.add(interaction.user.id, (cost/2))
+            bot.money.add(interaction, interaction.user.id, (cost/2))
 
             // unOwn Business
             bot.businesses.del('u-' + interaction.user.id + '-' + interaction.guild.id + '-BUSINESS')

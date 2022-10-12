@@ -30,7 +30,7 @@ stdin.addListener("data", function(d) {
     if (args[0].toUpperCase() == 'ADDBAL') {
         if (typeof args[1] !== 'undefined' && typeof args[2] !== 'undefined') {
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] ADDED ' + args[2] + '€ TO ' + args[1])
-            bot.money.add(args[1].toString(), parseInt(args[2]))
+            bot.money.add(interaction, args[1].toString(), parseInt(args[2]))
         } else {
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] USAGE: ADDBAL [USERID] [AMOUNT]')
         }
@@ -40,7 +40,7 @@ stdin.addListener("data", function(d) {
     if (args[0].toUpperCase() == 'REMBAL') {
         if (typeof args[1] !== 'undefined' && typeof args[2] !== 'undefined') {
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] REMOVED ' + args[2] + '€ FROM ' + args[1])
-            bot.money.rem(args[1].toString(), parseInt(args[2]))
+            bot.money.rem(interaction, args[1].toString(), parseInt(args[2]))
         } else {
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] USAGE: REMBAL [USERID] [AMOUNT]')
         }
@@ -50,7 +50,7 @@ stdin.addListener("data", function(d) {
     if (args[0].toUpperCase() == 'SETBAL') {
         if (typeof args[1] !== 'undefined' && typeof args[2] !== 'undefined') {
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] SET BALANCE OF ' + args[1] + ' TO ' + args[2] + '€')
-            bot.money.set(args[1].toString(), parseInt(args[2]))
+            bot.money.set(interaction, args[1].toString(), parseInt(args[2]))
         } else {
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] USAGE: SETBAL [USERID] [AMOUNT]')
         }
@@ -105,7 +105,6 @@ rawvalues.forEach(function (e) {
 const DarkDashboard = require('dbd-dark-dashboard')
 
 const { Client, GatewayIntentBits } = require('discord.js');
-const { migrate } = require('./migrations/0000_add-migrations-table.js')
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 client.login(config.client.token);
 
