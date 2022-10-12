@@ -40,7 +40,7 @@ module.exports = {
         const listtype = interaction.options.getString("list")
 
         // Defer Reply
-        interaction.deferReply()
+        await interaction.deferReply()
 
         // Get Top Money
         let embedDesc = ''; let count = 0
