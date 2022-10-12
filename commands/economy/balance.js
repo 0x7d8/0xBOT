@@ -42,7 +42,7 @@ module.exports = {
   				.setDescription('» Your Balance is **$' + money + '**!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
             	    .setTitle('<:WALLET:1024387370793050273> » DEIN GELDSTAND')
   				    .setDescription('» Dein Geldstand beträgt **' + money + '€**!')
@@ -54,7 +54,7 @@ module.exports = {
   				.setDescription('» The Balance of <@' + user + '> is **$' + money + '**!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
             	    .setTitle('<:WALLET:1024387370793050273> » DER GELDSTAND VON ' + user.username.toUpperCase())
   				    .setDescription('» Der Geldstand von <@' + user + '> ist **' + money + '€**!')

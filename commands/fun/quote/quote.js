@@ -44,7 +44,7 @@ module.exports = {
         		.setDescription('» Quotes are disabled on this Server!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Zitate sind auf diesem Server deaktiviert!')
@@ -72,7 +72,7 @@ module.exports = {
   				.setDescription('» You still have a Cooldown of **' + cdown.toFixed(0) + 's**!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
             	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Du hast leider noch einen Cooldown von **' + cdown.toFixed(0) + 's**!')
@@ -93,7 +93,7 @@ module.exports = {
   				.setDescription('» "' + zitat + '" ~<@' + interaction.user.id + '>')
             	.setFooter({ text: '» ' + version + ' » QUOTES: ' + amount});
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
             	    .setTitle('<:QUOTES:1024406448127623228> » EIN WEISES ZITAT')
   				    .setDescription('» "' + zitat + '" ~<@' + interaction.user.id + '>')
@@ -108,7 +108,7 @@ module.exports = {
   				.setDescription('» "' + zitat + '" ~<@' + autor + '>')
             	.setFooter({ text: '» ' + version + ' » QUOTES: ' + amount});
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
             	    .setTitle('<:QUOTES:1024406448127623228> » EIN ZITAT')
   				    .setDescription('» "' + zitat + '" ~<@' + autor + '>')

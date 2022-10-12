@@ -24,7 +24,7 @@ module.exports = {
         		.setDescription('» <@' + reciever.toString().replace(/\D/g, '') + '> has to decide this!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» <@' + reciever.toString().replace(/\D/g, '') + '> muss das entscheiden!')
@@ -44,7 +44,7 @@ module.exports = {
         		.setDescription('» You are already in a Lobby!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Du bist schon in einer Lobby!')
@@ -64,7 +64,7 @@ module.exports = {
         		.setDescription('» <@' + sender + '> is already in a Lobby!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» <@' + sender + '> ist schon in einer Lobby!')
@@ -86,7 +86,7 @@ module.exports = {
   				.setDescription('» You dont have enough Money for that, you are missing **$' + missing + '**!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
             	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
@@ -106,7 +106,7 @@ module.exports = {
   				.setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> doesnt have enough Money, he is Missing **$' + missing + '**!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
             	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> hat nicht genug Geld, im fehlen **' + missing + '€**!')
@@ -235,7 +235,7 @@ module.exports = {
             .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> is playing Tic Tac Toe with <@' + reciever.toString().replace(/\D/g, '') + '>!\nThe Bet is **$' + bet + '**\n\n🔵 » <@' + sender.toString().replace(/\D/g, '') + '>\n🔴 » <@' + reciever.toString().replace(/\D/g, '') + '>')
             .setFooter({ text: '» ' + version + ' » CURRENT TURN: 🔵' });
 
-        if (lang == "de") {
+        if (lang === 'de') {
             message = new EmbedBuilder()
                 .setTitle('<:GAMEPAD:1024395990679167066> » TICTACTOE')
                 .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> spielt mit <@' + reciever.toString().replace(/\D/g, '') + '> Tic Tac Toe!\nDie Wette ist **' + bet + '€**\n\n🔵 » <@' + sender.toString().replace(/\D/g, '') + '>\n🔴 » <@' + reciever.toString().replace(/\D/g, '') + '>')

@@ -21,7 +21,7 @@ module.exports = {
 					.setStyle(ButtonStyle.Link),
 			);
         
-        if (lang == "de") {
+        if (lang === 'de') {
             button = new ActionRowBuilder()
 			    .addComponents(
 				    new ButtonBuilder()
@@ -37,7 +37,7 @@ module.exports = {
   			.setDescription('» CLick below to go to the **GITHUB** Page of the Bot!')
         	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-        if (lang == "de") {
+        if (lang === 'de') {
             message = new EmbedBuilder()
                 .setTitle('<:GLOBE:1024403680503529583> » GITHUB')
   			    .setDescription('» Klicke unten um auf die **GITHUB** Seite zu kommen!')

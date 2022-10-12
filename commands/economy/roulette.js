@@ -46,7 +46,7 @@ module.exports = {
         		.setDescription('» Luck Games are disabled on this Server!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Glücksspiele sind auf diesem Server deaktiviert!')
@@ -73,7 +73,7 @@ module.exports = {
         		.setDescription('» You cant play with negative Money!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Du kannst keine negativen Einsätze spielen!')
@@ -96,7 +96,7 @@ module.exports = {
         if (color == farbe) { status = 'WON' }
         if (color != farbe) { status = 'LOST' }
 
-        if (lang == "de") {
+        if (lang === 'de') {
             if (color == farbe) { status = 'GEWONNEN' }
             if (color != farbe) { status = 'VERLOREN' }
         }
@@ -111,7 +111,7 @@ module.exports = {
   					.setDescription('» You cant bet that much! **$15000** is the Maximum.')
             		.setFooter({ text: '» ' + vote + ' » ' + version });
 
-                if (lang == "de") {
+                if (lang === 'de') {
                     message = new EmbedBuilder()
             		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   					    .setDescription('» Du kannst nicht soviel Wetten! **15000€** ist das Maximum.')
@@ -150,7 +150,7 @@ module.exports = {
   				.setDescription('» You bet **$' + wette + '** on **' + colordis.toUpperCase() + '** and **' + status + '** **$' + resultdis + '**!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
             	    .setTitle('<:CLOVER:1024388649418235925> » ROULETTE')
   				    .setDescription('» Du hast **' + wette + '€** auf **' + farbe.toUpperCase() + '** gesetzt und **' + resultdis + '€** **' + status + '**!')
@@ -177,7 +177,7 @@ module.exports = {
   				.setDescription('» You dont have enough Money for that, you are missing **$' + missing + '**!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
             	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')

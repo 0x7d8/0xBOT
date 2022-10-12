@@ -52,7 +52,7 @@ module.exports = {
         		.setDescription('» Businesses are disabled on this Server!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Geschäfte sind auf diesem Server deaktiviert!')
@@ -76,7 +76,7 @@ module.exports = {
   				.setDescription('» You dont own this Business!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
             	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Du besitzt dieses Geschäft nicht!')
@@ -101,7 +101,7 @@ module.exports = {
   				.setDescription('» Please follow the limits seen in the first step!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
             	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Bitte folge den Limits zu sehen im ersten Schritt!')

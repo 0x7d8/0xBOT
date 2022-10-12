@@ -20,7 +20,7 @@ module.exports = {
   			.setDescription('» I would choose **1.' + res + '**!')
         	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-        if (lang == "de") {
+        if (lang === 'de') {
             message = new EmbedBuilder()
         	    .setTitle('<:CUBE:1024404832452350032> » ZUFÄLLIGE MINECRAFT VERSION')
   			    .setDescription('» Ich würde **1.' + res + '** nehmen!')

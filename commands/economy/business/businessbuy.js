@@ -37,7 +37,7 @@ module.exports = {
         		.setDescription('» Businesses are disabled on this Server!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Geschäfte sind auf diesem Server deaktiviert!')
@@ -61,7 +61,7 @@ module.exports = {
         		.setDescription('» This Business will be included in **2.5.0**!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Dieses Geschäft wird in **2.5.0** hinzugefügt!')
@@ -182,7 +182,7 @@ module.exports = {
   				.setDescription('» You dont have enough Money for that, you are missing **$' + missing + '**!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
             	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
@@ -211,7 +211,7 @@ module.exports = {
 					.setStyle(ButtonStyle.Danger)
                     .setDisabled(false),
 			);
-        if (lang == "de") {
+        if (lang === 'de') {
             row = new ActionRowBuilder()
 			    .addComponents(
 			    	new ButtonBuilder()

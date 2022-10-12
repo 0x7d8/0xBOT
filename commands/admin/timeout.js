@@ -44,7 +44,7 @@ module.exports = {
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» You have to timeout for atleast **1** Second!')
         		.setFooter({ text: '» ' + version });
-            if (lang == "de") {
+            if (lang === 'de') {
 
                 message = new EmbedBuilder()
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
@@ -64,7 +64,7 @@ module.exports = {
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» I dont think I have the **MODERATE MEMBERS** Permission!')
         		.setFooter({ text: '» ' + version });
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Ich denke nicht, dass ich die **MITGLIEDER IM TIMEOUT** Berechtigung habe!')

@@ -18,7 +18,7 @@ module.exports = {
     		.setImage("https://img.rjansen.de/bot/donate.png")
     		.setFooter({ text: '» ' + vote + ' » ' + version });
 
-        if (lang == "de") {
+        if (lang === 'de') {
             message = new EmbedBuilder()
         		.setTitle('<:DONATE:1024397357988720711> » SPENDEN')
         		.setDescription('**»» SPENDEN**\n» LINK\nhttps://donate.rjansen.de\n» QR CODE')

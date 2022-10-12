@@ -19,7 +19,7 @@ module.exports = {
         		.setDescription('» <@' + reciever.toString().replace(/\D/g, '') + '> or <@' + sender.toString().replace(/\D/g, '') + '> has to decide this!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» <@' + reciever.toString().replace(/\D/g, '') + '> oder <@' + sender.toString().replace(/\D/g, '') + '> muss das entscheiden!')
@@ -45,7 +45,7 @@ module.exports = {
         .setDescription('» <@' + interaction.user.id + '> said **NO**.')
         .setFooter({ text: '» ' + vote + ' » ' + version });
 
-        if (lang == "de") {
+        if (lang === 'de') {
             message = new EmbedBuilder()
                 .setTitle('<:GAMEPAD:1024395990679167066> » TICTACTOE')
                 .setDescription('» <@' + interaction.user.id + '> hat **NEIN** gesagt.')

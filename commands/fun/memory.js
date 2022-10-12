@@ -41,7 +41,7 @@ module.exports = {
         		.setDescription('» Minigames are disabled on this Server!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Minispiele sind auf diesem Server deaktiviert!')
@@ -68,7 +68,7 @@ module.exports = {
         		.setDescription('» You cant play Memory with a Bot!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Du kannst Memory nicht mit einem Bot spielen!')
@@ -88,7 +88,7 @@ module.exports = {
         		.setDescription('» You are already in a Lobby!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Du bist schon in einer Lobby!')
@@ -108,7 +108,7 @@ module.exports = {
         		.setDescription('» <@' + user.id + '> is already in a Lobby!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» <@' + user.id + '> ist schon in einer Lobby!')
@@ -128,7 +128,7 @@ module.exports = {
         		.setDescription('» You cant bet negative Money!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Du kannst kein negatives Geld wetten!')
@@ -148,7 +148,7 @@ module.exports = {
   				.setDescription('» You cant play Memory with yourself?')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
             	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Du kannst Memory nicht mit dir alleine spielen?')
@@ -170,7 +170,7 @@ module.exports = {
   				.setDescription('» You dont have enough Money for that, you are missing **$' + missing + '**!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
             	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
@@ -190,7 +190,7 @@ module.exports = {
   				.setDescription('» <@' + user.id + '> doesnt have enough Money for that, he is Missing **$' + missing + '**!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
             	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» <@' + user.id + '> hat dafür nicht genug Geld, im fehlen **' + missing + '€**!')
@@ -218,7 +218,7 @@ module.exports = {
                     .setEmoji('1024382939020152982')
 					.setStyle(ButtonStyle.Danger),
 			);
-        if (lang == "de") {
+        if (lang === 'de') {
             row = new ActionRowBuilder()
 			    .addComponents(
 			    	new ButtonBuilder()
@@ -241,7 +241,7 @@ module.exports = {
   			.setDescription('» <@' + interaction.user.id + '> challenges you, <@' + user.id + '> to a battle of Memory! The Bet is **$' + bet + '**.\nDo you accept?\n\n» This Request expires <t:' + (Math.floor(+new Date() / 1000) + 29) + ':R>')
         	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-        if (lang == "de") {
+        if (lang === 'de') {
             message = new EmbedBuilder()
         	    .setTitle('<:GAMEPAD:1024395990679167066> » MEMORY')
   			    .setDescription('» <@' + interaction.user.id + '> fordert dich, <@' + user.id + '> zu einem Spiel von Memory heraus! Die Wette ist **' + bet + '€**.\nAkzeptierst du?\n\n» Diese Anfrage wird ungültig <t:' + (Math.floor(+new Date() / 1000) + 29) + ':R>')
@@ -271,7 +271,7 @@ module.exports = {
                 .setDescription('» The Request expired.')
                 .setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
                     .setTitle('<:GAMEPAD:1024395990679167066> » MEMORY')
                     .setDescription('» Die Anfrage ist abgelaufen.')

@@ -44,7 +44,7 @@ module.exports = {
         		.setDescription('» You cant ask for negative Money!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Du kannst nicht nach negativem Geld fragen!')
@@ -64,7 +64,7 @@ module.exports = {
                 .setDescription('» You cant beg that much! **$10000** is the Maximum.')
                 .setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
                     .setTitle('» BETTELN')
                     .setDescription('» Du kannst nicht soviel erbetteln! **10000€** ist das Maximum.')
@@ -97,7 +97,7 @@ module.exports = {
 					.setStyle(ButtonStyle.Secondary),
 			);
 
-        if (lang == "de") {
+        if (lang === 'de') {
             button = new ActionRowBuilder()
 			    .addComponents(
 				    new ButtonBuilder()
@@ -116,7 +116,7 @@ module.exports = {
   			    .setDescription('» <@' + interaction.user.id + '> needs Money!\nTotal Earnings: **$0**')
         	    .setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
                     .setTitle('<:DONATE:1024397357988720711> » BETTELN')
   			        .setDescription('» <@' + interaction.user.id + '> braucht Geld!\nInsgesamte Einnahmen: **0€**')
@@ -128,7 +128,7 @@ module.exports = {
   			    .setDescription('» <@' + interaction.user.id + '> needs Money!\nTotal Earnings: **$0**\n*"' + reason.toString() + '"*')
         	    .setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
                     .setTitle('<:DONATE:1024397357988720711> » BETTELN')
   			        .setDescription('» <@' + interaction.user.id + '> braucht Geld!\nInsgesamte Einnahmen: **0€**\n*"' + reason.toString() + '"*')

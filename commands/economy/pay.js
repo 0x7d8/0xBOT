@@ -44,7 +44,7 @@ module.exports = {
         		.setDescription('» You cant send negative Money!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Du kannst kein negatives Geld senden!')
@@ -64,7 +64,7 @@ module.exports = {
         		.setDescription('» You cant give a Bot Money!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Du kannst einem Bot kein Geld geben!')
@@ -86,7 +86,7 @@ module.exports = {
   			.setDescription('» You cant give yourself Money!')
         	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-        if (lang == "de") {
+        if (lang === 'de') {
             message = new EmbedBuilder()
                 .setTitle('<:BAG:1024389219558367292> » GELD GEBEN')
   			    .setDescription('» Du hast <@' + user.id + '> **' + anzahl + '€** gegeben!')
@@ -115,7 +115,7 @@ module.exports = {
   				.setDescription('» You dont have enough Money for that, you are missing **$' + missing + '**!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
             	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')

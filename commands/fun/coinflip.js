@@ -34,7 +34,7 @@ module.exports = {
         		.setDescription('» You need to throw atleast **1** Coin!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Du musst schon mindestens **1** Münze werfen!')
@@ -54,7 +54,7 @@ module.exports = {
         		.setDescription('» You cant throw more than **1000** Coins!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Du darfst nicht mehr als **1000** Münzen werfen!')
@@ -91,7 +91,7 @@ module.exports = {
   			    .setDescription('» The Coin Landed on **' + coin + '**!')
         	    .setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 if (coin == "HEAD") { coin = "KOPF" }
                 if (coin == "TAIL") { coin = "ZAHL" }
 
@@ -106,7 +106,7 @@ module.exports = {
   			    .setDescription('» HEADS\n`' + heads + '`\n\n» TAILS\n`' + tails + '`')
         	    .setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
         	        .setTitle('<:COINS:1024392690776944803> » COINFLIP')
   			        .setDescription('» KÖPFE\n`' + heads + '`\n\n» ZAHLEN\n`' + tails + '`')

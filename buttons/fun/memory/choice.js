@@ -36,7 +36,7 @@ module.exports = {
         		.setDescription('» You arent playing!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Du spielst garnicht mit!')
@@ -56,7 +56,7 @@ module.exports = {
         		.setDescription('» Its not your turn!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Es ist nicht dein Zug!')
@@ -174,7 +174,7 @@ module.exports = {
             .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> is playing Memory with <@' + reciever.toString().replace(/\D/g, '') + '>!\nThe Bet is **$' + bet + '**\n\n🔵 » Points of <@' + sender.toString().replace(/\D/g, '') + '> are **' + bot.memory.get('POINTS-' + sender)+ '**\n🔴 » Points of <@' + reciever.toString().replace(/\D/g, '') + '> are **' + bot.memory.get('POINTS-' + reciever) + '**')
             .setFooter({ text: '» ' + version + ' » CURRENT TURN: ' + turnemoji });
 
-        if (lang == "de") {
+        if (lang === 'de') {
             message = new EmbedBuilder()
                 .setTitle('<:GAMEPAD:1024395990679167066> » MEMORY')
                 .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> spielt mit <@' + reciever.toString().replace(/\D/g, '') + '> Memory!\nDie Wette ist **' + bet + '€**\n\n🔵 » Punkte von <@' + sender.toString().replace(/\D/g, '') + '> sind **' + bot.memory.get('POINTS-' + sender) + '**\n🔴 » Punkte von <@' + reciever.toString().replace(/\D/g, '') + '> sind **' + bot.memory.get('POINTS-' + reciever) +'**')
@@ -224,7 +224,7 @@ module.exports = {
                 winner = '<@' + reciever + '>'
             } else {
                 winner = '**Noone**'
-                if (lang == "de") {
+                if (lang === 'de') {
                     winner = '**Niemand**'
                 }
             } 
@@ -244,7 +244,7 @@ module.exports = {
                 .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> is playing Memory with <@' + reciever.toString().replace(/\D/g, '') + '>!\nThe Bet is **$' + bet + '**\n\n🔵 » Points of <@' + sender.toString().replace(/\D/g, '') + '> are **' + bot.memory.get('POINTS-' + sender) + '**\n🔴 » Points of <@' + reciever.toString().replace(/\D/g, '') + '> are **' + bot.memory.get('POINTS-' + reciever) + '**\n\n<:AWARD:1024385473524793445> ' + winner + ' has won **$' + betwon + '**!')
                 .setFooter({ text: '» ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
                     .setTitle('<:GAMEPAD:1024395990679167066> » MEMORY')
                     .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> spielt mit <@' + reciever.toString().replace(/\D/g, '') + '> Memory!\nDie Wette ist **' + bet + '€**\n\n🔵 » Punkte von <@' + sender.toString().replace(/\D/g, '') + '> sind **' + bot.memory.get('POINTS-' + sender) + '**\n🔴 » Punkte von <@' + reciever.toString().replace(/\D/g, '') + '> sind **' + bot.memory.get('POINTS-' + reciever) +'**\n\n<:AWARD:1024385473524793445> ' + winner + ' hat **' + betwon + '€** gewonnen!')

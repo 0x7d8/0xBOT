@@ -21,7 +21,7 @@ module.exports = {
         		.setDescription('» Cars are disabled on this Server!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Autos sind auf diesem Server deaktiviert!')
@@ -58,7 +58,7 @@ module.exports = {
   				.setDescription('» You dont own a Car!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
             	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Du besitzt kein Auto!')
@@ -87,7 +87,7 @@ module.exports = {
 					.setStyle(ButtonStyle.Danger)
                     .setDisabled(false),
 			);
-        if (lang == "de") {
+        if (lang === 'de') {
             row = new ActionRowBuilder()
 			    .addComponents(
 			    	new ButtonBuilder()

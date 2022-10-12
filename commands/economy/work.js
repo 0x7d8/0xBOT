@@ -24,7 +24,7 @@ module.exports = {
         		.setDescription('» The **`/work`** Command is disabled on this Server!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Der **`/work`** Befehl ist auf diesem Server deaktiviert!')
@@ -53,7 +53,7 @@ module.exports = {
   				.setDescription('» You still have a Cooldown of **' + cdown.toFixed(0) + use + '**!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
             	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Du hast leider noch einen Cooldown von **' + cdown.toFixed(0) + use + '**!')
@@ -73,7 +73,7 @@ module.exports = {
         	if (random == '3') { job = 'MCDONALDS WORKER'; result = Math.floor(Math.random() * (120 - 30 + 1)) + 30; }
         	if (random == '4') { job = 'PAINTER'; result = Math.floor(Math.random() * (500 - 200 + 1)) + 200; }
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 if (random == '1') { job = 'PROGRAMMIERER'; }
         	    if (random == '2') { job = 'HAUSMEISTER'; }
         	    if (random == '3') { job = 'MCDONALDS KASSIERER'; }
@@ -96,7 +96,7 @@ module.exports = {
                 if (result >= 60) { extra = 'GREAT.' }
                 if (result >= 80) { extra = 'WONDERFUL!' }
                 if (result >= 100) { extra = 'WOW!' }
-                if (lang == "de") {
+                if (lang === 'de') {
                     if (result < 40) { extra = 'MEH.' }
                     if (result >= 40) { extra = 'NICE.' }
                     if (result >= 60) { extra = 'PRIMA.' }
@@ -109,7 +109,7 @@ module.exports = {
                 if (result >= 60) { extra = 'GREAT.\n\n**+' + carboostam + '%** thanks to your Car!' }
                 if (result >= 80) { extra = 'WONDERFUL!\n\n**+' + carboostam + '%** thanks to your Car!' }
                 if (result >= 100) { extra = 'WOW!\n\n**+' + carboostam + '%** thanks to your Car!' }
-                if (lang == "de") {
+                if (lang === 'de') {
                     if (result < 40) { extra = 'MEH.\n\n**+' + carboostam + '%** wegen deinem Auto!' }
                     if (result >= 40) { extra = 'NICE.\n\n**+' + carboostam + '%** wegen deinem Auto!' }
                     if (result >= 60) { extra = 'PRIMA.\n\n**+' + carboostam + '%** wegen deinem Auto!' }
@@ -128,7 +128,7 @@ module.exports = {
   				.setDescription('» You work as **' + job + '** and earn **$' + resultcar + '**! ' + extra)
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
             	    .setTitle('<:HAMMER:1024388163747184662> » ARBEIT')
   				    .setDescription('» Du arbeitest als **' + job + '** und verdienst **' + resultcar + '€**! ' + extra)

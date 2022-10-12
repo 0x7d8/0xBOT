@@ -49,7 +49,7 @@ module.exports = {
         		.setDescription('» Stocks are disabled on this Server!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Aktien sind auf diesem Server deaktiviert!')
@@ -103,7 +103,7 @@ module.exports = {
         		.setDescription('» You cant buy a negative amount of Stocks!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Du kannst keine negativen Anzahlen kaufen!')
@@ -123,7 +123,7 @@ module.exports = {
         		.setDescription('» You cant buy more than **' + greenmax + '** 🟢!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Du kannst nicht mehr als **' + greenmax + '** 🟢 Kaufen!')
@@ -141,7 +141,7 @@ module.exports = {
         		.setDescription('» You cant buy more than **' + bluemax + '** 🔵!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Du kannst nicht mehr als **' + bluemax + '** 🔵 Kaufen!')
@@ -159,7 +159,7 @@ module.exports = {
         		.setDescription('» You cant buy more than **' + yellowmax + '** 🟡!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Du kannst nicht mehr als **' + yellowmax + '** 🟡 Kaufen!')
@@ -177,7 +177,7 @@ module.exports = {
         		.setDescription('» You cant buy more than **' + redmax + '** 🔴!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Du kannst nicht mehr als **' + redmax + '** 🔴 Kaufen!')
@@ -195,7 +195,7 @@ module.exports = {
         		.setDescription('» You cant buy more than **' + redmax + '** ⚪!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Du kannst nicht mehr als **' + redmax + '** ⚪ Kaufen!')
@@ -213,7 +213,7 @@ module.exports = {
         		.setDescription('» You cant buy more than **' + redmax + '** ⚫!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Du kannst nicht mehr als **' + redmax + '** ⚫ Kaufen!')
@@ -242,7 +242,7 @@ module.exports = {
   				.setDescription('» You dont have enough Money for that, you are missing **$' + missing + '**!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
             	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
@@ -293,7 +293,7 @@ module.exports = {
             .setDescription('» You successfully bought **' + amount + '** ' + emoji + ' for **$' + cost + '**! (**$' + priceText + '** per Stock)')
             .setFooter({ text: '» ' + vote + ' » ' + version });
 
-        if (lang == "de") {
+        if (lang === 'de') {
             message = new EmbedBuilder()
                 .setTitle('<:CHART:1024398298204876941> » AKTIEN KAUFEN')
                 .setDescription('» Du hast erfolgreich **' + amount + '** ' + emoji + ' für **' + cost + '€** gekauft! (**' + priceText + '€** pro Aktie)')

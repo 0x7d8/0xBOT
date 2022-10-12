@@ -15,7 +15,7 @@ module.exports = {
   				.setDescription('» This choice is up to <@' + reciever + '>!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
             	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Diese Frage ist für <@' + reciever + '>!')
@@ -46,7 +46,7 @@ module.exports = {
   		    	.setDescription('» <@' + reciever + '> has diffused the Bomb! YAY')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
             	    .setTitle('<:BOXOPEN:1024395281460101213> » GEGENSTAND NUTZEN')
   		    	    .setDescription('» <@' + reciever + '> hat die Bombe entschärft! YAY')
@@ -58,7 +58,7 @@ module.exports = {
   		    	.setDescription('» <@' + reciever + '> has failed to diffused the Bomb! OHNO')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
             	    .setTitle('<:BOXOPEN:1024395281460101213> » GEGENSTAND NUTZEN')
   		    	    .setDescription('» <@' + reciever + '> hat es nicht geschafft, die Bombe zu entschärfen! OH')

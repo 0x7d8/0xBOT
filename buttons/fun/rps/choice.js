@@ -19,7 +19,7 @@ module.exports = {
         		.setDescription('» You arent playing!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Du spielst garnicht mit!')
@@ -42,7 +42,7 @@ module.exports = {
             .setDescription('» You selected **' + choiceen + '**!')
             .setFooter({ text: '» ' + vote + ' » ' + version });
 
-        if (lang == "de") {
+        if (lang === 'de') {
             let choicede
             if (choice == 'ROCK') { choicede = '🪨 STEIN' }
             if (choice == 'PAPER') { choicede = '📝 PAPIER' }
@@ -77,7 +77,7 @@ module.exports = {
             if (win == 'ps') { winner = '<@' + sender + '>' }
             if (win == 'pr') { winner = '<@' + reciever + '>' }
             if (win == 'none') { winner = '**Noone**' }
-            if (win == 'none' && lang == "de") { winner = '**Niemand**' }
+            if (win == 'none' && lang === 'de') { winner = '**Niemand**' }
 
             // Transfer Money
             const betwon = parseInt(bet) * 2
@@ -103,7 +103,7 @@ module.exports = {
                 .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> selected **' + bot.rps.get('CHOICE-' + sender) + '**\n» <@' + reciever.toString().replace(/\D/g, '') + '> selected **' + bot.rps.get('CHOICE-' + reciever) + '**\n\n<:AWARD:1024385473524793445> ' + winner + ' won **$' + betwon + '**.')
                 .setFooter({ text: '» ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 if (psc == 'SCISSORS') { send = '✂️ SCHERE' }
                 if (psc == 'PAPER') { send = '📝 PAPIER' }
                 if (psc == 'ROCK') { send = '🪨 STEIN' }

@@ -35,7 +35,7 @@ module.exports = {
         		.setDescription('» Stocks are disabled on this Server!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Aktien sind auf diesem Server deaktiviert!')
@@ -80,7 +80,7 @@ module.exports = {
   				.setDescription('» You dont have enough Money for that, you are missing **$' + missing + '**!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
             	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
@@ -109,7 +109,7 @@ module.exports = {
                 .setDescription('» You successfully bought **' + slots + '** extra Stock Slot for **$' + cost + '**!')
                 .setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
                     .setTitle('<:CHART:1024398298204876941> » AKTIEN SLOTS KAUFEN')
                     .setDescription('» Du hast erfolgreich **' + slots + '** extra Aktien Slot für **' + cost + '€** gekauft!')
@@ -121,7 +121,7 @@ module.exports = {
                 .setDescription('» You successfully bought **' + slots + '** extra Stock Slots for **$' + cost + '**!')
                 .setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
                     .setTitle('<:CHART:1024398298204876941> » AKTIEN SLOTS KAUFEN')
                     .setDescription('» Du hast erfolgreich **' + slots + '** extra Aktien Slots für **' + cost + '€** gekauft!')

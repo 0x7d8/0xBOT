@@ -50,7 +50,7 @@ module.exports = {
         		.setDescription('» The **`/rob`** Command is disabled on this Server!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Der **`/rob`** Befehl ist auf diesem Server deaktiviert!')
@@ -80,7 +80,7 @@ module.exports = {
   				.setDescription('» You still have a Cooldown of **' + cdown.toFixed(0) + 's**!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
             	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Du hast leider noch einen Cooldown von **' + cdown.toFixed(0) + 's**!')
@@ -100,7 +100,7 @@ module.exports = {
   				.setDescription('» You cant rob yourself?!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
             	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Du kannst dich nicht selber ausrauben?!')
@@ -119,7 +119,7 @@ module.exports = {
         		.setDescription('» You cant rob a Bot!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Du kannst einem Bot kein Geld klauen!')
@@ -144,7 +144,7 @@ module.exports = {
   			.setDescription('» You dont have enough Money for that, you need atleast **$' + need + '**! BRUH.')
         	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-        if (lang == "de") {
+        if (lang === 'de') {
             notenoughmoney1 = new EmbedBuilder()
         	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   			    .setDescription('» Du hast nicht genug Geld dafür, du brauchst mindestens **' + need + '€**! BRUH.')
@@ -172,7 +172,7 @@ module.exports = {
   			.setDescription('» <@' + user + '> doesnt have enough Money for that, he needs atleast **$' + need + '**! LOL.')
         	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-        if (lang == "de") {
+        if (lang === 'de') {
             notenoughmoney2 = new EmbedBuilder()
         	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   			    .setDescription('» <@' + user + '> hat nicht genug Geld dafür, er braucht mindestens **' + need + '€**! LOL.')
@@ -227,7 +227,7 @@ module.exports = {
         if (amount >= 60) { extra = 'LOL.' }
         if (amount >= 80) { extra = 'A PRO??!!' }
 
-        if (lang == "de") {
+        if (lang === 'de') {
             if (amount < 20) { extra = 'NAJA.'}
             if (amount >= 20) { extra = 'NICE.' }
             if (amount >= 40) { extra = 'PRIMA.' }
@@ -246,7 +246,7 @@ module.exports = {
   			.setDescription('» You wanted to steal <@' + user + '> **$' + amount + '**, but the Police caught you! You had to pay **$' + punishment + '**! KEKW.')
         	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-        if (lang == "de") {
+        if (lang === 'de') {
             sucess = new EmbedBuilder()
                 .setTitle('<:BAG:1024389219558367292> » AUSRAUBEN')
   			    .setDescription('» Du hast <@' + user + '> **' + amount + '€** geklaut! ' + extra)

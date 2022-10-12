@@ -30,7 +30,7 @@ module.exports = {
         		.setDescription('» Stocks are disabled on this Server!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Aktien sind auf diesem Server deaktiviert!')
@@ -104,7 +104,7 @@ module.exports = {
                 .setDescription('» 🟢 GREEN STOCKS\n`' + green + '/' + greenmax + '`\n\n» 🔵 BLUE STOCKS\n`' + blue + '/' + bluemax + '`\n\n» 🟡 YELLOW STOCKS\n`' + yellow + '/' + yellowmax + '`\n\n» 🔴 RED STOCKS\n`' + red + '/' + redmax + '`\n\n» ⚪ WHITE STOCKS\n`' + white + '/' + whitemax + '`\n\n» ⚫ BLACK STOCKS\n`' + black + '/' + blackmax + '`')
                 .setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
                     .setTitle('<:CHART:1024398298204876941> » DEINE AKTIEN')
                     .setDescription('» 🟢 GRÜNE AKTIEN\n`' + green + '/' + greenmax + '`\n\n» 🔵 BLAUE AKTIEN\n`' + blue + '/' + bluemax + '`\n\n» 🟡 GELBE AKTIEN\n`' + yellow + '/' + yellowmax + '`\n\n» 🔴 ROTE AKTIEN\n`' + red + '/' + redmax + '`\n\n» ⚪ WEISSE AKTIEN\n`' + white + '/' + whitemax + '`\n\n» ⚫ SCHWARZE AKTIEN\n`' + black + '/' + blackmax + '`')
@@ -116,7 +116,7 @@ module.exports = {
                 .setDescription('» 🟢 GREEN STOCKS\n`' + green + '/' + greenmax + '`\n\n» 🔵 BLUE STOCKS\n`' + blue + '/' + bluemax + '`\n\n» 🟡 YELLOW STOCKS\n`' + yellow + '/' + yellowmax + '`\n\n» 🔴 RED STOCKS\n`' + red + '/' + redmax + '`\n\n» ⚪ WHITE STOCKS\n`' + white + '/' + whitemax + '`\n\n» ⚫ BLACK STOCKS\n`' + black + '/' + blackmax + '`')
                 .setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
                     .setTitle('<:CHART:1024398298204876941> » DIE AKTIEN VON ' + user.username.toUpperCase())
                     .setDescription('» 🟢 GRÜNE AKTIEN\n`' + green + '/' + greenmax + '`\n\n» 🔵 BLAUE AKTIEN\n`' + blue + '/' + bluemax + '`\n\n» 🟡 GELBE AKTIEN\n`' + yellow + '/' + yellowmax + '`\n\n» 🔴 ROTE AKTIEN\n`' + red + '/' + redmax + '`\n\n» ⚪ WEISSE AKTIEN\n`' + white + '/' + whitemax + '`\n\n» ⚫ SCHWARZE AKTIEN\n`' + black + '/' + blackmax + '`')

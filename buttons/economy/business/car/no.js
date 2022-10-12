@@ -21,7 +21,7 @@ module.exports = {
   				.setDescription('» This choice is up to <@' + userid + '>!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
             	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Diese Frage ist für <@' + userid + '>!')
@@ -46,7 +46,7 @@ module.exports = {
                 .setDescription('» <@' + interaction.user.id + '> said **NO** to a **' + name + '**.')
                 .setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
                     .setTitle('<:BOXCHECK:1024401101589590156> » AUTO KAUFEN')
                     .setDescription('» <@' + interaction.user.id + '> hat **NEIN** zu einem **' + name + '** gesagt.')
@@ -63,7 +63,7 @@ module.exports = {
                 .setDescription('» <@' + interaction.user.id + '> said **NO** to selling his **' + name + '**.')
                 .setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
                     .setTitle('<:BOXDOLLAR:1024402261784403999> » AUTO VERKAUFEN')
                     .setDescription('» <@' + interaction.user.id + '> hat **NEIN** zum verkaufen von seinem **' + name + '** gesagt.')

@@ -49,7 +49,7 @@ module.exports = {
         		.setDescription('» Stocks are disabled on this Server!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Aktien sind auf diesem Server deaktiviert!')
@@ -167,7 +167,7 @@ module.exports = {
             .setDescription('» You successfully sold **' + amount + '** ' + emoji + ' for **$' + cash + '**! (**$' + priceText + '** per Stock)')
             .setFooter({ text: '» ' + vote + ' » ' + version });
 
-        if (lang == "de") {
+        if (lang === 'de') {
             message = new EmbedBuilder()
                 .setTitle('<:CHART:1024398298204876941> » AKTIEN VERKAUFEN')
                 .setDescription('» Du hast erfolgreich **' + amount + '** ' + emoji + ' für **' + cash + '€** verkauft! (**' + priceText + '€** pro Aktie)')

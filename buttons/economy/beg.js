@@ -21,7 +21,7 @@ module.exports = {
   				.setDescription('» You dont have enough Money for that, you are missing **$' + missing + '**!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
             	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
@@ -41,7 +41,7 @@ module.exports = {
   				.setDescription('» You cant give yourself Money?')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
             	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Du kannst dir selber kein Geld geben?')
@@ -65,7 +65,7 @@ module.exports = {
   			    .setDescription('» <@' + reciever + '> needs Money!\nTotal Earnings: **$' + total + '**')
         	    .setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
                     .setTitle('<:DONATE:1024397357988720711> » BETTELN')
   			        .setDescription('» <@' + reciever + '> braucht Geld!\nInsgesamte Einnahmen: **' + total + '€**')
@@ -77,7 +77,7 @@ module.exports = {
   			    .setDescription('» <@' + reciever + '> needs Money!\nTotal Earnings: **$' + total + '**\n*"' + reason + '"*')
         	    .setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
                     .setTitle('<:DONATE:1024397357988720711> » BETTELN')
   			        .setDescription('» <@' + reciever + '> braucht Geld!\nInsgesamte Einnahmen: **' + total + '€**\n*"' + reason + '"*')
@@ -88,7 +88,7 @@ module.exports = {
             .setDescription('» <@' + interaction.user.id + '> gave <@' + reciever + '> **$' + amount + '**!')
             .setFooter({ text: '» ' + vote + ' » ' + version });
 
-        if (lang == "de") {
+        if (lang === 'de') {
             rmessage = new EmbedBuilder()
                 .setTitle('<:DONATE:1024397357988720711> » BETTELN')
                 .setDescription('» <@' + interaction.user.id + '> hat <@' + reciever + '> **' + amount + '€** gegeben!')

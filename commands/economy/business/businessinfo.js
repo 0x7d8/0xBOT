@@ -36,7 +36,7 @@ module.exports = {
         		.setDescription('» Businesses are disabled on this Server!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Geschäfte sind auf diesem Server deaktiviert!')

@@ -35,7 +35,7 @@ module.exports = {
         		.setDescription('» The Maximum Size is **256**!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Die Maximale Größe ist **128**!')
@@ -55,7 +55,7 @@ module.exports = {
         		.setDescription('» The Minimum Size is **4**!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Die Minimale Größe ist **4**!')
@@ -81,7 +81,7 @@ module.exports = {
   			.setDescription('» This is the Password I choose:\n`' + password + '`')
         	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-        if (lang == "de") {
+        if (lang === 'de') {
             message = new EmbedBuilder()
         	    .setTitle('<:KEY:1024392167130664980> » PASSWORT GENERIEREN')
   			    .setDescription('» Das hier ist mein ausgedachtes Passwort:\n`' + password + '`')

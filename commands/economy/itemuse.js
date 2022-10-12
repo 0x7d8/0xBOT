@@ -55,7 +55,7 @@ module.exports = {
         		.setDescription('» Bombs are disabled on this Server!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Bomben sind auf diesem Server deaktiviert!')
@@ -88,7 +88,7 @@ module.exports = {
         		.setDescription('» You cant use Items on Bots!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Du kannst keine Gegenstände auf einem Bot nutzen!')
@@ -108,7 +108,7 @@ module.exports = {
         		.setDescription('» You dont have enough of that Item!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Du hast nicht genug von dem Gegenstand!')
@@ -128,7 +128,7 @@ module.exports = {
   				.setDescription('» You cant use Bombs on yourself?')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
             	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Du kannst Bomben nicht auf dir selber nutzen?')
@@ -148,7 +148,7 @@ module.exports = {
   				.setDescription('» <@' + user.id + '> is already being bombed!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
             	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» <@' + user.id + '> wird schon bombadiert!')
@@ -218,7 +218,7 @@ module.exports = {
   		    	.setDescription('» Oh <@' + user.id + '>, <@' + interaction.user.id + '> used a **' + name + '** on you!\nIf you solve this Math Equation, it wont do anything.\n\n**```' + math + '```**\nThe Bomb explodes <t:' + (Math.floor(+new Date() / 1000) + 10) + ':R>')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-            if (lang == "de") {
+            if (lang === 'de') {
                 message = new EmbedBuilder()
                     .setTitle('<:BOXOPEN:1024395281460101213> » GEGENSTAND NUTZEN')
   		    	    .setDescription('» Oh <@' + user.id + '>, <@' + interaction.user.id + '> hat eine **' + name + '** an dir benutzt!\nFalls du dieses Mathe Rätsel löst, passiert nichts.\n\n**```' + math + '```**\nDie Bombe explodiert <t:' + (Math.floor(+new Date() / 1000) + 10) + ':R>')
@@ -280,7 +280,7 @@ module.exports = {
   		    	    .setDescription('» <@' + user.id + '> has failed to diffused the Bomb! OHNO')
             	    .setFooter({ text: '» ' + vote + ' » ' + version });
 
-                if (lang == "de") {
+                if (lang === 'de') {
                     message = new EmbedBuilder()
                 	    .setTitle('<:BOXOPEN:1024395281460101213> » GEGENSTAND NUTZEN')
   		        	    .setDescription('» <@' + user.id + '> hat es nicht geschafft, die Bombe zu entschärfen! OH')
