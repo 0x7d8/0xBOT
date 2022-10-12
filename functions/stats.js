@@ -2,7 +2,7 @@
 const config = require('../config.json')
 const pgP = require('pg').Pool
 const db = new pgP({
-    ost: config.database.oxbot.host,
+    host: config.database.oxbot.host,
     database: config.database.oxbot.database,
     user: config.database.oxbot.username,
     password: config.database.oxbot.password,
