@@ -18,7 +18,7 @@ exports.get = (userid, type) => new Promise(async ful => {
     } else if (type === 'value') {
         return ful(data.rows[0].value)
     } else {
-        return ful(data.rows[0].amount)
+        return ful(parseInt(data.rows[0].amount))
     }
 })
 

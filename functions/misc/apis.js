@@ -13,7 +13,7 @@ const db = new pgP({
 exports.get = (userid) => new Promise(async ful => {
     const data = await db.query(`select * from userapis where userid = $1;`, [userid])
     if (data.rowCount !== 1) { return ful(0) }
-    return ful(data.rows[0].apis)
+    return ful(parseInt(data.rows[0].apis))
 })
 
 // Set Function

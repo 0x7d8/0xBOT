@@ -16,7 +16,7 @@ exports.get = (userid, type) => new Promise(async ful => {
     if (!type) {
         return ful(data.rows[0].txtvalue)
     } else {
-        return ful(data.rows[0].intvalue)
+        return ful(parseInt(data.rows[0].intvalue))
     }
 })
 
