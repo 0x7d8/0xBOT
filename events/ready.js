@@ -20,18 +20,6 @@ module.exports = {
 	event: 'ready',
 	once: true,
 	async execute(client) {
-		const Guilds = client.guilds.cache.map(guild => guild.id);
-    	console.log(Guilds); for (const element of Guilds) {
-			const guild = await client.guilds.fetch(element)
-			const members = await guild.members.fetch()
-			for (const element of members) {
-				console.log(element)
-				const data = await db.query(`select * from usermoney where userid = $1`, [element[0]])
-				if (data.rowCount === 1) {
-					await db.query(`update usermoney set guilds = array_append(guilds, $1) where userid = $2`, [guild.id, element[0]])
-				}
-			}
-		}
 		console.log(`[0xBOT] ${chalk.bold('[i]')} [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] STARTED AND LOGGED IN AS ${client.user.tag}!`)
 		console.log(`[0xBOT] ${chalk.bold('[i]')} [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [END] $$$$$ LOADED 0xBOT ${version}`)
 		console.log(' ')
