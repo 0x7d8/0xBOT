@@ -94,6 +94,6 @@ module.exports = {
         
         // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] 8BALL : ' + formatted.toUpperCase() + ' : ' + result.toUpperCase())
-        return interaction.reply({ embeds: [message.toJSON()] })
+        return interaction.reply({ embeds: [message] })
     },
 };

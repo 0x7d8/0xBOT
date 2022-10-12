@@ -23,14 +23,8 @@ module.exports = {
     async execute(interaction, client, lang, vote) {
         // Set Variables
         let anzahl = interaction.options.getInteger("amount")
-        let heads = 0
-        let tails = 0
-        let tries = 0
-
-        // Check if Number is empty
-        if (anzahl == null) {
-            anzahl = 1
-        }
+        let heads = 0; let tails = 0; let tries = 0
+        if (anzahl === null) { anzahl = 1 }
         
         // Check if Number is negative
         if (anzahl < 1) {
@@ -49,7 +43,7 @@ module.exports = {
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] COINFLIP : NOTENOUGHCOINS : ' + anzahl)
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
 
         // Check if Number is too Big
@@ -69,20 +63,18 @@ module.exports = {
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] COINFLIP : TOOMANYCOINS : ' + anzahl)
-            return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
 
         // Loop
         let coin
-        loop:
-        while (anzahl != tries) {
+        while (anzahl !== tries) {
             const random = Math.floor(Math.random() * (2 - 1 + 1)) + 1;
 
-            if (random == 1) { coin = 'HEAD'; heads = heads + 1 }
-            if (random == 2) { coin = 'TAIL'; tails = tails + 1 }
+            if (random === 1) { coin = 'HEAD'; heads = heads + 1 }
+            if (random === 2) { coin = 'TAIL'; tails = tails + 1 }
 
             tries = tries + 1
-            continue loop;
         }
 
         // Add Zeros
@@ -125,6 +117,6 @@ module.exports = {
         
         // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] COINFLIP : H[' + heads + '] : T[' + tails + ']')
-        return interaction.reply({ embeds: [message.toJSON()] })
+        return interaction.reply({ embeds: [message] })
     },
 };

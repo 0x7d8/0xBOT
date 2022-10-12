@@ -34,7 +34,7 @@ module.exports = {
         // Set Variables
         const user = interaction.options.getUser("user")
         const anzahl = interaction.options.getInteger("amount")
-        const money = await bals.get(interaction.user.id);
+        const money = await bot.money.get(interaction.user.id);
 
         // Check if Balance is Minus
         if (anzahl < 0) {
@@ -53,12 +53,11 @@ module.exports = {
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] PAY : NEGATIVEMONEY : ' + anzahl + '€')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
 
         // Check if Target is Bot
-        const userinfo = await client.users.fetch(user);
-        if (userinfo.bot == true) {
+        if (user.bot) {
             // Create Embed
             let message = new EmbedBuilder()
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
@@ -74,7 +73,7 @@ module.exports = {
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] PAY : ' + user.id + ' : BOT : ' + anzahl + '€')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
         
         // Create Embeds
@@ -105,8 +104,8 @@ module.exports = {
         
         // Set Money
         if (money >= anzahl) {
-        	bals.rem(interaction.user.id, anzahl)
-        	bals.add(user.id, anzahl)
+        	bot.money.rem(interaction.user.id, anzahl)
+        	bot.money.add(user.id, anzahl)
         } else {
             const missing = anzahl - money
             
@@ -125,11 +124,11 @@ module.exports = {
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] PAY : ' + user + ' : NOTENOUGHMONEY : ' + anzahl + '€')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
 
         // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] PAY : ' + user.id + ' : ' + anzahl + '€')
-        return interaction.reply({ embeds: [message.toJSON()] })
+        return interaction.reply({ embeds: [message] })
     },
 };

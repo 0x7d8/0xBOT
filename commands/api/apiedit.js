@@ -39,7 +39,7 @@ module.exports = {
         // Set Variables
         const name = interaction.options.getString("name")
         const inhalt = interaction.options.getString("content")
-        const amount = await apis.get(interaction.user.id);
+        const amount = await bot.apis.get(interaction.user.id);
 
        	// Check if API even exists
         if (await uapi.get(interaction.user.id + '-' + name) !== 'N-EXIST') {
@@ -62,7 +62,7 @@ module.exports = {
 
         	// Send Message
         	bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] APIEDIT : ' + name + ' : ' + inhalt.toUpperCase())
-        	return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+        	return interaction.reply({ embeds: [message], ephemeral: true })
         } else {
             // Create Embed
             let message = new EmbedBuilder()
@@ -79,7 +79,7 @@ module.exports = {
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] APIEDIT : ' + name + ' : NOTFOUND')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
     },
 };

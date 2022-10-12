@@ -7,7 +7,7 @@ module.exports = {
     },
     async execute(interaction, client, lang, vote, reciever, amount, reasontype, reason) {
         // Set Variables
-        const balance = await bals.get(interaction.user.id);
+        const balance = await bot.money.get(interaction.user.id);
         const args = interaction.message.embeds[0].description.split('**')
         let total = parseInt(args[1].match(/\d+/g))+parseInt(amount)
 
@@ -30,7 +30,7 @@ module.exports = {
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] BEG : ' + reciever + ' : ' + amount + '€ : NOTENOUGHMONEY')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
 
         // Check if User is Author
@@ -50,12 +50,12 @@ module.exports = {
 
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] BEG : ' + reciever + ' : ' + amount + '€ : SAMEPERSON')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
 
         // Transfer Money
-        bals.rem(interaction.user.id, parseInt(amount))
-        bals.add(reciever, parseInt(amount))
+        bot.money.rem(interaction.user.id, parseInt(amount))
+        bot.money.add(reciever, parseInt(amount))
 
         // Create Embeds
         let message
@@ -97,9 +97,9 @@ module.exports = {
 
         // Send Response Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] BEG : ' + reciever + ' : ' + amount + '€')
-        await interaction.reply({ embeds: [rmessage.toJSON()] })
+        await interaction.reply({ embeds: [rmessage] })
 
         // Edit Original Message
-        return interaction.message.edit({ embeds: [message.toJSON()] }).catch((error) => {})
+        return interaction.message.edit({ embeds: [message] }).catch((error) => {})
     }
 }

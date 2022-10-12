@@ -43,6 +43,6 @@ module.exports = {
 
         // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] COUNT : ' + number)
-        return interaction.update({ embeds: [message.toJSON()] })
+        return interaction.update({ embeds: [message] })
     }
 }

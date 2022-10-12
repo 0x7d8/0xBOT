@@ -39,7 +39,7 @@ module.exports = {
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] QUOTES : DISABLED')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
 
         // Set Variables
@@ -48,10 +48,10 @@ module.exports = {
         // Set User ID
         let quotes
         if (user == null) {
-            quotes = await quts.get(interaction.user.id);
+            quotes = await bot.quotes.get(interaction.user.id);
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] QUOTES : ' + quotes);
         } else {
-            quotes = await quts.get(user.id);
+            quotes = await bot.quotes.get(user.id);
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] QUOTES : ' + user + ' : ' + quotes);
         }
         
@@ -100,6 +100,6 @@ module.exports = {
         }
 
         // Send Message
-        return interaction.reply({ embeds: [message.toJSON()] })
+        return interaction.reply({ embeds: [message] })
     },
 };

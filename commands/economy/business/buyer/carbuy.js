@@ -48,23 +48,23 @@ module.exports = {
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] CAR : DISABLED')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
 
         // Set Variables
         const car = interaction.options.getString("car")
-        const balance = await bals.get(interaction.user.id);
+        const balance = await bot.money.get(interaction.user.id);
 
         // Calculate Cost
         let cost
-        if (await bsns.get('g-' + interaction.guild.id + '-3-PRICE-' + car.toUpperCase()) === '0' || await bsns.get('g-' + interaction.guild.id + '-3-PRICE-' + car.toUpperCase()) === 0) {
+        if (await bot.businesses.get('g-' + interaction.guild.id + '-3-PRICE-' + car.toUpperCase()) === '0' || await bot.businesses.get('g-' + interaction.guild.id + '-3-PRICE-' + car.toUpperCase()) === 0) {
             if (car == 'jeep') { cost = 15000 }
             if (car == 'kia') { cost = 75000 }
             if (car == 'audi') { cost = 160000 }
             if (car == 'tesla') { cost = 240000 }
             if (car == 'porsche') { cost = 490000 }
         } else {
-            cost = await bsns.get('g-' + interaction.guild.id + '-3-PRICE-' + car.toUpperCase())
+            cost = await bot.businesses.get('g-' + interaction.guild.id + '-3-PRICE-' + car.toUpperCase())
         }
 
         // Translate to Car Names
@@ -94,13 +94,13 @@ module.exports = {
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] CARBUY : ' + name.toUpperCase() + ' : NOTENOUGHMONEY : ' + cost + '€')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
 
         // Check if User already has a Car
-        if (await item.get(interaction.user.id + '-CAR-' + interaction.guild.id, 'amount') !== 0) {
+        if (await bot.items.get(interaction.user.id + '-CAR-' + interaction.guild.id, 'amount') !== 0) {
             // Translate to Car Names
-            const dbcar = await item.get(interaction.user.id + '-CAR-' + interaction.guild.id, 'value')
+            const dbcar = await bot.items.get(interaction.user.id + '-CAR-' + interaction.guild.id, 'value')
             if (dbcar == 'jeep') { name = '2016 JEEP PATRIOT SPORT' }
             if (dbcar == 'kia') { name = '2022 KIA SORENTO' }
             if (dbcar == 'audi') { name = 'AUDI R8 COUPE V10' }
@@ -122,7 +122,7 @@ module.exports = {
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] CARBUY : ALREADYOWNCAR : ' + name)
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
 
         // Create Buttons
@@ -176,6 +176,6 @@ module.exports = {
 
         // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] CARBUY : ' + name.toUpperCase() + ' : ' + cost + '€')
-        return interaction.reply({ embeds: [message.toJSON()], components: [row] })
+        return interaction.reply({ embeds: [message], components: [row] })
     },
 };

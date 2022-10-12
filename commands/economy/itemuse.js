@@ -64,7 +64,7 @@ module.exports = {
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] BOMB : DISABLED')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
 
         // Translate to Item Names
@@ -81,8 +81,7 @@ module.exports = {
         }
 
         // Check if Target is Bot
-        const userinfo = await client.users.fetch(user);
-        if (userinfo.bot == true) {
+        if (user.bot) {
             // Create Embed
             let message = new EmbedBuilder()
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
@@ -98,11 +97,11 @@ module.exports = {
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ITEMUSE : ' + user.id + ' : BOT : ' + itemid.toUpperCase())
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
 
         // Check if User has enough of the Item
-        if (await item.get(interaction.user.id + '-' + itemid.toUpperCase() + 'S-' + interaction.guild.id, 'amount') < 1) {
+        if (await bot.items.get(interaction.user.id + '-' + itemid.toUpperCase() + 'S-' + interaction.guild.id, 'amount') < 1) {
             // Create Embed
             let message = new EmbedBuilder()
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
@@ -118,7 +117,7 @@ module.exports = {
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ITEMUSE : ' + user.id + ' : NOTENOUGHITEMS : ' + itemid.toUpperCase())
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
 
         // Check if User is Author
@@ -138,7 +137,7 @@ module.exports = {
 
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ITEMUSE : ' + user.id + ' : ' + itemid.toUpperCase())
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
 
         // Check if Reciever is already being Bombed
@@ -158,7 +157,7 @@ module.exports = {
 
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ITEMUSE : ' + user.id + ' : ' + itemid.toUpperCase())
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
 
         // Fetch Channel for Later
@@ -228,12 +227,12 @@ module.exports = {
         }
 
         // Remove Item
-        item.rem(interaction.user.id + '-' + itemid.toUpperCase() + 'S-' + interaction.guild.id, 'x', 1)
+        bot.items.rem(interaction.user.id + '-' + itemid.toUpperCase() + 'S-' + interaction.guild.id, 1)
 
         // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ITEMUSE : ' + user.id + ' : ' + itemid.toUpperCase())
         if (itemcat == 'bomb') {
-            const msg = await interaction.reply({ content: '<@' + user.id + '>', embeds: [message.toJSON()], components: [row], fetchReply: true })
+            const msg = await interaction.reply({ content: '<@' + user.id + '>', embeds: [message], components: [row], fetchReply: true })
 
             const expiration = async () => {
                 // Check if Message wasnt already answered
@@ -289,7 +288,7 @@ module.exports = {
                 }
     
                 bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ITEMUSE : ' + user.id + ' : EXPIRED')
-                interaction.editReply({ content: '', embeds: [message.toJSON()], components: msg.components }).catch((error) => {})
+                interaction.editReply({ content: '', embeds: [message], components: msg.components }).catch((error) => {})
             }
 
             setTimeout(() => expiration(), 10000)

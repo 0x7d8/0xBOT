@@ -31,7 +31,7 @@ module.exports = {
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] TICTACTOE : NOTPLAYING')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
 
         // Check Turn
@@ -52,7 +52,7 @@ module.exports = {
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] TICTACTOE : NOTTURN')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
 
         // Defer Reply
@@ -170,10 +170,10 @@ module.exports = {
 
         // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] TICTACTOE : ' + sel)
-        interaction.editReply({ embeds: [message.toJSON()], components: [row1, row2, row3], ephemeral: true })
+        interaction.editReply({ embeds: [message], components: [row1, row2, row3], ephemeral: true })
 
         // Update Message
-        await interaction.message.edit({ embeds: [message.toJSON()], components: [row1, row2, row3], ephemeral: true })
+        await interaction.message.edit({ embeds: [message], components: [row1, row2, row3], ephemeral: true })
         await wait(1000)
 
         // Check if Anyone Won
@@ -352,10 +352,10 @@ module.exports = {
             // Transfer Money
             const betwon = parseInt(bet) * 2
             if (winner != '**Noone**' && winner != '**Niemand**') {
-                bals.add(winner.toString().replace(/\D/g, ''), parseInt(betwon))
+                bot.money.add(winner.toString().replace(/\D/g, ''), parseInt(betwon))
             } else {
-                bals.add(sender.toString().replace(/\D/g, ''), parseInt(bet))
-                bals.add(reciever.toString().replace(/\D/g, ''), parseInt(bet))
+                bot.money.add(sender.toString().replace(/\D/g, ''), parseInt(bet))
+                bot.money.add(reciever.toString().replace(/\D/g, ''), parseInt(bet))
             }
 
             // Create Buttons
@@ -480,7 +480,7 @@ module.exports = {
             eval('delete ttts' + reciever.toString().replace(/\D/g, ''))
 
             // Update Message
-            return interaction.message.edit({ embeds: [message.toJSON()], components: [row1, row2, row3], ephemeral: true })
+            return interaction.message.edit({ embeds: [message], components: [row1, row2, row3], ephemeral: true })
         }
 
         // Create Buttons
@@ -546,6 +546,6 @@ module.exports = {
 			);
 
         // Update Message
-        return interaction.message.edit({ embeds: [message.toJSON()], components: [row1, row2, row3], ephemeral: true })
+        return interaction.message.edit({ embeds: [message], components: [row1, row2, row3], ephemeral: true })
     }
 }

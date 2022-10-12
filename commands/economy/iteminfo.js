@@ -47,7 +47,7 @@ module.exports = {
                     .setFooter({ text: '» ' + vote + ' » ' + version });
             }
 
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
 		if (item === 'mbomb') {
 			// Create Embed
@@ -63,7 +63,7 @@ module.exports = {
                     .setFooter({ text: '» ' + vote + ' » ' + version });
             }
 
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
 		if (item === 'hbomb') {
 			// Create Embed
@@ -79,7 +79,7 @@ module.exports = {
                     .setFooter({ text: '» ' + vote + ' » ' + version });
             }
 
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
 		if (item === 'cbomb') {
 			// Create Embed
@@ -95,7 +95,7 @@ module.exports = {
                     .setFooter({ text: '» ' + vote + ' » ' + version });
             }
 
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
     },
 };

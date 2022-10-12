@@ -54,7 +54,7 @@ module.exports = {
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] TIMEOUT : NOTENOUGHTIME : ' + time + 's')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
 
         // Check if Bot has Permission
@@ -73,7 +73,7 @@ module.exports = {
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] TIMEOUT : NOPERM')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
 
         // Create Embed
@@ -95,6 +95,6 @@ module.exports = {
         
         // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] TIMEOUT : ' + user.id + ' : ' + time + 's')
-        return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+        return interaction.reply({ embeds: [message], ephemeral: true })
     },
 };

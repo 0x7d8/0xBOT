@@ -29,6 +29,6 @@ module.exports = {
 
         // Send Correct Response
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] PING : ' + botping + 'ms')
-        return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+        return interaction.reply({ embeds: [message], ephemeral: true })
     },
 };

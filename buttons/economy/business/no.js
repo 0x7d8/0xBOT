@@ -46,7 +46,7 @@ module.exports = {
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] BUSINESSBUY : NOTSENDER')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }    
 
         // Edit Buttons
@@ -71,7 +71,7 @@ module.exports = {
 
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] BUSINESSBUY : ' + name + ' : DENY')
-            return interaction.update({ embeds: [message.toJSON()], components: interaction.message.components })
+            return interaction.update({ embeds: [message], components: interaction.message.components })
         } else if (type === 'sell') {
             // Create Embed
             let message = new EmbedBuilder()
@@ -88,7 +88,7 @@ module.exports = {
 
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] BUSINESSSELL : ' + name + ' : DENY')
-            return interaction.update({ embeds: [message.toJSON()], components: interaction.message.components })
+            return interaction.update({ embeds: [message], components: interaction.message.components })
         }
     }
 }

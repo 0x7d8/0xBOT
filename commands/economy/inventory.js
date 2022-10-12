@@ -27,12 +27,12 @@ module.exports = {
         let nbombs, mbombs, hbombs, cbombs, carname
 
         if (user == null) {
-            nbombs = await item.get(interaction.user.id + '-NBOMBS-' + interaction.guild.id, 'amount')
-            mbombs = await item.get(interaction.user.id + '-MBOMBS-' + interaction.guild.id, 'amount')
-            hbombs = await item.get(interaction.user.id + '-HBOMBS-' + interaction.guild.id, 'amount')
-            cbombs = await item.get(interaction.user.id + '-CBOMBS-' + interaction.guild.id, 'amount')
+            nbombs = await bot.items.get(interaction.user.id + '-NBOMBS-' + interaction.guild.id, 'amount')
+            mbombs = await bot.items.get(interaction.user.id + '-MBOMBS-' + interaction.guild.id, 'amount')
+            hbombs = await bot.items.get(interaction.user.id + '-HBOMBS-' + interaction.guild.id, 'amount')
+            cbombs = await bot.items.get(interaction.user.id + '-CBOMBS-' + interaction.guild.id, 'amount')
 
-            const car = await item.get(interaction.user.id + '-CAR-' + interaction.guild.id, 'value')
+            const car = await bot.items.get(interaction.user.id + '-CAR-' + interaction.guild.id, 'value')
             carname = 'NONE'
             if (lang == 'de') {
                 carname = 'KEINS'
@@ -43,12 +43,12 @@ module.exports = {
             if (car == 'tesla') { carname = 'TESLA MODEL Y' }
             if (car == 'porsche') { carname = '2019 PORSCHE 911 GT2RS' }
         } else {
-            nbombs = await item.get(user.id + '-NBOMBS-' + interaction.guild.id, 'amount')
-            mbombs = await item.get(user.id + '-MBOMBS-' + interaction.guild.id, 'amount')
-            hbombs = await item.get(user.id + '-HBOMBS-' + interaction.guild.id, 'amount')
-            cbombs = await item.get(user.id + '-CBOMBS-' + interaction.guild.id, 'amount')
+            nbombs = await bot.items.get(user.id + '-NBOMBS-' + interaction.guild.id, 'amount')
+            mbombs = await bot.items.get(user.id + '-MBOMBS-' + interaction.guild.id, 'amount')
+            hbombs = await bot.items.get(user.id + '-HBOMBS-' + interaction.guild.id, 'amount')
+            cbombs = await bot.items.get(user.id + '-CBOMBS-' + interaction.guild.id, 'amount')
 
-            const car = await item.get(user.id + '-CAR-' + interaction.guild.id, 'value')
+            const car = await bot.items.get(user.id + '-CAR-' + interaction.guild.id, 'value')
             carname = 'NONE'
             if (lang == 'de') {
                 carname = 'KEINS'
@@ -96,6 +96,6 @@ module.exports = {
 
         // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] INVENTORY')
-        return interaction.reply({ embeds: [message.toJSON()] })
+        return interaction.reply({ embeds: [message] })
     },
 };

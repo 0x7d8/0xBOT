@@ -12,12 +12,12 @@ module.exports = {
         }),
     async execute(interaction, client, lang, vote) {
         // Set Variables
-        const totalcmd = await cmds.get('t-all');
-        const guildcmd = await cmds.get('g-' + interaction.guild.id);
-        const usercmd = await cmds.get('u-' + interaction.user.id)
-        const totalbtn = await btns.get('t-all');
-        const guildbtn = await btns.get('g-' + interaction.guild.id);
-        const userbtn = await btns.get('u-' + interaction.user.id)
+        const totalcmd = await bot.stat.get('t-all', 'cmd');
+        const guildcmd = await bot.stat.get('g-' + interaction.guild.id, 'cmd');
+        const usercmd = await bot.stat.get('u-' + interaction.user.id, 'cmd')
+        const totalbtn = await bot.stat.get('t-all', 'btn');
+        const guildbtn = await bot.stat.get('g-' + interaction.guild.id, 'btn');
+        const userbtn = await bot.stat.get('u-' + interaction.user.id, 'btn')
 
         // Create Embed
         let message = new EmbedBuilder()
@@ -34,6 +34,6 @@ module.exports = {
 
         // Send Correct Response
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] STATS')
-        return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+        return interaction.reply({ embeds: [message], ephemeral: true })
     },
 };

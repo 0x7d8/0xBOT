@@ -46,6 +46,6 @@ module.exports = {
         
         // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] VOTE')
-        await interaction.reply({ embeds: [message.toJSON()], components: [button], ephemeral: true })
+        await interaction.reply({ embeds: [message], components: [button], ephemeral: true })
     },
 };

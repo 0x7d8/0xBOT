@@ -186,6 +186,6 @@ module.exports = {
         } else {
             bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] STOCKINFO : ALL : ' + green + '€ : ' + blue + '€ : ' + yellow + '€ : ' + red + '€ : ' + white + '€ : ' + black + '€')
         }
-        return interaction.update({ embeds: [message.toJSON()] }).catch((error) => {})
+        return interaction.update({ embeds: [message] }).catch((error) => {})
     }
 }

@@ -55,14 +55,14 @@ module.exports = {
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROULETTE : DISABLED')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
 
         // Set Variables
         const farbe = interaction.options.getString("color")
         const wette = interaction.options.getInteger("bet")
         
-        const money = await bals.get(interaction.user.id);
+        const money = await bot.money.get(interaction.user.id);
         const random = Math.floor(Math.random() * (21 - 1 + 1)) + 1;
 
         // Check if Balance is Minus
@@ -82,7 +82,7 @@ module.exports = {
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROULETTE : NEGATIVEMONEY : ' + wette + '€')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
         
         // Calculate Color
@@ -120,7 +120,7 @@ module.exports = {
                 
                 // Send Message
             	bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROULETTE : TOOMUCHMONEY : ' + wette + '€')
-        		return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+        		return interaction.reply({ embeds: [message], ephemeral: true })
             }
             
         	// Set Money
@@ -159,15 +159,15 @@ module.exports = {
             
             // Set Money
             if (color != farbe) {
-            	bals.rem(interaction.user.id, wette);
+            	bot.money.rem(interaction.user.id, wette);
             }
 			if (color == farbe) {
-            	bals.add(interaction.user.id, resultadd);
+            	bot.money.add(interaction.user.id, resultadd);
             }
             
             // Send Message
         	bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROULETTE : ' + farbe.toUpperCase() + '[W:' + color.toUpperCase() + '] : ' + status + ' : ' + resultdis + '€')
-        	return interaction.reply({ embeds: [message.toJSON()] })
+        	return interaction.reply({ embeds: [message] })
         } else {
             const missing = wette - money
             
@@ -186,7 +186,7 @@ module.exports = {
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROULETTE : NOTENOUGHMONEY : ' + missing + '€')
-        	return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+        	return interaction.reply({ embeds: [message], ephemeral: true })
         }
     },
 };

@@ -44,13 +44,13 @@ module.exports = {
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] STOCKUPGRADE : DISABLED')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
 
         // Set Variables
         const slots = interaction.options.getString("slots")
 
-        const balance = await bals.get(interaction.user.id);
+        const balance = await bot.money.get(interaction.user.id);
 
         green = await sgrn.get(interaction.user.id);
         greenmax = await sgrnx.get(interaction.user.id);
@@ -89,7 +89,7 @@ module.exports = {
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] STOCKUPGRADE  : ' + slots + ' : ' + cost + '€ : NOTENOUGHMONEY')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
 
         // Add Stock Amount
@@ -99,7 +99,7 @@ module.exports = {
         sredx.add(interaction.user.id, parseInt(slots))
 
         // Remove Money
-        bals.rem(interaction.user.id, cost)
+        bot.money.rem(interaction.user.id, cost)
 
         // Create Embed
         let message
@@ -131,6 +131,6 @@ module.exports = {
 
         // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] STOCKUPGRADE : ' + slots + ' : ' + cost + '€')
-        return interaction.reply({ embeds: [message.toJSON()] })
+        return interaction.reply({ embeds: [message] })
     },
 };

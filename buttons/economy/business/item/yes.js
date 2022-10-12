@@ -23,11 +23,11 @@ module.exports = {
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] ITEMBUY : NOTSENDER')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
 
         // Set Variables
-        const balance = await bals.get(interaction.user.id)
+        const balance = await bot.money.get(interaction.user.id)
 
         // Calculate Cost Multiplier
         let costmul
@@ -36,14 +36,14 @@ module.exports = {
         // Calculate Cost
         let cost
         let dopay = false
-        if (await bsns.get('g-' + interaction.guild.id + '-1-PRICE-' + itemid.toUpperCase()) === '0' || await bsns.get('g-' + interaction.guild.id + '-1-PRICE-' + itemid.toUpperCase()) === 0) {
+        if (await bot.businesses.get('g-' + interaction.guild.id + '-1-PRICE-' + itemid.toUpperCase()) === '0' || await bot.businesses.get('g-' + interaction.guild.id + '-1-PRICE-' + itemid.toUpperCase()) === 0) {
             if (itemid == 'nbomb') { cost = 500*costmul }
             if (itemid == 'mbomb') { cost = 1000*costmul }
             if (itemid == 'hbomb') { cost = 5000*costmul }
             if (itemid == 'cbomb') { cost = 15000*costmul }
         } else {
             dopay = true
-            cost = parseInt(await bsns.get('g-' + interaction.guild.id + '-1-PRICE-' + itemid.toUpperCase()))*costmul
+            cost = parseInt(await bot.businesses.get('g-' + interaction.guild.id + '-1-PRICE-' + itemid.toUpperCase()))*costmul
         }
 
         // Translate to itemid Names
@@ -80,11 +80,11 @@ module.exports = {
             
                 // Send Message
                 bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] ITEMBUY : ' + itemid.toUpperCase() + ' : NOTENOUGHMONEY : ' + cost + '€')
-                return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+                return interaction.reply({ embeds: [message], ephemeral: true })
             }
 
             // Check if Max Slots are used
-            const oldamount = await item.get(interaction.user.id + '-' + itemid.toUpperCase() + 'S-' + interaction.guild.id, 'amount')
+            const oldamount = await bot.items.get(interaction.user.id + '-' + itemid.toUpperCase() + 'S-' + interaction.guild.id, 'amount')
             if ((parseInt(amount) + oldamount) > 15) {
                 // Create Embed
                 let message = new EmbedBuilder()
@@ -101,7 +101,7 @@ module.exports = {
         
                 // Send Message
                 bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] ITEMBUY : ' + itemid.toUpperCase() + ' : MAXSLOTS')
-                return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+                return interaction.reply({ embeds: [message], ephemeral: true })
             }
 
             // Edit Buttons
@@ -138,23 +138,23 @@ module.exports = {
             }
 
             // Remove Money
-            bals.rem(interaction.user.id, cost)
+            bot.money.rem(interaction.user.id, cost)
 
             // Transfer Money if Business is owned
             if (dopay) {
-                const businessowner = await bsns.get('g-' + interaction.guild.id + '-1-OWNER')
-                if (itemid == 'nbomb') { bals.add(businessowner, cost-250); bsns.add('g-' + interaction.guild.id + '-1-EARNING', cost-250) }
-                if (itemid == 'mbomb') { bals.add(businessowner, cost-750); bsns.add('g-' + interaction.guild.id + '-1-EARNING', cost-750) }
-                if (itemid == 'hbomb') { bals.add(businessowner, cost-2500); bsns.add('g-' + interaction.guild.id + '-1-EARNING', cost-2500) }
-                if (itemid == 'cbomb') { bals.add(businessowner, cost-7500); bsns.add('g-' + interaction.guild.id + '-1-EARNING', cost-7500) }
+                const businessowner = await bot.businesses.get('g-' + interaction.guild.id + '-1-OWNER')
+                if (itemid == 'nbomb') { bot.money.add(businessowner, cost-250); bot.businesses.add('g-' + interaction.guild.id + '-1-EARNING', cost-250) }
+                if (itemid == 'mbomb') { bot.money.add(businessowner, cost-750); bot.businesses.add('g-' + interaction.guild.id + '-1-EARNING', cost-750) }
+                if (itemid == 'hbomb') { bot.money.add(businessowner, cost-2500); bot.businesses.add('g-' + interaction.guild.id + '-1-EARNING', cost-2500) }
+                if (itemid == 'cbomb') { bot.money.add(businessowner, cost-7500); bot.businesses.add('g-' + interaction.guild.id + '-1-EARNING', cost-7500) }
             }
 
             // Own Item(s)
-            item.add(interaction.user.id + '-' + itemid.toUpperCase() + 'S-' + interaction.guild.id, 'x', amount)
+            bot.items.add(interaction.user.id + '-' + itemid.toUpperCase() + 'S-' + interaction.guild.id, amount)
 
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] ITEMBUY : ' + itemid.toUpperCase() + ' : CONFIRM')
-            return interaction.update({ embeds: [message.toJSON()], components: interaction.message.components })
+            return interaction.update({ embeds: [message], components: interaction.message.components })
         } else if (type === 'sell') {
 
         }

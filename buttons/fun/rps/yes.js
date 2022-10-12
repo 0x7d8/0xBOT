@@ -13,8 +13,8 @@ module.exports = {
         const [sender, reciever] = description
 
         // Set Variables
-        const balance = await bals.get(reciever.toString().replace(/\D/g, ''))
-        const otherbalance = await bals.get(sender.toString().replace(/\D/g, ''))
+        const balance = await bot.money.get(reciever.toString().replace(/\D/g, ''))
+        const otherbalance = await bot.money.get(sender.toString().replace(/\D/g, ''))
 
         // Check if User is Authorized
         if (interaction.user.id != reciever.toString().replace(/\D/g, '')) {
@@ -33,7 +33,7 @@ module.exports = {
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] RPS : YES : NOTALLOWED')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
 
         // Check if Person is already in a Lobby
@@ -53,7 +53,7 @@ module.exports = {
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] RPS : ' + reciever.toString().replace(/\D/g, '') + ' : ALREADYLOBBY')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
 
         // Check if Other Person is already in a Lobby
@@ -73,7 +73,7 @@ module.exports = {
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] RPS : ' + sender.toString().replace(/\D/g, '') + ' : ALREADYLOBBY')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
 
         // Check for enough Money
@@ -95,7 +95,7 @@ module.exports = {
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] RPS : ' + reciever.toString().replace(/\D/g, '') + ' : ' + bet + '€ : NOTENOUGHMONEY')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
         if (otherbalance < bet) {
             const missing = bet - otherbalance
@@ -115,7 +115,7 @@ module.exports = {
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] RPS : ' + reciever.toString().replace(/\D/g, '') + ' : ' + bet + '€ : NOTENOUGHMONEY')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
 
         // Answer Timeout Function
@@ -161,8 +161,8 @@ module.exports = {
         }
 
         // Transfer Money
-        bals.rem(sender.toString().replace(/\D/g, ''), bet)
-        bals.rem(reciever.toString().replace(/\D/g, ''), bet)
+        bot.money.rem(sender.toString().replace(/\D/g, ''), bet)
+        bot.money.rem(reciever.toString().replace(/\D/g, ''), bet)
 
         // Create Embed
         let message = new EmbedBuilder()
@@ -179,6 +179,6 @@ module.exports = {
 
         // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] RPS : ' + sender.toString().replace(/\D/g, '') + ' : ACCEPT')
-        return interaction.update({ content: '', embeds: [message.toJSON()], components: [row] })
+        return interaction.update({ content: '', embeds: [message], components: [row] })
     }
 }

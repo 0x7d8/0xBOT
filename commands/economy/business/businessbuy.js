@@ -46,12 +46,12 @@ module.exports = {
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] BUSINESS : DISABLED')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
 
         // Set Variables
         const business = interaction.options.getString("business")
-        const balance = await bals.get(interaction.user.id)
+        const balance = await bot.money.get(interaction.user.id)
 
         // Check if User Selected Parking Garage
         if (business == 'parking garage') {
@@ -70,7 +70,7 @@ module.exports = {
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] BUSINESSBUY : WIP')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
 
         // Translate to Business ID
@@ -81,9 +81,9 @@ module.exports = {
 
         // Check if Business is Empty
         let businessowner, oldleft
-        if (await bsns.get('g-' + interaction.guild.id + '-' + businessid + '-OWNER') !== 0) {
+        if (await bot.businesses.get('g-' + interaction.guild.id + '-' + businessid + '-OWNER') !== 0) {
             oldleft = false
-            businessowner = await bsns.get('g-' + interaction.guild.id + '-' + businessid + '-OWNER')
+            businessowner = await bot.businesses.get('g-' + interaction.guild.id + '-' + businessid + '-OWNER')
             const fetchc = await interaction.guild.members.fetch(businessowner)
             if (typeof fetchc === 'undefined') { oldleft = true }
 
@@ -118,13 +118,13 @@ module.exports = {
             
                 // Send Message
                 bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] BUSINESSBUY : ALREADYOWNED')
-                return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+                return interaction.reply({ embeds: [message], ephemeral: true })
             }
         }
 
         // Check if User already has Business
-        if (await bsns.get('u-' + interaction.user.id + '-BUSINESS') !== 0) {
-            const userbusiness = await bsns.get('u-' + interaction.user.id + '-BUSINESS')
+        if (await bot.businesses.get('u-' + interaction.user.id + '-BUSINESS') !== 0) {
+            const userbusiness = await bot.businesses.get('u-' + interaction.user.id + '-BUSINESS')
 
             // Translate to Business Names
             let name
@@ -152,7 +152,7 @@ module.exports = {
 
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] BUSINESSBUY : ALREADYBUSINESS')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
 
         // Calculate Cost
@@ -191,7 +191,7 @@ module.exports = {
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] BUSINESSBUY : ' + name.toUpperCase() + ' : NOTENOUGHMONEY : ' + cost + '€')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
 
         // Create Buttons
@@ -231,8 +231,8 @@ module.exports = {
         }
 
         // Delete Old Data as Left User is Confirmed
-        bsns.del('g-' + interaction.guild.id + '-' + businessid + '-OWNER')
-        bsns.del('u-' + businessowner + '-' + interaction.guild.id + '-BUSINESS')
+        bot.businesses.del('g-' + interaction.guild.id + '-' + businessid + '-OWNER')
+        bot.businesses.del('u-' + businessowner + '-' + interaction.guild.id + '-BUSINESS')
 
         // Create Embed
         let message = new EmbedBuilder()
@@ -249,6 +249,6 @@ module.exports = {
 
         // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] BUSINESSBUY : ' + name.toUpperCase() + ' : ' + cost + '€')
-        return interaction.reply({ embeds: [message.toJSON()], components: [row] })
+        return interaction.reply({ embeds: [message], components: [row] })
     },
 };

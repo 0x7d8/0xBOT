@@ -50,18 +50,18 @@ module.exports = {
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] TICTACTOE : DISABLED')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
 
         // Set Variables
         const user = interaction.options.getUser("user")
         let bet = interaction.options.getInteger("bet")
-        const money = await bals.get(interaction.user.id);
-        const othermoney = await bals.get(user.id);
+        const money = await bot.money.get(interaction.user.id);
+        const othermoney = await bot.money.get(user.id);
 
         // Check if Target is Bot
         const userinfo = await client.users.fetch(user);
-        if (userinfo.bot == true) {
+        if (user.bot) {
             // Create Embed
             let message = new EmbedBuilder()
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
@@ -77,7 +77,7 @@ module.exports = {
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] TICTACTOE : ' + user.id + ' : BOT')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
 
         // Check if Sender is already in a Lobby
@@ -97,7 +97,7 @@ module.exports = {
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] TICTACTOE : ' + user.id + ' : ALREADYLOBBY')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
 
         // Check if Reciever is already in a Lobby
@@ -117,7 +117,7 @@ module.exports = {
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] TICTACTOE : ' + user.id + ' : ALREADYLOBBY')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
 
         // Check if Bet is Negative
@@ -137,7 +137,7 @@ module.exports = {
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] TICTACTOE : ' + user.id + ' : NEGATIVEMONEY : ' + bet + '€')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
 
         // Check if User is Author
@@ -157,7 +157,7 @@ module.exports = {
 
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] TICTACTOE : ' + user.id + ' : ' + bet + '€ : SAMEPERSON')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
 
         // Check for Enough Money
@@ -179,7 +179,7 @@ module.exports = {
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] TICTACTOE : ' + user.id + ' : NOTENOUGHMONEY')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
         if (othermoney < bet && bet != null) {
             const missing = bet - othermoney
@@ -199,7 +199,7 @@ module.exports = {
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] TICTACTOE : ' + user.id + ' : NOTENOUGHMONEY')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
 
         // Create Buttons
@@ -250,7 +250,7 @@ module.exports = {
 
         // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] TICTACTOE : ' + user.id + ' : ' + bet + '€')
-        const msg = await interaction.reply({ content: '<@' + user.id + '>', embeds: [message.toJSON()], components: [row], fetchReply: true })
+        const msg = await interaction.reply({ content: '<@' + user.id + '>', embeds: [message], components: [row], fetchReply: true })
 
         // Init Timeout Function
         bot.ttt.set('TIMEOUT-' + interaction.user.id + '-' + msg.id)
@@ -279,7 +279,7 @@ module.exports = {
             }
 
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] TICTACTOE : ' + user.id + ' : EXPIRED')
-            interaction.editReply({ content: '', embeds: [message.toJSON()], components: msg.components }).catch((error) => {})
+            interaction.editReply({ content: '', embeds: [message], components: msg.components }).catch((error) => {})
         }
 
         setTimeout(() => expiration(), 27000)

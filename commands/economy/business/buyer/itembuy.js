@@ -42,7 +42,7 @@ module.exports = {
         // Set Variables
         const itemid = interaction.options.getString("item")
         const amount = interaction.options.getInteger("amount")
-        const balance = await bals.get(interaction.user.id)
+        const balance = await bot.money.get(interaction.user.id)
 
         // Calculate Cost Multiplier
         let costmul
@@ -50,13 +50,13 @@ module.exports = {
 
         // Calculate Cost
         let cost
-        if (await bsns.get('g-' + interaction.guild.id + '-1-PRICE-' + itemid.toUpperCase()) === '0' || await bsns.get('g-' + interaction.guild.id + '-1-PRICE-' + itemid.toUpperCase()) === 0) {
+        if (await bot.businesses.get('g-' + interaction.guild.id + '-1-PRICE-' + itemid.toUpperCase()) === '0' || await bot.businesses.get('g-' + interaction.guild.id + '-1-PRICE-' + itemid.toUpperCase()) === 0) {
             if (itemid == 'nbomb') { cost = 500*costmul }
             if (itemid == 'mbomb') { cost = 1000*costmul }
             if (itemid == 'hbomb') { cost = 5000*costmul }
             if (itemid == 'cbomb') { cost = 15000*costmul }
         } else {
-            cost = parseInt(await bsns.get('g-' + interaction.guild.id + '-1-PRICE-' + itemid.toUpperCase()))*costmul
+            cost = parseInt(await bot.businesses.get('g-' + interaction.guild.id + '-1-PRICE-' + itemid.toUpperCase()))*costmul
         }
 
         // Translate to Item Names
@@ -91,7 +91,7 @@ module.exports = {
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ITEMBUY : ' + itemid.toUpperCase() + ' : NOTENOUGHMONEY : ' + cost + '€')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
 
         // Calculate Processed Amount
@@ -99,7 +99,7 @@ module.exports = {
         if (amount == null) { pamount = 1 }
 
         // Check if Max Slots are used
-        const oldamount = await item.get(interaction.user.id + '-' + itemid.toUpperCase() + 'S-' + interaction.guild.id, 'amount')
+        const oldamount = await bot.items.get(interaction.user.id + '-' + itemid.toUpperCase() + 'S-' + interaction.guild.id, 'amount')
         if ((pamount + oldamount) > 15) {
             // Create Embed
             let message = new EmbedBuilder()
@@ -116,7 +116,7 @@ module.exports = {
     
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] ITEMBUY : ' + itemid.toUpperCase() + ' : MAXSLOTS')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
 
         // Create Buttons
@@ -185,6 +185,6 @@ module.exports = {
 
         // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ITEMBUY : ' + itemid.toUpperCase() + ' : ' + cost + '€')
-        return interaction.reply({ embeds: [message.toJSON()], components: [row] })
+        return interaction.reply({ embeds: [message], components: [row] })
     },
 };

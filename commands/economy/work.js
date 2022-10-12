@@ -33,7 +33,7 @@ module.exports = {
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] WORK : DISABLED')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
 
         // Set Variables
@@ -42,11 +42,9 @@ module.exports = {
         // Cooldown
         if (cooldown.get(interaction.user.id) - Date.now() > 0) {
         	// Translate Vars
-            let use
-            let cdown
+            let use, cdown
         	const timeLeft = cooldown.get(interaction.user.id) - Date.now();
-            use = 's'
-            cdown = timeLeft / 1000;
+            use = 's'; cdown = timeLeft / 1000;
             if (cdown > 60) { cdown = timeLeft / 1000 / 60; use = 'm' }
             
             // Create Embed
@@ -64,7 +62,7 @@ module.exports = {
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] WORK : ONCOOLDOWN : ' + cdown.toFixed(0) + use);
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         } else {
             
             // Set Jobs
@@ -83,12 +81,11 @@ module.exports = {
             }
 
             // Check for Car Boost
-            let carboost = false
-            let carboostam
-            const car = await item.get(interaction.user.id + '-CAR-' + interaction.guild.id, 'value')
+            let carboost = false; let carboostam
+            const car = await bot.items.get(interaction.user.id + '-CAR-' + interaction.guild.id, 'value')
             if (car !== 0) {
                 carboost = true
-                carboostam = await item.get(interaction.user.id + '-CAR-' + interaction.guild.id, 'amount')
+                carboostam = await bot.items.get(interaction.user.id + '-CAR-' + interaction.guild.id, 'amount')
             }
             
             // Set Extra Text
@@ -139,7 +136,7 @@ module.exports = {
             }
         
         	// Send Money
-        	bals.add(interaction.user.id, resultcar)
+        	bot.money.add(interaction.user.id, resultcar)
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] WORK : ' + resultcar + '€');
             
             // Set Cooldown
@@ -147,7 +144,7 @@ module.exports = {
             setTimeout(() => cooldown.delete(), time)
             
             // Send Message
-        	return interaction.reply({ embeds: [message.toJSON()] })
+        	return interaction.reply({ embeds: [message] })
         }
     },
 };

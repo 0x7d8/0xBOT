@@ -27,10 +27,10 @@ module.exports = {
         // Get Money
         let money
         if (user == null) {
-            money = await bals.get(interaction.user.id);
+            money = await bot.money.get(interaction.user.id);
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] BALANCE : ' + money + '€');
         } else {
-            money = await bals.get(user.id);
+            money = await bot.money.get(user.id);
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] BALANCE : ' + user + ' : ' + money + '€');
         }
         
@@ -63,6 +63,6 @@ module.exports = {
         }
 
         // Send Message
-        return interaction.reply({ embeds: [message.toJSON()] })
+        return interaction.reply({ embeds: [message] })
     },
 };

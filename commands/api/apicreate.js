@@ -39,7 +39,7 @@ module.exports = {
         // Set Variables
         const name = interaction.options.getString("name")
         const inhalt = interaction.options.getString("content")
-        const amount = await apis.get(interaction.user.id);
+        const amount = await bot.apis.get(interaction.user.id);
         const newamount = amount + 1
 
         // Check if API exists
@@ -59,7 +59,7 @@ module.exports = {
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] APICREATE : ' + name + ' : NOTFOUND')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
   		}
         
         // Check if Slots are Free
@@ -79,7 +79,7 @@ module.exports = {
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] APICREATE : ' + name + ' : MAXSLOTS')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         } 
         
         // Create Embed
@@ -99,8 +99,8 @@ module.exports = {
         uapi.set(interaction.user.id + '-' + name, inhalt)
 
         // Send Message
-        apis.add(interaction.user.id, 1)
+        bot.apis.add(interaction.user.id, 1)
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] APICREATE : ' + name + ' : ' + inhalt.toUpperCase())
-        return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+        return interaction.reply({ embeds: [message], ephemeral: true })
     },
 };

@@ -1,5 +1,14 @@
 const chalk = require('chalk')
 
+// PostGres Functions
+exports.stat = require('./stats')
+exports.apis = require('./misc/apis')
+exports.items = require('./economy/items')
+exports.votes = require('./misc/votes')
+exports.money = require('./economy/money')
+exports.quotes = require('./misc/quotes')
+exports.businesses = require('./economy/businesses')
+
 // Log Function
 exports.log = (type, uid, gid, msg) => {
     if (!type) {
@@ -11,22 +20,12 @@ exports.log = (type, uid, gid, msg) => {
 
 // Stat Function
 exports.stats = (type, uid, gid) => {
-    if (type == 'cmd') {
-        // Count to Global Commands
-		cmds.add('t-all', 1)
+    // Count to Global Commands
+	bot.stat.add('t-all', type, 1)
         
-		// Count Guild Commands and User
-		cmds.add('g-' + gid, 1)
-		cmds.add('u-' + uid, 1)
-    }
-    if (type == 'btn') {
-        // Count to Global Commands
-		btns.add('t-all', 1)
-        
-		// Count Guild Commands and User
-		btns.add('g-' + gid, 1)
-		btns.add('u-' + uid, 1)
-    }
+	// Count Guild Commands and User
+	bot.stat.add('g-' + gid, type, 1)
+	bot.stat.add('u-' + uid, type, 1)
 }
 
 // Game Caches

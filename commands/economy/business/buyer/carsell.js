@@ -30,11 +30,11 @@ module.exports = {
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] CAR : DISABLED')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
 
         // Set Variables
-        const car = await item.get(interaction.user.id + '-CAR-' + interaction.guild.id, 'value')
+        const car = await bot.items.get(interaction.user.id + '-CAR-' + interaction.guild.id, 'value')
 
         // Calculate Cost
         let cost
@@ -51,7 +51,7 @@ module.exports = {
         if (car == 'porsche') { name = '2019 PORSCHE 911 GT2RS' }
 
         // Check if User has a Car
-        if (await item.get(interaction.user.id + '-CAR-' + interaction.guild.id, 'amount') === 0) {
+        if (await bot.items.get(interaction.user.id + '-CAR-' + interaction.guild.id, 'amount') === 0) {
             // Create Embed
             let message = new EmbedBuilder()
             	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
@@ -67,7 +67,7 @@ module.exports = {
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] CARSELL : DONTOWNCAR')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
 
         // Create Buttons
@@ -121,6 +121,6 @@ module.exports = {
 
         // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] CARSELL : ' + name + ' : ' + cost + '€')
-        return interaction.reply({ embeds: [message.toJSON()], components: [row] })
+        return interaction.reply({ embeds: [message], components: [row] })
     },
 };

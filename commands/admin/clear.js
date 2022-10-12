@@ -49,7 +49,7 @@ module.exports = {
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] CLEAR : NOPERM')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
         if (!interaction.appPermissions.has('ViewChannel')) {
             // Create Embed
@@ -66,7 +66,7 @@ module.exports = {
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] CLEAR : NOPERM')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
 
         // Set Variables
@@ -92,7 +92,7 @@ module.exports = {
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] CLEAR : NOTENOUGH : ' + amount)
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
 
         // Delete Messages and Send Message
@@ -138,7 +138,7 @@ module.exports = {
 
                 // Send Message
                 bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] CLEAR : ' + target + ' : ' + amount)
-                return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+                return interaction.reply({ embeds: [message], ephemeral: true })
             })
         } else {
             await channel.bulkDelete(amount, true).then(messages => {
@@ -172,7 +172,7 @@ module.exports = {
 
                 // Send Message
                 bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] CLEAR : ' + amount)
-                return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+                return interaction.reply({ embeds: [message], ephemeral: true })
             })
         }
     },

@@ -28,7 +28,7 @@ module.exports = {
     async execute(interaction, client, lang, vote) {
         // Set Variables
         const name = interaction.options.getString("name")
-        const amount = await apis.get(interaction.user.id);
+        const amount = await bot.apis.get(interaction.user.id);
         const newamount = amount - 1
 
        	// Check if API even exists
@@ -50,9 +50,9 @@ module.exports = {
         	uapi.del(interaction.user.id + '-' + name)
 
         	// Send Message
-        	apis.rem(interaction.user.id, 1)
+        	bot.apis.rem(interaction.user.id, 1)
         	bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] APIREMOVE : ' + name)
-        	return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+        	return interaction.reply({ embeds: [message], ephemeral: true })
         } else {
             // Create Embed
             let message = new EmbedBuilder()
@@ -69,7 +69,7 @@ module.exports = {
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] APIREMOVE : ' + name + ' : NOTFOUND')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
     },
 };

@@ -30,11 +30,11 @@ module.exports = {
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] BUSINESS : DISABLED')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
 
         // Set Variables
-        const business = await bsns.get('u-' + interaction.user.id + '-' + interaction.guild.id + '-BUSINESS')
+        const business = await bot.businesses.get('u-' + interaction.user.id + '-' + interaction.guild.id + '-BUSINESS')
 
         // Calculate Cost
         let cost
@@ -54,7 +54,7 @@ module.exports = {
         }
 
         // Check if User has a Business
-        if (await bsns.get('u-' + interaction.user.id + '-' + interaction.guild.id + '-BUSINESS') === 0) {
+        if (await bot.businesses.get('u-' + interaction.user.id + '-' + interaction.guild.id + '-BUSINESS') === 0) {
             // Create Embed
             let message = new EmbedBuilder()
             	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
@@ -70,7 +70,7 @@ module.exports = {
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] BUSINESSSELL : DONTOWNBUSINESS')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
 
         // Create Buttons
@@ -124,6 +124,6 @@ module.exports = {
 
         // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] BUSINESSSELL : ' + name + ' : ' + cost + '€')
-        return interaction.reply({ embeds: [message.toJSON()], components: [row] })
+        return interaction.reply({ embeds: [message], components: [row] })
     },
 };

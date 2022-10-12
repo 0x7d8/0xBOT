@@ -1,9 +1,12 @@
 const { ShardingManager } = require('discord.js')
+const { getAllFilesFilter } = require('./utils/getAllFiles.js')
+const pgP = require('pg').Pool
 
 const config = require('./config.json')
 const MongoStore = require('connect-mongo')
 const chalk = require('chalk')
 
+// Connect to MongoDB
 const mongoose = require('mongoose')
 mongoose.connect(config.mongo, {
     useUnifiedTopology: true,
@@ -12,11 +15,7 @@ mongoose.connect(config.mongo, {
 console.log(' ')
 
 // MongoDB Functions
-const cmds = require("./functions/cmds")
-const btns = require("./functions/btns")
-const bals = require("./functions/economy")
-const quts = require("./functions/quotes")
-const apis = require("./functions/apis")
+const bot = require("./functions/bot")
 const lang = require("./functions/langs")
 const gopt = require("./functions/gopts")
 
@@ -31,7 +30,7 @@ stdin.addListener("data", function(d) {
     if (args[0].toUpperCase() == 'ADDBAL') {
         if (typeof args[1] !== 'undefined' && typeof args[2] !== 'undefined') {
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] ADDED ' + args[2] + '€ TO ' + args[1])
-            bals.add(args[1].toString(), parseInt(args[2]))
+            bot.money.add(args[1].toString(), parseInt(args[2]))
         } else {
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] USAGE: ADDBAL [USERID] [AMOUNT]')
         }
@@ -41,7 +40,7 @@ stdin.addListener("data", function(d) {
     if (args[0].toUpperCase() == 'REMBAL') {
         if (typeof args[1] !== 'undefined' && typeof args[2] !== 'undefined') {
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] REMOVED ' + args[2] + '€ FROM ' + args[1])
-            bals.rem(args[1].toString(), parseInt(args[2]))
+            bot.money.rem(args[1].toString(), parseInt(args[2]))
         } else {
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] USAGE: REMBAL [USERID] [AMOUNT]')
         }
@@ -51,24 +50,9 @@ stdin.addListener("data", function(d) {
     if (args[0].toUpperCase() == 'SETBAL') {
         if (typeof args[1] !== 'undefined' && typeof args[2] !== 'undefined') {
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] SET BALANCE OF ' + args[1] + ' TO ' + args[2] + '€')
-            bals.set(args[1].toString(), parseInt(args[2]))
+            bot.money.set(args[1].toString(), parseInt(args[2]))
         } else {
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] USAGE: SETBAL [USERID] [AMOUNT]')
-        }
-    }
-
-
-    // VIEWVAR
-    if (args[0].toUpperCase() == 'VIEWVAR') {
-        if (typeof args[1] !== 'undefined') {
-            try {
-                console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] CONTENT OF ' + args[1].toupperCase() + ': ' + eval(args[1]).toString())
-                return
-            } catch (e) {
-                console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] THIS VARIABLE DOESNT EXIST')
-            }
-        } else {
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] USAGE: VIEWVAR [VARIABLE]')
         }
     }
   });
@@ -87,10 +71,41 @@ console.log(' ')
 console.log(chalk.bold('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$'))
 console.log(' ')
 
+// Database Migrations
+let migrated = false
+const migrator = async(conn) => {
+    const migrations = getAllFilesFilter('./migrations', '.js');
+    for (const file of migrations) {
+    	const migration = require(file)
+    	const status = await migration.migrate(conn)
+        if (status) {
+    	    console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] MIGRATED ${migration.data.name}`)
+            migrated = true
+        }
+    }
+}; const db = new pgP({
+    host: config.database.oxbot.host,
+    database: config.database.oxbot.database,
+    user: config.database.oxbot.username,
+    password: config.database.oxbot.password,
+    port: 5432
+}); const domigrate = async() => { await migrator(db) }
+domigrate(); if (migrated) { console.log(' ') }
+
+// Switcher (Keeping for the Docs)
+/* const domonmig = async() => {
+const schema = require('./schema/votes')
+const rawvalues = await schema.find({})
+rawvalues.forEach(function (e) {
+    db.query(`insert into uservotes values ($1, $2)`, [e.userId, e.votes])
+});
+}; domonmig() */
+
 // Dashboard
 const DarkDashboard = require('dbd-dark-dashboard')
 
 const { Client, GatewayIntentBits } = require('discord.js');
+const { migrate } = require('./migrations/0000_add-migrations-table.js')
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 client.login(config.client.token);
 
@@ -100,7 +115,7 @@ if (config.web.dashboard) {(async ()=>{
     DBD.Dashboard = DBD.UpdatedClass();
 
     const Dashboard = new DBD.Dashboard({
-        port: 25150,
+        port: config.web.ports.dashboard,
         client: {
             id: config.client.id,
             secret: config.client.secret

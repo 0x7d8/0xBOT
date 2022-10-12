@@ -61,7 +61,7 @@ module.exports = {
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] BUSINESS : DISABLED')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
 
         // Set Variables
@@ -69,7 +69,7 @@ module.exports = {
         const newprice = interaction.options.getInteger("price")
 
         // Check if User owns Business
-        if (await bsns.get('g-' + interaction.guild.id + '-1-OWNER') !== interaction.user.id) {
+        if (await bot.businesses.get('g-' + interaction.guild.id + '-1-OWNER') !== interaction.user.id) {
             // Create Embed
             let message = new EmbedBuilder()
             	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
@@ -85,7 +85,7 @@ module.exports = {
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ITEMPRICE : NOTOWNER')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
 
         // Check if Price is valid
@@ -110,11 +110,11 @@ module.exports = {
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ITEMPRICE : NOTLIMIT')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
 
         // Adjust Prices
-        bsns.set('g-' + interaction.guild.id + '-1-PRICE-' + itemid.toUpperCase(), newprice.toString())
+        bot.businesses.set('g-' + interaction.guild.id + '-1-PRICE-' + itemid.toUpperCase(), newprice.toString())
 
         // Create Embed
         let message = new EmbedBuilder()
@@ -131,6 +131,6 @@ module.exports = {
 
         // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ITEMPRICE : ' + itemid.toUpperCase() + ' : ' + newprice + '€')
-        return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+        return interaction.reply({ embeds: [message], ephemeral: true })
     },
 };

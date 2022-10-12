@@ -27,22 +27,14 @@ global.addper = (oval, pval) => {
 }
 
 // Bot Functions
-global.bot = require("./functions/bot")
+global.bot = require('./functions/bot')
 
 /// MongoDB Functions
 // General Value
 global.stkp = require("./functions/stockprices")
 global.uapi = require("./functions/userapis")
-global.cmds = require("./functions/cmds")
-global.btns = require("./functions/btns")
-global.msgs = require("./functions/msgs")
-global.bals = require("./functions/economy")
-global.quts = require("./functions/quotes")
-global.apis = require("./functions/apis")
 global.lang = require("./functions/langs")
 global.gopt = require("./functions/gopts")
-global.item = require("./functions/items")
-global.votef = require("./functions/votes")
 
 // Stocks
 global.sgrn = require("./functions/stocks/green")
@@ -57,29 +49,27 @@ global.sblux = require("./functions/stocks/bluemax")
 global.syllx = require("./functions/stocks/yellowmax")
 global.sredx = require("./functions/stocks/redmax")
 
-// Businesses
-global.bsns = require("./functions/businesses")
-
 // Deploy Commands
-const { REST } = require('@discordjs/rest');
-const { Routes } = require('discord-api-types/v9');
+const { REST } = require('@discordjs/rest')
+const { Routes } = require('discord-api-types/v9')
 
 // Create Client
-const client = new Client({ intents: [
-	GatewayIntentBits.Guilds,
-	GatewayIntentBits.GuildMessages,
-	GatewayIntentBits.MessageContent
-] })
+const client = new Client({
+    intents: [
+	    GatewayIntentBits.Guilds,
+	    GatewayIntentBits.GuildMessages,
+	    GatewayIntentBits.MessageContent
+    ]
+})
 
+/// Register Interactions
 // Load all Events
 const eventFiles = getAllFilesFilter('./events', '.js');
 for (const file of eventFiles) {
 	const event = require(file)
 	if (event.once) { client.once(event.event, (...args) => event.execute(...args)) } else { client.on(event.event, (...args) => event.execute(...args)) }
 	console.log(`[0xBOT] ${chalk.bold('[i]')} [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] LOADING EVENT ${event.name.toUpperCase()}`)
-}
-
-console.log(' ')
+}; console.log(' ')
 
 // Load all Commands
 client.commands = new Collection();
@@ -88,9 +78,7 @@ for (const file of commandFiles) {
 	const command = require(file)
 	client.commands.set(command.data.name, command)
 	console.log(`[0xBOT] ${chalk.bold('[i]')} [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] LOADING COMMAND ${command.data.name.toUpperCase()}`)
-}
-
-console.log(' ')
+}; console.log(' ')
 
 // Load all Buttons
 client.buttons = new Collection();
@@ -99,9 +87,8 @@ for (const file of buttonFiles) {
 	const button = require(file)
 	client.buttons.set(button.data.name, button)
 	console.log(`[0xBOT] ${chalk.bold('[i]')} [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] LOADING BUTTON ${button.data.name.toUpperCase()}`)
-}
+}; console.log(' ')
 
-console.log(' ')
 console.log(`[0xBOT] ${chalk.bold('[i]')} [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [END] $$$$$ LOADED COMMANDS AND EVENTS`)
 
 // Interaction Handler
@@ -119,7 +106,7 @@ client.on('interactionCreate', async interaction => {
 
 	// Get Vote Status
 	let votet = 'VOTED'
-	const lastVote = await votef.get(interaction.user.id + '-T')
+	const lastVote = await bot.votes.get(interaction.user.id + '-T')
 	if (!lastVote) { votet = 'NOT VOTED -> /VOTE' }
 	if (lastVote < (Date.now() - 24*60*60*1000)) { vote = 'NOT VOTED' }
 	if (guildlang == "de") {
@@ -143,12 +130,12 @@ client.on('interactionCreate', async interaction => {
 		bot.stats('cmd', interaction.user.id, interaction.guild.id)
 
 		// Check if Command Exists
-		const command = client.commands.get(interaction.commandName);
+		const command = client.commands.get(interaction.commandName)
 		if (!command) return;
 
 		// Execute Command
 		try {
-			await command.execute(interaction, client, guildlang, votet);
+			await command.execute(interaction, client, guildlang, votet)
 		} catch (e) {
 			try {
     			// Generate Error Code
@@ -180,16 +167,16 @@ client.on('interactionCreate', async interaction => {
     			let message = new EmbedBuilder()
         			.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   					.setDescription('» <:ERROR:1020414987291861022> An Error has occured while executing this Command.\nThe Error has been logged and will be fixed soon!')
-    				.setFooter({ text: '» ' + votet + ' » ' + config.version + ' <:EXCLAMATION:1024407166460891166> » ERROR: ' + errorid });
+    				.setFooter({ text: '» ' + votet + ' » ' + config.version + ' » ERROR: ' + errorid });
 				if (guildlang == 'de') {
 					message = new EmbedBuilder()
         				.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   						.setDescription('» <:ERROR:1020414987291861022> Ein Fehler ist beim ausführen dieses Befehls aufgetreten.\nDer Fehler wurde geloggt und wird bald behoben!')
-    					.setFooter({ text: '» ' + votet + ' » ' + config.version + ' <:EXCLAMATION:1024407166460891166> » FEHLER: ' + errorid });
+    					.setFooter({ text: '» ' + votet + ' » ' + config.version + ' » FEHLER: ' + errorid });
 				}
 
     			// Send Message
-				await interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+				await interaction.reply({ embeds: [message], ephemeral: true })
 			} catch (e) { return }
 		}
 
@@ -211,8 +198,8 @@ client.on('interactionCreate', async interaction => {
 				editedinteraction.customId = "beg"
 				sc = true
 
-				const button = client.buttons.get(editedinteraction.customId);
-				await button.execute(editedinteraction, client, guildlang, votet, args[1], args[2], args[3], args[4]);
+				const button = client.buttons.get(editedinteraction.customId)
+				await button.execute(editedinteraction, client, guildlang, votet, args[1], args[2], args[3], args[4])
 			}; if (args[0] == 'RPS') {
 				let choice
 				let editedinteraction = interaction
@@ -224,8 +211,8 @@ client.on('interactionCreate', async interaction => {
 				if (args[1] == 'NO') { editedinteraction.customId = "rps-no" }
 				sc = true
 
-				const button = client.buttons.get(editedinteraction.customId);
-				await button.execute(editedinteraction, client, guildlang, votet, args[2], choice);
+				const button = client.buttons.get(editedinteraction.customId)
+				await button.execute(editedinteraction, client, guildlang, votet, args[2], choice)
 			}; if (args[0] == 'MEMORY') {
 				let editedinteraction = interaction
 				editedinteraction.customId = "memory-choice"
@@ -234,8 +221,8 @@ client.on('interactionCreate', async interaction => {
 				if (args[1] == 'NO') { editedinteraction.customId = "memory-no" }
 				sc = true
 
-				const button = client.buttons.get(editedinteraction.customId);
-				await button.execute(editedinteraction, client, guildlang, votet, args[2], args[1]);
+				const button = client.buttons.get(editedinteraction.customId)
+				await button.execute(editedinteraction, client, guildlang, votet, args[2], args[1])
 			}; if (args[0] == 'TTT') {
 				let editedinteraction = interaction
 				editedinteraction.customId = "ttt-choice"
@@ -244,16 +231,16 @@ client.on('interactionCreate', async interaction => {
 				if (args[1] == 'NO') { editedinteraction.customId = "ttt-no" }
 				sc = true
 
-				const button = client.buttons.get(editedinteraction.customId);
-				await button.execute(editedinteraction, client, guildlang, votet, args[2], args[1]);
+				const button = client.buttons.get(editedinteraction.customId)
+				await button.execute(editedinteraction, client, guildlang, votet, args[2], args[1])
 			}; if (args[0] == 'stock') {
 				let editedinteraction = interaction
 
 				editedinteraction.customId = "stock-next"
 				sc = true
 
-				const button = client.buttons.get(editedinteraction.customId);
-				await button.execute(editedinteraction, client, guildlang, votet, args[2]);
+				const button = client.buttons.get(editedinteraction.customId)
+				await button.execute(editedinteraction, client, guildlang, votet, args[2])
 			}; if (args[0] == 'BUSINESS') {
 				let editedinteraction = interaction
 
@@ -261,8 +248,8 @@ client.on('interactionCreate', async interaction => {
 				if (args[2] == 'NO') { editedinteraction.customId = "business-no" }
 				sc = true
 
-				const button = client.buttons.get(editedinteraction.customId);
-				await button.execute(editedinteraction, client, guildlang, votet, args[3], args[4], args[1].toLowerCase());
+				const button = client.buttons.get(editedinteraction.customId)
+				await button.execute(editedinteraction, client, guildlang, votet, args[3], args[4], args[1].toLowerCase())
 			}; if (args[0] == 'CAR') {
 				let editedinteraction = interaction
 
@@ -270,8 +257,8 @@ client.on('interactionCreate', async interaction => {
 				if (args[2] == 'NO') { editedinteraction.customId = "car-no" }
 				sc = true
 
-				const button = client.buttons.get(editedinteraction.customId);
-				await button.execute(editedinteraction, client, guildlang, votet, args[3], args[4], args[1].toLowerCase());
+				const button = client.buttons.get(editedinteraction.customId)
+				await button.execute(editedinteraction, client, guildlang, votet, args[3], args[4], args[1].toLowerCase())
 			}; if (args[0] == 'ITEM') {
 				let editedinteraction = interaction
 
@@ -279,24 +266,24 @@ client.on('interactionCreate', async interaction => {
 				if (args[2] == 'NO') { editedinteraction.customId = "item-no" }
 				sc = true
 
-				const button = client.buttons.get(editedinteraction.customId);
-				await button.execute(editedinteraction, client, guildlang, votet, args[3], args[4], args[1].toLowerCase(), args[5]);
+				const button = client.buttons.get(editedinteraction.customId)
+				await button.execute(editedinteraction, client, guildlang, votet, args[3], args[4], args[1].toLowerCase(), args[5])
 			}; if (args[0] == 'BOMB') {
 				let editedinteraction = interaction
 
 				editedinteraction.customId = 'item-bomb'
 				sc = true
 
-				const button = client.buttons.get(editedinteraction.customId);
-				await button.execute(editedinteraction, client, guildlang, votet, args[1], args[2], args[3], args[4], args[5], args[6]);
+				const button = client.buttons.get(editedinteraction.customId)
+				await button.execute(editedinteraction, client, guildlang, votet, args[1], args[2], args[3], args[4], args[5], args[6])
 			}; if (args[0] == 'COUNT') {
 				let editedinteraction = interaction
 
 				editedinteraction.customId = 'count'
 				sc = true
 
-				const button = client.buttons.get(editedinteraction.customId);
-				await button.execute(editedinteraction, client, guildlang, votet, args[1].toLowerCase());
+				const button = client.buttons.get(editedinteraction.customId)
+				await button.execute(editedinteraction, client, guildlang, votet, args[1].toLowerCase())
 			}
 
 
@@ -340,16 +327,16 @@ client.on('interactionCreate', async interaction => {
     			let message = new EmbedBuilder()
         			.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   					.setDescription('» <:ERROR:1020414987291861022> An Error has occured while executing this Button.\nThe Error has been logged and will be fixed soon!')
-    				.setFooter({ text: '» ' + votet + ' » ' + config.version + ' <:EXCLAMATION:1024407166460891166> » ERROR: ' + errorid });
+    				.setFooter({ text: '» ' + votet + ' » ' + config.version + ' » ERROR: ' + errorid });
 				if (guildlang == 'de') {
 					message = new EmbedBuilder()
         				.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   						.setDescription('» <:ERROR:1020414987291861022> Ein Fehler ist beim ausführen dieses Buttons aufgetreten.\nDer Fehler wurde geloggt und wird bald behoben!')
-    					.setFooter({ text: '» ' + votet + ' » ' + config.version + ' <:EXCLAMATION:1024407166460891166> » FEHLER: ' + errorid });
+    					.setFooter({ text: '» ' + votet + ' » ' + config.version + ' » FEHLER: ' + errorid });
 				}
 
     			// Send Message
-				await interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+				await interaction.reply({ embeds: [message], ephemeral: true })
 			} catch (e) { return }
 		}
 
@@ -361,10 +348,10 @@ client.on('interactionCreate', async interaction => {
 client.on('messageCreate', async message => {
 	// Message & Character Counter
 	if (!message.author.bot) {
-		msgs.add('u-' + message.author.id + '-TOTAL-A', 1)
-		msgs.add('u-' + message.author.id + '-' + message.guildId + '-A', 1)
-		msgs.add('u-' + message.author.id + '-TOTAL-C', message.content.length)
-		msgs.add('u-' + message.author.id + '-' + message.guildId + '-C', message.content.length)
+		bot.stat.add('u-' + message.author.id + '-TOTAL-A', 'msg', 1)
+		bot.stat.add('u-' + message.author.id + '-' + message.guildId + '-A', 'msg', 1)
+		bot.stat.add('u-' + message.author.id + '-TOTAL-C', 'msg', message.content.length)
+		bot.stat.add('u-' + message.author.id + '-' + message.guildId + '-C', 'msg', message.content.length)
 	}
 })
 
@@ -434,28 +421,28 @@ if (config.web.votes) {
 				.setFooter({ text: '» ' + config.version });
 		}; let messagebonus = new EmbedBuilder()
 			.setTitle('» VOTING')
-			.setDescription('» Thanks for Voting **' + (parseInt(await votef.get(vote.user + '-A'))+1) + '** times!\nAs A Gift I give you extra **$' + extra + '**!')
+			.setDescription('» Thanks for Voting **' + (parseInt(await bot.votes.get(vote.user + '-A'))+1) + '** times!\nAs A Gift I give you extra **$' + extra + '**!')
 			.setFooter({ text: '» ' + config.version });
 		if (await lang.get(vote.user) == 1) {
 			messagebonus = new EmbedBuilder()
 				.setTitle('» VOTING')
-				.setDescription('» Danke, dass du **' + (parseInt(await votef.get(vote.user + '-A'))+1) + '** mal gevotet hast!\nAls Geschenk gebe ich dir extra **' + extra + '€**!')
+				.setDescription('» Danke, dass du **' + (parseInt(await bot.votes.get(vote.user + '-A'))+1) + '** mal gevotet hast!\nAls Geschenk gebe ich dir extra **' + extra + '€**!')
 				.setFooter({ text: '» ' + config.version });
 		}
 
 		// Add Money
-		await bals.add(vote.user, parseInt(random))
+		await bot.money.add(vote.user, parseInt(random))
 		console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] VOTED : ' + user + ' : ' + random + '€')
 
 		// Send Message
-		user.send({ embeds: [message.toJSON()] })
+		user.send({ embeds: [message] })
 
 		// Count to Stats
-		if (parseInt(await votef.get(vote.user + '-A')+1) % 10 === 0) {
-			bals.add(vote.user, parseInt(extra))
+		if (parseInt(await bot.votes.get(vote.user + '-A')+1) % 10 === 0) {
+			bot.money.add(vote.user, parseInt(extra))
 			user.send({ embeds: [messagebonus.toJSON()] })
-		}; votef.add(vote.user + '-A', 1)
-		votef.set(vote.user + '-T', Date.now())
+		}; bot.votes.add(vote.user + '-A', 1)
+		bot.votes.set(vote.user + '-T', Date.now())
 	}))
-	app.listen(25252)
+	app.listen(config.web.ports.votes)
 }

@@ -90,16 +90,16 @@ module.exports = {
         // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] SEARCH : ' + suche.toUpperCase() + ' : ' + engine.toUpperCase())
         if (engine == 'Google') {
-        	await interaction.reply({ embeds: [message.toJSON()], components: [google] })
+        	await interaction.reply({ embeds: [message], components: [google] })
         }
         if (engine == 'Bing') {
-            await interaction.reply({ embeds: [message.toJSON()], components: [bing] })
+            await interaction.reply({ embeds: [message], components: [bing] })
         }
         if (engine == 'Yahoo') {
-            await interaction.reply({ embeds: [message.toJSON()], components: [yahoo] })
+            await interaction.reply({ embeds: [message], components: [yahoo] })
         }
         if (engine == 'DuckDuckGo') {
-            await interaction.reply({ embeds: [message.toJSON()], components: [duck] })
+            await interaction.reply({ embeds: [message], components: [duck] })
         }
     },
 };

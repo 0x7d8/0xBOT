@@ -53,7 +53,7 @@ module.exports = {
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] QUOTE : DISABLED')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
 
         // Set Variables
@@ -81,13 +81,13 @@ module.exports = {
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] QUOTE : ONCOOLDOWN : ' + cdown.toFixed(0) + 's');
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
         
         // Check if there is a author specified
         let message
-        if (autor == null) {
-            const amount = await quts.get(interaction.user.id) + 1;
+        if (autor === null || interaction.user.id === autor.id) {
+            const amount = await bot.quotes.get(interaction.user.id) + 1;
         	message = new EmbedBuilder()
             	.setTitle('<:QUOTES:1024406448127623228> » A WISE QUOTE')
   				.setDescription('» "' + zitat + '" ~<@' + interaction.user.id + '>')
@@ -102,7 +102,7 @@ module.exports = {
             
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] QUOTE : ' + zitat.toUpperCase())
         } else {
-            const amount = await quts.get(autor.toString().replace(/\D/g, '')) + 1;
+            const amount = await bot.quotes.get(autor.toString().replace(/\D/g, '')) + 1;
         	message = new EmbedBuilder()
             	.setTitle('<:QUOTES:1024406448127623228> » A QUOTE')
   				.setDescription('» "' + zitat + '" ~<@' + autor + '>')
@@ -116,7 +116,7 @@ module.exports = {
             }
             
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] QUOTE : ' + zitat.toUpperCase() + ' : ~' + autor)
-            quts.add(autor.toString().replace(/\D/g, ''), 1);
+            bot.quotes.add(autor.toString().replace(/\D/g, ''), 1);
         }
         
         // Set Cooldown
@@ -124,6 +124,6 @@ module.exports = {
         setTimeout(() => cooldown.delete(), time)
 
         // Send Message
-        return interaction.reply({ embeds: [message.toJSON()] })
+        return interaction.reply({ embeds: [message] })
     },
 };

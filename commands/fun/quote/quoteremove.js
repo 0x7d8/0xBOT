@@ -47,7 +47,7 @@ module.exports = {
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] QUOTEREMOVE : DISABLED')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
 
         // Set Variables
@@ -56,8 +56,8 @@ module.exports = {
         const cost = anzahl * 1000
 
         // Get User Balances
-        const quotes = await quts.get(interaction.user.id);
-        const money = await bals.get(interaction.user.id);
+        const quotes = await bot.quotes.get(interaction.user.id);
+        const money = await bot.money.get(interaction.user.id);
         
         // Check if not in Minus Quotes
         if (quotes - anzahl < 0) {
@@ -76,7 +76,7 @@ module.exports = {
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] QUOTEREMOVE : ' + anzahl + ' : NOTENOUGHQUOTES');
-        	return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+        	return interaction.reply({ embeds: [message], ephemeral: true })
         }
         
         // Check for enough Money
@@ -98,7 +98,7 @@ module.exports = {
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] QUOTEREMOVE : ' + anzahl + ' : NOTENOUGHMONEY');
-        	return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+        	return interaction.reply({ embeds: [message], ephemeral: true })
         }
         
         // Check if Plural or not
@@ -132,11 +132,11 @@ module.exports = {
         }
 
         // Set Money and Quotes
-        bals.rem(interaction.user.id, cost);
-        quts.rem(interaction.user.id, anzahl);
+        bot.money.rem(interaction.user.id, cost);
+        bot.quotes.rem(interaction.user.id, anzahl);
         
         // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] QUOTEREMOVE : ' + anzahl + ' : ' + cost + '€');
-        return interaction.reply({ embeds: [message.toJSON()] })
+        return interaction.reply({ embeds: [message] })
     },
 };

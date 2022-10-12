@@ -28,6 +28,6 @@ module.exports = {
 
         // Send Correct Response
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] DONATE <3')
-        return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+        return interaction.reply({ embeds: [message], ephemeral: true })
     },
 };

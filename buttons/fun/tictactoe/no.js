@@ -28,7 +28,7 @@ module.exports = {
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] TICTACTOE : NO : NOTALLOWED')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
         
         // Answer Timeout Function
@@ -54,6 +54,6 @@ module.exports = {
 
         // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] TICTACTOE : ' + sender.toString().replace(/\D/g, '') + ' : DENY')
-        return interaction.update({ content: '', embeds: [message.toJSON()], components: interaction.message.components })
+        return interaction.update({ content: '', embeds: [message], components: interaction.message.components })
     }
 }

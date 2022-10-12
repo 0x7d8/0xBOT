@@ -65,14 +65,14 @@ module.exports = {
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROULETTE : DISABLED')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
         
         // Set Variables
         const bereich = interaction.options.getString("range")
         const wette = interaction.options.getInteger("bet")
         const nummer = interaction.options.getInteger("number")
-        const money = await bals.get(interaction.user.id);
+        const money = await bot.money.get(interaction.user.id);
         const random10 = Math.floor(Math.random() * (10 - 1 + 1)) + 1;
         const random100 = Math.floor(Math.random() * (100 - 1 + 1)) + 1;
         const random1000 = Math.floor(Math.random() * (1000 - 1 + 1)) + 1;
@@ -94,7 +94,7 @@ module.exports = {
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] GUESS : NEGATIVEMONEY : ' + wette + '€')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
         
        	// Check for enough Money
@@ -118,7 +118,7 @@ module.exports = {
                 
                 // Send Message
             	bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] GUESS : TOOMUCHMONEY : ' + wette + '€')
-        		return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+        		return interaction.reply({ embeds: [message], ephemeral: true })
             }
             
             // Calculate Winnings
@@ -155,7 +155,7 @@ module.exports = {
 
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] GUESS : NOTENOUGHMONEY : ' + missing + '€')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
         
         // Create Embed
@@ -172,13 +172,13 @@ module.exports = {
         }
         
         // Set Money
-        bals.rem(interaction.user.id, result)
+        bot.money.rem(interaction.user.id, result)
         if (status == 'GEWONNEN' || status == 'WON') {
-        	bals.add(interaction.user.id, result)
+        	bot.money.add(interaction.user.id, result)
         }
 
         // Send Message
        	bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] GUESS : ' + nummer + ' : ' + status + ' : ' + result + '€')
-        return interaction.reply({ embeds: [message.toJSON()] })
+        return interaction.reply({ embeds: [message] })
     },
 };

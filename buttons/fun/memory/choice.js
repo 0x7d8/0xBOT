@@ -45,7 +45,7 @@ module.exports = {
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] MEMORY : NOTPLAYING')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
 
         // Check Turn
@@ -65,7 +65,7 @@ module.exports = {
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] MEMORY : NOTTURN')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
 
         // Defer Reply
@@ -183,7 +183,7 @@ module.exports = {
 
         // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] MEMORY : ' + sel + ' : ' + bot.memory.get('I_EMOJI-' + sel + '-' + sender))
-        interaction.editReply({ embeds: [message.toJSON()], components: interaction.message.components, ephemeral: true })
+        interaction.editReply({ embeds: [message], components: interaction.message.components, ephemeral: true })
 
         // Check for Special Conditions
         if (!doflush) return
@@ -232,10 +232,10 @@ module.exports = {
             // Transfer Money
             const betwon = parseInt(bet) * 2
             if (winner != '**Noone**' && winner != '**Niemand**') {
-                bals.add(winner.toString().replace(/\D/g, ''), parseInt(betwon))
+                bot.money.add(winner.toString().replace(/\D/g, ''), parseInt(betwon))
             } else {
-                bals.add(sender.toString().replace(/\D/g, ''), parseInt(bet))
-                bals.add(reciever.toString().replace(/\D/g, ''), parseInt(bet))
+                bot.money.add(sender.toString().replace(/\D/g, ''), parseInt(bet))
+                bot.money.add(reciever.toString().replace(/\D/g, ''), parseInt(bet))
             }
 
             // Create Embed
@@ -269,10 +269,10 @@ module.exports = {
             bot.memory.delete('C_PLAYERSELECT-' + sender)
 
             // Update Message
-            return interaction.message.edit({ embeds: [message.toJSON()], components: interaction.message.components, ephemeral: true })
+            return interaction.message.edit({ embeds: [message], components: interaction.message.components, ephemeral: true })
         }
 
         // Update Message
-        return interaction.message.edit({ embeds: [message.toJSON()], components: interaction.message.components, ephemeral: true })
+        return interaction.message.edit({ embeds: [message], components: interaction.message.components, ephemeral: true })
     }
 }

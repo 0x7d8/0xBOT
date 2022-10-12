@@ -24,7 +24,7 @@ module.exports = {
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] ITEMUSE : NOTSENDER')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
 
         // Answer Timeout Function
@@ -99,6 +99,6 @@ module.exports = {
 
         // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] ITEMUSE : BOMB : ' + choice + ' : ' + solution)
-        return interaction.update({ content: '', embeds: [message.toJSON()], components: interaction.message.components })
+        return interaction.update({ content: '', embeds: [message], components: interaction.message.components })
     }
 }

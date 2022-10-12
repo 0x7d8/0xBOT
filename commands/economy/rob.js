@@ -59,14 +59,14 @@ module.exports = {
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : DISABLED')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
 
         // Set Variables
         const user = interaction.options.getUser("user")
         const money = interaction.options.getString("money")
-        const moneysnd = await bals.get(interaction.user.id);
-        const moneytar = await bals.get(user.id);
+        const moneysnd = await bot.money.get(interaction.user.id);
+        const moneytar = await bot.money.get(user.id);
 
         // Cooldown
         if (cooldown.get(interaction.user.id) - Date.now() > 0) {
@@ -88,7 +88,7 @@ module.exports = {
             }
             
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : ONCOOLDOWN : ' + cdown.toFixed(0) + 's');
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
         
         // Check if User is Author
@@ -108,12 +108,11 @@ module.exports = {
             }
             
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : ' + user.id + ' : ' + money + '€ : SAMEPERSON')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
 
         // Check if Target is Bot
-        const userinfo = await client.users.fetch(user);
-        if (userinfo.bot == true) {
+        if (user.bot) {
             // Create Embed
             let message = new EmbedBuilder()
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
@@ -129,7 +128,7 @@ module.exports = {
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : ' + user + ' : BOT')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
         
         // Set Steal to Need
@@ -266,7 +265,7 @@ module.exports = {
         	setTimeout(() => cooldown.delete(), time)
             
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : ' + user + ' : ' + amount + '€ : FAILURE : ' + punishment + '€')
-        	bals.rem(interaction.user.id, punishment)
+        	bot.money.rem(interaction.user.id, punishment)
         	return interaction.reply({ embeds: [failure.toJSON()] })
         }
         
@@ -275,8 +274,8 @@ module.exports = {
         setTimeout(() => cooldown.delete(), time)
 
         // Set Money
-        bals.rem(user.id, amount)
-        bals.add(interaction.user.id, amount)
+        bot.money.rem(user.id, amount)
+        bot.money.add(interaction.user.id, amount)
         
         // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : ' + user + ' : ' + amount + '€ : SUCCESS')

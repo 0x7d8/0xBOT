@@ -60,6 +60,6 @@ module.exports = {
 
         // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] EMBED : ' + titel.toUpperCase() + ' : ' + nachricht.toUpperCase())
-        return interaction.reply({ embeds: [message.toJSON()] })
+        return interaction.reply({ embeds: [message] })
     },
 };

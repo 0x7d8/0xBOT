@@ -27,10 +27,10 @@ module.exports = {
         // Set User ID
         let votes
         if (user == null) {
-            votes = await votef.get(interaction.user.id + '-A');
+            votes = await bot.votes.get(interaction.user.id + '-A');
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] VOTES : ' + votes);
         } else {
-            votes = await votef.get(user.id + '-A');
+            votes = await bot.votes.get(user.id + '-A');
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] VOTES : ' + user + ' : ' + votes);
         }
         
@@ -71,6 +71,6 @@ module.exports = {
         }
 
         // Send Message
-        return interaction.reply({ embeds: [message.toJSON()] })
+        return interaction.reply({ embeds: [message] })
     },
 };

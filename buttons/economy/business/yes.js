@@ -7,7 +7,7 @@ module.exports = {
     },
     async execute(interaction, client, lang, vote, business, userid, type) {
         // Set Variables
-        const balance = await bals.get(interaction.user.id)
+        const balance = await bot.money.get(interaction.user.id)
 
         // Translate to Business ID
         let businessid
@@ -49,7 +49,7 @@ module.exports = {
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] BUSINESSBUY : NOTSENDER')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
 
         // Split Button with type
@@ -73,12 +73,12 @@ module.exports = {
             
                 // Send Message
                 bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] BUSINESSBUY : ' + name.toUpperCase() + ' : NOTENOUGHMONEY : ' + cost + '€')
-                return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+                return interaction.reply({ embeds: [message], ephemeral: true })
             }
 
             // Check if User already has Business
-            if (await bsns.get('u-' + interaction.user.id + '-' + interaction.guild.id + '-BUSINESS') !== 0) {
-                const userbusiness = await bsns.get('u-' + interaction.user.id + '-' + interaction.guild.id + '-BUSINESS')
+            if (await bot.businesses.get('u-' + interaction.user.id + '-' + interaction.guild.id + '-BUSINESS') !== 0) {
+                const userbusiness = await bot.businesses.get('u-' + interaction.user.id + '-' + interaction.guild.id + '-BUSINESS')
 
             // Translate to Business Names
                 let name
@@ -106,7 +106,7 @@ module.exports = {
 
                 // Send Message
                 bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] BUSINESSBUY : ALREADYBUSINESS')
-                return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+                return interaction.reply({ embeds: [message], ephemeral: true })
             }
 
             // Edit Buttons
@@ -115,23 +115,23 @@ module.exports = {
             interaction.message.components[0].components[1].data.style = 2
 
             // Remove Money
-            bals.rem(interaction.user.id, cost)
+            bot.money.rem(interaction.user.id, cost)
 
             // Own Business
-            bsns.set('g-' + interaction.guild.id + '-' + businessid + '-OWNER', interaction.user.id)
-            bsns.set('u-' + interaction.user.id + '-' + interaction.guild.id + '-BUSINESS', business)
+            bot.businesses.set('g-' + interaction.guild.id + '-' + businessid + '-OWNER', interaction.user.id)
+            bot.businesses.set('u-' + interaction.user.id + '-' + interaction.guild.id + '-BUSINESS', business)
             if (business === 'market') {
-                bsns.set('g-' + interaction.guild.id + '-1-PRICE-NBOMB', '500')
-                bsns.set('g-' + interaction.guild.id + '-1-PRICE-MBOMB', '1500')
-                bsns.set('g-' + interaction.guild.id + '-1-PRICE-HBOMB', '5000')
-                bsns.set('g-' + interaction.guild.id + '-1-PRICE-CBOMB', '15000')
+                bot.businesses.set('g-' + interaction.guild.id + '-1-PRICE-NBOMB', '500')
+                bot.businesses.set('g-' + interaction.guild.id + '-1-PRICE-MBOMB', '1500')
+                bot.businesses.set('g-' + interaction.guild.id + '-1-PRICE-HBOMB', '5000')
+                bot.businesses.set('g-' + interaction.guild.id + '-1-PRICE-CBOMB', '15000')
             }
             if (business === 'car dealership') {
-                bsns.set('g-' + interaction.guild.id + '-3-PRICE-JEEP', '10000')
-                bsns.set('g-' + interaction.guild.id + '-3-PRICE-KIA', '75000')
-                bsns.set('g-' + interaction.guild.id + '-3-PRICE-AUDI', '180000')
-                bsns.set('g-' + interaction.guild.id + '-3-PRICE-TESLA', '250000')
-                bsns.set('g-' + interaction.guild.id + '-3-PRICE-PORSCHE', '520000')
+                bot.businesses.set('g-' + interaction.guild.id + '-3-PRICE-JEEP', '10000')
+                bot.businesses.set('g-' + interaction.guild.id + '-3-PRICE-KIA', '75000')
+                bot.businesses.set('g-' + interaction.guild.id + '-3-PRICE-AUDI', '180000')
+                bot.businesses.set('g-' + interaction.guild.id + '-3-PRICE-TESLA', '250000')
+                bot.businesses.set('g-' + interaction.guild.id + '-3-PRICE-PORSCHE', '520000')
             }
 
             // Create Embed
@@ -149,9 +149,9 @@ module.exports = {
 
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] BUSINESSBUY : ' + name + ' : CONFIRM')
-            return interaction.update({ embeds: [message.toJSON()], components: interaction.message.components })
+            return interaction.update({ embeds: [message], components: interaction.message.components })
         } else if (type === 'sell') {
-            const business = await bsns.get('u-' + interaction.user.id + '-' + interaction.guild.id + '-BUSINESS')
+            const business = await bot.businesses.get('u-' + interaction.user.id + '-' + interaction.guild.id + '-BUSINESS')
 
             // Translate to Business ID
             let businessid
@@ -166,7 +166,7 @@ module.exports = {
             if (business == 'car dealership') { cost = 520000 }
 
             // Check if User has a Business
-            if (await bsns.get('u-' + interaction.user.id + '-' + interaction.guild.id + '-BUSINESS', 'amount') === 0) {
+            if (await bot.businesses.get('u-' + interaction.user.id + '-' + interaction.guild.id + '-BUSINESS', 'amount') === 0) {
                 // Create Embed
                 let message = new EmbedBuilder()
                 	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
@@ -182,7 +182,7 @@ module.exports = {
 
                 // Send Message
                 bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] BUSINESSSELL : DONTOWNBUSINESS')
-                return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+                return interaction.reply({ embeds: [message], ephemeral: true })
             }
 
             // Edit Buttons
@@ -204,28 +204,28 @@ module.exports = {
             }
 
             // Add Money
-            bals.add(interaction.user.id, (cost/2))
+            bot.money.add(interaction.user.id, (cost/2))
 
             // unOwn Business
-            bsns.del('u-' + interaction.user.id + '-' + interaction.guild.id + '-BUSINESS')
-            bsns.del('g-' + interaction.guild.id + '-' + businessid + '-OWNER')
+            bot.businesses.del('u-' + interaction.user.id + '-' + interaction.guild.id + '-BUSINESS')
+            bot.businesses.del('g-' + interaction.guild.id + '-' + businessid + '-OWNER')
             if (business === 'market') {
-                bsns.del('g-' + interaction.guild.id + '-1-PRICE-NBOMB')
-                bsns.del('g-' + interaction.guild.id + '-1-PRICE-MBOMB')
-                bsns.del('g-' + interaction.guild.id + '-1-PRICE-HBOMB')
-                bsns.del('g-' + interaction.guild.id + '-1-PRICE-CBOMB')
+                bot.businesses.del('g-' + interaction.guild.id + '-1-PRICE-NBOMB')
+                bot.businesses.del('g-' + interaction.guild.id + '-1-PRICE-MBOMB')
+                bot.businesses.del('g-' + interaction.guild.id + '-1-PRICE-HBOMB')
+                bot.businesses.del('g-' + interaction.guild.id + '-1-PRICE-CBOMB')
             }
             if (business === 'car dealership') {
-                bsns.del('g-' + interaction.guild.id + '-3-PRICE-JEEP')
-                bsns.del('g-' + interaction.guild.id + '-3-PRICE-KIA')
-                bsns.del('g-' + interaction.guild.id + '-3-PRICE-AUDI')
-                bsns.del('g-' + interaction.guild.id + '-3-PRICE-TESLA')
-                bsns.del('g-' + interaction.guild.id + '-3-PRICE-PORSCHE')
+                bot.businesses.del('g-' + interaction.guild.id + '-3-PRICE-JEEP')
+                bot.businesses.del('g-' + interaction.guild.id + '-3-PRICE-KIA')
+                bot.businesses.del('g-' + interaction.guild.id + '-3-PRICE-AUDI')
+                bot.businesses.del('g-' + interaction.guild.id + '-3-PRICE-TESLA')
+                bot.businesses.del('g-' + interaction.guild.id + '-3-PRICE-PORSCHE')
             }
 
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] BUSINESSSELL : ' + name + ' : CONFIRM')
-            return interaction.update({ embeds: [message.toJSON()], components: interaction.message.components })
+            return interaction.update({ embeds: [message], components: interaction.message.components })
         }
     }
 }

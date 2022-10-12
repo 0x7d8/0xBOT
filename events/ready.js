@@ -1,11 +1,18 @@
 const { version } = require('../config.json')
 const { ActivityType } = require('discord.js')
 
+// Connect to Database
 const config = require('../config.json')
-const fetch = require("node-fetch");
+const pgP = require('pg').Pool
+const db = new pgP({
+    ost: config.database.oxbot.host,
+    database: config.database.oxbot.database,
+    user: config.database.oxbot.username,
+    password: config.database.oxbot.password,
+    port: 5432
+}); const fetch = require("node-fetch");
 const wait = require('node:timers/promises').setTimeout
 const commitCount = require('git-commit-count')
-const moneySchema = require('../schema/money');
 const chalk = require('chalk')
 
 module.exports = {
@@ -26,16 +33,15 @@ module.exports = {
 			const commits = await commitCount('rotvproHD/0xBOT')
 			client.user.setActivity(commits + ' Commits', { type: ActivityType.Watching })
 			await wait(20000)
-			client.user.setActivity(await cmds.get('t-all') + ' Commands Used', { type: ActivityType.Watching })
+			client.user.setActivity(await bot.stat.get('t-all', 'cmd') + ' Commands Used', { type: ActivityType.Watching })
 			await wait(10000)
-			client.user.setActivity(await btns.get('t-all') + ' Buttons Clicked', { type: ActivityType.Watching })
+			client.user.setActivity(await bot.stat.get('t-all', 'btn') + ' Buttons Clicked', { type: ActivityType.Watching })
 			await wait(20000)
-			const rawvalues = await moneySchema.find({})
-			let conrun = true; let number = 0; let total = 0
-			while (conrun) {
-				try { total = (total + rawvalues[number].money); number++ }
-				catch (e) { conrun = false } }
-			client.user.setActivity('$' + total + ' Total Cash', { type: ActivityType.Watching })
+			const rawvalues = await db.query(`select * from usermoney;`)
+			let total = 0
+			rawvalues.rows.forEach(element => {
+				total = total + parseInt(element.money)
+			}); client.user.setActivity('$' + total + ' in Circulation', { type: ActivityType.Watching })
 			await wait(20000)
 			headers = {
 				"Authorization": config.web.keys.apikey

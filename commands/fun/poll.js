@@ -55,7 +55,7 @@ module.exports = {
         }
         
         // Send Message
-        await interaction.reply({ embeds: [message.toJSON()] })
+        await interaction.reply({ embeds: [message] })
         const sendcache = await interaction.fetchReply();
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] POLL : ' + frage.toUpperCase() + ' : ' + reactions.toUpperCase())
         

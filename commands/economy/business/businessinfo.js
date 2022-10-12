@@ -45,7 +45,7 @@ module.exports = {
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] BUSINESS : DISABLED')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
 
         // Set Variables
@@ -59,10 +59,10 @@ module.exports = {
 
         // Check if Business is Empty
         let businessowner, oldleft
-        if (await bsns.get('g-' + interaction.guild.id + '-' + businessid + '-OWNER') != 0) {
+        if (await bot.businesses.get('g-' + interaction.guild.id + '-' + businessid + '-OWNER') != 0) {
             oldleft = true
-            businessowner = await bsns.get('g-' + interaction.guild.id + '-' + businessid + '-OWNER')
-            businessearning = await bsns.get('g-' + interaction.guild.id + '-' + businessid + '-EARNING', true)
+            businessowner = await bot.businesses.get('g-' + interaction.guild.id + '-' + businessid + '-OWNER')
+            businessearning = await bot.businesses.get('g-' + interaction.guild.id + '-' + businessid + '-EARNING', true)
             try {
                 await interaction.guild.members.fetch(businessowner)
             } catch (e) {return}
@@ -82,7 +82,7 @@ module.exports = {
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] BUSINESSINFO : ' + business.toUpperCase())
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
 
         // Create Embed
@@ -100,6 +100,6 @@ module.exports = {
 
         // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] BUSINESSINFO : ' + business.toUpperCase() + ' : NOTOWNED')
-        return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+        return interaction.reply({ embeds: [message], ephemeral: true })
     },
 };

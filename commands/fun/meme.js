@@ -31,7 +31,7 @@ module.exports = {
             
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] MEME : DISABLED')
-            return interaction.reply({ embeds: [message.toJSON()], ephemeral: true })
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
 
         // Set Variables
@@ -72,6 +72,6 @@ module.exports = {
         
         // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] MEME : ' + subreddit.toUpperCase() + ' : ' + upvotes + '^ : ' + comments)
-        return interaction.reply({ embeds: [message.toJSON()] })
+        return interaction.reply({ embeds: [message] })
     },
 };
