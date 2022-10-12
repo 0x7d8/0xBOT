@@ -89,6 +89,7 @@ module.exports = {
         }
 
         // Send Message
+        bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] BALANCETOP : ' + listtype);
         return interaction.editReply({ embeds: [message] }).catch((e) => {})
     },
 };
