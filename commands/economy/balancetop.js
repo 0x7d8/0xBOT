@@ -1,6 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders')
 const { EmbedBuilder } = require('@discordjs/builders')
-const { version } = require('../../config.json')
 
 // Connect to Database
 const config = require('../../config.json')
@@ -79,17 +78,17 @@ module.exports = {
         let message = new EmbedBuilder()
         	.setTitle('<:WALLET:1024387370793050273> » TOP BALANCES')
   			.setDescription(embedDesc)
-        	.setFooter({ text: '» ' + vote + ' » ' + version });
+        	.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
         if (lang === 'de') {
             message = new EmbedBuilder()
         	    .setTitle('<:WALLET:1024387370793050273> » TOP KONTOSTÄNDE')
   			    .setDescription(embedDesc)
-        	    .setFooter({ text: '» ' + vote + ' » ' + version });
+        	    .setFooter({ text: '» ' + vote + ' » ' + config.version });
         }
 
         // Send Message
-        bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] BALANCETOP : ' + listtype);
+        bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] BALANCETOP : ' + listtype.toString().toUpperCase());
         return interaction.editReply({ embeds: [message] }).catch((e) => {})
     },
 };
