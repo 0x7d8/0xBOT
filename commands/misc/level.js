@@ -27,6 +27,9 @@ module.exports = {
         // Set Variables
         const user = interaction.options.getUser('user')
         let userobj; if (user === null) { userobj = interaction.user } else { userobj = user }
+
+        // Defer Reply
+        await interaction.deferReply()
         
         // Set User ID
         const counts = []
@@ -41,7 +44,7 @@ module.exports = {
         }
 
         // Calculate Level
-        const cachelevel = Math.round(((counts[0]/2)/500/5) * 100) / 100
+        const cachelevel = Math.round(((counts[0]/2)/500/5) * 1000) / 1000
         const arraylevel = cachelevel.toString().split('.')
 
         // Generate Language Text
@@ -53,7 +56,7 @@ module.exports = {
             .setAvatar(userobj.displayAvatarURL({
                 format: 'png'
             }))
-            .setCurrentXP(parseInt(arraylevel[1])*10)
+            .setCurrentXP(parseInt(arraylevel[1]))
             .setRequiredXP(1000)
             .setProgressBar('#90CDF4', 'COLOR')
             .setUsername(userobj.username)
@@ -100,6 +103,6 @@ module.exports = {
         }
 
         // Send Message
-        return interaction.reply({ embeds: [message], files: [attachment] })
+        return interaction.editReply({ embeds: [message], files: [attachment] })
     },
 };
