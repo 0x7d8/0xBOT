@@ -440,7 +440,7 @@ if (config.web.votes) {
 
 		// Count to Stats
 		if (parseInt(await bot.votes.get(vote.user + '-A')+1) % 10 === 0) {
-			bot.money.add(interaction, vote.user, parseInt(extra))
+			bot.money.add(false, vote.user, parseInt(extra))
 			user.send({ embeds: [messagebonus.toJSON()] })
 		}; bot.votes.add(vote.user + '-A', 1)
 		bot.votes.set(vote.user + '-T', Date.now())
