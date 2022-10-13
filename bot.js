@@ -401,8 +401,8 @@ if (config.web.votes) {
 
 		// Calculate Extra
 		let extra
-		if (parseInt(await votef.get(vote.user + '-A')+1) % 10 === 0) {
-			extra = (parseInt(await votef.get(vote.user + '-A')+1) * 10000)/2
+		if (parseInt(await bot.votes.get(vote.user + '-A')+1) % 10 === 0) {
+			extra = (parseInt(await bot.votes.get(vote.user + '-A')+1) * 10000)/2
 		}
 
 		// Create Embeds
