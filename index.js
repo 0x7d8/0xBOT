@@ -167,7 +167,7 @@ if (config.web.dashboard) {(async ()=>{
                 information: {
                     category: "<center>UPDATE INFO</center>",
                     title: "<center>INFORMATION</center>",
-                    description: `<center>This Update added the following Features: <br/><br/>Use Postgres instead of Mongo<br/>Massive Code Cleanup<br/>Use Numeric instead of Int<br/>Add Baltop Command</center>`,
+                    description: `<center>This Update added the following Features: <br/><br/>Use Postgres instead of Mongo<br/>Massive Code Cleanup<br/>Use Numeric instead of Int<br/>Add Baltop Command<br/>Add Levels</center>`,
                     footer: "<center>VERSION 2.5.0</center>",
                 },
 
