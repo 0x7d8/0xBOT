@@ -432,7 +432,7 @@ if (config.web.votes) {
 		}
 
 		// Add Money
-		await bot.money.add(interaction, vote.user, parseInt(random))
+		await bot.money.add(false, vote.user, parseInt(random))
 		console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] VOTED : ' + user + ' : ' + random + '€')
 
 		// Send Message
