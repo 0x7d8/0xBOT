@@ -31,7 +31,7 @@ module.exports = {
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] VOTES : ' + votes);
         } else {
             votes = await bot.votes.get(user.id + '-A');
-            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] VOTES : ' + user + ' : ' + votes);
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] VOTES : ' + user.id + ' : ' + votes);
         }
         
         // Check if Plural or not
@@ -59,13 +59,13 @@ module.exports = {
         } else {
             message = new EmbedBuilder()
                 .setTitle('<:GLOBE:1024403680503529583> » THE VOTES OF ' + user.username.toUpperCase())
-  				.setDescription('» <@' + user + '> has **' + votes + '** ' + word + '!')
+  				.setDescription('» <@' + user.id + '> has **' + votes + '** ' + word + '!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang === 'de') {
                 message = new EmbedBuilder()
                     .setTitle('<:GLOBE:1024403680503529583> » DIE VOTES VON ' + user.username.toUpperCase())
-  				    .setDescription('» <@' + user + '> hat **' + votes + '** ' + word + '!')
+  				    .setDescription('» <@' + user.id + '> hat **' + votes + '** ' + word + '!')
             	    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
         }

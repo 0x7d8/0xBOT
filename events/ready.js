@@ -9,6 +9,7 @@ const db = new pgP({
     database: config.database.oxbot.database,
     user: config.database.oxbot.username,
     password: config.database.oxbot.password,
+    ssl: true,
     port: 5432
 }); const fetch = require("node-fetch");
 const wait = require('node:timers/promises').setTimeout

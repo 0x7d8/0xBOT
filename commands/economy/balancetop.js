@@ -2,13 +2,13 @@ const { SlashCommandBuilder } = require('@discordjs/builders')
 const { EmbedBuilder } = require('@discordjs/builders')
 
 // Connect to Database
-const config = require('../../config.json')
 const pgP = require('pg').Pool
 const db = new pgP({
     host: config.database.oxbot.host,
     database: config.database.oxbot.database,
     user: config.database.oxbot.username,
     password: config.database.oxbot.password,
+    ssl: true,
     port: 5432
 })
 
@@ -55,7 +55,11 @@ module.exports = {
                     count++
                     let formattedcount = count
                     if (count < 10) { formattedcount = '0' + count }
-                    embedDesc = embedDesc + `\`${formattedcount}.\` » ${userinfo.username}#${userinfo.discriminator} (**${element.money}€**)\n`
+                    if (element.userid !== interaction.user.id) {
+                        embedDesc = embedDesc + `\`${formattedcount}.\` » ${userinfo.username}#${userinfo.discriminator} (**${element.money}€**)\n`
+                    } else {
+                        embedDesc = embedDesc + `**\`${formattedcount}.\`** » ${userinfo.username}#${userinfo.discriminator} (**${element.money}€**)\n`
+                    }
                 }
             }
         } else {
@@ -64,7 +68,11 @@ module.exports = {
                 count++
                 let formattedcount = count
                 if (count < 10) { formattedcount = '0' + count }
-                embedDesc = embedDesc + `\`${formattedcount}.\` » <@${element.userid}> (**${element.money}€**)\n`
+                if (element.userid !== interaction.user.id) {
+                    embedDesc = embedDesc + `\`${formattedcount}.\` » <@${element.userid}> (**${element.money}€**)\n`
+                } else {
+                    embedDesc = embedDesc + `**\`${formattedcount}.\`** » <@${element.userid}> (**${element.money}€**)\n`
+                }
             }
         }; if (embedDesc === '') { embedDesc = 'Nothing to Display.'; if (lang === 'de') { embedDesc = 'Nichts zum Anzeigen.' } }
         

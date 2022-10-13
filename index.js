@@ -14,7 +14,7 @@ mongoose.connect(config.mongo, {
 }).then(console.log('[0xBOT] [!] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] CONNECTED TO MONGODB'))
 console.log(' ')
 
-// MongoDB Functions
+// Database Functions
 const bot = require("./functions/bot")
 const lang = require("./functions/langs")
 const gopt = require("./functions/gopts")
@@ -88,6 +88,7 @@ const migrator = async(conn) => {
     database: config.database.oxbot.database,
     user: config.database.oxbot.username,
     password: config.database.oxbot.password,
+    ssl: true,
     port: 5432
 }); const domigrate = async() => { await migrator(db) }
 domigrate(); if (migrated) { console.log(' ') }
@@ -101,13 +102,15 @@ rawvalues.forEach(function (e) {
 });
 }; domonmig() */
 
-// Dashboard
+/// Dashboard
 const DarkDashboard = require('dbd-dark-dashboard')
 
+// Create Client
 const { Client, GatewayIntentBits } = require('discord.js');
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 client.login(config.client.token);
 
+// Initialize Dashboard
 if (config.web.dashboard) {(async ()=>{
     let DBD = require('discord-dashboard');
     await DBD.useLicense(config.web.keys.dashkey);
@@ -142,7 +145,16 @@ if (config.web.dashboard) {(async ()=>{
             },
 
             custom_html: {
-                head: "<style>li:nth-child(3) {display: none !important;};select.col-md-12 > * {text-align: center;}select.col-md-12 {width: 25% !important;}</style>"
+                head: `
+                    <style>
+                        li:nth-child(3) {
+                            display: none !important;
+                        }; select.col-md-12 > * {
+                            text-align: center;
+                        }; select.col-md-12 {
+                            width: 25% !important;
+                        }
+                    </style>`
             },
 
             index: {

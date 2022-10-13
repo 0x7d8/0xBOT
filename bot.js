@@ -2,7 +2,7 @@ const { Client, Collection, GatewayIntentBits } = require('discord.js')
 const { getAllFilesFilter } = require('./utils/getAllFiles.js')
 const { EmbedBuilder } = require('@discordjs/builders')
 
-const config = require('./config.json')
+global.config = require('./config.json')
 const chalk = require('chalk')
 const fs = require("fs")
 

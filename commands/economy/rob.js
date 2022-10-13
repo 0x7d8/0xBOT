@@ -1,10 +1,10 @@
-const { Collection } = require('discord.js');
-const { SlashCommandBuilder } = require('@discordjs/builders');
-const { EmbedBuilder } = require('@discordjs/builders');
-const { version } = require('../../config.json');
+const { Collection } = require('discord.js')
+const { SlashCommandBuilder } = require('@discordjs/builders')
+const { EmbedBuilder } = require('@discordjs/builders')
+const { version } = require('../../config.json')
 
-const cooldown = new Collection();
-let time = 30000;
+const cooldown = new Collection()
+let time = 30000
 
 module.exports = {
     data: new SlashCommandBuilder()
