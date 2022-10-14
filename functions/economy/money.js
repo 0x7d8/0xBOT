@@ -27,7 +27,7 @@ exports.set = (i, userid, value) => new Promise(async ful => {
             i.guild.id
         ]); return ful('Y-CREATE')
     } else {
-        if (i && !data.rows[0].guilds.includes(i.guild.id)) {
+        if (!!i && !data.rows[0].guilds.includes(i.guild.id)) {
             await db.query(`update usermoney set guilds = array_append(guilds, $1) where userid = $2`, [i.guild.id, userid])
         }; await db.query(`update usermoney set money = $1 where userid = $2;`, [
             value,
