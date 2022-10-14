@@ -1,7 +1,6 @@
 const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 const { evaluate } = require('mathjs')
-const { SlashCommandBuilder } = require('@discordjs/builders')
-const { EmbedBuilder } = require('@discordjs/builders')
+const { SlashCommandBuilder, EmbedBuilder } = require('@discordjs/builders');
 const { version } = require('../../config.json')
 
 module.exports = {
@@ -277,7 +276,7 @@ module.exports = {
                 // Create Embed
                 message = new EmbedBuilder()
             	    .setTitle('<:BOXOPEN:1024395281460101213> » USE ITEM')
-  		    	    .setDescription('» <@' + user.id + '> has failed to diffused the Bomb! OHNO')
+  		    	    .setDescription('» <@' + user.id + '> has failed to diffuse the Bomb! OHNO')
             	    .setFooter({ text: '» ' + vote + ' » ' + version });
 
                 if (lang === 'de') {

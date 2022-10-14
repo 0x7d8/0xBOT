@@ -1,5 +1,4 @@
-const { SlashCommandBuilder } = require('@discordjs/builders')
-const { EmbedBuilder } = require('@discordjs/builders')
+const { SlashCommandBuilder, EmbedBuilder } = require('@discordjs/builders');
 
 // Connect to Database
 const pgP = require('pg').Pool

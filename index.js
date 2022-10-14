@@ -1,7 +1,7 @@
 const { ShardingManager } = require('discord.js')
 const { getAllFilesFilter } = require('./utils/getAllFiles.js')
-const pgP = require('pg').Pool
 
+const pgP = require('pg').Pool
 const config = require('./config.json')
 const MongoStore = require('connect-mongo')
 const chalk = require('chalk')
@@ -21,10 +21,10 @@ const gopt = require("./functions/gopts")
 
 // CLI Commands
 const stdin = process.openStdin();
-stdin.addListener("data", function(d) {
+stdin.addListener("data", async function(input) {
     // Get Arguments
-    const args = d.toString().trim().split(" ")
-    console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] RECIEVED COMMAND [' + d.toString().trim().toUpperCase() + ']')
+    const args = input.toString().trim().split(" ")
+    console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] RECIEVED COMMAND [' + input.toString().trim().toUpperCase() + ']')
 
     // ADDBAL
     if (args[0].toUpperCase() == 'ADDBAL') {
@@ -53,6 +53,21 @@ stdin.addListener("data", function(d) {
             bot.money.set(false, args[1].toString(), parseInt(args[2]))
         } else {
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] USAGE: SETBAL [USERID] [AMOUNT]')
+        }
+    }
+
+    // EVAL
+    if (args[0].toUpperCase() == 'EVAL') {
+        if (typeof args[1] !== 'undefined') {
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] RESULT OF EVAL:')
+            try {
+                console.log(await eval(args[1]))
+            } catch(e) {
+                console.log(e)
+                console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] EVAL RETURNED AN ERROR')
+            }
+        } else {
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] USAGE: EVAL [COMMAND]')
         }
     }
   });
@@ -424,9 +439,36 @@ if (config.web.dashboard) {(async ()=>{
             },
             {
                 categoryId: 'fun',
-                categoryName: "FUN",
+                categoryName: "LEVEL",
                 categoryDescription: "Setup your bot with default settings!",
                 categoryOptionsList: [
+                    {
+                        optionId: 'level',
+                        optionName: "",
+                        optionDescription: "<center>Level System",
+                        optionType: DBD.formTypes.switch(),
+                        getActualSet: async ({guild}) => {
+                            const clang = await gopt.get(guild.id + '-LEVEL')
+                            if (parseInt(clang) == 0) {
+                                return true
+                            } else {
+                                return false
+                            }
+                        },
+                        setNew: async ({guild,newData}) => {
+                            const clang = await gopt.get(guild.id + '-LEVEL')
+	                        if (newData == true) {
+                                if (parseInt(clang) == 1) {
+                                    gopt.rem(guild.id + '-QUOTES', 1)
+                                }
+                            } else {
+                                if (parseInt(clang) == 0) {
+                                    gopt.add(guild.id + '-QUOTES', 1)
+                                }
+                            }
+                            return
+                        }
+                    },
                     {
                         optionId: 'quotes',
                         optionName: "",

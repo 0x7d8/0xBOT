@@ -1,6 +1,5 @@
 const { Collection } = require('discord.js')
-const { SlashCommandBuilder } = require('@discordjs/builders')
-const { EmbedBuilder } = require('@discordjs/builders')
+const { SlashCommandBuilder, EmbedBuilder } = require('@discordjs/builders');
 const { version } = require('../../config.json')
 
 const cooldown = new Collection()

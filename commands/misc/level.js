@@ -1,5 +1,4 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
-const { EmbedBuilder } = require('@discordjs/builders');
+const { SlashCommandBuilder, EmbedBuilder } = require('@discordjs/builders');
 const { AttachmentBuilder } = require('discord.js')
 const { version } = require('../../config.json');
 
@@ -24,6 +23,27 @@ module.exports = {
                 })
                 .setRequired(false)),
     async execute(interaction, client, lang, vote) {
+        // Check if Levels are Enabled in Server
+        const les = await gopt.get(interaction.guild.id + '-LEVEL')
+        if (parseInt(les) == 1) {
+            // Create Embed
+            let message = new EmbedBuilder()
+        		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
+        		.setDescription('» The Level System is disabled on this Server!')
+        		.setFooter({ text: '» ' + vote + ' » ' + version });
+
+            if (lang === 'de') {
+                message = new EmbedBuilder()
+        		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
+        		    .setDescription('» Das Level System ist auf diesem Server deaktiviert!')
+        		    .setFooter({ text: '» ' + vote + ' » ' + version });
+            }
+            
+            // Send Message
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] LEVEL : DISABLED')
+            return interaction.reply({ embeds: [message], ephemeral: true })
+        }
+
         // Set Variables
         const user = interaction.options.getUser('user')
         let userobj; if (user === null) { userobj = interaction.user } else { userobj = user }

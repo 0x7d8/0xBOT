@@ -55,7 +55,7 @@ module.exports = {
         } else {
             message = new EmbedBuilder()
             	.setTitle('<:BOXOPEN:1024395281460101213> » USE ITEM')
-  		    	.setDescription('» <@' + reciever + '> has failed to diffused the Bomb! OHNO')
+  		    	.setDescription('» <@' + reciever + '> has failed to diffuse the Bomb! OHNO')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang === 'de') {
@@ -69,7 +69,7 @@ module.exports = {
         // Punish User if Lost
         const messages = bot.bomb.get('MESSAGES-' + reciever + '-' + interaction.guild.id)
         bot.bomb.delete('MESSAGES-' + reciever + '-' + interaction.guild.id)
-        if (solution != choice) {
+        if (solution !== choice) {
             if (itemid == 'nbomb') {
                 const member = await interaction.guild.members.fetch(interaction.user.id)
                 member.timeout(15 * 1000, 'BOMB TIMEOUT FROM ' + interaction.user.id).catch((error) => {})
