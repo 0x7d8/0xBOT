@@ -1,4 +1,5 @@
 // Connect to Database
+const config = require('../config.json')
 const pgP = require('pg').Pool
 const db = new pgP({
     host: config.database.oxbot.host,

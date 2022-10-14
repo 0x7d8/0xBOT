@@ -9,11 +9,11 @@ module.exports = {
         // Set Variables
         const balance = await bot.money.get(interaction.user.id);
         const args = interaction.message.embeds[0].description.split('**')
-        let total = parseInt(args[1].match(/\d+/g))+parseInt(amount)
+        const total = parseInt(args[1].match(/\d+/g))+parseInt(amount)
 
         // Check for enough Money
         if (balance < amount) {
-            const missing = cost - balance
+            const missing = amount - balance
             
             // Create Embed
             let message = new EmbedBuilder()
