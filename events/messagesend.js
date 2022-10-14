@@ -1,3 +1,4 @@
+const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 const { EmbedBuilder } = require('@discordjs/builders')
 
 module.exports = {
@@ -24,21 +25,29 @@ module.exports = {
 
             // Send LevelUp Message if needed
             if (parseInt(oldlevel[0]) < parseInt(newlevel[0])) {
-                // Create Embed
-                let embed = new EmbedBuilder()
-                    .setTitle('<:AWARD:1024385473524793445> » LEVEL')
-                    .setDescription('» Good Writing! You are now level **' + newlevel[0] + '** on **' + message.guild.name + '**.')
-                    .setFooter({ text: ' » ' + config.version });
+                // Get Guild Language
+	            let guildlang = "en"
+	            const glang = await lang.get(message.guildId)
+                if (parseInt(glang) == 1) { guildlang = "de" }
 
-                if (await lang.get(message.author.id) == 1) {
-                    embed = new EmbedBuilder()
-                        .setTitle('<:AWARD:1024385473524793445> » LEVEL')
-                        .setDescription('» Gutes Schreiben! Du bist nun Level **' + newlevel[0] + '** auf **' + message.guild.name + '**.')
-                        .setFooter({ text: '» ' + config.version });
+                // Create Button
+                const button = new ActionRowBuilder()
+			        .addComponents(
+			        	new ButtonBuilder()
+			        		.setEmoji('1030476921777180672')
+                            .setCustomId('rem-levelmsg')
+			        		.setStyle(ButtonStyle.Danger),
+			        );
+
+                // Create Embed
+                let content = `» Good Writing <@${message.author.id}>! You are now Level **${newlevel[0]}**.\nTo view your level do </level:1030147810194100245>`
+
+                if (guildlang === 'de') {
+                    content = `» Gutes schreiben <@${message.author.id}>! Du bist nun Level **${newlevel[0]}**.\nZum anschauen deines Levels mach </level:1030147810194100245>`
                 }
 
                 // Send Message
-                return client.users.send(message.author.id, { embeds: [embed] });
+                return message.channel.send({ content: content, components: [button] });
             }
         }
 	},
