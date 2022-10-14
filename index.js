@@ -439,7 +439,7 @@ if (config.web.dashboard) {(async ()=>{
             },
             {
                 categoryId: 'fun',
-                categoryName: "LEVEL",
+                categoryName: "FUN",
                 categoryDescription: "Setup your bot with default settings!",
                 categoryOptionsList: [
                     {
