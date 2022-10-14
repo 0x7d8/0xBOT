@@ -140,7 +140,7 @@ module.exports = {
                 bot.memory.set('DISABLED-' + bot.memory.get('B_PLAYERSELECT-' + interaction.user.id)[1] + '-' + sender, false)
 
                 // Turn Switcher
-                if (bot.memory.get('TURN-' + sender) == sender) {
+                if (bot.memory.get('TURN-' + sender) === sender) {
                     bot.memory.set('TURN-' + sender, reciever)
                     turnemoji = '🔴'
                 } else {

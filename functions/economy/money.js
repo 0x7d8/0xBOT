@@ -1,5 +1,4 @@
 // Connect to Database
-const config = require('../../config.json')
 const pgP = require('pg').Pool
 const db = new pgP({
     host: config.database.oxbot.host,
@@ -27,7 +26,7 @@ exports.set = (i, userid, value) => new Promise(async ful => {
             i.guild.id
         ]); return ful('Y-CREATE')
     } else {
-        if (!!i && !data.rows[0].guilds.includes(i.guild.id)) {
+        if (i != false && !data.rows[0].guilds.includes(i.guild.id)) {
             await db.query(`update usermoney set guilds = array_append(guilds, $1) where userid = $2`, [i.guild.id, userid])
         }; await db.query(`update usermoney set money = $1 where userid = $2;`, [
             value,
@@ -46,7 +45,7 @@ exports.add = (i, userid, value) => new Promise(async ful => {
             i.guild.id
         ]); return ful('Y-CREATE')
     } else {
-        if (!!i && !data.rows[0].guilds.includes(i.guild.id)) {
+        if (i != false && !data.rows[0].guilds.includes(i.guild.id)) {
             await db.query(`update usermoney set guilds = array_append(guilds, $1) where userid = $2`, [i.guild.id, userid])
         }; await db.query(`update usermoney set money = money + $1 where userid = $2;`, [
             value,
@@ -63,7 +62,7 @@ exports.rem = (i, userid, value) => new Promise(async ful => {
             userid
         ]); return ful('Y-CREATE')
     } else {
-        if (!!i && !data.rows[0].guilds.includes(i.guild.id)) {
+        if (i != false && !data.rows[0].guilds.includes(i.guild.id)) {
             await db.query(`update usermoney set guilds = array_append(guilds, $1) where userid = $2`, [i.guild.id, userid])
         }; await db.query(`update usermoney set money = money - $1 where userid = $2;`, [
             value,
