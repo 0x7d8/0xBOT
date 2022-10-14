@@ -68,7 +68,7 @@ const client = new Client({
 const eventFiles = getAllFilesFilter('./events', '.js');
 for (const file of eventFiles) {
 	const event = require(file)
-	if (event.once) { client.once(event.event, (...args) => event.execute(...args)) } else { client.on(event.event, (...args) => event.execute(...args)) }
+	if (event.once) { client.once(event.event, (...args) => event.execute(...args)) } else { client.on(event.event, (...args) => event.execute(...args, client)) }
 	console.log(`[0xBOT] ${chalk.bold('[i]')} [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] LOADING EVENT ${event.name.toUpperCase()}`)
 }; console.log(' ')
 
@@ -345,17 +345,6 @@ client.on('interactionCreate', async interaction => {
 
 })
 
-// Message Handler
-client.on('messageCreate', async message => {
-	// Message & Character Counter
-	if (!message.author.bot) {
-		bot.stat.add('u-' + message.author.id + '-TOTAL-A', 'msg', 1)
-		bot.stat.add('u-' + message.author.id + '-' + message.guildId + '-A', 'msg', 1)
-		bot.stat.add('u-' + message.author.id + '-TOTAL-C', 'msg', message.content.length)
-		bot.stat.add('u-' + message.author.id + '-' + message.guildId + '-C', 'msg', message.content.length)
-	}
-})
-
 // Deploy Commands
 const commands = []
 for (const file of commandFiles) {
@@ -396,7 +385,6 @@ if (config.web.votes) {
 		if(!vote) { return false }
 		if(!vote.user) { return false }
 
-		const user = await client.users.fetch(vote.user)
 		const random = Math.floor(Math.random() * (15000 - 7500 + 1)) + 7500
 
 		// Calculate Extra
@@ -433,17 +421,16 @@ if (config.web.votes) {
 
 		// Add Money
 		await bot.money.add(false, vote.user, parseInt(random))
-		console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] VOTED : ' + user + ' : ' + random + '€')
+		console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] VOTED : ' + vote.user + ' : ' + random + '€')
 
 		// Send Message
-		user.send({ embeds: [message] })
+		client.users.send(vote.user, { embeds: [message] });
 
 		// Count to Stats
 		if (parseInt(await bot.votes.get(vote.user + '-A')+1) % 10 === 0) {
 			bot.money.add(false, vote.user, parseInt(extra))
-			user.send({ embeds: [messagebonus.toJSON()] })
+			client.users.send(vote.user, { embeds: [messagebonus] });
 		}; bot.votes.add(vote.user + '-A', 1)
 		bot.votes.set(vote.user + '-T', Date.now())
-	}))
-	app.listen(config.web.ports.votes)
+	})); app.listen(config.web.ports.votes)
 }
