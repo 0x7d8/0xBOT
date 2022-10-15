@@ -59,8 +59,9 @@ exports.add = (i, userid, value) => new Promise(async ful => {
 exports.rem = (i, userid, value) => new Promise(async ful => {
     const data = await db.query(`select * from usermoney where userid = $1;`, [userid])
     if (data.rowCount !== 1) {
-        await db.query(`insert into usermoney values ($1, 0)`, [
-            userid
+        await db.query(`insert into usermoney values ($1, 0, {$2})`, [
+            userid,
+            i.guild.id
         ]); return ful('Y-CREATE')
     } else {
         if (i != false && !data.rows[0].guilds.includes(i.guild.id)) {
