@@ -53,7 +53,7 @@ module.exports = {
         
         // Set User ID
         const counts = []
-        if (user == null) {
+        if (user === null) {
             counts.push(await bot.stat.get('u-' + interaction.user.id + '-' + interaction.guild.id + '-C', 'msg'))
             counts.push(await bot.stat.get('u-' + interaction.user.id + '-' + interaction.guild.id + '-A', 'msg'))
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] LEVEL : ' + counts[0])
@@ -76,7 +76,7 @@ module.exports = {
             .setAvatar(userobj.displayAvatarURL({
                 format: 'png'
             }))
-            .setCurrentXP(parseInt(arraylevel[1]))
+            .setCurrentXP(parseInt(Math.round(counts[0]/5).toString().slice(-3)))
             .setRequiredXP(1000)
             .setProgressBar('#90CDF4', 'COLOR')
             .setUsername(userobj.username)
@@ -85,7 +85,7 @@ module.exports = {
             .setBackground('COLOR', '#00000000')
             .setProgressBarTrack('#413E4D')
             .setLevel(parseInt(arraylevel[0]), 'LEVEL ', true)
-            .setRank(parseInt(counts[0]/5), totalxp, true)
+            .setRank(Math.round(counts[0]/5), totalxp, true)
         let attachment
         const buildCard = async() => {
             await rankCard.build()
