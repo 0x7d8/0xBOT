@@ -122,7 +122,9 @@ const DarkDashboard = require('dbd-dark-dashboard')
 
 // Create Client
 const { Client, GatewayIntentBits } = require('discord.js');
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+const client = new Client({ intents: [
+    GatewayIntentBits.Guilds
+] });
 client.login(config.client.token);
 
 // Initialize Dashboard
@@ -557,6 +559,19 @@ if (config.web.dashboard) {(async ()=>{
     Dashboard.init()
 })()}
 
+/* Dashboard
+const path = require('path')
+const express = require('express')
+const bodyParser = require('body-parser')
+const app = express()
+
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+
+app.use('',express.static(path.join(__dirname, 'dashboard/build')))
+app.listen(25107, () => console.log(`App listening at http://de-01.paperstudios.de:25107`)); */
+
+// Start Shard
 const manager = new ShardingManager('./bot.js', { token: config.client.token, shards: 'auto' })
 manager.on('shardCreate', shard => console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [STA] $$$$$ LAUNCHED SHARD #' + shard.id))
 manager.spawn()

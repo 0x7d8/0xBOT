@@ -1,3 +1,5 @@
+const { EmbedBuilder } = require('@discordjs/builders')
+
 module.exports = {
     data: {
         name: 'rem-levelmsg'
