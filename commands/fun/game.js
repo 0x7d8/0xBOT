@@ -62,19 +62,19 @@ module.exports = {
 			);
 			
         // Create Embeds
-        const slf = new EmbedBuilder().setColor('#37009B')
+        const slf = new EmbedBuilder().setColor(0x37009B)
         		.setTitle('<:GAMEPAD:1024395990679167066> » STADT LAND FLUSS REGELN')
         		.setDescription('**»» PERSONEN**\n» 100000+ ABONNENTEN\n» DEUTSCHE PERSON\n\n**»» STÄDTE**\n» 5000+ BEWOHNER\n» DEUTSCHE STADTNAMEN\n\n**»» SÄTZE**\n» KONTEXT WICHTIG\n» NUR DEUTSCH')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
-        const sio = new EmbedBuilder().setColor('#37009B')
+        const sio = new EmbedBuilder().setColor(0x37009B)
         		.setTitle('<:GAMEPAD:1024395990679167066> » SCRIBBL.IO REGELN')
         		.setDescription('**»» MALEN**\n» KEINEN TEXT\n\n**»» WÖRTER**\n» WÖRTER DIE JEDER KENNT\n\n**»» CHAT**\n» KEIN SPAMMING')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
-        const gtf = new EmbedBuilder().setColor('#37009B')
+        const gtf = new EmbedBuilder().setColor(0x37009B)
         		.setTitle('<:GAMEPAD:1024395990679167066> » GARTICPHONE REGELN')
         		.setDescription('**»» MALEN**\n» KEINEN TEXT\n» MUSS ZUM SATZ PASSEN\n\n**»» SÄTZE**\n» SÄTZE DIE JEDER VERSTEHT')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
-        const jkl = new EmbedBuilder().setColor('#37009B')
+        const jkl = new EmbedBuilder().setColor(0x37009B)
         		.setTitle('<:GAMEPAD:1024395990679167066> » JKLM.FUN REGELN')
         		.setDescription('**»» GENERELL**\n» KEINE REGELN')
         		.setFooter({ text: '» ' + vote + ' » ' + version });

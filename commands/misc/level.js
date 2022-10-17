@@ -27,13 +27,13 @@ module.exports = {
         const les = await gopt.get(interaction.guild.id + '-LEVEL')
         if (parseInt(les) == 1) {
             // Create Embed
-            let message = new EmbedBuilder().setColor('#37009B')
+            let message = new EmbedBuilder().setColor(0x37009B)
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» The Level System is disabled on this Server!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang === 'de') {
-                message = new EmbedBuilder().setColor('#37009B')
+                message = new EmbedBuilder().setColor(0x37009B)
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Das Level System ist auf diesem Server deaktiviert!')
         		    .setFooter({ text: '» ' + vote + ' » ' + version });
@@ -97,25 +97,25 @@ module.exports = {
         // Create Embed
         let message
         if (user === null) {
-        	message = new EmbedBuilder().setColor('#37009B')
+        	message = new EmbedBuilder().setColor(0x37009B)
             	.setTitle('<:GLOBE:1024403680503529583> » YOUR LEVEL')
                 .setImage('attachment://rank.png')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang === 'de') {
-                message = new EmbedBuilder().setColor('#37009B')
+                message = new EmbedBuilder().setColor(0x37009B)
             	    .setTitle('<:GLOBE:1024403680503529583> » DEIN LEVEL')
                     .setImage('attachment://rank.png')
             	    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
         } else {
-            message = new EmbedBuilder().setColor('#37009B')
+            message = new EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:GLOBE:1024403680503529583> » THE LEVEL OF ' + user.username.toUpperCase())
                 .setImage('attachment://rank.png')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang === 'de') {
-                message = new EmbedBuilder().setColor('#37009B')
+                message = new EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:GLOBE:1024403680503529583> » DAS LEVEL VON ' + user.username.toUpperCase())
   				    .setImage('attachment://rank.png')
             	    .setFooter({ text: '» ' + vote + ' » ' + version });

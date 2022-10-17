@@ -34,13 +34,13 @@ module.exports = {
         const ces = await gopt.get(interaction.guild.id + '-CAR')
         if (parseInt(ces) == 1) {
             // Create Embed
-            let message = new EmbedBuilder().setColor('#37009B')
+            let message = new EmbedBuilder().setColor(0x37009B)
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» Cars are disabled on this Server!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang === 'de') {
-                message = new EmbedBuilder().setColor('#37009B')
+                message = new EmbedBuilder().setColor(0x37009B)
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Autos sind auf diesem Server deaktiviert!')
         		    .setFooter({ text: '» ' + vote + ' » ' + version });
@@ -80,13 +80,13 @@ module.exports = {
             const missing = cost - balance
             
             // Create Embed
-            let message = new EmbedBuilder().setColor('#37009B')
+            let message = new EmbedBuilder().setColor(0x37009B)
             	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   				.setDescription('» You dont have enough Money for that, you are missing **$' + missing + '**!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang === 'de') {
-                message = new EmbedBuilder().setColor('#37009B')
+                message = new EmbedBuilder().setColor(0x37009B)
             	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
             	    .setFooter({ text: '» ' + vote + ' » ' + version });
@@ -108,13 +108,13 @@ module.exports = {
             if (dbcar == 'porsche') { name = '2019 PORSCHE 911 GT2RS' }
 
             // Create Embed
-            let message = new EmbedBuilder().setColor('#37009B')
+            let message = new EmbedBuilder().setColor(0x37009B)
             	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   				.setDescription('» You already own a **' + name + '**!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang === 'de') {
-                message = new EmbedBuilder().setColor('#37009B')
+                message = new EmbedBuilder().setColor(0x37009B)
             	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Du besitzt schon einen **' + name +'**!')
             	    .setFooter({ text: '» ' + vote + ' » ' + version });
@@ -162,13 +162,13 @@ module.exports = {
         }
 
         // Create Embed
-        let message = new EmbedBuilder().setColor('#37009B')
+        let message = new EmbedBuilder().setColor(0x37009B)
             .setTitle('<:BOXCHECK:1024401101589590156> » BUY CAR')
             .setDescription('» Do you want to buy a **' + name + '** for **$' + cost + '**?')
             .setFooter({ text: '» ' + vote + ' » ' + version });
 
         if (lang == 'de') {
-            message = new EmbedBuilder().setColor('#37009B')
+            message = new EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:BOXCHECK:1024401101589590156> » AUTO KAUFEN')
                 .setDescription('» Willst du einen **' + name + '** für **' + cost + '€** kaufen?')
                 .setFooter({ text: '» ' + vote + ' » ' + version });

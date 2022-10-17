@@ -16,13 +16,13 @@ module.exports = {
         const ces = await gopt.get(interaction.guild.id + '-CAR')
         if (parseInt(ces) == 1) {
             // Create Embed
-            let message = new EmbedBuilder().setColor('#37009B')
+            let message = new EmbedBuilder().setColor(0x37009B)
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» Cars are disabled on this Server!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang === 'de') {
-                message = new EmbedBuilder().setColor('#37009B')
+                message = new EmbedBuilder().setColor(0x37009B)
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Autos sind auf diesem Server deaktiviert!')
         		    .setFooter({ text: '» ' + vote + ' » ' + version });
@@ -53,13 +53,13 @@ module.exports = {
         // Check if User has a Car
         if (await bot.items.get(interaction.user.id + '-CAR-' + interaction.guild.id, 'amount') === 0) {
             // Create Embed
-            let message = new EmbedBuilder().setColor('#37009B')
+            let message = new EmbedBuilder().setColor(0x37009B)
             	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   				.setDescription('» You dont own a Car!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang === 'de') {
-                message = new EmbedBuilder().setColor('#37009B')
+                message = new EmbedBuilder().setColor(0x37009B)
             	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Du besitzt kein Auto!')
             	    .setFooter({ text: '» ' + vote + ' » ' + version });
@@ -107,13 +107,13 @@ module.exports = {
         }
 
         // Create Embed
-        let message = new EmbedBuilder().setColor('#37009B')
+        let message = new EmbedBuilder().setColor(0x37009B)
             .setTitle('<:BOXDOLLAR:1024402261784403999> » SELL CAR')
             .setDescription('» Do you want to sell your **' + name + '** for **$' + (cost/2) + '**?')
             .setFooter({ text: '» ' + vote + ' » ' + version });
 
         if (lang == 'de') {
-            message = new EmbedBuilder().setColor('#37009B')
+            message = new EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:BOXDOLLAR:1024402261784403999> » AUTO VERKAUFEN')
                 .setDescription('» Willst du deinen **' + name + '** für **' + (cost/2) + '€** verkaufen?')
                 .setFooter({ text: '» ' + vote + ' » ' + version });

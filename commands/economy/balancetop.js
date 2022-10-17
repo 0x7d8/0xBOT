@@ -76,13 +76,13 @@ module.exports = {
         }; if (embedDesc === '') { embedDesc = 'Nothing to Display.'; if (lang === 'de') { embedDesc = 'Nichts zum Anzeigen.' } }
         
         // Create Embed
-        let message = new EmbedBuilder().setColor('#37009B')
+        let message = new EmbedBuilder().setColor(0x37009B)
         	.setTitle('<:WALLET:1024387370793050273> » TOP BALANCES [' + listtype.toUpperCase() + ']')
   			.setDescription(embedDesc)
         	.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
         if (lang === 'de') {
-            message = new EmbedBuilder().setColor('#37009B')
+            message = new EmbedBuilder().setColor(0x37009B)
         	    .setTitle('<:WALLET:1024387370793050273> » TOP KONTOSTÄNDE [' + listtype.toUpperCase() + ']')
   			    .setDescription(embedDesc)
         	    .setFooter({ text: '» ' + vote + ' » ' + config.version });

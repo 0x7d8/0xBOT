@@ -50,13 +50,13 @@ module.exports = {
         const res = await gopt.get(interaction.guild.id + '-ROULETTE')
         if (parseInt(res) == 1) {
             // Create Embed
-            let message = new EmbedBuilder().setColor('#37009B')
+            let message = new EmbedBuilder().setColor(0x37009B)
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» Luck Games are disabled on this Server!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang === 'de') {
-                message = new EmbedBuilder().setColor('#37009B')
+                message = new EmbedBuilder().setColor(0x37009B)
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Glücksspiele sind auf diesem Server deaktiviert!')
         		    .setFooter({ text: '» ' + vote + ' » ' + version });
@@ -79,13 +79,13 @@ module.exports = {
         // Check if Balance is Minus
         if (wette < 0) {
             // Create Embed
-            let message = new EmbedBuilder().setColor('#37009B')
+            let message = new EmbedBuilder().setColor(0x37009B)
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» You cant play with negative Money!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang === 'de') {
-                message = new EmbedBuilder().setColor('#37009B')
+                message = new EmbedBuilder().setColor(0x37009B)
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Du kannst keine negativen Einsätze spielen!')
         		    .setFooter({ text: '» ' + vote + ' » ' + version });
@@ -103,13 +103,13 @@ module.exports = {
             // Check for Max Amount
             if (wette > 15000) {
                 // Create Embed
-                let message = new EmbedBuilder().setColor('#37009B')
+                let message = new EmbedBuilder().setColor(0x37009B)
             		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   					.setDescription('» You cant bet that much! **$15000** is the Maximum.')
             		.setFooter({ text: '» ' + vote + ' » ' + version });
 
                 if (lang === 'de') {
-                    message = new EmbedBuilder().setColor('#37009B')
+                    message = new EmbedBuilder().setColor(0x37009B)
             		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   					    .setDescription('» Du kannst nicht soviel Wetten! **15000€** ist das Maximum.')
             		    .setFooter({ text: '» ' + vote + ' » ' + version });
@@ -140,13 +140,13 @@ module.exports = {
             const missing = wette - money
 
             // Create Embed
-            let message = new EmbedBuilder().setColor('#37009B')
+            let message = new EmbedBuilder().setColor(0x37009B)
             	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   				.setDescription('» You dont have enough Money for that, you are missing **$' + missing + '**!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang === 'de') {
-                message = new EmbedBuilder().setColor('#37009B')
+                message = new EmbedBuilder().setColor(0x37009B)
             	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
             	    .setFooter({ text: '» ' + vote + ' » ' + version });
@@ -158,13 +158,13 @@ module.exports = {
         }
         
         // Create Embed
-      	let message = new EmbedBuilder().setColor('#37009B')
+      	let message = new EmbedBuilder().setColor(0x37009B)
             .setTitle('<:CLOVER:1024388649418235925> » GUESS')
   			.setDescription('» You set **$' + wette + '** on **' + nummer + '** and **' + status + '** **$' + result + '**!')
         	.setFooter({ text: '» ' + vote + ' » ' + version });
 
         if (lang === 'de') {
-            message = new EmbedBuilder().setColor('#37009B')
+            message = new EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:CLOVER:1024388649418235925> » RATEN')
   			    .setDescription('» Du hast **' + wette + '€** auf **' + nummer + '** gesetzt und **' + result + '€** **' + status + '**!')
         	    .setFooter({ text: '» ' + vote + ' » ' + version });

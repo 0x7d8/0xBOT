@@ -38,13 +38,13 @@ module.exports = {
         const qes = await gopt.get(interaction.guild.id + '-QUOTES')
         if (parseInt(qes) == 1) {
             // Create Embed
-            let message = new EmbedBuilder().setColor('#37009B')
+            let message = new EmbedBuilder().setColor(0x37009B)
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» Quotes are disabled on this Server!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang === 'de') {
-                message = new EmbedBuilder().setColor('#37009B')
+                message = new EmbedBuilder().setColor(0x37009B)
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Zitate sind auf diesem Server deaktiviert!')
         		    .setFooter({ text: '» ' + vote + ' » ' + version });
@@ -66,13 +66,13 @@ module.exports = {
             const cdown = timeLeft / 1000;
             
             // Create Embed
-            let message = new EmbedBuilder().setColor('#37009B')
+            let message = new EmbedBuilder().setColor(0x37009B)
             	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   				.setDescription('» You still have a Cooldown of **' + cdown.toFixed(0) + 's**!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang === 'de') {
-                message = new EmbedBuilder().setColor('#37009B')
+                message = new EmbedBuilder().setColor(0x37009B)
             	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Du hast leider noch einen Cooldown von **' + cdown.toFixed(0) + 's**!')
             	    .setFooter({ text: '» ' + vote + ' » ' + version });
@@ -87,13 +87,13 @@ module.exports = {
         let message
         if (autor === null || interaction.user.id === autor.id) {
             const amount = await bot.quotes.get(interaction.user.id) + 1;
-        	message = new EmbedBuilder().setColor('#37009B')
+        	message = new EmbedBuilder().setColor(0x37009B)
             	.setTitle('<:QUOTES:1024406448127623228> » A WISE QUOTE')
   				.setDescription('» "' + zitat + '" ~<@' + interaction.user.id + '>')
             	.setFooter({ text: '» ' + version + ' » QUOTES: ' + amount});
 
             if (lang === 'de') {
-                message = new EmbedBuilder().setColor('#37009B')
+                message = new EmbedBuilder().setColor(0x37009B)
             	    .setTitle('<:QUOTES:1024406448127623228> » EIN WEISES ZITAT')
   				    .setDescription('» "' + zitat + '" ~<@' + interaction.user.id + '>')
             	    .setFooter({ text: '» ' + version + ' » ZITATE: ' + amount});
@@ -102,13 +102,13 @@ module.exports = {
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] QUOTE : ' + zitat.toUpperCase())
         } else {
             const amount = await bot.quotes.get(autor.toString().replace(/\D/g, '')) + 1;
-        	message = new EmbedBuilder().setColor('#37009B')
+        	message = new EmbedBuilder().setColor(0x37009B)
             	.setTitle('<:QUOTES:1024406448127623228> » A QUOTE')
   				.setDescription('» "' + zitat + '" ~<@' + autor + '>')
             	.setFooter({ text: '» ' + version + ' » QUOTES: ' + amount});
 
             if (lang === 'de') {
-                message = new EmbedBuilder().setColor('#37009B')
+                message = new EmbedBuilder().setColor(0x37009B)
             	    .setTitle('<:QUOTES:1024406448127623228> » EIN ZITAT')
   				    .setDescription('» "' + zitat + '" ~<@' + autor + '>')
             	    .setFooter({ text: '» ' + version + ' » ZITATE: ' + amount});

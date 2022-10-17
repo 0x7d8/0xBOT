@@ -33,13 +33,13 @@ module.exports = {
        	// Check if API even exists
         if (await uapi.get(interaction.user.id + '-' + name) !== 'N-EXIST') {
         	// Create Embed
-        	let message = new EmbedBuilder().setColor('#37009B')
+        	let message = new EmbedBuilder().setColor(0x37009B)
             	.setTitle('<:CODE:1024400109741551686> » PAPER API REMOVE')
   				.setDescription('You have deleted the API **' + name + '**!')
         		.setFooter({ text: '» ' + version + ' » SLOTS ' + newamount + '/5'});
 
             if (lang === 'de') {
-                message = new EmbedBuilder().setColor('#37009B')
+                message = new EmbedBuilder().setColor(0x37009B)
             	    .setTitle('<:CODE:1024400109741551686> » PAPER API REMOVE')
   				    .setDescription('Du hast die API **' + name + '** gelöscht!')
         		    .setFooter({ text: '» ' + version + ' » SLOTS ' + newamount + '/5'});
@@ -54,13 +54,13 @@ module.exports = {
         	return interaction.reply({ embeds: [message], ephemeral: true })
         } else {
             // Create Embed
-            let message = new EmbedBuilder().setColor('#37009B')
+            let message = new EmbedBuilder().setColor(0x37009B)
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» This API doesnt exist!\n</apicreate:1002107281510506516> to Create one')
         		.setFooter({ text: '» ' + version + ' » SLOTS ' + amount + '/5'});
 
             if (lang === 'de') {
-                message = new EmbedBuilder().setColor('#37009B')
+                message = new EmbedBuilder().setColor(0x37009B)
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Diese API existiert nicht!\n</apicreate:1002107281510506516> um eine zu erstellen')
         		    .setFooter({ text: '» ' + version + ' » SLOTS ' + amount + '/5'});

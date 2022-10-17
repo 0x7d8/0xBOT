@@ -77,13 +77,13 @@ module.exports = {
             const missing = cost - balance
             
             // Create Embed
-            let message = new EmbedBuilder().setColor('#37009B')
+            let message = new EmbedBuilder().setColor(0x37009B)
             	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   				.setDescription('» You dont have enough Money for that, you are missing **$' + missing + '**!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang === 'de') {
-                message = new EmbedBuilder().setColor('#37009B')
+                message = new EmbedBuilder().setColor(0x37009B)
             	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
             	    .setFooter({ text: '» ' + vote + ' » ' + version });
@@ -102,13 +102,13 @@ module.exports = {
         const oldamount = await bot.items.get(interaction.user.id + '-' + itemid.toUpperCase() + 'S-' + interaction.guild.id, 'amount')
         if ((pamount + oldamount) > 15) {
             // Create Embed
-            let message = new EmbedBuilder().setColor('#37009B')
+            let message = new EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» You dont have enough Slots for that!')
                 .setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang === 'de') {
-                message = new EmbedBuilder().setColor('#37009B')
+                message = new EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
                     .setDescription('» Du hast nicht genug Slots dafür!')
                     .setFooter({ text: '» ' + vote + ' » ' + version });
@@ -158,25 +158,25 @@ module.exports = {
         // Create Embed
         let message
         if (amount == null || amount == 1) {
-            message = new EmbedBuilder().setColor('#37009B')
+            message = new EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:BOXCHECK:1024401101589590156> » BUY ITEM')
                 .setDescription('» Do you want to buy a **' + name + '** for **$' + cost + '**?')
                 .setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang == 'de') {
-                message = new EmbedBuilder().setColor('#37009B')
+                message = new EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:BOXCHECK:1024401101589590156> » GEGENSTAND KAUFEN')
                     .setDescription('» Willst du eine **' + name + '** für **' + cost + '€** kaufen?')
                     .setFooter({ text: '» ' + vote + ' » ' + version });
             }
         } else {
-            message = new EmbedBuilder().setColor('#37009B')
+            message = new EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:BOXCHECK:1024401101589590156> » BUY ITEMS')
                 .setDescription('» Do you want to buy **' + amount + 'x** **' + name + '** for **$' + cost + '**?')
                 .setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang == 'de') {
-                message = new EmbedBuilder().setColor('#37009B')
+                message = new EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:BOXCHECK:1024401101589590156> » GEGENSTÄNDE KAUFEN')
                     .setDescription('» Willst du **' + amount + 'x** **' + name + '** für **' + cost + '€** kaufen?')
                     .setFooter({ text: '» ' + vote + ' » ' + version });

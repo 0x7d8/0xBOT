@@ -16,13 +16,13 @@ module.exports = {
         const mes = await gopt.get(interaction.guild.id + '-MEME')
         if (parseInt(mes) == 1) {
             // Create Embed
-            let message = new EmbedBuilder().setColor('#37009B')
+            let message = new EmbedBuilder().setColor(0x37009B)
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» The **`/meme`** Command is disabled on this Server!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang === 'de') {
-                message = new EmbedBuilder().setColor('#37009B')
+                message = new EmbedBuilder().setColor(0x37009B)
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Der **`/meme`** Befehl ist auf diesem Server deaktiviert!')
         		    .setFooter({ text: '» ' + vote + ' » ' + version });
@@ -55,14 +55,14 @@ module.exports = {
         if (comments == 187) { comments = comments + ' 🐊' }
         
         // Create Embed
-        let message = new EmbedBuilder().setColor('#37009B')
+        let message = new EmbedBuilder().setColor(0x37009B)
             .setTitle(`<:IMAGE:1024405297579696179> » ${random[0].data.children[0].data.title.toUpperCase()}`)
             .setDescription('» SUBREDDIT:\n`r/' + subreddit + '`\n\n» UPVOTES:\n`' + upvotes + '`\n\n» COMMENTS:\n`' + comments + '`')
             .setImage(random[0].data.children[0].data.url)
         	.setFooter({ text: '» ' + vote + ' » ' + version });
 
         if (lang === 'de') {
-            message = new EmbedBuilder().setColor('#37009B')
+            message = new EmbedBuilder().setColor(0x37009B)
                 .setTitle(`<:IMAGE:1024405297579696179> » ${random[0].data.children[0].data.title.toUpperCase()}`)
                 .setDescription('» SUBREDDIT:\n`r/' + subreddit + '`\n\n» UPVOTES:\n`' + upvotes + '`\n\n» KOMMENTARE:\n`' + comments + '`')
                 .setImage(random[0].data.children[0].data.url)

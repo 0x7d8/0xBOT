@@ -35,12 +35,12 @@ module.exports = {
         // Check if Bot has Permission
         if (!interaction.appPermissions.has('ManageMessages')) {
             // Create Embed
-            let message = new EmbedBuilder().setColor('#37009B')
+            let message = new EmbedBuilder().setColor(0x37009B)
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» I dont think I have the **MANAGE MESSAGES** Permission!')
         		.setFooter({ text: '» ' + version });
             if (lang === 'de') {
-                message = new EmbedBuilder().setColor('#37009B')
+                message = new EmbedBuilder().setColor(0x37009B)
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Ich denke nicht, dass ich die **NACHRICHTEN VERWALTEN** Berechtigung habe!')
         		    .setFooter({ text: '» ' + version });
@@ -52,12 +52,12 @@ module.exports = {
         }
         if (!interaction.appPermissions.has('ViewChannel')) {
             // Create Embed
-            let message = new EmbedBuilder().setColor('#37009B')
+            let message = new EmbedBuilder().setColor(0x37009B)
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» I dont think I have the **VIEW CHANNEL** Permission!')
         		.setFooter({ text: '» ' + version });
             if (lang === 'de') {
-                message = new EmbedBuilder().setColor('#37009B')
+                message = new EmbedBuilder().setColor(0x37009B)
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Ich denke nicht, dass ich die **KANÄLE ANSEHEN** Berechtigung habe!')
         		    .setFooter({ text: '» ' + version });
@@ -77,13 +77,13 @@ module.exports = {
         // Check if Message Amount is Negative
         if (amount < 1) {
             // Create Embed
-            let message = new EmbedBuilder().setColor('#37009B')
+            let message = new EmbedBuilder().setColor(0x37009B)
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» You have to delete atleast **1** Message!')
         		.setFooter({ text: '» ' + version });
             if (lang === 'de') {
 
-                message = new EmbedBuilder().setColor('#37009B')
+                message = new EmbedBuilder().setColor(0x37009B)
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Du musst mindestens **1** Nachricht löschen!')
         		    .setFooter({ text: '» ' + version });
@@ -110,25 +110,25 @@ module.exports = {
                 // Create Embed
                 let message
                 if (messages.size == 1) {
-                    message = new EmbedBuilder().setColor('#37009B')
+                    message = new EmbedBuilder().setColor(0x37009B)
                         .setTitle('» DELETE MESSAGES')
                         .setDescription('» You deleted **' + messages.size + '** Message from <@' + target + '>!')
                         .setFooter({ text: '» ' + version });
 
                     if (lang === 'de') {
-                        message = new EmbedBuilder().setColor('#37009B')
+                        message = new EmbedBuilder().setColor(0x37009B)
                             .setTitle('» NACHRICHTEN LÖSCHEN')
                             .setDescription('» Du hast **' + messages.size + '** Nachricht von <@' + target + '> gelöscht!')
                             .setFooter({ text: '» ' + version });
                     }
                 } else {
-                    message = new EmbedBuilder().setColor('#37009B')
+                    message = new EmbedBuilder().setColor(0x37009B)
                         .setTitle('» DELETE MESSAGES')
                         .setDescription('» You deleted **' + messages.size + '** Messages from <@' + target + '>!')
                         .setFooter({ text: '» ' + version });
 
                     if (lang === 'de') {
-                        message = new EmbedBuilder().setColor('#37009B')
+                        message = new EmbedBuilder().setColor(0x37009B)
                             .setTitle('» NACHRICHTEN LÖSCHEN')
                             .setDescription('» Du hast **' + messages.size + '** Nachrichten von <@' + target + '> gelöscht!')
                             .setFooter({ text: '» ' + version });
@@ -144,25 +144,25 @@ module.exports = {
                 // Create Embed
                 let message
                 if (messages.size == 1) {
-                    message = new EmbedBuilder().setColor('#37009B')
+                    message = new EmbedBuilder().setColor(0x37009B)
                         .setTitle('» DELETE MESSAGES')
                         .setDescription('» You deleted **' + messages.size + '** Message!')
                         .setFooter({ text: '» ' + version });
 
                     if (lang === 'de') {
-                        message = new EmbedBuilder().setColor('#37009B')
+                        message = new EmbedBuilder().setColor(0x37009B)
                             .setTitle('» NACHRICHTEN LÖSCHEN')
                             .setDescription('» Du hast **' + messages.size + '** Nachricht gelöscht!')
                             .setFooter({ text: '» ' + version });
                     }
                 } else {
-                    message = new EmbedBuilder().setColor('#37009B')
+                    message = new EmbedBuilder().setColor(0x37009B)
                         .setTitle('» DELETE MESSAGES')
                         .setDescription('» You deleted **' + messages.size + '** Messages!')
                         .setFooter({ text: '» ' + version });
 
                     if (lang === 'de') {
-                        message = new EmbedBuilder().setColor('#37009B')
+                        message = new EmbedBuilder().setColor(0x37009B)
                             .setTitle('» NACHRICHTEN LÖSCHEN')
                             .setDescription('» Du hast **' + messages.size + '** Nachrichten gelöscht!')
                             .setFooter({ text: '» ' + version });

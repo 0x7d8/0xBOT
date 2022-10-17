@@ -14,13 +14,13 @@ module.exports = {
         // Check if User is Authorized
         if (interaction.user.id != reciever.toString().replace(/\D/g, '') && interaction.user.id != sender.toString().replace(/\D/g, '')) {
             // Create Embed
-            let message = new EmbedBuilder().setColor('#37009B')
+            let message = new EmbedBuilder().setColor(0x37009B)
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» <@' + reciever.toString().replace(/\D/g, '') + '> or <@' + sender.toString().replace(/\D/g, '') + '> has to decide this!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang === 'de') {
-                message = new EmbedBuilder().setColor('#37009B')
+                message = new EmbedBuilder().setColor(0x37009B)
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» <@' + reciever.toString().replace(/\D/g, '') + '> oder <@' + sender.toString().replace(/\D/g, '') + '> muss das entscheiden!')
         		    .setFooter({ text: '» ' + vote + ' » ' + version });
@@ -40,13 +40,13 @@ module.exports = {
         interaction.message.components[0].components[0].data.style = 2
 
         // Create Embed
-        let message = new EmbedBuilder().setColor('#37009B')
+        let message = new EmbedBuilder().setColor(0x37009B)
         .setTitle('<:GAMEPAD:1024395990679167066> » ROCK PAPER SCISSORS')
         .setDescription('» <@' + interaction.user.id + '> said **NO**.')
         .setFooter({ text: '» ' + vote + ' » ' + version });
 
         if (lang === 'de') {
-            message = new EmbedBuilder().setColor('#37009B')
+            message = new EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:GAMEPAD:1024395990679167066> » SCHERE STEIN PAPIER')
                 .setDescription('» <@' + interaction.user.id + '> hat **NEIN** gesagt.')
                 .setFooter({ text: '» ' + vote + ' » ' + version });

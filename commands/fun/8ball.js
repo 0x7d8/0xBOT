@@ -79,13 +79,13 @@ module.exports = {
         }
         
         // Create Embeds
-        let message = new EmbedBuilder().setColor('#37009B')
+        let message = new EmbedBuilder().setColor(0x37009B)
         	.setTitle('<:QUESTION:1024402860210921503> » MAGIC BALL')
   			.setDescription('» "' + formatted + '" -> ' + result)
         	.setFooter({ text: '» ' + vote + ' » ' + version });
 
         if (lang === 'de') {
-            message = new EmbedBuilder().setColor('#37009B')
+            message = new EmbedBuilder().setColor(0x37009B)
         	    .setTitle('<:QUESTION:1024402860210921503> » MAGISCHER BALL')
   			    .setDescription('» "' + formatted + '" -> ' + result)
         	    .setFooter({ text: '» ' + vote + ' » ' + version });

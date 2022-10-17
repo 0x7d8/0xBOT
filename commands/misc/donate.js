@@ -12,14 +12,14 @@ module.exports = {
         }),
     async execute(interaction, client, lang, vote) {
         // Create Embed
-        let message = new EmbedBuilder().setColor('#37009B')
+        let message = new EmbedBuilder().setColor(0x37009B)
         	.setTitle('<:DONATE:1024397357988720711> » DONATE')
         	.setDescription('**»» DONATE**\n» LINK\nhttps://donate.rjansen.de\n» QR CODE')
     		.setImage("https://img.rjansen.de/bot/donate.png")
     		.setFooter({ text: '» ' + vote + ' » ' + version });
 
         if (lang === 'de') {
-            message = new EmbedBuilder().setColor('#37009B')
+            message = new EmbedBuilder().setColor(0x37009B)
         		.setTitle('<:DONATE:1024397357988720711> » SPENDEN')
         		.setDescription('**»» SPENDEN**\n» LINK\nhttps://donate.rjansen.de\n» QR CODE')
         		.setImage("https://img.rjansen.de/bot/donate.png")

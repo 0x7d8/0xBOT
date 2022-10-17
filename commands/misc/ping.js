@@ -15,13 +15,13 @@ module.exports = {
         const botping = Math.round(client.ws.ping)
 
         // Create Embed
-        let message = new EmbedBuilder().setColor('#37009B')
+        let message = new EmbedBuilder().setColor(0x37009B)
         		.setTitle('<:GLOBE:1024403680503529583> » BOT PING')
         		.setDescription('» The Bot Ping is **' + botping + 'ms**!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
         if (lang === 'de') {
-            message = new EmbedBuilder().setColor('#37009B')
+            message = new EmbedBuilder().setColor(0x37009B)
         		.setTitle('<:GLOBE:1024403680503529583> » BOT PING')
         		.setDescription('» Der Ping vom Bot ist **' + botping + 'ms**!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });

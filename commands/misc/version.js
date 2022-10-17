@@ -12,13 +12,13 @@ module.exports = {
         }),
     async execute(interaction, client, lang, vote) {
         // Create Embed
-        let message = new EmbedBuilder().setColor('#37009B')
+        let message = new EmbedBuilder().setColor(0x37009B)
         		.setTitle('<:GEAR:1024404241701417011> » BOT VERSION')
         		.setDescription('» VERSION\n`' + version + '`\n\n» FRAMEWORK\n`discord.js v14 (14.6.0)`\n\n» AUTHOR\n`0x4096#7678`')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
         if (lang === 'de') {
-            message = new EmbedBuilder().setColor('#37009B')
+            message = new EmbedBuilder().setColor(0x37009B)
         		.setTitle('<:GEAR:1024404241701417011> » BOT VERSION')
         		.setDescription('» VERSION\n`' + version + '`\n\n» FRAMEWORK\n`discord.js v14 (14.6.0)`\n\n» AUTOR\n`0x4096#7678`')
         		.setFooter({ text: '» ' + vote + ' » ' + version });

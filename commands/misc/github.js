@@ -31,13 +31,13 @@ module.exports = {
         }
         
         // Create Embed
-       	let message = new EmbedBuilder().setColor('#37009B')
+       	let message = new EmbedBuilder().setColor(0x37009B)
             .setTitle('<:GLOBE:1024403680503529583> » GITHUB')
   			.setDescription('» CLick below to go to the **GITHUB** Page of the Bot!')
         	.setFooter({ text: '» ' + vote + ' » ' + version });
 
         if (lang === 'de') {
-            message = new EmbedBuilder().setColor('#37009B')
+            message = new EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:GLOBE:1024403680503529583> » GITHUB')
   			    .setDescription('» Klicke unten um auf die **GITHUB** Seite zu kommen!')
         	    .setFooter({ text: '» ' + vote + ' » ' + version });

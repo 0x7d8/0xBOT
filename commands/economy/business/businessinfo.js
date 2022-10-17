@@ -30,13 +30,13 @@ module.exports = {
         const bes = await gopt.get(interaction.guild.id + '-BUSINESS')
         if (parseInt(bes) == 1) {
             // Create Embed
-            let message = new EmbedBuilder().setColor('#37009B')
+            let message = new EmbedBuilder().setColor(0x37009B)
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» Businesses are disabled on this Server!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang === 'de') {
-                message = new EmbedBuilder().setColor('#37009B')
+                message = new EmbedBuilder().setColor(0x37009B)
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Geschäfte sind auf diesem Server deaktiviert!')
         		    .setFooter({ text: '» ' + vote + ' » ' + version });
@@ -67,13 +67,13 @@ module.exports = {
             } catch (e) {return}
 
             // Create Embed
-            let message = new EmbedBuilder().setColor('#37009B')
+            let message = new EmbedBuilder().setColor(0x37009B)
         	    .setTitle('<:QUESTION:1024402860210921503> » BUSINESS INFO')
         	    .setDescription('» Business Infos:\n\nOwner: <@' + businessowner + '>\nEarnings: ' + businessearning + '€')
         	    .setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang == 'de') {
-                message = new EmbedBuilder().setColor('#37009B')
+                message = new EmbedBuilder().setColor(0x37009B)
         	        .setTitle('<:QUESTION:1024402860210921503> » GESCHÄFTS INFO')
         	        .setDescription('» Geschäfts Infos:\n\nBesitzer: <@' + businessowner + '>\nEinkommen: ' + businessearning + '€')
         	        .setFooter({ text: '» ' + vote + ' » ' + version });
@@ -85,13 +85,13 @@ module.exports = {
         }
 
         // Create Embed
-        let message = new EmbedBuilder().setColor('#37009B')
+        let message = new EmbedBuilder().setColor(0x37009B)
             .setTitle('<:QUESTION:1024402860210921503> » BUSINESS INFO')
             .setDescription('» Noone owns this Business, people say its profitable though!\n*mhm, I say that for everything*')
             .setFooter({ text: '» ' + vote + ' » ' + version });
 
         if (lang == 'de') {
-            message = new EmbedBuilder().setColor('#37009B')
+            message = new EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:QUESTION:1024402860210921503> » GESCHÄFTS INFO')
                 .setDescription('» Niemanden gehört dieses Geschäft, es besagt sich es sei aber profitabel!\n*naja, das sag ich bei jedem*')
                 .setFooter({ text: '» ' + vote + ' » ' + version });

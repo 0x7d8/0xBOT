@@ -46,13 +46,13 @@ module.exports = {
         const bes = await gopt.get(interaction.guild.id + '-BUSINESS')
         if (parseInt(bes) == 1) {
             // Create Embed
-            let message = new EmbedBuilder().setColor('#37009B')
+            let message = new EmbedBuilder().setColor(0x37009B)
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» Businesses are disabled on this Server!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang === 'de') {
-                message = new EmbedBuilder().setColor('#37009B')
+                message = new EmbedBuilder().setColor(0x37009B)
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Geschäfte sind auf diesem Server deaktiviert!')
         		    .setFooter({ text: '» ' + vote + ' » ' + version });
@@ -70,13 +70,13 @@ module.exports = {
         // Check if User owns Business
         if (await bot.businesses.get('g-' + interaction.guild.id + '-1-OWNER') !== interaction.user.id) {
             // Create Embed
-            let message = new EmbedBuilder().setColor('#37009B')
+            let message = new EmbedBuilder().setColor(0x37009B)
             	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   				.setDescription('» You dont own this Business!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang === 'de') {
-                message = new EmbedBuilder().setColor('#37009B')
+                message = new EmbedBuilder().setColor(0x37009B)
             	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Du besitzt dieses Geschäft nicht!')
             	    .setFooter({ text: '» ' + vote + ' » ' + version });
@@ -95,13 +95,13 @@ module.exports = {
         if (itemid == 'cbomb' && !inRange(parseInt(newprice), 7500, 20000)) { doscream = true }
         if (doscream) {
             // Create Embed
-            let message = new EmbedBuilder().setColor('#37009B')
+            let message = new EmbedBuilder().setColor(0x37009B)
             	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   				.setDescription('» Please follow the limits seen in the first step!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang === 'de') {
-                message = new EmbedBuilder().setColor('#37009B')
+                message = new EmbedBuilder().setColor(0x37009B)
             	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Bitte folge den Limits zu sehen im ersten Schritt!')
             	    .setFooter({ text: '» ' + vote + ' » ' + version });
@@ -116,13 +116,13 @@ module.exports = {
         bot.businesses.set('g-' + interaction.guild.id + '-1-PRICE-' + itemid.toUpperCase(), newprice.toString())
 
         // Create Embed
-        let message = new EmbedBuilder().setColor('#37009B')
+        let message = new EmbedBuilder().setColor(0x37009B)
             .setTitle('<:PARTITION:1024399126403747970> » ITEM PRICES')
             .setDescription('» Successfully set the price to **$' + newprice + '**.')
             .setFooter({ text: '» ' + vote + ' » ' + version });
 
         if (lang == 'de') {
-            message = new EmbedBuilder().setColor('#37009B')
+            message = new EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:PARTITION:1024399126403747970> » ITEM PREISE')
                 .setDescription('» Erfolgreich den Preis auf **' + newprice + '€** gesetzt.')
                 .setFooter({ text: '» ' + vote + ' » ' + version });
