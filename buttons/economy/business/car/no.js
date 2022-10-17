@@ -10,19 +10,20 @@ module.exports = {
         let name
         if (car === 'jeep') { name = '2016 JEEP PATRIOT SPORT' }
         if (car === 'kia') { name = '2022 KIA SORENTO' }
+        if (car === 'audi') { name = 'AUDI R8 COUPE V10' }
         if (car === 'tesla') { name = 'TESLA MODEL Y' }
         if (car === 'porsche') { name = '2019 PORSCHE 911 GT2RS' }
 
         // Check if User is Authorized
         if (interaction.user.id !== userid) {
             // Create Embed
-            let message = new EmbedBuilder()
+            let message = new EmbedBuilder().setColor('#37009B')
             	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   				.setDescription('» This choice is up to <@' + userid + '>!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang === 'de') {
-                message = new EmbedBuilder()
+                message = new EmbedBuilder().setColor('#37009B')
             	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Diese Frage ist für <@' + userid + '>!')
             	    .setFooter({ text: '» ' + vote + ' » ' + version });
@@ -41,13 +42,13 @@ module.exports = {
         // Split Button with type
         if (type === 'buy') {
             // Create Embed
-            let message = new EmbedBuilder()
+            let message = new EmbedBuilder().setColor('#37009B')
                 .setTitle('<:BOXCHECK:1024401101589590156> » BUY CAR')
                 .setDescription('» <@' + interaction.user.id + '> said **NO** to a **' + name + '**.')
                 .setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang === 'de') {
-                message = new EmbedBuilder()
+                message = new EmbedBuilder().setColor('#37009B')
                     .setTitle('<:BOXCHECK:1024401101589590156> » AUTO KAUFEN')
                     .setDescription('» <@' + interaction.user.id + '> hat **NEIN** zu einem **' + name + '** gesagt.')
                     .setFooter({ text: '» ' + vote + ' » ' + version });
@@ -58,13 +59,13 @@ module.exports = {
             return interaction.update({ embeds: [message], components: interaction.message.components })
         } else if (type === 'sell') {
             // Create Embed
-            let message = new EmbedBuilder()
+            let message = new EmbedBuilder().setColor('#37009B')
                 .setTitle('<:BOXDOLLAR:1024402261784403999> » SELL CAR')
                 .setDescription('» <@' + interaction.user.id + '> said **NO** to selling his **' + name + '**.')
                 .setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang === 'de') {
-                message = new EmbedBuilder()
+                message = new EmbedBuilder().setColor('#37009B')
                     .setTitle('<:BOXDOLLAR:1024402261784403999> » AUTO VERKAUFEN')
                     .setDescription('» <@' + interaction.user.id + '> hat **NEIN** zum verkaufen von seinem **' + name + '** gesagt.')
                     .setFooter({ text: '» ' + vote + ' » ' + version });

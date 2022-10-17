@@ -37,7 +37,7 @@ module.exports = {
         const reactions = interaction.options.getString("reactions")
 
         // Create Embed
-       	let message = new EmbedBuilder()
+       	let message = new EmbedBuilder().setColor('#37009B')
             .setTitle('<:POLL:1024391847092703365> » A ' + reactions.toUpperCase())
   			.setDescription('» ' + frage)
         	.setFooter({ text: '» ' + vote + ' » ' + version });
@@ -47,7 +47,7 @@ module.exports = {
             if (reactions == "question") { reactionsde = "frage" }
             if (reactions == "vote") { reactionsde = "abstimmung" }
 
-            message = new EmbedBuilder()
+            message = new EmbedBuilder().setColor('#37009B')
                 .setTitle('<:POLL:1024391847092703365> » EINE ' + reactionsde.toUpperCase())
   			    .setDescription('» ' + frage)
         	    .setFooter({ text: '» ' + vote + ' » ' + version });

@@ -39,19 +39,19 @@ module.exports = {
         // Create Embed
         let message
         if (interaction.user.id != '745619551865012274') {
-            message = new EmbedBuilder()
+            message = new EmbedBuilder().setColor('#37009B')
                 .setTitle(titel)
   			    .setDescription(nachricht)
         	    .setFooter({ text: '» ' + version + ' » NOT OFFICIAL' });
             
             if (lang === 'de') {
-                message = new EmbedBuilder()
+                message = new EmbedBuilder().setColor('#37009B')
                     .setTitle(titel)
   			        .setDescription(nachricht)
         	        .setFooter({ text: '» ' + version + ' » NICHT OFFIZIELL' });
             }
         } else {
-            message = new EmbedBuilder()
+            message = new EmbedBuilder().setColor('#37009B')
                 .setTitle(titel)
   			    .setDescription(nachricht)
         	    .setFooter({ text: '» ' + version });

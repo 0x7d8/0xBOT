@@ -47,13 +47,13 @@ module.exports = {
         	uapi.set(interaction.user.id + '-' + name, inhalt)
             
         	// Create Embed
-        	let message = new EmbedBuilder()
+        	let message = new EmbedBuilder().setColor('#37009B')
             	.setTitle('<:CODE:1024400109741551686> » PAPER API EDIT')
   				.setDescription('You edited the API **' + name + '**!')
         		.setFooter({ text: '» ' + version + ' » SLOTS ' + amount + '/5'});
 
             if (lang === 'de') {
-                message = new EmbedBuilder()
+                message = new EmbedBuilder().setColor('#37009B')
             	    .setTitle('<:CODE:1024400109741551686> » PAPER API EDIT')
   				    .setDescription('Du hast die API **' + name + '** editiert!')
         		    .setFooter({ text: '» ' + version + ' » SLOTS ' + amount + '/5'});
@@ -64,13 +64,13 @@ module.exports = {
         	return interaction.reply({ embeds: [message], ephemeral: true })
         } else {
             // Create Embed
-            let message = new EmbedBuilder()
+            let message = new EmbedBuilder().setColor('#37009B')
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» This API doesnt exist!\n</apicreate:1002107281510506516> to Create one')
         		.setFooter({ text: '» ' + version + ' » SLOTS ' + amount + '/5'});
 
             if (lang === 'de') {
-                message = new EmbedBuilder()
+                message = new EmbedBuilder().setColor('#37009B')
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Diese API existiert nicht!\n</apicreate:1002107281510506516> um eine zu erstellen')
         		    .setFooter({ text: '» ' + version + ' » SLOTS ' + amount + '/5'});

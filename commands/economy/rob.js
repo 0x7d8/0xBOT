@@ -44,13 +44,13 @@ module.exports = {
         const res = await gopt.get(interaction.guild.id + '-ROB')
         if (parseInt(res) == 1) {
             // Create Embed
-            let message = new EmbedBuilder()
+            let message = new EmbedBuilder().setColor('#37009B')
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» The **`/rob`** Command is disabled on this Server!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang === 'de') {
-                message = new EmbedBuilder()
+                message = new EmbedBuilder().setColor('#37009B')
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Der **`/rob`** Befehl ist auf diesem Server deaktiviert!')
         		    .setFooter({ text: '» ' + vote + ' » ' + version });
@@ -74,13 +74,13 @@ module.exports = {
             const cdown = timeLeft / 1000;
             
             // Create Embed
-            let message = new EmbedBuilder()
+            let message = new EmbedBuilder().setColor('#37009B')
             	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   				.setDescription('» You still have a Cooldown of **' + cdown.toFixed(0) + 's**!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang === 'de') {
-                message = new EmbedBuilder()
+                message = new EmbedBuilder().setColor('#37009B')
             	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Du hast leider noch einen Cooldown von **' + cdown.toFixed(0) + 's**!')
             	    .setFooter({ text: '» ' + vote + ' » ' + version });
@@ -94,13 +94,13 @@ module.exports = {
         if (interaction.user.id == user) {
             
             // Create Embed
-            let message = new EmbedBuilder()
+            let message = new EmbedBuilder().setColor('#37009B')
             	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   				.setDescription('» You cant rob yourself?!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang === 'de') {
-                message = new EmbedBuilder()
+                message = new EmbedBuilder().setColor('#37009B')
             	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Du kannst dich nicht selber ausrauben?!')
             	    .setFooter({ text: '» ' + vote + ' » ' + version });
@@ -113,13 +113,13 @@ module.exports = {
         // Check if Target is Bot
         if (user.bot) {
             // Create Embed
-            let message = new EmbedBuilder()
+            let message = new EmbedBuilder().setColor('#37009B')
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» You cant rob a Bot!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang === 'de') {
-                message = new EmbedBuilder()
+                message = new EmbedBuilder().setColor('#37009B')
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Du kannst einem Bot kein Geld klauen!')
         		    .setFooter({ text: '» ' + vote + ' » ' + version });
@@ -138,13 +138,13 @@ module.exports = {
         
         // Check for enough Money #1
         // Create Embed
-        let notenoughmoney1 = new EmbedBuilder()
+        let notenoughmoney1 = new EmbedBuilder().setColor('#37009B')
         	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   			.setDescription('» You dont have enough Money for that, you need atleast **$' + need + '**! BRUH.')
         	.setFooter({ text: '» ' + vote + ' » ' + version });
 
         if (lang === 'de') {
-            notenoughmoney1 = new EmbedBuilder()
+            notenoughmoney1 = new EmbedBuilder().setColor('#37009B')
         	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   			    .setDescription('» Du hast nicht genug Geld dafür, du brauchst mindestens **' + need + '€**! BRUH.')
         	    .setFooter({ text: '» ' + vote + ' » ' + version });
@@ -166,13 +166,13 @@ module.exports = {
             
         // Check for enough Money #2
         // Create Embed
-        let notenoughmoney2 = new EmbedBuilder()
+        let notenoughmoney2 = new EmbedBuilder().setColor('#37009B')
         	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   			.setDescription('» <@' + user + '> doesnt have enough Money for that, he needs atleast **$' + need + '**! LOL.')
         	.setFooter({ text: '» ' + vote + ' » ' + version });
 
         if (lang === 'de') {
-            notenoughmoney2 = new EmbedBuilder()
+            notenoughmoney2 = new EmbedBuilder().setColor('#37009B')
         	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   			    .setDescription('» <@' + user + '> hat nicht genug Geld dafür, er braucht mindestens **' + need + '€**! LOL.')
         	    .setFooter({ text: '» ' + vote + ' » ' + version });
@@ -235,23 +235,23 @@ module.exports = {
         }
         
         // Create Embeds
-      	let sucess = new EmbedBuilder()
+      	let sucess = new EmbedBuilder().setColor('#37009B')
             .setTitle('<:BAG:1024389219558367292> » AUSRAUBEN')
   			.setDescription('» You stole <@' + user + '> **$' + amount + '**! ' + extra)
         	.setFooter({ text: '» ' + vote + ' » ' + version });
 
-        let failure = new EmbedBuilder()
+        let failure = new EmbedBuilder().setColor('#37009B')
             .setTitle('<:BAG:1024389219558367292> » AUSRAUBEN')
   			.setDescription('» You wanted to steal <@' + user + '> **$' + amount + '**, but the Police caught you! You had to pay **$' + punishment + '**! KEKW.')
         	.setFooter({ text: '» ' + vote + ' » ' + version });
 
         if (lang === 'de') {
-            sucess = new EmbedBuilder()
+            sucess = new EmbedBuilder().setColor('#37009B')
                 .setTitle('<:BAG:1024389219558367292> » AUSRAUBEN')
   			    .setDescription('» Du hast <@' + user + '> **' + amount + '€** geklaut! ' + extra)
         	    .setFooter({ text: '» ' + vote + ' » ' + version });
             
-            failure = new EmbedBuilder()
+            failure = new EmbedBuilder().setColor('#37009B')
                 .setTitle('<:BAG:1024389219558367292> » AUSRAUBEN')
                 .setDescription('» Du wolltest <@' + user + '> **' + amount + '€** klauen, aber die Polizei hat dich erwischt! Du musstest **' + punishment + '€** Strafgeld bezahlen! KEKW.')
                 .setFooter({ text: '» ' + vote + ' » ' + version });

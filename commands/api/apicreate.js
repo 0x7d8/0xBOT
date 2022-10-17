@@ -44,13 +44,13 @@ module.exports = {
         // Check if API exists
   		if (await uapi.get(interaction.user.id + '-' + name) !== 'N-EXIST') {
             // Create Embed
-            let message = new EmbedBuilder()
+            let message = new EmbedBuilder().setColor('#37009B')
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» This API already exists!\n</apiedit:1002107281510506517> to change it\n</apiremove:1002107281510506518> to delete it')
         		.setFooter({ text: '» ' + version + ' » SLOTS ' + amount + '/5'});
 
             if (lang === 'de') {
-                message = new EmbedBuilder()
+                message = new EmbedBuilder().setColor('#37009B')
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Diese API existiert schon!\n</apiedit:1002107281510506517> um sie zu ändern\n</apiremove:1002107281510506518> um sie zu löschen')
         		    .setFooter({ text: '» ' + version + ' » SLOTS ' + amount + '/5'});
@@ -64,13 +64,13 @@ module.exports = {
         // Check if Slots are Free
         if (amount > 4) {
             // Create Embed
-            let message = new EmbedBuilder()
+            let message = new EmbedBuilder().setColor('#37009B')
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» You have used all of your **5** API Slots!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang === 'de') {
-                message = new EmbedBuilder()
+                message = new EmbedBuilder().setColor('#37009B')
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Du hast alle deiner **5** API Slots genutzt!')
         		    .setFooter({ text: '» ' + vote + ' » ' + version });
@@ -82,13 +82,13 @@ module.exports = {
         } 
         
         // Create Embed
-        let message = new EmbedBuilder()
+        let message = new EmbedBuilder().setColor('#37009B')
             .setTitle('<:CODE:1024400109741551686> » PAPER API EDIT')
   			.setDescription('You have created a new API!\nIts available here:\n**`https://api.paperstudios.de/user/' + interaction.user.id + '/' + name + '`**!')
         	.setFooter({ text: '» ' + version + ' » SLOTS ' + newamount + '/5'});
 
         if (lang === 'de') {
-            message = new EmbedBuilder()
+            message = new EmbedBuilder().setColor('#37009B')
                 .setTitle('<:CODE:1024400109741551686> » PAPER API EDIT')
   			    .setDescription('Du hast eine neue API erstellt!\nSie ist hier verfügbar:\n**`https://api.paperstudios.de/user/' + interaction.user.id + '/' + name + '`**!')
         	    .setFooter({ text: '» ' + version + ' » SLOTS ' + newamount + '/5'});

@@ -19,13 +19,13 @@ module.exports = {
         // Check if User is Authorized
         if (interaction.user.id != reciever.toString().replace(/\D/g, '')) {
             // Create Embed
-            let message = new EmbedBuilder()
+            let message = new EmbedBuilder().setColor('#37009B')
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» <@' + reciever.toString().replace(/\D/g, '') + '> has to decide this!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang === 'de') {
-                message = new EmbedBuilder()
+                message = new EmbedBuilder().setColor('#37009B')
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» <@' + reciever.toString().replace(/\D/g, '') + '> muss das entscheiden!')
         		    .setFooter({ text: '» ' + vote + ' » ' + version });
@@ -39,13 +39,13 @@ module.exports = {
         // Check if Person is already in a Lobby
         if (bot.game.has('PLAYING-' + reciever)) {
             // Create Embed
-            let message = new EmbedBuilder()
+            let message = new EmbedBuilder().setColor('#37009B')
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» You are already in a Lobby!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang === 'de') {
-                message = new EmbedBuilder()
+                message = new EmbedBuilder().setColor('#37009B')
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Du bist schon in einer Lobby!')
         		    .setFooter({ text: '» ' + vote + ' » ' + version });
@@ -59,13 +59,13 @@ module.exports = {
         // Check if Other Person is already in a Lobby
         if (bot.game.has('PLAYING-' + sender)) {
             // Create Embed
-            let message = new EmbedBuilder()
+            let message = new EmbedBuilder().setColor('#37009B')
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» <@' + sender + '> is already in a Lobby!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang === 'de') {
-                message = new EmbedBuilder()
+                message = new EmbedBuilder().setColor('#37009B')
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» <@' + sender + '> ist schon in einer Lobby!')
         		    .setFooter({ text: '» ' + vote + ' » ' + version });
@@ -81,13 +81,13 @@ module.exports = {
             const missing = bet - balance
             
             // Create Embed
-            let message = new EmbedBuilder()
+            let message = new EmbedBuilder().setColor('#37009B')
             	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   				.setDescription('» You dont have enough Money for that, you are missing **$' + missing + '**!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang === 'de') {
-                message = new EmbedBuilder()
+                message = new EmbedBuilder().setColor('#37009B')
             	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
             	    .setFooter({ text: '» ' + vote + ' » ' + version });
@@ -101,13 +101,13 @@ module.exports = {
             const missing = bet - otherbalance
             
             // Create Embed
-            let message = new EmbedBuilder()
+            let message = new EmbedBuilder().setColor('#37009B')
             	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   				.setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> doesnt have enough Money, he is Missing **$' + missing + '**!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang === 'de') {
-                message = new EmbedBuilder()
+                message = new EmbedBuilder().setColor('#37009B')
             	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> hat nicht genug Geld, im fehlen **' + missing + '€**!')
             	    .setFooter({ text: '» ' + vote + ' » ' + version });
@@ -165,13 +165,13 @@ module.exports = {
         bot.money.rem(interaction, reciever.toString().replace(/\D/g, ''), bet)
 
         // Create Embed
-        let message = new EmbedBuilder()
+        let message = new EmbedBuilder().setColor('#37009B')
         .setTitle('<:GAMEPAD:1024395990679167066> » ROCK PAPER SCISSORS')
         .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> is playing Rock Paper Scissors with <@' + reciever.toString().replace(/\D/g, '') + '>!\nThe Bet is **$' + bet + '**')
         .setFooter({ text: '» ' + version });
 
         if (lang === 'de') {
-            message = new EmbedBuilder()
+            message = new EmbedBuilder().setColor('#37009B')
                 .setTitle('<:GAMEPAD:1024395990679167066> » SCHERE STEIN PAPIER')
                 .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> spielt mit <@' + reciever.toString().replace(/\D/g, '') + '> Schere Stein Papier!\nDie Wette ist **' + bet + '€**')
                 .setFooter({ text: '» ' + version });

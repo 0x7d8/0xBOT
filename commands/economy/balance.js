@@ -36,25 +36,25 @@ module.exports = {
         // Create Embed
         let message
         if (user == null) {
-        	message = new EmbedBuilder()
+        	message = new EmbedBuilder().setColor('#37009B')
             	.setTitle('<:WALLET:1024387370793050273> » YOUR BALANCE')
   				.setDescription('» Your Balance is **$' + money + '**!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang === 'de') {
-                message = new EmbedBuilder()
+                message = new EmbedBuilder().setColor('#37009B')
             	    .setTitle('<:WALLET:1024387370793050273> » DEIN GELDSTAND')
   				    .setDescription('» Dein Geldstand beträgt **' + money + '€**!')
             	    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
         } else {
-            message = new EmbedBuilder()
+            message = new EmbedBuilder().setColor('#37009B')
             	.setTitle('<:WALLET:1024387370793050273> » THE BALANCE OF ' + user.username.toUpperCase())
   				.setDescription('» The Balance of <@' + user + '> is **$' + money + '**!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang === 'de') {
-                message = new EmbedBuilder()
+                message = new EmbedBuilder().setColor('#37009B')
             	    .setTitle('<:WALLET:1024387370793050273> » DER GELDSTAND VON ' + user.username.toUpperCase())
   				    .setDescription('» Der Geldstand von <@' + user + '> ist **' + money + '€**!')
             	    .setFooter({ text: '» ' + vote + ' » ' + version });

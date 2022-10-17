@@ -6,6 +6,21 @@ exports.get = (userId) => new Promise(async ful => {
     ful(data.langs);
 })
 
+exports.set = (userId, langs) => {
+    langschema.findOne({ userId }, async (err, data) => {
+        if(err) throw err;
+        if(data) {
+            data.langs = langs;
+        } else {
+            data = new langschema({
+                userId,
+                langs
+            })
+        }
+        data.save();
+    })
+}
+
 exports.add = (userId, langs) => {
     langschema.findOne({ userId }, async (err, data) => {
         if(err) throw err;

@@ -35,13 +35,13 @@ module.exports = {
         // Check if User is Authorized
         if (interaction.user.id !== userid) {
             // Create Embed
-            let message = new EmbedBuilder()
+            let message = new EmbedBuilder().setColor('#37009B')
             	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   				.setDescription('» This choice is up to <@' + userid + '>!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang === 'de') {
-                message = new EmbedBuilder()
+                message = new EmbedBuilder().setColor('#37009B')
             	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Diese Frage ist für <@' + userid + '>!')
             	    .setFooter({ text: '» ' + vote + ' » ' + version });
@@ -59,13 +59,13 @@ module.exports = {
                 const missing = cost - balance
                 
                 // Create Embed
-                let message = new EmbedBuilder()
+                let message = new EmbedBuilder().setColor('#37009B')
                 	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   		    		.setDescription('» You dont have enough Money for that, you are missing **$' + missing + '**!')
                 	.setFooter({ text: '» ' + vote + ' » ' + version });
 
                 if (lang === 'de') {
-                    message = new EmbedBuilder()
+                    message = new EmbedBuilder().setColor('#37009B')
                 	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   			    	    .setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
                 	    .setFooter({ text: '» ' + vote + ' » ' + version });
@@ -92,13 +92,13 @@ module.exports = {
                 }
 
                 // Create Embed
-                let message = new EmbedBuilder()
+                let message = new EmbedBuilder().setColor('#37009B')
             	    .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
             	    .setDescription('» You already own a **' + name + '**!')
             	    .setFooter({ text: '» ' + vote + ' » ' + version });
 
                 if (lang == 'de') {
-                    message = new EmbedBuilder()
+                    message = new EmbedBuilder().setColor('#37009B')
             	        .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
             	        .setDescription('» Du besitzt schon ein **' + name + '**!')
             	        .setFooter({ text: '» ' + vote + ' » ' + version });
@@ -135,13 +135,13 @@ module.exports = {
             }
 
             // Create Embed
-            let message = new EmbedBuilder()
+            let message = new EmbedBuilder().setColor('#37009B')
                 .setTitle('<:BOXCHECK:1024401101589590156> » BUY BUSINESS')
                 .setDescription('» You successfully bought a **' + name + '** for **$' + cost + '**!')
                 .setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang == 'de') {
-                message = new EmbedBuilder()
+                message = new EmbedBuilder().setColor('#37009B')
                     .setTitle('<:BOXCHECK:1024401101589590156> » GESCHÄFT KAUFEN')
                     .setDescription('» Du hast erfolgreich ein **' + name + '** für **' + cost + '€** gekauft!')
                     .setFooter({ text: '» ' + vote + ' » ' + version });
@@ -168,13 +168,13 @@ module.exports = {
             // Check if User has a Business
             if (await bot.businesses.get('u-' + interaction.user.id + '-' + interaction.guild.id + '-BUSINESS', 'amount') === 0) {
                 // Create Embed
-                let message = new EmbedBuilder()
+                let message = new EmbedBuilder().setColor('#37009B')
                 	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   		    		.setDescription('» You dont own a Business!')
                 	.setFooter({ text: '» ' + vote + ' » ' + version });
 
                 if (lang === 'de') {
-                    message = new EmbedBuilder()
+                    message = new EmbedBuilder().setColor('#37009B')
                 	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   		    		    .setDescription('» Du besitzt kein Geschäft!')
                 	    .setFooter({ text: '» ' + vote + ' » ' + version });
@@ -191,13 +191,13 @@ module.exports = {
             interaction.message.components[0].components[1].data.style = 2
 
             // Create Embed
-            let message = new EmbedBuilder()
+            let message = new EmbedBuilder().setColor('#37009B')
                 .setTitle('<:BOXCHECK:1024401101589590156> » SELL BUSINESS')
                 .setDescription('» You successfully sold your **' + name + '** for **$' + (cost/2) + '**!')
                 .setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang == 'de') {
-                message = new EmbedBuilder()
+                message = new EmbedBuilder().setColor('#37009B')
                     .setTitle('<:BOXCHECK:1024401101589590156> » GESCHÄFT VERKAUFEN')
                     .setDescription('» Du hast erfolgreich dein **' + name + '** für **' + (cost/2) + '€** verkauft!')
                     .setFooter({ text: '» ' + vote + ' » ' + version });

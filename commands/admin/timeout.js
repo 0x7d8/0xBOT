@@ -39,13 +39,13 @@ module.exports = {
         // Check if Time Amount is Negative
         if (time < 1) {
             // Create Embed
-            let message = new EmbedBuilder()
+            let message = new EmbedBuilder().setColor('#37009B')
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» You have to timeout for atleast **1** Second!')
         		.setFooter({ text: '» ' + version });
             if (lang === 'de') {
 
-                message = new EmbedBuilder()
+                message = new EmbedBuilder().setColor('#37009B')
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Du musst mindestens **1** Sekunde Timeouten!')
         		    .setFooter({ text: '» ' + version });
@@ -59,12 +59,12 @@ module.exports = {
         // Check if Bot has Permission
         if (!interaction.appPermissions.has('ModerateMembers')) {
             // Create Embed
-            let message = new EmbedBuilder()
+            let message = new EmbedBuilder().setColor('#37009B')
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» I dont think I have the **MODERATE MEMBERS** Permission!')
         		.setFooter({ text: '» ' + version });
             if (lang === 'de') {
-                message = new EmbedBuilder()
+                message = new EmbedBuilder().setColor('#37009B')
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Ich denke nicht, dass ich die **MITGLIEDER IM TIMEOUT** Berechtigung habe!')
         		    .setFooter({ text: '» ' + version });
@@ -76,13 +76,13 @@ module.exports = {
         }
 
         // Create Embed
-        let message = new EmbedBuilder()
+        let message = new EmbedBuilder().setColor('#37009B')
         	.setTitle('» TIMEOUT')
         	.setDescription('» Successfully gave <@' + user.id + '> a Timeout of **' + time + 's**!')
         	.setFooter({ text: '» ' + version });
 
         if (lang == 'de') {
-            message = new EmbedBuilder()
+            message = new EmbedBuilder().setColor('#37009B')
         	    .setTitle('» TIMEOUT')
         	    .setDescription('» Erfolgreich <@' + user.id + '> einen Timeout von **' + time + 's** gegeben!')
         	    .setFooter({ text: '» ' + version });

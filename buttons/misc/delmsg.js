@@ -11,13 +11,13 @@ module.exports = {
         // Check if User is Authorized
         if (interaction.user.id !== mention.id) {
             // Create Embed
-            let message = new EmbedBuilder()
+            let message = new EmbedBuilder().setColor('#37009B')
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» <@' + mention.id + '> has to decide this!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang === 'de') {
-                message = new EmbedBuilder()
+                message = new EmbedBuilder().setColor('#37009B')
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» <@' + mention.id + '> muss das entscheiden!')
         		    .setFooter({ text: '» ' + vote + ' » ' + version });

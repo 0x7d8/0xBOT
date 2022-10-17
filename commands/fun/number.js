@@ -30,13 +30,13 @@ module.exports = {
         const res = Math.floor(Math.random() * (max - min + 1)) + min;
 
         // Create Embed
-        let message = new EmbedBuilder()
+        let message = new EmbedBuilder().setColor('#37009B')
         	.setTitle('<:GEAR:1024404241701417011> » RANDOM NUMBER')
   			.setDescription('» Between **' + min + '** and **' + max + '** I choose **' + res + '**!')
         	.setFooter({ text: '» ' + vote + ' » ' + version });
 
         if (lang === 'de') {
-            message = new EmbedBuilder()
+            message = new EmbedBuilder().setColor('#37009B')
         	    .setTitle('<:GEAR:1024404241701417011> » ZUFÄLLIGE NUMMER')
   			    .setDescription('» Zwischen **' + min + '** und **' + max + '** wähle ich **' + res + '**!')
         	    .setFooter({ text: '» ' + vote + ' » ' + version });

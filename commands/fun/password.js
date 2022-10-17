@@ -29,13 +29,13 @@ module.exports = {
         if (lenght > 256) {
 
             // Create Embed
-            let message = new EmbedBuilder()
+            let message = new EmbedBuilder().setColor('#37009B')
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» The Maximum Size is **256**!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang === 'de') {
-                message = new EmbedBuilder()
+                message = new EmbedBuilder().setColor('#37009B')
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Die Maximale Größe ist **128**!')
         		    .setFooter({ text: '» ' + vote + ' » ' + version });
@@ -49,13 +49,13 @@ module.exports = {
         if (lenght < 4) {
 
             // Create Embed
-            let message = new EmbedBuilder()
+            let message = new EmbedBuilder().setColor('#37009B')
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» The Minimum Size is **4**!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang === 'de') {
-                message = new EmbedBuilder()
+                message = new EmbedBuilder().setColor('#37009B')
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Die Minimale Größe ist **4**!')
         		    .setFooter({ text: '» ' + vote + ' » ' + version });
@@ -75,13 +75,13 @@ module.exports = {
         });
         
         // Create Embed
-        let message = new EmbedBuilder()
+        let message = new EmbedBuilder().setColor('#37009B')
         	.setTitle('<:KEY:1024392167130664980> » GENERATE PASSWORD')
   			.setDescription('» This is the Password I choose:\n`' + password + '`')
         	.setFooter({ text: '» ' + vote + ' » ' + version });
 
         if (lang === 'de') {
-            message = new EmbedBuilder()
+            message = new EmbedBuilder().setColor('#37009B')
         	    .setTitle('<:KEY:1024392167130664980> » PASSWORT GENERIEREN')
   			    .setDescription('» Das hier ist mein ausgedachtes Passwort:\n`' + password + '`')
         	    .setFooter({ text: '» ' + vote + ' » ' + version });

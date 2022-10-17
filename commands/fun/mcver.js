@@ -14,13 +14,13 @@ module.exports = {
         const res = Math.floor(Math.random() * (19 - 0 + 1)) + 0;
 
         // Create Embed
-        let message = new EmbedBuilder()
+        let message = new EmbedBuilder().setColor('#37009B')
         	.setTitle('<:CUBE:1024404832452350032> » RANDOM MINECRAFT VERSION')
   			.setDescription('» I would choose **1.' + res + '**!')
         	.setFooter({ text: '» ' + vote + ' » ' + version });
 
         if (lang === 'de') {
-            message = new EmbedBuilder()
+            message = new EmbedBuilder().setColor('#37009B')
         	    .setTitle('<:CUBE:1024404832452350032> » ZUFÄLLIGE MINECRAFT VERSION')
   			    .setDescription('» Ich würde **1.' + res + '** nehmen!')
         	    .setFooter({ text: '» ' + vote + ' » ' + version });

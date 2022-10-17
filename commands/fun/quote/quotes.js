@@ -24,13 +24,13 @@ module.exports = {
         const qes = await gopt.get(interaction.guild.id + '-QUOTES')
         if (parseInt(qes) == 1) {
             // Create Embed
-            let message = new EmbedBuilder()
+            let message = new EmbedBuilder().setColor('#37009B')
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» Quotes are disabled on this Server!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang === 'de') {
-                message = new EmbedBuilder()
+                message = new EmbedBuilder().setColor('#37009B')
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Zitate sind auf diesem Server deaktiviert!')
         		    .setFooter({ text: '» ' + vote + ' » ' + version });
@@ -73,25 +73,25 @@ module.exports = {
         // Create Embed
         let message
         if (user == null) {
-        	message = new EmbedBuilder()
+        	message = new EmbedBuilder().setColor('#37009B')
             	.setTitle('<:QUOTES:1024406448127623228> » YOUR QUOTES')
   				.setDescription('» You have **' + quotes + '** ' + word + '!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang === 'de') {
-                message = new EmbedBuilder()
+                message = new EmbedBuilder().setColor('#37009B')
             	    .setTitle('<:QUOTES:1024406448127623228> » DEINE ZITATE')
   				    .setDescription('» Du hast **' + quotes + '** ' + word + '!')
             	    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
         } else {
-            message = new EmbedBuilder()
+            message = new EmbedBuilder().setColor('#37009B')
                 .setTitle('<:QUOTES:1024406448127623228> » THE QUOTES OF ' + user.username.toUpperCase())
   				.setDescription('» <@' + user + '> has **' + quotes + '** ' + word + '!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang === 'de') {
-                message = new EmbedBuilder()
+                message = new EmbedBuilder().setColor('#37009B')
                     .setTitle('<:QUOTES:1024406448127623228> » DIE ZITATE VON ' + user.username.toUpperCase())
   				    .setDescription('» <@' + user + '> hat **' + quotes + '** ' + word + '!')
             	    .setFooter({ text: '» ' + vote + ' » ' + version });

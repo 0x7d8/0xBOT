@@ -44,13 +44,13 @@ module.exports = {
         }
 
         // Create Embed
-        let message = new EmbedBuilder()
+        let message = new EmbedBuilder().setColor('#37009B')
         	.setTitle('» LANGUAGE')
         	.setDescription('» Language successfully set to **' + langString + '**!')
         	.setFooter({ text: '» ' + version });
 
         if (langs == "1") {
-            message = new EmbedBuilder()
+            message = new EmbedBuilder().setColor('#37009B')
         	    .setTitle('» SPRACHE')
         	    .setDescription('» Sprache erfolgreich auf **' + langString + '** gesetzt!')
         	    .setFooter({ text: '» ' + version });

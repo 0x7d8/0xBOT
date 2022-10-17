@@ -31,13 +31,13 @@ module.exports = {
         }
         
         // Create Embed
-       	let message = new EmbedBuilder()
+       	let message = new EmbedBuilder().setColor('#37009B')
             .setTitle('<:GLOBE:1024403680503529583> » DASHBOARD')
   			.setDescription('» Click below to go to the Dashboard!')
         	.setFooter({ text: '» ' + vote + ' » ' + version });
 
         if (lang === 'de') {
-            message = new EmbedBuilder()
+            message = new EmbedBuilder().setColor('#37009B')
                 .setTitle('<:GLOBE:1024403680503529583> » DASHBOARD')
   			    .setDescription('» Klicke unten um zum Dashboard zu gelangen!')
         	    .setFooter({ text: '» ' + vote + ' » ' + version });

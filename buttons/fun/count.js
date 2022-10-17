@@ -29,13 +29,13 @@ module.exports = {
         }
 
         // Create Embeds
-        let message = new EmbedBuilder()
+        let message = new EmbedBuilder().setColor('#37009B')
             .setTitle('<:INFINITE:1024406060380979300> » COUNTING')
             .setDescription('» Lets Count! Current Number: **' + number + '**')
             .setFooter({ text: '» ' + version });
 
         if (lang === 'de') {
-            message = new EmbedBuilder()
+            message = new EmbedBuilder().setColor('#37009B')
                 .setTitle('<:INFINITE:1024406060380979300> » ZÄHLEN')
                 .setDescription('» Komm Zählen! Aktuelle Nummer: **' + number + '**')
                 .setFooter({ text: '» ' + version });

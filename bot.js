@@ -165,12 +165,12 @@ client.on('interactionCreate', async interaction => {
 				fs.appendFileSync('logs/e' + day + '-' + month + '-' + year + '.log', e.stack + '\n\n')
         
     			// Create Error Embed
-    			let message = new EmbedBuilder()
+    			let message = new EmbedBuilder().setColor('#37009B')
         			.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   					.setDescription('» <:ERROR:1020414987291861022> An Error has occured while executing this Command.\nThe Error has been logged and will be fixed soon!')
     				.setFooter({ text: '» ' + votet + ' » ' + config.version + ' » ERROR: ' + errorid });
 				if (guildlang == 'de') {
-					message = new EmbedBuilder()
+					message = new EmbedBuilder().setColor('#37009B')
         				.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   						.setDescription('» <:ERROR:1020414987291861022> Ein Fehler ist beim ausführen dieses Befehls aufgetreten.\nDer Fehler wurde geloggt und wird bald behoben!')
     					.setFooter({ text: '» ' + votet + ' » ' + config.version + ' » FEHLER: ' + errorid });
@@ -325,12 +325,12 @@ client.on('interactionCreate', async interaction => {
 				fs.appendFileSync('logs/e' + day + '-' + month + '-' + year + '.log', e.stack + '\n\n')
         
     			// Create Error Embed
-    			let message = new EmbedBuilder()
+    			let message = new EmbedBuilder().setColor('#37009B')
         			.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   					.setDescription('» <:ERROR:1020414987291861022> An Error has occured while executing this Button.\nThe Error has been logged and will be fixed soon!')
     				.setFooter({ text: '» ' + votet + ' » ' + config.version + ' » ERROR: ' + errorid });
 				if (guildlang == 'de') {
-					message = new EmbedBuilder()
+					message = new EmbedBuilder().setColor('#37009B')
         				.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   						.setDescription('» <:ERROR:1020414987291861022> Ein Fehler ist beim ausführen dieses Buttons aufgetreten.\nDer Fehler wurde geloggt und wird bald behoben!')
     					.setFooter({ text: '» ' + votet + ' » ' + config.version + ' » FEHLER: ' + errorid });
@@ -394,26 +394,26 @@ if (config.web.votes) {
 		}
 
 		// Create Embeds
-		let message = new EmbedBuilder()
+		let message = new EmbedBuilder().setColor('#37009B')
 			.setTitle('» VOTING')
 			.setDescription('» Thanks for Voting! You got **$' + random + '** from me :)\n» Danke fürs Voten! Du hast **' + random + '€** von mir erhalten :)')
 			.setFooter({ text: '» ' + config.version });
 		if (await lang.get(vote.user) == 1) {
-			message = new EmbedBuilder()
+			message = new EmbedBuilder().setColor('#37009B')
 				.setTitle('» VOTING')
 				.setDescription('» Danke fürs Voten! Du hast **' + random + '€** von mir erhalten :)')
 				.setFooter({ text: '» ' + config.version });
 		} else {
-			message = new EmbedBuilder()
+			message = new EmbedBuilder().setColor('#37009B')
 				.setTitle('» VOTING')
 				.setDescription('» Thanks for Voting! You got **$' + random + '** from me :)')
 				.setFooter({ text: '» ' + config.version });
-		}; let messagebonus = new EmbedBuilder()
+		}; let messagebonus = new EmbedBuilder().setColor('#37009B')
 			.setTitle('» VOTING')
 			.setDescription('» Thanks for Voting **' + (parseInt(await bot.votes.get(vote.user + '-A'))+1) + '** times!\nAs A Gift I give you extra **$' + extra + '**!')
 			.setFooter({ text: '» ' + config.version });
 		if (await lang.get(vote.user) == 1) {
-			messagebonus = new EmbedBuilder()
+			messagebonus = new EmbedBuilder().setColor('#37009B')
 				.setTitle('» VOTING')
 				.setDescription('» Danke, dass du **' + (parseInt(await bot.votes.get(vote.user + '-A'))+1) + '** mal gevotet hast!\nAls Geschenk gebe ich dir extra **' + extra + '€**!')
 				.setFooter({ text: '» ' + config.version });

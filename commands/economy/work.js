@@ -18,13 +18,13 @@ module.exports = {
         const wes = await gopt.get(interaction.guild.id + '-WORK')
         if (parseInt(wes) == 1) {
             // Create Embed
-            let message = new EmbedBuilder()
+            let message = new EmbedBuilder().setColor('#37009B')
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» The **`/work`** Command is disabled on this Server!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang === 'de') {
-                message = new EmbedBuilder()
+                message = new EmbedBuilder().setColor('#37009B')
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Der **`/work`** Befehl ist auf diesem Server deaktiviert!')
         		    .setFooter({ text: '» ' + vote + ' » ' + version });
@@ -47,13 +47,13 @@ module.exports = {
             if (cdown > 60) { cdown = timeLeft / 1000 / 60; use = 'm' }
             
             // Create Embed
-            let message = new EmbedBuilder()
+            let message = new EmbedBuilder().setColor('#37009B')
             	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   				.setDescription('» You still have a Cooldown of **' + cdown.toFixed(0) + use + '**!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang === 'de') {
-                message = new EmbedBuilder()
+                message = new EmbedBuilder().setColor('#37009B')
             	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Du hast leider noch einen Cooldown von **' + cdown.toFixed(0) + use + '**!')
             	    .setFooter({ text: '» ' + vote + ' » ' + version });
@@ -122,13 +122,13 @@ module.exports = {
             if (!carboost) { resultcar = result } else { resultcar = await Math.round(addper(result, carboostam)) }
         
         	// Create Embed
-      		let message = new EmbedBuilder()
+      		let message = new EmbedBuilder().setColor('#37009B')
             	.setTitle('<:HAMMER:1024388163747184662> » WORK')
   				.setDescription('» You work as **' + job + '** and earn **$' + resultcar + '**! ' + extra)
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang === 'de') {
-                message = new EmbedBuilder()
+                message = new EmbedBuilder().setColor('#37009B')
             	    .setTitle('<:HAMMER:1024388163747184662> » ARBEIT')
   				    .setDescription('» Du arbeitest als **' + job + '** und verdienst **' + resultcar + '€**! ' + extra)
             	    .setFooter({ text: '» ' + vote + ' » ' + version });

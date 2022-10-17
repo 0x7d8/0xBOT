@@ -36,13 +36,13 @@ module.exports = {
         const user = interaction.options.getUser("user")
         
         // Create Embed
-        let message = new EmbedBuilder()
+        let message = new EmbedBuilder().setColor('#37009B')
         	.setTitle('<:WALLET:1024387370793050273> » TOP BALANCE REMOVAL')
   			.setDescription(`» Successfully removed <@${user.id}> from your Servers Top Balance!\nIf this User interacts with money again he will be on the List again.`)
         	.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
         if (lang === 'de') {
-            message = new EmbedBuilder()
+            message = new EmbedBuilder().setColor('#37009B')
         	    .setTitle('<:WALLET:1024387370793050273> » TOP KONTOSTÄNDE ENTFERNUNG')
   			    .setDescription(`» Erfolgreich <@${user.id}> von der Top Kontostände Liste des Servers entfernt!\nWenn dieser Nutzer wieder mit Geld interagiert, wird er wieder auf der Liste sein.`)
         	    .setFooter({ text: '» ' + vote + ' » ' + config.version });

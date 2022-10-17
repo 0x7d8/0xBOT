@@ -10,13 +10,13 @@ module.exports = {
         // Check if User is Authorized
         if (interaction.user.id !== reciever) {
             // Create Embed
-            let message = new EmbedBuilder()
+            let message = new EmbedBuilder().setColor('#37009B')
             	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   				.setDescription('» This choice is up to <@' + reciever + '>!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang === 'de') {
-                message = new EmbedBuilder()
+                message = new EmbedBuilder().setColor('#37009B')
             	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Diese Frage ist für <@' + reciever + '>!')
             	    .setFooter({ text: '» ' + vote + ' » ' + version });
@@ -41,25 +41,25 @@ module.exports = {
         // Create Embed
         let message
         if (solution == choice) {
-            message = new EmbedBuilder()
+            message = new EmbedBuilder().setColor('#37009B')
             	.setTitle('<:BOXOPEN:1024395281460101213> » USE ITEM')
   		    	.setDescription('» <@' + reciever + '> has diffused the Bomb! YAY')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang === 'de') {
-                message = new EmbedBuilder()
+                message = new EmbedBuilder().setColor('#37009B')
             	    .setTitle('<:BOXOPEN:1024395281460101213> » GEGENSTAND NUTZEN')
   		    	    .setDescription('» <@' + reciever + '> hat die Bombe entschärft! YAY')
             	    .setFooter({ text: '» ' + vote + ' » ' + version });
             }
         } else {
-            message = new EmbedBuilder()
+            message = new EmbedBuilder().setColor('#37009B')
             	.setTitle('<:BOXOPEN:1024395281460101213> » USE ITEM')
   		    	.setDescription('» <@' + reciever + '> has failed to diffuse the Bomb! OHNO')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang === 'de') {
-                message = new EmbedBuilder()
+                message = new EmbedBuilder().setColor('#37009B')
             	    .setTitle('<:BOXOPEN:1024395281460101213> » GEGENSTAND NUTZEN')
   		    	    .setDescription('» <@' + reciever + '> hat es nicht geschafft, die Bombe zu entschärfen! OH')
             	    .setFooter({ text: '» ' + vote + ' » ' + version });

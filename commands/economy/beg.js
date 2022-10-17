@@ -38,13 +38,13 @@ module.exports = {
         // Check if Balance is Minus
         if (amount < 0) {
             // Create Embed
-            let message = new EmbedBuilder()
+            let message = new EmbedBuilder().setColor('#37009B')
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» You cant ask for negative Money!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang === 'de') {
-                message = new EmbedBuilder()
+                message = new EmbedBuilder().setColor('#37009B')
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Du kannst nicht nach negativem Geld fragen!')
         		    .setFooter({ text: '» ' + vote + ' » ' + version });
@@ -58,13 +58,13 @@ module.exports = {
         // Check for Max Amount
         if (amount > 10000) {
             // Create Embed
-            let message = new EmbedBuilder()
+            let message = new EmbedBuilder().setColor('#37009B')
                 .setTitle('» BEGGING')
                 .setDescription('» You cant beg that much! **$10000** is the Maximum.')
                 .setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang === 'de') {
-                message = new EmbedBuilder()
+                message = new EmbedBuilder().setColor('#37009B')
                     .setTitle('» BETTELN')
                     .setDescription('» Du kannst nicht soviel erbetteln! **10000€** ist das Maximum.')
                     .setFooter({ text: '» ' + vote + ' » ' + version });
@@ -110,25 +110,25 @@ module.exports = {
         // Create Embed
         let message
         if (reason == null) {
-      	    message = new EmbedBuilder()
+      	    message = new EmbedBuilder().setColor('#37009B')
                 .setTitle('<:DONATE:1024397357988720711> » BEGGING')
   			    .setDescription('» <@' + interaction.user.id + '> needs Money!\nTotal Earnings: **$0**')
         	    .setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang === 'de') {
-                message = new EmbedBuilder()
+                message = new EmbedBuilder().setColor('#37009B')
                     .setTitle('<:DONATE:1024397357988720711> » BETTELN')
   			        .setDescription('» <@' + interaction.user.id + '> braucht Geld!\nInsgesamte Einnahmen: **0€**')
         	        .setFooter({ text: '» ' + vote + ' » ' + version });
             }
         } else {
-            message = new EmbedBuilder()
+            message = new EmbedBuilder().setColor('#37009B')
                 .setTitle('<:DONATE:1024397357988720711> » BEGGING')
   			    .setDescription('» <@' + interaction.user.id + '> needs Money!\nTotal Earnings: **$0**\n*"' + reason.toString() + '"*')
         	    .setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang === 'de') {
-                message = new EmbedBuilder()
+                message = new EmbedBuilder().setColor('#37009B')
                     .setTitle('<:DONATE:1024397357988720711> » BETTELN')
   			        .setDescription('» <@' + interaction.user.id + '> braucht Geld!\nInsgesamte Einnahmen: **0€**\n*"' + reason.toString() + '"*')
         	        .setFooter({ text: '» ' + vote + ' » ' + version });

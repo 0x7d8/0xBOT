@@ -49,13 +49,13 @@ module.exports = {
         const bes = await gopt.get(interaction.guild.id + '-BOMBS')
         if (parseInt(bes) == 1 && itemcat == bomb) {
             // Create Embed
-            let message = new EmbedBuilder()
+            let message = new EmbedBuilder().setColor('#37009B')
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» Bombs are disabled on this Server!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang === 'de') {
-                message = new EmbedBuilder()
+                message = new EmbedBuilder().setColor('#37009B')
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Bomben sind auf diesem Server deaktiviert!')
         		    .setFooter({ text: '» ' + vote + ' » ' + version });
@@ -82,13 +82,13 @@ module.exports = {
         // Check if Target is Bot
         if (user.bot) {
             // Create Embed
-            let message = new EmbedBuilder()
+            let message = new EmbedBuilder().setColor('#37009B')
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» You cant use Items on Bots!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang === 'de') {
-                message = new EmbedBuilder()
+                message = new EmbedBuilder().setColor('#37009B')
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Du kannst keine Gegenstände auf einem Bot nutzen!')
         		    .setFooter({ text: '» ' + vote + ' » ' + version });
@@ -102,13 +102,13 @@ module.exports = {
         // Check if User has enough of the Item
         if (await bot.items.get(interaction.user.id + '-' + itemid.toUpperCase() + 'S-' + interaction.guild.id, 'amount') < 1) {
             // Create Embed
-            let message = new EmbedBuilder()
+            let message = new EmbedBuilder().setColor('#37009B')
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» You dont have enough of that Item!')
         		.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang === 'de') {
-                message = new EmbedBuilder()
+                message = new EmbedBuilder().setColor('#37009B')
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Du hast nicht genug von dem Gegenstand!')
         		    .setFooter({ text: '» ' + vote + ' » ' + version });
@@ -122,13 +122,13 @@ module.exports = {
         // Check if User is Author
         if (interaction.user.id == user.id && itemcat == 'bomb') {
             // Create Embed
-            let message = new EmbedBuilder()
+            let message = new EmbedBuilder().setColor('#37009B')
             	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   				.setDescription('» You cant use Bombs on yourself?')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang === 'de') {
-                message = new EmbedBuilder()
+                message = new EmbedBuilder().setColor('#37009B')
             	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Du kannst Bomben nicht auf dir selber nutzen?')
             	    .setFooter({ text: '» ' + vote + ' » ' + version });
@@ -142,13 +142,13 @@ module.exports = {
         // Check if Reciever is already being Bombed
         if (bot.bomb.has('TIMEOUT-' + user.id + '-' + interaction.guild.id)) {
             // Create Embed
-            let message = new EmbedBuilder()
+            let message = new EmbedBuilder().setColor('#37009B')
             	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   				.setDescription('» <@' + user.id + '> is already being bombed!')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang === 'de') {
-                message = new EmbedBuilder()
+                message = new EmbedBuilder().setColor('#37009B')
             	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» <@' + user.id + '> wird schon bombadiert!')
             	    .setFooter({ text: '» ' + vote + ' » ' + version });
@@ -212,13 +212,13 @@ module.exports = {
         // Create Embed
         let message
         if (itemcat == 'bomb') {
-      	    message = new EmbedBuilder()
+      	    message = new EmbedBuilder().setColor('#37009B')
                 .setTitle('<:BOXOPEN:1024395281460101213> » USE ITEM')
   		    	.setDescription('» Oh <@' + user.id + '>, <@' + interaction.user.id + '> used a **' + name + '** on you!\nIf you solve this Math Equation, it wont do anything.\n\n**```' + math + '```**\nThe Bomb explodes <t:' + (Math.floor(+new Date() / 1000) + 10) + ':R>')
             	.setFooter({ text: '» ' + vote + ' » ' + version });
 
             if (lang === 'de') {
-                message = new EmbedBuilder()
+                message = new EmbedBuilder().setColor('#37009B')
                     .setTitle('<:BOXOPEN:1024395281460101213> » GEGENSTAND NUTZEN')
   		    	    .setDescription('» Oh <@' + user.id + '>, <@' + interaction.user.id + '> hat eine **' + name + '** an dir benutzt!\nFalls du dieses Mathe Rätsel löst, passiert nichts.\n\n**```' + math + '```**\nDie Bombe explodiert <t:' + (Math.floor(+new Date() / 1000) + 10) + ':R>')
             	    .setFooter({ text: '» ' + vote + ' » ' + version });
@@ -274,13 +274,13 @@ module.exports = {
                 }
     
                 // Create Embed
-                message = new EmbedBuilder()
+                message = new EmbedBuilder().setColor('#37009B')
             	    .setTitle('<:BOXOPEN:1024395281460101213> » USE ITEM')
   		    	    .setDescription('» <@' + user.id + '> has failed to diffuse the Bomb! OHNO')
             	    .setFooter({ text: '» ' + vote + ' » ' + version });
 
                 if (lang === 'de') {
-                    message = new EmbedBuilder()
+                    message = new EmbedBuilder().setColor('#37009B')
                 	    .setTitle('<:BOXOPEN:1024395281460101213> » GEGENSTAND NUTZEN')
   		        	    .setDescription('» <@' + user.id + '> hat es nicht geschafft, die Bombe zu entschärfen! OH')
                 	    .setFooter({ text: '» ' + vote + ' » ' + version });
