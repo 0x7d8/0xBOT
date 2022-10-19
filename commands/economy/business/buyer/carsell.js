@@ -1,7 +1,6 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
 const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js')
-const { EmbedBuilder } = require('@discordjs/builders');
-const { version } = require('../../../../config.json');
+const { SlashCommandBuilder } = require('@discordjs/builders')
+const { EmbedBuilder } = require('@discordjs/builders')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -13,19 +12,18 @@ module.exports = {
         }),
     async execute(interaction, client, lang, vote) {
         // Check if Cars are Enabled in Server
-        const ces = await gopt.get(interaction.guild.id + '-CAR')
-        if (parseInt(ces) == 1) {
+        if (!await bot.settings.get(interaction.guild.id, 'cars')) {
             // Create Embed
             let message = new EmbedBuilder().setColor(0x37009B)
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» Cars are disabled on this Server!')
-        		.setFooter({ text: '» ' + vote + ' » ' + version });
+        		.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Autos sind auf diesem Server deaktiviert!')
-        		    .setFooter({ text: '» ' + vote + ' » ' + version });
+        		    .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
             
             // Send Message
@@ -38,10 +36,10 @@ module.exports = {
 
         // Calculate Cost
         let cost
-        if (car == 'jeep') { cost = 15000 }
-        if (car == 'kia') { cost = 75000 }
-        if (car == 'tesla') { cost = 240000 }
-        if (car == 'porsche') { cost = 490000 }
+        if (car == 'jeep') cost = 15000
+        if (car == 'kia') cost = 75000
+        if (car == 'tesla') cost = 240000
+        if (car == 'porsche') cost = 490000
 
         // Translate to Car Names
         let name
@@ -56,13 +54,13 @@ module.exports = {
             let message = new EmbedBuilder().setColor(0x37009B)
             	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   				.setDescription('» You dont own a Car!')
-            	.setFooter({ text: '» ' + vote + ' » ' + version });
+            	.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
             	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Du besitzt kein Auto!')
-            	    .setFooter({ text: '» ' + vote + ' » ' + version });
+            	    .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
             
             // Send Message
@@ -110,13 +108,13 @@ module.exports = {
         let message = new EmbedBuilder().setColor(0x37009B)
             .setTitle('<:BOXDOLLAR:1024402261784403999> » SELL CAR')
             .setDescription('» Do you want to sell your **' + name + '** for **$' + (cost/2) + '**?')
-            .setFooter({ text: '» ' + vote + ' » ' + version });
+            .setFooter({ text: '» ' + vote + ' » ' + config.version });
 
         if (lang == 'de') {
             message = new EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:BOXDOLLAR:1024402261784403999> » AUTO VERKAUFEN')
                 .setDescription('» Willst du deinen **' + name + '** für **' + (cost/2) + '€** verkaufen?')
-                .setFooter({ text: '» ' + vote + ' » ' + version });
+                .setFooter({ text: '» ' + vote + ' » ' + config.version });
         }
 
         // Send Message

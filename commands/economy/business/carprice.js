@@ -1,5 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder } = require('@discordjs/builders');
-const { version } = require('../../../config.json');
+const { SlashCommandBuilder, EmbedBuilder } = require('@discordjs/builders')
 
 // In Range Function
 function inRange(x, min, max) {
@@ -44,19 +43,18 @@ module.exports = {
             .   setRequired(true)),
     async execute(interaction, client, lang, vote) {
         // Check if Businesses are Enabled in Server
-        const bes = await gopt.get(interaction.guild.id + '-BUSINESS')
-        if (parseInt(bes) == 1) {
+        if (!await bot.settings.get(interaction.guild.id, 'businesses')) {
             // Create Embed
             let message = new EmbedBuilder().setColor(0x37009B)
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» Businesses are disabled on this Server!')
-        		.setFooter({ text: '» ' + vote + ' » ' + version });
+        		.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Geschäfte sind auf diesem Server deaktiviert!')
-        		    .setFooter({ text: '» ' + vote + ' » ' + version });
+        		    .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
             
             // Send Message
@@ -74,13 +72,13 @@ module.exports = {
             let message = new EmbedBuilder().setColor(0x37009B)
             	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   				.setDescription('» You dont own this Business!')
-            	.setFooter({ text: '» ' + vote + ' » ' + version });
+            	.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
             	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Du besitzt dieses Geschäft nicht!')
-            	    .setFooter({ text: '» ' + vote + ' » ' + version });
+            	    .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
             
             // Send Message
@@ -90,23 +88,23 @@ module.exports = {
 
         // Check if Price is valid
         let doscream = false
-        if (car == 'jeep' && !inRange(parseInt(newprice), 5000, 15000)) { doscream = true }
-        if (car == 'kia' && !inRange(parseInt(newprice), 50000, 90000)) { doscream = true }
-        if (car == 'audi' && !inRange(parseInt(newprice), 140000, 200000)) { doscream = true }
-        if (car == 'tesla' && !inRange(parseInt(newprice), 220000, 260000)) { doscream = true }
-        if (car == 'porsche' && !inRange(parseInt(newprice), 400000, 500000)) { doscream = true }
+        if (car == 'jeep' && !inRange(parseInt(newprice), 5000, 15000)) doscream = true
+        if (car == 'kia' && !inRange(parseInt(newprice), 50000, 90000)) doscream = true
+        if (car == 'audi' && !inRange(parseInt(newprice), 140000, 200000)) doscream = true
+        if (car == 'tesla' && !inRange(parseInt(newprice), 220000, 260000)) doscream = true
+        if (car == 'porsche' && !inRange(parseInt(newprice), 400000, 500000)) doscream = true
         if (doscream) {
             // Create Embed
             let message = new EmbedBuilder().setColor(0x37009B)
             	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   				.setDescription('» Please follow the limits seen in the first step!')
-            	.setFooter({ text: '» ' + vote + ' » ' + version });
+            	.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
             	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Bitte folge den Limits zu sehen im ersten Schritt!')
-            	    .setFooter({ text: '» ' + vote + ' » ' + version });
+            	    .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
             
             // Send Message
@@ -121,13 +119,13 @@ module.exports = {
         let message = new EmbedBuilder().setColor(0x37009B)
             .setTitle('<:PARTITION:1024399126403747970> » CAR PRICES')
             .setDescription('» Successfully set the price to **$' + newprice + '**.')
-            .setFooter({ text: '» ' + vote + ' » ' + version });
+            .setFooter({ text: '» ' + vote + ' » ' + config.version });
 
         if (lang == 'de') {
             message = new EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:PARTITION:1024399126403747970> » AUTO PREISE')
                 .setDescription('» Erfolgreich den Preis auf **' + newprice + '€** gesetzt.')
-                .setFooter({ text: '» ' + vote + ' » ' + version });
+                .setFooter({ text: '» ' + vote + ' » ' + config.version });
         }
 
         // Send Message

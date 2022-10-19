@@ -1,6 +1,5 @@
-const { SlashCommandBuilder, EmbedBuilder } = require('@discordjs/builders');
-const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
-const { version } = require('../../config.json');
+const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js')
+const { SlashCommandBuilder, EmbedBuilder } = require('@discordjs/builders')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -34,13 +33,13 @@ module.exports = {
        	let message = new EmbedBuilder().setColor(0x37009B)
             .setTitle('<:GLOBE:1024403680503529583> » VOTE')
   			.setDescription('» Click below to go to Vote for the Bot!')
-        	.setFooter({ text: '» ' + vote + ' » ' + version });
+        	.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
         if (lang === 'de') {
             message = new EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:GLOBE:1024403680503529583> » VOTEN')
   			    .setDescription('» Klicke unten um für den Bot zu voten!')
-        	    .setFooter({ text: '» ' + vote + ' » ' + version });
+        	    .setFooter({ text: '» ' + vote + ' » ' + config.version });
         }
         
         // Send Message

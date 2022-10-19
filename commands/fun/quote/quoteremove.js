@@ -1,5 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder } = require('@discordjs/builders');
-const { version } = require('../../../config.json');
+const { SlashCommandBuilder, EmbedBuilder } = require('@discordjs/builders')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -29,19 +28,18 @@ module.exports = {
 				)),
     async execute(interaction, client, lang, vote) {
         // Check if Quotes are Enabled in Server
-        const qes = await gopt.get(interaction.guild.id + '-QUOTES')
-        if (parseInt(qes) == 1) {
+        if (!await bot.settings.get(interaction.guild.id, 'quotes')) {
             // Create Embed
             let message = new EmbedBuilder().setColor(0x37009B)
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» Quotes are disabled on this Server!')
-        		.setFooter({ text: '» ' + vote + ' » ' + version });
+        		.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Zitate sind auf diesem Server deaktiviert!')
-        		    .setFooter({ text: '» ' + vote + ' » ' + version });
+        		    .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
             
             // Send Message
@@ -51,12 +49,11 @@ module.exports = {
 
         // Set Variables
         const anzahl = interaction.options.getString("amount")
-        
         const cost = anzahl * 1000
 
         // Get User Balances
-        const quotes = await bot.quotes.get(interaction.user.id);
-        const money = await bot.money.get(interaction.user.id);
+        const quotes = await bot.quotes.get(interaction.user.id)
+        const money = await bot.money.get(interaction.user.id)
         
         // Check if not in Minus Quotes
         if (quotes - anzahl < 0) {
@@ -64,13 +61,13 @@ module.exports = {
             let message = new EmbedBuilder().setColor(0x37009B)
             	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   				.setDescription('» You dont have that many Quotes, you only have **' + quotes + '**!')
-            	.setFooter({ text: '» ' + vote + ' » ' + version });
+            	.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
             	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Du hast garnicht so viele Zitate, du hast nur **' + quotes + '**!')
-            	    .setFooter({ text: '» ' + vote + ' » ' + version });
+            	    .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
             
             // Send Message
@@ -86,13 +83,13 @@ module.exports = {
             let message = new EmbedBuilder().setColor(0x37009B)
             	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   				.setDescription('» You dont have enough Money for that, you are Missing **$' + missing + '**!')
-            	.setFooter({ text: '» ' + version + ' » QUOTES: ' + quotes});
+            	.setFooter({ text: '» ' + config.version + ' » QUOTES: ' + quotes});
 
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
             	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Du hast nicht genug Geld dafür, dir fehlen **' + missing + '€**!')
-            	    .setFooter({ text: '» ' + version + ' » QUOTES: ' + quotes});
+            	    .setFooter({ text: '» ' + config.version + ' » QUOTES: ' + quotes});
             }
             
             // Send Message
@@ -102,7 +99,7 @@ module.exports = {
         
         // Check if Plural or not
         let word
-        if (anzahl == 1) {
+        if (anzahl === 1) {
             word = "Quote";
         } else {
             word = "Quotes";
@@ -121,13 +118,13 @@ module.exports = {
         let message = new EmbedBuilder().setColor(0x37009B)
             .setTitle('<:QUOTES:1024406448127623228> » ZITATE ENTFERNEN')
   			.setDescription('» You successfully removed **' + anzahl + '** ' + word + ' for **$' + cost + '**!')
-            .setFooter({ text: '» ' + version + ' » QUOTES: ' + newquotes});
+            .setFooter({ text: '» ' + config.version + ' » QUOTES: ' + newquotes});
 
         if (lang === 'de') {
             message = new EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:QUOTES:1024406448127623228> » ZITATE ENTFERNEN')
   			    .setDescription('» Du hast erfolgreich **' + anzahl + '** ' + word + ' für **' + cost + '€** entfernt!')
-                .setFooter({ text: '» ' + version + ' » QUOTES: ' + newquotes});
+                .setFooter({ text: '» ' + config.version + ' » QUOTES: ' + newquotes});
         }
 
         // Set Money and Quotes

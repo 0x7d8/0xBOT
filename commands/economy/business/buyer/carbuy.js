@@ -1,7 +1,6 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
 const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js')
-const { EmbedBuilder } = require('@discordjs/builders');
-const { version } = require('../../../../config.json');
+const { SlashCommandBuilder } = require('@discordjs/builders')
+const { EmbedBuilder } = require('@discordjs/builders')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -31,19 +30,18 @@ module.exports = {
 				)),
     async execute(interaction, client, lang, vote) {
         // Check if Cars are Enabled in Server
-        const ces = await gopt.get(interaction.guild.id + '-CAR')
-        if (parseInt(ces) == 1) {
+        if (!await bot.settings.get(interaction.guild.id, 'cars')) {
             // Create Embed
             let message = new EmbedBuilder().setColor(0x37009B)
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» Cars are disabled on this Server!')
-        		.setFooter({ text: '» ' + vote + ' » ' + version });
+        		.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Autos sind auf diesem Server deaktiviert!')
-        		    .setFooter({ text: '» ' + vote + ' » ' + version });
+        		    .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
             
             // Send Message
@@ -53,16 +51,16 @@ module.exports = {
 
         // Set Variables
         const car = interaction.options.getString("car")
-        const balance = await bot.money.get(interaction.user.id);
+        const balance = await bot.money.get(interaction.user.id)
 
         // Calculate Cost
         let cost
         if (await bot.businesses.get('g-' + interaction.guild.id + '-3-PRICE-' + car.toUpperCase()) === '0' || await bot.businesses.get('g-' + interaction.guild.id + '-3-PRICE-' + car.toUpperCase()) === 0) {
-            if (car == 'jeep') { cost = 15000 }
-            if (car == 'kia') { cost = 75000 }
-            if (car == 'audi') { cost = 160000 }
-            if (car == 'tesla') { cost = 240000 }
-            if (car == 'porsche') { cost = 490000 }
+            if (car == 'jeep') cost = 15000
+            if (car == 'kia') cost = 75000
+            if (car == 'audi') cost = 160000
+            if (car == 'tesla') cost = 240000
+            if (car == 'porsche') cost = 490000
         } else {
             cost = await bot.businesses.get('g-' + interaction.guild.id + '-3-PRICE-' + car.toUpperCase())
         }
@@ -83,13 +81,13 @@ module.exports = {
             let message = new EmbedBuilder().setColor(0x37009B)
             	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   				.setDescription('» You dont have enough Money for that, you are missing **$' + missing + '**!')
-            	.setFooter({ text: '» ' + vote + ' » ' + version });
+            	.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
             	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
-            	    .setFooter({ text: '» ' + vote + ' » ' + version });
+            	    .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
             
             // Send Message
@@ -111,13 +109,13 @@ module.exports = {
             let message = new EmbedBuilder().setColor(0x37009B)
             	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   				.setDescription('» You already own a **' + name + '**!')
-            	.setFooter({ text: '» ' + vote + ' » ' + version });
+            	.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
             	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Du besitzt schon einen **' + name +'**!')
-            	    .setFooter({ text: '» ' + vote + ' » ' + version });
+            	    .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
             
             // Send Message
@@ -165,13 +163,13 @@ module.exports = {
         let message = new EmbedBuilder().setColor(0x37009B)
             .setTitle('<:BOXCHECK:1024401101589590156> » BUY CAR')
             .setDescription('» Do you want to buy a **' + name + '** for **$' + cost + '**?')
-            .setFooter({ text: '» ' + vote + ' » ' + version });
+            .setFooter({ text: '» ' + vote + ' » ' + config.version });
 
         if (lang == 'de') {
             message = new EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:BOXCHECK:1024401101589590156> » AUTO KAUFEN')
                 .setDescription('» Willst du einen **' + name + '** für **' + cost + '€** kaufen?')
-                .setFooter({ text: '» ' + vote + ' » ' + version });
+                .setFooter({ text: '» ' + vote + ' » ' + config.version });
         }
 
         // Send Message

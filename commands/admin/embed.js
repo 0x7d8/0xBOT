@@ -1,6 +1,5 @@
-const { SlashCommandBuilder, EmbedBuilder } = require('@discordjs/builders');
-const { PermissionFlagsBits } = require('discord-api-types/v10');
-const { version } = require('../../config.json');
+const { SlashCommandBuilder, EmbedBuilder } = require('@discordjs/builders')
+const { PermissionFlagsBits } = require('discord-api-types/v10')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -42,19 +41,19 @@ module.exports = {
             message = new EmbedBuilder().setColor(0x37009B)
                 .setTitle(titel)
   			    .setDescription(nachricht)
-        	    .setFooter({ text: '» ' + version + ' » NOT OFFICIAL' });
+        	    .setFooter({ text: '» ' + config.version + ' » NOT OFFICIAL' });
             
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
                     .setTitle(titel)
   			        .setDescription(nachricht)
-        	        .setFooter({ text: '» ' + version + ' » NICHT OFFIZIELL' });
+        	        .setFooter({ text: '» ' + config.version + ' » NICHT OFFIZIELL' });
             }
         } else {
             message = new EmbedBuilder().setColor(0x37009B)
                 .setTitle(titel)
   			    .setDescription(nachricht)
-        	    .setFooter({ text: '» ' + version });
+        	    .setFooter({ text: '» ' + config.version });
         }
 
         // Send Message

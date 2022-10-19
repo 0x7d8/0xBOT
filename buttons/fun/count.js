@@ -1,5 +1,4 @@
-const { EmbedBuilder } = require('@discordjs/builders');
-const { version } = require('../../config.json');
+const { EmbedBuilder } = require('@discordjs/builders')
 
 module.exports = {
     data: {

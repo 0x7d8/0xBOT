@@ -1,5 +1,4 @@
-const { EmbedBuilder } = require('@discordjs/builders');
-const { version } = require('../../config.json');
+const { EmbedBuilder } = require('@discordjs/builders')
 
 module.exports = {
     data: {
@@ -19,13 +18,13 @@ module.exports = {
             let message = new EmbedBuilder().setColor(0x37009B)
             	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   				.setDescription('» You dont have enough Money for that, you are missing **$' + missing + '**!')
-            	.setFooter({ text: '» ' + vote + ' » ' + version });
+            	.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
             	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
-            	    .setFooter({ text: '» ' + vote + ' » ' + version });
+            	    .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
             
             // Send Message
@@ -39,13 +38,13 @@ module.exports = {
             let message = new EmbedBuilder().setColor(0x37009B)
             	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   				.setDescription('» You cant give yourself Money?')
-            	.setFooter({ text: '» ' + vote + ' » ' + version });
+            	.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
             	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Du kannst dir selber kein Geld geben?')
-            	    .setFooter({ text: '» ' + vote + ' » ' + version });
+            	    .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
 
             // Send Message
@@ -63,36 +62,36 @@ module.exports = {
       	    message = new EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:DONATE:1024397357988720711> » BEGGING')
   			    .setDescription('» <@' + reciever + '> needs Money!\nTotal Earnings: **$' + total + '**')
-        	    .setFooter({ text: '» ' + vote + ' » ' + version });
+        	    .setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:DONATE:1024397357988720711> » BETTELN')
   			        .setDescription('» <@' + reciever + '> braucht Geld!\nInsgesamte Einnahmen: **' + total + '€**')
-        	        .setFooter({ text: '» ' + vote + ' » ' + version });
+        	        .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
         } else {
             message = new EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:DONATE:1024397357988720711> » BEGGING')
   			    .setDescription('» <@' + reciever + '> needs Money!\nTotal Earnings: **$' + total + '**\n*"' + reason + '"*')
-        	    .setFooter({ text: '» ' + vote + ' » ' + version });
+        	    .setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:DONATE:1024397357988720711> » BETTELN')
   			        .setDescription('» <@' + reciever + '> braucht Geld!\nInsgesamte Einnahmen: **' + total + '€**\n*"' + reason + '"*')
-        	        .setFooter({ text: '» ' + vote + ' » ' + version });
+        	        .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
         }; let rmessage = new EmbedBuilder().setColor(0x37009B)
             .setTitle('<:DONATE:1024397357988720711> » BEGGING')
             .setDescription('» <@' + interaction.user.id + '> gave <@' + reciever + '> **$' + amount + '**!')
-            .setFooter({ text: '» ' + vote + ' » ' + version });
+            .setFooter({ text: '» ' + vote + ' » ' + config.version });
 
         if (lang === 'de') {
             rmessage = new EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:DONATE:1024397357988720711> » BETTELN')
                 .setDescription('» <@' + interaction.user.id + '> hat <@' + reciever + '> **' + amount + '€** gegeben!')
-                .setFooter({ text: '» ' + vote + ' » ' + version });
+                .setFooter({ text: '» ' + vote + ' » ' + config.version });
         }
 
         // Send Response Message

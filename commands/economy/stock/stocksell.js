@@ -1,5 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder } = require('@discordjs/builders');
-const { version } = require('../../../config.json');
+const { SlashCommandBuilder, EmbedBuilder } = require('@discordjs/builders')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -40,19 +39,18 @@ module.exports = {
                 .setRequired(true)),
     async execute(interaction, client, lang, vote) {
         // Check if Stocks are Enabled in Server
-        const ses = await gopt.get(interaction.guild.id + '-STOCKS')
-        if (parseInt(ses) == 1) {
+        if (!await bot.settings.get(interaction.guild.id, 'stocks')) {
             // Create Embed
             let message = new EmbedBuilder().setColor(0x37009B)
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» Stocks are disabled on this Server!')
-        		.setFooter({ text: '» ' + vote + ' » ' + version });
+        		.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Aktien sind auf diesem Server deaktiviert!')
-        		    .setFooter({ text: '» ' + vote + ' » ' + version });
+        		    .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
             
             // Send Message
@@ -67,69 +65,50 @@ module.exports = {
         // Check if Amount is Negative
         if (amount < 0) {
             // Create Embed
-            const err = new EmbedBuilder().setColor(0x37009B)
-        		.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-        		.setDescription('» Du kannst keine negativen Einsätze verkaufen!')
-        		.setFooter({ text: '» ' + vote + ' » ' + version });
+            let message = new EmbedBuilder().setColor(0x37009B)
+        		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
+        		.setDescription('» You cant sell a negative amount of Stocks!')
+        		.setFooter({ text: '» ' + vote + ' » ' + config.version });
+
+            if (lang === 'de') {
+                message = new EmbedBuilder().setColor(0x37009B)
+        		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
+        		    .setDescription('» Du kannst keine negativen Anzahlen verkaufen!')
+        		    .setFooter({ text: '» ' + vote + ' » ' + config.version });
+            }
             
             // Send Message
-            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] STOCKSELL : NEGATIVEMONEY : ' + amount + '€')
-            return interaction.reply({ embeds: [err.toJSON()], ephemeral: true })
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] STOCKSELL : NEGATIVESTOCKS : ' + amount + '€')
+            return interaction.reply({ embeds: [message], ephemeral: true })
         }
-
-        // Fetch Stock
-        const price = await stkp.get(stock)
-        const priceText = price[0]
 
         // Calculate Cost
-        const cash = amount * priceText
-
-        // Get Stocks Available
-        let stocks
-
-        if (stock == 'green') {
-            stocks = await sgrn.get(interaction.user.id)
-        }
-        if (stock == 'blue') {
-            stocks = await sblu.get(interaction.user.id)
-        }
-        if (stock == 'yellow') { 
-            stocks = await syll.get(interaction.user.id)
-        }
-        if (stock == 'red') {
-            stocks = await sred.get(interaction.user.id)
-        }
-        if (stock == 'white') { 
-            stocks = await swhi.get(interaction.user.id)
-        }
-        if (stock == 'black') {
-            stocks = await sblk.get(interaction.user.id)
-        }
+        const cash = amount * stocks[stock]
 
         // Set Emoji
         let emoji
-        if (stock == 'green') { emoji = '🟢' }
-        if (stock == 'blue') { emoji = '🔵' }
-        if (stock == 'yellow') { emoji = '🟡' }
-        if (stock == 'red') { emoji = '🔴' }
-        if (stock == 'white') { emoji = '⚪' }
-        if (stock == 'black') { emoji = '⚫' }
+        if (stock === 'green') { emoji = '🟢' }
+        if (stock === 'blue') { emoji = '🔵' }
+        if (stock === 'yellow') { emoji = '🟡' }
+        if (stock === 'red') { emoji = '🔴' }
+        if (stock === 'white') { emoji = '⚪' }
+        if (stock === 'black') { emoji = '⚫' }
 
         // Check for enough Stocks
-        if (stocks < amount) {
+        if (await bot.stocks.get(interaction.user.id, stock, 'used') < amount) {
             const missing = amount - stocks
             
             // Create Embed
             let message = new EmbedBuilder().setColor(0x37009B)
             	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   				.setDescription('» You dont have enough Stocks for that, you are missing **' + missing + '** ' + emoji + ' !')
-            	.setFooter({ text: '» ' + vote + ' » ' + version });
+            	.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (interaction.guildLocale) {
                 message = new EmbedBuilder().setColor(0x37009B)
             	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Du hast dafür nicht genug Aktien, dir fehlen **' + missing + '** ' + emoji + ' !')
-            	    .setFooter({ text: '» ' + vote + ' » ' + version });
+            	    .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
             
             // Send Message
@@ -141,36 +120,19 @@ module.exports = {
         bot.money.add(interaction, interaction.user.id, cash)
 
         // Remove Stock Amount
-        if (stock == 'green') {
-            sgrn.rem(interaction.user.id, amount)
-        }
-        if (stock == 'blue') {
-            sblu.rem(interaction.user.id, amount)
-        }
-        if (stock == 'yellow') { 
-            syll.rem(interaction.user.id, amount)
-        }
-        if (stock == 'red') {
-            sred.rem(interaction.user.id, amount)
-        }
-        if (stock == 'white') { 
-            swhi.rem(interaction.user.id, amount)
-        }
-        if (stock == 'black') {
-            sblk.rem(interaction.user.id, amount)
-        }
+        bot.stocks.rem(interaction.user.id, stock, 'used')
 
         // Create Embed
         let message = new EmbedBuilder().setColor(0x37009B)
             .setTitle('<:CHART:1024398298204876941> » SELL STOCKS')
-            .setDescription('» You successfully sold **' + amount + '** ' + emoji + ' for **$' + cash + '**! (**$' + priceText + '** per Stock)')
-            .setFooter({ text: '» ' + vote + ' » ' + version });
+            .setDescription('» You successfully sold **' + amount + '** ' + emoji + ' for **$' + cash + '**! (**$' + stocks[stock] + '** per Stock)')
+            .setFooter({ text: '» ' + vote + ' » ' + config.version });
 
         if (lang === 'de') {
             message = new EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:CHART:1024398298204876941> » AKTIEN VERKAUFEN')
-                .setDescription('» Du hast erfolgreich **' + amount + '** ' + emoji + ' für **' + cash + '€** verkauft! (**' + priceText + '€** pro Aktie)')
-                .setFooter({ text: '» ' + vote + ' » ' + version });
+                .setDescription('» Du hast erfolgreich **' + amount + '** ' + emoji + ' für **' + cash + '€** verkauft! (**' + stocks[stock] + '€** pro Aktie)')
+                .setFooter({ text: '» ' + vote + ' » ' + config.version });
         }
 
         // Send Message

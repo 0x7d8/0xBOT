@@ -1,6 +1,5 @@
+const { EmbedBuilder } = require('@discordjs/builders')
 const { ButtonStyle } = require('discord.js');
-const { EmbedBuilder } = require('@discordjs/builders');
-const { version } = require('../../../config.json');
 
 module.exports = {
     data: {
@@ -13,13 +12,13 @@ module.exports = {
             let message = new EmbedBuilder().setColor(0x37009B)
             	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   				.setDescription('» This choice is up to <@' + reciever + '>!')
-            	.setFooter({ text: '» ' + vote + ' » ' + version });
+            	.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
             	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Diese Frage ist für <@' + reciever + '>!')
-            	    .setFooter({ text: '» ' + vote + ' » ' + version });
+            	    .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
             
             // Send Message
@@ -44,25 +43,25 @@ module.exports = {
             message = new EmbedBuilder().setColor(0x37009B)
             	.setTitle('<:BOXOPEN:1024395281460101213> » USE ITEM')
   		    	.setDescription('» <@' + reciever + '> has diffused the Bomb! YAY')
-            	.setFooter({ text: '» ' + vote + ' » ' + version });
+            	.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
             	    .setTitle('<:BOXOPEN:1024395281460101213> » GEGENSTAND NUTZEN')
   		    	    .setDescription('» <@' + reciever + '> hat die Bombe entschärft! YAY')
-            	    .setFooter({ text: '» ' + vote + ' » ' + version });
+            	    .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
         } else {
             message = new EmbedBuilder().setColor(0x37009B)
             	.setTitle('<:BOXOPEN:1024395281460101213> » USE ITEM')
   		    	.setDescription('» <@' + reciever + '> has failed to diffuse the Bomb! OHNO')
-            	.setFooter({ text: '» ' + vote + ' » ' + version });
+            	.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
             	    .setTitle('<:BOXOPEN:1024395281460101213> » GEGENSTAND NUTZEN')
   		    	    .setDescription('» <@' + reciever + '> hat es nicht geschafft, die Bombe zu entschärfen! OH')
-            	    .setFooter({ text: '» ' + vote + ' » ' + version });
+            	    .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
         }
 
@@ -83,8 +82,8 @@ module.exports = {
                 member.timeout(45 * 1000, 'BOMB TIMEOUT FROM ' + interaction.user.id).catch((error) => {})
             }
             if (itemid == 'cbomb') {
-                let i = 0;
-                const filtered = [];
+                let i = 0
+                const filtered = []
 
                 (await messages).filter((m) => {
                     if(m.author.id === interaction.user.id && 1 > i) {

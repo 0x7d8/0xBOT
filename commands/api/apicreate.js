@@ -1,5 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder } = require('@discordjs/builders');
-const { version } = require('../../config.json');
+const { SlashCommandBuilder, EmbedBuilder } = require('@discordjs/builders')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -38,7 +37,7 @@ module.exports = {
         // Set Variables
         const name = interaction.options.getString("name")
         const inhalt = interaction.options.getString("content")
-        const amount = await bot.apis.get(interaction.user.id);
+        const amount = await bot.apis.get(interaction.user.id)
         const newamount = amount + 1
 
         // Check if API exists
@@ -47,13 +46,13 @@ module.exports = {
             let message = new EmbedBuilder().setColor(0x37009B)
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» This API already exists!\n</apiedit:1002107281510506517> to change it\n</apiremove:1002107281510506518> to delete it')
-        		.setFooter({ text: '» ' + version + ' » SLOTS ' + amount + '/5'});
+        		.setFooter({ text: '» ' + config.version + ' » SLOTS ' + amount + '/5'});
 
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Diese API existiert schon!\n</apiedit:1002107281510506517> um sie zu ändern\n</apiremove:1002107281510506518> um sie zu löschen')
-        		    .setFooter({ text: '» ' + version + ' » SLOTS ' + amount + '/5'});
+        		    .setFooter({ text: '» ' + config.version + ' » SLOTS ' + amount + '/5'});
             }
             
             // Send Message
@@ -67,13 +66,13 @@ module.exports = {
             let message = new EmbedBuilder().setColor(0x37009B)
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» You have used all of your **5** API Slots!')
-        		.setFooter({ text: '» ' + vote + ' » ' + version });
+        		.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Du hast alle deiner **5** API Slots genutzt!')
-        		    .setFooter({ text: '» ' + vote + ' » ' + version });
+        		    .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
             
             // Send Message
@@ -85,13 +84,13 @@ module.exports = {
         let message = new EmbedBuilder().setColor(0x37009B)
             .setTitle('<:CODE:1024400109741551686> » PAPER API EDIT')
   			.setDescription('You have created a new API!\nIts available here:\n**`https://api.paperstudios.de/user/' + interaction.user.id + '/' + name + '`**!')
-        	.setFooter({ text: '» ' + version + ' » SLOTS ' + newamount + '/5'});
+        	.setFooter({ text: '» ' + config.version + ' » SLOTS ' + newamount + '/5'});
 
         if (lang === 'de') {
             message = new EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:CODE:1024400109741551686> » PAPER API EDIT')
   			    .setDescription('Du hast eine neue API erstellt!\nSie ist hier verfügbar:\n**`https://api.paperstudios.de/user/' + interaction.user.id + '/' + name + '`**!')
-        	    .setFooter({ text: '» ' + version + ' » SLOTS ' + newamount + '/5'});
+        	    .setFooter({ text: '» ' + config.version + ' » SLOTS ' + newamount + '/5'});
         }
         
         // Write File

@@ -1,7 +1,6 @@
-const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
+const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js')
+const { SlashCommandBuilder, EmbedBuilder } = require('@discordjs/builders')
 const { evaluate } = require('mathjs')
-const { SlashCommandBuilder, EmbedBuilder } = require('@discordjs/builders');
-const { version } = require('../../config.json')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -39,32 +38,31 @@ module.exports = {
             		{ name: '💣 CRAZY BOMBE', value: 'cbomb-bomb' },
 				)),
     async execute(interaction, client, lang, vote) {
+        // Check if Items are Enabled in Server
+        if (!await bot.settings.get(interaction.guild.id, 'items')) {
+            // Create Embed
+            let message = new EmbedBuilder().setColor(0x37009B)
+        		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
+        		.setDescription('» Items are disabled on this Server!')
+        		.setFooter({ text: '» ' + vote + ' » ' + config.version });
+
+            if (lang === 'de') {
+                message = new EmbedBuilder().setColor(0x37009B)
+        		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
+        		    .setDescription('» Items sind auf diesem Server deaktiviert!')
+        		    .setFooter({ text: '» ' + vote + ' » ' + config.version });
+            }
+            
+            // Send Message
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ITEM : DISABLED')
+            return interaction.reply({ embeds: [message], ephemeral: true })
+        }
+        
         // Set Variables
         const user = interaction.options.getUser("user")
         const itemstr = interaction.options.getString("item")
         const cache = itemstr.split('-');
         const [itemid, itemcat] = cache
-
-        // Check if Bombs are Enabled in Server
-        const bes = await gopt.get(interaction.guild.id + '-BOMBS')
-        if (parseInt(bes) == 1 && itemcat == bomb) {
-            // Create Embed
-            let message = new EmbedBuilder().setColor(0x37009B)
-        		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-        		.setDescription('» Bombs are disabled on this Server!')
-        		.setFooter({ text: '» ' + vote + ' » ' + version });
-
-            if (lang === 'de') {
-                message = new EmbedBuilder().setColor(0x37009B)
-        		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-        		    .setDescription('» Bomben sind auf diesem Server deaktiviert!')
-        		    .setFooter({ text: '» ' + vote + ' » ' + version });
-            }
-            
-            // Send Message
-            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] BOMB : DISABLED')
-            return interaction.reply({ embeds: [message], ephemeral: true })
-        }
 
         // Translate to Item Names
         let name
@@ -85,13 +83,13 @@ module.exports = {
             let message = new EmbedBuilder().setColor(0x37009B)
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» You cant use Items on Bots!')
-        		.setFooter({ text: '» ' + vote + ' » ' + version });
+        		.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Du kannst keine Gegenstände auf einem Bot nutzen!')
-        		    .setFooter({ text: '» ' + vote + ' » ' + version });
+        		    .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
             
             // Send Message
@@ -105,13 +103,13 @@ module.exports = {
             let message = new EmbedBuilder().setColor(0x37009B)
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» You dont have enough of that Item!')
-        		.setFooter({ text: '» ' + vote + ' » ' + version });
+        		.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Du hast nicht genug von dem Gegenstand!')
-        		    .setFooter({ text: '» ' + vote + ' » ' + version });
+        		    .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
             
             // Send Message
@@ -125,13 +123,13 @@ module.exports = {
             let message = new EmbedBuilder().setColor(0x37009B)
             	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   				.setDescription('» You cant use Bombs on yourself?')
-            	.setFooter({ text: '» ' + vote + ' » ' + version });
+            	.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
             	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Du kannst Bomben nicht auf dir selber nutzen?')
-            	    .setFooter({ text: '» ' + vote + ' » ' + version });
+            	    .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
 
             // Send Message
@@ -145,13 +143,13 @@ module.exports = {
             let message = new EmbedBuilder().setColor(0x37009B)
             	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   				.setDescription('» <@' + user.id + '> is already being bombed!')
-            	.setFooter({ text: '» ' + vote + ' » ' + version });
+            	.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
             	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» <@' + user.id + '> wird schon bombadiert!')
-            	    .setFooter({ text: '» ' + vote + ' » ' + version });
+            	    .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
 
             // Send Message
@@ -169,20 +167,20 @@ module.exports = {
 
         // Generate Math Questions
         let math
-        if (itemid == 'nbomb') { math = (Math.floor(Math.random() * (1000 - 80 + 1)) + 80) + ' + ' + (Math.floor(Math.random() * (20 - 10 + 1)) + 10) + ' - ' + (Math.floor(Math.random() * (200 - 150 + 1)) + 150) }
-        if (itemid == 'mbomb') { math = (Math.floor(Math.random() * (20 - 10 + 1)) + 10) + ' * ' + (Math.floor(Math.random() * (30 - 10 + 1)) + 10) + ' - ' + (Math.floor(Math.random() * (100 - 60 + 1)) + 60) }
-        if (itemid == 'hbomb') { math = (Math.floor(Math.random() * (20 - 10 + 1)) + 10) + ' * ' + (Math.floor(Math.random() * (40 - 10 + 1)) + 10) + ' * ' + (Math.floor(Math.random() * (100 - 60 + 1)) + 60) }
-        if (itemid == 'cbomb') { math = (Math.floor(Math.random() * (40 - 10 + 1)) + 10) + ' * (' + (Math.floor(Math.random() * (4000 - 100 + 1)) + 100) + ' + ' + (Math.floor(Math.random() * (2000 - 600 + 1)) + 600) + ')' }
+        if (itemid == 'nbomb') { math = bot.random(80, 1000) + ' + ' + bot.random(10, 20) + ' - ' + bot.random(150, 200) }
+        if (itemid == 'mbomb') { math = bot.random(10, 20) + ' * ' + bot.random(10, 30) + ' - ' + bot.random(60, 100) }
+        if (itemid == 'hbomb') { math = bot.random(10, 20) + ' * ' + bot.random(10, 40) + ' * ' + bot.random(60, 100) }
+        if (itemid == 'cbomb') { math = bot.random(10, 40) + ' * (' + bot.random(100, 4000) + ' + ' + bot.random(600, 2000) + ')' }
 
         // Solve the Math Question
         const mathres = await evaluate(math)
 
         // Generate Button Labels
-        let b1 = (mathres - Math.floor(Math.random() * (50 - 10 + 1)) + 10)
-        let b2 = (mathres + Math.floor(Math.random() * (50 - 10 + 1)) + 10)
-        let b3 = (mathres + Math.floor(Math.random() * (100 - 50 + 1)) + 50)
-        let b4 = (mathres - Math.floor(Math.random() * (10 - 1 + 1)) + 1)
-        const sb = Math.floor(Math.random() * (4 - 1 + 1)) + 1
+        let b1 = (mathres - bot.random(10, 50))
+        let b2 = (mathres + bot.random(10, 50) + bot.random(10, 50))
+        let b3 = (mathres + bot.random(50, 100) + 50)
+        let b4 = (mathres - bot.random(100, 150) + bot.random(5, 25))
+        const sb = bot.random(1, 4)
         await eval('b' + sb + ' = ' + mathres)
 
         // Create Buttons
@@ -215,13 +213,13 @@ module.exports = {
       	    message = new EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:BOXOPEN:1024395281460101213> » USE ITEM')
   		    	.setDescription('» Oh <@' + user.id + '>, <@' + interaction.user.id + '> used a **' + name + '** on you!\nIf you solve this Math Equation, it wont do anything.\n\n**```' + math + '```**\nThe Bomb explodes <t:' + (Math.floor(+new Date() / 1000) + 10) + ':R>')
-            	.setFooter({ text: '» ' + vote + ' » ' + version });
+            	.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:BOXOPEN:1024395281460101213> » GEGENSTAND NUTZEN')
   		    	    .setDescription('» Oh <@' + user.id + '>, <@' + interaction.user.id + '> hat eine **' + name + '** an dir benutzt!\nFalls du dieses Mathe Rätsel löst, passiert nichts.\n\n**```' + math + '```**\nDie Bombe explodiert <t:' + (Math.floor(+new Date() / 1000) + 10) + ':R>')
-            	    .setFooter({ text: '» ' + vote + ' » ' + version });
+            	    .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
         }
 
@@ -277,13 +275,13 @@ module.exports = {
                 message = new EmbedBuilder().setColor(0x37009B)
             	    .setTitle('<:BOXOPEN:1024395281460101213> » USE ITEM')
   		    	    .setDescription('» <@' + user.id + '> has failed to diffuse the Bomb! OHNO')
-            	    .setFooter({ text: '» ' + vote + ' » ' + version });
+            	    .setFooter({ text: '» ' + vote + ' » ' + config.version });
 
                 if (lang === 'de') {
                     message = new EmbedBuilder().setColor(0x37009B)
                 	    .setTitle('<:BOXOPEN:1024395281460101213> » GEGENSTAND NUTZEN')
   		        	    .setDescription('» <@' + user.id + '> hat es nicht geschafft, die Bombe zu entschärfen! OH')
-                	    .setFooter({ text: '» ' + vote + ' » ' + version });
+                	    .setFooter({ text: '» ' + vote + ' » ' + config.version });
                 }
     
                 bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ITEMUSE : ' + user.id + ' : EXPIRED')

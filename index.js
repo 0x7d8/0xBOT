@@ -1,9 +1,8 @@
-const { ShardingManager } = require('discord.js')
+const { ShardingManager, PermissionsBitField } = require('discord.js')
 const { getAllFilesFilter } = require('./utils/getAllFiles.js')
 
 const pgP = require('pg').Pool
 const config = require('./config.json')
-const MongoStore = require('connect-mongo')
 const chalk = require('chalk')
 
 // Connect to MongoDB
@@ -17,7 +16,6 @@ console.log(' ')
 // Database Functions
 const bot = require("./functions/bot")
 const lang = require("./functions/langs")
-const gopt = require("./functions/gopts")
 
 // CLI Commands
 const stdin = process.openStdin();
@@ -117,461 +115,255 @@ rawvalues.forEach(function (e) {
 });
 }; domonmig() */
 
-/// Dashboard
-const DarkDashboard = require('dbd-dark-dashboard')
-
 // Create Client
 const { Client, GatewayIntentBits } = require('discord.js');
 const client = new Client({ intents: [
     GatewayIntentBits.Guilds
-] });
-client.login(config.client.token);
+] }); client.login(config.client.token);
 
-// Initialize Dashboard
-if (config.web.dashboard) {(async ()=>{
-    let DBD = require('discord-dashboard');
-    await DBD.useLicense(config.web.keys.dashkey);
-    DBD.Dashboard = DBD.UpdatedClass();
+/// Dashboard
+// Check Session Function
+const fetch = require('node-fetch')
+const checksession = async(accessToken, tokenType, userid, guildid) => {
+    const dbuser = await db.query(`select * from usersessions where userid = $1 and token = $2 and tokentype = $3;`, [
+        userid,
+        accessToken,
+        tokenType
+    ]); if (dbuser.rowCount === 0 || dbuser.rows[0].expires < Math.floor(+new Date() / 1000)) {
+        // Clear Rows
+        if (dbuser.rowCount > 0 && dbuser.rows[0].expires < Math.floor(+new Date() / 1000)) {
+            await db.query(`delete from usersessions where userid = $1 and token = $2;`, [
+                userid,
+                accessToken
+            ])
+        }
 
-    const Dashboard = new DBD.Dashboard({
-        port: config.web.ports.dashboard,
-        client: {
-            id: config.client.id,
-            secret: config.client.secret
-        },
-        redirectUri: 'https://dsh.0xbot.de/discord/callback',
-        sessionSaveSession: MongoStore.create({mongoUrl: config.mongo}),
-        domain: 'dsh.0xbot.de',
-        bot: client,
-        minimizedConsoleLogs: true,
-        theme: DarkDashboard({
-            information: {
-                createdBy: "0x4096",
-                websiteTitle: "0xBOT DASHBOARD",
-                websiteName: "0xBOT DASHBOARD",
-                websiteUrl: "https://dsh.0xbot.de/",
-                dashboardUrl: "https://dsh.0xbot.de/",
-                supporteMail: "support@0xBOT.de",
-                supportServer: "https://discord.gg/yYq4UgRRzz",
-                imageFavicon: "https://img.rjansen.de/profile/pfp.png",
-                iconURL: "https://img.rjansen.de/profile/pfp.png",
-                loggedIn: "Logged in.",
-                mainColor: "#2CA8FF",
-                subColor: "#ebdbdb",
-                preloader: " "
-            },
+        try {
+            const userinfo = await fetch('https://discord.com/api/users/@me', {
+                headers: {
+                    authorization: `${tokenType} ${accessToken}`
+                }
+            }); const userinfodata = await userinfo.json()
+            if (userinfodata.id !== userid) return false
 
-            custom_html: {
-                head: `
-                    <style>
-                        li:nth-child(3) {
-                            display: none !important;
-                        }; select.col-md-12 > * {
-                            text-align: center;
-                        }; select.col-md-12 {
-                            width: 25% !important;
-                        }
-                    </style>`
-            },
+            const guild = await client.guilds.fetch(guildid, { force: true })
+		    const user = await guild.members.fetch(userid, { force: true })
+		    if (user.permissions.has(PermissionsBitField.Flags.Administrator)) {
+                await db.query(`insert into usersessions values ($1, $2, $3, $4);`, [
+                    userid,
+                    accessToken,
+                    tokenType,
+                    (Math.floor(+new Date() / 1000))+150
+                ]); return true
+            } else { return false }
+        } catch(e) { return false }
+    } else {
+        try {
+            const guild = await client.guilds.fetch(guildid, { force: true })
+		    const user = await guild.members.fetch(userid, { force: true })
+		    if (user.permissions.has(PermissionsBitField.Flags.Administrator)) { return true }
+        } catch(e) { return false }
+    }
+}
 
-            index: {
-                card: {
-                    category: "<center>0xBOT DASHBOARD</center>",
-                    title: `<center>Welcome to the 0xBOT Dashboard, here you can manage the Bots Settings</center>`,
-                    footer: "<center>(c) 2022</center>",
-                },
+// Init API
+const Koa = require('koa')
+const Router = require('koa-router')
 
-                information: {
-                    category: "<center>UPDATE INFO</center>",
-                    title: "<center>INFORMATION</center>",
-                    description: `<center>This Update added the following Features: <br/><br/>Use Postgres instead of Mongo<br/>Massive Code Cleanup<br/>Use Numeric instead of Int<br/>Add Baltop Command<br/>Add Levels</center>`,
-                    footer: "<center>VERSION 2.5.0</center>",
-                },
+const rateLimitDB = new Map()
+const rateLimit = require('koa-ratelimit')
+const koaBody = require('koa-body')
+const cors = require('@koa/cors')
+const { watchFile } = require('fs')
+const app = new Koa()
 
-                feeds: {
-                    category: "<center>UPDATE INFO</center>",
-                    title: "<center>INFORMATION</center>",
-                    description: `<center>This Update added the following Features: <br/><br/>Fixes for Minigames<br/>Add Total Earnings Amount to /beg</center>`,
-                    footer: "<center>VERSION 2.1.4</center>",
-                },
-            },
+// Add Addons to API
+app.use(koaBody())
+app.use(cors())
+app.use(rateLimit({
+    max: 20,
+    duration: 30000,
+    driver: 'memory',
+    db: rateLimitDB,
+    errorMessage: { "success": false, "message": 'YOU ARE BEING RATE LIMITED' },
+}))
 
-            commands: [
-                {
-                    
-                    list: [{
-                        commandName: 'dashboard',
-                        commandUsage: `/dashboard`,
-                        commandDescription: `go to this dashboard`,
-                        commandAlias: 'none'
-                    },
-                    ],
-                },
-            ],
-        }),
+// Error Handling
+app.use(async (ctx, next) => {
+    try {
+        await next()
+    }
 
-        settings: [
-            {
-                categoryId: 'general',
-                categoryName: "GENERAL",
-                categoryDescription: "Setup your bot with default settings!",
-                categoryOptionsList: [
-                    {
-                        optionId: 'lang',
-                        optionName: "",
-                        optionDescription: "<center>Change the Bot Language",
-                        optionType: DBD.formTypes.select({"German": 'de', "English": 'en'}),
-                        getActualSet: async ({guild}) => {
-                            const clang = await lang.get(guild.id)
-                            if (parseInt(clang) == '1') { return 'de' }
-                            if (parseInt(clang) == '2') { return 'en' }
-                        },
-                        setNew: async ({guild,newData}) => {
-                            const clang = await lang.get(guild.id)
-	                        if (parseInt(clang) == 0) { lang.add(guild.id, 1) }
-	                        if (newData == "de") {
-		                        if (parseInt(clang) == 2) {
-			                        await lang.rem(guild.id, 1)
-		                        }
-	                        } else {
-		                        if (parseInt(clang) == 1) {
-			                        await lang.add(guild.id, 1)
-		                        }
-	                        }
-                            return
-                        }
-                    },
-                ]
-            },
-            {
-                categoryId: 'economy',
-                categoryName: "ECONOMY",
-                categoryDescription: "Setup your bot with default settings!",
-                categoryOptionsList: [
-                    {
-                        optionId: 'stocks',
-                        optionName: "",
-                        optionDescription: "<center>Stock System",
-                        optionType: DBD.formTypes.switch(),
-                        getActualSet: async ({guild}) => {
-                            const clang = await gopt.get(guild.id + '-STOCKS')
-                            if (parseInt(clang) == 0) {
-                                return true
-                            } else {
-                                return false
-                            }
-                        },
-                        setNew: async ({guild,newData}) => {
-                            const clang = await gopt.get(guild.id + '-STOCKS')
-	                        if (newData == true) {
-                                if (parseInt(clang) == 1) {
-                                    gopt.rem(guild.id + '-STOCKS', 1)
-                                }
-                            } else {
-                                if (parseInt(clang) == 0) {
-                                    gopt.add(guild.id + '-STOCKS', 1)
-                                }
-                            }
-                            return
-                        }
-                    },
-                    {
-                        optionId: 'businesses',
-                        optionName: "",
-                        optionDescription: "<center>Business System",
-                        optionType: DBD.formTypes.switch(),
-                        getActualSet: async ({guild}) => {
-                            const clang = await gopt.get(guild.id + '-BUSINESS')
-                            if (parseInt(clang) == 0) {
-                                return true
-                            } else {
-                                return false
-                            }
-                        },
-                        setNew: async ({guild,newData}) => {
-                            const clang = await gopt.get(guild.id + '-BUSINESS')
-	                        if (newData == true) {
-                                if (parseInt(clang) == 1) {
-                                    gopt.rem(guild.id + '-BUSINESS', 1)
-                                }
-                            } else {
-                                if (parseInt(clang) == 0) {
-                                    gopt.add(guild.id + '-BUSINESS', 1)
-                                }
-                            }
-                            return
-                        }
-                    },
-                    {
-                        optionId: 'cars',
-                        optionName: "",
-                        optionDescription: "<center>Car System",
-                        optionType: DBD.formTypes.switch(),
-                        getActualSet: async ({guild}) => {
-                            const clang = await gopt.get(guild.id + '-CAR')
-                            if (parseInt(clang) == 0) {
-                                return true
-                            } else {
-                                return false
-                            }
-                        },
-                        setNew: async ({guild,newData}) => {
-                            const clang = await gopt.get(guild.id + '-CAR')
-	                        if (newData == true) {
-                                if (parseInt(clang) == 1) {
-                                    gopt.rem(guild.id + '-CAR', 1)
-                                }
-                            } else {
-                                if (parseInt(clang) == 0) {
-                                    gopt.add(guild.id + '-CAR', 1)
-                                }
-                            }
-                            return
-                        }
-                    },
-                    {
-                        optionId: 'bombs',
-                        optionName: "",
-                        optionDescription: "<center>Bombs",
-                        optionType: DBD.formTypes.switch(),
-                        getActualSet: async ({guild}) => {
-                            const clang = await gopt.get(guild.id + '-BOMBS')
-                            if (parseInt(clang) == 0) {
-                                return true
-                            } else {
-                                return false
-                            }
-                        },
-                        setNew: async ({guild,newData}) => {
-                            const clang = await gopt.get(guild.id + '-BOMBS')
-	                        if (newData == true) {
-                                if (parseInt(clang) == 1) {
-                                    gopt.rem(guild.id + '-BOMBS', 1)
-                                }
-                            } else {
-                                if (parseInt(clang) == 0) {
-                                    gopt.add(guild.id + '-BOMBS', 1)
-                                }
-                            }
-                            return
-                        }
-                    },
-                    {
-                        optionId: 'roulette',
-                        optionName: "",
-                        optionDescription: "Roulette & Guess Commands",
-                        optionType: DBD.formTypes.switch(),
-                        getActualSet: async ({guild}) => {
-                            const clang = await gopt.get(guild.id + '-ROULETTE')
-                            if (parseInt(clang) == 0) {
-                                return true
-                            } else {
-                                return false
-                            }
-                        },
-                        setNew: async ({guild,newData}) => {
-                            const clang = await gopt.get(guild.id + '-ROULETTE')
-	                        if (newData == true) {
-                                if (parseInt(clang) == 1) {
-                                    gopt.rem(guild.id + '-ROULETTE', 1)
-                                }
-                            } else {
-                                if (parseInt(clang) == 0) {
-                                    gopt.add(guild.id + '-ROULETTE', 1)
-                                }
-                            }
-                            return
-                        }
-                    },
-                    {
-                        optionId: 'work',
-                        optionName: "",
-                        optionDescription: "Work Command",
-                        optionType: DBD.formTypes.switch(),
-                        getActualSet: async ({guild}) => {
-                            const clang = await gopt.get(guild.id + '-WORK')
-                            if (parseInt(clang) == 0) {
-                                return true
-                            } else {
-                                return false
-                            }
-                        },
-                        setNew: async ({guild,newData}) => {
-                            const clang = await gopt.get(guild.id + '-WORK')
-	                        if (newData == true) {
-                                if (parseInt(clang) == 1) {
-                                    gopt.rem(guild.id + '-WORK', 1)
-                                }
-                            } else {
-                                if (parseInt(clang) == 0) {
-                                    gopt.add(guild.id + '-WORK', 1)
-                                }
-                            }
-                            return
-                        }
-                    },
-                    {
-                        optionId: 'rob',
-                        optionName: "",
-                        optionDescription: "Rob Command",
-                        optionType: DBD.formTypes.switch(),
-                        getActualSet: async ({guild}) => {
-                            const clang = await gopt.get(guild.id + '-ROB')
-                            if (parseInt(clang) == 0) {
-                                return true
-                            } else {
-                                return false
-                            }
-                        },
-                        setNew: async ({guild,newData}) => {
-                            const clang = await gopt.get(guild.id + '-ROB')
-	                        if (newData == true) {
-                                if (parseInt(clang) == 1) {
-                                    gopt.rem(guild.id + '-ROB', 1)
-                                }
-                            } else {
-                                if (parseInt(clang) == 0) {
-                                    gopt.add(guild.id + '-ROB', 1)
-                                }
-                            }
-                            return
-                        }
-                    },
-                ]
-            },
-            {
-                categoryId: 'fun',
-                categoryName: "FUN",
-                categoryDescription: "Setup your bot with default settings!",
-                categoryOptionsList: [
-                    {
-                        optionId: 'level',
-                        optionName: "",
-                        optionDescription: "<center>Level System",
-                        optionType: DBD.formTypes.switch(),
-                        getActualSet: async ({guild}) => {
-                            const clang = await gopt.get(guild.id + '-LEVEL')
-                            if (parseInt(clang) == 0) {
-                                return true
-                            } else {
-                                return false
-                            }
-                        },
-                        setNew: async ({guild,newData}) => {
-                            const clang = await gopt.get(guild.id + '-LEVEL')
-	                        if (newData == true) {
-                                if (parseInt(clang) == 1) {
-                                    gopt.rem(guild.id + '-QUOTES', 1)
-                                }
-                            } else {
-                                if (parseInt(clang) == 0) {
-                                    gopt.add(guild.id + '-QUOTES', 1)
-                                }
-                            }
-                            return
-                        }
-                    },
-                    {
-                        optionId: 'quotes',
-                        optionName: "",
-                        optionDescription: "<center>Quote Commands",
-                        optionType: DBD.formTypes.switch(),
-                        getActualSet: async ({guild}) => {
-                            const clang = await gopt.get(guild.id + '-QUOTES')
-                            if (parseInt(clang) == 0) {
-                                return true
-                            } else {
-                                return false
-                            }
-                        },
-                        setNew: async ({guild,newData}) => {
-                            const clang = await gopt.get(guild.id + '-QUOTES')
-	                        if (newData == true) {
-                                if (parseInt(clang) == 1) {
-                                    gopt.rem(guild.id + '-QUOTES', 1)
-                                }
-                            } else {
-                                if (parseInt(clang) == 0) {
-                                    gopt.add(guild.id + '-QUOTES', 1)
-                                }
-                            }
-                            return
-                        }
-                    },
-                    {
-                        optionId: 'minigames',
-                        optionName: "",
-                        optionDescription: "Minigame Commands",
-                        optionType: DBD.formTypes.switch(),
-                        getActualSet: async ({guild}) => {
-                            const clang = await gopt.get(guild.id + '-MINIGAMES')
-                            if (parseInt(clang) == 0) {
-                                return true
-                            } else {
-                                return false
-                            }
-                        },
-                        setNew: async ({guild,newData}) => {
-                            const clang = await gopt.get(guild.id + '-MINIGAMES')
-	                        if (newData == true) {
-                                if (parseInt(clang) == 1) {
-                                    gopt.rem(guild.id + '-MINIGAMES', 1)
-                                }
-                            } else {
-                                if (parseInt(clang) == 0) {
-                                    gopt.add(guild.id + '-MINIGAMES', 1)
-                                }
-                            }
-                            return
-                        }
-                    },
-                    {
-                        optionId: 'meme',
-                        optionName: "",
-                        optionDescription: "Meme Command",
-                        optionType: DBD.formTypes.switch(),
-                        getActualSet: async ({guild}) => {
-                            const clang = await gopt.get(guild.id + '-MEME')
-                            if (parseInt(clang) == 0) {
-                                return true
-                            } else {
-                                return false
-                            }
-                        },
-                        setNew: async ({guild,newData}) => {
-                            const clang = await gopt.get(guild.id + '-MEME')
-	                        if (newData == true) {
-                                if (parseInt(clang) == 1) {
-                                    gopt.rem(guild.id + '-MEME', 1)
-                                }
-                            } else {
-                                if (parseInt(clang) == false) {
-                                    gopt.add(guild.id + '-MEME', 1)
-                                }
-                            }
-                            return
-                        }
-                    },
-                ]
-            },
-        ],
-    })
-    Dashboard.init()
-})()}
+    catch (err) {
+        console.log('[0xBOT] [!] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [API] ERROR :')
+		console.error(err)
 
-/* Dashboard
-const path = require('path')
-const express = require('express')
-const bodyParser = require('body-parser')
-const app = express()
+        ctx.status = 500
+        return ctx.body = { "success": false, "message": 'SERVER ERROR' }
+    }
+})
 
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())
+/// API Endpoints
+const router = new Router();
 
-app.use('',express.static(path.join(__dirname, 'dashboard/build')))
-app.listen(25107, () => console.log(`App listening at http://de-01.paperstudios.de:25107`)); */
+// Fetch Functions
+router.get('/fetch/guild', async(ctx) => {
+    // Check for Queries
+    if (!ctx.query.id) return ctx.body = { "success": false, "message": 'NO ID' }
+
+    // Check Permissions
+    if (!await checksession(
+        ctx.headers.accesstoken,
+        ctx.headers.tokentype,
+        ctx.headers.userid,
+        ctx.query.id
+    )) { return ctx.body = { "success": false, "message": 'PERMISSION DENIED' } }
+
+    let cont = true
+
+    // Fetch Guild
+    let guild = await client.guilds.fetch(ctx.query.id).catch((e) => {
+        cont = false
+        return ctx.body = { "success": false, "message": 'INVALID GUILD' }
+    }); guild.success = true
+
+    // Return Result
+    if (cont) return ctx.body = guild
+})
+
+// Stat Functions
+router.get('/stats/guild', async(ctx) => {
+    // Check for Queries
+    if (!ctx.query.id) return ctx.body = { "success": false, "message": 'NO ID' }
+
+    // Check Permissions
+    if (!await checksession(
+        ctx.headers.accesstoken,
+        ctx.headers.tokentype,
+        ctx.headers.userid,
+        ctx.query.id
+    )) { return ctx.body = { "success": false, "message": 'PERMISSION DENIED' } }
+
+    // Get Stats
+    const stats = {
+        "success": true,
+        "commands": await bot.stat.get(`g-${ctx.query.id}`, 'cmd'),
+        "buttons": await bot.stat.get(`g-${ctx.query.id}`, 'btn')
+    }
+
+    // Return Result
+    return ctx.body = stats
+}); router.get('/stats/user', async(ctx) => {
+    // Check for Queries
+    if (!ctx.query.id) return ctx.body = { "success": false, "message": 'NO ID' }
+
+    // Get Stats
+    const stats = {
+        "success": true,
+        "commands": await bot.stat.get(`u-${ctx.query.id}`, 'cmd'),
+        "buttons": await bot.stat.get(`u-${ctx.query.id}`, 'btn')
+    }
+
+    // Return Result
+    return ctx.body = stats
+})
+
+// Option Functions
+router.get('/options/guild', async(ctx) => {
+    // Check for Queries
+    if (!ctx.query.id) return ctx.body = { "success": false, "message": 'NO ID' }
+
+    // Check Permissions
+    if (!await checksession(
+        ctx.headers.accesstoken,
+        ctx.headers.tokentype,
+        ctx.headers.userid,
+        ctx.query.id
+    )) { return ctx.body = { "success": false, "message": 'PERMISSION DENIED' } }
+
+    let response = { "success": false, "message": "NOT FOUND" }
+
+    // GENERAL
+    if (ctx.query.page === 'GENERAL') {
+        let guildlang = 'ENGLISH'
+        if (await lang.get(ctx.query.id) === 1) {
+            guildlang = 'GERMAN'
+        }
+        response = {
+            "success": true,
+            "language": guildlang
+        }
+    }
+
+    // ECONOMY
+    if (ctx.query.page === 'ECONOMY') {
+        response = {
+            "success": true,
+            "businesses": await bot.settings.get(ctx.query.id, 'businesses'),
+            "items": await bot.settings.get(ctx.query.id, 'items'),
+            "cars": await bot.settings.get(ctx.query.id, 'cars'),
+            "stocks": await bot.settings.get(ctx.query.id, 'stocks'),
+            "luckgames": await bot.settings.get(ctx.query.id, 'luckgames'),
+            "work": await bot.settings.get(ctx.query.id, 'work'),
+            "rob": await bot.settings.get(ctx.query.id, 'rob')
+        }
+    }
+
+    // FUN
+    if (ctx.query.page === 'FUN') {
+        response = {
+            "success": true,
+            "levels": await bot.settings.get(ctx.query.id, 'levels'),
+            "quotes": await bot.settings.get(ctx.query.id, 'quotes'),
+            "meme": await bot.settings.get(ctx.query.id, 'meme')
+        }
+    }
+
+    // Return Result
+    return ctx.body = response
+}); router.post('/options/guild', async(ctx) => {
+    // Check for Queries
+    if (!ctx.query.id) return ctx.body = { "success": false, "message": 'NO ID' }
+    if (ctx.request.body.option === null || ctx.request.body.value === null) return ctx.body = { "success": false, "message": 'NO HEADERS' }
+    
+    // Check Permissions
+    if (!await checksession(
+        ctx.headers.accesstoken,
+        ctx.headers.tokentype,
+        ctx.headers.userid,
+        ctx.query.id
+    )) { return ctx.body = { "success": false, "message": 'PERMISSION DENIED' } }
+
+    let response = { "success": false, "message": 'NOT FOUND' }
+
+    // Custom
+    if (ctx.request.body.option === 'LANGUAGE') {
+        if (ctx.request.body.value !== 'GERMAN' && ctx.request.body.value !== 'ENGLISH') return ctx.body = { "success": false, "message": 'INVALID VALUE' }
+        let set = 'en'; if (ctx.request.body.value === 'GERMAN') { set = 'de' }
+        bot.language.set(ctx.query.id, 'guild', set)
+        response = { "success": true, "message": 'OPTION UPDATED' }
+    }
+
+    // Boolean
+    if (ctx.request.body.option !== 'LANGUAGE') {
+        if (ctx.request.body.value !== true && ctx.request.body.value !== false) return ctx.body = { "success": false, "message": 'INVALID VALUE' }
+        let set = 0; if (ctx.request.body.value === 'GERMAN') { set = 1 }
+        bot.settings.set(ctx.query.id, ctx.request.body.option.toLowerCase(), ctx.request.body.value)
+        response = { "success": true, "message": 'OPTION UPDATED' }
+    }
+
+    // Return Result
+    return ctx.body = response
+})
+
+app.use(router.routes()).use(router.allowedMethods())
+app.use((ctx) => {
+    ctx.body = { "success": false, "message": 'NOT FOUND' }
+})
+
+app.listen(config.web.ports.api, () => console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [STA] $$$$$ LAUNCHED API ON PORT ' + config.web.ports.api))
 
 // Start Shard
 const manager = new ShardingManager('./bot.js', { token: config.client.token, shards: 'auto' })
-manager.on('shardCreate', shard => console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [STA] $$$$$ LAUNCHED SHARD #' + shard.id))
+manager.on('shardCreate', (shard) => console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [STA] $$$$$ LAUNCHED SHARD #' + shard.id))
 manager.spawn()

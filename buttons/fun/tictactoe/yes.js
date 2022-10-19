@@ -1,6 +1,5 @@
-const { EmbedBuilder } = require('@discordjs/builders');
-const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
-const { version } = require('../../../config.json');
+const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js')
+const { EmbedBuilder } = require('@discordjs/builders')
 
 module.exports = {
     data: {
@@ -17,7 +16,7 @@ module.exports = {
         const otherbalance = await bot.money.get(sender.toString().replace(/\D/g, ''))
 
         // Check if User is Authorized
-        if (interaction.user.id != reciever.toString().replace(/\D/g, '')) {
+        if (interaction.user.id !== reciever.toString().replace(/\D/g, '')) {
             // Create Embed
             let message = new EmbedBuilder().setColor(0x37009B)
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')

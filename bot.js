@@ -31,23 +31,8 @@ global.bot = require('./functions/bot')
 
 /// MongoDB Functions
 // General Value
-global.stkp = require("./functions/stockprices")
 global.uapi = require("./functions/userapis")
 global.lang = require("./functions/langs")
-global.gopt = require("./functions/gopts")
-
-// Stocks
-global.sgrn = require("./functions/stocks/green")
-global.sblu = require("./functions/stocks/blue")
-global.syll = require("./functions/stocks/yellow")
-global.sred = require("./functions/stocks/red")
-global.swhi = require("./functions/stocks/white")
-global.sblk = require("./functions/stocks/black")
-
-global.sgrnx = require("./functions/stocks/greenmax")
-global.sblux = require("./functions/stocks/bluemax")
-global.syllx = require("./functions/stocks/yellowmax")
-global.sredx = require("./functions/stocks/redmax")
 
 // Deploy Commands
 const { REST } = require('@discordjs/rest')
@@ -97,13 +82,7 @@ client.on('interactionCreate', async interaction => {
 	if (!interaction.isCommand() && !interaction.isButton()) return
 
 	// Get Guild Language
-	let guildlang = "en"
-	const glang = await lang.get(interaction.guild.id)
-	if (parseInt(glang) == 0) {
-		if (interaction.guildLocale == "de") {
-			await lang.add(interaction.guild.id, 1)
-		} else { await lang.add(interaction.guild.id, 2) }
-	}; if (parseInt(glang) == 1) { guildlang = "de" }
+	const guildlang = await bot.language.get(interaction.guild.id, 'guild')
 
 	// Get Vote Status
 	let votet = 'VOTED'
@@ -116,14 +95,8 @@ client.on('interactionCreate', async interaction => {
 		if (lastVote < (Date.now() - 24*60*60*1000)) { votet = 'NICHT GEVOTET' }
 	}
 	
-	// Set Language
-	const clang = await lang.get(interaction.user.id)
-	if (parseInt(clang) == 0) { lang.add(interaction.user.id, 1) }
-	if (interaction.locale == "de") {
-		if (parseInt(clang) == 2) { lang.rem(interaction.user.id, 1) }
-	} else {
-		if (parseInt(clang) == 1) { lang.add(interaction.user.id, 1) }
-	}
+	// Set User Language
+	await bot.language.set(interaction.user.id, 'user', interaction.locale)
 
 	// Handle Commands
 	if (interaction.isChatInputCommand()) {
@@ -178,7 +151,7 @@ client.on('interactionCreate', async interaction => {
 
     			// Send Message
 				await interaction.reply({ embeds: [message], ephemeral: true })
-			} catch (e) { return }
+			} catch (e) { }
 		}
 
 	}
@@ -234,14 +207,14 @@ client.on('interactionCreate', async interaction => {
 
 				const button = client.buttons.get(editedinteraction.customId)
 				await button.execute(editedinteraction, client, guildlang, votet, args[2], args[1])
-			}; if (args[0] == 'stock') {
+			}; if (args[0] == 'STOCKNEXT') {
 				let editedinteraction = interaction
 
-				editedinteraction.customId = "stock-next"
+				editedinteraction.customId = "stocknext"
 				sc = true
 
 				const button = client.buttons.get(editedinteraction.customId)
-				await button.execute(editedinteraction, client, guildlang, votet, args[2])
+				await button.execute(editedinteraction, client, guildlang, votet, args[1])
 			}; if (args[0] == 'BUSINESS') {
 				let editedinteraction = interaction
 
@@ -338,7 +311,7 @@ client.on('interactionCreate', async interaction => {
 
     			// Send Message
 				await interaction.reply({ embeds: [message], ephemeral: true })
-			} catch (e) { return }
+			} catch (e) { }
 		}
 
 	}
@@ -398,7 +371,7 @@ if (config.web.votes) {
 			.setTitle('» VOTING')
 			.setDescription('» Thanks for Voting! You got **$' + random + '** from me :)\n» Danke fürs Voten! Du hast **' + random + '€** von mir erhalten :)')
 			.setFooter({ text: '» ' + config.version });
-		if (await lang.get(vote.user) == 1) {
+		if (await bot.language.get(vote.user, 'user') === 'de') {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('» VOTING')
 				.setDescription('» Danke fürs Voten! Du hast **' + random + '€** von mir erhalten :)')
@@ -412,7 +385,7 @@ if (config.web.votes) {
 			.setTitle('» VOTING')
 			.setDescription('» Thanks for Voting **' + (parseInt(await bot.votes.get(vote.user + '-A'))+1) + '** times!\nAs A Gift I give you extra **$' + extra + '**!')
 			.setFooter({ text: '» ' + config.version });
-		if (await lang.get(vote.user) == 1) {
+		if (await bot.language.get(vote.user, 'user') === 'de') {
 			messagebonus = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('» VOTING')
 				.setDescription('» Danke, dass du **' + (parseInt(await bot.votes.get(vote.user + '-A'))+1) + '** mal gevotet hast!\nAls Geschenk gebe ich dir extra **' + extra + '€**!')
@@ -424,13 +397,97 @@ if (config.web.votes) {
 		console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] VOTED : ' + vote.user + ' : ' + random + '€')
 
 		// Send Message
-		client.users.send(vote.user, { embeds: [message] });
+		client.users.send(vote.user, { embeds: [message] })
 
 		// Count to Stats
 		if (parseInt(await bot.votes.get(vote.user + '-A')+1) % 10 === 0) {
 			bot.money.add(false, vote.user, parseInt(extra))
-			client.users.send(vote.user, { embeds: [messagebonus] });
+			client.users.send(vote.user, { embeds: [messagebonus] })
 		}; bot.votes.add(vote.user + '-A', 1)
 		bot.votes.set(vote.user + '-T', Date.now())
 	})); app.listen(config.web.ports.votes)
 }
+
+/// Cronjobs
+// Stock Prices
+const cron = require('node-cron')
+global.stocks = {}
+const dostocks = async() => {
+	// Green Stock
+	stocks.oldgreen = stocks.green
+    stocks.green = (
+		Math.floor(Math.random()
+		* (30 - 25 + 1)) + 25)
+		* (Math.floor(Math.random()
+		* (20 - 15 + 1)) + 15)
+		+ (Math.floor(Math.random()
+		* (400 - 350 + 1))
+		+ 350
+	)
+
+	// Blue Stock
+	stocks.oldblue = stocks.blue
+    stocks.blue = (
+		Math.floor(Math.random()
+		* (70 - 45 + 1)) + 45)
+		* (Math.floor(Math.random()
+		* (40 - 30 + 1)) + 30)
+		- (Math.floor(Math.random()
+		* (200 - 100 + 1))
+		+ 100
+	)
+
+	// Yellow Stock
+	stocks.oldyellow = stocks.yellow
+    stocks.yellow = (
+		Math.floor(Math.random()
+		* (90 - 65 + 1)) + 65)
+		* (Math.floor(Math.random()
+		* (60 - 50 + 1)) + 50)
+		+ (Math.floor(Math.random()
+		* (200 - 100 + 1))
+		+ 100
+	)
+
+	// Red Stock
+	stocks.oldred = stocks.red
+    stocks.red = (
+		Math.floor(Math.random()
+		* (120 - 105 + 1)) + 105)
+		* (Math.floor(Math.random()
+		* (80 - 70 + 1)) + 70)
+		+ (Math.floor(Math.random()
+		* (400 - 100 + 1))
+		+ 100
+	)
+
+	// White Stock
+	stocks.oldwhite = stocks.white
+    stocks.white = (
+		Math.floor(Math.random()
+		* (150 - 130 + 1)) + 130)
+		* (Math.floor(Math.random()
+		* (120 - 100 + 1)) + 100)
+		+ (Math.floor(Math.random()
+		* (600 - 100 + 1))
+		+ 100
+	)
+
+	// Black Stock
+	stocks.oldblack = stocks.black
+    stocks.black = (
+		Math.floor(Math.random()
+		* (250 - 200 + 1)) + 200)
+		* (Math.floor(Math.random()
+		* (170 - 150 + 1)) + 150)
+		+ (Math.floor(Math.random()
+		* (800 - 200 + 1))
+		+ 200
+	)
+}; dostocks()
+cron.schedule('* * * * *', async() => {
+	dostocks()
+
+	// Unix Time
+	stocks.refresh = Math.floor(+new Date() / 1000)+60
+})

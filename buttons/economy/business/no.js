@@ -1,5 +1,4 @@
-const { EmbedBuilder } = require('@discordjs/builders');
-const { version } = require('../../../config.json');
+const { EmbedBuilder } = require('@discordjs/builders')
 
 module.exports = {
     data: {
@@ -8,25 +7,25 @@ module.exports = {
     async execute(interaction, client, lang, vote, business, userid, type) {
         // Translate to Business ID
         let businessid
-        if (business == 'market') { businessid = '1' }
-        if (business == 'parking garage') { businessid = '2' }
-        if (business == 'car dealership') { businessid = '3' }
+        if (business === 'market') { businessid = '1' }
+        if (business === 'parking garage') { businessid = '2' }
+        if (business === 'car dealership') { businessid = '3' }
 
         // Calculate Cost
         let cost
-        if (business == 'market') { cost = 150000 }
-        if (business == 'parking garage') { cost = 390000 }
-        if (business == 'car dealership') { cost = 520000 }
+        if (business === 'market') cost = 150000
+        if (business === 'parking garage') cost = 390000
+        if (business === 'car dealership') cost = 520000
 
         // Translate to Business Names
         let name
-        if (business == 'market') { name = 'MARKET' }
-        if (business == 'parking garage') { name = 'PARKING GARAGE' }
-        if (business == 'car dealership') { name = 'CAR DEALERSHIP' }
+        if (business === 'market') { name = 'MARKET' }
+        if (business === 'parking garage') { name = 'PARKING GARAGE' }
+        if (business === 'car dealership') { name = 'CAR DEALERSHIP' }
         if (lang == 'de') {
-            if (business == 'market') { name = 'SUPERMARKT' }
-            if (business == 'parking garage') { name = 'PARKHAUS' }
-            if (business == 'car dealership') { name = 'AUTOHAUS' }
+            if (business === 'market') { name = 'SUPERMARKT' }
+            if (business === 'parking garage') { name = 'PARKHAUS' }
+            if (business === 'car dealership') { name = 'AUTOHAUS' }
         }
 
         // Check if User is Authorized
@@ -35,13 +34,13 @@ module.exports = {
             let message = new EmbedBuilder().setColor(0x37009B)
             	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   				.setDescription('» This choice is up to <@' + userid + '>!')
-            	.setFooter({ text: '» ' + vote + ' » ' + version });
+            	.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
             	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Diese Frage ist für <@' + userid + '>!')
-            	    .setFooter({ text: '» ' + vote + ' » ' + version });
+            	    .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
             
             // Send Message
@@ -60,13 +59,13 @@ module.exports = {
             let message = new EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:BOXCHECK:1024401101589590156> » BUY BUSINESS')
                 .setDescription('» <@' + interaction.user.id + '> said **NO** to a **' + name + '**.')
-                .setFooter({ text: '» ' + vote + ' » ' + version });
+                .setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:BOXCHECK:1024401101589590156> » GESCHÄFT KAUFEN')
                     .setDescription('» <@' + interaction.user.id + '> hat **NEIN** zu einem **' + name + '** gesagt.')
-                    .setFooter({ text: '» ' + vote + ' » ' + version });
+                    .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
 
             // Send Message
@@ -77,13 +76,13 @@ module.exports = {
             let message = new EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:BOXCHECK:1024401101589590156> » SELL BUSINESS')
                 .setDescription('» <@' + interaction.user.id + '> said **NO** to selling his **' + name + '**.')
-                .setFooter({ text: '» ' + vote + ' » ' + version });
+                .setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:BOXCHECK:1024401101589590156> » GESCHÄFT VERKAUFEN')
                     .setDescription('» <@' + interaction.user.id + '> hat **NEIN** zum verkaufen von seinem **' + name + '** gesagt.')
-                    .setFooter({ text: '» ' + vote + ' » ' + version });
+                    .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
 
             // Send Message

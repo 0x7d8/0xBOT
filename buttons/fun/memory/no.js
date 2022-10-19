@@ -1,5 +1,4 @@
-const { EmbedBuilder } = require('@discordjs/builders');
-const { version } = require('../../../config.json');
+const { EmbedBuilder } = require('@discordjs/builders')
 
 module.exports = {
     data: {
@@ -17,13 +16,13 @@ module.exports = {
             let message = new EmbedBuilder().setColor(0x37009B)
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» <@' + reciever.toString().replace(/\D/g, '') + '> or <@' + sender.toString().replace(/\D/g, '') + '> has to decide this!')
-        		.setFooter({ text: '» ' + vote + ' » ' + version });
+        		.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» <@' + reciever.toString().replace(/\D/g, '') + '> oder <@' + sender.toString().replace(/\D/g, '') + '> muss das entscheiden!')
-        		    .setFooter({ text: '» ' + vote + ' » ' + version });
+        		    .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
             
             // Send Message
@@ -43,13 +42,13 @@ module.exports = {
         let message = new EmbedBuilder().setColor(0x37009B)
         .setTitle('<:GAMEPAD:1024395990679167066> » MEMORY')
         .setDescription('» <@' + interaction.user.id + '> said **NO**.')
-        .setFooter({ text: '» ' + vote + ' » ' + version });
+        .setFooter({ text: '» ' + vote + ' » ' + config.version });
 
         if (lang === 'de') {
             message = new EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:GAMEPAD:1024395990679167066> » MEMORY')
                 .setDescription('» <@' + interaction.user.id + '> hat **NEIN** gesagt.')
-                .setFooter({ text: '» ' + vote + ' » ' + version });
+                .setFooter({ text: '» ' + vote + ' » ' + config.version });
         }
 
         // Send Message

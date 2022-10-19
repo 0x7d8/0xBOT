@@ -1,5 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder } = require('@discordjs/builders');
-const { version } = require('../../config.json');
+const { SlashCommandBuilder, EmbedBuilder } = require('@discordjs/builders')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -27,7 +26,7 @@ module.exports = {
     async execute(interaction, client, lang, vote) {
         // Set Variables
         const name = interaction.options.getString("name")
-        const amount = await bot.apis.get(interaction.user.id);
+        const amount = await bot.apis.get(interaction.user.id)
 
        	// Check if API even exists
         if (await uapi.get(interaction.user.id + '-' + name) !== 'N-EXIST') {
@@ -39,13 +38,13 @@ module.exports = {
         	let message = new EmbedBuilder().setColor(0x37009B)
             	.setTitle('<:CODE:1024400109741551686> » PAPER API EDIT')
   				.setDescription('» The Content of **' + name + '**:\n`' + data + '`\n» The Link:\n**`https://api.paperstudios.de/user/' + interaction.user.id + '/' + name + '`**')
-        		.setFooter({ text: '» ' + version + ' » SLOTS ' + amount + '/5'});
+        		.setFooter({ text: '» ' + config.version + ' » SLOTS ' + amount + '/5'});
 
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
             	    .setTitle('<:CODE:1024400109741551686> » PAPER API EDIT')
   				    .setDescription('» Der Inhalt von **' + name + '**:\n`' + data + '`\n» Der Link:\n**`https://api.paperstudios.de/user/' + interaction.user.id + '/' + name + '`**')
-        		    .setFooter({ text: '» ' + version + ' » SLOTS ' + amount + '/5'});
+        		    .setFooter({ text: '» ' + config.version + ' » SLOTS ' + amount + '/5'});
             }
 
         	// Send Message
@@ -56,13 +55,13 @@ module.exports = {
             let message = new EmbedBuilder().setColor(0x37009B)
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» This API doesnt exist!\n</apicreate:1002107281510506516> to Create one')
-        		.setFooter({ text: '» ' + version + ' » SLOTS ' + amount + '/5'});
+        		.setFooter({ text: '» ' + config.version + ' » SLOTS ' + amount + '/5'});
 
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Diese API existiert nicht!\n</apicreate:1002107281510506516> um eine zu erstellen')
-        		    .setFooter({ text: '» ' + version + ' » SLOTS ' + amount + '/5'});
+        		    .setFooter({ text: '» ' + config.version + ' » SLOTS ' + amount + '/5'});
             }
             
             // Send Message

@@ -1,5 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder } = require('@discordjs/builders');
-const { version } = require('../../../config.json');
+const { SlashCommandBuilder, EmbedBuilder } = require('@discordjs/builders')
 
 // In Range Function
 function inRange(x, min, max) {
@@ -43,19 +42,18 @@ module.exports = {
                 .setRequired(true)),
     async execute(interaction, client, lang, vote) {
         // Check if Businesses are Enabled in Server
-        const bes = await gopt.get(interaction.guild.id + '-BUSINESS')
-        if (parseInt(bes) == 1) {
+        if (!await bot.settings.get(interaction.guild.id, 'businesses')) {
             // Create Embed
             let message = new EmbedBuilder().setColor(0x37009B)
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» Businesses are disabled on this Server!')
-        		.setFooter({ text: '» ' + vote + ' » ' + version });
+        		.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Geschäfte sind auf diesem Server deaktiviert!')
-        		    .setFooter({ text: '» ' + vote + ' » ' + version });
+        		    .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
             
             // Send Message
@@ -73,13 +71,13 @@ module.exports = {
             let message = new EmbedBuilder().setColor(0x37009B)
             	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   				.setDescription('» You dont own this Business!')
-            	.setFooter({ text: '» ' + vote + ' » ' + version });
+            	.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
             	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Du besitzt dieses Geschäft nicht!')
-            	    .setFooter({ text: '» ' + vote + ' » ' + version });
+            	    .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
             
             // Send Message
@@ -89,22 +87,22 @@ module.exports = {
 
         // Check if Price is valid
         let doscream = false
-        if (itemid == 'nbomb' && !inRange(parseInt(newprice), 250, 1500)) { doscream = true }
-        if (itemid == 'mbomb' && !inRange(parseInt(newprice), 750, 5000)) { doscream = true }
-        if (itemid == 'hbomb' && !inRange(parseInt(newprice), 2500, 15000)) { doscream = true }
-        if (itemid == 'cbomb' && !inRange(parseInt(newprice), 7500, 20000)) { doscream = true }
+        if (itemid == 'nbomb' && !inRange(parseInt(newprice), 250, 1500)) doscream = true
+        if (itemid == 'mbomb' && !inRange(parseInt(newprice), 750, 5000)) doscream = true
+        if (itemid == 'hbomb' && !inRange(parseInt(newprice), 2500, 15000)) doscream = true
+        if (itemid == 'cbomb' && !inRange(parseInt(newprice), 7500, 20000)) doscream = true
         if (doscream) {
             // Create Embed
             let message = new EmbedBuilder().setColor(0x37009B)
             	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   				.setDescription('» Please follow the limits seen in the first step!')
-            	.setFooter({ text: '» ' + vote + ' » ' + version });
+            	.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
             	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Bitte folge den Limits zu sehen im ersten Schritt!')
-            	    .setFooter({ text: '» ' + vote + ' » ' + version });
+            	    .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
             
             // Send Message
@@ -119,13 +117,13 @@ module.exports = {
         let message = new EmbedBuilder().setColor(0x37009B)
             .setTitle('<:PARTITION:1024399126403747970> » ITEM PRICES')
             .setDescription('» Successfully set the price to **$' + newprice + '**.')
-            .setFooter({ text: '» ' + vote + ' » ' + version });
+            .setFooter({ text: '» ' + vote + ' » ' + config.version });
 
         if (lang == 'de') {
             message = new EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:PARTITION:1024399126403747970> » ITEM PREISE')
                 .setDescription('» Erfolgreich den Preis auf **' + newprice + '€** gesetzt.')
-                .setFooter({ text: '» ' + vote + ' » ' + version });
+                .setFooter({ text: '» ' + vote + ' » ' + config.version });
         }
 
         // Send Message

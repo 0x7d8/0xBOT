@@ -1,13 +1,20 @@
 const chalk = require('chalk')
 
-// PostGres Functions
+// PostgreSQL Functions
 exports.stat = require('./stats')
 exports.apis = require('./misc/apis')
 exports.items = require('./economy/items')
 exports.votes = require('./misc/votes')
 exports.money = require('./economy/money')
 exports.quotes = require('./misc/quotes')
+exports.stocks = require('./economy/stocks')
+exports.settings = require('./misc/settings')
+exports.language = require('./misc/language')
 exports.businesses = require('./economy/businesses')
+
+exports.random = (min, max) => {
+    return Math.floor(Math.random() * (max - min + 1)) + min
+}
 
 // Log Function
 exports.log = (type, uid, gid, msg) => {

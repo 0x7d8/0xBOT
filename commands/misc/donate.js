@@ -1,6 +1,5 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
-const { version } = require('../../config.json');
-const { EmbedBuilder } = require('@discordjs/builders');
+const { SlashCommandBuilder } = require('@discordjs/builders')
+const { EmbedBuilder } = require('@discordjs/builders')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -16,14 +15,14 @@ module.exports = {
         	.setTitle('<:DONATE:1024397357988720711> » DONATE')
         	.setDescription('**»» DONATE**\n» LINK\nhttps://donate.rjansen.de\n» QR CODE')
     		.setImage("https://img.rjansen.de/bot/donate.png")
-    		.setFooter({ text: '» ' + vote + ' » ' + version });
+    		.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
         if (lang === 'de') {
             message = new EmbedBuilder().setColor(0x37009B)
         		.setTitle('<:DONATE:1024397357988720711> » SPENDEN')
         		.setDescription('**»» SPENDEN**\n» LINK\nhttps://donate.rjansen.de\n» QR CODE')
         		.setImage("https://img.rjansen.de/bot/donate.png")
-        		.setFooter({ text: '» ' + vote + ' » ' + version });
+        		.setFooter({ text: '» ' + vote + ' » ' + config.version });
         }
 
         // Send Correct Response

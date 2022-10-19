@@ -1,5 +1,4 @@
 const { EmbedBuilder } = require('@discordjs/builders')
-const { version } = require('../../../../config.json')
 
 module.exports = {
     data: {
@@ -11,31 +10,31 @@ module.exports = {
 
         // Set Car Value
         let carvalue
-        if (car === 'jeep') { carvalue = 25 }
-        if (car === 'kia') { carvalue = 50 }
-        if (car === 'audi') { carvalue = 75 }
-        if (car === 'tesla') { carvalue = 100 }
-        if (car === 'porsche') { carvalue = 200 }
+        if (car === 'jeep') carvalue = 25
+        if (car === 'kia') carvalue = 50
+        if (car === 'audi') carvalue = 75
+        if (car === 'tesla') carvalue = 100
+        if (car === 'porsche') carvalue = 200
 
         // Calculate Cost
         let cost
         let dopay = false
         if (await bot.businesses.get('g-' + interaction.guild.id + '-3-PRICE-' + car.toUpperCase()) === '0' || await bot.businesses.get('g-' + interaction.guild.id + '-3-PRICE-' + car.toUpperCase()) === 0) {
-            if (car === 'jeep') { cost = 15000 }
-            if (car === 'kia') { cost = 75000 }
-            if (car === 'audi') { cost = 150000 }
-            if (car === 'tesla') { cost = 240000 }
-            if (car === 'porsche') { cost = 490000 }
+            if (car === 'jeep') cost = 15000
+            if (car === 'kia') cost = 75000
+            if (car === 'audi') cost = 150000
+            if (car === 'tesla') cost = 240000
+            if (car === 'porsche') cost = 490000
         } else {
             if (type == 'buy') {
                 cost = parseInt(await bot.businesses.get('g-' + interaction.guild.id + '-3-PRICE-' + car.toUpperCase()))*costmul
                 dopay = true
             } else {
-                if (car == 'jeep') { cost = 15000 }
-                if (car == 'kia') { cost = 75000 }
-                if (car == 'audi') { cost = 150000 }
-                if (car == 'tesla') { cost = 240000 }
-                if (car == 'porsche') { cost = 490000 }
+                if (car == 'jeep') cost = 15000
+                if (car == 'kia') cost = 75000
+                if (car == 'audi') cost = 150000
+                if (car == 'tesla') cost = 240000
+                if (car == 'porsche') cost = 490000
             }
         }
 
@@ -143,11 +142,11 @@ module.exports = {
             // Transfer Money if Business is owned
             if (dopay) {
                 const businessowner = await bot.businesses.get('g-' + interaction.guild.id + '-3-OWNER')
-                if (car == 'jeep') { bot.money.add(interaction, businessowner, cost-5000); bot.businesses.add('g-' + interaction.guild.id + '-3-EARNING', cost-5000) }
-                if (car == 'kia') { bot.money.add(interaction, businessowner, cost-50000); bot.businesses.add('g-' + interaction.guild.id + '-3-EARNING', cost-50000) }
-                if (car == 'audi') { bot.money.add(interaction, businessowner, cost-150000); bot.businesses.add('g-' + interaction.guild.id + '-3-EARNING', cost-150000) }
-                if (car == 'tesla') { bot.money.add(interaction, businessowner, cost-220000); bot.businesses.add('g-' + interaction.guild.id + '-3-EARNING', cost-260000) }
-                if (car == 'porsche') { bot.money.add(interaction, businessowner, cost-400000); bot.businesses.add('g-' + interaction.guild.id + '-3-EARNING', cost-500000) }
+                if (car === 'jeep') { bot.money.add(interaction, businessowner, cost-5000); bot.businesses.add('g-' + interaction.guild.id + '-3-EARNING', cost-5000) }
+                if (car === 'kia') { bot.money.add(interaction, businessowner, cost-50000); bot.businesses.add('g-' + interaction.guild.id + '-3-EARNING', cost-50000) }
+                if (car === 'audi') { bot.money.add(interaction, businessowner, cost-150000); bot.businesses.add('g-' + interaction.guild.id + '-3-EARNING', cost-150000) }
+                if (car === 'tesla') { bot.money.add(interaction, businessowner, cost-220000); bot.businesses.add('g-' + interaction.guild.id + '-3-EARNING', cost-260000) }
+                if (car === 'porsche') { bot.money.add(interaction, businessowner, cost-400000); bot.businesses.add('g-' + interaction.guild.id + '-3-EARNING', cost-500000) }
             }
 
             // Own Car

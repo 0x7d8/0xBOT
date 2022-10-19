@@ -1,5 +1,5 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('@discordjs/builders')
-const { PermissionFlagsBits } = require('discord-api-types/v10');
+const { PermissionFlagsBits } = require('discord-api-types/v10')
 
 // Connect to Database
 const pgP = require('pg').Pool

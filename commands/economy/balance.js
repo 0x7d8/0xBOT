@@ -1,5 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder } = require('@discordjs/builders');
-const { version } = require('../../config.json');
+const { SlashCommandBuilder, EmbedBuilder } = require('@discordjs/builders')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -27,10 +26,10 @@ module.exports = {
         let money
         if (user == null) {
             money = await bot.money.get(interaction.user.id);
-            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] BALANCE : ' + money + '€');
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] BALANCE : ' + money + '€')
         } else {
             money = await bot.money.get(user.id);
-            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] BALANCE : ' + user + ' : ' + money + '€');
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] BALANCE : ' + user + ' : ' + money + '€')
         }
         
         // Create Embed
@@ -39,25 +38,25 @@ module.exports = {
         	message = new EmbedBuilder().setColor(0x37009B)
             	.setTitle('<:WALLET:1024387370793050273> » YOUR BALANCE')
   				.setDescription('» Your Balance is **$' + money + '**!')
-            	.setFooter({ text: '» ' + vote + ' » ' + version });
+            	.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
             	    .setTitle('<:WALLET:1024387370793050273> » DEIN GELDSTAND')
   				    .setDescription('» Dein Geldstand beträgt **' + money + '€**!')
-            	    .setFooter({ text: '» ' + vote + ' » ' + version });
+            	    .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
         } else {
             message = new EmbedBuilder().setColor(0x37009B)
             	.setTitle('<:WALLET:1024387370793050273> » THE BALANCE OF ' + user.username.toUpperCase())
   				.setDescription('» The Balance of <@' + user + '> is **$' + money + '**!')
-            	.setFooter({ text: '» ' + vote + ' » ' + version });
+            	.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
             	    .setTitle('<:WALLET:1024387370793050273> » DER GELDSTAND VON ' + user.username.toUpperCase())
   				    .setDescription('» Der Geldstand von <@' + user + '> ist **' + money + '€**!')
-            	    .setFooter({ text: '» ' + vote + ' » ' + version });
+            	    .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
         }
 

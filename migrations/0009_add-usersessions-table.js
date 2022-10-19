@@ -12,7 +12,7 @@ module.exports = {
         // Check if Migration has already occured
         const status = await db.query(`select id from migrations where id = ${migid};`)
         if (status.rowCount !== 1) {
-            await db.query(`create table usersessions (userid text, token text, tokenType text, expires numeric, guilds text[])`)
+            await db.query(`create table usersessions (userid text, token text, tokenType text, expires numeric)`)
             await db.query(`insert into migrations values (${migid}, $1)`, [migna])
             return true
         }; return false

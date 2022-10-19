@@ -1,6 +1,5 @@
-const { SlashCommandBuilder, EmbedBuilder } = require('@discordjs/builders');
-const { PermissionFlagsBits } = require('discord-api-types/v10');
-const { version } = require('../../config.json');
+const { SlashCommandBuilder, EmbedBuilder } = require('@discordjs/builders')
+const { PermissionFlagsBits } = require('discord-api-types/v10')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -38,12 +37,12 @@ module.exports = {
             let message = new EmbedBuilder().setColor(0x37009B)
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» I dont think I have the **MANAGE MESSAGES** Permission!')
-        		.setFooter({ text: '» ' + version });
+        		.setFooter({ text: '» ' + config.version });
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Ich denke nicht, dass ich die **NACHRICHTEN VERWALTEN** Berechtigung habe!')
-        		    .setFooter({ text: '» ' + version });
+        		    .setFooter({ text: '» ' + config.version });
             }
             
             // Send Message
@@ -55,12 +54,12 @@ module.exports = {
             let message = new EmbedBuilder().setColor(0x37009B)
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» I dont think I have the **VIEW CHANNEL** Permission!')
-        		.setFooter({ text: '» ' + version });
+        		.setFooter({ text: '» ' + config.version });
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Ich denke nicht, dass ich die **KANÄLE ANSEHEN** Berechtigung habe!')
-        		    .setFooter({ text: '» ' + version });
+        		    .setFooter({ text: '» ' + config.version });
             }
             
             // Send Message
@@ -80,13 +79,13 @@ module.exports = {
             let message = new EmbedBuilder().setColor(0x37009B)
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» You have to delete atleast **1** Message!')
-        		.setFooter({ text: '» ' + version });
+        		.setFooter({ text: '» ' + config.version });
             if (lang === 'de') {
 
                 message = new EmbedBuilder().setColor(0x37009B)
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Du musst mindestens **1** Nachricht löschen!')
-        		    .setFooter({ text: '» ' + version });
+        		    .setFooter({ text: '» ' + config.version });
             }
             
             // Send Message
@@ -95,9 +94,9 @@ module.exports = {
         }
 
         // Delete Messages and Send Message
-        if (target != null) {
-            let i = 0;
-            const filtered = [];
+        if (target !== null) {
+            let i = 0
+            const filtered = []
 
             (await messages).filter((m) => {
                 if(m.author.id === target.id && amount > i) {
@@ -113,25 +112,25 @@ module.exports = {
                     message = new EmbedBuilder().setColor(0x37009B)
                         .setTitle('» DELETE MESSAGES')
                         .setDescription('» You deleted **' + messages.size + '** Message from <@' + target + '>!')
-                        .setFooter({ text: '» ' + version });
+                        .setFooter({ text: '» ' + config.version });
 
                     if (lang === 'de') {
                         message = new EmbedBuilder().setColor(0x37009B)
                             .setTitle('» NACHRICHTEN LÖSCHEN')
                             .setDescription('» Du hast **' + messages.size + '** Nachricht von <@' + target + '> gelöscht!')
-                            .setFooter({ text: '» ' + version });
+                            .setFooter({ text: '» ' + config.version });
                     }
                 } else {
                     message = new EmbedBuilder().setColor(0x37009B)
                         .setTitle('» DELETE MESSAGES')
                         .setDescription('» You deleted **' + messages.size + '** Messages from <@' + target + '>!')
-                        .setFooter({ text: '» ' + version });
+                        .setFooter({ text: '» ' + config.version });
 
                     if (lang === 'de') {
                         message = new EmbedBuilder().setColor(0x37009B)
                             .setTitle('» NACHRICHTEN LÖSCHEN')
                             .setDescription('» Du hast **' + messages.size + '** Nachrichten von <@' + target + '> gelöscht!')
-                            .setFooter({ text: '» ' + version });
+                            .setFooter({ text: '» ' + config.version });
                     }
                 }
 
@@ -147,25 +146,25 @@ module.exports = {
                     message = new EmbedBuilder().setColor(0x37009B)
                         .setTitle('» DELETE MESSAGES')
                         .setDescription('» You deleted **' + messages.size + '** Message!')
-                        .setFooter({ text: '» ' + version });
+                        .setFooter({ text: '» ' + config.version });
 
                     if (lang === 'de') {
                         message = new EmbedBuilder().setColor(0x37009B)
                             .setTitle('» NACHRICHTEN LÖSCHEN')
                             .setDescription('» Du hast **' + messages.size + '** Nachricht gelöscht!')
-                            .setFooter({ text: '» ' + version });
+                            .setFooter({ text: '» ' + config.version });
                     }
                 } else {
                     message = new EmbedBuilder().setColor(0x37009B)
                         .setTitle('» DELETE MESSAGES')
                         .setDescription('» You deleted **' + messages.size + '** Messages!')
-                        .setFooter({ text: '» ' + version });
+                        .setFooter({ text: '» ' + config.version });
 
                     if (lang === 'de') {
                         message = new EmbedBuilder().setColor(0x37009B)
                             .setTitle('» NACHRICHTEN LÖSCHEN')
                             .setDescription('» Du hast **' + messages.size + '** Nachrichten gelöscht!')
-                            .setFooter({ text: '» ' + version });
+                            .setFooter({ text: '» ' + config.version });
                     }
                 }
 

@@ -1,5 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder } = require('@discordjs/builders');
-const { version } = require('../../config.json');
+const { SlashCommandBuilder, EmbedBuilder } = require('@discordjs/builders')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -27,19 +26,19 @@ module.exports = {
         // Set Variables
         const min = interaction.options.getInteger("min")
         const max = interaction.options.getInteger("max")
-        const res = Math.floor(Math.random() * (max - min + 1)) + min;
+        const res = bot.random(min, max)
 
         // Create Embed
         let message = new EmbedBuilder().setColor(0x37009B)
         	.setTitle('<:GEAR:1024404241701417011> » RANDOM NUMBER')
   			.setDescription('» Between **' + min + '** and **' + max + '** I choose **' + res + '**!')
-        	.setFooter({ text: '» ' + vote + ' » ' + version });
+        	.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
         if (lang === 'de') {
             message = new EmbedBuilder().setColor(0x37009B)
         	    .setTitle('<:GEAR:1024404241701417011> » ZUFÄLLIGE NUMMER')
   			    .setDescription('» Zwischen **' + min + '** und **' + max + '** wähle ich **' + res + '**!')
-        	    .setFooter({ text: '» ' + vote + ' » ' + version });
+        	    .setFooter({ text: '» ' + vote + ' » ' + config.version });
         }
 
         // Send Message

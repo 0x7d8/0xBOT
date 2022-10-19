@@ -1,5 +1,4 @@
 const { EmbedBuilder } = require('@discordjs/builders')
-const { version } = require('../../../../config.json')
 
 module.exports = {
     data: {
@@ -12,13 +11,13 @@ module.exports = {
             let message = new EmbedBuilder().setColor(0x37009B)
             	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   				.setDescription('» This choice is up to <@' + userid + '>!')
-            	.setFooter({ text: '» ' + vote + ' » ' + version });
+            	.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
             	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Diese Frage ist für <@' + userid + '>!')
-            	    .setFooter({ text: '» ' + vote + ' » ' + version });
+            	    .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
             
             // Send Message
@@ -37,10 +36,10 @@ module.exports = {
         let cost
         let dopay = false
         if (await bot.businesses.get('g-' + interaction.guild.id + '-1-PRICE-' + itemid.toUpperCase()) === '0' || await bot.businesses.get('g-' + interaction.guild.id + '-1-PRICE-' + itemid.toUpperCase()) === 0) {
-            if (itemid == 'nbomb') { cost = 500*costmul }
-            if (itemid == 'mbomb') { cost = 1000*costmul }
-            if (itemid == 'hbomb') { cost = 5000*costmul }
-            if (itemid == 'cbomb') { cost = 15000*costmul }
+            if (itemid === 'nbomb') cost = 500*costmul
+            if (itemid === 'mbomb') cost = 1000*costmul
+            if (itemid === 'hbomb') cost = 5000*costmul
+            if (itemid === 'cbomb') cost = 15000*costmul
         } else {
             dopay = true
             cost = parseInt(await bot.businesses.get('g-' + interaction.guild.id + '-1-PRICE-' + itemid.toUpperCase()))*costmul
@@ -48,15 +47,15 @@ module.exports = {
 
         // Translate to itemid Names
         let name
-        if (itemid == 'nbomb') { name = '<:NBOMB:1021783222520127508> NORMAL BOMB' }
-        if (itemid == 'mbomb') { name = '<:MBOMB:1021783295211601940> MEDIUM BOMB' }
-        if (itemid == 'hbomb') { name = '<:HBOMB:1022102357938536458> HYPER BOMB' }
-        if (itemid == 'cbomb') { name = '<:CBOMB:1021783405161091162> CRAZY BOMB' }
+        if (itemid === 'nbomb') { name = '<:NBOMB:1021783222520127508> NORMAL BOMB' }
+        if (itemid === 'mbomb') { name = '<:MBOMB:1021783295211601940> MEDIUM BOMB' }
+        if (itemid === 'hbomb') { name = '<:HBOMB:1022102357938536458> HYPER BOMB' }
+        if (itemid === 'cbomb') { name = '<:CBOMB:1021783405161091162> CRAZY BOMB' }
         if (lang == 'de') {
-            if (itemid == 'nbomb') { name = '<:NBOMB:1021783222520127508> NORMALE BOMBE' }
-            if (itemid == 'mbomb') { name = '<:MBOMB:1021783295211601940> MEDIUM BOMBE' }
-            if (itemid == 'hbomb') { name = '<:HBOMB:1022102357938536458> HYPER BOMBE' }
-            if (itemid == 'cbomb') { name = '<:CBOMB:1021783405161091162> CRAZY BOMBE' }
+            if (itemid === 'nbomb') { name = '<:NBOMB:1021783222520127508> NORMALE BOMBE' }
+            if (itemid === 'mbomb') { name = '<:MBOMB:1021783295211601940> MEDIUM BOMBE' }
+            if (itemid === 'hbomb') { name = '<:HBOMB:1022102357938536458> HYPER BOMBE' }
+            if (itemid === 'cbomb') { name = '<:CBOMB:1021783405161091162> CRAZY BOMBE' }
         }
 
         // Split Button with type
@@ -69,13 +68,13 @@ module.exports = {
                 let message = new EmbedBuilder().setColor(0x37009B)
                 	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   		    		.setDescription('» You dont have enough Money for that, you are missing **$' + missing + '**!')
-                	.setFooter({ text: '» ' + vote + ' » ' + version });
+                	.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
                 if (lang === 'de') {
                     message = new EmbedBuilder().setColor(0x37009B)
                 	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   			    	    .setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
-                	    .setFooter({ text: '» ' + vote + ' » ' + version });
+                	    .setFooter({ text: '» ' + vote + ' » ' + config.version });
                 }
             
                 // Send Message
@@ -90,13 +89,13 @@ module.exports = {
                 let message = new EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                     .setDescription('» You dont have enough Slots for that!')
-                    .setFooter({ text: '» ' + vote + ' » ' + version });
+                    .setFooter({ text: '» ' + vote + ' » ' + config.version });
 
                 if (lang === 'de') {
                     message = new EmbedBuilder().setColor(0x37009B)
                         .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
                         .setDescription('» Du hast nicht genug Slots dafür!')
-                        .setFooter({ text: '» ' + vote + ' » ' + version });
+                        .setFooter({ text: '» ' + vote + ' » ' + config.version });
                 }
         
                 // Send Message
@@ -115,25 +114,25 @@ module.exports = {
                 message = new EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:BOXCHECK:1024401101589590156> » BUY ITEM')
                     .setDescription('» You successfully bought a **' + name + '** for **$' + cost + '**!')
-                    .setFooter({ text: '» ' + vote + ' » ' + version });
+                    .setFooter({ text: '» ' + vote + ' » ' + config.version });
 
                 if (lang == 'de') {
                     message = new EmbedBuilder().setColor(0x37009B)
                         .setTitle('<:BOXCHECK:1024401101589590156> » GEGENSTAND KAUFEN')
                         .setDescription('» Du hast erfolgreich eine **' + name + '** für **' + cost + '€** gekauft!')
-                        .setFooter({ text: '» ' + vote + ' » ' + version });
+                        .setFooter({ text: '» ' + vote + ' » ' + config.version });
                 }
             } else {
                 message = new EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:BOXCHECK:1024401101589590156> » BUY ITEMS')
                     .setDescription('» You successfully bought **' + amount + 'x** **' + name + '** for **$' + cost + '**!')
-                    .setFooter({ text: '» ' + vote + ' » ' + version });
+                    .setFooter({ text: '» ' + vote + ' » ' + config.version });
 
                 if (lang == 'de') {
                     message = new EmbedBuilder().setColor(0x37009B)
                         .setTitle('<:BOXCHECK:1024401101589590156> » GEGENSTÄNDE KAUFEN')
                         .setDescription('» Du hast erfolgreich **' + amount + 'x** **' + name + '** für **' + cost + '€** gekauft!')
-                        .setFooter({ text: '» ' + vote + ' » ' + version });
+                        .setFooter({ text: '» ' + vote + ' » ' + config.version });
                 }
             }
 

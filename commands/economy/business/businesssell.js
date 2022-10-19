@@ -1,7 +1,6 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
 const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js')
-const { EmbedBuilder } = require('@discordjs/builders');
-const { version } = require('../../../config.json');
+const { SlashCommandBuilder } = require('@discordjs/builders')
+const { EmbedBuilder } = require('@discordjs/builders')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -13,19 +12,18 @@ module.exports = {
         }),
     async execute(interaction, client, lang, vote) {
         // Check if Businesses are Enabled in Server
-        const bes = await gopt.get(interaction.guild.id + '-BUSINESS')
-        if (parseInt(bes) == 1) {
+        if (!await bot.settings.get(interaction.guild.id, 'businesses')) {
             // Create Embed
             let message = new EmbedBuilder().setColor(0x37009B)
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» Businesses are disabled on this Server!')
-        		.setFooter({ text: '» ' + vote + ' » ' + version });
+        		.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Geschäfte sind auf diesem Server deaktiviert!')
-        		    .setFooter({ text: '» ' + vote + ' » ' + version });
+        		    .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
             
             // Send Message
@@ -38,9 +36,9 @@ module.exports = {
 
         // Calculate Cost
         let cost
-        if (business == 'market') { cost = 150000 }
-        if (business == 'parking garage') { cost = 390000 }
-        if (business == 'car dealership') { cost = 520000 }
+        if (business == 'market') cost = 150000
+        if (business == 'parking garage') cost = 390000
+        if (business == 'car dealership') cost = 520000
 
         // Translate to Business Names
         let name
@@ -59,13 +57,13 @@ module.exports = {
             let message = new EmbedBuilder().setColor(0x37009B)
             	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   				.setDescription('» You dont own a Business!')
-            	.setFooter({ text: '» ' + vote + ' » ' + version });
+            	.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
             	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Du besitzt kein Geschäft!')
-            	    .setFooter({ text: '» ' + vote + ' » ' + version });
+            	    .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
             
             // Send Message
@@ -113,13 +111,13 @@ module.exports = {
         let message = new EmbedBuilder().setColor(0x37009B)
             .setTitle('<:BOXDOLLAR:1024402261784403999> » SELL BUSINESS')
             .setDescription('» Do you want to sell your **' + name + '** for **$' + (cost/2) + '**?')
-            .setFooter({ text: '» ' + vote + ' » ' + version });
+            .setFooter({ text: '» ' + vote + ' » ' + config.version });
 
         if (lang == 'de') {
             message = new EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:BOXDOLLAR:1024402261784403999> » GESCHÄFT VERKAUFEN')
                 .setDescription('» Willst du dein **' + name + '** für **' + (cost/2) + '€** verkaufen?')
-                .setFooter({ text: '» ' + vote + ' » ' + version });
+                .setFooter({ text: '» ' + vote + ' » ' + config.version });
         }
 
         // Send Message

@@ -1,9 +1,8 @@
-const { Collection } = require('discord.js');
-const { SlashCommandBuilder, EmbedBuilder } = require('@discordjs/builders');
-const { version } = require('../../config.json');
+const { SlashCommandBuilder, EmbedBuilder } = require('@discordjs/builders')
+const { Collection } = require('discord.js')
 
-const cooldown = new Collection();
-const time = 1800000;
+const cooldown = new Collection()
+const time = 1800000
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -15,19 +14,18 @@ module.exports = {
         }),
     async execute(interaction, client, lang, vote) {
         // Check if Work is Enabled in Server
-        const wes = await gopt.get(interaction.guild.id + '-WORK')
-        if (parseInt(wes) == 1) {
+        if (!await bot.settings.get(interaction.guild.id, 'work')) {
             // Create Embed
             let message = new EmbedBuilder().setColor(0x37009B)
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» The **`/work`** Command is disabled on this Server!')
-        		.setFooter({ text: '» ' + vote + ' » ' + version });
+        		.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Der **`/work`** Befehl ist auf diesem Server deaktiviert!')
-        		    .setFooter({ text: '» ' + vote + ' » ' + version });
+        		    .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
             
             // Send Message
@@ -36,47 +34,47 @@ module.exports = {
         }
 
         // Set Variables
-        const random = Math.floor(Math.random() * (4 - 1 + 1)) + 1;
+        const random = bot.random(1, 4)
 
         // Cooldown
         if (cooldown.get(interaction.user.id) - Date.now() > 0) {
         	// Translate Vars
             let use, cdown
-        	const timeLeft = cooldown.get(interaction.user.id) - Date.now();
-            use = 's'; cdown = timeLeft / 1000;
+        	const timeLeft = cooldown.get(interaction.user.id) - Date.now()
+            use = 's'; cdown = timeLeft / 1000
             if (cdown > 60) { cdown = timeLeft / 1000 / 60; use = 'm' }
             
             // Create Embed
             let message = new EmbedBuilder().setColor(0x37009B)
             	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   				.setDescription('» You still have a Cooldown of **' + cdown.toFixed(0) + use + '**!')
-            	.setFooter({ text: '» ' + vote + ' » ' + version });
+            	.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
             	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Du hast leider noch einen Cooldown von **' + cdown.toFixed(0) + use + '**!')
-            	    .setFooter({ text: '» ' + vote + ' » ' + version });
+            	    .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
             
             // Send Message
-            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] WORK : ONCOOLDOWN : ' + cdown.toFixed(0) + use);
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] WORK : ONCOOLDOWN : ' + cdown.toFixed(0) + use)
             return interaction.reply({ embeds: [message], ephemeral: true })
         } else {
             
             // Set Jobs
             let job
             let result
-        	if (random == '1') { job = 'PROGRAMMER'; result = Math.floor(Math.random() * (200 - 75 + 1)) + 75; }
-        	if (random == '2') { job = 'CLEANER'; result = Math.floor(Math.random() * (100 - 50 + 1)) + 50; }
-        	if (random == '3') { job = 'MCDONALDS WORKER'; result = Math.floor(Math.random() * (120 - 30 + 1)) + 30; }
-        	if (random == '4') { job = 'PAINTER'; result = Math.floor(Math.random() * (500 - 200 + 1)) + 200; }
+        	if (random === 1) { job = 'PROGRAMMER'; result = bot.random(75, 200) }
+        	if (random === 2) { job = 'CLEANER'; result = bot.random(50, 100) }
+        	if (random === 3) { job = 'MCDONALDS WORKER'; result = bot.random(30, 120) }
+        	if (random === 4) { job = 'PAINTER'; result = bot.random(200, 500) }
 
             if (lang === 'de') {
-                if (random == '1') { job = 'PROGRAMMIERER'; }
-        	    if (random == '2') { job = 'HAUSMEISTER'; }
-        	    if (random == '3') { job = 'MCDONALDS KASSIERER'; }
-        	    if (random == '4') { job = 'KÜNSTLER'; }
+                if (random === 1) { job = 'PROGRAMMIERER'; }
+        	    if (random === 2) { job = 'HAUSMEISTER'; }
+        	    if (random === 3) { job = 'MCDONALDS KASSIERER'; }
+        	    if (random === 4) { job = 'KÜNSTLER'; }
             }
 
             // Check for Car Boost
@@ -125,13 +123,13 @@ module.exports = {
       		let message = new EmbedBuilder().setColor(0x37009B)
             	.setTitle('<:HAMMER:1024388163747184662> » WORK')
   				.setDescription('» You work as **' + job + '** and earn **$' + resultcar + '**! ' + extra)
-            	.setFooter({ text: '» ' + vote + ' » ' + version });
+            	.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
             	    .setTitle('<:HAMMER:1024388163747184662> » ARBEIT')
   				    .setDescription('» Du arbeitest als **' + job + '** und verdienst **' + resultcar + '€**! ' + extra)
-            	    .setFooter({ text: '» ' + vote + ' » ' + version });
+            	    .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
         
         	// Send Money
@@ -139,7 +137,7 @@ module.exports = {
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] WORK : ' + resultcar + '€');
             
             // Set Cooldown
-			cooldown.set(interaction.user.id, Date.now() + time);
+			cooldown.set(interaction.user.id, Date.now() + time)
             setTimeout(() => cooldown.delete(), time)
             
             // Send Message

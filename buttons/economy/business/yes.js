@@ -1,5 +1,4 @@
 const { EmbedBuilder } = require('@discordjs/builders')
-const { version } = require('../../../config.json')
 
 module.exports = {
     data: {
@@ -11,25 +10,25 @@ module.exports = {
 
         // Translate to Business ID
         let businessid
-        if (business == 'market') { businessid = '1' }
-        if (business == 'parking garage') { businessid = '2' }
-        if (business == 'car dealership') { businessid = '3' }
+        if (business === 'market') { businessid = '1' }
+        if (business === 'parking garage') { businessid = '2' }
+        if (business === 'car dealership') { businessid = '3' }
 
         // Calculate Cost
         let cost
-        if (business == 'market') { cost = 150000 }
-        if (business == 'parking garage') { cost = 390000 }
-        if (business == 'car dealership') { cost = 520000 }
+        if (business === 'market') cost = 150000
+        if (business === 'parking garage') cost = 390000
+        if (business === 'car dealership') cost = 520000
 
         // Translate to Business Names
         let name
-        if (business == 'market') { name = 'MARKET' }
-        if (business == 'parking garage') { name = 'PARKING GARAGE' }
-        if (business == 'car dealership') { name = 'CAR DEALERSHIP' }
+        if (business === 'market') { name = 'MARKET' }
+        if (business === 'parking garage') { name = 'PARKING GARAGE' }
+        if (business === 'car dealership') { name = 'CAR DEALERSHIP' }
         if (lang == 'de') {
-            if (business == 'market') { name = 'SUPERMARKT' }
-            if (business == 'parking garage') { name = 'PARKHAUS' }
-            if (business == 'car dealership') { name = 'AUTOHAUS' }
+            if (business === 'market') { name = 'SUPERMARKT' }
+            if (business === 'parking garage') { name = 'PARKHAUS' }
+            if (business === 'car dealership') { name = 'AUTOHAUS' }
         }
 
         // Check if User is Authorized
@@ -38,13 +37,13 @@ module.exports = {
             let message = new EmbedBuilder().setColor(0x37009B)
             	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   				.setDescription('» This choice is up to <@' + userid + '>!')
-            	.setFooter({ text: '» ' + vote + ' » ' + version });
+            	.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
             	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Diese Frage ist für <@' + userid + '>!')
-            	    .setFooter({ text: '» ' + vote + ' » ' + version });
+            	    .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
             
             // Send Message
@@ -62,13 +61,13 @@ module.exports = {
                 let message = new EmbedBuilder().setColor(0x37009B)
                 	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   		    		.setDescription('» You dont have enough Money for that, you are missing **$' + missing + '**!')
-                	.setFooter({ text: '» ' + vote + ' » ' + version });
+                	.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
                 if (lang === 'de') {
                     message = new EmbedBuilder().setColor(0x37009B)
                 	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   			    	    .setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
-                	    .setFooter({ text: '» ' + vote + ' » ' + version });
+                	    .setFooter({ text: '» ' + vote + ' » ' + config.version });
                 }
             
                 // Send Message
@@ -82,26 +81,26 @@ module.exports = {
 
             // Translate to Business Names
                 let name
-                if (userbusiness == 'market') { name = 'MARKET' }
-                if (userbusiness == 'parking garage') { name = 'PARKING GARAGE' }
-                if (userbusiness == 'car dealership') { name = 'CAR DEALERSHIP' }
+                if (userbusiness === 'market') { name = 'MARKET' }
+                if (userbusiness === 'parking garage') { name = 'PARKING GARAGE' }
+                if (userbusiness === 'car dealership') { name = 'CAR DEALERSHIP' }
                 if (lang == 'de') {
-                    if (userbusiness == 'market') { name = 'SUPERMARKT' }
-                    if (userbusiness == 'parking garage') { name = 'PARKHAUS' }
-                    if (userbusiness == 'car dealership') { name = 'AUTOHAUS' }
+                    if (userbusiness === 'market') { name = 'SUPERMARKT' }
+                    if (userbusiness === 'parking garage') { name = 'PARKHAUS' }
+                    if (userbusiness === 'car dealership') { name = 'AUTOHAUS' }
                 }
 
                 // Create Embed
                 let message = new EmbedBuilder().setColor(0x37009B)
             	    .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
             	    .setDescription('» You already own a **' + name + '**!')
-            	    .setFooter({ text: '» ' + vote + ' » ' + version });
+            	    .setFooter({ text: '» ' + vote + ' » ' + config.version });
 
                 if (lang == 'de') {
                     message = new EmbedBuilder().setColor(0x37009B)
             	        .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
             	        .setDescription('» Du besitzt schon ein **' + name + '**!')
-            	        .setFooter({ text: '» ' + vote + ' » ' + version });
+            	        .setFooter({ text: '» ' + vote + ' » ' + config.version });
                 }
 
                 // Send Message
@@ -138,13 +137,13 @@ module.exports = {
             let message = new EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:BOXCHECK:1024401101589590156> » BUY BUSINESS')
                 .setDescription('» You successfully bought a **' + name + '** for **$' + cost + '**!')
-                .setFooter({ text: '» ' + vote + ' » ' + version });
+                .setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (lang == 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:BOXCHECK:1024401101589590156> » GESCHÄFT KAUFEN')
                     .setDescription('» Du hast erfolgreich ein **' + name + '** für **' + cost + '€** gekauft!')
-                    .setFooter({ text: '» ' + vote + ' » ' + version });
+                    .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
 
             // Send Message
@@ -155,15 +154,15 @@ module.exports = {
 
             // Translate to Business ID
             let businessid
-            if (business == 'market') { businessid = '1' }
-            if (business == 'parking garage') { businessid = '2' }
-            if (business == 'car dealership') { businessid = '3' }
+            if (business === 'market') { businessid = '1' }
+            if (business === 'parking garage') { businessid = '2' }
+            if (business === 'car dealership') { businessid = '3' }
 
             // Calculate Cost
             let cost
-            if (business == 'market') { cost = 150000 }
-            if (business == 'parking garage') { cost = 390000 }
-            if (business == 'car dealership') { cost = 520000 }
+            if (business === 'market') cost = 150000
+            if (business === 'parking garage') cost = 390000
+            if (business === 'car dealership') cost = 520000
 
             // Check if User has a Business
             if (await bot.businesses.get('u-' + interaction.user.id + '-' + interaction.guild.id + '-BUSINESS', 'amount') === 0) {
@@ -171,13 +170,13 @@ module.exports = {
                 let message = new EmbedBuilder().setColor(0x37009B)
                 	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   		    		.setDescription('» You dont own a Business!')
-                	.setFooter({ text: '» ' + vote + ' » ' + version });
+                	.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
                 if (lang === 'de') {
                     message = new EmbedBuilder().setColor(0x37009B)
                 	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   		    		    .setDescription('» Du besitzt kein Geschäft!')
-                	    .setFooter({ text: '» ' + vote + ' » ' + version });
+                	    .setFooter({ text: '» ' + vote + ' » ' + config.version });
                 }
 
                 // Send Message
@@ -194,13 +193,13 @@ module.exports = {
             let message = new EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:BOXCHECK:1024401101589590156> » SELL BUSINESS')
                 .setDescription('» You successfully sold your **' + name + '** for **$' + (cost/2) + '**!')
-                .setFooter({ text: '» ' + vote + ' » ' + version });
+                .setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (lang == 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:BOXCHECK:1024401101589590156> » GESCHÄFT VERKAUFEN')
                     .setDescription('» Du hast erfolgreich dein **' + name + '** für **' + (cost/2) + '€** verkauft!')
-                    .setFooter({ text: '» ' + vote + ' » ' + version });
+                    .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
 
             // Add Money

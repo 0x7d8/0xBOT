@@ -1,6 +1,5 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
-const { version } = require('../../config.json');
-const { EmbedBuilder } = require('@discordjs/builders');
+const { SlashCommandBuilder } = require('@discordjs/builders')
+const { EmbedBuilder } = require('@discordjs/builders')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -18,13 +17,13 @@ module.exports = {
         let message = new EmbedBuilder().setColor(0x37009B)
         		.setTitle('<:GLOBE:1024403680503529583> » BOT PING')
         		.setDescription('» The Bot Ping is **' + botping + 'ms**!')
-        		.setFooter({ text: '» ' + vote + ' » ' + version });
+        		.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
         if (lang === 'de') {
             message = new EmbedBuilder().setColor(0x37009B)
         		.setTitle('<:GLOBE:1024403680503529583> » BOT PING')
         		.setDescription('» Der Ping vom Bot ist **' + botping + 'ms**!')
-        		.setFooter({ text: '» ' + vote + ' » ' + version });
+        		.setFooter({ text: '» ' + vote + ' » ' + config.version });
         }
 
         // Send Correct Response

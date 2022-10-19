@@ -1,5 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder } = require('@discordjs/builders');
-const { version } = require('../../config.json');
+const { SlashCommandBuilder, EmbedBuilder } = require('@discordjs/builders')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -40,35 +39,34 @@ module.exports = {
        	let message = new EmbedBuilder().setColor(0x37009B)
             .setTitle('<:POLL:1024391847092703365> » A ' + reactions.toUpperCase())
   			.setDescription('» ' + frage)
-        	.setFooter({ text: '» ' + vote + ' » ' + version });
+        	.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
         if (lang === 'de') {
             let reactionsde
-            if (reactions == "question") { reactionsde = "frage" }
-            if (reactions == "vote") { reactionsde = "abstimmung" }
+            if (reactions === "question") { reactionsde = "frage" }
+            if (reactions === "vote") { reactionsde = "abstimmung" }
 
             message = new EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:POLL:1024391847092703365> » EINE ' + reactionsde.toUpperCase())
   			    .setDescription('» ' + frage)
-        	    .setFooter({ text: '» ' + vote + ' » ' + version });
+        	    .setFooter({ text: '» ' + vote + ' » ' + config.version });
         }
         
         // Send Message
-        await interaction.reply({ embeds: [message] })
-        const sendcache = await interaction.fetchReply();
+        const sendcache = await interaction.reply({ embeds: [message], fetchReply: true })
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] POLL : ' + frage.toUpperCase() + ' : ' + reactions.toUpperCase())
         
         // Add the correct Reactions
 		if (reactions == 'question') {
-            sendcache.react('<:YES:1017050442431209543>');
-			sendcache.react('<:NO:1017050508252418068>');
+            sendcache.react('<:YES:1017050442431209543>')
+			sendcache.react('<:NO:1017050508252418068>')
         }
         if (reactions == 'vote') {
-            sendcache.react('🇦');
-			sendcache.react('🇧');
-            sendcache.react('🇨');
-            sendcache.react('🇩');
-            sendcache.react('🇪');
+            sendcache.react('🇦')
+			sendcache.react('🇧')
+            sendcache.react('🇨')
+            sendcache.react('🇩')
+            sendcache.react('🇪')
         }
     },
 };

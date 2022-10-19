@@ -1,5 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder } = require('@discordjs/builders');
-const { version } = require('../../../config.json');
+const { SlashCommandBuilder, EmbedBuilder } = require('@discordjs/builders')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -27,19 +26,18 @@ module.exports = {
 				)),
     async execute(interaction, client, lang, vote) {
         // Check if Businesses are Enabled in Server
-        const bes = await gopt.get(interaction.guild.id + '-BUSINESS')
-        if (parseInt(bes) == 1) {
+        if (!await bot.settings.get(interaction.guild.id, 'businesses')) {
             // Create Embed
             let message = new EmbedBuilder().setColor(0x37009B)
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» Businesses are disabled on this Server!')
-        		.setFooter({ text: '» ' + vote + ' » ' + version });
+        		.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Geschäfte sind auf diesem Server deaktiviert!')
-        		    .setFooter({ text: '» ' + vote + ' » ' + version });
+        		    .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
             
             // Send Message
@@ -70,13 +68,13 @@ module.exports = {
             let message = new EmbedBuilder().setColor(0x37009B)
         	    .setTitle('<:QUESTION:1024402860210921503> » BUSINESS INFO')
         	    .setDescription('» Business Infos:\n\nOwner: <@' + businessowner + '>\nEarnings: ' + businessearning + '€')
-        	    .setFooter({ text: '» ' + vote + ' » ' + version });
+        	    .setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (lang == 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
         	        .setTitle('<:QUESTION:1024402860210921503> » GESCHÄFTS INFO')
         	        .setDescription('» Geschäfts Infos:\n\nBesitzer: <@' + businessowner + '>\nEinkommen: ' + businessearning + '€')
-        	        .setFooter({ text: '» ' + vote + ' » ' + version });
+        	        .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
             
             // Send Message
@@ -88,13 +86,13 @@ module.exports = {
         let message = new EmbedBuilder().setColor(0x37009B)
             .setTitle('<:QUESTION:1024402860210921503> » BUSINESS INFO')
             .setDescription('» Noone owns this Business, people say its profitable though!\n*mhm, I say that for everything*')
-            .setFooter({ text: '» ' + vote + ' » ' + version });
+            .setFooter({ text: '» ' + vote + ' » ' + config.version });
 
         if (lang == 'de') {
             message = new EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:QUESTION:1024402860210921503> » GESCHÄFTS INFO')
                 .setDescription('» Niemanden gehört dieses Geschäft, es besagt sich es sei aber profitabel!\n*naja, das sag ich bei jedem*')
-                .setFooter({ text: '» ' + vote + ' » ' + version });
+                .setFooter({ text: '» ' + vote + ' » ' + config.version });
         }
 
         // Send Message

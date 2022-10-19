@@ -6,9 +6,6 @@ yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
 
-# BINARY
-build/Release
-
 # DEPENDENCY
 node_modules/
 jspm_packages/
@@ -19,10 +16,5 @@ jspm_packages/
 # ESLINT CACHE
 .eslintcache
 
-# NPM PACK'
-*.tgz
-
 # BOT
 config.json
-database
-dashboard

@@ -1,5 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder } = require('@discordjs/builders');
-const { version } = require('../../config.json');
+const { SlashCommandBuilder, EmbedBuilder } = require('@discordjs/builders')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -47,19 +46,18 @@ module.exports = {
                 .setRequired(true)),
     async execute(interaction, client, lang, vote) {
         // Check if RNG Games are Enabled in Server
-        const res = await gopt.get(interaction.guild.id + '-ROULETTE')
-        if (parseInt(res) == 1) {
+        if (!await bot.settings.get(interaction.guild.id, 'luckgames')) {
             // Create Embed
             let message = new EmbedBuilder().setColor(0x37009B)
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» Luck Games are disabled on this Server!')
-        		.setFooter({ text: '» ' + vote + ' » ' + version });
+        		.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Glücksspiele sind auf diesem Server deaktiviert!')
-        		    .setFooter({ text: '» ' + vote + ' » ' + version });
+        		    .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
             
             // Send Message
@@ -71,10 +69,11 @@ module.exports = {
         const bereich = interaction.options.getString("range")
         const wette = interaction.options.getInteger("bet")
         const nummer = interaction.options.getInteger("number")
-        const money = await bot.money.get(interaction.user.id);
-        const random10 = Math.floor(Math.random() * (10 - 1 + 1)) + 1;
-        const random100 = Math.floor(Math.random() * (100 - 1 + 1)) + 1;
-        const random1000 = Math.floor(Math.random() * (1000 - 1 + 1)) + 1;
+        const money = await bot.money.get(interaction.user.id)
+
+        const random10 = bot.random(1, 10)
+        const random100 = bot.random(1, 100)
+        const random1000 = bot.random(1, 1000)
 
         // Check if Balance is Minus
         if (wette < 0) {
@@ -82,13 +81,13 @@ module.exports = {
             let message = new EmbedBuilder().setColor(0x37009B)
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» You cant play with negative Money!')
-        		.setFooter({ text: '» ' + vote + ' » ' + version });
+        		.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Du kannst keine negativen Einsätze spielen!')
-        		    .setFooter({ text: '» ' + vote + ' » ' + version });
+        		    .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
             
             // Send Message
@@ -106,13 +105,13 @@ module.exports = {
                 let message = new EmbedBuilder().setColor(0x37009B)
             		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   					.setDescription('» You cant bet that much! **$15000** is the Maximum.')
-            		.setFooter({ text: '» ' + vote + ' » ' + version });
+            		.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
                 if (lang === 'de') {
                     message = new EmbedBuilder().setColor(0x37009B)
             		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   					    .setDescription('» Du kannst nicht soviel Wetten! **15000€** ist das Maximum.')
-            		    .setFooter({ text: '» ' + vote + ' » ' + version });
+            		    .setFooter({ text: '» ' + vote + ' » ' + config.version });
                 }
                 
                 // Send Message
@@ -121,19 +120,19 @@ module.exports = {
             }
             
             // Calculate Winnings
-            if (bereich == '10') { if (nummer == random10) { status = 'WON'; result = wette * 2 } else { 
+            if (bereich === '10') { if (nummer === random10) { status = 'WON'; result = wette * 2 } else { 
                 status = 'LOST'; result = wette } }
-            if (bereich == '100') { if (nummer == random100) { status = 'WON'; result = wette * 4 } else { 
+            if (bereich === '100') { if (nummer === random100) { status = 'WON'; result = wette * 4 } else { 
                 status = 'LOST'; result = wette } }
-            if (bereich == '1000') { if (nummer == random1000) { status = 'WON'; result = wette * 6 } else { 
+            if (bereich === '1000') { if (nummer === random1000) { status = 'WON'; result = wette * 6 } else { 
                 status = 'LOST'; result = wette } }
 
             if (lang === 'de') {
-                if (bereich == '10') { if (nummer == random10) { status = 'GEWONNEN'; result = wette * 2 } else { 
+                if (bereich === '10') { if (nummer === random10) { status = 'GEWONNEN'; result = wette * 2 } else { 
                     status = 'VERLOREN'; result = wette } }
-                if (bereich == '100') { if (nummer == random100) { status = 'GEWONNEN'; result = wette * 4 } else { 
+                if (bereich === '100') { if (nummer === random100) { status = 'GEWONNEN'; result = wette * 4 } else { 
                     status = 'VERLOREN'; result = wette } }
-                if (bereich == '1000') { if (nummer == random1000) { status = 'GEWONNEN'; result = wette * 6 } else { 
+                if (bereich === '1000') { if (nummer === random1000) { status = 'GEWONNEN'; result = wette * 6 } else { 
                     status = 'VERLOREN'; result = wette } }
             }
         } else {
@@ -143,13 +142,13 @@ module.exports = {
             let message = new EmbedBuilder().setColor(0x37009B)
             	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   				.setDescription('» You dont have enough Money for that, you are missing **$' + missing + '**!')
-            	.setFooter({ text: '» ' + vote + ' » ' + version });
+            	.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
             	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
-            	    .setFooter({ text: '» ' + vote + ' » ' + version });
+            	    .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
 
             // Send Message
@@ -161,18 +160,18 @@ module.exports = {
       	let message = new EmbedBuilder().setColor(0x37009B)
             .setTitle('<:CLOVER:1024388649418235925> » GUESS')
   			.setDescription('» You set **$' + wette + '** on **' + nummer + '** and **' + status + '** **$' + result + '**!')
-        	.setFooter({ text: '» ' + vote + ' » ' + version });
+        	.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
         if (lang === 'de') {
             message = new EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:CLOVER:1024388649418235925> » RATEN')
   			    .setDescription('» Du hast **' + wette + '€** auf **' + nummer + '** gesetzt und **' + result + '€** **' + status + '**!')
-        	    .setFooter({ text: '» ' + vote + ' » ' + version });
+        	    .setFooter({ text: '» ' + vote + ' » ' + config.version });
         }
         
         // Set Money
         bot.money.rem(interaction, interaction.user.id, result)
-        if (status == 'GEWONNEN' || status == 'WON') {
+        if (status === 'GEWONNEN' || status === 'WON') {
         	bot.money.add(interaction, interaction.user.id, result)
         }
 

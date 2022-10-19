@@ -1,6 +1,5 @@
-const { SlashCommandBuilder, EmbedBuilder } = require('@discordjs/builders');
-const { PermissionFlagsBits } = require('discord-api-types/v10');
-const { version } = require('../../config.json');
+const { SlashCommandBuilder, EmbedBuilder } = require('@discordjs/builders')
+const { PermissionFlagsBits } = require('discord-api-types/v10')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -28,32 +27,27 @@ module.exports = {
         .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages),
     async execute(interaction, client, bin, vote) {
         // Set Variables
-        const langs = interaction.options.getString("language")
+        const lang = interaction.options.getString("language")
 
         // Get String
         let langString
-        if (parseInt(langs) == 1) { langString = 'DEUTSCH' }
-        if (parseInt(langs) == 2) { langString = 'ENGLISH' }
+        if (lang === 'de') { langString = 'DEUTSCH' }
+        if (lang === 'en') { langString = 'ENGLISH' }
 
         // Set Language
-        if (parseInt(langs) == 1) {
-            await lang.rem(interaction.guild.id, 1)
-        }
-        if (parseInt(langs) == 2) {
-            await lang.add(interaction.guild.id, 1)
-        }
+        bot.languages.set(interaction.guild.id, 'guild', lang)
 
         // Create Embed
         let message = new EmbedBuilder().setColor(0x37009B)
         	.setTitle('» LANGUAGE')
         	.setDescription('» Language successfully set to **' + langString + '**!')
-        	.setFooter({ text: '» ' + version });
+        	.setFooter({ text: '» ' + config.version });
 
         if (langs == "1") {
             message = new EmbedBuilder().setColor(0x37009B)
         	    .setTitle('» SPRACHE')
         	    .setDescription('» Sprache erfolgreich auf **' + langString + '** gesetzt!')
-        	    .setFooter({ text: '» ' + version });
+        	    .setFooter({ text: '» ' + config.version });
         }
             
         // Send Message

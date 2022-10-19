@@ -1,8 +1,7 @@
-const { EmbedBuilder } = require('@discordjs/builders');
-const { ButtonStyle } = require('discord.js');
-const { version } = require('../../../config.json');
+const { EmbedBuilder } = require('@discordjs/builders')
+const { ButtonStyle } = require('discord.js')
 
-const wait = require('node:timers/promises').setTimeout;
+const wait = require('node:timers/promises').setTimeout
 
 // Function for Button Row Grabber
 const rowget = async (button) => {
@@ -34,13 +33,13 @@ module.exports = {
             let message = new EmbedBuilder().setColor(0x37009B)
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» You arent playing!')
-        		.setFooter({ text: '» ' + vote + ' » ' + version });
+        		.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Du spielst garnicht mit!')
-        		    .setFooter({ text: '» ' + vote + ' » ' + version });
+        		    .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
             
             // Send Message
@@ -54,13 +53,13 @@ module.exports = {
             let message = new EmbedBuilder().setColor(0x37009B)
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» Its not your turn!')
-        		.setFooter({ text: '» ' + vote + ' » ' + version });
+        		.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Es ist nicht dein Zug!')
-        		    .setFooter({ text: '» ' + vote + ' » ' + version });
+        		    .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
             
             // Send Message
@@ -149,8 +148,7 @@ module.exports = {
                 }
             }
 
-            /// Actions that run in both Cases
-            // DoFlush
+            // Actions that run in both Cases
             doflush = true
         }
 
@@ -159,7 +157,7 @@ module.exports = {
             let i
             for (i = 0; i < 20; i++) {
                 const row = Math.floor(i / 5);
-                const button = interaction.message.components[row].components[i % 5];
+                const button = interaction.message.components[row].components[i % 5]
               
                 button.data.label = null
                 button.data.emoji = bot.memory.get('D_EMOJI-' + (i+1) + '-' + sender)
@@ -172,13 +170,13 @@ module.exports = {
         let message = new EmbedBuilder().setColor(0x37009B)
             .setTitle('<:GAMEPAD:1024395990679167066> » MEMORY')
             .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> is playing Memory with <@' + reciever.toString().replace(/\D/g, '') + '>!\nThe Bet is **$' + bet + '**\n\n🔵 » Points of <@' + sender.toString().replace(/\D/g, '') + '> are **' + bot.memory.get('POINTS-' + sender)+ '**\n🔴 » Points of <@' + reciever.toString().replace(/\D/g, '') + '> are **' + bot.memory.get('POINTS-' + reciever) + '**')
-            .setFooter({ text: '» ' + version + ' » CURRENT TURN: ' + turnemoji });
+            .setFooter({ text: '» ' + config.version + ' » CURRENT TURN: ' + turnemoji });
 
         if (lang === 'de') {
             message = new EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:GAMEPAD:1024395990679167066> » MEMORY')
                 .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> spielt mit <@' + reciever.toString().replace(/\D/g, '') + '> Memory!\nDie Wette ist **' + bet + '€**\n\n🔵 » Punkte von <@' + sender.toString().replace(/\D/g, '') + '> sind **' + bot.memory.get('POINTS-' + sender) + '**\n🔴 » Punkte von <@' + reciever.toString().replace(/\D/g, '') + '> sind **' + bot.memory.get('POINTS-' + reciever) +'**')
-                .setFooter({ text: '» ' + version + ' » AM ZUG: ' + turnemoji });
+                .setFooter({ text: '» ' + config.version + ' » AM ZUG: ' + turnemoji });
         }
 
         // Send Message
@@ -204,7 +202,7 @@ module.exports = {
         let i
         for (i = 0; i < 20; i++) {
             const row = Math.floor(i / 5);
-            const button = interaction.message.components[row].components[i % 5];
+            const button = interaction.message.components[row].components[i % 5]
             
             button.data.label = null
             button.data.emoji = bot.memory.get('D_EMOJI-' + (i+1) + '-' + sender)
@@ -242,13 +240,13 @@ module.exports = {
             message = new EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:GAMEPAD:1024395990679167066> » MEMORY')
                 .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> is playing Memory with <@' + reciever.toString().replace(/\D/g, '') + '>!\nThe Bet is **$' + bet + '**\n\n🔵 » Points of <@' + sender.toString().replace(/\D/g, '') + '> are **' + bot.memory.get('POINTS-' + sender) + '**\n🔴 » Points of <@' + reciever.toString().replace(/\D/g, '') + '> are **' + bot.memory.get('POINTS-' + reciever) + '**\n\n<:AWARD:1024385473524793445> ' + winner + ' has won **$' + betwon + '**!')
-                .setFooter({ text: '» ' + version });
+                .setFooter({ text: '» ' + config.version });
 
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:GAMEPAD:1024395990679167066> » MEMORY')
                     .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> spielt mit <@' + reciever.toString().replace(/\D/g, '') + '> Memory!\nDie Wette ist **' + bet + '€**\n\n🔵 » Punkte von <@' + sender.toString().replace(/\D/g, '') + '> sind **' + bot.memory.get('POINTS-' + sender) + '**\n🔴 » Punkte von <@' + reciever.toString().replace(/\D/g, '') + '> sind **' + bot.memory.get('POINTS-' + reciever) +'**\n\n<:AWARD:1024385473524793445> ' + winner + ' hat **' + betwon + '€** gewonnen!')
-                    .setFooter({ text: '» ' + version });
+                    .setFooter({ text: '» ' + config.version });
             }
 
             // Delete Variables

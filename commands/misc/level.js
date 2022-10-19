@@ -1,6 +1,5 @@
-const { SlashCommandBuilder, EmbedBuilder } = require('@discordjs/builders');
+const { SlashCommandBuilder, EmbedBuilder } = require('@discordjs/builders')
 const { AttachmentBuilder } = require('discord.js')
-const { version } = require('../../config.json');
 
 const canvas = require('canvacord')
 
@@ -24,19 +23,18 @@ module.exports = {
                 .setRequired(false)),
     async execute(interaction, client, lang, vote) {
         // Check if Levels are Enabled in Server
-        const les = await gopt.get(interaction.guild.id + '-LEVEL')
-        if (parseInt(les) == 1) {
+        if (!await bot.settings.get(interaction.guild.id, 'levels')) {
             // Create Embed
             let message = new EmbedBuilder().setColor(0x37009B)
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» The Level System is disabled on this Server!')
-        		.setFooter({ text: '» ' + vote + ' » ' + version });
+        		.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Das Level System ist auf diesem Server deaktiviert!')
-        		    .setFooter({ text: '» ' + vote + ' » ' + version });
+        		    .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
             
             // Send Message
@@ -100,25 +98,25 @@ module.exports = {
         	message = new EmbedBuilder().setColor(0x37009B)
             	.setTitle('<:GLOBE:1024403680503529583> » YOUR LEVEL')
                 .setImage('attachment://rank.png')
-            	.setFooter({ text: '» ' + vote + ' » ' + version });
+            	.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
             	    .setTitle('<:GLOBE:1024403680503529583> » DEIN LEVEL')
                     .setImage('attachment://rank.png')
-            	    .setFooter({ text: '» ' + vote + ' » ' + version });
+            	    .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
         } else {
             message = new EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:GLOBE:1024403680503529583> » THE LEVEL OF ' + user.username.toUpperCase())
                 .setImage('attachment://rank.png')
-            	.setFooter({ text: '» ' + vote + ' » ' + version });
+            	.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:GLOBE:1024403680503529583> » DAS LEVEL VON ' + user.username.toUpperCase())
   				    .setImage('attachment://rank.png')
-            	    .setFooter({ text: '» ' + vote + ' » ' + version });
+            	    .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
         }
 

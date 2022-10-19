@@ -1,29 +1,28 @@
-const { SlashCommandBuilder, EmbedBuilder } = require('@discordjs/builders');
-const { version } = require('../../config.json');
+const { SlashCommandBuilder, EmbedBuilder } = require('@discordjs/builders')
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('mcver')
     	.setDMPermission(false)
-        .setDescription('GENERATE A MINECRAFT VERSION')
+        .setDescription('GENERATE A MINECRAFT config.version')
         .setDescriptionLocalizations({
-            de: 'GENERIERE EINE MINECRAFT VERSION'
+            de: 'GENERIERE EINE MINECRAFT config.version'
         }),
     async execute(interaction, client, lang, vote) {
         // Set Variables
-        const res = Math.floor(Math.random() * (19 - 0 + 1)) + 0;
+        const res = bot.random(1, 20)
 
         // Create Embed
         let message = new EmbedBuilder().setColor(0x37009B)
-        	.setTitle('<:CUBE:1024404832452350032> » RANDOM MINECRAFT VERSION')
+        	.setTitle('<:CUBE:1024404832452350032> » RANDOM MINECRAFT config.version')
   			.setDescription('» I would choose **1.' + res + '**!')
-        	.setFooter({ text: '» ' + vote + ' » ' + version });
+        	.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
         if (lang === 'de') {
             message = new EmbedBuilder().setColor(0x37009B)
-        	    .setTitle('<:CUBE:1024404832452350032> » ZUFÄLLIGE MINECRAFT VERSION')
+        	    .setTitle('<:CUBE:1024404832452350032> » ZUFÄLLIGE MINECRAFT config.version')
   			    .setDescription('» Ich würde **1.' + res + '** nehmen!')
-        	    .setFooter({ text: '» ' + vote + ' » ' + version });
+        	    .setFooter({ text: '» ' + vote + ' » ' + config.version });
         }
 
         // Send Message

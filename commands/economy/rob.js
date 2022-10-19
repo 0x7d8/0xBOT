@@ -1,6 +1,5 @@
+const { SlashCommandBuilder, EmbedBuilder } = require('@discordjs/builders')
 const { Collection } = require('discord.js')
-const { SlashCommandBuilder, EmbedBuilder } = require('@discordjs/builders');
-const { version } = require('../../config.json')
 
 const cooldown = new Collection()
 let time = 30000
@@ -41,19 +40,18 @@ module.exports = {
 				)),
     async execute(interaction, client, lang, vote) {
         // Check if Rob is Enabled in Server
-        const res = await gopt.get(interaction.guild.id + '-ROB')
-        if (parseInt(res) == 1) {
+        if (!await bot.settings.get(interaction.guild.id, 'rob')) {
             // Create Embed
             let message = new EmbedBuilder().setColor(0x37009B)
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» The **`/rob`** Command is disabled on this Server!')
-        		.setFooter({ text: '» ' + vote + ' » ' + version });
+        		.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Der **`/rob`** Befehl ist auf diesem Server deaktiviert!')
-        		    .setFooter({ text: '» ' + vote + ' » ' + version });
+        		    .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
             
             // Send Message
@@ -64,46 +62,46 @@ module.exports = {
         // Set Variables
         const user = interaction.options.getUser("user")
         const money = interaction.options.getString("money")
-        const moneysnd = await bot.money.get(interaction.user.id);
-        const moneytar = await bot.money.get(user.id);
+        const moneysnd = await bot.money.get(interaction.user.id)
+        const moneytar = await bot.money.get(user.id)
 
         // Cooldown
         if (cooldown.get(interaction.user.id) - Date.now() > 0) {
             // Translate Vars
-        	const timeLeft = cooldown.get(interaction.user.id) - Date.now(); 
-            const cdown = timeLeft / 1000;
+        	const timeLeft = cooldown.get(interaction.user.id) - Date.now() 
+            const cdown = timeLeft / 1000
             
             // Create Embed
             let message = new EmbedBuilder().setColor(0x37009B)
             	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   				.setDescription('» You still have a Cooldown of **' + cdown.toFixed(0) + 's**!')
-            	.setFooter({ text: '» ' + vote + ' » ' + version });
+            	.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
             	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Du hast leider noch einen Cooldown von **' + cdown.toFixed(0) + 's**!')
-            	    .setFooter({ text: '» ' + vote + ' » ' + version });
+            	    .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
             
-            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : ONCOOLDOWN : ' + cdown.toFixed(0) + 's');
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : ONCOOLDOWN : ' + cdown.toFixed(0) + 's')
             return interaction.reply({ embeds: [message], ephemeral: true })
         }
         
         // Check if User is Author
-        if (interaction.user.id == user) {
+        if (interaction.user.id === user.id) {
             
             // Create Embed
             let message = new EmbedBuilder().setColor(0x37009B)
             	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   				.setDescription('» You cant rob yourself?!')
-            	.setFooter({ text: '» ' + vote + ' » ' + version });
+            	.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
             	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Du kannst dich nicht selber ausrauben?!')
-            	    .setFooter({ text: '» ' + vote + ' » ' + version });
+            	    .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
             
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : ' + user.id + ' : ' + money + '€ : SAMEPERSON')
@@ -116,13 +114,13 @@ module.exports = {
             let message = new EmbedBuilder().setColor(0x37009B)
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» You cant rob a Bot!')
-        		.setFooter({ text: '» ' + vote + ' » ' + version });
+        		.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Du kannst einem Bot kein Geld klauen!')
-        		    .setFooter({ text: '» ' + vote + ' » ' + version });
+        		    .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
             
             // Send Message
@@ -132,35 +130,35 @@ module.exports = {
         
         // Set Steal to Need
         let need
-        if (money == 35) { need = '20' }
-        if (money == 20) { need = '50' }
-        if (money == 5) { need = '100' }
+        if (money === 35) { need = 20 }
+        if (money === 20) { need = 50 }
+        if (money === 5) { need = 100 }
         
         // Check for enough Money #1
         // Create Embed
         let notenoughmoney1 = new EmbedBuilder().setColor(0x37009B)
         	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   			.setDescription('» You dont have enough Money for that, you need atleast **$' + need + '**! BRUH.')
-        	.setFooter({ text: '» ' + vote + ' » ' + version });
+        	.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
         if (lang === 'de') {
             notenoughmoney1 = new EmbedBuilder().setColor(0x37009B)
         	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   			    .setDescription('» Du hast nicht genug Geld dafür, du brauchst mindestens **' + need + '€**! BRUH.')
-        	    .setFooter({ text: '» ' + vote + ' » ' + version });
+        	    .setFooter({ text: '» ' + vote + ' » ' + config.version });
         }
             
         // Check Money
-        if (money == 35 && moneysnd < 20) {
-            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : ' + user + ' : NOTENOUGHMONEY')
+        if (money === 35 && moneysnd < 20) {
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : ' + user.id + ' : NOTENOUGHMONEY')
             return interaction.reply({ embeds: [notenoughmoney1.toJSON()], ephemeral: true })
      	};
-        if (money == 20 && moneysnd < 50) {
-            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : ' + user + ' : NOTENOUGHMONEY')
+        if (money === 20 && moneysnd < 50) {
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : ' + user.id + ' : NOTENOUGHMONEY')
             return interaction.reply({ embeds: [notenoughmoney1.toJSON()], ephemeral: true })
      	};
-        if (money == 5 && moneysnd < 100) {
-            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : ' + user + ' : NOTENOUGHMONEY')
+        if (money === 5 && moneysnd < 100) {
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : ' + user.id + ' : NOTENOUGHMONEY')
             return interaction.reply({ embeds: [notenoughmoney1.toJSON()], ephemeral: true })
      	};
             
@@ -169,26 +167,26 @@ module.exports = {
         let notenoughmoney2 = new EmbedBuilder().setColor(0x37009B)
         	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   			.setDescription('» <@' + user + '> doesnt have enough Money for that, he needs atleast **$' + need + '**! LOL.')
-        	.setFooter({ text: '» ' + vote + ' » ' + version });
+        	.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
         if (lang === 'de') {
             notenoughmoney2 = new EmbedBuilder().setColor(0x37009B)
         	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   			    .setDescription('» <@' + user + '> hat nicht genug Geld dafür, er braucht mindestens **' + need + '€**! LOL.')
-        	    .setFooter({ text: '» ' + vote + ' » ' + version });
+        	    .setFooter({ text: '» ' + vote + ' » ' + config.version });
         }
             
         // Check Money
-        if (money == 35 && moneytar < 20) {
-            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : ' + user + ' : NOTENOUGHMONEY')
+        if (money === 35 && moneytar < 20) {
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : ' + user.id + ' : NOTENOUGHMONEY')
             return interaction.reply({ embeds: [notenoughmoney2.toJSON()], ephemeral: true })
      	};
-        if (money == 20 && moneytar < 50) {
-            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : ' + user + ' : NOTENOUGHMONEY')
+        if (money === 20 && moneytar < 50) {
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : ' + user.id + ' : NOTENOUGHMONEY')
             return interaction.reply({ embeds: [notenoughmoney2.toJSON()], ephemeral: true })
      	};
-        if (money == 5 && moneytar < 100) {
-            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : ' + user + ' : NOTENOUGHMONEY')
+        if (money === 5 && moneytar < 100) {
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : ' + user.id + ' : NOTENOUGHMONEY')
             return interaction.reply({ embeds: [notenoughmoney2.toJSON()], ephemeral: true })
      	};
         
@@ -200,14 +198,14 @@ module.exports = {
         let status
         let amount
         if (money == 35) {
-        	if (random35 == 1) { status = true; amount = Math.floor(Math.random() * (20 - 10 + 1)) + 10; } else { 
-                status = false; amount = Math.floor(Math.random() * (20 - 15 + 1)) + 10; }
+        	if (random35 == 1) { status = true; amount = bot.random(10, 20) } else { 
+                status = false; amount = bot.random(10, 20) }
         } else if (money == 20) {
-            if (random20 == 1) { status = true; amount = Math.floor(Math.random() * (50 - 30 + 1)) + 30; } else {
-                status = false; amount = Math.floor(Math.random() * (50 - 40 + 1)) + 30; }
+            if (random20 == 1) { status = true; amount = bot.random(30, 50) } else {
+                status = false; amount = bot.random(30, 50) }
         } else {
-            if (random05 == 1) { status = true; amount = Math.floor(Math.random() * (100 - 50 + 1)) + 50; } else {
-                status = false; amount = Math.floor(Math.random() * (100 - 80 + 1)) + 60; }
+            if (random05 == 1) { status = true; amount = bot.random(50, 100) } else {
+                status = false; amount = bot.random(50, 100) }
         }
 
         // Set Punishment
@@ -235,26 +233,26 @@ module.exports = {
         }
         
         // Create Embeds
-      	let sucess = new EmbedBuilder().setColor(0x37009B)
+      	let success = new EmbedBuilder().setColor(0x37009B)
             .setTitle('<:BAG:1024389219558367292> » AUSRAUBEN')
-  			.setDescription('» You stole <@' + user + '> **$' + amount + '**! ' + extra)
-        	.setFooter({ text: '» ' + vote + ' » ' + version });
+  			.setDescription('» You stole <@' + user.id + '> **$' + amount + '**! ' + extra)
+        	.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
         let failure = new EmbedBuilder().setColor(0x37009B)
             .setTitle('<:BAG:1024389219558367292> » AUSRAUBEN')
-  			.setDescription('» You wanted to steal <@' + user + '> **$' + amount + '**, but the Police caught you! You had to pay **$' + punishment + '**! KEKW.')
-        	.setFooter({ text: '» ' + vote + ' » ' + version });
+  			.setDescription('» You wanted to steal <@' + user.id + '> **$' + amount + '**, but the Police caught you! You had to pay **$' + punishment + '**! KEKW.')
+        	.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
         if (lang === 'de') {
-            sucess = new EmbedBuilder().setColor(0x37009B)
+            success = new EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:BAG:1024389219558367292> » AUSRAUBEN')
-  			    .setDescription('» Du hast <@' + user + '> **' + amount + '€** geklaut! ' + extra)
-        	    .setFooter({ text: '» ' + vote + ' » ' + version });
+  			    .setDescription('» Du hast <@' + user.id + '> **' + amount + '€** geklaut! ' + extra)
+        	    .setFooter({ text: '» ' + vote + ' » ' + config.version });
             
             failure = new EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:BAG:1024389219558367292> » AUSRAUBEN')
-                .setDescription('» Du wolltest <@' + user + '> **' + amount + '€** klauen, aber die Polizei hat dich erwischt! Du musstest **' + punishment + '€** Strafgeld bezahlen! KEKW.')
-                .setFooter({ text: '» ' + vote + ' » ' + version });
+                .setDescription('» Du wolltest <@' + user.id + '> **' + amount + '€** klauen, aber die Polizei hat dich erwischt! Du musstest **' + punishment + '€** Strafgeld bezahlen! KEKW.')
+                .setFooter({ text: '» ' + vote + ' » ' + config.version });
         }
         
         // Set Money
@@ -263,9 +261,9 @@ module.exports = {
 			cooldown.set(interaction.user.id, Date.now() + time);
         	setTimeout(() => cooldown.delete(), time)
             
-            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : ' + user + ' : ' + amount + '€ : FAILURE : ' + punishment + '€')
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : ' + user.id + ' : ' + amount + '€ : FAILURE : ' + punishment + '€')
         	bot.money.rem(interaction, interaction.user.id, punishment)
-        	return interaction.reply({ embeds: [failure.toJSON()] })
+        	return interaction.reply({ embeds: [failure] })
         }
         
         // Set Cooldown
@@ -277,7 +275,7 @@ module.exports = {
         bot.money.add(interaction, interaction.user.id, amount)
         
         // Send Message
-        bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : ' + user + ' : ' + amount + '€ : SUCCESS')
-        return interaction.reply({ embeds: [sucess.toJSON()] })
+        bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : ' + user.id + ' : ' + amount + '€ : SUCCESS')
+        return interaction.reply({ embeds: [success] })
     },
 };

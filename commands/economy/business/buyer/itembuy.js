@@ -1,7 +1,6 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
 const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js')
-const { EmbedBuilder } = require('@discordjs/builders');
-const { version } = require('../../../../config.json');
+const { SlashCommandBuilder } = require('@discordjs/builders')
+const { EmbedBuilder } = require('@discordjs/builders')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -39,6 +38,26 @@ module.exports = {
                 })
                 .setRequired(false)),
     async execute(interaction, client, lang, vote) {
+        // Check if Items are Enabled in Server
+        if (!await bot.settings.get(interaction.guild.id, 'items')) {
+            // Create Embed
+            let message = new EmbedBuilder().setColor(0x37009B)
+        		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
+        		.setDescription('» Items are disabled on this Server!')
+        		.setFooter({ text: '» ' + vote + ' » ' + config.version });
+
+            if (lang === 'de') {
+                message = new EmbedBuilder().setColor(0x37009B)
+        		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
+        		    .setDescription('» Items sind auf diesem Server deaktiviert!')
+        		    .setFooter({ text: '» ' + vote + ' » ' + config.version });
+            }
+            
+            // Send Message
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ITEM : DISABLED')
+            return interaction.reply({ embeds: [message], ephemeral: true })
+        }
+        
         // Set Variables
         const itemid = interaction.options.getString("item")
         const amount = interaction.options.getInteger("amount")
@@ -51,10 +70,10 @@ module.exports = {
         // Calculate Cost
         let cost
         if (await bot.businesses.get('g-' + interaction.guild.id + '-1-PRICE-' + itemid.toUpperCase()) === '0' || await bot.businesses.get('g-' + interaction.guild.id + '-1-PRICE-' + itemid.toUpperCase()) === 0) {
-            if (itemid == 'nbomb') { cost = 500*costmul }
-            if (itemid == 'mbomb') { cost = 1000*costmul }
-            if (itemid == 'hbomb') { cost = 5000*costmul }
-            if (itemid == 'cbomb') { cost = 15000*costmul }
+            if (itemid == 'nbomb') cost = 500*costmul
+            if (itemid == 'mbomb') cost = 1000*costmul
+            if (itemid == 'hbomb') cost = 5000*costmul
+            if (itemid == 'cbomb') cost = 15000*costmul
         } else {
             cost = parseInt(await bot.businesses.get('g-' + interaction.guild.id + '-1-PRICE-' + itemid.toUpperCase()))*costmul
         }
@@ -80,13 +99,13 @@ module.exports = {
             let message = new EmbedBuilder().setColor(0x37009B)
             	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   				.setDescription('» You dont have enough Money for that, you are missing **$' + missing + '**!')
-            	.setFooter({ text: '» ' + vote + ' » ' + version });
+            	.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
             	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
-            	    .setFooter({ text: '» ' + vote + ' » ' + version });
+            	    .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
             
             // Send Message
@@ -105,13 +124,13 @@ module.exports = {
             let message = new EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» You dont have enough Slots for that!')
-                .setFooter({ text: '» ' + vote + ' » ' + version });
+                .setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
                     .setDescription('» Du hast nicht genug Slots dafür!')
-                    .setFooter({ text: '» ' + vote + ' » ' + version });
+                    .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
     
             // Send Message
@@ -161,25 +180,25 @@ module.exports = {
             message = new EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:BOXCHECK:1024401101589590156> » BUY ITEM')
                 .setDescription('» Do you want to buy a **' + name + '** for **$' + cost + '**?')
-                .setFooter({ text: '» ' + vote + ' » ' + version });
+                .setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (lang == 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:BOXCHECK:1024401101589590156> » GEGENSTAND KAUFEN')
                     .setDescription('» Willst du eine **' + name + '** für **' + cost + '€** kaufen?')
-                    .setFooter({ text: '» ' + vote + ' » ' + version });
+                    .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
         } else {
             message = new EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:BOXCHECK:1024401101589590156> » BUY ITEMS')
                 .setDescription('» Do you want to buy **' + amount + 'x** **' + name + '** for **$' + cost + '**?')
-                .setFooter({ text: '» ' + vote + ' » ' + version });
+                .setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (lang == 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:BOXCHECK:1024401101589590156> » GEGENSTÄNDE KAUFEN')
                     .setDescription('» Willst du **' + amount + 'x** **' + name + '** für **' + cost + '€** kaufen?')
-                    .setFooter({ text: '» ' + vote + ' » ' + version });
+                    .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
         }
 

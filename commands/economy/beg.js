@@ -1,6 +1,5 @@
-const { SlashCommandBuilder, EmbedBuilder } = require('@discordjs/builders');
-const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
-const { version } = require('../../config.json');
+const { SlashCommandBuilder, EmbedBuilder } = require('@discordjs/builders')
+const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -41,13 +40,13 @@ module.exports = {
             let message = new EmbedBuilder().setColor(0x37009B)
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         		.setDescription('» You cant ask for negative Money!')
-        		.setFooter({ text: '» ' + vote + ' » ' + version });
+        		.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Du kannst nicht nach negativem Geld fragen!')
-        		    .setFooter({ text: '» ' + vote + ' » ' + version });
+        		    .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
             
             // Send Message
@@ -61,13 +60,13 @@ module.exports = {
             let message = new EmbedBuilder().setColor(0x37009B)
                 .setTitle('» BEGGING')
                 .setDescription('» You cant beg that much! **$10000** is the Maximum.')
-                .setFooter({ text: '» ' + vote + ' » ' + version });
+                .setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
                     .setTitle('» BETTELN')
                     .setDescription('» Du kannst nicht soviel erbetteln! **10000€** ist das Maximum.')
-                    .setFooter({ text: '» ' + vote + ' » ' + version });
+                    .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
             
             // Send Message
@@ -113,25 +112,25 @@ module.exports = {
       	    message = new EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:DONATE:1024397357988720711> » BEGGING')
   			    .setDescription('» <@' + interaction.user.id + '> needs Money!\nTotal Earnings: **$0**')
-        	    .setFooter({ text: '» ' + vote + ' » ' + version });
+        	    .setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:DONATE:1024397357988720711> » BETTELN')
   			        .setDescription('» <@' + interaction.user.id + '> braucht Geld!\nInsgesamte Einnahmen: **0€**')
-        	        .setFooter({ text: '» ' + vote + ' » ' + version });
+        	        .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
         } else {
             message = new EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:DONATE:1024397357988720711> » BEGGING')
   			    .setDescription('» <@' + interaction.user.id + '> needs Money!\nTotal Earnings: **$0**\n*"' + reason.toString() + '"*')
-        	    .setFooter({ text: '» ' + vote + ' » ' + version });
+        	    .setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:DONATE:1024397357988720711> » BETTELN')
   			        .setDescription('» <@' + interaction.user.id + '> braucht Geld!\nInsgesamte Einnahmen: **0€**\n*"' + reason.toString() + '"*')
-        	        .setFooter({ text: '» ' + vote + ' » ' + version });
+        	        .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
         }
 
