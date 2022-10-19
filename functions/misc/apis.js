@@ -11,55 +11,55 @@ const db = new pgP({
 })
 
 // Get Function
-exports.get = (userid) => new Promise(async ful => {
-    const data = await db.query(`select * from userapis where userid = $1;`, [userid])
+exports.get = (userId) => new Promise(async ful => {
+    const data = await db.query(`select * from userapis where userid = $1;`, [userId])
     if (data.rowCount !== 1) { return ful(0) }
     return ful(parseInt(data.rows[0].apis))
 })
 
 // Set Function
-exports.set = (userid, value) => new Promise(async ful => {
-    const data = await db.query(`select * from userapis where userid = $1;`, [userid])
+exports.set = (userId, value) => new Promise(async ful => {
+    const data = await db.query(`select * from userapis where userid = $1;`, [userId])
     if (data.rowCount !== 1) {
         await db.query(`insert into userapis values ($1, $2)`, [
-            userid,
+            userId,
             value
         ]); return ful('Y-CREATE')
     } else {
         await db.query(`update userapis set quotes = $1 where userid = $2;`, [
             value,
-            userid
+            userId
         ]); return ful('Y-WRITE')
     }
 })
 
 // Add Function
-exports.add = (userid, value) => new Promise(async ful => {
-    const data = await db.query(`select * from userapis where userid = $1;`, [userid])
+exports.add = (userId, value) => new Promise(async ful => {
+    const data = await db.query(`select * from userapis where userid = $1;`, [userId])
     if (data.rowCount !== 1) {
         await db.query(`insert into userapis values ($1, $2)`, [
-            userid,
+            userId,
             value
         ]); return ful('Y-CREATE')
     } else {
         await db.query(`update userapis set quotes = quotes + $1 where userid = $2;`, [
             value,
-            userid
+            userId
         ]); return ful('Y-WRITE')
     }
 })
 
 // Rem Function
-exports.rem = (userid, value) => new Promise(async ful => {
-    const data = await db.query(`select * from userapis where userid = $1;`, [userid])
+exports.rem = (userId, value) => new Promise(async ful => {
+    const data = await db.query(`select * from userapis where userid = $1;`, [userId])
     if (data.rowCount !== 1) {
         await db.query(`insert into userapis values ($1, 0)`, [
-            userid
+            userId
         ]); return ful('Y-CREATE')
     } else {
         await db.query(`update userapis set quotes = quotes - $1 where userid = $2;`, [
             value,
-            userid
+            userId
         ]); return ful('Y-WRITE')
     }
 })

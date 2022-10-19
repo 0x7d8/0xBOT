@@ -1,3 +1,4 @@
+const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js')
 const { SlashCommandBuilder, EmbedBuilder } = require('@discordjs/builders')
 
 module.exports = {
@@ -10,6 +11,9 @@ module.exports = {
         })
         .addStringOption(option =>
             option.setName('stock')
+                .setNameLocalizations({
+                    de: 'aktie'
+                })
                 .setDescription('THE STOCK')
                 .setDescriptionLocalizations({
                     de: 'DIE AKTIE'
@@ -24,21 +28,16 @@ module.exports = {
             		{ name: '⚪ WEISSE AKTIE', value: 'white' },
                     { name: '⚫ SCHWARZE AKTIE', value: 'black' },
 				))
-        .addStringOption(option =>
-            option.setName('slots')
+        .addIntegerOption(option =>
+            option.setName('amount')
+                .setNameLocalizations({
+                    de: 'anzahl'
+                })
                 .setDescription('THE SLOTS')
                 .setDescriptionLocalizations({
                     de: 'DIE SLOTS'
                 })
-                .setRequired(true)
-    			.addChoices(
-                    // Setup Choices
-                    { name: '💰 [01] 25000€', value: '1' },
-                    { name: '💰 [02] 50000€', value: '2' },
-                    { name: '💰 [03] 75000€', value: '3' },
-            		{ name: '💰 [04] 100000€', value: '4' },
-            		{ name: '💰 [05] 125000€', value: '5' },
-				)),
+                .setRequired(true)),
     async execute(interaction, client, lang, vote) {
         // Check if Stocks are Enabled in Server
         if (!await bot.settings.get(interaction.guild.id, 'stocks')) {
@@ -62,11 +61,11 @@ module.exports = {
 
         // Set Variables
         const stock = interaction.options.getString("stock")
-        const slots = interaction.options.getString("slots")
+        const amount = interaction.options.getInteger("amount")
         const balance = await bot.money.get(interaction.user.id)
 
         // Calculate Cost
-        const cost = parseInt(slots) * 25000
+        const cost = amount * 25000
 
         // Set Emoji
         let emoji
@@ -95,46 +94,61 @@ module.exports = {
             }
             
             // Send Message
-            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] STOCKUPGRADE  : ' + slots + ' : ' + cost + '€ : NOTENOUGHMONEY')
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] STOCKUPGRADE : ' + stock.toUpperCase() + ' : ' + amount + 'x : ' + cost + '€ : NOTENOUGHMONEY')
             return interaction.reply({ embeds: [message], ephemeral: true })
         }
 
-        // Add Stock Amount
-        bot.stocks.add(interaction.user.id, stock, 'max', parseInt(slots))
+        // Create Buttons
+        let row = new ActionRowBuilder()
+			.addComponents(
+				new ButtonBuilder()
+					.setLabel('YES')
+                    .setCustomId('STOCKUPGRADE-BUY-YES-' + stock + '-' + interaction.user.id + '-' + amount)
+                    .setEmoji('1024382935618572299')
+					.setStyle(ButtonStyle.Success)
+                    .setDisabled(false),
 
-        // Remove Money
-        bot.money.rem(interaction.guild.id, interaction.user.id, cost)
+                new ButtonBuilder()
+					.setLabel('NO')
+                    .setCustomId('STOCKUPGRADE-BUY-NO-' + stock + '-' + interaction.user.id + '-' + amount)
+                    .setEmoji('1024382939020152982')
+					.setStyle(ButtonStyle.Danger)
+                    .setDisabled(false),
+			);
+        if (lang === 'de') {
+            row = new ActionRowBuilder()
+			    .addComponents(
+			    	new ButtonBuilder()
+			    		.setLabel('JA')
+                        .setCustomId('STOCKUPGRADE-BUY-YES-' + stock + '-' + interaction.user.id + '-' + amount)
+                        .setEmoji('1024382935618572299')
+			    		.setStyle(ButtonStyle.Success)
+                        .setDisabled(false),
+
+                    new ButtonBuilder()
+			    		.setLabel('NEIN')
+                        .setCustomId('STOCKUPGRADE-BUY-NO-' + stock + '-' + interaction.user.id + '-' + amount)
+                        .setEmoji('1024382939020152982')
+			    		.setStyle(ButtonStyle.Danger)
+                        .setDisabled(false),
+			    );
+        }
 
         // Create Embed
-        let message
-        if (slots === 1) {
-            message = new EmbedBuilder().setColor(0x37009B)
-                .setTitle('<:CHART:1024398298204876941> » BUY STOCK SLOTS')
-                .setDescription('» You successfully bought **' + slots + '** extra ' + emoji + ' Stock Slot for **$' + cost + '**!')
-                .setFooter({ text: '» ' + vote + ' » ' + config.version });
+        let message = new EmbedBuilder().setColor(0x37009B)
+            .setTitle('<:BOXCHECK:1024401101589590156> » BUY STOCK SLOTS')
+            .setDescription('» Do you want to buy **' + amount + 'x** ' + emoji + ' for **$' + cost + '**?')
+            .setFooter({ text: '» ' + vote + ' » ' + config.version });
 
-            if (lang === 'de') {
-                message = new EmbedBuilder().setColor(0x37009B)
-                    .setTitle('<:CHART:1024398298204876941> » AKTIEN SLOTS KAUFEN')
-                    .setDescription('» Du hast erfolgreich **' + slots + '** extra ' + emoji + ' Aktien Slot für **' + cost + '€** gekauft!')
-                    .setFooter({ text: '» ' + vote + ' » ' + config.version });
-            }
-        } else {
+        if (lang === 'de') {
             message = new EmbedBuilder().setColor(0x37009B)
-                .setTitle('<:CHART:1024398298204876941> » BUY STOCK SLOTS')
-                .setDescription('» You successfully bought **' + slots + '** extra ' + emoji + ' Stock Slots for **$' + cost + '**!')
+                .setTitle('<:BOXCHECK:1024401101589590156> » AKTIEN SLOTS KAUFEN')
+                .setDescription('» Willst du **' + amount + 'x** ' + emoji + ' für **' + cost + '€** kaufen?')
                 .setFooter({ text: '» ' + vote + ' » ' + config.version });
-
-            if (lang === 'de') {
-                message = new EmbedBuilder().setColor(0x37009B)
-                    .setTitle('<:CHART:1024398298204876941> » AKTIEN SLOTS KAUFEN')
-                    .setDescription('» Du hast erfolgreich **' + slots + '** extra ' + emoji + ' Aktien Slots für **' + cost + '€** gekauft!')
-                    .setFooter({ text: '» ' + vote + ' » ' + config.version });
-            }
         }
 
         // Send Message
-        bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] STOCKUPGRADE : ' + slots + ' : ' + cost + '€')
-        return interaction.reply({ embeds: [message] })
+        bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] STOCKUPGRADE : ' + stock.toUpperCase() + ' : ' + amount + 'x : ' + cost + '€')
+        return interaction.reply({ embeds: [message], components: [row] })
     },
 };

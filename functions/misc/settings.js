@@ -11,25 +11,25 @@ const db = new pgP({
 })
 
 // Get Function
-exports.get = (guildid, setting) => new Promise(async ful => {
-    const data = await db.query(`select * from guildsettings where guildid = $1 and setting = $2;`, [guildid, setting])
+exports.get = (guildId, setting) => new Promise(async ful => {
+    const data = await db.query(`select * from guildsettings where guildid = $1 and setting = $2;`, [guildId, setting])
     if (data.rowCount !== 1) { return ful(true) }
     return ful(!!+data.rows[0].value)
 })
 
 // Set Function
-exports.set = (guildid, setting, value) => new Promise(async ful => {
-    const data = await db.query(`select * from guildsettings where guildid = $1 and setting = $2;`, [guildid, setting])
+exports.set = (guildId, setting, value) => new Promise(async ful => {
+    const data = await db.query(`select * from guildsettings where guildid = $1 and setting = $2;`, [guildId, setting])
     if (data.rowCount !== 1) {
         await db.query(`insert into guildsettings values ($1, $2, $3)`, [
-            guildid,
+            guildId,
             setting,
             value
         ]); return ful('Y-CREATE')
     } else {
         await db.query(`update guildsettings set value = $1 where guildid = $2 and setting = $3;`, [
             value,
-            guildid,
+            guildId,
             setting
         ]); return ful('Y-WRITE')
     }

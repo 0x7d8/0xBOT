@@ -52,13 +52,13 @@ module.exports = {
             let message = new EmbedBuilder().setColor(0x37009B)
             	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   				.setDescription('» This choice is up to <@' + userid + '>!')
-            	.setFooter({ text: '» ' + vote + ' » ' + version });
+            	.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
             	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   				    .setDescription('» Diese Frage ist für <@' + userid + '>!')
-            	    .setFooter({ text: '» ' + vote + ' » ' + version });
+            	    .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
             
             // Send Message
@@ -76,13 +76,13 @@ module.exports = {
                 let message = new EmbedBuilder().setColor(0x37009B)
                 	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   		    		.setDescription('» You dont have enough Money for that, you are missing **$' + missing + '**!')
-                	.setFooter({ text: '» ' + vote + ' » ' + version });
+                	.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
                 if (lang === 'de') {
                     message = new EmbedBuilder().setColor(0x37009B)
                 	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   			    	    .setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
-                	    .setFooter({ text: '» ' + vote + ' » ' + version });
+                	    .setFooter({ text: '» ' + vote + ' » ' + config.version });
                 }
             
                 // Send Message
@@ -104,13 +104,13 @@ module.exports = {
                 let message = new EmbedBuilder().setColor(0x37009B)
                 	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   		    		.setDescription('» You already own a **' + name + '**!')
-                	.setFooter({ text: '» ' + vote + ' » ' + version });
+                	.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
                 if (lang === 'de') {
                     message = new EmbedBuilder().setColor(0x37009B)
                 	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   		    		    .setDescription('» Du besitzt schon einen **' + name +'**!')
-                	    .setFooter({ text: '» ' + vote + ' » ' + version });
+                	    .setFooter({ text: '» ' + vote + ' » ' + config.version });
                 }
                 
                 // Send Message
@@ -127,13 +127,13 @@ module.exports = {
             let message = new EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:BOXCHECK:1024401101589590156> » BUY CAR')
                 .setDescription('» You successfully bought a **' + name + '** for **$' + cost + '**!')
-                .setFooter({ text: '» ' + vote + ' » ' + version });
+                .setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (lang == 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:BOXCHECK:1024401101589590156> » AUTO KAUFEN')
                     .setDescription('» Du hast erfolgreich einen **' + name + '** für **' + cost + '€** gekauft!')
-                    .setFooter({ text: '» ' + vote + ' » ' + version });
+                    .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
 
             // Remove Money
@@ -162,13 +162,13 @@ module.exports = {
                 let message = new EmbedBuilder().setColor(0x37009B)
                 	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   		    		.setDescription('» You dont own a Car!')
-                	.setFooter({ text: '» ' + vote + ' » ' + version });
+                	.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
                 if (lang === 'de') {
                     message = new EmbedBuilder().setColor(0x37009B)
                 	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   		    		    .setDescription('» Du besitzt kein Auto!')
-                	    .setFooter({ text: '» ' + vote + ' » ' + version });
+                	    .setFooter({ text: '» ' + vote + ' » ' + config.version });
                 }
 
                 // Send Message
@@ -185,13 +185,13 @@ module.exports = {
             let message = new EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:BOXDOLLAR:1024402261784403999> » SELL CAR')
                 .setDescription('» You successfully sold your **' + name + '** for **$' + (cost/2) + '**!')
-                .setFooter({ text: '» ' + vote + ' » ' + version });
+                .setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (lang == 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:BOXDOLLAR:1024402261784403999> » AUTO VERKAUFEN')
                     .setDescription('» Du hast erfolgreich deinen **' + name + '** für **' + (cost/2) + '€** verkauft!')
-                    .setFooter({ text: '» ' + vote + ' » ' + version });
+                    .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
 
             // Add Money

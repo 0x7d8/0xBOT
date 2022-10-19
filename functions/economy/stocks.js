@@ -11,9 +11,9 @@ const db = new pgP({
 })
 
 // Get Function
-exports.get = (userid, stock, type) => new Promise(async ful => {
+exports.get = (userId, stock, type) => new Promise(async ful => {
     const data = await db.query(`select * from userstocks where userid = $1 and stock = $2 and type = $3;`, [
-        userid,
+        userId,
         stock,
         type
     ])
@@ -23,15 +23,15 @@ exports.get = (userid, stock, type) => new Promise(async ful => {
 })
 
 // Set Function
-exports.set = (userid, stock, type, value) => new Promise(async ful => {
+exports.set = (userId, stock, type, value) => new Promise(async ful => {
     const data = await db.query(`select * from userstocks where userid = $1 and stock = $2 and type = $3;`, [
-        userid,
+        userId,
         stock,
         type
     ])
     if (data.rowCount !== 1) {
         await db.query(`insert into userstocks values ($1, $2, $3, $4)`, [
-            userid,
+            userId,
             stock,
             type,
             value
@@ -39,7 +39,7 @@ exports.set = (userid, stock, type, value) => new Promise(async ful => {
     } else {
         await db.query(`update userstocks set value = $1 where userid = $2 and stock = $3 and type = $4;`, [
             value,
-            userid,
+            userId,
             stock,
             type
         ]); return ful('Y-WRITE')
@@ -47,22 +47,22 @@ exports.set = (userid, stock, type, value) => new Promise(async ful => {
 })
 
 // Add Function
-exports.add = (userid, stock, type, value) => new Promise(async ful => {
+exports.add = (userId, stock, type, value) => new Promise(async ful => {
     const data = await db.query(`select * from userstocks where userid = $1 and stock = $2 and type = $3;`, [
-        userid,
+        userId,
         stock,
         type
     ])
     if (data.rowCount !== 1) {
         await db.query(`insert into userstocks values ($1, $2, $3, $4)`, [
-            userid,
+            userId,
             stock,
             type,
             value
         ])
         if (type === 'max') {
             await db.query(`update userstocks set value = value + 10 where userid = $1 and stock = $2 and type = $3`, [
-                userid,
+                userId,
                 stock,
                 type
             ])
@@ -70,7 +70,7 @@ exports.add = (userid, stock, type, value) => new Promise(async ful => {
     } else {
         await db.query(`update userstocks set value = value + $1 where userid = $2 and stock = $3 and type = $4;`, [
             value,
-            userid,
+            userId,
             stock,
             type
         ]); return ful('Y-WRITE')
@@ -78,15 +78,15 @@ exports.add = (userid, stock, type, value) => new Promise(async ful => {
 })
 
 // Rem Function
-exports.set = (userid, stock, type, value) => new Promise(async ful => {
+exports.set = (userId, stock, type, value) => new Promise(async ful => {
     const data = await db.query(`select * from userstocks where userid = $1 and stock = $2 and type = $3;`, [
-        userid,
+        userId,
         stock,
         type
     ])
     if (data.rowCount !== 1) {
         await db.query(`insert into userstocks values ($1, $2, $3, $4)`, [
-            userid,
+            userId,
             stock,
             type,
             value
@@ -94,13 +94,13 @@ exports.set = (userid, stock, type, value) => new Promise(async ful => {
     } else {
         await db.query(`update userstocks set value = value - $1 where userid = $2 and stock = $3 and type = $4;`, [
             value,
-            userid,
+            userId,
             stock,
             type
         ])
         if (type === 'max') {
             await db.query(`update userstocks set value = value + 10 where userid = $1 and stock = $2 and type = $3`, [
-                userid,
+                userId,
                 stock,
                 type
             ])

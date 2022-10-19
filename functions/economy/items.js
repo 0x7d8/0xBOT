@@ -11,8 +11,8 @@ const db = new pgP({
 })
 
 // Get Function
-exports.get = (userid, type) => new Promise(async ful => {
-    const data = await db.query(`select * from useritems where userid = $1;`, [userid])
+exports.get = (userId, type) => new Promise(async ful => {
+    const data = await db.query(`select * from useritems where userid = $1;`, [userId])
     if (data.rowCount !== 1) { return ful(0) }
     if (type === null) {
         return ful(data.rows[0])
@@ -24,11 +24,11 @@ exports.get = (userid, type) => new Promise(async ful => {
 })
 
 // Set Function
-exports.set = (userid, value, amount) => new Promise(async ful => {
-    const data = await db.query(`select * from useritems where userid = $1;`, [userid])
+exports.set = (userId, value, amount) => new Promise(async ful => {
+    const data = await db.query(`select * from useritems where userid = $1;`, [userId])
     if (data.rowCount !== 1) {
         await db.query(`insert into useritems values ($1, $2, $3)`, [
-            userid,
+            userId,
             value,
             amount
         ]); return ful('Y-CREATE')
@@ -36,57 +36,57 @@ exports.set = (userid, value, amount) => new Promise(async ful => {
         if (!value) {
             await db.query(`update useritems set amount = $1 where userid = $2;`, [
                 amount,
-                userid
+                userId
             ]); return ful('Y-WRITE')
         } else {
             await db.query(`update useritems set value = $1 and amount = $2 where userid = $3;`, [
                 value,
                 amount,
-                userid
+                userId
             ]); return ful('Y-WRITE')
         }
     }
 })
 
 // Add Function
-exports.add = (userid, amount) => new Promise(async ful => {
-    const data = await db.query(`select * from useritems where userid = $1;`, [userid])
+exports.add = (userId, amount) => new Promise(async ful => {
+    const data = await db.query(`select * from useritems where userid = $1;`, [userId])
     if (data.rowCount !== 1) {
         await db.query(`insert into useritems values ($1, 0, $2)`, [
-            userid,
+            userId,
             amount
         ]); return ful('Y-CREATE')
     } else {
         await db.query(`update useritems set amount = amount + $1 where userid = $2;`, [
             amount,
-            userid
+            userId
         ]); return ful('Y-WRITE')
     }
 })
 
 // Add Function
-exports.rem = (userid, amount) => new Promise(async ful => {
-    const data = await db.query(`select * from useritems where userid = $1;`, [userid])
+exports.rem = (userId, amount) => new Promise(async ful => {
+    const data = await db.query(`select * from useritems where userid = $1;`, [userId])
     if (data.rowCount !== 1) {
         await db.query(`insert into useritems values ($1, 0, 0)`, [
-            userid
+            userId
         ]); return ful('Y-CREATE')
     } else {
         await db.query(`update useritems set amount = amount - $1 where userid = $2;`, [
             amount,
-            userid
+            userId
         ]); return ful('Y-WRITE')
     }
 })
 
 // Del Function
-exports.del = (userid) => new Promise(async ful => {
-    const data = await db.query(`select * from useritems where userid = $1;`, [userid])
+exports.del = (userId) => new Promise(async ful => {
+    const data = await db.query(`select * from useritems where userId = $1;`, [userId])
     if (data.rowCount !== 1) {
         return ful('N-EXIST')
     } else {
-        await db.query(`delete from useritems where userid = $1;`, [
-            userid
+        await db.query(`delete from useritems where userId = $1;`, [
+            userId
         ]); return ful('Y-DELETE')
     }
 })

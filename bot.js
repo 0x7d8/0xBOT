@@ -240,6 +240,15 @@ client.on('interactionCreate', async interaction => {
 
 				const button = client.buttons.get(editedinteraction.customId)
 				await button.execute(editedinteraction, client, guildlang, votet, args[3], args[4], args[1].toLowerCase(), args[5])
+			}; if (args[0] == 'STOCKUPGRADE') {
+				let editedinteraction = interaction
+
+				if (args[2] == 'YES') { editedinteraction.customId = "stockupgrade-yes" }
+				if (args[2] == 'NO') { editedinteraction.customId = "stockupgrade-no" }
+				sc = true
+
+				const button = client.buttons.get(editedinteraction.customId)
+				await button.execute(editedinteraction, client, guildlang, votet, args[3], args[4], args[5])
 			}; if (args[0] == 'BOMB') {
 				let editedinteraction = interaction
 
