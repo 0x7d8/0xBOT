@@ -33,6 +33,7 @@ module.exports = {
         // Set Variables
         const user = interaction.options.getUser("user")
         let bet = interaction.options.getInteger("bet")
+        
         const money = await bot.money.get(interaction.user.id)
         const othermoney = await bot.money.get(user.id)
 

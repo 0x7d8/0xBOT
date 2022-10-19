@@ -10,7 +10,7 @@ module.exports = {
         }),
     async execute(interaction, client, lang, vote) {
         // Set Variables
-        const botping = Math.round(client.ws.ping)
+        const botping = Math.round(client.ws.ping)-50
 
         // Create Embed
         let message = new EmbedBuilder().setColor(0x37009B)

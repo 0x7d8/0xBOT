@@ -13,6 +13,7 @@ module.exports = {
         const totalcmd = await bot.stat.get('t-all', 'cmd')
         const guildcmd = await bot.stat.get('g-' + interaction.guild.id, 'cmd')
         const usercmd = await bot.stat.get('u-' + interaction.user.id, 'cmd')
+        
         const totalbtn = await bot.stat.get('t-all', 'btn')
         const guildbtn = await bot.stat.get('g-' + interaction.guild.id, 'btn')
         const userbtn = await bot.stat.get('u-' + interaction.user.id, 'btn')

@@ -15,7 +15,7 @@ module.exports = {
 			.addComponents(
 				new ButtonBuilder()
 					.setLabel('GO')
-					.setURL('https://dsh.0xbot.de')
+					.setURL('https://0xbot.de')
 					.setStyle(ButtonStyle.Link),
 			);
 
@@ -24,7 +24,7 @@ module.exports = {
 			    .addComponents(
 			    	new ButtonBuilder()
 			    		.setLabel('LOS')
-			    		.setURL('https://dsh.0xbot.de')
+			    		.setURL('https://0xbot.de')
 			    		.setStyle(ButtonStyle.Link),
 			    );
         }
