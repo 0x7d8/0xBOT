@@ -29,10 +29,8 @@ global.addper = (oval, pval) => {
 // Bot Functions
 global.bot = require('./functions/bot')
 
-/// MongoDB Functions
 // General Value
 global.uapi = require("./functions/userapis")
-global.lang = require("./functions/langs")
 
 // Deploy Commands
 const { REST } = require('@discordjs/rest')

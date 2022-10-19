@@ -133,7 +133,7 @@ module.exports = {
             }
         
         	// Send Money
-        	bot.money.add(interaction, interaction.user.id, resultcar)
+        	bot.money.add(interaction.guild.id, interaction.user.id, resultcar)
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] WORK : ' + resultcar + '€');
             
             // Set Cooldown

@@ -117,7 +117,7 @@ module.exports = {
         }
 
         // Add Money
-        bot.money.add(interaction, interaction.user.id, cash)
+        bot.money.add(interaction.guild.id, interaction.user.id, cash)
 
         // Remove Stock Amount
         bot.stocks.rem(interaction.user.id, stock, 'used')

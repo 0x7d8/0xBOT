@@ -102,8 +102,8 @@ module.exports = {
         
         // Set Money
         if (money >= anzahl) {
-        	bot.money.rem(interaction, interaction.user.id, anzahl)
-        	bot.money.add(interaction, user.id, anzahl)
+        	bot.money.rem(interaction.guild.id, interaction.user.id, anzahl)
+        	bot.money.add(interaction.guild.id, user.id, anzahl)
         } else {
             const missing = anzahl - money
             

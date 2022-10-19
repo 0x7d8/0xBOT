@@ -143,7 +143,7 @@ module.exports = {
         bot.stocks.add(interaction.user.id, stock, 'used', amount)
 
         // Remove Money
-        bot.money.rem(interaction, interaction.user.id, cost)
+        bot.money.rem(interaction.guild.id, interaction.user.id, cost)
 
         // Create Embed
         let message = new EmbedBuilder().setColor(0x37009B)

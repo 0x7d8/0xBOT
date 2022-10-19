@@ -103,7 +103,7 @@ module.exports = {
         bot.stocks.add(interaction.user.id, stock, 'max', parseInt(slots))
 
         // Remove Money
-        bot.money.rem(interaction, interaction.user.id, cost)
+        bot.money.rem(interaction.guild.id, interaction.user.id, cost)
 
         // Create Embed
         let message

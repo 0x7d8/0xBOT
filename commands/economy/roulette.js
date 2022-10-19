@@ -156,10 +156,10 @@ module.exports = {
             
             // Set Money
             if (color != farbe) {
-            	bot.money.rem(interaction, interaction.user.id, wette);
+            	bot.money.rem(interaction.guild.id, interaction.user.id, wette);
             }
 			if (color == farbe) {
-            	bot.money.add(interaction, interaction.user.id, resultadd);
+            	bot.money.add(interaction.guild.id, interaction.user.id, resultadd);
             }
             
             // Send Message

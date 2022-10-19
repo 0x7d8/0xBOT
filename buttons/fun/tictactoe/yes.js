@@ -225,8 +225,8 @@ module.exports = {
         eval('global.tttdatad9' + sender.toString().replace(/\D/g, '') + ' = false')
 
         // Transfer Money
-        bot.money.rem(interaction, sender.toString().replace(/\D/g, ''), bet)
-        bot.money.rem(interaction, reciever.toString().replace(/\D/g, ''), bet)
+        bot.money.rem(interaction.guild.id, sender.toString().replace(/\D/g, ''), bet)
+        bot.money.rem(interaction.guild.id, reciever.toString().replace(/\D/g, ''), bet)
 
         // Create Embed
         let message = new EmbedBuilder().setColor(0x37009B)

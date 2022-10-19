@@ -6,7 +6,7 @@ module.exports = {
 	event: 'messageCreate',
 	once: false,
 	async execute(message, client) {
-		if (!message.author.bot && parseInt(message.guildId) > 1000 && parseInt(await gopt.get(message.guildId + '-LEVEL')) === 0) {
+		if (!message.author.bot && parseInt(message.guildId) > 1000 && !await bot.settings.get(message.guildId, 'level')) {
             let cache
 
             // Get Old Level

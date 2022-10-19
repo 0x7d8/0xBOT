@@ -15,7 +15,6 @@ console.log(' ')
 
 // Database Functions
 const bot = require("./functions/bot")
-const lang = require("./functions/langs")
 
 // CLI Commands
 const stdin = process.openStdin();

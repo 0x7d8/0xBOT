@@ -11,64 +11,64 @@ const db = new pgP({
 })
 
 // Get Function
-exports.get = (userid) => new Promise(async ful => {
-    const data = await db.query(`select * from usermoney where userid = $1;`, [userid])
+exports.get = (userId) => new Promise(async ful => {
+    const data = await db.query(`select * from usermoney where userid = $1;`, [userId])
     if (data.rowCount !== 1) { return ful(0) }
     return ful(parseInt(data.rows[0].money))
 })
 
 // Set Function
-exports.set = (i, userid, value) => new Promise(async ful => {
-    const data = await db.query(`select * from usermoney where userid = $1;`, [userid])
+exports.set = (guildId, userId, value) => new Promise(async ful => {
+    const data = await db.query(`select * from usermoney where userid = $1;`, [userId])
     if (data.rowCount !== 1) {
-        await db.query(`insert into usermoney values ($1, $2, {$3})`, [
-            userid,
+        await db.query(`insert into usermoney values ($1, $2, array[$3]);`, [
+            userId,
             value,
-            i.guild.id
+            guildId
         ]); return ful('Y-CREATE')
     } else {
-        if (i != false && !data.rows[0].guilds.includes(i.guild.id)) {
-            await db.query(`update usermoney set guilds = array_append(guilds, $1) where userid = $2`, [i.guild.id, userid])
+        if (!data.rows[0].guilds.includes(guildId)) {
+            await db.query(`update usermoney set guilds = array_append(guilds, $1) where userid = $2;`, [guildId, userId])
         }; await db.query(`update usermoney set money = $1 where userid = $2;`, [
             value,
-            userid
+            userId
         ]); return ful('Y-WRITE')
     }
 })
 
 // Add Function
-exports.add = (i, userid, value) => new Promise(async ful => {
-    const data = await db.query(`select * from usermoney where userid = $1;`, [userid])
+exports.add = (guildId, userId, value) => new Promise(async ful => {
+    const data = await db.query(`select * from usermoney where userid = $1;`, [userId])
     if (data.rowCount !== 1) {
-        await db.query(`insert into usermoney values ($1, $2 , {$3})`, [
-            userid,
+        await db.query(`insert into usermoney values ($1, $2, array[$3]);`, [
+            userId,
             value,
-            i.guild.id
+            guildId
         ]); return ful('Y-CREATE')
     } else {
-        if (i != false && !data.rows[0].guilds.includes(i.guild.id)) {
-            await db.query(`update usermoney set guilds = array_append(guilds, $1) where userid = $2`, [i.guild.id, userid])
+        if (!data.rows[0].guilds.includes(guildId)) {
+            await db.query(`update usermoney set guilds = array_append(guilds, $1) where userid = $2;`, [guildId, userId])
         }; await db.query(`update usermoney set money = money + $1 where userid = $2;`, [
             value,
-            userid
+            userId
         ]); return ful('Y-WRITE')
     }
 })
 
 // Rem Function
-exports.rem = (i, userid, value) => new Promise(async ful => {
-    const data = await db.query(`select * from usermoney where userid = $1;`, [userid])
+exports.rem = (guildId, userId, value) => new Promise(async ful => {
+    const data = await db.query(`select * from usermoney where userid = $1;`, [userId])
     if (data.rowCount !== 1) {
-        await db.query(`insert into usermoney values ($1, 0, {$2})`, [
-            userid,
-            i.guild.id
+        await db.query(`insert into usermoney values ($1, 0, array[$2]);`, [
+            userId,
+            guildId
         ]); return ful('Y-CREATE')
     } else {
-        if (i != false && !data.rows[0].guilds.includes(i.guild.id)) {
-            await db.query(`update usermoney set guilds = array_append(guilds, $1) where userid = $2`, [i.guild.id, userid])
+        if (!data.rows[0].guilds.includes(guildId)) {
+            await db.query(`update usermoney set guilds = array_append(guilds, $1) where userid = $2;`, [guildId, userId])
         }; await db.query(`update usermoney set money = money - $1 where userid = $2;`, [
             value,
-            userid
+            userId
         ]); return ful('Y-WRITE')
     }
 })
