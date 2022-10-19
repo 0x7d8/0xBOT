@@ -202,7 +202,7 @@ module.exports = {
         }
 
         // Send Message
-        bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ITEMBUY : ' + itemid.toUpperCase() + ' : ' + cost + '€')
+        bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ITEMBUY : ' + amount + 'x : ' + itemid.toUpperCase() + ' : ' + cost + '€')
         return interaction.reply({ embeds: [message], components: [row] })
     },
 };

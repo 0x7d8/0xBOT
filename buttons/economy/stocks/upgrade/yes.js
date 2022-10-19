@@ -29,7 +29,14 @@ module.exports = {
         const balance = await bot.money.get(interaction.user.id)
 
         // Calculate Cost
-        const cost = amount * 25000
+        let baseCost
+        if (stock === 'green') baseCost = 15000
+        if (stock === 'blue') baseCost = 20000
+        if (stock === 'yellow') baseCost = 25000
+        if (stock === 'red') baseCost = 30000
+        if (stock === 'white') baseCost = 35000
+        if (stock === 'black') baseCost = 40000
+        const cost = amount * baseCost
 
         // Split Button with type
         const type = 'buy'
@@ -73,13 +80,13 @@ module.exports = {
             // Create Embed
             let message = new EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:BOXCHECK:1024401101589590156> » BUY STOCK SLOTS')
-                .setDescription('» You successfully bought **' + amount + 'x** ' + emoji + ' for **$' + cost + '**!')
+                .setDescription('» You successfully bought **' + amount + 'x** ' + emoji + ' Slots for **$' + cost + '**!')
                 .setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (lang == 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:BOXCHECK:1024401101589590156> » AKTIEN SLOTS KAUFEN')
-                    .setDescription('» Du hast erfolgreich **' + amount + 'x** ' + emoji + ' für **' + cost + '€** gekauft!')
+                    .setDescription('» Du hast erfolgreich **' + amount + 'x** ' + emoji + ' Slots für **' + cost + '€** gekauft!')
                     .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
 

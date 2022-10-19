@@ -45,13 +45,13 @@ module.exports = {
             // Create Embed
             let message = new EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:BOXCHECK:1024401101589590156> » BUY STOCK SLOTS')
-                .setDescription('» <@' + interaction.user.id + '> said **NO** to **' + amount + 'x** ' + emoji + '.')
+                .setDescription('» <@' + interaction.user.id + '> said **NO** to **' + amount + 'x** ' + emoji + ' Slots.')
                 .setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:BOXCHECK:1024401101589590156> » AKTIEN SLOTS KAUFEN')
-                    .setDescription('» <@' + interaction.user.id + '> hat **NEIN** zu **' + amount + 'x** ' + emoji + ' gesagt.')
+                    .setDescription('» <@' + interaction.user.id + '> hat **NEIN** zu **' + amount + 'x** ' + emoji + ' Slots gesagt.')
                     .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
 

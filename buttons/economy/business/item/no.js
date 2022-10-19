@@ -74,7 +74,7 @@ module.exports = {
             }
 
             // Send Message
-            bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] ITEMBUY : ' + itemid.toUpperCase() + ' : DENY')
+            bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] ITEMBUY : ' + amount + 'x : ' + itemid.toUpperCase() + ' : DENY')
             return interaction.update({ embeds: [message], components: interaction.message.components })
         } else if (type === 'sell') {
             

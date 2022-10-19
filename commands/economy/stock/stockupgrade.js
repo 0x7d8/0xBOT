@@ -65,7 +65,14 @@ module.exports = {
         const balance = await bot.money.get(interaction.user.id)
 
         // Calculate Cost
-        const cost = amount * 25000
+        let baseCost
+        if (stock === 'green') baseCost = 15000
+        if (stock === 'blue') baseCost = 20000
+        if (stock === 'yellow') baseCost = 25000
+        if (stock === 'red') baseCost = 30000
+        if (stock === 'white') baseCost = 35000
+        if (stock === 'black') baseCost = 40000
+        const cost = amount * baseCost
 
         // Set Emoji
         let emoji
@@ -148,7 +155,7 @@ module.exports = {
         }
 
         // Send Message
-        bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] STOCKUPGRADE : ' + stock.toUpperCase() + ' : ' + amount + 'x : ' + cost + '€')
+        bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] STOCKUPGRADE : ' + amount + 'x : ' + stock.toUpperCase() + ' : ' + cost + '€')
         return interaction.reply({ embeds: [message], components: [row] })
     },
 };

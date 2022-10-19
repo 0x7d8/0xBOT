@@ -21,21 +21,21 @@ module.exports = {
         .addIntegerOption(option =>
             option.setName('amount')
                 .setNameLocalizations({
-                    de: 'anzahl'
+                    de: 'amount'
                 })
                 .setDescription('THE AMOUNT OF MONEY')
                 .setDescriptionLocalizations({
-                    de: 'DIE ANZAHL VON GELD'
+                    de: 'DIE amount VON GELD'
                 })
                 .setRequired(true)),
     async execute(interaction, client, lang, vote) {
         // Set Variables
         const user = interaction.options.getUser("user")
-        const anzahl = interaction.options.getInteger("amount")
+        const amount = interaction.options.getInteger("amount")
         const money = await bot.money.get(interaction.user.id);
 
         // Check if Balance is Minus
-        if (anzahl < 0) {
+        if (amount < 0) {
             // Create Embed
             let message = new EmbedBuilder().setColor(0x37009B)
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
@@ -50,7 +50,7 @@ module.exports = {
             }
             
             // Send Message
-            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] PAY : NEGATIVEMONEY : ' + anzahl + '€')
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] PAY : NEGATIVEMONEY : ' + amount + '€')
             return interaction.reply({ embeds: [message], ephemeral: true })
         }
 
@@ -70,42 +70,49 @@ module.exports = {
             }
             
             // Send Message
-            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] PAY : ' + user.id + ' : BOT : ' + anzahl + '€')
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] PAY : ' + user.id + ' : BOT : ' + amount + '€')
+            return interaction.reply({ embeds: [message], ephemeral: true })
+        }
+
+        // Check if User is Author
+        if (interaction.user.id === user.id) {
+            // Create Embed
+            let message = new EmbedBuilder().setColor(0x37009B)
+            	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
+  				.setDescription('» You cant pay yourself money?')
+            	.setFooter({ text: '» ' + vote + ' » ' + config.version });
+
+            if (lang === 'de') {
+                message = new EmbedBuilder().setColor(0x37009B)
+            	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
+  				    .setDescription('» Du kannst dir selber kein Geld überweisen?')
+            	    .setFooter({ text: '» ' + vote + ' » ' + config.version });
+            }
+
+            // Send Message
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] PAY : ' + user.id + ' : ' + amount + '€ : SAMEPERSON')
             return interaction.reply({ embeds: [message], ephemeral: true })
         }
         
         // Create Embeds
       	let message = new EmbedBuilder().setColor(0x37009B)
             .setTitle('<:BAG:1024389219558367292> » GIVE MONEY')
-  			.setDescription('» You gave <@' + user.id + '> **$' + anzahl + '**!')
-        	.setFooter({ text: '» ' + vote + ' » ' + config.version });
-        let err2 = new EmbedBuilder().setColor(0x37009B)
-            .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-  			.setDescription('» You cant give yourself Money!')
+  			.setDescription('» You gave <@' + user.id + '> **$' + amount + '**!')
         	.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
         if (lang === 'de') {
             message = new EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:BAG:1024389219558367292> » GELD GEBEN')
-  			    .setDescription('» Du hast <@' + user.id + '> **' + anzahl + '€** gegeben!')
+  			    .setDescription('» Du hast <@' + user.id + '> **' + amount + '€** gegeben!')
         	    .setFooter({ text: '» ' + vote + ' » ' + config.version });
-            err2 = new EmbedBuilder().setColor(0x37009B)
-                .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-  			    .setDescription('» Du kannst dir nicht selber Geld überweisen!')
-        	    .setFooter({ text: '» ' + vote + ' » ' + config.version });
-        }
-        
-        // Check if User is Author
-        if (interaction.user.id == user.id) {
-            return interaction.reply({ embeds: [err2.toJSON()], ephemeral: true })
         }
         
         // Set Money
-        if (money >= anzahl) {
-        	bot.money.rem(interaction.guild.id, interaction.user.id, anzahl)
-        	bot.money.add(interaction.guild.id, user.id, anzahl)
+        if (money >= amount) {
+        	bot.money.rem(interaction.guild.id, interaction.user.id, amount)
+        	bot.money.add(interaction.guild.id, user.id, amount)
         } else {
-            const missing = anzahl - money
+            const missing = amount - money
             
             // Create Embed
             let message = new EmbedBuilder().setColor(0x37009B)
@@ -121,12 +128,12 @@ module.exports = {
             }
             
             // Send Message
-            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] PAY : ' + user.id + ' : NOTENOUGHMONEY : ' + anzahl + '€')
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] PAY : ' + user.id + ' : NOTENOUGHMONEY : ' + amount + '€')
             return interaction.reply({ embeds: [message], ephemeral: true })
         }
 
         // Send Message
-        bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] PAY : ' + user.id + ' : ' + anzahl + '€')
+        bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] PAY : ' + user.id + ' : ' + amount + '€')
         return interaction.reply({ embeds: [message] })
     },
 };
