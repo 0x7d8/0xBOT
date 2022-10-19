@@ -27,7 +27,7 @@ exports.set = (guildId, userId, value) => new Promise(async ful => {
             guildId
         ]); return ful('Y-CREATE')
     } else {
-        if (!data.rows[0].guilds.includes(guildId)) {
+        if (guildId != false && !data.rows[0].guilds.includes(guildId)) {
             await db.query(`update usermoney set guilds = array_append(guilds, $1) where userid = $2;`, [guildId, userId])
         }; await db.query(`update usermoney set money = $1 where userid = $2;`, [
             value,
@@ -46,7 +46,7 @@ exports.add = (guildId, userId, value) => new Promise(async ful => {
             guildId
         ]); return ful('Y-CREATE')
     } else {
-        if (!data.rows[0].guilds.includes(guildId)) {
+        if (guildId != false && !data.rows[0].guilds.includes(guildId)) {
             await db.query(`update usermoney set guilds = array_append(guilds, $1) where userid = $2;`, [guildId, userId])
         }; await db.query(`update usermoney set money = money + $1 where userid = $2;`, [
             value,
@@ -64,7 +64,7 @@ exports.rem = (guildId, userId, value) => new Promise(async ful => {
             guildId
         ]); return ful('Y-CREATE')
     } else {
-        if (!data.rows[0].guilds.includes(guildId)) {
+        if (guildId != false && !data.rows[0].guilds.includes(guildId)) {
             await db.query(`update usermoney set guilds = array_append(guilds, $1) where userid = $2;`, [guildId, userId])
         }; await db.query(`update usermoney set money = money - $1 where userid = $2;`, [
             value,
