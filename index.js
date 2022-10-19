@@ -285,7 +285,7 @@ router.get('/options/guild', async(ctx) => {
     // GENERAL
     if (ctx.query.page === 'GENERAL') {
         let guildlang = 'ENGLISH'
-        if (await lang.get(ctx.query.id) === 1) {
+        if (await bot.language.get(ctx.query.id) === 'de') {
             guildlang = 'GERMAN'
         }
         response = {
@@ -339,7 +339,7 @@ router.get('/options/guild', async(ctx) => {
     if (ctx.request.body.option === 'LANGUAGE') {
         if (ctx.request.body.value !== 'GERMAN' && ctx.request.body.value !== 'ENGLISH') return ctx.body = { "success": false, "message": 'INVALID VALUE' }
         let set = 'en'; if (ctx.request.body.value === 'GERMAN') { set = 'de' }
-        bot.language.set(ctx.query.id, 'guild', set)
+        bot.language.set(ctx.query.id, set)
         response = { "success": true, "message": 'OPTION UPDATED' }
     }
 

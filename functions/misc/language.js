@@ -14,7 +14,7 @@ const db = new pgP({
 exports.get = (name) => new Promise(async ful => {
     const data = await db.query(`select * from languages where name = $1;`, [name])
     if (data.rowCount !== 1) { return ful(true) }
-    return ful(data.rows[0].language)
+    return ful(data.rows[0].value)
 })
 
 // Set Function

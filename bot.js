@@ -80,7 +80,7 @@ client.on('interactionCreate', async interaction => {
 	if (!interaction.isCommand() && !interaction.isButton()) return
 
 	// Get Guild Language
-	const guildlang = await bot.language.get(interaction.guild.id, 'guild')
+	const guildlang = await bot.language.get(interaction.guild.id)
 
 	// Get Vote Status
 	let votet = 'VOTED'
@@ -94,7 +94,7 @@ client.on('interactionCreate', async interaction => {
 	}
 	
 	// Set User Language
-	await bot.language.set(interaction.user.id, 'user', interaction.locale)
+	await bot.language.set(interaction.user.id, interaction.locale)
 
 	// Handle Commands
 	if (interaction.isChatInputCommand()) {
