@@ -48,12 +48,10 @@ export const NavBar = (props) => {
   if (window.location.pathname === '/panel') { Text = 'LOG OUT' }
 
   const toast = useToast()
-  const id = 'panel-goto'
+  const id = 'panel-logout'
 
   function doaction() {
-    if (cookie.get('code') !== '') {
-      navigate('/panel')
-    } else if (window.location.pathname !== '/panel') {
+    if (window.location.pathname !== '/panel') {
       if (toast.isActive(id)) return
       toast({
         id,
@@ -69,8 +67,10 @@ export const NavBar = (props) => {
         }
       })
     } else {
-      cookie.set('username', '', 1)
-      cookie.set('password', '', 1)
+      cookie.set('accessToken', '', 1)
+      cookie.set('tokenType', '', 1)
+      cookie.set('userid', '', 1)
+
       toast({
         id,
         title: <center>SUCCESS</center>,
@@ -88,7 +88,7 @@ export const NavBar = (props) => {
         if(toast.isActive(id)) {
           window.setTimeout(checkToast, 100);
         } else {
-          window.setTimeout(() => {navigate('/login')}, 600);
+          window.setTimeout(() => {navigate('/')}, 600);
         }
       }
       checkToast();

@@ -5,7 +5,6 @@ import * as ReactDOM from 'react-dom/client';
 // Pages
 import AutoLogin from './pages/autologin';
 import Home from './pages/home';
-import Login from './pages/login';
 
 import Panel from './pages/panel';
 import PanelServers from './pages/panel/servers';
@@ -23,21 +22,20 @@ const root = ReactDOM.createRoot(container);
 
 root.render(
   <StrictMode>
-    <ColorModeScript />
-    <Router>
-      <Routes>
-        <Route path="/" element={<AutoLogin />} status={200} />
-        <Route path="/home" element={<Home />} status={200} />
-        <Route path="/login" element={<Login />} status={200} />
+\t<ColorModeScript />
+\t<Router>
+\t  <Routes>
+\t\t<Route path="/" element={<AutoLogin />} status={200} />
+\t\t<Route path="/home" element={<Home />} status={200} />
 
-        <Route path="/panel" element={<Panel />} status={200} />
-        <Route path="/panel/servers" element={<PanelServers />} status={200} />
-        <Route path="/panel/manage" element={<PanelManage />} status={200} />
+\t\t<Route path="/panel" element={<Panel />} status={200} />
+\t\t<Route path="/panel/servers" element={<PanelServers />} status={200} />
+\t\t<Route path="/panel/manage" element={<PanelManage />} status={200} />
 
 
-        <Route path="*" element={<NotFound />} status={404} />
-      </Routes>
-    </Router>
+\t\t<Route path="*" element={<NotFound />} status={404} />
+\t  </Routes>
+\t</Router>
   </StrictMode>
 );
 

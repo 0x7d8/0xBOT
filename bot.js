@@ -361,7 +361,7 @@ if (config.web.votes) {
 	const app = express()
 	const webhook = new Topgg.Webhook(config.web.keys.webkey)
 
-	app.post("/dblwebhook", webhook.listener(async vote => {
+	app.post("/dblwebhook", webhook.listener(async(vote) => {
 		if(!vote) { return false }
 		if(!vote.user) { return false }
 

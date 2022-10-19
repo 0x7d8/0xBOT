@@ -10,7 +10,6 @@ import {
   Image,
   Button
 } from '@chakra-ui/react';
-import { useNavigate } from 'react-router-dom'
 import { NavBar } from '../NavBar'
 
 import LogoLight from '../static/LogoLight.svg'
@@ -21,7 +20,7 @@ import Animated from '../Animated'
 /* ---------------- *
  * Version          *
  * ---------------- */
-const version = 'V3-BETA2'
+const version = '3.0.0'
 
 function getWindowDimensions() {
   const { innerWidth: width, innerHeight: height } = window;
@@ -71,8 +70,6 @@ function getWindowDimensions() {
   )
 };
 function GetStarted() {
-  const navigate = useNavigate()
-
   return (
     <Flex alignItems="center" marginTop="-5rem">
               <Flex
@@ -86,7 +83,7 @@ function GetStarted() {
                   width="10rem"
                   variant="outline"
                   color="teal"
-                  onClick={() => navigate('/login')}
+                  onClick={() => document.location.replace('https://discord.com/api/oauth2/authorize?client_id=1005105495356481636&redirect_uri=http%3A%2F%2Fde-01.paperstudios.de%3A3001%2F&response_type=token&scope=identify%20guilds')}
                 >
                   GET STARTED
                 </Button>
