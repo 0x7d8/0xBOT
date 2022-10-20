@@ -8,7 +8,10 @@ import {
   Heading,
   useColorModeValue,
   Image,
-  Button
+  Button,
+  Stat,
+  StatLabel,
+  StatNumber
 } from '@chakra-ui/react';
 import { NavBar } from '../NavBar'
 
@@ -16,6 +19,7 @@ import LogoLight from '../static/LogoLight.svg'
 import LogoDark from '../static/LogoDark.svg'
 
 import Animated from '../Animated'
+import axios from 'axios'
 
 /* ---------------- *
  * Version          *
@@ -41,7 +45,9 @@ function getWindowDimensions() {
   }, []);
 
   return windowDimensions;
-}; function Bot() {
+}
+
+function Bot() {
   const width = useWindowDimensions().width
   const SwitchIconColor = useColorModeValue('#21005D', '#37009B')
   const SwitchImage = useColorModeValue(LogoLight, LogoDark)
@@ -70,6 +76,18 @@ function getWindowDimensions() {
   )
 };
 function GetStarted() {
+  const [stats, setStats] = useState(0)
+
+  useEffect(() => {
+    axios
+      .get(`https://api.0xbot.de/stats/global`)
+      .then((res) => {
+        setStats(res.data)
+      })
+  }, [])
+
+  const SwitchIconColor = useColorModeValue('#21005D', '#37009B')
+
   return (
     <Flex alignItems="center" marginTop="-5rem">
               <Flex
@@ -87,6 +105,42 @@ function GetStarted() {
                 >
                   GET STARTED
                 </Button>
+                <Stat
+                  color={SwitchIconColor}
+                  border="1px"
+                  borderRadius="0.5rem"
+                  borderColor="whiteAlpha.300"
+                  alignSelf="center"
+                  w="25%"
+                  mt="2rem"
+                >
+                  <StatLabel>Commands Executed</StatLabel>
+                  <StatNumber>{stats.commands}</StatNumber>
+                </Stat>
+                <Stat
+                  color={SwitchIconColor}
+                  border="1px"
+                  borderRadius="0.5rem"
+                  borderColor="whiteAlpha.300"
+                  alignSelf="center"
+                  w="25%"
+                  mt="2rem"
+                >
+                  <StatLabel>Buttons Executed</StatLabel>
+                  <StatNumber>{stats.buttons}</StatNumber>
+                </Stat>
+                <Stat
+                  color={SwitchIconColor}
+                  border="1px"
+                  borderRadius="0.5rem"
+                  borderColor="whiteAlpha.300"
+                  alignSelf="center"
+                  w="25%"
+                  mt="2rem"
+                >
+                  <StatLabel>Modals Submitted</StatLabel>
+                  <StatNumber>{stats.modals}</StatNumber>
+                </Stat>
               </Flex>
             </Flex>
   )

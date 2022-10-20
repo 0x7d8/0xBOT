@@ -22,20 +22,20 @@ const root = ReactDOM.createRoot(container);
 
 root.render(
   <StrictMode>
-\t<ColorModeScript />
-\t<Router>
-\t  <Routes>
-\t\t<Route path="/" element={<AutoLogin />} status={200} />
-\t\t<Route path="/home" element={<Home />} status={200} />
+  <ColorModeScript />
+  <Router>
+    <Routes>
+    <Route path="/" element={<AutoLogin />} status={200} />
+    <Route path="/home" element={<Home />} status={200} />
 
-\t\t<Route path="/panel" element={<Panel />} status={200} />
-\t\t<Route path="/panel/servers" element={<PanelServers />} status={200} />
-\t\t<Route path="/panel/manage" element={<PanelManage />} status={200} />
+    <Route path="/panel" element={<Panel />} status={200} />
+    <Route path="/panel/servers" element={<PanelServers />} status={200} />
+    <Route path="/panel/manage" element={<PanelManage />} status={200} />
 
 
-\t\t<Route path="*" element={<NotFound />} status={404} />
-\t  </Routes>
-\t</Router>
+    <Route path="*" element={<NotFound />} status={404} />
+    </Routes>
+  </Router>
   </StrictMode>
 );
 

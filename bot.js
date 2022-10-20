@@ -167,7 +167,7 @@ client.on('interactionCreate', async interaction => {
 	if (interaction.isModalSubmit()) {
 		try {
 			// Stats
-			bot.stats('modal', interaction.user.id, interaction.guild.id)
+			bot.stats('mod', interaction.user.id, interaction.guild.id)
 
 			let sc = false
 

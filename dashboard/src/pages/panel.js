@@ -104,6 +104,18 @@ function ProfileBox() {
                   <StatLabel>Buttons Executed</StatLabel>
                   <StatNumber>{stats.buttons}</StatNumber>
                 </Stat>
+                <Stat
+                  color={SwitchIconColor}
+                  border="1px"
+                  borderRadius="0.5rem"
+                  borderColor="whiteAlpha.300"
+                  alignSelf="center"
+                  w="25%"
+                  mt="2rem"
+                >
+                  <StatLabel>Modals Submitted</StatLabel>
+                  <StatNumber>{stats.modals}</StatNumber>
+                </Stat>
 
                 <Button
                   alignSelf="center"

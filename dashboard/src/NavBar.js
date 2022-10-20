@@ -52,20 +52,24 @@ export const NavBar = (props) => {
 
   function doaction() {
     if (window.location.pathname !== '/panel') {
-      if (toast.isActive(id)) return
-      toast({
-        id,
-        title: <center>ERROR</center>,
-        description: <center>You need to be logged in.</center>,
-        status: "error",
-        duration: 1500,
-        isClosable: true,
-        variant: "subtle",
-        position: "top-right",
-        containerStyle: {
-          transform: "translateY(2.5rem)"
-        }
-      })
+      if (cookie.get('accessToken') === '') {
+        if (toast.isActive(id)) return
+        toast({
+          id,
+          title: <center>ERROR</center>,
+          description: <center>You need to be logged in.</center>,
+          status: "error",
+          duration: 1500,
+          isClosable: true,
+          variant: "subtle",
+          position: "top-right",
+          containerStyle: {
+            transform: "translateY(2.5rem)"
+          }
+        })
+      } else {
+        navigate('/panel')
+      }
     } else {
       cookie.set('accessToken', '', 1)
       cookie.set('tokenType', '', 1)

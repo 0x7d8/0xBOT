@@ -36,10 +36,10 @@ module.exports = {
 
         // Set Subreddit
         let subreddit
-        if (res == 1) { subreddit = "memes" }
-        if (res == 2) { subreddit = "me_irl" }
-        if (res == 3) { subreddit = "CrappyDesign" }
-        if (res == 4) { subreddit = "Gittertiere" }
+        if (res === 1) { subreddit = "memes" }
+        if (res === 2) { subreddit = "me_irl" }
+        if (res === 3) { subreddit = "CrappyDesign" }
+        if (res === 4) { subreddit = "Gittertiere" }
 
         // Get Initial Meme
         const url = await fetch("https://www.reddit.com/r/" + subreddit + "/random/.json")

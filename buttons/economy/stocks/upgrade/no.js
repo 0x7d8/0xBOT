@@ -21,7 +21,7 @@ module.exports = {
             }
             
             // Send Message
-            bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] CARBUY : NOTSENDER')
+            bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] STOCKUPGRADE : NOTSENDER')
             return interaction.reply({ embeds: [message], ephemeral: true })
         }
 

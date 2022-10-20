@@ -4,9 +4,9 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('mcver')
     	.setDMPermission(false)
-        .setDescription('GENERATE A MINECRAFT config.version')
+        .setDescription('GENERATE A MINECRAFT VERSION')
         .setDescriptionLocalizations({
-            de: 'GENERIERE EINE MINECRAFT config.version'
+            de: 'GENERIERE EINE MINECRAFT VERSION'
         }),
     async execute(interaction, client, lang, vote) {
         // Set Variables
@@ -14,13 +14,13 @@ module.exports = {
 
         // Create Embed
         let message = new EmbedBuilder().setColor(0x37009B)
-        	.setTitle('<:CUBE:1024404832452350032> » RANDOM MINECRAFT config.version')
+        	.setTitle('<:CUBE:1024404832452350032> » RANDOM MINECRAFT VERSION')
   			.setDescription('» I would choose **1.' + res + '**!')
         	.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
         if (lang === 'de') {
             message = new EmbedBuilder().setColor(0x37009B)
-        	    .setTitle('<:CUBE:1024404832452350032> » ZUFÄLLIGE MINECRAFT config.version')
+        	    .setTitle('<:CUBE:1024404832452350032> » ZUFÄLLIGE MINECRAFT VERSION')
   			    .setDescription('» Ich würde **1.' + res + '** nehmen!')
         	    .setFooter({ text: '» ' + vote + ' » ' + config.version });
         }

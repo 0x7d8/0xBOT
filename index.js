@@ -247,7 +247,8 @@ router.get('/stats/guild', async(ctx) => {
     const stats = {
         "success": true,
         "commands": await bot.stat.get(`g-${ctx.query.id}`, 'cmd'),
-        "buttons": await bot.stat.get(`g-${ctx.query.id}`, 'btn')
+        "buttons": await bot.stat.get(`g-${ctx.query.id}`, 'btn'),
+        "modals": await bot.stat.get(`g-${ctx.query.id}`, 'mod')
     }
 
     // Return Result
@@ -260,7 +261,19 @@ router.get('/stats/guild', async(ctx) => {
     const stats = {
         "success": true,
         "commands": await bot.stat.get(`u-${ctx.query.id}`, 'cmd'),
-        "buttons": await bot.stat.get(`u-${ctx.query.id}`, 'btn')
+        "buttons": await bot.stat.get(`u-${ctx.query.id}`, 'btn'),
+        "modals": await bot.stat.get(`u-${ctx.query.id}`, 'mod')
+    }
+
+    // Return Result
+    return ctx.body = stats
+}); router.get('/stats/global', async(ctx) => {
+    // Get Stats
+    const stats = {
+        "success": true,
+        "commands": await bot.stat.get(`t-all`, 'cmd'),
+        "buttons": await bot.stat.get(`t-all`, 'btn'),
+        "modals": await bot.stat.get(`t-all`, 'mod')
     }
 
     // Return Result
