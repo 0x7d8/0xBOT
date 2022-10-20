@@ -1,18 +1,17 @@
 {
   "files": {
-    "main.js": "/static/js/main.ac0296fa.js",
+    "main.js": "/static/js/main.d1074e48.js",
     "static/js/787.397b7f12.chunk.js": "/static/js/787.397b7f12.chunk.js",
+    "static/media/image-slash.svg": "/static/media/image-slash.a4938e56e0d7bc107f4133d10924106c.svg",
     "static/media/404Dark.svg": "/static/media/404Dark.329b46f0eb2895dd35a64b10d78e243b.svg",
     "static/media/404Light.svg": "/static/media/404Light.168840eae837424a98a457e8c7d30622.svg",
-    "static/media/ManageDark.svg": "/static/media/ManageDark.4effd3d431623606a32f33cbaa8b010d.svg",
-    "static/media/ManageLight.svg": "/static/media/ManageLight.69602874774ab1d8b2d65b5ba76bae1a.svg",
+    "static/media/LogoLight.svg": "/static/media/LogoLight.6fa3e3ee74d7a65e205e03089eef6bd2.svg",
+    "static/media/LogoDark.svg": "/static/media/LogoDark.bdeaa1828b688a406207ca4252772e02.svg",
     "index.html": "/index.html",
-    "static/media/LogoDark.svg": "/static/media/LogoDark.3b5cf3aba22f94eb01a44c9358de01c7.svg",
-    "static/media/LogoLight.svg": "/static/media/LogoLight.373111913f8851bb1d16b6d112d41cd7.svg",
-    "main.ac0296fa.js.map": "/static/js/main.ac0296fa.js.map",
+    "main.d1074e48.js.map": "/static/js/main.d1074e48.js.map",
     "787.397b7f12.chunk.js.map": "/static/js/787.397b7f12.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/main.ac0296fa.js"
+    "static/js/main.d1074e48.js"
   ]
 }
