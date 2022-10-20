@@ -4,7 +4,6 @@ const { EmbedBuilder } = require('@discordjs/builders')
 
 global.config = require('./config.json')
 const chalk = require('chalk')
-const fs = require("fs")
 
 // MongoDB
 console.log(' ')
@@ -85,7 +84,7 @@ for (const file of modalFiles) {
 console.log(`[0xBOT] ${chalk.bold('[i]')} [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [END] $$$$$ LOADED COMMANDS AND EVENTS`)
 
 // Interaction Handler
-client.on('interactionCreate', async interaction => {
+client.on('interactionCreate', async(interaction) => {
 	if (!interaction.isCommand() && !interaction.isButton() && !interaction.isModalSubmit()) return
 
 	// Get Guild Language
@@ -94,12 +93,12 @@ client.on('interactionCreate', async interaction => {
 	// Get Vote Status
 	let votet = 'VOTED'
 	const lastVote = await bot.votes.get(interaction.user.id + '-T')
-	if (!lastVote) { votet = 'NOT VOTED -> /VOTE' }
 	if (lastVote < (Date.now() - 24*60*60*1000)) { vote = 'NOT VOTED' }
+	if (lastVote === 0) { votet = 'NOT VOTED -> /VOTE' }
 	if (guildlang === 'de') {
 		votet = 'GEVOTED'
-		if (!lastVote) { votet = 'NICHT GEVOTED -> /VOTE' }
 		if (lastVote < (Date.now() - 24*60*60*1000)) { votet = 'NICHT GEVOTET' }
+		if (lastVote === 0) { votet = 'NICHT GEVOTED -> /VOTE' }
 	}
 	
 	// Set User Language
@@ -112,52 +111,14 @@ client.on('interactionCreate', async interaction => {
 
 		// Check if Command Exists
 		const command = client.commands.get(interaction.commandName)
-		if (!command) return;
+		if (!command) return
 
 		// Execute Command
 		try {
 			await command.execute(interaction, client, guildlang, votet)
 		} catch (e) {
 			try {
-    			// Generate Error Code
-				const generator = require('generate-password')
-				const errorid = generator.generate({
-					length: 8,
-					numbers: true,
-					uppercase: true,
-					symbols: false,
-				})
-
-				// Check if Log Folder exists
-				const dir = 'logs'
-        		if (!fs.existsSync(dir)) {
-            		fs.mkdirSync(dir)
-        		}
-
-				// Log Error
-				console.log('[0xBOT] [!] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] [CMD] ERROR : ' + errorid + ' :')
-				console.error(e)
-				const date_ob = new Date()
-				const day = ("0" + date_ob.getDate()).slice(-2)
-				const month = ("0" + (date_ob.getMonth() + 1)).slice(-2)
-				const year = date_ob.getFullYear()
-				fs.appendFileSync('logs/e' + day + '-' + month + '-' + year + '.log', '[0xBOT] [!] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] [CMD] ERROR : ' + errorid + ' :\n')
-				fs.appendFileSync('logs/e' + day + '-' + month + '-' + year + '.log', e.stack + '\n\n')
-        
-    			// Create Error Embed
-    			let message = new EmbedBuilder().setColor(0x37009B)
-        			.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-  					.setDescription('» <:ERROR:1020414987291861022> An Error has occured while executing this Command.\nThe Error has been logged and will be fixed soon!')
-    				.setFooter({ text: '» ' + votet + ' » ' + config.version + ' » ERROR: ' + errorid });
-				if (guildlang == 'de') {
-					message = new EmbedBuilder().setColor(0x37009B)
-        				.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-  						.setDescription('» <:ERROR:1020414987291861022> Ein Fehler ist beim ausführen dieses Befehls aufgetreten.\nDer Fehler wurde geloggt und wird bald behoben!')
-    					.setFooter({ text: '» ' + votet + ' » ' + config.version + ' » FEHLER: ' + errorid });
-				}
-
-    			// Send Message
-				await interaction.reply({ embeds: [message], ephemeral: true })
+    			await bot.error(interaction, e, 'cmd', guildlang, votet)
 			} catch (e) { }
 		}
 
@@ -193,45 +154,7 @@ client.on('interactionCreate', async interaction => {
 			return
 		} catch (e) {
 			try {
-    			// Generate Error Code
-				const generator = require('generate-password')
-				const errorid = generator.generate({
-					length: 8,
-					numbers: true,
-					uppercase: true,
-					symbols: false,
-				})
-
-				// Check if Log Folder exists
-				const dir = 'logs'
-        		if (!fs.existsSync(dir)) {
-            		fs.mkdirSync(dir)
-        		}
-
-				// Log Error
-				console.log('[0xBOT] [!] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] [MOD] ERROR : ' + errorid + ' :')
-				console.error(e)
-				const date_ob = new Date()
-				const day = ("0" + date_ob.getDate()).slice(-2)
-				const month = ("0" + (date_ob.getMonth() + 1)).slice(-2)
-				const year = date_ob.getFullYear()
-				fs.appendFileSync('logs/e' + day + '-' + month + '-' + year + '.log', '[0xBOT] [!] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] [MOD] ERROR : ' + errorid + ' :\n')
-				fs.appendFileSync('logs/e' + day + '-' + month + '-' + year + '.log', e.stack + '\n\n')
-        
-    			// Create Error Embed
-    			let message = new EmbedBuilder().setColor(0x37009B)
-        			.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-  					.setDescription('» <:ERROR:1020414987291861022> An Error has occured while executing this Modal.\nThe Error has been logged and will be fixed soon!')
-    				.setFooter({ text: '» ' + votet + ' » ' + config.version + ' » ERROR: ' + errorid });
-				if (guildlang == 'de') {
-					message = new EmbedBuilder().setColor(0x37009B)
-        				.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-  						.setDescription('» <:ERROR:1020414987291861022> Ein Fehler ist beim ausführen dieser Modal aufgetreten.\nDer Fehler wurde geloggt und wird bald behoben!')
-    					.setFooter({ text: '» ' + votet + ' » ' + config.version + ' » FEHLER: ' + errorid });
-				}
-
-    			// Send Message
-				await interaction.reply({ embeds: [message], ephemeral: true })
+    			await bot.error(interaction, e, 'mod', guildlang, votet)
 			} catch (e) { }
 		}
 	}
@@ -247,47 +170,47 @@ client.on('interactionCreate', async interaction => {
 
 			// Special Button Cases
 			const args = interaction.customId.split('-')
-			if (args[0] == 'BEG') {
+			if (args[0] === 'BEG') {
 				let editedinteraction = interaction
 				editedinteraction.customId = "beg"
 				sc = true
 
 				const button = client.buttons.get(editedinteraction.customId)
 				await button.execute(editedinteraction, client, guildlang, votet, args[1], args[2], args[3], args[4])
-			}; if (args[0] == 'RPS') {
+			}; if (args[0] === 'RPS') {
 				let choice
 				let editedinteraction = interaction
-				if (args[1] == '1') { editedinteraction.customId = "rps-choice"; choice = 'ROCK' }
-				if (args[1] == '2') { editedinteraction.customId = "rps-choice"; choice = 'PAPER' }
-				if (args[1] == '3') { editedinteraction.customId = "rps-choice"; choice = 'SCISSORS' }
+				if (args[1] === '1') { editedinteraction.customId = "rps-choice"; choice = 'ROCK' }
+				if (args[1] === '2') { editedinteraction.customId = "rps-choice"; choice = 'PAPER' }
+				if (args[1] === '3') { editedinteraction.customId = "rps-choice"; choice = 'SCISSORS' }
 
-				if (args[1] == 'YES') { editedinteraction.customId = "rps-yes" }
-				if (args[1] == 'NO') { editedinteraction.customId = "rps-no" }
+				if (args[1] === 'YES') { editedinteraction.customId = "rps-yes" }
+				if (args[1] === 'NO') { editedinteraction.customId = "rps-no" }
 				sc = true
 
 				const button = client.buttons.get(editedinteraction.customId)
 				await button.execute(editedinteraction, client, guildlang, votet, args[2], choice)
-			}; if (args[0] == 'MEMORY') {
+			}; if (args[0] === 'MEMORY') {
 				let editedinteraction = interaction
 				editedinteraction.customId = "memory-choice"
 
-				if (args[1] == 'YES') { editedinteraction.customId = "memory-yes" }
-				if (args[1] == 'NO') { editedinteraction.customId = "memory-no" }
+				if (args[1] === 'YES') { editedinteraction.customId = "memory-yes" }
+				if (args[1] === 'NO') { editedinteraction.customId = "memory-no" }
 				sc = true
 
 				const button = client.buttons.get(editedinteraction.customId)
 				await button.execute(editedinteraction, client, guildlang, votet, args[2], args[1])
-			}; if (args[0] == 'TTT') {
+			}; if (args[0] === 'TTT') {
 				let editedinteraction = interaction
 				editedinteraction.customId = "ttt-choice"
 
-				if (args[1] == 'YES') { editedinteraction.customId = "ttt-yes" }
-				if (args[1] == 'NO') { editedinteraction.customId = "ttt-no" }
+				if (args[1] === 'YES') { editedinteraction.customId = "ttt-yes" }
+				if (args[1] === 'NO') { editedinteraction.customId = "ttt-no" }
 				sc = true
 
 				const button = client.buttons.get(editedinteraction.customId)
 				await button.execute(editedinteraction, client, guildlang, votet, args[2], args[1])
-			}; if (args[0] == 'STOCKNEXT') {
+			}; if (args[0] === 'STOCKNEXT') {
 				let editedinteraction = interaction
 
 				editedinteraction.customId = "stocknext"
@@ -295,43 +218,43 @@ client.on('interactionCreate', async interaction => {
 
 				const button = client.buttons.get(editedinteraction.customId)
 				await button.execute(editedinteraction, client, guildlang, votet, args[1])
-			}; if (args[0] == 'BUSINESS') {
+			}; if (args[0] === 'BUSINESS') {
 				let editedinteraction = interaction
 
-				if (args[2] == 'YES') { editedinteraction.customId = "business-yes" }
-				if (args[2] == 'NO') { editedinteraction.customId = "business-no" }
+				if (args[2] === 'YES') { editedinteraction.customId = "business-yes" }
+				if (args[2] === 'NO') { editedinteraction.customId = "business-no" }
 				sc = true
 
 				const button = client.buttons.get(editedinteraction.customId)
 				await button.execute(editedinteraction, client, guildlang, votet, args[3], args[4], args[1].toLowerCase())
-			}; if (args[0] == 'CAR') {
+			}; if (args[0] === 'CAR') {
 				let editedinteraction = interaction
 
-				if (args[2] == 'YES') { editedinteraction.customId = "car-yes" }
-				if (args[2] == 'NO') { editedinteraction.customId = "car-no" }
+				if (args[2] === 'YES') { editedinteraction.customId = "car-yes" }
+				if (args[2] === 'NO') { editedinteraction.customId = "car-no" }
 				sc = true
 
 				const button = client.buttons.get(editedinteraction.customId)
 				await button.execute(editedinteraction, client, guildlang, votet, args[3], args[4], args[1].toLowerCase())
-			}; if (args[0] == 'ITEM') {
+			}; if (args[0] === 'ITEM') {
 				let editedinteraction = interaction
 
-				if (args[2] == 'YES') { editedinteraction.customId = "item-yes" }
-				if (args[2] == 'NO') { editedinteraction.customId = "item-no" }
+				if (args[2] === 'YES') { editedinteraction.customId = "item-yes" }
+				if (args[2] === 'NO') { editedinteraction.customId = "item-no" }
 				sc = true
 
 				const button = client.buttons.get(editedinteraction.customId)
 				await button.execute(editedinteraction, client, guildlang, votet, args[3], args[4], args[1].toLowerCase(), args[5])
-			}; if (args[0] == 'STOCKUPGRADE') {
+			}; if (args[0] === 'STOCKUPGRADE') {
 				let editedinteraction = interaction
 
-				if (args[2] == 'YES') { editedinteraction.customId = "stockupgrade-yes" }
-				if (args[2] == 'NO') { editedinteraction.customId = "stockupgrade-no" }
+				if (args[2] === 'YES') { editedinteraction.customId = "stockupgrade-yes" }
+				if (args[2] === 'NO') { editedinteraction.customId = "stockupgrade-no" }
 				sc = true
 
 				const button = client.buttons.get(editedinteraction.customId)
 				await button.execute(editedinteraction, client, guildlang, votet, args[3], args[4], args[5])
-			}; if (args[0] == 'BOMB') {
+			}; if (args[0] === 'BOMB') {
 				let editedinteraction = interaction
 
 				editedinteraction.customId = 'item-bomb'
@@ -339,7 +262,7 @@ client.on('interactionCreate', async interaction => {
 
 				const button = client.buttons.get(editedinteraction.customId)
 				await button.execute(editedinteraction, client, guildlang, votet, args[1], args[2], args[3], args[4], args[5], args[6])
-			}; if (args[0] == 'COUNT') {
+			}; if (args[0] === 'COUNT') {
 				let editedinteraction = interaction
 
 				editedinteraction.customId = 'count'
@@ -361,45 +284,7 @@ client.on('interactionCreate', async interaction => {
 			return
 		} catch (e) {
 			try {
-				// Generate Error Code
-				const generator = require('generate-password')
-				const errorid = generator.generate({
-					length: 8,
-					numbers: true,
-					uppercase: true,
-					symbols: false,
-				})
-
-				// Check if Log Folder exists
-				const dir = 'logs'
-        		if (!fs.existsSync(dir)) {
-            		fs.mkdirSync(dir)
-        		}
-
-				// Log Error
-				console.log('[0xBOT] [!] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] [BTN] ERROR : ' + errorid + ' :')
-				console.error(e)
-				const date_ob = new Date()
-				const day = ("0" + date_ob.getDate()).slice(-2)
-				const month = ("0" + (date_ob.getMonth() + 1)).slice(-2)
-				const year = date_ob.getFullYear()
-				fs.appendFileSync('logs/e' + day + '-' + month + '-' + year + '.log', '[0xBOT] [!] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] [BTN] ERROR : ' + errorid + ' :\n')
-				fs.appendFileSync('logs/e' + day + '-' + month + '-' + year + '.log', e.stack + '\n\n')
-        
-    			// Create Error Embed
-    			let message = new EmbedBuilder().setColor(0x37009B)
-        			.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-  					.setDescription('» <:ERROR:1020414987291861022> An Error has occured while executing this Button.\nThe Error has been logged and will be fixed soon!')
-    				.setFooter({ text: '» ' + votet + ' » ' + config.version + ' » ERROR: ' + errorid });
-				if (guildlang == 'de') {
-					message = new EmbedBuilder().setColor(0x37009B)
-        				.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-  						.setDescription('» <:ERROR:1020414987291861022> Ein Fehler ist beim ausführen dieses Buttons aufgetreten.\nDer Fehler wurde geloggt und wird bald behoben!')
-    					.setFooter({ text: '» ' + votet + ' » ' + config.version + ' » FEHLER: ' + errorid });
-				}
-
-    			// Send Message
-				await interaction.reply({ embeds: [message], ephemeral: true })
+				await bot.error(interaction, e, 'btn', guildlang, votet)
 			} catch (e) { }
 		}
 
