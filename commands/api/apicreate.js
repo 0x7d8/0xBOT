@@ -72,7 +72,7 @@ module.exports = {
         // Create Modal
         const modal = new ModalBuilder()
             .setCustomId('API-' + name + '-CREATE')
-            .setTitle('API CONTENT');
+            .setTitle('API CONTENT')
 
         const contentInput = new TextInputBuilder()
             .setCustomId('api-content')
