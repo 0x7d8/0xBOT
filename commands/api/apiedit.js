@@ -1,3 +1,4 @@
+const { ActionRowBuilder, ModalBuilder, TextInputBuilder, TextInputStyle } = require('discord.js')
 const { SlashCommandBuilder, EmbedBuilder } = require('@discordjs/builders')
 
 module.exports = {
@@ -22,45 +23,30 @@ module.exports = {
 					{ name: '💻 3', value: '3' },
             		{ name: '💻 4', value: '4' },
             		{ name: '💻 5', value: '5' },
-				))
-    	.addStringOption(option =>
-            option.setName('content')
-                .setNameLocalizations({
-                    de: 'inhalt'
-                })
-                .setDescription('THE CONTENT')
-                .setDescriptionLocalizations({
-                    de: 'DER INHALT'
-                })
-                .setRequired(true)),
+				)),
     async execute(interaction, client, lang, vote) {
         // Set Variables
         const name = interaction.options.getString("name")
-        const inhalt = interaction.options.getString("content")
         const amount = await bot.apis.get(interaction.user.id)
 
        	// Check if API even exists
         if (await uapi.get(interaction.user.id + '-' + name) !== 'N-EXIST') {
-        
-            // Edit File
-        	uapi.set(interaction.user.id + '-' + name, inhalt)
-            
-        	// Create Embed
-        	let message = new EmbedBuilder().setColor(0x37009B)
-            	.setTitle('<:CODE:1024400109741551686> » PAPER API EDIT')
-  				.setDescription('You edited the API **' + name + '**!')
-        		.setFooter({ text: '» ' + config.version + ' » SLOTS ' + amount + '/5'});
+            // Create Modal
+            const modal = new ModalBuilder()
+			.setCustomId('API-' + name + '-EDIT')
+			.setTitle('API CONTENT');
 
-            if (lang === 'de') {
-                message = new EmbedBuilder().setColor(0x37009B)
-            	    .setTitle('<:CODE:1024400109741551686> » PAPER API EDIT')
-  				    .setDescription('Du hast die API **' + name + '** editiert!')
-        		    .setFooter({ text: '» ' + config.version + ' » SLOTS ' + amount + '/5'});
-            }
+		    const contentInput = new TextInputBuilder()
+			    .setCustomId('api-content')
+			    .setLabel('Please enter the Content of your API.')
+                .setMinLength(1)
+			    .setStyle(TextInputStyle.Paragraph)
 
-        	// Send Message
-        	bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] APIEDIT : ' + name + ' : ' + inhalt.toUpperCase())
-        	return interaction.reply({ embeds: [message], ephemeral: true })
+		    const content = new ActionRowBuilder().addComponents(contentInput)
+		    modal.addComponents(content)
+
+            // Send Modal
+            return interaction.showModal(modal)
         } else {
             // Create Embed
             let message = new EmbedBuilder().setColor(0x37009B)

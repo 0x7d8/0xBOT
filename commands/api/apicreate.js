@@ -1,3 +1,4 @@
+const { ActionRowBuilder, ModalBuilder, TextInputBuilder, TextInputStyle } = require('discord.js')
 const { SlashCommandBuilder, EmbedBuilder } = require('@discordjs/builders')
 
 module.exports = {
@@ -22,23 +23,11 @@ module.exports = {
 					{ name: '💻 3', value: '3' },
             		{ name: '💻 4', value: '4' },
             		{ name: '💻 5', value: '5' },
-				))
-    	.addStringOption(option =>
-            option.setName('content')
-                .setNameLocalizations({
-                    de: 'inhalt'
-                })
-                .setDescription('THE CONTENT')
-                .setDescriptionLocalizations({
-                    de: 'DER INHALT'
-                })
-                .setRequired(true)),
+				)),
     async execute(interaction, client, lang, vote) {
         // Set Variables
         const name = interaction.options.getString("name")
-        const inhalt = interaction.options.getString("content")
         const amount = await bot.apis.get(interaction.user.id)
-        const newamount = amount + 1
 
         // Check if API exists
   		if (await uapi.get(interaction.user.id + '-' + name) !== 'N-EXIST') {
@@ -78,27 +67,23 @@ module.exports = {
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] APICREATE : ' + name + ' : MAXSLOTS')
             return interaction.reply({ embeds: [message], ephemeral: true })
-        } 
-        
-        // Create Embed
-        let message = new EmbedBuilder().setColor(0x37009B)
-            .setTitle('<:CODE:1024400109741551686> » PAPER API EDIT')
-  			.setDescription('You have created a new API!\nIts available here:\n**`https://api.paperstudios.de/user/' + interaction.user.id + '/' + name + '`**!')
-        	.setFooter({ text: '» ' + config.version + ' » SLOTS ' + newamount + '/5'});
-
-        if (lang === 'de') {
-            message = new EmbedBuilder().setColor(0x37009B)
-                .setTitle('<:CODE:1024400109741551686> » PAPER API EDIT')
-  			    .setDescription('Du hast eine neue API erstellt!\nSie ist hier verfügbar:\n**`https://api.paperstudios.de/user/' + interaction.user.id + '/' + name + '`**!')
-        	    .setFooter({ text: '» ' + config.version + ' » SLOTS ' + newamount + '/5'});
         }
-        
-        // Write File
-        uapi.set(interaction.user.id + '-' + name, inhalt)
 
-        // Send Message
-        bot.apis.add(interaction.user.id, 1)
-        bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] APICREATE : ' + name + ' : ' + inhalt.toUpperCase())
-        return interaction.reply({ embeds: [message], ephemeral: true })
+        // Create Modal
+        const modal = new ModalBuilder()
+            .setCustomId('API-' + name + '-CREATE')
+            .setTitle('API CONTENT');
+
+        const contentInput = new TextInputBuilder()
+            .setCustomId('api-content')
+            .setLabel('Please enter the Content of your API.')
+            .setMinLength(1)
+            .setStyle(TextInputStyle.Paragraph)
+
+        const content = new ActionRowBuilder().addComponents(contentInput)
+        modal.addComponents(content)
+
+        // Send Modal
+        return interaction.showModal(modal)
     },
 };

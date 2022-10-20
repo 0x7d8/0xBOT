@@ -73,11 +73,20 @@ for (const file of buttonFiles) {
 	console.log(`[0xBOT] ${chalk.bold('[i]')} [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] LOADING BUTTON ${button.data.name.toUpperCase()}`)
 }; console.log(' ')
 
+// Load all Modals
+client.modals = new Collection();
+const modalFiles = getAllFilesFilter('./modals', '.js');
+for (const file of modalFiles) {
+	const modal = require(file)
+	client.modals.set(modal.data.name, modal)
+	console.log(`[0xBOT] ${chalk.bold('[i]')} [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] LOADING MODAL ${modal.data.name.toUpperCase()}`)
+}; console.log(' ')
+
 console.log(`[0xBOT] ${chalk.bold('[i]')} [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [END] $$$$$ LOADED COMMANDS AND EVENTS`)
 
 // Interaction Handler
 client.on('interactionCreate', async interaction => {
-	if (!interaction.isCommand() && !interaction.isButton()) return
+	if (!interaction.isCommand() && !interaction.isButton() && !interaction.isModalSubmit()) return
 
 	// Get Guild Language
 	const guildlang = await bot.language.get(interaction.guild.id)
@@ -152,6 +161,79 @@ client.on('interactionCreate', async interaction => {
 			} catch (e) { }
 		}
 
+	}
+
+	// Handle Modals
+	if (interaction.isModalSubmit()) {
+		try {
+			// Stats
+			bot.stats('modal', interaction.user.id, interaction.guild.id)
+
+			let sc = false
+
+			// Special Button Cases
+			const args = interaction.customId.split('-')
+			if (args[0] === 'API') {
+				let editedinteraction = interaction
+				editedinteraction.customId = "api"
+				sc = true
+
+				const modal = client.modals.get(editedinteraction.customId)
+				await modal.execute(editedinteraction, client, guildlang, votet, args[1], args[2].toLowerCase())
+			}
+
+			// Other Button Cases
+			if (!sc) {
+				const modal = client.modals.get(interaction.customId)
+				if (!modal) return
+
+				await modal.execute(interaction, client, guildlang, votet)
+			}
+
+			return
+		} catch (e) {
+			try {
+    			// Generate Error Code
+				const generator = require('generate-password')
+				const errorid = generator.generate({
+					length: 8,
+					numbers: true,
+					uppercase: true,
+					symbols: false,
+				})
+
+				// Check if Log Folder exists
+				const dir = 'logs'
+        		if (!fs.existsSync(dir)) {
+            		fs.mkdirSync(dir)
+        		}
+
+				// Log Error
+				console.log('[0xBOT] [!] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] [MOD] ERROR : ' + errorid + ' :')
+				console.error(e)
+				const date_ob = new Date()
+				const day = ("0" + date_ob.getDate()).slice(-2)
+				const month = ("0" + (date_ob.getMonth() + 1)).slice(-2)
+				const year = date_ob.getFullYear()
+				fs.appendFileSync('logs/e' + day + '-' + month + '-' + year + '.log', '[0xBOT] [!] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] [MOD] ERROR : ' + errorid + ' :\n')
+				fs.appendFileSync('logs/e' + day + '-' + month + '-' + year + '.log', e.stack + '\n\n')
+        
+    			// Create Error Embed
+    			let message = new EmbedBuilder().setColor(0x37009B)
+        			.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
+  					.setDescription('» <:ERROR:1020414987291861022> An Error has occured while executing this Modal.\nThe Error has been logged and will be fixed soon!')
+    				.setFooter({ text: '» ' + votet + ' » ' + config.version + ' » ERROR: ' + errorid });
+				if (guildlang == 'de') {
+					message = new EmbedBuilder().setColor(0x37009B)
+        				.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
+  						.setDescription('» <:ERROR:1020414987291861022> Ein Fehler ist beim ausführen dieser Modal aufgetreten.\nDer Fehler wurde geloggt und wird bald behoben!')
+    					.setFooter({ text: '» ' + votet + ' » ' + config.version + ' » FEHLER: ' + errorid });
+				}
+
+    			// Send Message
+				await interaction.reply({ embeds: [message], ephemeral: true })
+			} catch (e) { }
+		}
 	}
 
 	// Handle Buttons

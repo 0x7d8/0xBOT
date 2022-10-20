@@ -26,7 +26,7 @@ exports.set = (userId, value) => new Promise(async ful => {
             value
         ]); return ful('Y-CREATE')
     } else {
-        await db.query(`update userapis set quotes = $1 where userid = $2;`, [
+        await db.query(`update userapis set apis = $1 where userid = $2;`, [
             value,
             userId
         ]); return ful('Y-WRITE')
@@ -42,7 +42,7 @@ exports.add = (userId, value) => new Promise(async ful => {
             value
         ]); return ful('Y-CREATE')
     } else {
-        await db.query(`update userapis set quotes = quotes + $1 where userid = $2;`, [
+        await db.query(`update userapis set apis = apis + $1 where userid = $2;`, [
             value,
             userId
         ]); return ful('Y-WRITE')
@@ -57,7 +57,7 @@ exports.rem = (userId, value) => new Promise(async ful => {
             userId
         ]); return ful('Y-CREATE')
     } else {
-        await db.query(`update userapis set quotes = quotes - $1 where userid = $2;`, [
+        await db.query(`update userapis set apis = apis - $1 where userid = $2;`, [
             value,
             userId
         ]); return ful('Y-WRITE')
