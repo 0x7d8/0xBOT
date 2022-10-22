@@ -165,20 +165,38 @@ const checksession = async(accessToken, tokenType, userid, guildid) => {
     }
 }
 
-// Init API
+// Init Dashboard
 const Koa = require('koa')
 const Router = require('koa-router')
+const send = require('koa-send')
+const serve = require('koa-static')
+const dashboard = new Koa()
 
+// Add Addons to Dashboard
+dashboard.use(serve('./dashboard/build'))
+
+// Endpoints
+const routerDashboard = new Router()
+
+dashboard.use(routerDashboard.routes()).use(routerDashboard.allowedMethods())
+dashboard.use((ctx) => {
+    return send(ctx, './dashboard/build/index.html')
+})
+
+// Start Dashboard
+dashboard.listen(config.web.ports.dashboard, () => console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [STA] $$$$$ LAUNCHED DASHBOARD ON PORT ' + config.web.ports.dashboard))
+
+// Init API
 const rateLimitDB = new Map()
 const rateLimit = require('koa-ratelimit')
 const koaBody = require('koa-body')
 const cors = require('@koa/cors')
-const app = new Koa()
+const api = new Koa()
 
 // Add Addons to API
-app.use(koaBody())
-app.use(cors())
-app.use(rateLimit({
+api.use(koaBody())
+api.use(cors())
+api.use(rateLimit({
     max: 30,
     duration: 30000,
     driver: 'memory',
@@ -187,7 +205,7 @@ app.use(rateLimit({
 }))
 
 // Error Handling
-app.use(async (ctx, next) => {
+api.use(async (ctx, next) => {
     try {
         await next()
     }
@@ -202,10 +220,10 @@ app.use(async (ctx, next) => {
 })
 
 /// API Endpoints
-const router = new Router();
+const routerAPI = new Router()
 
 // Fetch Functions
-router.get('/fetch/guild', async(ctx) => {
+routerAPI.get('/fetch/guild', async(ctx) => {
     // Check for Queries
     if (!ctx.query.id) return ctx.body = { "success": false, "message": 'NO ID' }
 
@@ -230,7 +248,7 @@ router.get('/fetch/guild', async(ctx) => {
 })
 
 // Stat Functions
-router.get('/stats/guild', async(ctx) => {
+routerAPI.get('/stats/guild', async(ctx) => {
     // Check for Queries
     if (!ctx.query.id) return ctx.body = { "success": false, "message": 'NO ID' }
 
@@ -252,7 +270,7 @@ router.get('/stats/guild', async(ctx) => {
 
     // Return Result
     return ctx.body = stats
-}); router.get('/stats/user', async(ctx) => {
+}); routerAPI.get('/stats/user', async(ctx) => {
     // Check for Queries
     if (!ctx.query.id) return ctx.body = { "success": false, "message": 'NO ID' }
 
@@ -266,7 +284,7 @@ router.get('/stats/guild', async(ctx) => {
 
     // Return Result
     return ctx.body = stats
-}); router.get('/stats/global', async(ctx) => {
+}); routerAPI.get('/stats/global', async(ctx) => {
     // Get Stats
     const stats = {
         "success": true,
@@ -281,7 +299,7 @@ router.get('/stats/guild', async(ctx) => {
 
 // Transaction Functions
 // Stat Functions
-router.get('/transactions/search', async(ctx) => {
+routerAPI.get('/transactions/search', async(ctx) => {
     // Check for Queries
     if (!ctx.headers.senderid || !ctx.headers.recieverid || !ctx.headers.maxresults) return ctx.body = { "success": false, "message": 'NO HEADERS' }
 
@@ -339,7 +357,7 @@ router.get('/transactions/search', async(ctx) => {
 })
 
 // Option Functions
-router.get('/options/guild', async(ctx) => {
+routerAPI.get('/options/guild', async(ctx) => {
     // Check for Queries
     if (!ctx.query.id) return ctx.body = { "success": false, "message": 'NO ID' }
 
@@ -391,7 +409,7 @@ router.get('/options/guild', async(ctx) => {
 
     // Return Result
     return ctx.body = response
-}); router.post('/options/guild', async(ctx) => {
+}); routerAPI.post('/options/guild', async(ctx) => {
     // Check for Queries
     if (!ctx.query.id) return ctx.body = { "success": false, "message": 'NO ID' }
     if (ctx.request.body.option === null || ctx.request.body.value === null) return ctx.body = { "success": false, "message": 'NO HEADERS' }
@@ -426,12 +444,13 @@ router.get('/options/guild', async(ctx) => {
     return ctx.body = response
 })
 
-app.use(router.routes()).use(router.allowedMethods())
-app.use((ctx) => {
+api.use(routerAPI.routes()).use(routerAPI.allowedMethods())
+api.use((ctx) => {
     ctx.body = { "success": false, "message": 'NOT FOUND' }
 })
 
-app.listen(config.web.ports.api, () => console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [STA] $$$$$ LAUNCHED API ON PORT ' + config.web.ports.api))
+// Start API
+api.listen(config.web.ports.api, () => console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [STA] $$$$$ LAUNCHED API ON PORT ' + config.web.ports.api))
 
 // Start Shard
 const manager = new ShardingManager('./bot.js', { token: config.client.token, shards: 'auto' })
