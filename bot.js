@@ -88,7 +88,7 @@ client.on('interactionCreate', async(interaction) => {
 	if (!interaction.isCommand() && !interaction.isButton() && !interaction.isModalSubmit()) return
 
 	// Write to UserDB
-	await bot.userdb.add(interaction.user)
+	bot.userdb.add(interaction.user)
 
 	// Get Guild Language
 	const guildlang = await bot.language.get(interaction.guild.id)
@@ -105,7 +105,7 @@ client.on('interactionCreate', async(interaction) => {
 	}
 	
 	// Set User Language
-	await bot.language.set(interaction.user.id, interaction.locale)
+	bot.language.set(interaction.user.id, interaction.locale)
 
 	// Handle Commands
 	if (interaction.isChatInputCommand()) {
