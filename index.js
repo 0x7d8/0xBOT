@@ -298,7 +298,6 @@ routerAPI.get('/stats/guild', async(ctx) => {
 })
 
 // Transaction Functions
-// Stat Functions
 routerAPI.get('/transactions/search', async(ctx) => {
     // Check for Queries
     if (!ctx.headers.senderid || !ctx.headers.recieverid || !ctx.headers.maxresults) return ctx.body = { "success": false, "message": 'NO HEADERS' }
@@ -354,6 +353,29 @@ routerAPI.get('/transactions/search', async(ctx) => {
 
     // Return Result
     return ctx.body = output
+})
+
+// Server Check Functions
+routerAPI.get('/check/guild', async(ctx) => {
+    // Check for Queries
+    if (!ctx.query.id) return ctx.body = { "success": false, "message": 'NO ID' }
+
+    // Check Permissions
+    if (!await checksession(
+        ctx.headers.accesstoken,
+        ctx.headers.tokentype,
+        ctx.headers.userid,
+        ctx.query.id
+    )) { return ctx.body = { "success": false, "message": 'PERMISSION DENIED' } }
+
+    // Get Stats
+    let status = true
+    await client.guilds.fetch(ctx.query.id).catch((e) => { status = false })
+
+    // Return Result
+    return ctx.body = {
+        "success": status
+    }
 })
 
 // Option Functions

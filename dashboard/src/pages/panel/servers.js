@@ -8,7 +8,8 @@ import {
   Button,
   useColorModeValue,
   Text,
-  Image
+  Image,
+  useToast
 } from '@chakra-ui/react'
 import { NavBar } from '../../NavBar'
 import { Footer } from '../../Footer'
@@ -44,11 +45,48 @@ const cookie = require('../../scripts/cookies')
 function ServerBox(props) {
   const navigate = useNavigate()
   const width = useWindowDimensions().width
+  const toast = useToast()
 
   const SwitchIconColor = useColorModeValue('#21005D', '#37009B')
 
   let useWidth = 100
   if (width < 1150 && width > 750) { useWidth = 75 }
+
+  window.goserver = (id) => {
+    axios
+      .get(`https://api.0xbot.de/check/guild?id=${id}`, {
+        headers: {
+          accesstoken: cookie.get('accessToken'),
+          tokentype: cookie.get('tokenType'),
+          userid: cookie.get('userid')
+        }
+      })
+      .then((res) => {
+        if (res.data.success) return navigate(`/panel/manage?server=${id}`)
+        toast({
+          title: <center>ERROR</center>,
+          description: <center>Please Invite the Bot to that Server first.<br />
+            <Button
+              mt="1rem"
+              colorScheme="gray"
+              variant="outline"
+              onClick={() => { window.location.replace('https://top.gg/bot/1001944224545128588/invite') }}
+            >
+              INVITE
+            </Button>
+          </center>,
+
+          status: "error",
+          duration: 6000,
+          isClosable: true,
+          variant: "subtle",
+          position: "top-right",
+          containerStyle: {
+            transform: "translateY(4rem)"
+          }
+        })
+      })
+  }
 
   return (
     <Flex alignItems="center" marginTop="2rem" id={props.id} justifyContent="center">
@@ -81,7 +119,7 @@ function ServerBox(props) {
                     colorScheme="gray"
                     marginTop="1rem"
                     alignSelf="center"
-                    onClick={() => {navigate(`/panel/manage?server=${props.serverid}`)}}
+                    onClick={() => { window.goserver(props.serverid) }}
                   >
                     MANAGE
                   </Button>
