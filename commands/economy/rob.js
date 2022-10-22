@@ -191,9 +191,9 @@ module.exports = {
      	};
         
         // Setup Chances
-        const random35 = Math.floor(Math.random() * (3 - 1 + 1)) + 1;
-        const random20 = Math.floor(Math.random() * (5 - 1 + 1)) + 1;
-        const random05 = Math.floor(Math.random() * (20 - 1 + 1)) + 1;
+        const random35 = bot.random(1, 3)
+        const random20 = bot.random(1, 5)
+        const random05 = bot.random(1, 20)
         
         let status
         let amount

@@ -1,199 +1,169 @@
-import React, { useEffect, useState } from 'react';
-import { ColorModeSwitcher } from './ColorModeSwitcher';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHome, faRightFromBracket } from '@fortawesome/free-solid-svg-icons'
 import {
-  Stack,
+  Box,
+  Flex,
+  Image,
+  Avatar,
   Button,
-  DarkMode,
-  useToast,
-  useColorModeValue
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  MenuDivider,
+  useColorModeValue,
+  Stack,
+  Center,
 } from '@chakra-ui/react';
-import { useNavigate } from 'react-router-dom';
+import { ColorModeSwitcher } from './ColorModeSwitcher'
 
-import LogoLight from './static/LogoLight.svg';
-import LogoDark from './static/LogoDark.svg';
+import { faList, faRightFromBracket, faRightToBracket } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useNavigate } from 'react-router-dom'
 
-function getWindowDimensions() {
-  const { innerWidth: width, innerHeight: height } = window;
-  return {
-    width,
-    height
-  };
-}; export default function useWindowDimensions() {
-  const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
-
-  useEffect(() => {
-    function handleResize() {
-      setWindowDimensions(getWindowDimensions());
-    }
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  return windowDimensions;
-}
-
+import LogoLight from './static/LogoLight.svg'
+import LogoDark from './static/LogoDark.svg'
 
 const cookie = require('./scripts/cookies')
-export const NavBar = (props) => {
+const MenuItems = () => {
+  let loggedIn = false
+  if (cookie.get('username') !== '') loggedIn = true
   const navigate = useNavigate()
-  const width = useWindowDimensions().width
-  const SwitchBackgroundColor = useColorModeValue('#EADDFF', '#1D192B')
-  const SwitchIconColor = useColorModeValue('#21005D', '#37009B')
-  const SwitchIcon = useColorModeValue(LogoLight, LogoDark)
-  let Icon = faHome; let Text = 'GO TO PANEL'
-  if (window.location.pathname === '/panel') { Icon = faRightFromBracket }
-  if (window.location.pathname === '/panel') { Text = 'LOG OUT' }
 
-  const toast = useToast()
-  const id = 'panel-logout'
-
-  function doaction() {
-    if (window.location.pathname !== '/panel') {
-      if (cookie.get('accessToken') === '') {
-        if (toast.isActive(id)) return
-        toast({
-          id,
-          title: <center>ERROR</center>,
-          description: <center>You need to be logged in.</center>,
-          status: "error",
-          duration: 1500,
-          isClosable: true,
-          variant: "subtle",
-          position: "top-right",
-          containerStyle: {
-            transform: "translateY(2.5rem)"
-          }
-        })
-      } else {
-        navigate('/panel')
-      }
-    } else {
-      cookie.set('accessToken', '', 1)
-      cookie.set('tokenType', '', 1)
-      cookie.set('userid', '', 1)
-
-      toast({
-        id,
-        title: <center>SUCCESS</center>,
-        description: <center>You logged out.</center>,
-        status: "success",
-        duration: 1500,
-        isClosable: true,
-        variant: "subtle",
-        position: "top-right",
-        containerStyle: {
-          transform: "translateY(2.5rem)"
-        }
-      })
-      function checkToast() {
-        if(toast.isActive(id)) {
-          window.setTimeout(checkToast, 100);
-        } else {
-          window.setTimeout(() => {navigate('/')}, 600);
-        }
-      }
-      checkToast();
-    }
-  }; useEffect(() => {
-    document.title = '0xBOT';
-  })
-
-  if (width > 500) {
+  if (loggedIn) {
     return (
-      <Stack
-        zIndex="1000"
+      <>
+        <MenuItem
+          borderRadius="0.5rem"
+          mr="0.5rem"
+          ml="0.5rem"
+          w="92.5%"
+          textAlign="center"
+          justifyContent="center"
+          icon={<FontAwesomeIcon icon={faList} />}
+          iconSpacing={0}
+          onClick={() => { navigate('/panel/servers') }}
+        >
+          Your Servers
+        </MenuItem>
+        <MenuItem
+          borderRadius="0.5rem"
+          mr="0.5rem"
+          ml="0.5rem"
+          w="92.5%"
+          textAlign="center"
+          justifyContent="center"
+          icon={<FontAwesomeIcon icon={faRightFromBracket} />}
+          iconSpacing={0}
+          onClick={() => {
+            cookie.set('accessToken', '', 1)
+            cookie.set('tokenType', '', 1)
+            cookie.set('userid', '', 1)
+            cookie.set('username', '', 1)
+            cookie.set('usertag', '', 1)
+            cookie.set('avatar', '', 1)
+
+            navigate('/home')
+          }}
+        >
+          Log Out
+        </MenuItem>
+      </>
+    )
+    } else {
+      return (
+        <>
+          <MenuItem
+            borderRadius="0.5rem"
+            mr="0.5rem"
+            ml="0.5rem"
+            w="92.5%"
+            textAlign="center"
+            justifyContent="center"
+            icon={<FontAwesomeIcon icon={faRightToBracket} />}
+            iconSpacing={0}
+            onClick={() => window.location.replace('https://discord.com/api/oauth2/authorize?client_id=1005105495356481636&redirect_uri=http%3A%2F%2Fde-01.paperstudios.de%3A3001%2F&response_type=token&scope=identify%20guilds')}
+          >
+            Log In
+          </MenuItem>
+        </>
+      )
+    }
+}
+
+export function NavBar() {
+  const navigate = useNavigate()
+
+  return (
+    <>
+      <Box
+        zIndex="10000"
+        as="nav"
         position="sticky"
+        mt="-1rem"
         top="0"
-        marginTop="-1rem"
-        h="fit-content"
+        bg={useColorModeValue('gray.100', 'gray.900')}
+        px={4}
         borderRadius="0rem 0rem 1rem 1rem"
-        direction="row-reverse"
-        color={SwitchIconColor}
-        backgroundColor={SwitchBackgroundColor}
         boxShadow="lg"
       >
-        <DarkMode>
+        <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
           <Button
             variant="ghost"
-            leftIcon={<FontAwesomeIcon icon={Icon} />}
-            colorScheme="purple"
-            color={SwitchIconColor}
-            justifySelf="flex-end"
-            marginRight="1rem"
-            width="11rem"
-            onClick={() => doaction()}
-          >
-            {Text}
-          </Button>
-        </DarkMode>
-        <ColorModeSwitcher
-          justifySelf="flex-end" 
-        />
-        <DarkMode>
-          <Button
-            flexWrap="wrap"
-            flexBasis="100%"
-            variant="ghost"
-            _hover={{ bg: "#0xFF" }}
-            _active={{ bg: "#0xFF" }}
-            cursor="default"
-            leftIcon={<img src={SwitchIcon} alt="" style={{ height: 32, width: 32 }}></img>}
-            colorScheme="purple"
-            color={SwitchIconColor}
-            justifyContent="flex-start"
+            colorScheme="gray"
+            color={useColorModeValue('#21005D', '#37009B')}
+            leftIcon={<Image src={useColorModeValue(LogoLight, LogoDark)} style={{ height: 34, width: 34 }} />}
+            onClick={() => { navigate('/home') }}
           >
             0xBOT
           </Button>
-        </DarkMode>
-      </Stack>
-    )
-  } else {
-    return (
-      <Stack
-        zIndex="1000"
-        position="sticky"
-        top="0"
-        marginTop="-1rem"
-        h="fit-content"
-        borderRadius="0rem 0rem 1rem 1rem"
-        direction="row-reverse"
-        color={SwitchIconColor}
-        backgroundColor={SwitchBackgroundColor}
-      >
-        <DarkMode>
-          <Button
-            variant="ghost"
-            leftIcon={<FontAwesomeIcon icon={Icon} />}
-            colorScheme="purple"
-            color={SwitchIconColor}
-            justifySelf="flex-end"
-            marginRight="1rem"
-            width="10rem"
-            onClick={() => doaction()}
-          >
-            {Text}
-          </Button>
-        </DarkMode>
-        <ColorModeSwitcher />
-        <DarkMode>
-          <Button
-            flexWrap="wrap"
-            flexBasis="40%"
-            variant="ghost"
-            _hover={{ bg: "#0xFF" }}
-            _active={{ bg: "#0xFF" }}
-            cursor="default"
-            leftIcon={<img src={SwitchIcon} alt="" style={{ height: 32, width: 32 }}></img>}
-            iconSpacing="0"
-            colorScheme="purple"
-            color={SwitchIconColor}
-            justifyContent="flex-start"
-          />
-        </DarkMode>
-      </Stack>
-    )
-  }
-};
+
+          <Flex alignItems={'center'}>
+            <Stack direction={'row'} spacing={7}>
+              <ColorModeSwitcher />
+
+              <Menu>
+                <MenuButton
+                  as={Button}
+                  rounded={'full'}
+                  variant={'link'}
+                  cursor={'pointer'}
+                  minW={0}>
+                  <Avatar
+                    _hover={{ cursor: "pointer", borderColor: "gray.500" }}
+                    size={'sm'}
+                    src={`https://cdn.discordapp.com/avatars/${cookie.get('userid')}/${cookie.get('avatar')}.png`}
+                    borderColor="whiteAlpha.300"
+                    borderWidth="1px"
+                    boxShadow="lg"
+                  />
+                </MenuButton>
+                <MenuList alignItems={'center'} bg={useColorModeValue('gray.100', 'gray.900')}>
+                  <br />
+                  <Center>
+                    <Avatar
+                      _hover={{ cursor: "pointer", borderColor: "gray.500" }}
+                      onClick={() => { navigate('/panel') }}
+                      size={'2xl'}
+                      src={`https://cdn.discordapp.com/avatars/${cookie.get('userid')}/${cookie.get('avatar')}.png`}
+                      borderColor="whiteAlpha.300"
+                      borderWidth="1px"
+                      boxShadow="lg"
+                    />
+                  </Center>
+                  <br />
+                  <Center>
+                    <p>{cookie.get('username')}</p>
+                  </Center>
+                  <br />
+                  <MenuDivider />
+                  <center>
+                    <MenuItems />
+                  </center>
+                </MenuList>
+              </Menu>
+            </Stack>
+          </Flex>
+        </Flex>
+      </Box>
+    </>
+  );
+}

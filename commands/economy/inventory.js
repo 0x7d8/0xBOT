@@ -58,12 +58,6 @@ module.exports = {
             if (car === 'porsche') { carname = '2019 PORSCHE 911 GT2RS' }
         }
 
-        // Get Userinfo
-        let username
-        if (user !== null) {
-            username = await client.users.fetch(user);
-        }
-
         // Create Embed
         let message
         if (user === null) {
@@ -80,13 +74,13 @@ module.exports = {
             }
         } else {
             message = new EmbedBuilder().setColor(0x37009B)
-                .setTitle('<:BOX:1024394572555624510> » THE INVENTOR OF ' + username.username.toUpperCase() + '#' + username.discriminator)
+                .setTitle('<:BOX:1024394572555624510> » THE INVENTORY OF ' + user.username.toUpperCase() + '#' + username.discriminator)
                 .setDescription('» <:NBOMB:1021783222520127508> NORMAL BOMBS\n**`' + nbombs + '/15`**\n\n» <:MBOMB:1021783295211601940> MEDIUM BOMBS\n**`' + mbombs + '/15`**\n\n» <:HBOMB:1022102357938536458> HYPER BOMBS\n**`' + hbombs + '/15`**\n\n» <:CBOMB:1021783405161091162> CRAZY BOMBS\n**`' + cbombs + '/15`**\n\n» <:CAR:1021844412998877294> CAR\n**`' + carname + '`**')
                 .setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
-                    .setTitle('<:BOX:1024394572555624510> » DAS INVENTAR VON ' + username.username.toUpperCase() + '#' + username.discriminator)
+                    .setTitle('<:BOX:1024394572555624510> » DAS INVENTAR VON ' + user.username.toUpperCase() + '#' + username.discriminator)
                     .setDescription('» <:NBOMB:1021783222520127508> NORMALE BOMBEN\n**`' + nbombs + '/15`**\n\n» <:MBOMB:1021783295211601940> MEDIUM BOMBEN\n**`' + mbombs + '/15`**\n\n» <:HBOMB:1022102357938536458> HYPER BOMBEN\n**`' + hbombs + '/15`**\n\n» <:CBOMB:1021783405161091162> CRAZY BOMBEN\n**`' + cbombs + '/15`**\n\n» <:CAR:1021844412998877294> AUTO\n**`' + carname + '`**')
                     .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }

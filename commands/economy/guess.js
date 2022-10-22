@@ -155,24 +155,53 @@ module.exports = {
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] GUESS : NOTENOUGHMONEY : ' + missing + '€')
             return interaction.reply({ embeds: [message], ephemeral: true })
         }
+
+        // Set Money
+        let transaction
+        bot.money.rem(interaction.guild.id, interaction.user.id, result)
+        if (status === 'GEWONNEN' || status === 'WON') {
+        	bot.money.add(interaction.guild.id, interaction.user.id, result)
+
+            // Log Transaction
+            transaction = await bot.transactions.log({
+                success: true,
+                sender: {
+                    id: 'CASINO',
+                    amount: wette,
+                    type: 'negative'
+                }, reciever: {
+                    id: interaction.user.id,
+                    amount: wette,
+                    type: 'positive'
+                }
+            })
+        } else {
+            // Log Transaction
+            transaction = await bot.transactions.log({
+                success: true,
+                sender: {
+                    id: interaction.user.id,
+                    amount: wette,
+                    type: 'negative'
+                }, reciever: {
+                    id: 'CASINO',
+                    amount: wette,
+                    type: 'positive'
+                }
+            })
+        }
         
         // Create Embed
       	let message = new EmbedBuilder().setColor(0x37009B)
             .setTitle('<:CLOVER:1024388649418235925> » GUESS')
-  			.setDescription('» You set **$' + wette + '** on **' + nummer + '** and **' + status + '** **$' + result + '**!')
+  			.setDescription('» You set **$' + wette + '** on **' + nummer + '** and **' + status + '** **$' + result + '**!\n\nID: ' + transaction.id)
         	.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
         if (lang === 'de') {
             message = new EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:CLOVER:1024388649418235925> » RATEN')
-  			    .setDescription('» Du hast **' + wette + '€** auf **' + nummer + '** gesetzt und **' + result + '€** **' + status + '**!')
+  			    .setDescription('» Du hast **' + wette + '€** auf **' + nummer + '** gesetzt und **' + result + '€** **' + status + '**!\n\nID: ' + transaction.id)
         	    .setFooter({ text: '» ' + vote + ' » ' + config.version });
-        }
-        
-        // Set Money
-        bot.money.rem(interaction.guild.id, interaction.user.id, result)
-        if (status === 'GEWONNEN' || status === 'WON') {
-        	bot.money.add(interaction.guild.id, interaction.user.id, result)
         }
 
         // Send Message

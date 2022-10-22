@@ -35,7 +35,7 @@ module.exports = {
         if (lang === 'en') { langString = 'ENGLISH' }
 
         // Set Language
-        bot.languages.set(interaction.guild.id, 'guild', lang)
+        bot.language.set(interaction.guild.id, lang)
 
         // Create Embed
         let message = new EmbedBuilder().setColor(0x37009B)

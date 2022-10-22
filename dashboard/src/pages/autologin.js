@@ -8,6 +8,7 @@ import {
   Flex
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
 const cookie = require('../scripts/cookies')
 function AutoLogin() {
@@ -22,7 +23,20 @@ function AutoLogin() {
       cookie.set('accessToken', accessToken, 360)
       cookie.set('tokenType', tokenType, 360)
 
-      navigate('/panel')
+      axios
+        .get('https://discord.com/api/users/@me', {
+          headers: {
+              authorization: `${cookie.get('tokenType')} ${cookie.get('accessToken')}`,
+          }
+        })
+        .then((res) => {
+          cookie.set('userid', res.data.id, 360)
+          cookie.set('username', res.data.username, 360)
+          cookie.set('usertag', res.data.discriminator, 360)
+          cookie.set('avatar', res.data.avatar, 360)
+
+          navigate('/panel')
+        })
     } else {
       window.setTimeout(() => {navigate('/home')}, 1000);
     }
@@ -36,7 +50,7 @@ function AutoLogin() {
                 flexDirection="column"
                 p={12}
                 borderRadius="2rem"
-                boxShadow="lg"
+                boxShadow="md"
               >
                 <Spinner size="xl" />
               </Flex>

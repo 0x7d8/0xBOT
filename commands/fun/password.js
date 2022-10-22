@@ -71,7 +71,7 @@ module.exports = {
             numbers: true,
             uppercase: true,
             symbols: false,
-        });
+        })
         
         // Create Embed
         let message = new EmbedBuilder().setColor(0x37009B)

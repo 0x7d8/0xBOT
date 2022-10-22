@@ -89,9 +89,34 @@ module.exports = {
         if (random >= 11) { color = 'rot' }
         
         // Calculate Status
-        let status
-        if (color === farbe) { status = 'WON' }
-        if (color !== farbe) { status = 'LOST' }
+        let status, transaction
+        if (color === farbe) { status = 'WON'; // Log Transaction
+            transaction = await bot.transactions.log({
+                success: true,
+                sender: {
+                    id: 'CASINO',
+                    amount: wette,
+                    type: 'negative'
+                }, reciever: {
+                    id: interaction.user.id,
+                    amount: wette,
+                    type: 'positive'
+                }
+            })
+        }; if (color !== farbe) { status = 'LOST'; // Log Transaction
+            transaction = await bot.transactions.log({
+                success: true,
+                sender: {
+                    id: interaction.user.id,
+                    amount: wette,
+                    type: 'negative'
+                }, reciever: {
+                    id: 'CASINO',
+                    amount: wette,
+                    type: 'positive'
+                }
+            })
+        }
 
         if (lang === 'de') {
             if (color === farbe) { status = 'GEWONNEN' }
@@ -144,21 +169,21 @@ module.exports = {
         	// Create Embed
       		let message = new EmbedBuilder().setColor(0x37009B)
             	.setTitle('<:CLOVER:1024388649418235925> » ROULETTE')
-  				.setDescription('» You bet **$' + wette + '** on **' + colordis.toUpperCase() + '** and **' + status + '** **$' + resultdis + '**!')
+  				.setDescription('» You bet **$' + wette + '** on **' + colordis.toUpperCase() + '** and **' + status + '** **$' + resultdis + '**!\n\nID: ' + transaction.id)
             	.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
             	    .setTitle('<:CLOVER:1024388649418235925> » ROULETTE')
-  				    .setDescription('» Du hast **' + wette + '€** auf **' + farbe.toUpperCase() + '** gesetzt und **' + resultdis + '€** **' + status + '**!')
+  				    .setDescription('» Du hast **' + wette + '€** auf **' + farbe.toUpperCase() + '** gesetzt und **' + resultdis + '€** **' + status + '**!\n\nID: ' + transaction.id)
             	    .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
             
             // Set Money
-            if (color != farbe) {
+            if (color !== farbe) {
             	bot.money.rem(interaction.guild.id, interaction.user.id, wette);
             }
-			if (color == farbe) {
+			if (color === farbe) {
             	bot.money.add(interaction.guild.id, interaction.user.id, resultadd);
             }
             

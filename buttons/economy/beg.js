@@ -52,6 +52,20 @@ module.exports = {
             return interaction.reply({ embeds: [message], ephemeral: true })
         }
 
+        // Log Transaction
+        const transaction = await bot.transactions.log({
+            success: true,
+            sender: {
+                id: interaction.user.id,
+                amount: amount,
+                type: 'negative'
+            }, reciever: {
+                id: reciever,
+                amount: amount,
+                type: 'positive'
+            }
+        })
+
         // Transfer Money
         bot.money.rem(interaction.guild.id, interaction.user.id, parseInt(amount))
         bot.money.add(interaction.guild.id, reciever, parseInt(amount))
@@ -84,13 +98,13 @@ module.exports = {
             }
         }; let rmessage = new EmbedBuilder().setColor(0x37009B)
             .setTitle('<:DONATE:1024397357988720711> » BEGGING')
-            .setDescription('» <@' + interaction.user.id + '> gave <@' + reciever + '> **$' + amount + '**!')
+            .setDescription('» <@' + interaction.user.id + '> gave <@' + reciever + '> **$' + amount + '**!\n\nID: ' + transaction.id)
             .setFooter({ text: '» ' + vote + ' » ' + config.version });
 
         if (lang === 'de') {
             rmessage = new EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:DONATE:1024397357988720711> » BETTELN')
-                .setDescription('» <@' + interaction.user.id + '> hat <@' + reciever + '> **' + amount + '€** gegeben!')
+                .setDescription('» <@' + interaction.user.id + '> hat <@' + reciever + '> **' + amount + '€** gegeben!\n\nID: ' + transaction.id)
                 .setFooter({ text: '» ' + vote + ' » ' + config.version });
         }
 

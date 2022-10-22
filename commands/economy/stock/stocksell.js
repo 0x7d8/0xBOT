@@ -116,6 +116,20 @@ module.exports = {
             return interaction.reply({ embeds: [message], ephemeral: true })
         }
 
+        // Log Transaction
+        const transaction = await bot.transactions.log({
+            success: true,
+            sender: {
+                id: `${amount} ${stock.toUpperCase()} STOCK`,
+                amount: cash,
+                type: 'negative'
+            }, reciever: {
+                id: interaction.user.id,
+                amount: cash,
+                type: 'positive'
+            }
+        })
+
         // Add Money
         bot.money.add(interaction.guild.id, interaction.user.id, cash)
 
@@ -125,13 +139,13 @@ module.exports = {
         // Create Embed
         let message = new EmbedBuilder().setColor(0x37009B)
             .setTitle('<:CHART:1024398298204876941> » SELL STOCKS')
-            .setDescription('» You successfully sold **' + amount + '** ' + emoji + ' for **$' + cash + '**! (**$' + stocks[stock] + '** per Stock)')
+            .setDescription('» You successfully sold **' + amount + '** ' + emoji + ' for **$' + cash + '**! (**$' + stocks[stock] + '** per Stock)\n\nID: ' + transaction.id)
             .setFooter({ text: '» ' + vote + ' » ' + config.version });
 
         if (lang === 'de') {
             message = new EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:CHART:1024398298204876941> » AKTIEN VERKAUFEN')
-                .setDescription('» Du hast erfolgreich **' + amount + '** ' + emoji + ' für **' + cash + '€** verkauft! (**' + stocks[stock] + '€** pro Aktie)')
+                .setDescription('» Du hast erfolgreich **' + amount + '** ' + emoji + ' für **' + cash + '€** verkauft! (**' + stocks[stock] + '€** pro Aktie)\n\nID: ' + transaction.id)
                 .setFooter({ text: '» ' + vote + ' » ' + config.version });
         }
 

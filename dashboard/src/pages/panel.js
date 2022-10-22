@@ -13,8 +13,10 @@ import {
   StatNumber,
   Button
 } from '@chakra-ui/react'
-import { useNavigate } from 'react-router-dom'
 import { NavBar } from '../NavBar'
+import { Footer } from '../Footer'
+
+import { useNavigate } from 'react-router-dom'
 import ImageSlash from '../static/image-slash.svg';
 import axios from 'axios'
 
@@ -22,27 +24,9 @@ import Animated from '../Animated'
 
 const cookie = require('../scripts/cookies')
 function ProfileBox() {
-  let [data, setData] = useState(0)
   const [stats, setStats] = useState(0)
 
   useEffect(() => {
-    fetchCreation();
-  }, []);
-  const fetchCreation = () => {
-    axios
-      .get('https://discord.com/api/users/@me', {
-        headers: {
-            authorization: `${cookie.get('tokenType')} ${cookie.get('accessToken')}`,
-        }
-      })
-      .then((res) => {
-        cookie.set('userid', res.data.id, 360)
-        setData(res.data)
-      })
-      .catch((err) => {
-        console.log(err)
-      });
-  }; useEffect(() => {
     axios
       .get(`https://api.0xbot.de/stats/user?id=${cookie.get('userid')}`)
       .then((res) => {
@@ -51,17 +35,18 @@ function ProfileBox() {
   }, [])
 
   const navigate = useNavigate()
-  const SwitchBackgroundColor = useColorModeValue('#EADDFF', '#1D192B')
   const SwitchIconColor = useColorModeValue('#21005D', '#37009B')
 
   return (
-    <Flex alignItems="center" marginTop="2rem">
+    <Flex alignItems="center" marginTop="2rem" justifyContent="center">
               <Flex
-                w="100%"
+                w="75%"
                 flexDirection="column"
-                bg={SwitchBackgroundColor}
+                bg={useColorModeValue('gray.100', 'gray.900')}
                 p={12}
-                borderRadius="2rem"
+                borderColor="whiteAlpha.300"
+                borderWidth="1px"
+                borderRadius="1rem"
                 boxShadow="lg"
               >
                 <Heading
@@ -69,13 +54,13 @@ function ProfileBox() {
                   mb={6}
                   color={SwitchIconColor}
                 >
-                  Welcome, {data.username}
+                  Welcome, {cookie.get('username')}
                 </Heading>
                 <Image
                   alignSelf='center'
                   borderRadius='full'
                   boxSize='150px'
-                  src={`https://cdn.discordapp.com/avatars/${data.id}/${data.avatar}.png`}
+                  src={`https://cdn.discordapp.com/avatars/${cookie.get('userid')}/${cookie.get('avatar')}.png`}
                   fallbackSrc={ImageSlash}
                   alt='Profile Picture'
                 />
@@ -120,7 +105,7 @@ function ProfileBox() {
                 <Button
                   alignSelf="center"
                   mt="2rem"
-                  colorScheme="purple"
+                  colorScheme="gray"
                   w="fit-content"
                   onClick={() => {navigate('/panel/servers')}}
                 >
@@ -138,6 +123,7 @@ function Panel() {
           <Grid minH="0%" p={3}>
             <NavBar/>
             <ProfileBox />
+            <Footer />
           </Grid>
         </Box>
       </ChakraProvider>

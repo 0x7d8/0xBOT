@@ -32,7 +32,8 @@ module.exports = {
         // Set Variables
         const user = interaction.options.getUser("user")
         const amount = interaction.options.getInteger("amount")
-        const money = await bot.money.get(interaction.user.id);
+
+        const balance = await bot.money.get(interaction.user.id)
 
         // Check if Balance is Minus
         if (amount < 0) {
@@ -79,7 +80,7 @@ module.exports = {
             // Create Embed
             let message = new EmbedBuilder().setColor(0x37009B)
             	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-  				.setDescription('» You cant pay yourself money?')
+  				.setDescription('» You cant pay yourself Money?')
             	.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (lang === 'de') {
@@ -93,26 +94,10 @@ module.exports = {
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] PAY : ' + user.id + ' : ' + amount + '€ : SAMEPERSON')
             return interaction.reply({ embeds: [message], ephemeral: true })
         }
-        
-        // Create Embeds
-      	let message = new EmbedBuilder().setColor(0x37009B)
-            .setTitle('<:BAG:1024389219558367292> » GIVE MONEY')
-  			.setDescription('» You gave <@' + user.id + '> **$' + amount + '**!')
-        	.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
-        if (lang === 'de') {
-            message = new EmbedBuilder().setColor(0x37009B)
-                .setTitle('<:BAG:1024389219558367292> » GELD GEBEN')
-  			    .setDescription('» Du hast <@' + user.id + '> **' + amount + '€** gegeben!')
-        	    .setFooter({ text: '» ' + vote + ' » ' + config.version });
-        }
-        
-        // Set Money
-        if (money >= amount) {
-        	bot.money.rem(interaction.guild.id, interaction.user.id, amount)
-        	bot.money.add(interaction.guild.id, user.id, amount)
-        } else {
-            const missing = amount - money
+        // Check for enough Money
+        if (balance < amount) {
+            const missing = amount - balance
             
             // Create Embed
             let message = new EmbedBuilder().setColor(0x37009B)
@@ -131,6 +116,37 @@ module.exports = {
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] PAY : ' + user.id + ' : NOTENOUGHMONEY : ' + amount + '€')
             return interaction.reply({ embeds: [message], ephemeral: true })
         }
+
+        // Log Transaction
+        const transaction = await bot.transactions.log({
+            success: true,
+            sender: {
+                id: interaction.user.id,
+                amount: amount,
+                type: 'negative'
+            }, reciever: {
+                id: user.id,
+                amount: amount,
+                type: 'positive'
+            }
+        })
+        
+        // Create Embeds
+      	let message = new EmbedBuilder().setColor(0x37009B)
+            .setTitle('<:BAG:1024389219558367292> » GIVE MONEY')
+  			.setDescription('» You gave <@' + user.id + '> **$' + amount + '**!\n\nID: ' + transaction.id)
+        	.setFooter({ text: '» ' + vote + ' » ' + config.version });
+
+        if (lang === 'de') {
+            message = new EmbedBuilder().setColor(0x37009B)
+                .setTitle('<:BAG:1024389219558367292> » GELD GEBEN')
+  			    .setDescription('» Du hast <@' + user.id + '> **' + amount + '€** gegeben!\n\nID: ' + transaction.id)
+        	    .setFooter({ text: '» ' + vote + ' » ' + config.version });
+        }
+        
+        // Set Money
+        bot.money.rem(interaction.guild.id, interaction.user.id, amount)
+        bot.money.add(interaction.guild.id, user.id, amount)
 
         // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] PAY : ' + user.id + ' : ' + amount + '€')

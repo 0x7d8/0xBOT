@@ -225,27 +225,41 @@ module.exports = {
                 if (lang === 'de') {
                     winner = '**Niemand**'
                 }
-            } 
+            }
 
             // Transfer Money
-            const betwon = parseInt(bet) * 2
-            if (winner != '**Noone**' && winner != '**Niemand**') {
+            const betwon = parseInt(bet) * 2; let transaction
+            if (winner !== '**Noone**' && winner !== '**Niemand**') {
                 bot.money.add(interaction.guild.id, winner.toString().replace(/\D/g, ''), parseInt(betwon))
+
+                // Log Transaction
+                transaction = await bot.transactions.log({
+                    success: true,
+                    sender: {
+                        id: (winner === sender ? reciever : sender),
+                        amount: betwon,
+                        type: 'negative'
+                    }, reciever: {
+                        id: winner.toString().replace(/\D/g, ''),
+                        amount: betwon,
+                        type: 'positive'
+                    }
+                })
             } else {
-                bot.money.add(interaction.guild.id, sender.toString().replace(/\D/g, ''), parseInt(bet))
-                bot.money.add(interaction.guild.id, reciever.toString().replace(/\D/g, ''), parseInt(bet))
+                bot.money.add(interaction.guild.id, sender, parseInt(bet))
+                bot.money.add(interaction.guild.id, reciever, parseInt(bet))
             }
 
             // Create Embed
             message = new EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:GAMEPAD:1024395990679167066> » MEMORY')
-                .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> is playing Memory with <@' + reciever.toString().replace(/\D/g, '') + '>!\nThe Bet is **$' + bet + '**\n\n🔵 » Points of <@' + sender.toString().replace(/\D/g, '') + '> are **' + bot.memory.get('POINTS-' + sender) + '**\n🔴 » Points of <@' + reciever.toString().replace(/\D/g, '') + '> are **' + bot.memory.get('POINTS-' + reciever) + '**\n\n<:AWARD:1024385473524793445> ' + winner + ' has won **$' + betwon + '**!')
+                .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> is playing Memory with <@' + reciever.toString().replace(/\D/g, '') + '>!\nThe Bet is **$' + bet + '**\n\n🔵 » Points of <@' + sender.toString().replace(/\D/g, '') + '> are **' + bot.memory.get('POINTS-' + sender) + '**\n🔴 » Points of <@' + reciever.toString().replace(/\D/g, '') + '> are **' + bot.memory.get('POINTS-' + reciever) + '**\n\n<:AWARD:1024385473524793445> ' + winner + ' has won **$' + betwon + '**.\nID: ' + transaction.id)
                 .setFooter({ text: '» ' + config.version });
 
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:GAMEPAD:1024395990679167066> » MEMORY')
-                    .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> spielt mit <@' + reciever.toString().replace(/\D/g, '') + '> Memory!\nDie Wette ist **' + bet + '€**\n\n🔵 » Punkte von <@' + sender.toString().replace(/\D/g, '') + '> sind **' + bot.memory.get('POINTS-' + sender) + '**\n🔴 » Punkte von <@' + reciever.toString().replace(/\D/g, '') + '> sind **' + bot.memory.get('POINTS-' + reciever) +'**\n\n<:AWARD:1024385473524793445> ' + winner + ' hat **' + betwon + '€** gewonnen!')
+                    .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> spielt mit <@' + reciever.toString().replace(/\D/g, '') + '> Memory!\nDie Wette ist **' + bet + '€**\n\n🔵 » Punkte von <@' + sender.toString().replace(/\D/g, '') + '> sind **' + bot.memory.get('POINTS-' + sender) + '**\n🔴 » Punkte von <@' + reciever.toString().replace(/\D/g, '') + '> sind **' + bot.memory.get('POINTS-' + reciever) +'**\n\n<:AWARD:1024385473524793445> ' + winner + ' hat **' + betwon + '€** gewonnen.\nID: ' + transaction.id)
                     .setFooter({ text: '» ' + config.version });
             }
 

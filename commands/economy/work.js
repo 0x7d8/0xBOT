@@ -101,34 +101,48 @@ module.exports = {
                     if (result >= 100) { extra = 'WOW!' }
                 }
             } else {
-                if (result < 40) { extra = 'MEH.\n\n**+' + carboostam + '%** thanks to your Car!' }
-                if (result >= 40) { extra = 'NICE.\n\n**+' + carboostam + '%** thanks to your Car!' }
-                if (result >= 60) { extra = 'GREAT.\n\n**+' + carboostam + '%** thanks to your Car!' }
-                if (result >= 80) { extra = 'WONDERFUL!\n\n**+' + carboostam + '%** thanks to your Car!' }
-                if (result >= 100) { extra = 'WOW!\n\n**+' + carboostam + '%** thanks to your Car!' }
+                if (result < 40) { extra = 'MEH.\n**+' + carboostam + '%** thanks to your Car!' }
+                if (result >= 40) { extra = 'NICE.\n**+' + carboostam + '%** thanks to your Car!' }
+                if (result >= 60) { extra = 'GREAT.\n**+' + carboostam + '%** thanks to your Car!' }
+                if (result >= 80) { extra = 'WONDERFUL!\n**+' + carboostam + '%** thanks to your Car!' }
+                if (result >= 100) { extra = 'WOW!\n**+' + carboostam + '%** thanks to your Car!' }
                 if (lang === 'de') {
-                    if (result < 40) { extra = 'MEH.\n\n**+' + carboostam + '%** wegen deinem Auto!' }
-                    if (result >= 40) { extra = 'NICE.\n\n**+' + carboostam + '%** wegen deinem Auto!' }
-                    if (result >= 60) { extra = 'PRIMA.\n\n**+' + carboostam + '%** wegen deinem Auto!' }
-                    if (result >= 80) { extra = 'TOLL!\n\n**+' + carboostam + '%** wegen deinem Auto!' }
-                    if (result >= 100) { extra = 'WOW!\n\n**+' + carboostam + '%** wegen deinem Auto!' }
+                    if (result < 40) { extra = 'MEH.\n**+' + carboostam + '%** wegen deinem Auto!' }
+                    if (result >= 40) { extra = 'NICE.\n**+' + carboostam + '%** wegen deinem Auto!' }
+                    if (result >= 60) { extra = 'PRIMA.\n**+' + carboostam + '%** wegen deinem Auto!' }
+                    if (result >= 80) { extra = 'TOLL!\n**+' + carboostam + '%** wegen deinem Auto!' }
+                    if (result >= 100) { extra = 'WOW!\n**+' + carboostam + '%** wegen deinem Auto!' }
                 }
             }
 
             // Calculate Result with Car
             let resultcar
-            if (!carboost) { resultcar = result } else { resultcar = await Math.round(addper(result, carboostam)) }
+            if (!carboost) { resultcar = result } else { resultcar = Math.round(addper(result, carboostam)) }
+
+            // Log Transaction
+            const transaction = await bot.transactions.log({
+                success: true,
+                sender: {
+                    id: 'WORK',
+                    amount: resultcar,
+                    type: 'negative'
+                }, reciever: {
+                    id: interaction.user.id,
+                    amount: resultcar,
+                    type: 'positive'
+                }
+            })
         
         	// Create Embed
       		let message = new EmbedBuilder().setColor(0x37009B)
             	.setTitle('<:HAMMER:1024388163747184662> » WORK')
-  				.setDescription('» You work as **' + job + '** and earn **$' + resultcar + '**! ' + extra)
+  				.setDescription('» You work as **' + job + '** and earn **$' + resultcar + '**! ' + extra + '\n\nID: ' + transaction.id)
             	.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
             	    .setTitle('<:HAMMER:1024388163747184662> » ARBEIT')
-  				    .setDescription('» Du arbeitest als **' + job + '** und verdienst **' + resultcar + '€**! ' + extra)
+  				    .setDescription('» Du arbeitest als **' + job + '** und verdienst **' + resultcar + '€**! ' + extra + '\n\nID: ' + transaction.id)
             	    .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
         

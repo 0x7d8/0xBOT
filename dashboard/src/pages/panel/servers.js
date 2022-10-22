@@ -10,8 +10,10 @@ import {
   Text,
   Image
 } from '@chakra-ui/react'
-import { useNavigate } from 'react-router-dom'
 import { NavBar } from '../../NavBar'
+import { Footer } from '../../Footer'
+
+import { useNavigate } from 'react-router-dom'
 import ImageSlash from '../../static/image-slash.svg'
 import axios from 'axios'
 
@@ -43,7 +45,6 @@ function ServerBox(props) {
   const navigate = useNavigate()
   const width = useWindowDimensions().width
 
-  const SwitchBackgroundColor = useColorModeValue('#EADDFF', '#1D192B')
   const SwitchIconColor = useColorModeValue('#21005D', '#37009B')
 
   let useWidth = 100
@@ -54,9 +55,11 @@ function ServerBox(props) {
               <Flex
                 w={`${useWidth}%`}
                 flexDirection="row"
-                bg={SwitchBackgroundColor}
+                bg={useColorModeValue('gray.100', 'gray.900')}
                 p={12}
-                borderRadius="2rem"
+                borderColor="whiteAlpha.300"
+                borderWidth="1px"
+                borderRadius="1rem"
                 boxShadow="lg"
               >
                 <Flex
@@ -74,6 +77,8 @@ function ServerBox(props) {
                   />
                   <Button
                     disabled={!props.enabled}
+                    variant="outline"
+                    colorScheme="gray"
                     marginTop="1rem"
                     alignSelf="center"
                     onClick={() => {navigate(`/panel/manage?server=${props.serverid}`)}}
@@ -143,6 +148,7 @@ function Panel() {
           <Grid minH="0%" p={3}>
             <NavBar/>
             <ServerContainer />
+            <Footer />
           </Grid>
         </Box>
       </ChakraProvider>

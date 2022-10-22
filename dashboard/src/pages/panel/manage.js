@@ -19,6 +19,8 @@ import {
   Image
 } from '@chakra-ui/react'
 import { NavBar } from '../../NavBar'
+import { Footer } from '../../Footer'
+
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import ImageSlash from '../../static/image-slash.svg'
@@ -45,14 +47,16 @@ import { useNavigate } from 'react-router-dom'
 
 const cookie = require('../../scripts/cookies')
 const General = () => {
-  const SwitchBackgroundColor = useColorModeValue('#EADDFF', '#1D192B')
   const SwitchIconColor = useColorModeValue('#21005D', '#37009B')
 
   return (
     <Accordion
       allowMultiple
-      backgroundColor={SwitchBackgroundColor}
-      borderRadius='2rem'
+      backgroundColor={useColorModeValue('gray.100', 'gray.900')}
+      borderColor="whiteAlpha.300"
+      borderWidth="1px"
+      borderRadius="1rem"
+      boxShadow="lg"
     >
       <AccordionItem border='none'>
         <h2>
@@ -77,15 +81,17 @@ const General = () => {
     </Accordion>
   )
 }; const Economy = () => {
-  const SwitchBackgroundColor = useColorModeValue('#EADDFF', '#1D192B')
   const SwitchIconColor = useColorModeValue('#21005D', '#37009B')
 
   return (
     <Accordion
       mt="2rem"
       allowMultiple
-      backgroundColor={SwitchBackgroundColor}
-      borderRadius='2rem'
+      backgroundColor={useColorModeValue('gray.100', 'gray.900')}
+      borderColor="whiteAlpha.300"
+      borderWidth="1px"
+      borderRadius="1rem"
+      boxShadow="lg"
     >
       <AccordionItem border='none'>
         <h2>
@@ -106,8 +112,11 @@ const General = () => {
         <AccordionPanel pb={4}>
           <Accordion
             allowMultiple
-            backgroundColor={SwitchBackgroundColor}
-            borderRadius='2rem'
+            backgroundColor={useColorModeValue('gray.100', 'gray.900')}
+            borderColor="whiteAlpha.300"
+            borderWidth="1px"
+            borderRadius="1rem"
+            boxShadow="lg"
           >
             <AccordionItem border='none'>
               <h2>
@@ -134,9 +143,13 @@ const General = () => {
             </AccordionItem>
           </Accordion>
           <Accordion
+            mt="2rem"
             allowMultiple
-            backgroundColor={SwitchBackgroundColor}
-            borderRadius='2rem'
+            backgroundColor={useColorModeValue('gray.100', 'gray.900')}
+            borderColor="whiteAlpha.300"
+            borderWidth="1px"
+            borderRadius="1rem"
+            boxShadow="lg"
           >
             <AccordionItem border='none'>
               <h2>
@@ -166,15 +179,17 @@ const General = () => {
     </Accordion>
   )
 }; const Fun = () => {
-  const SwitchBackgroundColor = useColorModeValue('#EADDFF', '#1D192B')
   const SwitchIconColor = useColorModeValue('#21005D', '#37009B')
 
   return (
     <Accordion
       mt="2rem"
       allowMultiple
-      backgroundColor={SwitchBackgroundColor}
-      borderRadius='2rem'
+      backgroundColor={useColorModeValue('gray.100', 'gray.900')}
+      borderColor="whiteAlpha.300"
+      borderWidth="1px"
+      borderRadius="1rem"
+      boxShadow="lg"
     >
       <AccordionItem border='none'>
         <h2>
@@ -195,8 +210,11 @@ const General = () => {
         <AccordionPanel pb={4}>
           <Accordion
             allowMultiple
-            backgroundColor={SwitchBackgroundColor}
-            borderRadius='2rem'
+            backgroundColor={useColorModeValue('gray.100', 'gray.900')}
+            borderColor="whiteAlpha.300"
+            borderWidth="1px"
+            borderRadius="1rem"
+            boxShadow="lg"
           >
             <AccordionItem border='none'>
               <h2>
@@ -221,9 +239,13 @@ const General = () => {
             </AccordionItem>
           </Accordion>
           <Accordion
+            mt="2rem"
             allowMultiple
-            backgroundColor={SwitchBackgroundColor}
-            borderRadius='2rem'
+            backgroundColor={useColorModeValue('gray.100', 'gray.900')}
+            borderColor="whiteAlpha.300"
+            borderWidth="1px"
+            borderRadius="1rem"
+            boxShadow="lg"
           >
             <AccordionItem border='none'>
               <h2>
@@ -285,17 +307,18 @@ const ServerInfo = () => {
       })
   }, [])
 
-  const SwitchBackgroundColor = useColorModeValue('#EADDFF', '#1D192B')
   const SwitchIconColor = useColorModeValue('#21005D', '#37009B')
 
   return (
-    <Flex alignItems="center" marginTop="2rem">
+    <Flex alignItems="center" marginTop="2rem" justifyContent="center">
               <Flex
-                w="100%"
+                w="75%"
                 flexDirection="column"
-                bg={SwitchBackgroundColor}
+                bg={useColorModeValue('gray.100', 'gray.900')}
                 p={12}
-                borderRadius="2rem"
+                borderColor="whiteAlpha.300"
+                borderWidth="1px"
+                borderRadius="1rem"
                 boxShadow="lg"
               >
                 <Heading
@@ -357,11 +380,16 @@ const ServerInfo = () => {
   const SwitchIconColor = useColorModeValue('#21005D', '#37009B')
 
   return (
-    <Flex alignItems="center" marginTop="2rem">
+    <Flex alignItems="center" marginTop="2rem" justifyContent="center">
               <Flex
-                w="100%"
+                w="75%"
                 flexDirection="column"
+                bg={useColorModeValue('gray.100', 'gray.900')}
                 p={12}
+                borderColor="whiteAlpha.300"
+                borderWidth="1px"
+                borderRadius="1rem"
+                boxShadow="lg"
               >
                 <Heading
                   mt='-2rem'
@@ -387,6 +415,7 @@ function Panel() {
             <NavBar/>
             <ServerInfo />
             <SettingContainer />
+            <Footer />
           </Grid>
         </Box>
       </ChakraProvider>

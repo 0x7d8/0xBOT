@@ -62,6 +62,8 @@ module.exports = {
         const stock = interaction.options.getString("stock")
         const amount = interaction.options.getInteger("amount")
 
+        const balance = await bot.money.get(interaction.user.id)
+
         // Check if Amount is Negative
         if (amount < 0) {
             // Create Embed
@@ -86,7 +88,7 @@ module.exports = {
         const used = await bot.stocks.get(interaction.user.id, stock, 'used')
         const max = await bot.stocks.get(interaction.user.id, stock, 'max')
 
-        if (max > (used + amount)) {
+        if (max < (used + amount)) {
             // Create Embed)
             let message = new EmbedBuilder().setColor(0x37009B)
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
@@ -139,6 +141,20 @@ module.exports = {
         if (stock === 'white') { emoji = '⚪' }
         if (stock === 'black') { emoji = '⚫' }
 
+        // Log Transaction
+        const transaction = await bot.transactions.log({
+            success: true,
+            sender: {
+                id: interaction.user.id,
+                amount: cost,
+                type: 'negative'
+            }, reciever: {
+                id: `${amount}x ${stock.toUpperCase()} STOCK`,
+                amount: cost,
+                type: 'positive'
+            }
+        })
+
         // Add Stock Amount
         bot.stocks.add(interaction.user.id, stock, 'used', amount)
 
@@ -148,13 +164,13 @@ module.exports = {
         // Create Embed
         let message = new EmbedBuilder().setColor(0x37009B)
             .setTitle('<:CHART:1024398298204876941> » BUY STOCKS')
-            .setDescription('» You successfully bought **' + amount + '** ' + emoji + ' for **$' + cost + '**! (**$' + stocks[stock] + '** per Stock)')
+            .setDescription('» You successfully bought **' + amount + '** ' + emoji + ' for **$' + cost + '**! (**$' + stocks[stock] + '** per Stock)\n\nID: ' + transaction.id)
             .setFooter({ text: '» ' + vote + ' » ' + config.version });
 
         if (lang === 'de') {
             message = new EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:CHART:1024398298204876941> » AKTIEN KAUFEN')
-                .setDescription('» Du hast erfolgreich **' + amount + '** ' + emoji + ' für **' + cost + '€** gekauft! (**' + stocks[stock] + '€** pro Aktie)')
+                .setDescription('» Du hast erfolgreich **' + amount + '** ' + emoji + ' für **' + cost + '€** gekauft! (**' + stocks[stock] + '€** pro Aktie)\n\nID: ' + transaction.id)
                 .setFooter({ text: '» ' + vote + ' » ' + config.version });
         }
 

@@ -10,10 +10,12 @@ exports.items = require('./economy/items')
 exports.votes = require('./misc/votes')
 exports.money = require('./economy/money')
 exports.quotes = require('./misc/quotes')
+exports.userdb = require('./misc/userdb')
 exports.stocks = require('./economy/stocks')
 exports.settings = require('./misc/settings')
 exports.language = require('./misc/language')
 exports.businesses = require('./economy/businesses')
+exports.transactions = require('./economy/transactions')
 
 exports.random = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1)) + min

@@ -74,10 +74,6 @@ module.exports = {
             return interaction.reply({ embeds: [message], ephemeral: true })
         }
 
-        // Get Userinfo
-        let userinfo
-        userinfo = await client.users.fetch(interaction.user.id)
-
         // Set Reason Type
         let reasontype
         if (reason === null) { reasontype = 'NONE' }
@@ -89,7 +85,7 @@ module.exports = {
         let button = new ActionRowBuilder()
 			.addComponents(
 				new ButtonBuilder()
-					.setLabel('GIVE ' + userinfo.username.toUpperCase() + ' $' + amount)
+					.setLabel('GIVE ' + interaction.user.username.toUpperCase() + ' $' + amount)
                     .setEmoji('1024382935618572299')
                     .setCustomId('BEG-' + interaction.user.id + '-' + amount + '-' + reasontype + '-' + reasonres.toString())
 					.setStyle(ButtonStyle.Secondary),
@@ -99,7 +95,7 @@ module.exports = {
             button = new ActionRowBuilder()
 			    .addComponents(
 				    new ButtonBuilder()
-				    	.setLabel('GEBE ' + userinfo.username.toUpperCase() + ' ' + amount + '€')
+				    	.setLabel('GEBE ' + interaction.user.username.toUpperCase() + ' ' + amount + '€')
                         .setEmoji('1024382935618572299')
                         .setCustomId('BEG-' + interaction.user.id + '-' + amount + '-' + reasontype + '-' + reasonres.toString())
 				    	.setStyle(ButtonStyle.Secondary),

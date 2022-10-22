@@ -49,15 +49,15 @@ module.exports = {
                 if (count >= 10) break
 
                 let skip = false
-                const userinfo = await client.users.fetch(element.userid).catch((e) => skip = true)
+                const userinfo = await bot.userdb.get(element.userid)
                 if (!skip) {
                     count++
                     let formattedcount = count
                     if (count < 10) { formattedcount = '0' + count }
                     if (element.userid !== interaction.user.id) {
-                        embedDesc = embedDesc + `\`${formattedcount}.\` » ${userinfo.username}#${userinfo.discriminator} (**${element.money}€**)\n`
+                        embedDesc = embedDesc + `\`${formattedcount}.\` » ${userinfo.username}#${userinfo.usertag} (**${element.money}€**)\n`
                     } else {
-                        embedDesc = embedDesc + `**\`${formattedcount}.\`** » ${userinfo.username}#${userinfo.discriminator} (**${element.money}€**)\n`
+                        embedDesc = embedDesc + `**\`${formattedcount}.\`** » ${userinfo.username}#${userinfo.usertag} (**${element.money}€**)\n`
                     }
                 }
             }

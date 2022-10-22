@@ -108,30 +108,44 @@ module.exports = {
             interaction.message.components[0].components[1].data.disabled = true
             interaction.message.components[0].components[1].data.style = 2
 
+            // Log Transaction
+            const transaction = await bot.transactions.log({
+                success: true,
+                sender: {
+                    id: interaction.user.id,
+                    amount: cost,
+                    type: 'negative'
+                }, reciever: {
+                    id: `${amount}x ${itemid.toUpperCase()}`,
+                    amount: cost,
+                    type: 'positive'
+                }
+            })
+
             // Create Embed
             let message
             if (amount == 1) {
                 message = new EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:BOXCHECK:1024401101589590156> » BUY ITEM')
-                    .setDescription('» You successfully bought a **' + name + '** for **$' + cost + '**!')
+                    .setDescription('» You successfully bought a **' + name + '** for **$' + cost + '**!\n\nID: ' + transaction.id)
                     .setFooter({ text: '» ' + vote + ' » ' + config.version });
 
                 if (lang == 'de') {
                     message = new EmbedBuilder().setColor(0x37009B)
                         .setTitle('<:BOXCHECK:1024401101589590156> » GEGENSTAND KAUFEN')
-                        .setDescription('» Du hast erfolgreich eine **' + name + '** für **' + cost + '€** gekauft!')
+                        .setDescription('» Du hast erfolgreich eine **' + name + '** für **' + cost + '€** gekauft!\n\nID: ' + transaction.id)
                         .setFooter({ text: '» ' + vote + ' » ' + config.version });
                 }
             } else {
                 message = new EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:BOXCHECK:1024401101589590156> » BUY ITEMS')
-                    .setDescription('» You successfully bought **' + amount + 'x** **' + name + '** for **$' + cost + '**!')
+                    .setDescription('» You successfully bought **' + amount + 'x** **' + name + '** for **$' + cost + '**!\n\nID: ' + transaction.id)
                     .setFooter({ text: '» ' + vote + ' » ' + config.version });
 
                 if (lang == 'de') {
                     message = new EmbedBuilder().setColor(0x37009B)
                         .setTitle('<:BOXCHECK:1024401101589590156> » GEGENSTÄNDE KAUFEN')
-                        .setDescription('» Du hast erfolgreich **' + amount + 'x** **' + name + '** für **' + cost + '€** gekauft!')
+                        .setDescription('» Du hast erfolgreich **' + amount + 'x** **' + name + '** für **' + cost + '€** gekauft!\n\nID: ' + transaction.id)
                         .setFooter({ text: '» ' + vote + ' » ' + config.version });
                 }
             }

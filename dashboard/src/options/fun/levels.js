@@ -20,7 +20,6 @@ export const Option = (props) => {
   const params = new URLSearchParams(window.location.search)
   const toast = useToast()
 
-  const SwitchBackgroundColor = useColorModeValue('#EADDFF', '#1D192B')
   const SwitchIconColor = useColorModeValue('#21005D', '#37009B')
 
   const [settings, setSettings] = useState({})
@@ -67,7 +66,7 @@ export const Option = (props) => {
             variant: "subtle",
             position: "top-right",
             containerStyle: {
-              transform: "translateY(2.5rem)"
+              transform: "translateY(4rem)"
             }
           })
           updateoption()
@@ -82,10 +81,10 @@ export const Option = (props) => {
   return (
     <Menu>
       <Text color={SwitchIconColor} fontSize="2xl" mt="1rem">LEVEL SYSTEM</Text>
-      <MenuButton as={Button} colorScheme="purple" leftIcon={<FontAwesomeIcon icon={faCaretDown} />}>
+      <MenuButton as={Button} colorScheme="gray" leftIcon={<FontAwesomeIcon icon={faCaretDown} />}>
         {reformedlevels}
       </MenuButton>
-      <MenuList backgroundColor={SwitchBackgroundColor}>
+      <MenuList backgroundColor={useColorModeValue('gray.100', 'gray.900')}>
         <center>
           <MenuItem
             borderRadius="0.5rem"

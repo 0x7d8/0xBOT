@@ -14,7 +14,9 @@ import {
   StatNumber
 } from '@chakra-ui/react';
 import { NavBar } from '../NavBar'
+import { Footer } from '../Footer'
 
+import { useNavigate } from 'react-router-dom'
 import LogoLight from '../static/LogoLight.svg'
 import LogoDark from '../static/LogoDark.svg'
 
@@ -56,12 +58,16 @@ function Bot() {
   if (width < 1000) { size = '50%' }
 
   return (
-    <Flex alignItems="center" marginTop="2rem">
+    <Flex alignItems="center" marginTop="2rem" justifyContent="center">
               <Flex
-                w="100%"
+                w="50%"
                 flexDirection="column"
+                backgroundColor={useColorModeValue('gray.100', 'gray.900')}
                 p={12}
-                borderRadius="2rem"
+                borderColor="whiteAlpha.300"
+                borderWidth="1px"
+                borderRadius="1rem"
+                boxShadow="lg"
               >
                 <Image src={SwitchImage} alt="Upgrade your Server" w={size} alignSelf="center" />
                 <Heading
@@ -71,11 +77,21 @@ function Bot() {
                 >
                   0xBOT<br/>{version}
                 </Heading>
+                <Button
+                  alignSelf="center"
+                  width="10rem"
+                  variant="outline"
+                  colorScheme="gray"
+                  onClick={() => document.location.replace('https://discord.com/api/oauth2/authorize?client_id=1005105495356481636&redirect_uri=http%3A%2F%2Fde-01.paperstudios.de%3A3001%2F&response_type=token&scope=identify%20guilds')}
+                >
+                  GET STARTED
+                </Button>
               </Flex>
             </Flex>
   )
 };
 function GetStarted() {
+  const navigate = useNavigate()
   const [stats, setStats] = useState(0)
 
   useEffect(() => {
@@ -89,29 +105,31 @@ function GetStarted() {
   const SwitchIconColor = useColorModeValue('#21005D', '#37009B')
 
   return (
-    <Flex alignItems="center" marginTop="-5rem">
+    <Flex alignItems="center" justifyContent="center" marginTop="5rem">
               <Flex
-                w="100%"
+                w="50%"
+                backgroundColor={useColorModeValue('gray.100', 'gray.900')}
                 flexDirection="column"
                 p={12}
-                borderRadius="2rem"
+                borderColor="whiteAlpha.300"
+                borderWidth="1px"
+                borderRadius="1rem"
+                boxShadow="lg"
               >
-                <Button
-                  alignSelf="center"
-                  width="10rem"
-                  variant="outline"
-                  color="teal"
-                  onClick={() => document.location.replace('https://discord.com/api/oauth2/authorize?client_id=1005105495356481636&redirect_uri=http%3A%2F%2Fde-01.paperstudios.de%3A3001%2F&response_type=token&scope=identify%20guilds')}
+                <Heading
+                  mt='-2rem'
+                  mb={6}
+                  color={SwitchIconColor}
                 >
-                  GET STARTED
-                </Button>
+                  STATISTICS
+                </Heading>
                 <Stat
                   color={SwitchIconColor}
                   border="1px"
                   borderRadius="0.5rem"
                   borderColor="whiteAlpha.300"
                   alignSelf="center"
-                  w="25%"
+                  w="50%"
                   mt="2rem"
                 >
                   <StatLabel>Commands Executed</StatLabel>
@@ -123,7 +141,7 @@ function GetStarted() {
                   borderRadius="0.5rem"
                   borderColor="whiteAlpha.300"
                   alignSelf="center"
-                  w="25%"
+                  w="50%"
                   mt="2rem"
                 >
                   <StatLabel>Buttons Executed</StatLabel>
@@ -135,12 +153,22 @@ function GetStarted() {
                   borderRadius="0.5rem"
                   borderColor="whiteAlpha.300"
                   alignSelf="center"
-                  w="25%"
+                  w="50%"
                   mt="2rem"
                 >
                   <StatLabel>Modals Submitted</StatLabel>
                   <StatNumber>{stats.modals}</StatNumber>
                 </Stat>
+                <Button
+                  mt="2rem"
+                  alignSelf="center"
+                  width="20rem"
+                  variant="outline"
+                  colorScheme="gray"
+                  onClick={() => { navigate('/transactions') }}
+                >
+                  TRANSACTION BROWSER
+                </Button>
               </Flex>
             </Flex>
   )
@@ -153,6 +181,7 @@ function GetStarted() {
             <NavBar/>
             <Bot />
             <GetStarted />
+            <Footer />
           </Grid>
         </Box>
       </ChakraProvider>

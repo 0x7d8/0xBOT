@@ -10,9 +10,10 @@ import {
   Image,
   Button
 } from '@chakra-ui/react'
-import { useNavigate } from 'react-router-dom'
 import { NavBar } from '../NavBar'
+import { Footer } from '../Footer'
 
+import { useNavigate } from 'react-router-dom'
 import ImgDark from '../static/404/404Dark.svg'
 import ImgLight from '../static/404/404Light.svg'
 
@@ -97,6 +98,7 @@ function Home() {
             <NavBar/>
             <Error />
             <GoHome />
+            <Footer />
           </Grid>
         </Box>
       </ChakraProvider>

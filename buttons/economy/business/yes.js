@@ -113,6 +113,20 @@ module.exports = {
             interaction.message.components[0].components[1].data.disabled = true
             interaction.message.components[0].components[1].data.style = 2
 
+            // Log Transaction
+            const transaction = await bot.transactions.log({
+                success: true,
+                sender: {
+                    id: interaction.user.id,
+                    amount: cost,
+                    type: 'negative'
+                }, reciever: {
+                    id: `1x ${business.toUpperCase()}`,
+                    amount: cost,
+                    type: 'positive'
+                }
+            })
+
             // Remove Money
             bot.money.rem(interaction.guild.id, interaction.user.id, cost)
 
@@ -136,13 +150,13 @@ module.exports = {
             // Create Embed
             let message = new EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:BOXCHECK:1024401101589590156> » BUY BUSINESS')
-                .setDescription('» You successfully bought a **' + name + '** for **$' + cost + '**!')
+                .setDescription('» You successfully bought a **' + name + '** for **$' + cost + '**!\n\nID: ' + transaction.id)
                 .setFooter({ text: '» ' + vote + ' » ' + config.version });
 
             if (lang == 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:BOXCHECK:1024401101589590156> » GESCHÄFT KAUFEN')
-                    .setDescription('» Du hast erfolgreich ein **' + name + '** für **' + cost + '€** gekauft!')
+                    .setDescription('» Du hast erfolgreich ein **' + name + '** für **' + cost + '€** gekauft!\n\nID: ' + transaction.id)
                     .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
 

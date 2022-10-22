@@ -87,6 +87,9 @@ console.log(`[0xBOT] ${chalk.bold('[i]')} [${new Date().toLocaleTimeString('en-U
 client.on('interactionCreate', async(interaction) => {
 	if (!interaction.isCommand() && !interaction.isButton() && !interaction.isModalSubmit()) return
 
+	// Write to UserDB
+	await bot.userdb.add(interaction.user)
+
 	// Get Guild Language
 	const guildlang = await bot.language.get(interaction.guild.id)
 

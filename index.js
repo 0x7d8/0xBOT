@@ -18,13 +18,13 @@ const bot = require("./functions/bot")
 
 // CLI Commands
 const stdin = process.openStdin();
-stdin.addListener("data", async function(input) {
+stdin.addListener("data", async(input) => {
     // Get Arguments
     const args = input.toString().trim().split(" ")
     console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] RECIEVED COMMAND [' + input.toString().trim().toUpperCase() + ']')
 
     // ADDBAL
-    if (args[0].toUpperCase() == 'ADDBAL') {
+    if (args[0].toUpperCase() === 'ADDBAL') {
         if (typeof args[1] !== 'undefined' && typeof args[2] !== 'undefined') {
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] ADDED ' + args[2] + '€ TO ' + args[1])
             bot.money.add(false, args[1].toString(), parseInt(args[2]))
@@ -34,7 +34,7 @@ stdin.addListener("data", async function(input) {
     }
 
     // REMBAL
-    if (args[0].toUpperCase() == 'REMBAL') {
+    if (args[0].toUpperCase() === 'REMBAL') {
         if (typeof args[1] !== 'undefined' && typeof args[2] !== 'undefined') {
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] REMOVED ' + args[2] + '€ FROM ' + args[1])
             bot.money.rem(false, args[1].toString(), parseInt(args[2]))
@@ -44,7 +44,7 @@ stdin.addListener("data", async function(input) {
     }
 
     // SETBAL
-    if (args[0].toUpperCase() == 'SETBAL') {
+    if (args[0].toUpperCase() === 'SETBAL') {
         if (typeof args[1] !== 'undefined' && typeof args[2] !== 'undefined') {
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] SET BALANCE OF ' + args[1] + ' TO ' + args[2] + '€')
             bot.money.set(false, args[1].toString(), parseInt(args[2]))
@@ -54,7 +54,7 @@ stdin.addListener("data", async function(input) {
     }
 
     // EVAL
-    if (args[0].toUpperCase() == 'EVAL') {
+    if (args[0].toUpperCase() === 'EVAL') {
         if (typeof args[1] !== 'undefined') {
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] RESULT OF EVAL:')
             try {
@@ -173,14 +173,13 @@ const rateLimitDB = new Map()
 const rateLimit = require('koa-ratelimit')
 const koaBody = require('koa-body')
 const cors = require('@koa/cors')
-const { watchFile } = require('fs')
 const app = new Koa()
 
 // Add Addons to API
 app.use(koaBody())
 app.use(cors())
 app.use(rateLimit({
-    max: 20,
+    max: 30,
     duration: 30000,
     driver: 'memory',
     db: rateLimitDB,
@@ -278,6 +277,65 @@ router.get('/stats/guild', async(ctx) => {
 
     // Return Result
     return ctx.body = stats
+})
+
+// Transaction Functions
+// Stat Functions
+router.get('/transactions/search', async(ctx) => {
+    // Check for Queries
+    if (!ctx.headers.senderid || !ctx.headers.recieverid || !ctx.headers.maxresults) return ctx.body = { "success": false, "message": 'NO HEADERS' }
+
+    let rawvalues
+    if (ctx.headers.senderid !== 'empty' && ctx.headers.recieverid !== 'empty') {
+        rawvalues = await db.query(`select * from usertransactions where senderid = $1 and recieverid = $2 order by timestamp desc limit 50;`, [
+            ctx.headers.senderid,
+            ctx.headers.recieverid
+        ])
+    } else if (ctx.headers.senderid !== 'empty' && ctx.headers.recieverid === 'empty') {
+        rawvalues = await db.query(`select * from usertransactions where senderid = $1 order by timestamp desc limit 50;`, [
+            ctx.headers.senderid
+        ])
+    } else if (ctx.headers.senderid === 'empty' && ctx.headers.recieverid !== 'empty') {
+        rawvalues = await db.query(`select * from usertransactions where recieverid = $1 order by timestamp desc limit 50;`, [
+            ctx.headers.recieverid
+        ])
+    } else {
+        rawvalues = await db.query(`select * from usertransactions order by timestamp desc limit 50;`)
+    }
+
+    // Generate JSON Object
+    let output = []; let count = 0
+    for (const element of rawvalues.rows) {
+        count++
+        if (count > parseInt(ctx.headers.maxresults)) break
+
+        const senderInfo = await bot.userdb.get(element.senderid)
+        const recieverInfo = await bot.userdb.get(element.recieverid)
+
+        output.push({
+            "success": true,
+            "id": element.id,
+            "timestamp": element.timestamp,
+            "sender": {
+                "id": element.senderid,
+                "username": senderInfo.username,
+                "usertag": senderInfo.usertag,
+                "avatar": senderInfo.avatar,
+                "amount": element.senderamount,
+                "type": element.sendertype
+            }, "reciever": {
+                "id": element.recieverid,
+                "username": recieverInfo.username,
+                "usertag": recieverInfo.usertag,
+                "avatar": recieverInfo.avatar,
+                "amount": element.recieveramount,
+                "type": element.recievertype
+            }
+        })
+    }
+
+    // Return Result
+    return ctx.body = output
 })
 
 // Option Functions

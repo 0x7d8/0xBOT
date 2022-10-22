@@ -34,9 +34,8 @@ module.exports = {
             const level = (Math.round(((element.value/2)/500/5) * 1000) / 1000).toString().split('.')
 
             if (count < 10) { formattedcount = '0' + count }
-            let skip = false
-            const userinfo = await client.users.fetch(cache[1]).catch((e) => skip = true)
-            if (!skip) {
+            const userinfo = await bot.userdb.get(cache[1])
+            if (userinfo === 'N-FETCHABLE') {
                 if (cache[1] !== interaction.user.id) {
                     embedDesc = embedDesc + `\`${formattedcount}.\` » <@${cache[1]}> (**LVL ${level[0]}**)\n`
                 } else {
