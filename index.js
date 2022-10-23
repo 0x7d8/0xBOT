@@ -184,7 +184,9 @@ dashboard.use((ctx) => {
 })
 
 // Start Dashboard
-dashboard.listen(config.web.ports.dashboard, () => console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [STA] $$$$$ LAUNCHED DASHBOARD ON PORT ' + config.web.ports.dashboard))
+if (config.web.dashboard) {
+    dashboard.listen(config.web.ports.dashboard, () => console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [STA] $$$$$ LAUNCHED DASHBOARD ON PORT ' + config.web.ports.dashboard))
+}
 
 // Init API
 const rateLimitDB = new Map()
@@ -472,7 +474,9 @@ api.use((ctx) => {
 })
 
 // Start API
-api.listen(config.web.ports.api, () => console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [STA] $$$$$ LAUNCHED API ON PORT ' + config.web.ports.api))
+if (config.web.api) {
+    api.listen(config.web.ports.api, () => console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [STA] $$$$$ LAUNCHED API ON PORT ' + config.web.ports.api))
+}
 
 // Start Shard
 const manager = new ShardingManager('./bot.js', { token: config.client.token, shards: 'auto' })

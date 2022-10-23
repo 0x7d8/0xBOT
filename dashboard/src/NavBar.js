@@ -80,7 +80,7 @@ const MenuItems = () => {
             justifyContent="center"
             icon={<FontAwesomeIcon icon={faRightToBracket} />}
             iconSpacing={0}
-            onClick={() => window.location.replace('https://discord.com/api/oauth2/authorize?client_id=1005105495356481636&redirect_uri=http%3A%2F%2Fde-01.paperstudios.de%3A3001%2F&response_type=token&scope=identify%20guilds')}
+            onClick={() => window.location.replace('https://discord.com/api/oauth2/authorize?client_id=1001944224545128588&redirect_uri=https%3A%2F%2F0xbot.de%2F&response_type=code&scope=identify%20guilds')}
           >
             Log In
           </MenuItem>
