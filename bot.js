@@ -96,7 +96,7 @@ client.on('interactionCreate', async(interaction) => {
 	// Get Vote Status
 	let votet = 'VOTED'
 	const lastVote = await bot.votes.get(interaction.user.id + '-T')
-	if (lastVote < (Date.now() - 24*60*60*1000)) { vote = 'NOT VOTED' }
+	if (lastVote < (Date.now() - 24*60*60*1000)) { votet = 'NOT VOTED' }
 	if (lastVote === 0) { votet = 'NOT VOTED -> /VOTE' }
 	if (guildlang === 'de') {
 		votet = 'GEVOTED'
