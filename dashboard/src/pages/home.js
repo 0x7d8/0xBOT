@@ -60,7 +60,8 @@ function Bot() {
   return (
     <Flex alignItems="center" marginTop="2rem" justifyContent="center">
               <Flex
-                w="50%"
+                w="100%"
+                maxW="50rem"
                 flexDirection="column"
                 backgroundColor={useColorModeValue('gray.100', 'gray.900')}
                 p={12}
@@ -107,7 +108,8 @@ function GetStarted() {
   return (
     <Flex alignItems="center" justifyContent="center" marginTop="5rem">
               <Flex
-                w="50%"
+                w="100%"
+                maxW="50rem"
                 backgroundColor={useColorModeValue('gray.100', 'gray.900')}
                 flexDirection="column"
                 p={12}
@@ -129,7 +131,7 @@ function GetStarted() {
                   borderRadius="0.5rem"
                   borderColor="whiteAlpha.300"
                   alignSelf="center"
-                  w="50%"
+                  w="75%"
                   mt="2rem"
                 >
                   <StatLabel>Commands Executed</StatLabel>
@@ -141,7 +143,7 @@ function GetStarted() {
                   borderRadius="0.5rem"
                   borderColor="whiteAlpha.300"
                   alignSelf="center"
-                  w="50%"
+                  w="75%"
                   mt="2rem"
                 >
                   <StatLabel>Buttons Executed</StatLabel>
@@ -153,7 +155,7 @@ function GetStarted() {
                   borderRadius="0.5rem"
                   borderColor="whiteAlpha.300"
                   alignSelf="center"
-                  w="50%"
+                  w="75%"
                   mt="2rem"
                 >
                   <StatLabel>Modals Submitted</StatLabel>
