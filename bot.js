@@ -105,7 +105,11 @@ client.on('interactionCreate', async(interaction) => {
 	}
 	
 	// Set User Language
-	bot.language.set(interaction.user.id, interaction.locale)
+	if (interaction.locale === 'de') {
+		bot.language.set(interaction.user.id, 'de')
+	} else {
+		bot.language.set(interaction.user.id, 'en')
+	}
 
 	// Handle Commands
 	if (interaction.isChatInputCommand()) {
