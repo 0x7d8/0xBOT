@@ -1,5 +1,6 @@
 const { ShardingManager, PermissionsBitField } = require('discord.js')
 const { getAllFilesFilter } = require('./utils/getAllFiles.js')
+const { ActivityType } = require('discord.js')
 
 const pgP = require('pg').Pool
 const config = require('./config.json')
@@ -118,7 +119,7 @@ rawvalues.forEach(function (e) {
 const { Client, GatewayIntentBits } = require('discord.js');
 const client = new Client({ intents: [
     GatewayIntentBits.Guilds
-] }); client.login(config.client.token);
+] }); client.login(config.client.token)
 
 /// Dashboard
 // Check Session Function

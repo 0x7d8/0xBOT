@@ -1,9 +1,43 @@
+const sleep = milliseconds => Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, milliseconds)
 const { Client, Collection, GatewayIntentBits } = require('discord.js')
 const { getAllFilesFilter } = require('./utils/getAllFiles.js')
 const { EmbedBuilder } = require('@discordjs/builders')
+const { Timer } = require('./utils/timer')
 
 global.config = require('./config.json')
 const chalk = require('chalk')
+
+// Create Client
+const client = new Client({
+    intents: [
+	    GatewayIntentBits.Guilds,
+		GatewayIntentBits.GuildMembers,
+	    GatewayIntentBits.GuildMessages,
+	    GatewayIntentBits.MessageContent,
+		GatewayIntentBits.GuildVoiceStates
+    ]
+})
+
+// Login Function
+const timer = new Timer()
+let didload = false
+const login = (client) => {
+	timer.start()
+	client.login(config.client.token).then(() => {
+		if (config.client.quickload) {
+			timer.stop()
+
+			const ready = require('./events/ready')
+			while (!didload) { sleep(500) }
+			return ready.execute(client, timer.getTime())
+		} else {
+			timer.stop()
+			
+			const ready = require('./events/ready')
+			return ready.execute(client, timer.getTime())
+		}
+	})
+}; if (config.client.quickload) login(client)
 
 // MongoDB
 console.log(' ')
@@ -35,51 +69,53 @@ global.uapi = require("./functions/userapis")
 const { REST } = require('@discordjs/rest')
 const { Routes } = require('discord-api-types/v9')
 
-// Create Client
-const client = new Client({
-    intents: [
-	    GatewayIntentBits.Guilds,
-		GatewayIntentBits.GuildMembers,
-	    GatewayIntentBits.GuildMessages,
-	    GatewayIntentBits.MessageContent
-    ]
-})
-
 /// Register Interactions
 // Load all Events
+let count = 0
 const eventFiles = getAllFilesFilter('./events', '.js');
 for (const file of eventFiles) {
 	const event = require(file)
-	if (event.once) { client.once(event.event, (...args) => event.execute(...args)) } else { client.on(event.event, (...args) => event.execute(...args, client)) }
-	console.log(`[0xBOT] ${chalk.bold('[i]')} [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] LOADING EVENT ${event.name.toUpperCase()}`)
+	if (event.name.toUpperCase() !== 'START BOT' || !config.client.quickload) {
+		if (event.once) { client.once(event.event, (...args) => event.execute(...args)) } else { client.on(event.event, (...args) => event.execute(...args, client)) }
+		console.log(`[0xBOT] ${chalk.bold('[i]')} [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] LOADING EVENT ${event.name.toUpperCase()}`)
+	}
 }; console.log(' ')
 
 // Load all Commands
 client.commands = new Collection();
 const commandFiles = getAllFilesFilter('./commands', '.js');
 for (const file of commandFiles) {
+	count++
 	const command = require(file)
 	client.commands.set(command.data.name, command)
 	console.log(`[0xBOT] ${chalk.bold('[i]')} [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] LOADING COMMAND ${command.data.name.toUpperCase()}`)
-}; console.log(' ')
+}; console.log(`[0xBOT] ${chalk.bold('[i]')} [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] LOADED ${count} COMMANDS`)
+console.log(' '); count = 0
+if (!config.client.quickload) sleep(2000)
 
 // Load all Buttons
 client.buttons = new Collection();
 const buttonFiles = getAllFilesFilter('./buttons', '.js');
 for (const file of buttonFiles) {
+	count++
 	const button = require(file)
 	client.buttons.set(button.data.name, button)
 	console.log(`[0xBOT] ${chalk.bold('[i]')} [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] LOADING BUTTON ${button.data.name.toUpperCase()}`)
-}; console.log(' ')
+}; console.log(`[0xBOT] ${chalk.bold('[i]')} [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] LOADED ${count} BUTTONS`)
+console.log(' '); count = 0
+if (!config.client.quickload) sleep(2000)
 
 // Load all Modals
 client.modals = new Collection();
 const modalFiles = getAllFilesFilter('./modals', '.js');
 for (const file of modalFiles) {
+	count++
 	const modal = require(file)
 	client.modals.set(modal.data.name, modal)
 	console.log(`[0xBOT] ${chalk.bold('[i]')} [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] LOADING MODAL ${modal.data.name.toUpperCase()}`)
-}; console.log(' ')
+}; console.log(`[0xBOT] ${chalk.bold('[i]')} [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] LOADED ${count} MODALS`)
+console.log(' '); count = 0
+if (!config.client.quickload) sleep(2000)
 
 console.log(`[0xBOT] ${chalk.bold('[i]')} [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [END] $$$$$ LOADED COMMANDS AND EVENTS`)
 
@@ -310,12 +346,10 @@ rest.put(
 	{ body: commands },
 )
 
-console.log(`[0xBOT] ${chalk.bold('[i]')} [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] INTERACTIONS REGISTERED`)
 console.log(' ')
-console.log(`[0xBOT] ${chalk.bold('[i]')} [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] LOGGING IN`)
+console.log(`[0xBOT] ${chalk.bold('[i]')} [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] LOGGING IN...`)
 
-// Login
-client.login(config.client.token)
+if (!config.client.quickload) { login(client) } else { didload = true }
 
 // Top.gg Stats
 if (config.web.stats) {

@@ -1,5 +1,5 @@
-const { version } = require('../config.json')
 const { ActivityType } = require('discord.js')
+const config = require('../config.json')
 
 // Connect to Database
 const pgP = require('pg').Pool
@@ -19,12 +19,16 @@ module.exports = {
 	name: 'START BOT',
 	event: 'ready',
 	once: true,
-	async execute(client) {
-		console.log(`[0xBOT] ${chalk.bold('[i]')} [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] STARTED AND LOGGED IN AS ${client.user.tag}!`)
-		console.log(`[0xBOT] ${chalk.bold('[i]')} [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [END] $$$$$ LOADED 0xBOT ${version}`)
+	async execute(client, timed) {
+		console.log(`[0xBOT] ${chalk.bold('[i]')} [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] STARTED AND LOGGED IN AS ${client.user.tag} (${timed}ms)`)
+		console.log(`[0xBOT] ${chalk.bold('[i]')} [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [END] $$$$$ LOADED 0xBOT ${config.version}`)
 		console.log(' ')
 		console.log(`[0xBOT] ${chalk.bold('[i]')} [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [STA] $$$$$ STARTED LOGGING OF COMMANDS AND ERRORS`)
 		console.log(' ')
+
+		// Set Music Player
+		const { Player } = require('discord-player')
+		global.player = new Player(client)
 
 		// Set Status
 		while (true) {

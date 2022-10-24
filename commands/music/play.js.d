@@ -1,4 +1,5 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('@discordjs/builders')
+const { QueryType } = require('discord-player')
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -9,101 +10,39 @@ module.exports = {
             de: 'SPIELE EINEN SONG'
         })
         .addStringOption(option =>
-            option.setName('url')
-                .setDescription('THE URL')
+            option.setName('song')
+                .setDescription('THE SONG')
                 .setDescriptionLocalizations({
-                    de: 'DIE URL'
+                    de: 'DER SONG'
                 })
                 .setRequired(true)),
     async execute(interaction, client, lang, vote) {
-		// Set Variables
-        const query = interaction.options.getString('url')
-        console.log(interaction.user.voice)
+		const song = interaction.options.getString('song')
 
-        // Check if Channel is available
-		if (!interaction.user.voice.channel) {
-            // Create Embed
-            let message = new EmbedBuilder().setColor(0x37009B)
-                .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-                .setDescription(`» Please join ${interaction.user.guild.me.voice.channel ? "__my__" : "a"} Voice Channel first!`)
-                .setFooter({ text: '» ' + vote + ' » ' + config.version });
+        const res = await player.search(song, {
+            requestedBy: interaction.member,
+            searchEngine: QueryType.AUTO
+        })
 
-            if (lang === 'de') {
-                message = new EmbedBuilder().setColor(0x37009B)
-                    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-                    .setDescription(`» Bitte betritt erst ${interaction.user.guild.me.voice.channel ? "__meinen__" : "einen"} Sprachkanal!`)
-                    .setFooter({ text: '» ' + vote + ' » ' + config.version });
-            }
+        if (!res || !res.tracks.length) return interaction.reply({ content: `No results found ${interaction.member}... try again ? ❌`, ephemeral: true })
 
-            // Send Message
-            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] PLAY : ' + songurl + ' : NOTVC')
-            interaction.reply({ embeds: [message], ephemeral: true })
+        const queue = await player.createQueue(interaction.guild, {
+            metadata: interaction.channel,
+            spotifyBridge: true,
+            initialVolume: 75,
+            leaveOnEnd: true
+        })
+
+        try {
+            if (!queue.connection) await queue.connect(interaction.member.voice.channel)
+        } catch {
+            await player.deleteQueue(interaction.guildId);
+            return interaction.reply({ content: `I can't join the voice channel ${interaction.member}... try again ? ❌`, ephemeral: true})
         }
 
-        // Check if Channel is Full
-		if (interaction.user.voice.channel !== 0 && interaction.user.voice.channel.full) {
-            // Create Embed
-            let message = new EmbedBuilder().setColor(0x37009B)
-                .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-                .setDescription('» You Voice Channel is full!')
-                .setFooter({ text: '» ' + vote + ' » ' + config.version });
+        await interaction.reply({ content:`Loading your ${res.playlist ? 'playlist' : 'track'}... 🎧`})
 
-            if (lang === 'de') {
-                message = new EmbedBuilder().setColor(0x37009B)
-                    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-                    .setDescription('» Dein Sprachkanal ist voll!')
-                    .setFooter({ text: '» ' + vote + ' » ' + config.version });
-            }
-
-            // Send Message
-            bot.log(false, interaction.user.id, interaction.guild, '[CMD] PLAY : ' + songurl + ' : FULLVC')
-			return interaction.reply({ embeds: [message], ephemeral: true })
-        }
-
-			/*if (channel.guild.me.voice.channel && channel.guild.me.voice.channel.id !== interaction.user.voice.channel.id) {
-				return message.reply({
-					embeds: [new MessageEmbed()
-						.setColor(ee.wrongcolor)
-						.setFooter(ee.footertext, ee.footericon)
-						.setTitle(`${client.allEmojis.x} I am already connected somewhere else`)
-					],
-				});
-			}
-			if (!args[0]) {
-				return message.reply({
-					embeds: [new MessageEmbed()
-						.setColor(ee.wrongcolor)
-						.setFooter(ee.footertext, ee.footericon)
-						.setTitle(`${client.allEmojis.x} **Please add a Search Query!**`)
-						.setDescription(`**Usage:**\n> \`${client.settings.get(message.guild.id, "prefix")}play <Search/Link>\``)
-					],
-				});
-			}*/
-
-        // Set Queue
-		const queue = client.distube.getQueue(interaction.guild.id)
-		let options = {
-			"member": interaction.user,
-		}; if (!queue) options.textChannel = guild.channels.cache.get(interaction.channel.id)
-
-        // Play Song
-		await client.distube.playVoiceChannel(interaction.user.voice.channel, query, options)
-
-        // Create Embed
-        let message = new EmbedBuilder().setColor(0x37009B)
-            .setTitle('<:EXCLAMATION:1024407166460891166> » MUSIC')
-            .setDescription('» Playing **' + query + '**!')
-            .setFooter({ text: '» ' + vote + ' » ' + config.version });
-
-        if (lang === 'de') {
-            message = new EmbedBuilder().setColor(0x37009B)
-                .setTitle('<:EXCLAMATION:1024407166460891166> » MUSIC')
-                .setDescription('» Spiele **' + query + '**!')
-                .setFooter({ text: '» ' + vote + ' » ' + config.version });
-        }
-
-        // Send Message
-        bot.log(false, interaction.user.id, interaction.guild, '[CMD] PLAY : ' + songurl)
-		return interaction.reply({ embeds: [message] })
+        res.playlist ? queue.addTracks(res.tracks) : queue.addTrack(res.tracks[0])
+        if (!queue.playing) await queue.play()
 	}
 }
