@@ -43,7 +43,7 @@ module.exports = {
         	.setDescription('» Language successfully set to **' + langString + '**!')
         	.setFooter({ text: '» ' + config.version });
 
-        if (langs == "1") {
+        if (lang === 'de') {
             message = new EmbedBuilder().setColor(0x37009B)
         	    .setTitle('» SPRACHE')
         	    .setDescription('» Sprache erfolgreich auf **' + langString + '** gesetzt!')

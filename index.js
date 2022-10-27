@@ -1,18 +1,9 @@
 const { ShardingManager, PermissionsBitField } = require('discord.js')
 const { getAllFilesFilter } = require('./utils/getAllFiles.js')
-const { ActivityType } = require('discord.js')
 
 const pgP = require('pg').Pool
 const config = require('./config.json')
 const chalk = require('chalk')
-
-// Connect to MongoDB
-const mongoose = require('mongoose')
-mongoose.connect(config.mongo, {
-    useUnifiedTopology: true,
-    useNewUrlParser: true
-}).then(console.log('[0xBOT] [!] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] CONNECTED TO MONGODB'))
-console.log(' ')
 
 // Database Functions
 const bot = require("./functions/bot")
@@ -58,8 +49,10 @@ stdin.addListener("data", async(input) => {
     if (args[0].toUpperCase() === 'EVAL') {
         if (typeof args[1] !== 'undefined') {
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] RESULT OF EVAL:')
+            args.shift()
+
             try {
-                console.log(await eval(args[1]))
+                console.log(await eval(args.join(' ')))
             } catch(e) {
                 console.log(e)
                 console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] EVAL RETURNED AN ERROR')
@@ -68,7 +61,7 @@ stdin.addListener("data", async(input) => {
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] USAGE: EVAL [COMMAND]')
         }
     }
-  });
+})
 
 // Show Logo
 console.log(' ')
@@ -105,15 +98,6 @@ const migrator = async(conn) => {
     port: 5432
 }); const domigrate = async() => { await migrator(db) }
 domigrate(); if (migrated) { console.log(' ') }
-
-// Switcher (Keeping for the Docs)
-/* const domonmig = async() => {
-const schema = require('./schema/votes')
-const rawvalues = await schema.find({})
-rawvalues.forEach(function (e) {
-    db.query(`insert into uservotes values ($1, $2)`, [e.userId, e.votes])
-});
-}; domonmig() */
 
 // Create Client
 const { Client, GatewayIntentBits } = require('discord.js');
@@ -481,5 +465,5 @@ if (config.web.api) {
 
 // Start Shard
 const manager = new ShardingManager('./bot.js', { token: config.client.token, shards: 'auto' })
-manager.on('shardCreate', (shard) => console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [STA] $$$$$ LAUNCHED SHARD #' + shard.id))
+manager.on('shardCreate', async(shard) => console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [STA] $$$$$ LAUNCHED SHARD #' + shard.id))
 manager.spawn()

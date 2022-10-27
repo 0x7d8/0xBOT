@@ -1,10 +1,10 @@
 {
-  "name": "0x-bot",
+  "name": "0xbot",
   "version": "1.0.0",
   "description": "```bash\r npm init\r npm install discord.js\r npm install @discordjs/rest\r npm install @discordjs/builders\r ```",
   "main": "index.js",
   "scripts": {
-    "test": "node index.js"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -15,7 +15,7 @@
   "bugs": {
     "url": "https://github.com/rotvproHD/0xBOT/issues"
   },
-  "homepage": "https://github.com/rotvproHD/0xBOT",
+  "homepage": "https://0xbot.de",
   "dependencies": {
     "@discordjs/opus": "0.8.0",
     "@discordjs/rest": "1.3.0",
@@ -29,10 +29,8 @@
     "discord-api-types": "0.37.14",
     "discord-player": "5.3.2",
     "discord.js": "14.6.0",
-    "discordutility": "0.2.6",
     "express": "4.18.2",
     "ffmpeg-static": "5.1.0",
-    "fs": "0.0.1-security",
     "generate-password": "1.7.0",
     "git-commit-count": "1.1.3",
     "koa": "2.13.4",
@@ -40,21 +38,18 @@
     "koa-body": "5.0.0",
     "koa-ratelimit": "5.0.1",
     "koa-router": "12.0.0",
-    "koa-send": "^5.0.1",
-    "koa-static": "^5.0.0",
+    "koa-send": "5.0.1",
+    "koa-static": "5.0.0",
     "lib": "4.3.3",
     "mathjs": "11.3.2",
     "mongoose": "6.7.0",
-    "ms": "2.1.3",
     "node-cron": "3.0.2",
     "node-fetch": "2.6.7",
-    "nodeactyl": "3.3.0",
     "opusscript": "0.0.8",
     "pg": "8.8.0",
     "prism-media": "1.3.4",
     "quick.db": "7.1.3",
     "rest": "2.0.0",
-    "topgg-autoposter": "2.0.1",
-    "undici": "5.11.0"
+    "topgg-autoposter": "2.0.1"
   }
 }
