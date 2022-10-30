@@ -25,6 +25,7 @@
     "canvacord": "5.4.8",
     "chalk": "4.1.2",
     "cjs": "0.0.11",
+    "cli-progress": "^3.11.2",
     "connect-mongo": "4.6.0",
     "discord-api-types": "0.37.14",
     "discord-player": "5.3.2",

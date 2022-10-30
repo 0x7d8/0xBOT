@@ -1,10 +1,13 @@
-const sleep = milliseconds => Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, milliseconds)
+const sleep = (milliseconds) => Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, milliseconds)
+const wait = require('node:timers/promises').setTimeout
+
 const { Client, Collection, GatewayIntentBits } = require('discord.js')
 const { getAllFilesFilter } = require('./utils/getAllFiles.js')
 const { EmbedBuilder } = require('@discordjs/builders')
 const { Timer } = require('./utils/timer')
 
 global.config = require('./config.json')
+const cliProgress = require('cli-progress')
 const chalk = require('chalk')
 
 // Create Client
@@ -51,6 +54,7 @@ mongoose.connect(config.mongo, {
 }).then(console.log(`[0xBOT] ${chalk.bold('[!]')} [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] CONNECTED TO MONGODB`))
 console.log(' ')
 console.log(`[0xBOT] ${chalk.bold('[i]')} [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [STA] $$$$$ LOADING COMMANDS AND EVENTS`)
+console.log(' ')
 
 /// Useful Math Functions
 // Add Percentage to Number
@@ -69,54 +73,103 @@ global.uapi = require("./functions/userapis")
 const { REST } = require('@discordjs/rest')
 const { Routes } = require('discord-api-types/v9')
 
-/// Register Interactions
-// Load all Events
-let count = 0
-const eventFiles = getAllFilesFilter('./events', '.js');
-for (const file of eventFiles) {
-	const event = require(file)
-	if (event.name.toUpperCase() !== 'START BOT' || !config.client.quickload) {
-		if (event.once) { client.once(event.event, (...args) => event.execute(...args)) } else { client.on(event.event, (...args) => event.execute(...args, client)) }
-		console.log(`[0xBOT] ${chalk.bold('[i]')} [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] LOADING EVENT ${event.name.toUpperCase()}`)
+/// Register External Files
+// Init Progress Bar
+const bars = new cliProgress.MultiBar({
+	format: function(options, params, payload){
+		const value = (params.value > 9 ? params.value : '0' + params.value)
+		const total = (params.total > 9 ? params.total : '0' + params.total)
+
+        return cliProgress.Format.Formatter(Object.assign({}, options, {
+            format: `[0xBOT] [i] [{bar}] ${value}/${total} {type}`
+        }), params, payload);
+    },
+    barCompleteChar: '=',
+    barIncompleteChar: '-',
+	barsize: 14,
+    hideCursor: true
+})
+
+// Get Files
+const eventFiles = getAllFilesFilter('./events', '.js')
+const eventBar = bars.create(eventFiles.length, 0, {
+	type: 'EVENTS LOADED'
+})
+const commandFiles = getAllFilesFilter('./commands', '.js')
+const commandBar = bars.create(commandFiles.length, 0, {
+	type: 'COMMANDS LOADED'
+})
+const buttonFiles = getAllFilesFilter('./buttons', '.js')
+const buttonBar = bars.create(buttonFiles.length, 0, {
+	type: 'BUTTONS LOADED'
+})
+const modalFiles = getAllFilesFilter('./modals', '.js')
+const modalBar = bars.create(modalFiles.length, 0, {
+	type: 'MODALS LOADED'
+})
+
+// Load all Files Functions
+const eventLoad = async() => {
+	for (const file of eventFiles) {
+		const event = require(file)
+		if (event.name.toUpperCase() !== 'START BOT' || !config.client.quickload) {
+			if (event.once) { client.once(event.event, (...args) => event.execute(...args)) } else { client.on(event.event, (...args) => event.execute(...args, client)) }
+			eventBar.increment()
+			bars.update()
+			sleep(75)
+		} else {
+			eventBar.increment()
+			bars.update()
+		}
+	}; return true
+}; client.commands = new Collection()
+const commandLoad = async() => {
+	for (const file of commandFiles) {
+		const command = require(file)
+		client.commands.set(command.data.name, command)
+
+		commandBar.increment()
+		bars.update()
+		sleep(75)
+	}; return true
+}; client.buttons = new Collection()
+const buttonLoad = async() => {
+	for (const file of buttonFiles) {
+		const button = require(file)
+		client.buttons.set(button.data.name, button)
+
+		buttonBar.increment()
+		bars.update()
+		sleep(75)
+	}; return true
+}; client.modals = new Collection()
+const modalLoad = async() => {
+	for (const file of modalFiles) {
+		const modal = require(file)
+		client.modals.set(modal.data.name, modal)
+
+		modalBar.increment()
+		bars.update()
+		sleep(75)
+	}; return true
+}; const fileLoad = async() => {
+	const events = eventLoad()
+	const commands = commandLoad()
+	const buttons = buttonLoad()
+	const modals = modalLoad()
+
+	return {
+		evt: await events,
+		cmd: await commands,
+		btn: await buttons,
+		mod: await modals
 	}
-}; console.log(' ')
+}; const fileInit = async() => {
+	await fileLoad()
+}; fileInit()
+bars.stop()
 
-// Load all Commands
-client.commands = new Collection();
-const commandFiles = getAllFilesFilter('./commands', '.js');
-for (const file of commandFiles) {
-	count++
-	const command = require(file)
-	client.commands.set(command.data.name, command)
-	console.log(`[0xBOT] ${chalk.bold('[i]')} [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] LOADING COMMAND ${command.data.name.toUpperCase()}`)
-}; console.log(`[0xBOT] ${chalk.bold('[i]')} [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] LOADED ${count} COMMANDS`)
-console.log(' '); count = 0
-if (!config.client.quickload) sleep(2000)
-
-// Load all Buttons
-client.buttons = new Collection();
-const buttonFiles = getAllFilesFilter('./buttons', '.js');
-for (const file of buttonFiles) {
-	count++
-	const button = require(file)
-	client.buttons.set(button.data.name, button)
-	console.log(`[0xBOT] ${chalk.bold('[i]')} [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] LOADING BUTTON ${button.data.name.toUpperCase()}`)
-}; console.log(`[0xBOT] ${chalk.bold('[i]')} [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] LOADED ${count} BUTTONS`)
-console.log(' '); count = 0
-if (!config.client.quickload) sleep(2000)
-
-// Load all Modals
-client.modals = new Collection();
-const modalFiles = getAllFilesFilter('./modals', '.js');
-for (const file of modalFiles) {
-	count++
-	const modal = require(file)
-	client.modals.set(modal.data.name, modal)
-	console.log(`[0xBOT] ${chalk.bold('[i]')} [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] LOADING MODAL ${modal.data.name.toUpperCase()}`)
-}; console.log(`[0xBOT] ${chalk.bold('[i]')} [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] LOADED ${count} MODALS`)
-console.log(' '); count = 0
-if (!config.client.quickload) sleep(2000)
-
+console.log(' ')
 console.log(`[0xBOT] ${chalk.bold('[i]')} [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [END] $$$$$ LOADED COMMANDS AND EVENTS`)
 
 // Interaction Handler
