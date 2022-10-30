@@ -178,7 +178,7 @@ function ProfileBox() {
                 </Button>
                 <Text
                   mt="2rem"
-                  hidden={(cookie.get('useremail') !== '')}
+                  hidden={(cookie.get('useremail') === '')}
                   color={SwitchIconColor}
                 >
                   Emails
@@ -187,7 +187,7 @@ function ProfileBox() {
                   mt="0.5rem"
                   size="lg"
                   isChecked={onlineValue}
-                  hidden={(cookie.get('useremail') !== '')}
+                  hidden={(cookie.get('useremail') === '')}
                   onChange={emailSwitch}
                 />
               </Flex>

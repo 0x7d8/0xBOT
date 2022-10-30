@@ -141,7 +141,16 @@ export function NavBar() {
                   <Center>
                     <Avatar
                       _hover={{ cursor: "pointer", borderColor: "gray.500" }}
-                      onClick={() => { navigate('/panel') }}
+                      onClick={() => {
+                        if (
+                          cookie.get('username') !== '' &&
+                          cookie.get('usertag') !== '' &&
+                          cookie.get('accessToken') !== '' &&
+                          cookie.get('tokenType') !== ''
+                        ) {
+                          navigate('/panel')
+                        }
+                      }}
                       size={'2xl'}
                       src={`https://cdn.discordapp.com/avatars/${cookie.get('userid')}/${cookie.get('avatar')}.png`}
                       borderColor="whiteAlpha.300"
