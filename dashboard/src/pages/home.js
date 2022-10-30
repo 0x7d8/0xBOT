@@ -26,7 +26,7 @@ import axios from 'axios'
 /* ---------------- *
  * Version          *
  * ---------------- */
-const version = '3.0.2'
+const version = '3.0.3'
 
 function getWindowDimensions() {
   const { innerWidth: width, innerHeight: height } = window;
@@ -83,7 +83,7 @@ function Bot() {
                   width="10rem"
                   variant="outline"
                   colorScheme="gray"
-                  onClick={() => document.location.replace('https://discord.com/api/oauth2/authorize?client_id=1001944224545128588&redirect_uri=https%3A%2F%2F0xbot.de%2F&response_type=token&scope=identify%20guilds')}
+                  onClick={() => document.location.replace('https://discord.com/api/oauth2/authorize?client_id=1001944224545128588&redirect_uri=https%3A%2F%2F0xbot.de%2F&response_type=token&scope=identify%20email%20guilds')}
                 >
                   GET STARTED
                 </Button>

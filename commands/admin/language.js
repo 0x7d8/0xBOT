@@ -21,8 +21,8 @@ module.exports = {
                 .setRequired(true)
                 .addChoices(
             		// Setup Choices
-					{ name: '🇩🇪 DEUTSCH', value: '1' },
-					{ name: '🇬🇧 ENGLISH', value: '2' },
+					{ name: '🇩🇪 DEUTSCH', value: 'de' },
+					{ name: '🇬🇧 ENGLISH', value: 'en' },
 				))
         .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages),
     async execute(interaction, client, bin, vote) {

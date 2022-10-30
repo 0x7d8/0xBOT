@@ -13,11 +13,11 @@ import topgg from './static/topgg.svg'
 export function Footer() {
   return (
     <Box
+      w="100%"
       mt="10rem"
-      mb="-1rem"
       bg={useColorModeValue('gray.50', 'gray.900')}
       color={useColorModeValue('gray.700', 'gray.200')}
-      borderRadius="1rem 1rem 0rem 0rem"
+      borderRadius="1rem"
     >
       <Container
         as={Stack}

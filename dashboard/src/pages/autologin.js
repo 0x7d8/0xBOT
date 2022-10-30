@@ -33,12 +33,13 @@ function AutoLogin() {
           cookie.set('userid', res.data.id, 360)
           cookie.set('username', res.data.username, 360)
           cookie.set('usertag', res.data.discriminator, 360)
+          cookie.set('useremail', res.data.email, 360)
           cookie.set('avatar', res.data.avatar, 360)
 
           navigate('/panel')
         })
     } else {
-      window.setTimeout(() => {navigate('/home')}, 1000);
+      window.setTimeout(() => {navigate('/home')}, 1000)
     }
   });
     return (
@@ -58,7 +59,7 @@ function AutoLogin() {
           </Grid>
         </Box>
       </ChakraProvider>
-    );
+    )
 }
 
-export default AutoLogin;
+export default AutoLogin

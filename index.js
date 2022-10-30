@@ -8,6 +8,12 @@ const chalk = require('chalk')
 // Database Functions
 const bot = require("./functions/bot")
 
+// Create Client
+const { Client, GatewayIntentBits } = require('discord.js')
+const client = new Client({ intents: [
+    GatewayIntentBits.Guilds
+] }); client.login(config.client.token)
+
 // CLI Commands
 const stdin = process.openStdin();
 stdin.addListener("data", async(input) => {
@@ -99,12 +105,6 @@ const migrator = async(conn) => {
 }); const domigrate = async() => { await migrator(db) }
 domigrate(); if (migrated) { console.log(' ') }
 
-// Create Client
-const { Client, GatewayIntentBits } = require('discord.js');
-const client = new Client({ intents: [
-    GatewayIntentBits.Guilds
-] }); client.login(config.client.token)
-
 /// Dashboard
 // Check Session Function
 const fetch = require('node-fetch')
@@ -148,6 +148,26 @@ const checksession = async(accessToken, tokenType, userid, guildid) => {
 		    if (user.permissions.has(PermissionsBitField.Flags.Administrator)) { return true }
         } catch(e) { return false }
     }
+}
+
+// Check Email Function
+const mailcache = new Map()
+const checkemail = async(accessToken, tokenType, userid, email) => {
+    const dbuser = mailcache.get(userid+email)
+    if (typeof dbuser === 'undefined') {
+        try {
+            const userinfo = await fetch('https://discord.com/api/users/@me', {
+                headers: {
+                    authorization: `${tokenType} ${accessToken}`
+                }
+            }); const userinfodata = await userinfo.json()
+            if (userinfodata.id !== userid) return false
+            if (userinfodata.email !== email) return false
+
+            mailcache.set(userid+email, true)
+            return true
+        } catch(e) { return false }
+    } else { return true }
 }
 
 // Init Dashboard
@@ -291,20 +311,20 @@ routerAPI.get('/transactions/search', async(ctx) => {
 
     let rawvalues
     if (ctx.headers.senderid !== 'empty' && ctx.headers.recieverid !== 'empty') {
-        rawvalues = await db.query(`select * from usertransactions where senderid = $1 and recieverid = $2 order by timestamp desc limit 50;`, [
+        rawvalues = await db.query(`select * from usertransactions where senderid = $1 and recieverid = $2 order by timestamp desc;`, [
             ctx.headers.senderid,
             ctx.headers.recieverid
         ])
     } else if (ctx.headers.senderid !== 'empty' && ctx.headers.recieverid === 'empty') {
-        rawvalues = await db.query(`select * from usertransactions where senderid = $1 order by timestamp desc limit 50;`, [
+        rawvalues = await db.query(`select * from usertransactions where senderid = $1 order by timestamp desc;`, [
             ctx.headers.senderid
         ])
     } else if (ctx.headers.senderid === 'empty' && ctx.headers.recieverid !== 'empty') {
-        rawvalues = await db.query(`select * from usertransactions where recieverid = $1 order by timestamp desc limit 50;`, [
+        rawvalues = await db.query(`select * from usertransactions where recieverid = $1 order by timestamp desc;`, [
             ctx.headers.recieverid
         ])
     } else {
-        rawvalues = await db.query(`select * from usertransactions order by timestamp desc limit 50;`)
+        rawvalues = await db.query(`select * from usertransactions order by timestamp desc;`)
     }
 
     // Generate JSON Object
@@ -444,13 +464,73 @@ routerAPI.get('/options/guild', async(ctx) => {
     // Boolean
     if (ctx.request.body.option !== 'LANGUAGE') {
         if (ctx.request.body.value !== true && ctx.request.body.value !== false) return ctx.body = { "success": false, "message": 'INVALID VALUE' }
-        let set = 0; if (ctx.request.body.value === 'GERMAN') { set = 1 }
         bot.settings.set(ctx.query.id, ctx.request.body.option.toLowerCase(), ctx.request.body.value)
         response = { "success": true, "message": 'OPTION UPDATED' }
     }
 
     // Return Result
     return ctx.body = response
+})
+
+// Email Functions
+routerAPI.get('/options/email', async(ctx) => {
+    // Check for Queries
+    if (!ctx.query.email) return ctx.body = { "success": false, "message": 'NO EMAIL' }
+
+    // Check Permissions
+    if (!await checkemail(
+        ctx.headers.accesstoken,
+        ctx.headers.tokentype,
+        ctx.headers.userid,
+        ctx.query.email
+    )) { return ctx.body = { "success": false, "message": 'PERMISSION DENIED' } }
+
+    // Get Email
+    const email = await db.query(`select * from useremails where userid = $1 and email = $2;`, [
+        ctx.headers.userid,
+        ctx.query.email
+    ]); if (email.rowCount === 1) {
+        // Return Result
+        return ctx.body = { "success": true, "email": true }
+    } else {
+        // Return Result
+        return ctx.body = { "success": true, "email": false }
+    }
+}); routerAPI.post('/options/email', async(ctx) => {
+    // Check for Queries
+    if (!ctx.query.email) return ctx.body = { "success": false, "message": 'NO EMAIL' }
+    if (ctx.request.body.option === null) return ctx.body = { "success": false, "message": 'NO HEADERS' }
+    
+    // Check Permissions
+    if (!await checkemail(
+        ctx.headers.accesstoken,
+        ctx.headers.tokentype,
+        ctx.headers.userid,
+        ctx.query.email
+    )) { return ctx.body = { "success": false, "message": 'PERMISSION DENIED' } }
+
+    // Set Email
+    const dbemail = await db.query(`select * from useremails where userid = $1 and email = $2;`, [
+        ctx.headers.userid,
+        ctx.query.email
+    ])
+
+    if (ctx.request.body.option) {
+        if (dbemail.rowCount === 0) {
+            await db.query(`insert into useremails values ($1, $2)`, [
+                ctx.headers.userid,
+                ctx.query.email
+            ])
+        }
+    } else {
+        await db.query(`delete from useremails where userid = $1 and email = $2;`, [
+            ctx.headers.userid,
+            ctx.query.email
+        ])
+    }
+
+    // Return Result
+    return ctx.body = { "success": true, "message": 'OPTION UPDATED' }
 })
 
 api.use(routerAPI.routes()).use(routerAPI.allowedMethods())
