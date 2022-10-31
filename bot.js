@@ -110,63 +110,54 @@ const modalBar = bars.create(modalFiles.length, 0, {
 
 // Load all Files Functions
 const eventLoad = async() => {
-	for (const file of eventFiles) {
+	Promise.all(eventFiles.map((file) => {
 		const event = require(file)
 		if (event.name.toUpperCase() !== 'START BOT' || !config.client.quickload) {
 			if (event.once) { client.once(event.event, (...args) => event.execute(...args)) } else { client.on(event.event, (...args) => event.execute(...args, client)) }
 			eventBar.increment()
 			bars.update()
-			sleep(75)
+			sleep(25)
 		} else {
 			eventBar.increment()
 			bars.update()
 		}
-	}; return true
+	}))
 }; client.commands = new Collection()
 const commandLoad = async() => {
-	for (const file of commandFiles) {
+	Promise.all(commandFiles.map((file) => {
 		const command = require(file)
 		client.commands.set(command.data.name, command)
 
 		commandBar.increment()
 		bars.update()
-		sleep(75)
-	}; return true
+		sleep(25)
+	}))
 }; client.buttons = new Collection()
 const buttonLoad = async() => {
-	for (const file of buttonFiles) {
+	Promise.all(buttonFiles.map((file) => {
 		const button = require(file)
 		client.buttons.set(button.data.name, button)
 
 		buttonBar.increment()
 		bars.update()
-		sleep(75)
-	}; return true
+		sleep(25)
+	}))
 }; client.modals = new Collection()
 const modalLoad = async() => {
-	for (const file of modalFiles) {
+	Promise.all(modalFiles.map((file) => {
 		const modal = require(file)
 		client.modals.set(modal.data.name, modal)
 
 		modalBar.increment()
 		bars.update()
-		sleep(75)
-	}; return true
+		sleep(25)
+	}))
 }; const fileLoad = async() => {
-	const events = eventLoad()
-	const commands = commandLoad()
-	const buttons = buttonLoad()
-	const modals = modalLoad()
-
-	return {
-		evt: await events,
-		cmd: await commands,
-		btn: await buttons,
-		mod: await modals
-	}
-}; const fileInit = async() => {
-	await fileLoad()
-}; fileInit()
+	eventLoad(),
+	commandLoad(),
+	buttonLoad(),
+	modalLoad()
+}; fileLoad()
 bars.stop()
 
 console.log(' ')
