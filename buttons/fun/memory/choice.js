@@ -253,13 +253,13 @@ module.exports = {
             // Create Embed
             message = new EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:GAMEPAD:1024395990679167066> » MEMORY')
-                .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> is playing Memory with <@' + reciever.toString().replace(/\D/g, '') + '>!\nThe Bet is **$' + bet + '**\n\n🔵 » Points of <@' + sender.toString().replace(/\D/g, '') + '> are **' + bot.memory.get('POINTS-' + sender) + '**\n🔴 » Points of <@' + reciever.toString().replace(/\D/g, '') + '> are **' + bot.memory.get('POINTS-' + reciever) + '**\n\n<:AWARD:1024385473524793445> ' + winner + ' has won **$' + betwon + '**.' + ((transaction.id !== undefined) ? `\nID: ${transaction.id}` : ''))
+                .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> is playing Memory with <@' + reciever.toString().replace(/\D/g, '') + '>!\nThe Bet is **$' + bet + '**\n\n🔵 » Points of <@' + sender.toString().replace(/\D/g, '') + '> are **' + bot.memory.get('POINTS-' + sender) + '**\n🔴 » Points of <@' + reciever.toString().replace(/\D/g, '') + '> are **' + bot.memory.get('POINTS-' + reciever) + '**\n\n<:AWARD:1024385473524793445> ' + winner + ' has won **$' + betwon + '**.' + ((typeof transaction === 'object') ? `\nID: ${transaction.id}` : ''))
                 .setFooter({ text: '» ' + config.version });
 
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:GAMEPAD:1024395990679167066> » MEMORY')
-                    .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> spielt mit <@' + reciever.toString().replace(/\D/g, '') + '> Memory!\nDie Wette ist **' + bet + '€**\n\n🔵 » Punkte von <@' + sender.toString().replace(/\D/g, '') + '> sind **' + bot.memory.get('POINTS-' + sender) + '**\n🔴 » Punkte von <@' + reciever.toString().replace(/\D/g, '') + '> sind **' + bot.memory.get('POINTS-' + reciever) +'**\n\n<:AWARD:1024385473524793445> ' + winner + ' hat **' + betwon + '€** gewonnen.' + ((transaction.id !== undefined) ? `\nID: ${transaction.id}` : ''))
+                    .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> spielt mit <@' + reciever.toString().replace(/\D/g, '') + '> Memory!\nDie Wette ist **' + bet + '€**\n\n🔵 » Punkte von <@' + sender.toString().replace(/\D/g, '') + '> sind **' + bot.memory.get('POINTS-' + sender) + '**\n🔴 » Punkte von <@' + reciever.toString().replace(/\D/g, '') + '> sind **' + bot.memory.get('POINTS-' + reciever) +'**\n\n<:AWARD:1024385473524793445> ' + winner + ' hat **' + betwon + '€** gewonnen.' + ((typeof transaction === 'object') ? `\nID: ${transaction.id}` : ''))
                     .setFooter({ text: '» ' + config.version });
             }
 

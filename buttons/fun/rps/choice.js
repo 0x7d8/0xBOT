@@ -113,7 +113,7 @@ module.exports = {
 
             message = new EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:GAMEPAD:1024395990679167066> » ROCK PAPER SCISSORS')
-                .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> selected **' + bot.rps.get('CHOICE-' + sender) + '**\n» <@' + reciever.toString().replace(/\D/g, '') + '> selected **' + bot.rps.get('CHOICE-' + reciever) + '**\n\n<:AWARD:1024385473524793445> ' + winner + ' won **$' + betwon + '**.' + ((transaction.id !== undefined) ? `\nID: ${transaction.id}` : ''))
+                .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> selected **' + bot.rps.get('CHOICE-' + sender) + '**\n» <@' + reciever.toString().replace(/\D/g, '') + '> selected **' + bot.rps.get('CHOICE-' + reciever) + '**\n\n<:AWARD:1024385473524793445> ' + winner + ' won **$' + betwon + '**.' + ((typeof transaction === 'object') ? `\nID: ${transaction.id}` : ''))
                 .setFooter({ text: '» ' + config.version });
 
             if (lang === 'de') {
@@ -126,7 +126,7 @@ module.exports = {
 
                 message = new EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:GAMEPAD:1024395990679167066> » SCHERE STEIN PAPIER')
-                    .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> wählte **' + send + '**\n» <@' + reciever.toString().replace(/\D/g, '') + '> wählte **' + reci + '**\n\n<:AWARD:1024385473524793445> ' + winner + ' hat **' + betwon + '€** gewonnen.' + ((transaction.id !== undefined) ? `\nID: ${transaction.id}` : ''))
+                    .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> wählte **' + send + '**\n» <@' + reciever.toString().replace(/\D/g, '') + '> wählte **' + reci + '**\n\n<:AWARD:1024385473524793445> ' + winner + ' hat **' + betwon + '€** gewonnen.' + ((typeof transaction === 'object') ? `\nID: ${transaction.id}` : ''))
                     .setFooter({ text: '» ' + config.version });
             }
 
