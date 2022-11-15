@@ -1,5 +1,4 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('@discordjs/builders')
-
 const generator = require('generate-password')
 
 module.exports = {

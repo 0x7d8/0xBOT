@@ -1,6 +1,5 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('@discordjs/builders')
 const { AttachmentBuilder } = require('discord.js')
-
 const canvas = require('canvacord')
 
 module.exports = {

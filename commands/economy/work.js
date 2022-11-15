@@ -1,6 +1,5 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('@discordjs/builders')
 const { Collection } = require('discord.js')
-
 const cooldown = new Collection()
 const time = 1800000
 

@@ -107,7 +107,7 @@ domigrate(); if (migrated) { console.log(' ') }
 
 /// Dashboard
 // Check Session Function
-const fetch = require('node-fetch')
+const axios = require('axios')
 const checksession = async(accessToken, tokenType, userid, guildid) => {
     const dbuser = await db.query(`select * from usersessions where userid = $1 and token = $2 and tokentype = $3;`, [
         userid,
@@ -123,12 +123,15 @@ const checksession = async(accessToken, tokenType, userid, guildid) => {
         }
 
         try {
-            const userinfo = await fetch('https://discord.com/api/users/@me', {
+            const req = await axios({
+                method: 'get',
+                url: 'https://discord.com/api/users/@me',
+                validateStatus: false,
                 headers: {
                     authorization: `${tokenType} ${accessToken}`
                 }
-            }); const userinfodata = await userinfo.json()
-            if (userinfodata.id !== userid) return false
+            }); const res = req.data
+            if (res.id !== userid) return false
 
             const guild = await client.guilds.fetch(guildid, { force: true })
 		    const user = await guild.members.fetch(userid, { force: true })
@@ -156,13 +159,16 @@ const checkemail = async(accessToken, tokenType, userid, email) => {
     const dbuser = mailcache.get(userid+email)
     if (typeof dbuser === 'undefined') {
         try {
-            const userinfo = await fetch('https://discord.com/api/users/@me', {
+            const req = await axios({
+                method: 'get',
+                url: 'https://discord.com/api/users/@me',
+                validateStatus: false,
                 headers: {
                     authorization: `${tokenType} ${accessToken}`
                 }
-            }); const userinfodata = await userinfo.json()
-            if (userinfodata.id !== userid) return false
-            if (userinfodata.email !== email) return false
+            }); const res = req.data
+            if (res.id !== userid) return false
+            if (res.email !== email) return false
 
             mailcache.set(userid+email, true)
             return true

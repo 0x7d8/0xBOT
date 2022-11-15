@@ -1,6 +1,5 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('@discordjs/builders')
-
-const fetch = require("node-fetch")
+const axios = require('axios')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -42,8 +41,12 @@ module.exports = {
         if (res === 4) { subreddit = "Gittertiere" }
 
         // Get Initial Meme
-        const url = await fetch("https://www.reddit.com/r/" + subreddit + "/random/.json")
-        const random = await url.json()
+        const req = await axios({
+            method: 'get',
+            url: `https://www.reddit.com/r/${subreddit}/random/.json`,
+            validateStatus: false,
+            headers: {}
+        }); const random = req.data
 
         let upvotes = random[0].data.children[0].data.ups
         let comments = random[0].data.children[0].data.num_comments
