@@ -46,13 +46,6 @@ const login = (client) => {
 console.log(' ')
 console.log(`[0xBOT] ${chalk.bold('[i]')} [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [STA] $$$$$ LOADING 0xBOT ${config.version}`)
 console.log(' ')
-console.log(`[0xBOT] ${chalk.bold('[i]')} [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] CONNECTING TO MONGODB`)
-const mongoose = require('mongoose')
-mongoose.connect(config.mongo, {
-    useUnifiedTopology: true,
-    useNewUrlParser: true
-}).then(console.log(`[0xBOT] ${chalk.bold('[!]')} [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] CONNECTED TO MONGODB`))
-console.log(' ')
 console.log(`[0xBOT] ${chalk.bold('[i]')} [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [STA] $$$$$ LOADING COMMANDS AND EVENTS`)
 console.log(' ')
 
@@ -67,7 +60,7 @@ global.addper = (oval, pval) => {
 global.bot = require('./functions/bot')
 
 // General Value
-global.uapi = require("./functions/userapis")
+global.uapi = {}
 
 // Deploy Commands
 const { REST } = require('@discordjs/rest')
