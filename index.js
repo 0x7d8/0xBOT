@@ -191,7 +191,7 @@ const routerDashboard = new Router()
 
 dashboard.use(routerDashboard.routes()).use(routerDashboard.allowedMethods())
 dashboard.use((ctx) => {
-    return send(ctx, './dashboard/build/index.html')
+    return send(ctx, './dashboard/dist/index.html')
 })
 
 // Start Dashboard
