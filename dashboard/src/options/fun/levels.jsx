@@ -4,6 +4,7 @@ import {
   Button,
   useToast,
   Center,
+  VStack,
   useColorModeValue,
   Menu,
   MenuButton,
@@ -83,7 +84,7 @@ export const Option = (props) => {
         {reformedlevels}
       </MenuButton>
       <MenuList backgroundColor={useColorModeValue('gray.100', 'gray.900')}>
-        <Center>
+        <VStack>
           <MenuItem
             borderRadius="0.5rem"
             mr="0.5rem"
@@ -106,7 +107,7 @@ export const Option = (props) => {
           >
             DISABLE
           </MenuItem>
-        </Center>
+        </VStack>
       </MenuList>
     </Menu>
   )
