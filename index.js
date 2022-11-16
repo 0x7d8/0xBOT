@@ -15,10 +15,10 @@ const client = new Client({ intents: [
 ] }); client.login(config.client.token)
 
 // CLI Commands
-const stdin = process.openStdin();
+const stdin = process.openStdin()
 stdin.addListener("data", async(input) => {
     // Get Arguments
-    const args = input.toString().trim().split(" ")
+    const args = input.toString().trim().split(' ')
     console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] RECIEVED COMMAND [' + input.toString().trim().toUpperCase() + ']')
 
     // ADDBAL
@@ -184,7 +184,7 @@ const serve = require('koa-static')
 const dashboard = new Koa()
 
 // Add Addons to Dashboard
-dashboard.use(serve('./dashboard/build'))
+dashboard.use(serve('./dashboard/dist'))
 
 // Endpoints
 const routerDashboard = new Router()
