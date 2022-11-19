@@ -9,7 +9,7 @@ export function set(cname, cval, exdays) {
   const d = new Date()
   d.setTime(d.getTime() + (exdays*24*60*60*1000))
   let expires = "expires="+ d.toUTCString()
-  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/;domain=paperstudios.de"
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/;domain=0xbot.de"
 }
 
 export function get(cname) {
