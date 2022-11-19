@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import {
-  ChakraProvider,
   Box,
   Grid,
-  theme,
   Flex,
   Heading,
   Center,
@@ -19,8 +17,6 @@ import {
   MenuList,
   MenuItem
 } from '@chakra-ui/react'
-import { NavBar } from '../NavBar'
-import { Footer } from '../Footer'
 
 import { FaArrowRight, FaCaretDown } from 'react-icons/all'
 import ImageSlash from '../static/image-slash.svg';
@@ -69,7 +65,7 @@ function ResultBox(props) {
                 flexDirection="row"
                 bg={useColorModeValue('gray.100', 'gray.900')}
                 p={12}
-                borderColor="whiteAlpha.300"
+                borderColor={useColorModeValue('blackAlpha.300', 'whiteAlpha.300')}
                 borderWidth="1px"
                 borderRadius="1rem"
                 className="shadow-md"
@@ -97,7 +93,7 @@ function ResultBox(props) {
                     color={SwitchIconColor}
                     border="1px"
                     borderRadius="0.5rem"
-                    borderColor="whiteAlpha.300"
+                    borderColor={useColorModeValue('blackAlpha.300', 'whiteAlpha.300')}
                     alignSelf="center"
                     w="50%"
                     mt="2rem"
@@ -108,7 +104,7 @@ function ResultBox(props) {
                     color={SwitchIconColor}
                     border="1px"
                     borderRadius="0.5rem"
-                    borderColor="whiteAlpha.300"
+                    borderColor={useColorModeValue('blackAlpha.300', 'whiteAlpha.300')}
                     alignSelf="center"
                     w="50%"
                     mt="2rem"
@@ -120,7 +116,7 @@ function ResultBox(props) {
                     color={SwitchIconColor}
                     border="1px"
                     borderRadius="0.5rem"
-                    borderColor="whiteAlpha.300"
+                    borderColor={useColorModeValue('blackAlpha.300', 'whiteAlpha.300')}
                     alignSelf="center"
                     w="50%"
                     mt="2rem"
@@ -197,7 +193,7 @@ function ResultBox(props) {
         flexDirection="column"
         bg={useColorModeValue('gray.100', 'gray.900')}
         p={12}
-        borderColor="whiteAlpha.300"
+        borderColor={useColorModeValue('blackAlpha.300', 'whiteAlpha.300')}
         borderWidth="1px"
         borderRadius="1rem"
         className="shadow-md"
@@ -341,16 +337,12 @@ function ResultBox(props) {
 function Panel() {    
   return (
     <Animated>
-      <ChakraProvider theme={theme}>
-        <Box textAlign="center" fontSize="xl">
-          <Grid minH="0%" p={3}>
-            <NavBar/>
-            <SearchBox />
-            <ResultsContainer />
-            <Footer />
-          </Grid>
-        </Box>
-      </ChakraProvider>
+      <Box textAlign="center" fontSize="xl" mt="6.2rem">
+        <Grid minH="0%" p={3}>
+          <SearchBox />
+          <ResultsContainer />
+        </Grid>
+      </Box>
     </Animated>
   )
 }

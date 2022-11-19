@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import {
-  ChakraProvider,
   Box,
   Grid,
-  theme,
   Flex,
   Heading,
   useColorModeValue,
@@ -13,8 +11,6 @@ import {
   StatLabel,
   StatNumber
 } from '@chakra-ui/react'
-import { NavBar } from '../NavBar'
-import { Footer } from '../Footer'
 
 import { useNavigate } from 'react-router-dom'
 import LogoLight from '../static/LogoLight.svg'
@@ -26,7 +22,7 @@ import axios from 'axios'
 /* ---------------- *
  * Version          *
  * ---------------- */
-const version = '3.0.5'
+const version = '3.0.6'
 
 function getWindowDimensions() {
   const { innerWidth: width, innerHeight: height } = window;
@@ -65,7 +61,7 @@ function Bot() {
         flexDirection="column"
         backgroundColor={useColorModeValue('gray.100', 'gray.900')}
         p={12}
-        borderColor="whiteAlpha.300"
+        borderColor={useColorModeValue('blackAlpha.300', 'whiteAlpha.300')}
         borderWidth="1px"
         borderRadius="1rem"
         className="shadow-md"
@@ -112,7 +108,7 @@ function Bot() {
         backgroundColor={useColorModeValue('gray.100', 'gray.900')}
         flexDirection="column"
         p={12}
-        borderColor="whiteAlpha.300"
+        borderColor={useColorModeValue('blackAlpha.300', 'whiteAlpha.300')}
         borderWidth="1px"
         borderRadius="1rem"
         className="shadow-md"
@@ -128,7 +124,7 @@ function Bot() {
           color={SwitchIconColor}
           border="1px"
           borderRadius="0.5rem"
-          borderColor="whiteAlpha.300"
+          borderColor={useColorModeValue('blackAlpha.300', 'whiteAlpha.300')}
           alignSelf="center"
           w="75%"
           mt="2rem"
@@ -140,7 +136,7 @@ function Bot() {
           color={SwitchIconColor}
           border="1px"
           borderRadius="0.5rem"
-          borderColor="whiteAlpha.300"
+          borderColor={useColorModeValue('blackAlpha.300', 'whiteAlpha.300')}
           alignSelf="center"
           w="75%"
           mt="2rem"
@@ -152,7 +148,7 @@ function Bot() {
           color={SwitchIconColor}
           border="1px"
           borderRadius="0.5rem"
-          borderColor="whiteAlpha.300"
+          borderColor={useColorModeValue('blackAlpha.300', 'whiteAlpha.300')}
           alignSelf="center"
           w="75%"
           mt="2rem"
@@ -166,7 +162,7 @@ function Bot() {
           width="20rem"
           variant="outline"
           colorScheme="gray"
-          onClick={() => { navigate('/transactions') }}
+          onClick={() => navigate('/transactions') }
         >
           TRANSACTION BROWSER
         </Button>
@@ -177,16 +173,12 @@ function Bot() {
 function Home() {
   return (
     <Animated>
-      <ChakraProvider theme={theme}>
-        <Box textAlign="center" fontSize="xl">
-          <Grid minH="0%" p={3}>
-            <NavBar/>
-            <Bot />
-            <GetStarted />
-            <Footer />
-          </Grid>
-        </Box>
-      </ChakraProvider>
+      <Box textAlign="center" fontSize="xl" mt="6.2rem">
+        <Grid minH="0%" p={3}>
+          <Bot />
+          <GetStarted />
+        </Grid>
+      </Box>
     </Animated>
   )
 }

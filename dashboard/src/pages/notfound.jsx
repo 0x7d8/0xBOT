@@ -1,17 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import {
-  ChakraProvider,
   Box,
   Grid,
-  theme,
   Flex,
   Heading,
   useColorModeValue,
   Image,
   Button
 } from '@chakra-ui/react'
-
-import { NavBar } from '/src/NavBar'
 
 import { useNavigate } from 'react-router-dom'
 import ImgDark from '/src/static/404/404Dark.svg'
@@ -20,24 +16,24 @@ import ImgLight from '/src/static/404/404Light.svg'
 import Animated from '/src/Animated'
 
 function getWindowDimensions() {
-  const { innerWidth: width, innerHeight: height } = window;
+  const { innerWidth: width, innerHeight: height } = window
   return {
     width,
     height
   };
 }; function useWindowDimensions() {
-  const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
+  const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions())
 
   useEffect(() => {
     function handleResize() {
-      setWindowDimensions(getWindowDimensions());
+      setWindowDimensions(getWindowDimensions())
     }
 
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
-  return windowDimensions;
+  return windowDimensions
 }; function Error() {
   const width = useWindowDimensions().width
   const SwitchIconColor = useColorModeValue('#21005D', '#37009B')
@@ -82,7 +78,7 @@ function getWindowDimensions() {
           width="10rem"
           variant="outline"
           color="gray"
-          onClick={() => navigate('/')}
+          onClick={() => navigate('/') }
         >
           GO HOME
         </Button>
@@ -90,18 +86,16 @@ function getWindowDimensions() {
     </Flex>
   )
 }
+
 function NotFound() {
   return (
     <Animated>
-      <ChakraProvider theme={theme}>
-        <Box textAlign="center" fontSize="xl">
-          <Grid minH="0%" p={3}>
-            <NavBar/>
-            <Error />
-            <GoHome />
-          </Grid>
-        </Box>
-      </ChakraProvider>
+      <Box textAlign="center" fontSize="xl" mt="6.2rem">
+        <Grid minH="0%" p={3}>
+          <Error />
+          <GoHome />
+        </Grid>
+      </Box>
     </Animated>
   )
 }

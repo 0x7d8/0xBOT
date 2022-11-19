@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import {
-  ChakraProvider,
   Box,
   Grid,
-  theme,
   Flex,
   Button,
   Center,
@@ -12,8 +10,6 @@ import {
   Image,
   useToast
 } from '@chakra-ui/react'
-import { NavBar } from '/src/NavBar'
-import { Footer } from '/src/Footer'
 
 import { useNavigate } from 'react-router-dom'
 import ImageSlash from '/src/static/image-slash.svg'
@@ -83,7 +79,7 @@ function ServerBox(props) {
           variant: "subtle",
           position: "top-right",
           containerStyle: {
-            transform: "translateY(4rem)"
+            transform: "translateY(4.5rem)"
           }
         })
       })
@@ -96,7 +92,7 @@ function ServerBox(props) {
         flexDirection="row"
         bg={useColorModeValue('gray.100', 'gray.900')}
         p={12}
-        borderColor="whiteAlpha.300"
+        borderColor={useColorModeValue('blackAlpha.300', 'whiteAlpha.300')}
         borderWidth="1px"
         borderRadius="1rem"
         className="shadow-md"
@@ -183,15 +179,11 @@ function ServerBox(props) {
 function Panel() {
   return (
     <Animated>
-      <ChakraProvider theme={theme}>
-        <Box textAlign="center" fontSize="xl">
-          <Grid minH="0%" p={3}>
-            <NavBar/>
-            <ServerContainer />
-            <Footer />
-          </Grid>
-        </Box>
-      </ChakraProvider>
+      <Box textAlign="center" fontSize="xl" mt="6.2rem">
+        <Grid minH="0%" p={3}>
+          <ServerContainer />
+        </Grid>
+      </Box>
     </Animated>
   )
 }

@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import {
-  ChakraProvider,
   Box,
   Grid,
-  theme,
   Flex,
   Heading,
   Center,
@@ -17,8 +15,6 @@ import {
   Button,
   Switch
 } from '@chakra-ui/react'
-import { NavBar } from '../NavBar'
-import { Footer } from '../Footer'
 
 import { useNavigate } from 'react-router-dom'
 import ImageSlash from '../static/image-slash.svg';
@@ -91,7 +87,7 @@ function ProfileBox() {
             variant: "subtle",
             position: "top-right",
             containerStyle: {
-              transform: "translateY(4rem)"
+              transform: "translateY(4.5rem)"
             }
           })
         } else {
@@ -110,7 +106,7 @@ function ProfileBox() {
         flexDirection="column"
         bg={useColorModeValue('gray.100', 'gray.900')}
         p={12}
-        borderColor="whiteAlpha.300"
+        borderColor={useColorModeValue('blackAlpha.300', 'whiteAlpha.300')}
         borderWidth="1px"
         borderRadius="1rem"
         boxShadow="lg"
@@ -136,7 +132,7 @@ function ProfileBox() {
           color={SwitchIconColor}
           border="1px"
           borderRadius="0.5rem"
-          borderColor="whiteAlpha.300"
+          borderColor={useColorModeValue('blackAlpha.300', 'whiteAlpha.300')}
           alignSelf="center"
           w="75%"
           mt="2rem"
@@ -148,7 +144,7 @@ function ProfileBox() {
           color={SwitchIconColor}
           border="1px"
           borderRadius="0.5rem"
-          borderColor="whiteAlpha.300"
+          borderColor={useColorModeValue('blackAlpha.300', 'whiteAlpha.300')}
           alignSelf="center"
           w="75%"
           mt="2rem"
@@ -160,7 +156,7 @@ function ProfileBox() {
           color={SwitchIconColor}
           border="1px"
           borderRadius="0.5rem"
-          borderColor="whiteAlpha.300"
+          borderColor={useColorModeValue('blackAlpha.300', 'whiteAlpha.300')}
           alignSelf="center"
           w="75%"
           mt="2rem"
@@ -200,7 +196,7 @@ function Panel() {
   return (
     <Animated>
       <ChakraProvider theme={theme}>
-        <Box textAlign="center" fontSize="xl">
+        <Box textAlign="center" fontSize="xl" mt="6.2rem">
           <Grid minH="0%" p={3}>
             <NavBar/>
             <ProfileBox />

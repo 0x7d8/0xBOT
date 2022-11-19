@@ -66,7 +66,7 @@ export const Option = (props) => {
             variant: "subtle",
             position: "top-right",
             containerStyle: {
-              transform: "translateY(4rem)"
+              transform: "translateY(4.5rem)"
             }
           })
           updateoption()

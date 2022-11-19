@@ -46,7 +46,7 @@ function AutoLogin() {
       <ChakraProvider theme={theme}>
         <Box textAlign="center" fontSize="xl">
           <Grid minH="100vh" p={3}>
-            <Flex h="80vh" alignItems="center" justifyContent="center">
+            <Flex h="80vh" alignItems="center" justifyContent="center" mt="6.2rem">
               <Flex
                 flexDirection="column"
                 p={12}

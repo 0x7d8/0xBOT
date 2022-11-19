@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import {
-  ChakraProvider,
   Box,
   Grid,
-  theme,
   Flex,
   Center,
   Heading,
@@ -18,8 +16,6 @@ import {
   Text,
   Image
 } from '@chakra-ui/react'
-import { NavBar } from '/src/NavBar'
-import { Footer } from '/src/Footer'
 
 import { FaCaretDown } from 'react-icons/all'
 import ImageSlash from '/src/static/image-slash.svg'
@@ -52,7 +48,7 @@ const General = () => {
     <Accordion
       allowMultiple
       backgroundColor={useColorModeValue('gray.100', 'gray.900')}
-      borderColor="whiteAlpha.300"
+      borderColor={useColorModeValue('blackAlpha.300', 'whiteAlpha.300')}
       borderWidth="1px"
       borderRadius="1rem"
       className="shadow-md"
@@ -87,7 +83,7 @@ const General = () => {
       mt="2rem"
       allowMultiple
       backgroundColor={useColorModeValue('gray.100', 'gray.900')}
-      borderColor="whiteAlpha.300"
+      borderColor={useColorModeValue('blackAlpha.300', 'whiteAlpha.300')}
       borderWidth="1px"
       borderRadius="1rem"
       className="shadow-md"
@@ -112,7 +108,7 @@ const General = () => {
           <Accordion
             allowMultiple
             backgroundColor={useColorModeValue('gray.100', 'gray.900')}
-            borderColor="whiteAlpha.300"
+            borderColor={useColorModeValue('blackAlpha.300', 'whiteAlpha.300')}
             borderWidth="1px"
             borderRadius="1rem"
             className="shadow-md"
@@ -145,7 +141,7 @@ const General = () => {
             mt="2rem"
             allowMultiple
             backgroundColor={useColorModeValue('gray.100', 'gray.900')}
-            borderColor="whiteAlpha.300"
+            borderColor={useColorModeValue('blackAlpha.300', 'whiteAlpha.300')}
             borderWidth="1px"
             borderRadius="1rem"
             className="shadow-md"
@@ -185,7 +181,7 @@ const General = () => {
       mt="2rem"
       allowMultiple
       backgroundColor={useColorModeValue('gray.100', 'gray.900')}
-      borderColor="whiteAlpha.300"
+      borderColor={useColorModeValue('blackAlpha.300', 'whiteAlpha.300')}
       borderWidth="1px"
       borderRadius="1rem"
       className="shadow-md"
@@ -210,7 +206,7 @@ const General = () => {
           <Accordion
             allowMultiple
             backgroundColor={useColorModeValue('gray.100', 'gray.900')}
-            borderColor="whiteAlpha.300"
+            borderColor={useColorModeValue('blackAlpha.300', 'whiteAlpha.300')}
             borderWidth="1px"
             borderRadius="1rem"
             className="shadow-md"
@@ -241,7 +237,7 @@ const General = () => {
             mt="2rem"
             allowMultiple
             backgroundColor={useColorModeValue('gray.100', 'gray.900')}
-            borderColor="whiteAlpha.300"
+            borderColor={useColorModeValue('blackAlpha.300', 'whiteAlpha.300')}
             borderWidth="1px"
             borderRadius="1rem"
             className="shadow-md"
@@ -319,7 +315,7 @@ const ServerInfo = () => {
         flexDirection="column"
         bg={useColorModeValue('gray.100', 'gray.900')}
         p={12}
-        borderColor="whiteAlpha.300"
+        borderColor={useColorModeValue('blackAlpha.300', 'whiteAlpha.300')}
         borderWidth="1px"
         borderRadius="1rem"
         className="shadow-md"
@@ -345,7 +341,7 @@ const ServerInfo = () => {
           color={SwitchIconColor}
           border="1px"
           borderRadius="0.5rem"
-          borderColor="whiteAlpha.300"
+          borderColor={useColorModeValue('blackAlpha.300', 'whiteAlpha.300')}
           alignSelf="center"
           w="75%"
           mt="2rem"
@@ -357,7 +353,7 @@ const ServerInfo = () => {
           color={SwitchIconColor}
           border="1px"
           borderRadius="0.5rem"
-          borderColor="whiteAlpha.300"
+          borderColor={useColorModeValue('blackAlpha.300', 'whiteAlpha.300')}
           alignSelf="center"
           w="75%"
           mt="2rem"
@@ -369,7 +365,7 @@ const ServerInfo = () => {
           color={SwitchIconColor}
           border="1px"
           borderRadius="0.5rem"
-          borderColor="whiteAlpha.300"
+          borderColor={useColorModeValue('blackAlpha.300', 'whiteAlpha.300')}
           alignSelf="center"
           w="75%"
           mt="2rem"
@@ -391,7 +387,7 @@ const ServerInfo = () => {
         flexDirection="column"
         bg={useColorModeValue('gray.100', 'gray.900')}
         p={12}
-        borderColor="whiteAlpha.300"
+        borderColor={useColorModeValue('blackAlpha.300', 'whiteAlpha.300')}
         borderWidth="1px"
         borderRadius="1rem"
         className="shadow-md"
@@ -414,16 +410,12 @@ const ServerInfo = () => {
 function Panel() {
   return (
     <Animated>
-      <ChakraProvider theme={theme}>
-        <Box textAlign="center" fontSize="xl">
-          <Grid minH="0%" p={3}>
-            <NavBar/>
-            <ServerInfo />
-            <SettingContainer />
-            <Footer />
-          </Grid>
-        </Box>
-      </ChakraProvider>
+      <Box textAlign="center" fontSize="xl" mt="6.2rem">
+        <Grid minH="0%" p={3}>
+          <ServerInfo />
+          <SettingContainer />
+        </Grid>
+      </Box>
     </Animated>
   )
 }

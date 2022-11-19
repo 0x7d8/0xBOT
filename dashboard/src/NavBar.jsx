@@ -1,3 +1,4 @@
+import React from 'react'
 import {
   Box,
   Flex,
@@ -10,6 +11,7 @@ import {
   MenuList,
   MenuItem,
   MenuDivider,
+  useDisclosure,
   useColorModeValue,
   useColorMode,
   Stack,
@@ -19,7 +21,7 @@ import {
   VStack
 } from '@chakra-ui/react'
 import { SunIcon, MoonIcon } from '@chakra-ui/icons'
-import { MdLogin, MdLogout, MdVpnKey, FaList } from 'react-icons/all'
+import { MdLogin, MdLogout, FaList } from 'react-icons/all'
 import { useNavigate } from 'react-router-dom'
 import LogoLight from '/src/static/LogoLight.svg'
 import LogoDark from '/src/static/LogoDark.svg'
@@ -92,6 +94,7 @@ const MenuItems = () => {
 }
 
 export function NavBar() {
+  const { isOpen, onOpen, onClose } = useDisclosure()
   const toast = useToast()
   const navigate = useNavigate()
 
@@ -103,29 +106,35 @@ export function NavBar() {
     <>
       <Box
         zIndex="10000"
+        fontSize="xl"
+        w="100%"
         as="nav"
-        position="sticky"
-        mt="-1rem"
+        position="fixed"
         top="0"
         bg={useColorModeValue('gray.100', 'gray.900')}
         opacity="97.5%"
-        px={4}
-        borderRadius="0 0 1rem 1rem"
         className="shadow-md"
       >
-        <Flex h={16} alignItems="center" justifyContent="space-between">
+        <Flex
+          h={16}
+          mt="0.25rem"
+          mb="0.25rem"
+          alignItems="center"
+          justifyContent="space-between"
+        >
           <Button
-            variant="ghost"
+            ml="1rem"
+            variant="link"
             colorScheme="gray"
             color={useColorModeValue('#21005D', '#37009B')}
-            leftIcon={<Image src={useColorModeValue(LogoLight, LogoDark)} style={{ height: 34, width: 34 }} />}
-            onClick={() => { navigate('/home') }}
+            leftIcon={<Image src={useColorModeValue(LogoLight, LogoDark)} style={{ height: 48, width: 48 }} />}
+            onClick={() => navigate('/home') }
           >
             0xBOT
           </Button>
 
           <Flex alignItems="center">
-            <Stack direction="row" spacing={7}>
+            <Stack direction="row" spacing={7} mr="1rem">
               <IconButton
                 color={useColorModeValue('black', 'white')}
                 alignSelf="center"
@@ -142,17 +151,22 @@ export function NavBar() {
                     variant: "subtle",
                     position: "top-right",
                     containerStyle: {
-                      transform: "translateY(4rem)"
+                      transform: "translateY(4.5rem)"
                     }
                   }); return toggleColorMode()
                 }}
               />
 
-              <Menu>
+              <Menu
+                isOpen={isOpen}
+                onClose={onClose}
+                onOpen={onOpen}
+              >
                 <MenuButton
                   as={Avatar}
                   src={`https://cdn.discordapp.com/avatars/${cookie.get('userid')}/${cookie.get('avatar')}.png`}
                   _hover={{ cursor: "pointer", opacity: "80%" }}
+                  onClick={onOpen}
                 />
                 <MenuList
                   alignItems="center"

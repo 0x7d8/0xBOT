@@ -1,6 +1,7 @@
-import { ColorModeScript } from '@chakra-ui/react'
+import { ColorModeScript, ChakraProvider, theme } from '@chakra-ui/react'
 import React, { StrictMode } from 'react'
 import * as ReactDOM from 'react-dom/client'
+import { NavBar } from '/src/NavBar'
 
 // Pages
 import AutoLogin from '/src/pages/autologin'
@@ -25,22 +26,26 @@ const root = ReactDOM.createRoot(container)
 
 root.render(
   <StrictMode>
-  <ColorModeScript />
-  <Router>
-    <Routes>
-    <Route path="/" element={<AutoLogin />} status={200} />
-    <Route path="/home" element={<Home />} status={200} />
+    <ColorModeScript />
+    <Router>
+      <ChakraProvider theme={theme}>
+        <NavBar />
 
-    <Route path="/transactions" element={<Transactions />} status={200} />
+        <Routes>
+          <Route path="/" element={<AutoLogin />} status={200} />
+          <Route path="/home" element={<Home />} status={200} />
 
-    <Route path="/panel" element={<Panel />} status={200} />
-    <Route path="/panel/servers" element={<PanelServers />} status={200} />
-    <Route path="/panel/manage" element={<PanelManage />} status={200} />
+          <Route path="/transactions" element={<Transactions />} status={200} />
+
+          <Route path="/panel" element={<Panel />} status={200} />
+          <Route path="/panel/servers" element={<PanelServers />} status={200} />
+          <Route path="/panel/manage" element={<PanelManage />} status={200} />
 
 
-    <Route path="*" element={<NotFound />} status={404} />
-    </Routes>
-  </Router>
+          <Route path="*" element={<NotFound />} status={404} />
+        </Routes>
+      </ChakraProvider>
+    </Router>
   </StrictMode>
 )
 
