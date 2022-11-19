@@ -51,7 +51,6 @@ function AutoLogin() {
                 flexDirection="column"
                 p={12}
                 borderRadius="2rem"
-                boxShadow="md"
               >
                 <Spinner size="xl" />
               </Flex>

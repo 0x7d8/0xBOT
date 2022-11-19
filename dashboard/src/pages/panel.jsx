@@ -195,15 +195,11 @@ function ProfileBox() {
 function Panel() {    
   return (
     <Animated>
-      <ChakraProvider theme={theme}>
-        <Box textAlign="center" fontSize="xl" mt="6.2rem">
-          <Grid minH="0%" p={3}>
-            <NavBar/>
-            <ProfileBox />
-            <Footer />
-          </Grid>
-        </Box>
-      </ChakraProvider>
+      <Box textAlign="center" fontSize="xl" mt="6.2rem">
+        <Grid minH="0%" p={3}>
+          <ProfileBox />
+        </Grid>
+      </Box>
     </Animated>
   )
 }
