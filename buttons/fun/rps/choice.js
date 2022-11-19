@@ -11,7 +11,7 @@ module.exports = {
         const [sender, reciever] = description
 
         // Check if User is playing
-        if (sender.toString().replace(/\D/g, '') !== interaction.user.id && reciever.toString().replace(/\D/g, '') !== interaction.user.id) {
+        if (sender !== interaction.user.id && reciever !== interaction.user.id) {
             // Create Embed
             let message = new EmbedBuilder().setColor(0x37009B)
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
@@ -81,24 +81,24 @@ module.exports = {
             // Transfer Money
             const betwon = parseInt(bet) * 2; let transaction
             if (winner !== '**Noone**' && winner !== '**Niemand**') {
-                bot.money.add(interaction.guild.id, winner.toString().replace(/\D/g, ''), parseInt(betwon))
+                bot.money.add(interaction.guild.id, winner, parseInt(betwon))
 
                 // Log Transaction
-                transaction = await bot.transactions.log({
+                if (betwon > 0) transaction = await bot.transactions.log({
                     success: true,
                     sender: {
                         id: (winner === sender ? reciever : sender),
                         amount: betwon,
                         type: 'negative'
                     }, reciever: {
-                        id: winner.toString().replace(/\D/g, ''),
+                        id: winner,
                         amount: betwon,
                         type: 'positive'
                     }
                 })
             } else {
-                bot.money.add(interaction.guild.id, sender.toString().replace(/\D/g, ''), parseInt(bet))
-                bot.money.add(interaction.guild.id, reciever.toString().replace(/\D/g, ''), parseInt(bet))
+                bot.money.add(interaction.guild.id, sender, parseInt(bet))
+                bot.money.add(interaction.guild.id, reciever, parseInt(bet))
             }
 
             // Create Embed
@@ -113,7 +113,7 @@ module.exports = {
 
             message = new EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:GAMEPAD:1024395990679167066> » ROCK PAPER SCISSORS')
-                .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> selected **' + bot.rps.get('CHOICE-' + sender) + '**\n» <@' + reciever.toString().replace(/\D/g, '') + '> selected **' + bot.rps.get('CHOICE-' + reciever) + '**\n\n<:AWARD:1024385473524793445> ' + winner + ' won **$' + betwon + '**.' + ((typeof transaction === 'object') ? `\nID: ${transaction.id}` : ''))
+                .setDescription('» <@' + sender + '> selected **' + bot.rps.get('CHOICE-' + sender) + '**\n» <@' + reciever + '> selected **' + bot.rps.get('CHOICE-' + reciever) + '**\n\n<:AWARD:1024385473524793445> ' + winner + ' won **$' + betwon + '**.' + ((typeof transaction === 'object') ? `\nID: ${transaction.id}` : ''))
                 .setFooter({ text: '» ' + config.version });
 
             if (lang === 'de') {
@@ -126,7 +126,7 @@ module.exports = {
 
                 message = new EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:GAMEPAD:1024395990679167066> » SCHERE STEIN PAPIER')
-                    .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> wählte **' + send + '**\n» <@' + reciever.toString().replace(/\D/g, '') + '> wählte **' + reci + '**\n\n<:AWARD:1024385473524793445> ' + winner + ' hat **' + betwon + '€** gewonnen.' + ((typeof transaction === 'object') ? `\nID: ${transaction.id}` : ''))
+                    .setDescription('» <@' + sender + '> wählte **' + send + '**\n» <@' + reciever + '> wählte **' + reci + '**\n\n<:AWARD:1024385473524793445> ' + winner + ' hat **' + betwon + '€** gewonnen.' + ((typeof transaction === 'object') ? `\nID: ${transaction.id}` : ''))
                     .setFooter({ text: '» ' + config.version });
             }
 
