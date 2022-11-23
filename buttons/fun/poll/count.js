@@ -16,13 +16,20 @@ module.exports = {
 
             bot.polls.set(interaction.message.id, interaction.user.id, (choice === 'yes'))
         } else {
-            if (dbChoice) yes--
-            if (!dbChoice) no--
+            if ((choice === 'yes') === dbChoice) {
+                if (dbChoice) yes--
+                if (!dbChoice) no--
 
-            if (choice === 'yes') yes++
-            if (choice === 'no') no++
+                bot.polls.del(interaction.message.id, interaction.user.id)
+            } else {
+                if (dbChoice) yes--
+                if (!dbChoice) no--
 
-            bot.polls.set(interaction.message.id, interaction.user.id, (choice === 'yes'))
+                if (choice === 'yes') yes++
+                if (choice === 'no') no++
+
+                bot.polls.set(interaction.message.id, interaction.user.id, (choice === 'yes'))
+            }
         }
 
         // Edit Buttons

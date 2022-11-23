@@ -34,3 +34,8 @@ exports.set = (messageId, userId, value) => new Promise(async ful => {
         ]); return ful('Y-WRITE')
     }
 })
+
+// Del Function
+exports.del = (messageId, userId) => new Promise(async ful => {
+    await db.query(`delete from userpolls where messageid = $1 and userid = $2;`, [messageId, userId])
+})
