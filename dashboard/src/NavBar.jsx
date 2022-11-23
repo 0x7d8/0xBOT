@@ -20,8 +20,8 @@ import {
   Text,
   VStack
 } from '@chakra-ui/react'
-import { SunIcon, MoonIcon } from '@chakra-ui/icons'
-import { MdLogin, MdLogout, FaList } from 'react-icons/all'
+import { FiMoon, FiSun } from 'react-icons/all'
+import { HiOutlineLogin, HiOutlineLogout, FiList } from 'react-icons/all'
 import { useNavigate } from 'react-router-dom'
 import LogoLight from '/src/static/LogoLight.svg'
 import LogoDark from '/src/static/LogoDark.svg'
@@ -42,7 +42,7 @@ const MenuItems = () => {
           w="92.5%"
           textAlign="center"
           justifyContent="center"
-          icon={<FaList />}
+          icon={<FiList size="1.5rem" />}
           iconSpacing={0}
           onClick={() => navigate('/panel/servers') }
         >
@@ -55,7 +55,7 @@ const MenuItems = () => {
           w="92.5%"
           textAlign="center"
           justifyContent="center"
-          icon={<MdLogout />}
+          icon={<HiOutlineLogout size="1.5rem" />}
           iconSpacing={0}
           onClick={() => {
             cookie.set('accessToken', '', 1)
@@ -82,7 +82,7 @@ const MenuItems = () => {
           w="92.5%"
           textAlign="center"
           justifyContent="center"
-          icon={<MdLogin />}
+          icon={<HiOutlineLogin size="1.5rem" />}
           iconSpacing={0}
           onClick={() => window.location.replace('https://discord.com/api/oauth2/authorize?client_id=1001944224545128588&redirect_uri=https%3A%2F%2F0xbot.de%2F&response_type=token&scope=identify%20email%20guilds')}
         >
@@ -100,7 +100,7 @@ export function NavBar() {
 
   const { toggleColorMode } = useColorMode()
   const SwitchColorText = useColorModeValue('🌙 Dark', '☀️ Light')
-  const SwitchIcon = useColorModeValue(MoonIcon, SunIcon)
+  const SwitchIcon = useColorModeValue(FiMoon, FiSun)
 
   return (
     <>
@@ -111,9 +111,13 @@ export function NavBar() {
         as="nav"
         position="fixed"
         top="0"
-        bg={useColorModeValue('gray.100', 'gray.900')}
-        opacity="97.5%"
-        className="shadow-md"
+        css={{
+          backdropFilter: 'saturate(180%) blur(5px)',
+          backgroundColor: useColorModeValue(
+            'rgba(237, 242, 247, 0.8)',
+            'rgba(23, 25, 35, 0.8)'
+          ),
+        }} className="shadow-md"
       >
         <Flex
           h={16}
@@ -125,7 +129,7 @@ export function NavBar() {
           <Button
             ml="1rem"
             variant="link"
-            colorScheme="gray"
+            fontSize="xl"
             color={useColorModeValue('#21005D', '#37009B')}
             leftIcon={<Image src={useColorModeValue(LogoLight, LogoDark)} style={{ height: 48, width: 48 }} />}
             onClick={() => navigate('/home') }
@@ -136,12 +140,12 @@ export function NavBar() {
           <Flex alignItems="center">
             <Stack direction="row" spacing={7} mr="1rem">
               <IconButton
-                color={useColorModeValue('black', 'white')}
+                color={useColorModeValue('black', 'gold')}
                 alignSelf="center"
                 fontSize="lg"
                 variant="ghost"
                 colorScheme="gray"
-                icon={<SwitchIcon />}
+                icon={<SwitchIcon size="1.75rem" />}
                 onClick={() => {
                   toast({
                     title: <Center>INFO</Center>,
@@ -189,12 +193,12 @@ export function NavBar() {
                     />
                   </Center>
                   <Center>
-                    <Text mt="0.5rem" mb="0.5rem">{cookie.get('username')}</Text>
+                    <Text mt="0.5rem" mb="0.5rem">{cookie.get('username') || 'Unknown'}</Text>
                   </Center>
-                  <MenuDivider />
-                  <Center>
+                  <VStack w="100%">
+                    <MenuDivider w="90%" justifySelf="center" />
                     <MenuItems />
-                  </Center>
+                  </VStack>
                 </MenuList>
               </Menu>
             </Stack>
