@@ -33,8 +33,10 @@ module.exports = {
         }
 
         // Edit Buttons
-        interaction.message.components[0].components[0].data.label = `${yes} [${Math.round(100 * yes / (yes + no))}%]`
-        interaction.message.components[0].components[1].data.label = `${no} [${Math.round(100 * no / (yes + no))}%]`
+        if (yes === 0) interaction.message.components[0].components[0].data.label = `0 [0%]`
+        else interaction.message.components[0].components[0].data.label = `${yes} [${Math.round(100 * yes / (yes + no))}%]`
+        if (no === 0) interaction.message.components[0].components[1].data.label = `0 [0%]`
+        else interaction.message.components[0].components[1].data.label = `${no} [${Math.round(100 * no / (yes + no))}%]`
 
         // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] POLL : ' + choice.toUpperCase())
