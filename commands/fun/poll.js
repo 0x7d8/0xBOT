@@ -1,3 +1,4 @@
+const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js')
 const { SlashCommandBuilder, EmbedBuilder } = require('@discordjs/builders')
 
 module.exports = {
@@ -6,7 +7,7 @@ module.exports = {
     	.setDMPermission(false)
         .setDescription('MAKE A POLL')
         .setDescriptionLocalizations({
-            de: 'MACHE EINE UMFRAGE'
+            de: 'MACHE EINE UMquestion'
         })
         .addStringOption(option =>
             option.setName('text')
@@ -14,59 +15,42 @@ module.exports = {
                 .setDescriptionLocalizations({
                     de: 'DER TEXT'
                 })
-                .setRequired(true))
-    	.addStringOption(option =>
-            option.setName('reactions')
-                .setNameLocalizations({
-                    de: 'reaktionen'
-                })
-                .setDescription('THE REACTIONS')
-                .setDescriptionLocalizations({
-                    de: 'DIE REAKTIONEN'
-                })
-                .setRequired(true)
-    			.addChoices(
-            		// Setup Choices
-					{ name: '✅ JA & NEIN', value: 'question' },
-            		{ name: '🧮 BUCHSTABEN VON A BIS E', value: 'vote' },
-				)),
+                .setRequired(true)),
     async execute(interaction, client, lang, vote) {
         // Set Variables
-        const frage = interaction.options.getString("text")
-        const reactions = interaction.options.getString("reactions")
+        const question = interaction.options.getString("text")
+
+        // Create Buttons
+        const row = new ActionRowBuilder()
+		    .addComponents(
+		    	new ButtonBuilder()
+		    		.setEmoji('1044959793317691513')
+                    .setLabel('0 [0%]')
+                    .setCustomId('POLL-YES')
+		    		.setStyle(ButtonStyle.Success),
+
+                new ButtonBuilder()
+		    		.setEmoji('1044959826914070568')
+                    .setLabel('0 [0%]')
+                    .setCustomId('POLL-NO')
+		    		.setStyle(ButtonStyle.Danger),
+		    )
 
         // Create Embed
        	let message = new EmbedBuilder().setColor(0x37009B)
-            .setTitle('<:POLL:1024391847092703365> » A ' + reactions.toUpperCase())
-  			.setDescription('» ' + frage)
+            .setTitle('<:POLL:1024391847092703365> » POLL')
+  			.setDescription('» ' + question)
         	.setFooter({ text: '» ' + vote + ' » ' + config.version });
 
         if (lang === 'de') {
-            let reactionsde
-            if (reactions === "question") { reactionsde = "frage" }
-            if (reactions === "vote") { reactionsde = "abstimmung" }
-
             message = new EmbedBuilder().setColor(0x37009B)
-                .setTitle('<:POLL:1024391847092703365> » EINE ' + reactionsde.toUpperCase())
-  			    .setDescription('» ' + frage)
+                .setTitle('<:POLL:1024391847092703365> » ABSTIMMUNG')
+  			    .setDescription('» ' + question)
         	    .setFooter({ text: '» ' + vote + ' » ' + config.version });
         }
         
         // Send Message
-        const sendcache = await interaction.reply({ embeds: [message], fetchReply: true })
-        bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] POLL : ' + frage.toUpperCase() + ' : ' + reactions.toUpperCase())
-        
-        // Add the correct Reactions
-		if (reactions == 'question') {
-            sendcache.react('<:YES:1017050442431209543>')
-			sendcache.react('<:NO:1017050508252418068>')
-        }
-        if (reactions == 'vote') {
-            sendcache.react('🇦')
-			sendcache.react('🇧')
-            sendcache.react('🇨')
-            sendcache.react('🇩')
-            sendcache.react('🇪')
-        }
-    },
-};
+        bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] POLL : ' + question.toUpperCase())
+        return interaction.reply({ embeds: [message], components: [row] })
+    }
+}

@@ -44,5 +44,5 @@ module.exports = {
         // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] NUMBER : ' + min + ' : ' + max + ' : ' + res)
         return interaction.reply({ embeds: [message] })
-    },
-};
+    }
+}

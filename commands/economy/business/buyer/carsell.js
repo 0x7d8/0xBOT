@@ -119,5 +119,5 @@ module.exports = {
         // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] CARSELL : ' + name + ' : ' + cost + '€')
         return interaction.reply({ embeds: [message], components: [row] })
-    },
-};
+    }
+}

@@ -214,7 +214,7 @@ api.use(rateLimit({
     duration: 30000,
     driver: 'memory',
     db: rateLimitDB,
-    errorMessage: { "success": false, "message": 'YOU ARE BEING RATE LIMITED' },
+    errorMessage: { "success": false, "message": 'YOU ARE BEING RATE LIMITED' }
 }))
 
 // Error Handling

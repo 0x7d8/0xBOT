@@ -152,5 +152,5 @@ module.exports = {
         // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] STOCKSELL : ' + stock.toUpperCase() + ' : ' + amount + ' : ' + cash + '€')
         return interaction.reply({ embeds: [message], ephemeral: true })
-    },
-};
+    }
+}

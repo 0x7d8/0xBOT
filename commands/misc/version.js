@@ -25,5 +25,5 @@ module.exports = {
         // Send Correct Response
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] VERSION')
         return interaction.reply({ embeds: [message], ephemeral: true })
-    },
-};
+    }
+}

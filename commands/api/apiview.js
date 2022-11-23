@@ -68,5 +68,5 @@ module.exports = {
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] APIVIEW : ' + name + ' : NOTFOUND')
             return interaction.reply({ embeds: [message], ephemeral: true })
         }
-    },
-};
+    }
+}

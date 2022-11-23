@@ -210,5 +210,5 @@ module.exports = {
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROULETTE : NOTENOUGHMONEY : ' + missing + '€')
         	return interaction.reply({ embeds: [message], ephemeral: true })
         }
-    },
-};
+    }
+}

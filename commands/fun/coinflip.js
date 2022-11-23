@@ -116,5 +116,5 @@ module.exports = {
         // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] COINFLIP : H[' + heads + '] : T[' + tails + ']')
         return interaction.reply({ embeds: [message] })
-    },
-};
+    }
+}

@@ -65,5 +65,5 @@ module.exports = {
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] APIEDIT : ' + name + ' : NOTFOUND')
             return interaction.reply({ embeds: [message], ephemeral: true })
         }
-    },
-};
+    }
+}

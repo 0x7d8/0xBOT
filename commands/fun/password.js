@@ -88,5 +88,5 @@ module.exports = {
         // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] PASSWORD : ' + lenght + ' : SUCCESS')
         return interaction.reply({ embeds: [message], ephemeral: true })
-    },
-};
+    }
+}

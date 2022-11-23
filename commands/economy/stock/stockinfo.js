@@ -193,5 +193,5 @@ module.exports = {
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] STOCKINFO : ALL : ' + stocks.green + '€ : ' + stocks.blue + '€ : ' + stocks.yellow + '€ : ' + stocks.red + '€ : ' + stocks.white + '€ : ' + stocks.black + '€')
         }
         return interaction.reply({ embeds: [message], components: [row] })
-    },
-};
+    }
+}

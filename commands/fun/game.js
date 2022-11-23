@@ -92,5 +92,5 @@ module.exports = {
         if (spiel == 'jklm') {
             await interaction.reply({ embeds: [jkl.toJSON()], components: [jklB] })
         }
-    },
-};
+    }
+}

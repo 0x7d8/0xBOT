@@ -98,5 +98,5 @@ module.exports = {
         // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] BUSINESSINFO : ' + business.toUpperCase() + ' : NOTOWNED')
         return interaction.reply({ embeds: [message], ephemeral: true })
-    },
-};
+    }
+}

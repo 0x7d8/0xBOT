@@ -99,5 +99,5 @@ module.exports = {
         if (engine == 'DuckDuckGo') {
             await interaction.reply({ embeds: [message], components: [duck] })
         }
-    },
-};
+    }
+}

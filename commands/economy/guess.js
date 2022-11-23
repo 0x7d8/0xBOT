@@ -207,5 +207,5 @@ module.exports = {
         // Send Message
        	bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] GUESS : ' + nummer + ' : ' + status + ' : ' + result + '€')
         return interaction.reply({ embeds: [message] })
-    },
-};
+    }
+}

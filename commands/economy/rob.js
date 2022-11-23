@@ -276,5 +276,5 @@ module.exports = {
         // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : ' + user.id + ' : ' + amount + '€ : SUCCESS')
         return interaction.reply({ embeds: [success] })
-    },
-};
+    }
+}

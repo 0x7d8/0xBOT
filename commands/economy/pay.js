@@ -151,5 +151,5 @@ module.exports = {
         // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] PAY : ' + user.id + ' : ' + amount + '€')
         return interaction.reply({ embeds: [message] })
-    },
-};
+    }
+}

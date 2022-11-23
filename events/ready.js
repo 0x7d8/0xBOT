@@ -62,5 +62,5 @@ module.exports = {
 				await wait(20000)
 			} catch (e) { }
 		}
-	},
-};
+	}
+}

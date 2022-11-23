@@ -14,7 +14,7 @@ const db = new pgP({
 exports.get = (guildId, setting) => new Promise(async ful => {
     const data = await db.query(`select * from guildsettings where guildid = $1 and setting = $2;`, [guildId, setting])
     if (data.rowCount !== 1) { return ful(true) }
-    return ful(!!+data.rows[0].value)
+    return ful(data.rows[0].value)
 })
 
 // Set Function

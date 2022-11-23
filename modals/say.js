@@ -33,5 +33,5 @@ module.exports = {
         // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[MOD] SAY : ' + title.toUpperCase() + ' : "' + content.toUpperCase() + '"')
         return interaction.reply({ embeds: [message] })
-    },
-};
+    }
+}

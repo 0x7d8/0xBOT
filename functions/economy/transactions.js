@@ -18,7 +18,7 @@ exports.get = (transactionId) => new Promise(async ful => {
     if (data.rowCount !== 1) { return ful('N-FOUND') }
     return ful({
         id: data.rows[0].id,
-        success: !!+data.rows[0].success,
+        success: data.rows[0].success,
         timestamp: data.rows[0].timestamp,
         sender: {
             id: data.rows[0].senderid,

@@ -18,5 +18,5 @@ module.exports = {
             await db.query(`insert into migrations values (${migid}, $1)`, [migna])
             return true
         }; return false
-    },
+    }
 }

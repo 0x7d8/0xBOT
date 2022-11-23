@@ -85,5 +85,5 @@ module.exports = {
 
         // Send Modal
         return interaction.showModal(modal)
-    },
-};
+    }
+}

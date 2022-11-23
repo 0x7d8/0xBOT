@@ -121,5 +121,5 @@ module.exports = {
 
         // Send Message
         return interaction.reply({ embeds: [message] })
-    },
-};
+    }
+}

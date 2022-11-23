@@ -84,5 +84,5 @@ module.exports = {
         // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] TRANSACTIONSEARCH : ' + (sender === null ? 'EMPTY' : sender.id) + ' : ' + (reciever === null ? 'EMPTY' : reciever.id))
         return interaction.reply({ embeds: [message] })
-    },
-};
+    }
+}

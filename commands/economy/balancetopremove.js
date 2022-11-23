@@ -53,5 +53,5 @@ module.exports = {
         // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] BALANCETOPREMOVE : ' + user.id);
         return interaction.reply({ embeds: [message], ephemeral: true }).catch((e) => {})
-    },
-};
+    }
+}

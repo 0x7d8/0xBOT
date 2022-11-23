@@ -53,5 +53,5 @@ module.exports = {
             bot.log(false, interaction.user.id, interaction.guild.id, '[MOD] APICREATE : ' + name + ' : "' + content.toUpperCase() + '"')
             return interaction.reply({ embeds: [message], ephemeral: true })
         }
-    },
-};
+    }
+}

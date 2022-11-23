@@ -73,5 +73,5 @@ module.exports = {
         // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] MEME : ' + subreddit.toUpperCase() + ' : ' + upvotes + '^ : ' + comments)
         return interaction.reply({ embeds: [message] })
-    },
-};
+    }
+}

@@ -247,5 +247,5 @@ module.exports = {
         // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] BUSINESSBUY : ' + name.toUpperCase() + ' : ' + cost + '€')
         return interaction.reply({ embeds: [message], components: [row] })
-    },
-};
+    }
+}

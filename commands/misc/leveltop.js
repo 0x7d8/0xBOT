@@ -60,5 +60,5 @@ module.exports = {
         // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] LEVELTOP');
         return interaction.editReply({ embeds: [message] }).catch((e) => {})
-    },
-};
+    }
+}

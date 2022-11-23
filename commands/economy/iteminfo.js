@@ -95,5 +95,5 @@ module.exports = {
 
             return interaction.reply({ embeds: [message], ephemeral: true })
         }
-    },
-};
+    }
+}

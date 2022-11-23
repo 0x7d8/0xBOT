@@ -260,5 +260,5 @@ module.exports = {
         }
 
         setTimeout(() => expiration(), 27000)
-    },
-};
+    }
+}

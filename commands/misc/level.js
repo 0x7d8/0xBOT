@@ -121,5 +121,5 @@ module.exports = {
 
         // Send Message
         return interaction.editReply({ embeds: [message], files: [attachment] })
-    },
-};
+    }
+}

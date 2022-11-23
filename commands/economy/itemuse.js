@@ -290,5 +290,5 @@ module.exports = {
 
             setTimeout(() => expiration(), 10000)
         }
-    },
-};
+    }
+}

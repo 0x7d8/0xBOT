@@ -15,5 +15,5 @@ module.exports = {
 	once: false,
 	async execute(interaction) {
 		await db.query(`update usermoney set guilds = array_remove(guilds, $1) where userid = $2;`, [interaction.guild.id, interaction.user.id])
-	},
-};
+	}
+}

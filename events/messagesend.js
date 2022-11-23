@@ -50,5 +50,5 @@ module.exports = {
                 return message.channel.send({ content: content, components: [button] });
             }
         }
-	},
-};
+	}
+}

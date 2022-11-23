@@ -91,5 +91,5 @@ module.exports = {
         // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] STOCKS : ' + green + ' : ' + blue + ' : ' + yellow + ' : ' + red + ' : ' + white + ' : ' + black)
         return interaction.reply({ embeds: [message] })
-    },
-};
+    }
+}

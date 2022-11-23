@@ -350,6 +350,14 @@ client.on('interactionCreate', async(interaction) => {
 
 				const button = client.buttons.get(editedinteraction.customId)
 				await button.execute(editedinteraction, client, guildlang, votet, args[1].toLowerCase())
+			}; if (args[0] === 'POLL') {
+				let editedinteraction = interaction
+
+				editedinteraction.customId = 'poll'
+				sc = true
+
+				const button = client.buttons.get(editedinteraction.customId)
+				await button.execute(editedinteraction, client, guildlang, votet, args[1].toLowerCase())
 			}
 
 
