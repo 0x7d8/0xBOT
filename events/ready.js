@@ -27,10 +27,6 @@ module.exports = {
 		console.log(`[0xBOT] ${chalk.bold('[i]')} [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [STA] $$$$$ STARTED LOGGING OF COMMANDS AND ERRORS`)
 		console.log(' ')
 
-		// Set Music Player
-		const { Player } = require('discord-player')
-		global.player = new Player(client)
-
 		// Set Status
 		while (true) {
 			client.user.setActivity(client.guilds.cache.size + ' Servers', { type: ActivityType.Watching })

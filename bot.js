@@ -3,7 +3,7 @@ const wait = require('node:timers/promises').setTimeout
 
 const { Client, Collection, GatewayIntentBits } = require('discord.js')
 const { getAllFilesFilter } = require('./utils/getAllFiles.js')
-const { EmbedBuilder } = require('@discordjs/builders')
+const { EmbedBuilder } = require('discord.js')
 const { Timer } = require('./utils/timer')
 
 global.config = require('./config.json')
@@ -24,23 +24,39 @@ const client = new Client({
 // Login Function
 const timer = new Timer()
 let didload = false
-const login = (client) => {
+const login = (client, commandFiles) => {
 	timer.start()
 	client.login(config.client.token).then(() => {
 		if (config.client.quickload) {
 			timer.stop()
 
+			// Deploy Commands
+			const commands = []
+			commandFiles.forEach((command) => {
+				command = require(command)
+				commands.push(command.data.toJSON())
+			}); client.application.commands.set(commands)
+
+			// Execute Event
 			const ready = require('./events/ready')
 			while (!didload) { sleep(500) }
 			return ready.execute(client, timer.getTime())
 		} else {
 			timer.stop()
 			
+			// Deploy Commands
+			const commands = []
+			commandFiles.forEach((command) => {
+				command = require(command)
+				commands.push(command.data.toJSON())
+			}); client.application.commands.set(commands)
+
+			// Execute Event
 			const ready = require('./events/ready')
 			return ready.execute(client, timer.getTime())
 		}
 	})
-}; if (config.client.quickload) login(client)
+}
 
 // MongoDB
 console.log(' ')
@@ -61,10 +77,6 @@ global.bot = require('./functions/bot')
 
 // General Value
 global.uapi = {}
-
-// Deploy Commands
-const { REST } = require('@discordjs/rest')
-const { Routes } = require('discord-api-types/v9')
 
 /// Register External Files
 // Init Progress Bar
@@ -100,6 +112,9 @@ const modalFiles = getAllFilesFilter('./modals', '.js')
 const modalBar = bars.create(modalFiles.length, 0, {
 	type: 'MODALS LOADED'
 })
+
+// Login Quickload
+if (config.client.quickload) login(client, commandFiles)
 
 // Load all Files Functions
 const eventLoad = async() => {
@@ -380,21 +395,10 @@ client.on('interactionCreate', async(interaction) => {
 
 })
 
-// Deploy Commands
-const commands = []
-for (const file of commandFiles) {
-	const command = require(file)
-	commands.push(command.data.toJSON())
-}; const rest = new REST({ version: '9' }).setToken(config.client.token)
-rest.put(
-	Routes.applicationCommands(config.client.id),
-	{ body: commands },
-)
-
 console.log(' ')
 console.log(`[0xBOT] ${chalk.bold('[i]')} [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] LOGGING IN...`)
 
-if (!config.client.quickload) { login(client) } else { didload = true }
+if (!config.client.quickload) { login(client, commandFiles) } else { didload = true }
 
 // Top.gg Stats
 if (config.web.stats) {

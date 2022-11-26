@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import {
   Box,
   Grid,
+  Text,
   Flex,
   Heading,
   useColorModeValue,
@@ -13,6 +14,7 @@ import {
 } from '@chakra-ui/react'
 
 import { useNavigate } from 'react-router-dom'
+import { TbListSearch, TbRocket } from 'react-icons/all'
 import LogoLight from '../static/LogoLight.svg'
 import LogoDark from '../static/LogoDark.svg'
 
@@ -22,7 +24,7 @@ import axios from 'axios'
 /* ---------------- *
  * Version          *
  * ---------------- */
-const version = '3.2.1'
+const version = '3.3.0'
 
 function getWindowDimensions() {
   const { innerWidth: width, innerHeight: height } = window;
@@ -72,13 +74,17 @@ function Bot() {
           mb={6}
           color={SwitchIconColor}
         >
-          0xBOT<br/>{version}
+          <Flex flexDirection="column">
+            0xBOT
+            <Text fontSize="lg">{version}</Text>
+          </Flex>
         </Heading>
         <Button
           alignSelf="center"
-          width="10rem"
+          width="15rem"
           variant="outline"
           colorScheme="gray"
+          leftIcon={<TbRocket size="1.5rem" />}
           onClick={() => document.location.replace('https://discord.com/api/oauth2/authorize?client_id=1001944224545128588&redirect_uri=https%3A%2F%2F0xbot.de%2F&response_type=token&scope=identify%20email%20guilds')}
         >
           GET STARTED
@@ -162,6 +168,7 @@ function Bot() {
           width="20rem"
           variant="outline"
           colorScheme="gray"
+          leftIcon={<TbListSearch size="1.5rem" />}
           onClick={() => navigate('/transactions') }
         >
           TRANSACTION BROWSER

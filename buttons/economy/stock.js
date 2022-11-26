@@ -1,4 +1,4 @@
-const { EmbedBuilder } = require('@discordjs/builders')
+const { EmbedBuilder } = require('discord.js')
 
 // Percentage Function
 const pcalc = async (nval, oval) => {

@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder } = require('@discordjs/builders')
+const { SlashCommandBuilder, EmbedBuilder } = require('discord.js')
 const { AttachmentBuilder } = require('discord.js')
 const canvas = require('canvacord')
 

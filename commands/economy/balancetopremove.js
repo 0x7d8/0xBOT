@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder } = require('@discordjs/builders')
+const { SlashCommandBuilder, EmbedBuilder } = require('discord.js')
 const { PermissionFlagsBits } = require('discord-api-types/v10')
 
 // Connect to Database

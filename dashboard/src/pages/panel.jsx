@@ -8,7 +8,7 @@ import {
   useColorModeValue,
   useToast,
   Text,
-  Image,
+  Avatar,
   Stat,
   StatLabel,
   StatNumber,
@@ -17,7 +17,7 @@ import {
 } from '@chakra-ui/react'
 
 import { useNavigate } from 'react-router-dom'
-import ImageSlash from '../static/image-slash.svg';
+import { TbServer, TbHandClick } from 'react-icons/all'
 import axios from 'axios'
 
 import Animated from '../Animated'
@@ -114,62 +114,118 @@ function ProfileBox() {
         <Heading
           mt='-2rem'
           mb={6}
-          color={SwitchIconColor}
         >
           Welcome, {cookie.get('username')}
         </Heading>
 
-        <Image
+        <Avatar
           alignSelf='center'
-          borderRadius='full'
-          boxSize='150px'
+          size="2xl"
           src={`https://cdn.discordapp.com/avatars/${cookie.get('userid')}/${cookie.get('avatar')}.png`}
-          fallbackSrc={ImageSlash}
           alt='Profile Picture'
         />
 
-        <Stat
-          color={SwitchIconColor}
-          border="1px"
-          borderRadius="0.5rem"
-          borderColor={useColorModeValue('blackAlpha.300', 'whiteAlpha.300')}
-          alignSelf="center"
-          w="75%"
+        <Heading
           mt="2rem"
+          mb="0.5rem"
+          fontFamily="sans-serif"
         >
-          <StatLabel>Commands Executed</StatLabel>
-          <StatNumber>{stats.commands}</StatNumber>
-        </Stat>
-        <Stat
-          color={SwitchIconColor}
-          border="1px"
-          borderRadius="0.5rem"
-          borderColor={useColorModeValue('blackAlpha.300', 'whiteAlpha.300')}
-          alignSelf="center"
-          w="75%"
-          mt="2rem"
-        >
-          <StatLabel>Buttons Executed</StatLabel>
-          <StatNumber>{stats.buttons}</StatNumber>
-        </Stat>
-        <Stat
-          color={SwitchIconColor}
-          border="1px"
-          borderRadius="0.5rem"
-          borderColor={useColorModeValue('blackAlpha.300', 'whiteAlpha.300')}
-          alignSelf="center"
-          w="75%"
-          mt="2rem"
-        >
-          <StatLabel>Modals Submitted</StatLabel>
-          <StatNumber>{stats.modals}</StatNumber>
-        </Stat>
+          Stats
+        </Heading>
+
+        <Flex>
+          <Stat
+            w="45%"
+            py="5"
+            mr="0.5rem"
+            px={{ base: 2, md: 4 }}
+            borderColor={useColorModeValue('blackAlpha.300', 'whiteAlpha.300')}
+            borderWidth="1px"
+            borderRadius="1rem"
+          >
+            <Flex justifyContent="space-between">
+              <Box pl={{ base: 2, md: 4 }}>
+                <StatLabel fontWeight="medium">
+                  COMMANDS
+                </StatLabel>
+                <StatNumber fontSize="2xl" fontWeight="medium">
+                  {stats.commands}
+                </StatNumber>
+              </Box>
+              <Box
+                my="auto"
+                color={useColorModeValue('gray.800', 'gray.200')}
+                alignContent="center"
+              >
+                <TbHandClick size="3rem" />
+              </Box>
+            </Flex>
+          </Stat>
+
+          <Stat
+            w="45%"
+            py="5"
+            ml="0.5rem"
+            px={{ base: 2, md: 4 }}
+            borderColor={useColorModeValue('blackAlpha.300', 'whiteAlpha.300')}
+            borderWidth="1px"
+            borderRadius="1rem"
+          >
+            <Flex justifyContent="space-between">
+              <Box pl={{ base: 2, md: 4 }}>
+                <StatLabel fontWeight="medium">
+                  BUTTONS
+                </StatLabel>
+                <StatNumber fontSize="2xl" fontWeight="medium">
+                  {stats.buttons}
+                </StatNumber>
+              </Box>
+              <Box
+                my="auto"
+                color={useColorModeValue('gray.800', 'gray.200')}
+                alignContent="center"
+              >
+                <TbHandClick size="3rem" />
+              </Box>
+            </Flex>
+          </Stat>
+        </Flex>
+        <Flex mt="1rem">
+          <Stat
+            w="100%"
+            py="5"
+            px={{ base: 2, md: 4 }}
+            borderColor={useColorModeValue('blackAlpha.300', 'whiteAlpha.300')}
+            borderWidth="1px"
+            borderRadius="1rem"
+          >
+            <Flex justifyContent="space-between">
+              <Box pl={{ base: 2, md: 4 }}>
+                <StatLabel fontWeight="medium">
+                  MODALS
+                </StatLabel>
+                <StatNumber fontSize="2xl" fontWeight="medium">
+                  {stats.modals}
+                </StatNumber>
+              </Box>
+              <Box
+                my="auto"
+                color={useColorModeValue('gray.800', 'gray.200')}
+                alignContent="center"
+              >
+                <TbHandClick size="3rem" />
+              </Box>
+            </Flex>
+          </Stat>
+        </Flex>
         
         <Button
-          alignSelf="center"
+          w="15rem"
           mt="2rem"
           colorScheme="gray"
-          w="fit-content"
+          variant="outline"
+          alignSelf="center"
+          leftIcon={<TbServer size="1.5rem" />}
           onClick={() => {navigate('/panel/servers')}}
         >
           MANAGE SERVERS

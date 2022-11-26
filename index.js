@@ -106,6 +106,8 @@ const migrator = async(conn) => {
 domigrate(); if (migrated) { console.log(' ') }
 
 /// Dashboard
+const webserver = require('rjweb-server')
+
 // Check Session Function
 const axios = require('axios')
 const checksession = async(accessToken, tokenType, userid, guildid) => {
@@ -176,28 +178,33 @@ const checkemail = async(accessToken, tokenType, userid, email) => {
     } else { return true }
 }
 
+// Page
+const page = new webserver.routeList()
+
+page.static('/', './dashboard/dist', {
+    preload: true,
+    remHTML: true
+})
+
+webserver.start({
+    bind: '0.0.0.0',
+    urls: page,
+    pages: {
+        async notFound(ctr) {
+            return ctr.printFile('./dashboard/dist/index.html')
+        }
+    }, port: config.web.ports.dashboard,
+    events: {
+        async request(ctr) {
+            if (ctr.reqUrl.href.endsWith('.js')) ctr.setHeader('Content-Type', 'text/javascript')
+            if (ctr.reqUrl.href.endsWith('.css')) ctr.setHeader('Content-Type', 'text/css')
+        }
+    }
+})
+
 // Init Dashboard
 const Koa = require('koa')
 const Router = require('koa-router')
-const send = require('koa-send')
-const serve = require('koa-static')
-const dashboard = new Koa()
-
-// Add Addons to Dashboard
-dashboard.use(serve('./dashboard/dist'))
-
-// Endpoints
-const routerDashboard = new Router()
-
-dashboard.use(routerDashboard.routes()).use(routerDashboard.allowedMethods())
-dashboard.use((ctx) => {
-    return send(ctx, './dashboard/dist/index.html')
-})
-
-// Start Dashboard
-if (config.web.dashboard) {
-    dashboard.listen(config.web.ports.dashboard, () => console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [STA] $$$$$ LAUNCHED DASHBOARD ON PORT ' + config.web.ports.dashboard))
-}
 
 // Init API
 const rateLimitDB = new Map()

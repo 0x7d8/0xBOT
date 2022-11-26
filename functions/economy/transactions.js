@@ -10,7 +10,7 @@ const db = new pgP({
     port: 5432
 })
 
-const generator = require('generate-password')
+const utils = require('rjutils-collection')
 
 // Get Function
 exports.get = (transactionId) => new Promise(async ful => {
@@ -34,7 +34,7 @@ exports.get = (transactionId) => new Promise(async ful => {
 
 // Log Function
 exports.log = (json) => new Promise(async ful => {
-    const transactionId = generator.generate({
+    const transactionId = utils.randomStr({
         length: 20,
         numbers: true,
         uppercase: true,

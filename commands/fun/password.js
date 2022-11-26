@@ -1,5 +1,5 @@
-const { SlashCommandBuilder, EmbedBuilder } = require('@discordjs/builders')
-const generator = require('generate-password')
+const { SlashCommandBuilder, EmbedBuilder } = require('discord.js')
+const utils = require('rjutils-collection')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -10,21 +10,21 @@ module.exports = {
             de: 'GENERIERE EIN PASSWORT'
         })
         .addIntegerOption(option =>
-            option.setName('lenght')
+            option.setName('length')
                 .setNameLocalizations({
                     de: 'länge'
                 })
-                .setDescription('THE LENGHT')
+                .setDescription('THE length')
                 .setDescriptionLocalizations({
                     de: 'DIE LÄNGE'
                 })
                 .setRequired(true)),
     async execute(interaction, client, lang, vote) {
         // Set Variables
-        const lenght = interaction.options.getInteger("lenght")
+        const length = interaction.options.getInteger("length")
 
-        // Check Lenght
-        if (lenght > 256) {
+        // Check length
+        if (length > 256) {
 
             // Create Embed
             let message = new EmbedBuilder().setColor(0x37009B)
@@ -39,12 +39,12 @@ module.exports = {
         		    .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
             
-            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] PASSWORD : TOOBIG : ' + lenght)
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] PASSWORD : TOOBIG : ' + length)
             return interaction.reply({ embeds: [message], ephemeral: true })
 
         }
 
-        if (lenght < 4) {
+        if (length < 4) {
 
             // Create Embed
             let message = new EmbedBuilder().setColor(0x37009B)
@@ -59,17 +59,17 @@ module.exports = {
         		    .setFooter({ text: '» ' + vote + ' » ' + config.version });
             }
             
-            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] PASSWORD : TOOSMALL : ' + lenght)
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] PASSWORD : TOOSMALL : ' + length)
             return interaction.reply({ embeds: [message], ephemeral: true })
 
         }
 
         // Generate Password
-        const password = generator.generate({
-            length: lenght,
+        const password = utils.randomStr({
             numbers: true,
             uppercase: true,
             symbols: false,
+            length
         })
         
         // Create Embed
@@ -86,7 +86,7 @@ module.exports = {
         }
 
         // Send Message
-        bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] PASSWORD : ' + lenght + ' : SUCCESS')
+        bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] PASSWORD : ' + length + ' : SUCCESS')
         return interaction.reply({ embeds: [message], ephemeral: true })
     }
 }

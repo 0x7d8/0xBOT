@@ -1,7 +1,8 @@
-const { EmbedBuilder } = require('@discordjs/builders')
+const { EmbedBuilder } = require('discord.js')
 
+const utils = require('rjutils-collection')
 const chalk = require('chalk')
-const fs = require("fs")
+const fs = require('fs')
 
 // PostgreSQL Functions
 exports.stat = require('./stats')
@@ -18,9 +19,7 @@ exports.language = require('./misc/language')
 exports.businesses = require('./economy/businesses')
 exports.transactions = require('./economy/transactions')
 
-exports.random = (min, max) => {
-    return Math.floor(Math.random() * (max - min + 1)) + min
-}
+exports.random = utils.randomNum
 
 // Log Function
 exports.log = (type, uid, gid, msg) => {
@@ -44,8 +43,7 @@ exports.stats = (type, uid, gid) => {
 // Error Function
 exports.error = async(interaction, error, type, language, vote) => {
     // Generate Error Code
-    const generator = require('generate-password')
-    const errorid = generator.generate({
+    const errorid = utils.randomStr({
         length: 8,
         numbers: true,
         uppercase: true,
@@ -53,32 +51,39 @@ exports.error = async(interaction, error, type, language, vote) => {
     })
 
     // Check if Log Folder exists
-    const dir = 'logs'
-    if (!fs.existsSync(dir)) {
-        fs.mkdirSync(dir)
-    }
+    if (!fs.existsSync('logs')) fs.mkdirSync('logs')
 
     // Log Error
     console.log('[0xBOT] [!] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] [' + type.toUpperCase() + '] ERROR : ' + errorid + ' :')
     console.error(error)
-    const date_ob = new Date()
-    const day = ("0" + date_ob.getDate()).slice(-2)
-    const month = ("0" + (date_ob.getMonth() + 1)).slice(-2)
-    const year = date_ob.getFullYear()
-    fs.appendFileSync('logs/error' + day + '-' + month + '-' + year + '.log', '[0xBOT] [!] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] [' + type.toUpperCase() + '] ERROR : ' + errorid + ' :\n')
-    fs.appendFileSync('logs/error' + day + '-' + month + '-' + year + '.log', error.stack + '\n\n')
+    const day = ('0' + new Date().getDate()).slice(-2)
+    const month = ('0' + (new Date().getMonth() + 1)).slice(-2)
+    const year = new Date().getFullYear()
+    fs.appendFile('logs/error' + day + '-' + month + '-' + year + '.log', '[0xBOT] [!] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] [' + type.toUpperCase() + '] ERROR : ' + errorid + ' :\n')
+    fs.appendFile('logs/error' + day + '-' + month + '-' + year + '.log', error.stack + '\n\n')
 
     // Generate Correct Word
-    let word
-    if (type === 'cmd') {
-        word = 'this Command'
-        if (language === 'de') word = 'dieses Befehls'
-    }; if (type === 'btn') {
-        word = 'this Button'
-        if (language === 'de') word = 'dieses Buttons'
-    }; if (type === 'mod') {
-        word = 'this Modal'
-        if (language === 'de') word = 'dieser Modal'
+    let word = ''
+    switch (type) {
+        case 'cmd':
+            word = 'this Command'
+            if (language === 'de') word = 'dieses Befehls'
+            break
+
+        case 'btn':
+            word = 'this Button'
+            if (language === 'de') word = 'dieses Buttons'
+            break
+
+        case 'mod':
+            word = 'this Modal'
+            if (language === 'de') word = 'dieser Modal'
+            break
+
+        default:
+            word = 'this Event'
+            if (language === 'de') word = 'dieses Events'
+            break
     }
 
     // Create Error Embed
