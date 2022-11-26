@@ -17,8 +17,8 @@ import {
   Image
 } from '@chakra-ui/react'
 
-import { FaCaretDown, TbHandClick } from 'react-icons/all'
-import ImageSlash from '/src/static/image-slash.svg'
+import { TbCaretDown, TbHandClick } from 'react-icons/all'
+import ImageSlash from '/src/static/ImageSlash.svg'
 import axios from 'axios'
 
 
@@ -59,13 +59,13 @@ const General = () => {
             <Box
               flex='1'
               textAlign='left'
-              color={SwitchIconColor}
             >
-              <Center>
-                <Text color={SwitchIconColor} fontSize="3xl" as="b">
-                  <FaCaretDown /> GENERAL SETTINGS
+              <Flex flexDirection="row" justifyContent="center">
+                <TbCaretDown size="3rem" />
+                <Text fontSize="3xl" as="b">
+                  GENERAL
                 </Text>
-              </Center>
+              </Flex>
             </Box>
           </AccordionButton>
         </h2>
@@ -94,13 +94,13 @@ const General = () => {
             <Box
               flex='1'
               textAlign='left'
-              color={SwitchIconColor}
             >
-              <Center>
-                <Text color={SwitchIconColor} fontSize="3xl" as="b">
-                  <FaCaretDown /> ECONOMY SETTINGS
+              <Flex flexDirection="row" justifyContent="center">
+                <TbCaretDown size="3rem" />
+                <Text fontSize="3xl" as="b">
+                  ECONOMY
                 </Text>
-              </Center>
+              </Flex>
             </Box>
           </AccordionButton>
         </h2>
@@ -119,13 +119,13 @@ const General = () => {
                   <Box
                     flex='1'
                     textAlign='left'
-                    color={SwitchIconColor}
                   >
-                    <Center>
-                      <Text color={SwitchIconColor} fontSize="3xl" as="b">
-                        <FaCaretDown /> SYSTEMS
+                    <Flex flexDirection="row" justifyContent="center">
+                      <TbCaretDown size="3rem" />
+                      <Text fontSize="3xl" as="b">
+                        SYSTEMS
                       </Text>
-                    </Center>
+                    </Flex>
                   </Box>
                 </AccordionButton>
               </h2>
@@ -152,13 +152,13 @@ const General = () => {
                   <Box
                     flex='1'
                     textAlign='left'
-                    color={SwitchIconColor}
                   >
-                    <Center>
-                      <Text color={SwitchIconColor} fontSize="3xl" as="b">
-                        <FaCaretDown /> OTHERS
+                    <Flex flexDirection="row" justifyContent="center">
+                      <TbCaretDown size="3rem" />
+                      <Text fontSize="3xl" as="b">
+                        OTHERS
                       </Text>
-                    </Center>
+                    </Flex>
                   </Box>
                 </AccordionButton>
               </h2>
@@ -192,13 +192,13 @@ const General = () => {
             <Box
               flex='1'
               textAlign='left'
-              color={SwitchIconColor}
             >
-              <Center>
-                <Text color={SwitchIconColor} fontSize="3xl" as="b">
-                  <FaCaretDown /> FUN SETTINGS
+              <Flex flexDirection="row" justifyContent="center">
+                <TbCaretDown size="3rem" />
+                <Text fontSize="3xl" as="b">
+                  MISCELLANEOUS
                 </Text>
-              </Center>
+              </Flex>
             </Box>
           </AccordionButton>
         </h2>
@@ -217,13 +217,13 @@ const General = () => {
                   <Box
                     flex='1'
                     textAlign='left'
-                    color={SwitchIconColor}
                   >
-                    <Center>
-                      <Text color={SwitchIconColor} fontSize="3xl" as="b">
-                        <FaCaretDown /> SYSTEMS
+                    <Flex flexDirection="row" justifyContent="center">
+                      <TbCaretDown size="3rem" />
+                      <Text fontSize="3xl" as="b">
+                        SYSTEMS
                       </Text>
-                    </Center>
+                    </Flex>
                   </Box>
                 </AccordionButton>
               </h2>
@@ -248,13 +248,13 @@ const General = () => {
                   <Box
                     flex='1'
                     textAlign='left'
-                    color={SwitchIconColor}
                   >
-                    <Center>
-                      <Text color={SwitchIconColor} fontSize="3xl" as="b">
-                        <FaCaretDown /> OTHERS
+                    <Flex flexDirection="row" justifyContent="center">
+                      <TbCaretDown size="3rem" />
+                      <Text fontSize="3xl" as="b">
+                        OTHERS
                       </Text>
-                    </Center>
+                    </Flex>
                   </Box>
                 </AccordionButton>
               </h2>
@@ -334,7 +334,7 @@ const ServerInfo = () => {
           alt='Server Icon'
         />
 
-<Flex>
+        <Flex>
           <Stat
             w="45%"
             py="5"

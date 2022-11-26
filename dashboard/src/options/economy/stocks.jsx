@@ -5,42 +5,42 @@ import {
   useToast,
   Center,
   VStack,
-  useColorModeValue,
   Menu,
+  useColorModeValue,
   MenuButton,
   MenuList,
   MenuItem
 } from '@chakra-ui/react'
-import { FaCaretDown } from 'react-icons/all'
+import { TbCaretDown } from 'react-icons/all'
 import axios from 'axios'
 
 import * as cookie from '/src/scripts/cookies'
-export const Option = (props) => {
+function Option() {
   const params = new URLSearchParams(window.location.search)
   const toast = useToast()
 
-  const SwitchIconColor = useColorModeValue('#21005D', '#37009B')
+  const [ settings, setSettings ] = useState({})
 
-  const [settings, setSettings] = useState({})
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
 
-  function updateoption() {
-    axios
-      .get(`https://api.0xbot.de/options/guild?id=${params.get('server')}&page=ECONOMY`, {
+    {(async() => {
+      const req = await axios({
+        method: 'get',
+        url: `https://api.0xbot.de/options/guild?id=${params.get('server')}&page=ECONOMY`,
+        validateStatus: false,
         headers: {
           accesstoken: cookie.get('accessToken'),
           tokentype: cookie.get('tokenType'),
           userid: cookie.get('userid')
         }
-      })
-      .then((res) => {
-        setSettings(res.data)
-      })
-  }
-  useEffect(() => {
-    updateoption()
+      }); const res = req.data
+      
+      setSettings(res)
+    }) ()}
   }, [])
 
-  function set(opt) {
+  const setOption = (opt) => {
     axios
       .post(`https://api.0xbot.de/options/guild/?id=${params.get('server')}`, {
         option: 'STOCKS',
@@ -79,11 +79,11 @@ export const Option = (props) => {
 
   return (
     <Menu>
-      <Text color={SwitchIconColor} fontSize="2xl" mt="1rem">STOCK SYSTEM</Text>
-      <MenuButton as={Button} colorScheme="gray" leftIcon={<FaCaretDown />}>
+      <Text fontSize="2xl" mt="1rem">STOCK SYSTEM</Text>
+      <MenuButton as={Button} colorScheme="gray" leftIcon={<TbCaretDown />}>
         {reformedstocks}
       </MenuButton>
-      <MenuList backgroundColor={useColorModeValue('gray.100', 'gray.900')}>
+      <MenuList bg={useColorModeValue('gray.100', 'gray.900')}>
         <VStack>
           <MenuItem
             borderRadius="0.5rem"
@@ -92,7 +92,7 @@ export const Option = (props) => {
             w="92.5%"
             textAlign="center"
             justifyContent="center"
-            onClick={() => {set(true)}}
+            onClick={() => setOption(true) }
           >
             ENABLE
           </MenuItem>
@@ -103,7 +103,7 @@ export const Option = (props) => {
             w="92.5%"
             textAlign="center"
             justifyContent="center"
-            onClick={() => {set(false)}}
+            onClick={() => setOption(false) }
           >
             DISABLE
           </MenuItem>

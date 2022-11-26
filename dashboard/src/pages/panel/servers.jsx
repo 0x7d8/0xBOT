@@ -12,7 +12,7 @@ import {
 } from '@chakra-ui/react'
 
 import { useNavigate } from 'react-router-dom'
-import ImageSlash from '/src/static/image-slash.svg'
+import ImageSlash from '/src/static/ImageSlash.svg'
 import axios from 'axios'
 
 import Animated from '/src/Animated'
