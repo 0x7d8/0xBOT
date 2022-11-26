@@ -28,22 +28,25 @@ module.exports = {
 		console.log(' ')
 
 		// Set Status
-		while (true) {
+		while (!+[]) {
 			client.user.setActivity(client.guilds.cache.size + ' Servers', { type: ActivityType.Watching })
 			await wait(20000)
+
 			const commits = await commitCount('rotvproHD/0xBOT')
 			client.user.setActivity(commits + ' Commits', { type: ActivityType.Watching })
 			await wait(20000)
+
 			client.user.setActivity(await bot.stat.get('t-all', 'cmd') + ' Commands Used', { type: ActivityType.Watching })
 			await wait(10000)
+
 			client.user.setActivity(await bot.stat.get('t-all', 'btn') + ' Buttons Clicked', { type: ActivityType.Watching })
 			await wait(20000)
-			const rawvalues = await db.query(`select * from usermoney;`)
-			let total = 0
-			rawvalues.rows.forEach((element) => {
-				total + parseInt(element.money)
-			}); client.user.setActivity('$' + total + ' in Circulation', { type: ActivityType.Watching })
+
+			const rawvalues = await db.query(`select * from usermoney;`); let total = 0
+			rawvalues.rows.forEach((element) => total += parseInt(element.money) )
+			client.user.setActivity('$' + total + ' in Circulation', { type: ActivityType.Watching })
 			await wait(20000)
+
 			const req = await axios({
 				method: 'get',
 				url: 'https://top.gg/api/bots/1001944224545128588',
