@@ -40,23 +40,21 @@ module.exports = {
 			await wait(20000)
 			const rawvalues = await db.query(`select * from usermoney;`)
 			let total = 0
-			rawvalues.rows.forEach(element => {
-				total = total + parseInt(element.money)
+			rawvalues.rows.forEach((element) => {
+				total + parseInt(element.money)
 			}); client.user.setActivity('$' + total + ' in Circulation', { type: ActivityType.Watching })
 			await wait(20000)
-			try {
-				const req = await axios({
-					method: 'get',
-					url: 'https://top.gg/api/bots/1001944224545128588',
-					validateStatus: false,
-					headers: {
-						Authorization: config.web.keys.apikey
-					}
-				}); const res = req.data
+			const req = await axios({
+				method: 'get',
+				url: 'https://top.gg/api/bots/1001944224545128588',
+				validateStatus: false,
+				headers: {
+					Authorization: config.web.keys.apikey
+				}
+			}); const res = req.data
 
-				client.user.setActivity(res.monthlyPoints + ' Votes this Month', { type: ActivityType.Watching })
-				await wait(20000)
-			} catch (e) { }
+			client.user.setActivity(res.monthlyPoints + ' Votes this Month', { type: ActivityType.Watching })
+			await wait(20000)
 		}
 	}
 }
