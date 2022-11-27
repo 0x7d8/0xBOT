@@ -61,20 +61,18 @@ module.exports = {
         }
 
         // Calculate Level
-        const cachelevel = Math.round(((counts[0]/2)/500/5) * 1000) / 1000
+        const cachelevel = Math.round(((counts[0]/2)/250/3/2) * 1000) / 1000
         const arraylevel = cachelevel.toString().split('.')
 
         // Generate Language Text
         let totalxp = 'TOTAL XP'
-        if (lang === 'de') { totalxp = 'ALLE XP' }
+        if (lang === 'de') totalxp = 'ALLE XP'
 
         // Generate Rank Image
         const rankCard = new canvas.Rank()
-            .setAvatar(userobj.displayAvatarURL({
-                format: 'png'
-            }))
-            .setCurrentXP(parseInt(Math.round(counts[0]/5).toString().slice(-3)))
-            .setRequiredXP(1000)
+            .setAvatar(userobj.displayAvatarURL({ format: 'png' }))
+            .setCurrentXP(parseInt(Math.round(counts[0]/3/2).toString().slice(-3)))
+            .setRequiredXP(500)
             .setProgressBar('#90CDF4', 'COLOR')
             .setUsername(userobj.username)
             .setDiscriminator(userobj.discriminator)
@@ -82,7 +80,7 @@ module.exports = {
             .setBackground('COLOR', '#00000000')
             .setProgressBarTrack('#413E4D')
             .setLevel(parseInt(arraylevel[0]), 'LEVEL ', true)
-            .setRank(Math.round(counts[0]/5), totalxp, true)
+            .setRank(Math.round(counts[0]/3/2), totalxp, true)
         let attachment
         const buildCard = async() => {
             await rankCard.build()

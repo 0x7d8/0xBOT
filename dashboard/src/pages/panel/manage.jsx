@@ -42,8 +42,6 @@ import { useNavigate } from 'react-router-dom'
 
 import * as cookie from '/src/scripts/cookies'
 const General = () => {
-  const SwitchIconColor = useColorModeValue('#21005D', '#37009B')
-
   return (
     <Accordion
       allowMultiple
@@ -76,8 +74,6 @@ const General = () => {
     </Accordion>
   )
 }; const Economy = () => {
-  const SwitchIconColor = useColorModeValue('#21005D', '#37009B')
-
   return (
     <Accordion
       mt="2rem"
@@ -174,8 +170,6 @@ const General = () => {
     </Accordion>
   )
 }; const Fun = () => {
-  const SwitchIconColor = useColorModeValue('#21005D', '#37009B')
-
   return (
     <Accordion
       mt="2rem"
@@ -326,6 +320,7 @@ const ServerInfo = () => {
         </Heading>
 
         <Image
+          mb="1rem"
           alignSelf='center'
           borderRadius='full'
           boxSize='150px'

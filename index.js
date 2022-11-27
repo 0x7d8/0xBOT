@@ -1,6 +1,7 @@
 const { ShardingManager, PermissionsBitField } = require('discord.js')
 const { getAllFilesFilter } = require('./utils/getAllFiles.js')
 
+const wait = require('node:timers/promises').setTimeout
 const pgP = require('pg').Pool
 const config = require('./config.json')
 const chalk = require('chalk')
@@ -548,7 +549,7 @@ routerAPI.get('/options/email', async(ctx) => {
 
 api.use(routerAPI.routes()).use(routerAPI.allowedMethods())
 api.use((ctx) => {
-    ctx.body = { "success": false, "message": 'NOT FOUND' }
+    ctx.body = { "success": false, "message": 'PAGE NOT FOUND' }
 })
 
 // Start API
@@ -557,6 +558,9 @@ if (config.web.api) {
 }
 
 // Start Shard
-const manager = new ShardingManager('./bot.js', { token: config.client.token, shards: 'auto' })
-manager.on('shardCreate', async(shard) => console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [STA] $$$$$ LAUNCHED SHARD #' + shard.id))
-manager.spawn()
+const manager = new ShardingManager('./bot.js', { token: config.client.token, shards: 'auto', totalShards: 1 })
+
+manager.spawn().catch(async() => {
+    await wait(8500)
+    manager.spawn()
+})

@@ -1,4 +1,6 @@
+const { ClientReady } = require('discord.js').Events
 const { ActivityType } = require('discord.js')
+
 const config = require('../config.json')
 const wait = require('node:timers/promises').setTimeout
 const commitCount = require('git-commit-count')
@@ -18,7 +20,7 @@ const db = new pgP({
 
 module.exports = {
 	name: 'START BOT',
-	event: 'ready',
+	event: ClientReady,
 	once: true,
 	async execute(client, timed) {
 		console.log(`[0xBOT] ${chalk.bold('[i]')} [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] STARTED AND LOGGED IN AS ${client.user.tag} (${timed}ms)`)

@@ -1,34 +1,34 @@
-const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
-const { EmbedBuilder } = require('discord.js')
+const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js')
+const { MessageCreate } = require('discord.js').Events
 
 module.exports = {
 	name: 'MESSAGE SEND',
-	event: 'messageCreate',
+	event: MessageCreate,
 	once: false,
 	async execute(message, client) {
-		if (!message.author.bot && parseInt(message.guildId) > 1000 && !await bot.settings.get(message.guildId, 'level')) {
+		if (!message.author.bot && parseInt(message.guildId) > 1000 && (await bot.settings.get(message.guildId, 'level'))) {
             let cache
 
             // Get Old Level
             cache = await bot.stat.get('u-' + message.author.id + '-' + message.guildId + '-C', 'msg')
-            const oldlevel = (Math.round(((cache/2)/500/5) * 1000) / 1000).toString().split('.')
+            const oldlevel = (Math.round(((cache/2)/250/3/2) * 1000) / 1000).toString().split('.')
 
             // Level Stats
             await bot.stat.add('u-' + message.author.id + '-TOTAL-A', 'msg', 1)
             await bot.stat.add('u-' + message.author.id + '-' + message.guildId + '-A', 'msg', 1)
-            await bot.stat.add('u-' + message.author.id + '-TOTAL-C', 'msg', message.content.length)
-            await bot.stat.add('u-' + message.author.id + '-' + message.guildId + '-C', 'msg', message.content.length)
+            await bot.stat.add('u-' + message.author.id + '-TOTAL-C', 'msg', ((message.content.length > 1000) ? 100 : message.content.length))
+            await bot.stat.add('u-' + message.author.id + '-' + message.guildId + '-C', 'msg', ((message.content.length > 1000) ? 100 : message.content.length))
 
             // Get New Level
             cache = await bot.stat.get('u-' + message.author.id + '-' + message.guildId + '-C', 'msg')
-            const newlevel = (Math.round(((cache/2)/500/5) * 1000) / 1000).toString().split('.')
+            const newlevel = (Math.round(((cache/2)/250/3/2) * 1000) / 1000).toString().split('.')
 
             // Send LevelUp Message if needed
             if (parseInt(oldlevel[0]) < parseInt(newlevel[0])) {
                 // Get Guild Language
-	            let guildlang = "en"
-	            const glang = await lang.get(message.guildId)
-                if (parseInt(glang) == 1) { guildlang = "de" }
+	            let guildlang = 'en'
+	            const glang = await bot.language.get(message.guildId)
+                if (parseInt(glang) === 1) guildlang = 'de'
 
                 // Create Button
                 const button = new ActionRowBuilder()
@@ -41,10 +41,7 @@ module.exports = {
 
                 // Create Embed
                 let content = `» Good Writing <@${message.author.id}>! You are now Level **${newlevel[0]}**.\nTo view your level do </level:1030147810194100245>`
-
-                if (guildlang === 'de') {
-                    content = `» Gutes schreiben <@${message.author.id}>! Du bist nun Level **${newlevel[0]}**.\nZum anschauen deines Levels mach </level:1030147810194100245>`
-                }
+                if (guildlang === 'de') content = `» Gutes schreiben <@${message.author.id}>! Du bist nun Level **${newlevel[0]}**.\nZum anschauen deines Levels mach </level:1030147810194100245>`
 
                 // Send Message
                 return message.channel.send({ content: content, components: [button] });

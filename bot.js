@@ -1,8 +1,8 @@
 const sleep = (milliseconds) => Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, milliseconds)
-const wait = require('node:timers/promises').setTimeout
 
 const { Client, Collection, GatewayIntentBits } = require('discord.js')
 const { getAllFilesFilter } = require('./utils/getAllFiles.js')
+const { InteractionCreate } = require('discord.js').Events
 const { EmbedBuilder } = require('discord.js')
 const { Timer } = require('./utils/timer')
 
@@ -172,7 +172,7 @@ console.log(' ')
 console.log(`[0xBOT] ${chalk.bold('[i]')} [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [END] $$$$$ LOADED COMMANDS AND EVENTS`)
 
 // Interaction Handler
-client.on('interactionCreate', async(interaction) => {
+client.on(InteractionCreate, async(interaction) => {
 	if (!interaction.isCommand() && !interaction.isButton() && !interaction.isModalSubmit()) return
 
 	// Write to UserDB

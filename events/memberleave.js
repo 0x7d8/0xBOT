@@ -1,3 +1,5 @@
+const { GuildMemberRemove } = require('discord.js').Events
+
 // Connect to Database
 const pgP = require('pg').Pool
 const db = new pgP({
@@ -11,9 +13,12 @@ const db = new pgP({
 
 module.exports = {
 	name: 'MEMBER LEAVE',
-	event: 'guildMemberRemove',
+	event: GuildMemberRemove,
 	once: false,
 	async execute(interaction) {
-		await db.query(`update usermoney set guilds = array_remove(guilds, $1) where userid = $2;`, [interaction.guild.id, interaction.user.id])
+		await db.query(`update usermoney set guilds = array_remove(guilds, $1) where userid = $2;`, [
+            interaction.guild.id,
+            interaction.user.id
+        ])
 	}
 }
