@@ -1,20 +1,11 @@
 {
-  "name": "0xbot",
-  "version": "1.0.0",
-  "description": "```bash\r npm init\r npm install discord.js\r npm install @discordjs/rest\r npm install @discordjs/builders\r ```",
   "main": "index.js",
-  "scripts": {
-    "start": "node index.js"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/rotvproHD/0xBOT.git"
   },
   "author": "Robert Jansen",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/rotvproHD/0xBOT/issues"
-  },
   "homepage": "https://0xbot.de",
   "dependencies": {
     "rjutils-collection": "^1.0.2",
