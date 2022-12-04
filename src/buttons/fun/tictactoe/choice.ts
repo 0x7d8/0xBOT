@@ -193,10 +193,14 @@ export default {
         // Check if Round has ended
         if (won || (bot.ttt.get('FIELDS-' + sender).length + bot.ttt.get('FIELDS-' + reciever).length) === 9) {
             // Check Who Won
-            let winner = '**Noone**'
+            let winner = '**Noone**', rawWinner: string
             if (lang === 'de') winner = '**Niemand**'
 
-            winner = '<@' + bot.ttt.get('FIELD-' + fields[0] + '-' + sender) + '>'
+            if (won) {
+                rawWinner = bot.ttt.get('FIELD-' + fields[0] + '-' + sender)
+                winner = '<@' + bot.ttt.get('FIELD-' + fields[0] + '-' + sender) + '>'
+            }
+
             fields.forEach((field: number) => {
                 const comp = rowGet(field);
 
@@ -205,18 +209,18 @@ export default {
 
             // Transfer Money
             const betwon = bet * 2; let transaction: any
-            if (winner !== '**Noone**' && winner !== '**Niemand**') {
-                bot.money.add(interaction.guild.id, winner, betwon)
+            if (rawWinner) {
+                bot.money.add(interaction.guild.id, rawWinner, betwon)
 
                 // Log Transaction
                 if (betwon > 0) transaction = await bot.transactions.log({
                     success: true,
                     sender: {
-                        id: (winner === sender ? reciever : sender),
+                        id: (rawWinner === sender ? reciever : sender),
                         amount: betwon,
                         type: 'negative'
                     }, reciever: {
-                        id: winner,
+                        id: rawWinner,
                         amount: betwon,
                         type: 'positive'
                     }

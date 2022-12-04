@@ -59,7 +59,7 @@ export default {
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
             	    .setTitle('<:WALLET:1024387370793050273> » DER GELDSTAND VON ' + user.username.toUpperCase())
-  				    .setDescription('» Der Geldstand von <@' + user + '> ist **' + money + '€**!')
+  				    .setDescription('» Der Geldstand von <@' + user + '> beträgt **' + money + '€**!')
             	    .setFooter({ text: '» ' + vote + ' » ' + client.config.version })
             }
         }

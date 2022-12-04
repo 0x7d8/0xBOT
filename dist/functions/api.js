@@ -4,7 +4,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.checkEmail = exports.checkSession = void 0;
-// Connect to Database
 const _config_1 = __importDefault(require("@config"));
 const pg_1 = __importDefault(require("pg"));
 const db = new pg_1.default.Pool({
@@ -15,7 +14,6 @@ const db = new pg_1.default.Pool({
     port: 5432,
     ssl: true
 });
-// Create Client
 const discord_js_1 = require("discord.js");
 const discord_js_2 = require("discord.js");
 const client = new discord_js_2.Client({ intents: [
@@ -30,7 +28,6 @@ const checkSession = async (accessToken, tokenType, userid, guildid) => {
         tokenType
     ]);
     if (dbuser.rowCount === 0 || dbuser.rows[0].expires < Math.floor(+new Date() / 1000)) {
-        // Clear Rows
         if (dbuser.rowCount > 0 && dbuser.rows[0].expires < Math.floor(+new Date() / 1000)) {
             await db.query(`delete from usersessions where userid = $1 and token = $2;`, [
                 userid,

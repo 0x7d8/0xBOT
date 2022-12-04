@@ -8,16 +8,13 @@ module.exports = {
     type: rjweb_server_1.default.types.get,
     path: '/options/guild',
     async code(ctr) {
-        // Check for Queries
         if (!ctr.query.has('id'))
             return ctr.print({ "success": false, "message": 'NO ID' });
         if (!ctr.query.has('page'))
             return ctr.print({ "success": false, "message": 'NO PAGE' });
-        // Check Permissions
         if (!await ctr.api.checkSession(ctr.header.get('accesstoken'), ctr.header.get('tokentype'), ctr.header.get('userid'), ctr.query.get('id')))
             return ctr.print({ "success": false, "message": 'PERMISSION DENIED' });
         let response = { "success": false, "message": "NOT FOUND" };
-        // GENERAL
         if (ctr.query.get('page') === 'GENERAL') {
             let guildlang = 'ENGLISH';
             if (await ctr.bot.language.get(ctr.query.get('id')) === 'de') {
@@ -28,7 +25,6 @@ module.exports = {
                 "language": guildlang
             };
         }
-        // ECONOMY
         if (ctr.query.get('page') === 'ECONOMY') {
             response = {
                 "success": true,
@@ -41,7 +37,6 @@ module.exports = {
                 "rob": await ctr.bot.settings.get(ctr.query.get('id'), 'rob')
             };
         }
-        // FUN
         if (ctr.query.get('page') === 'FUN') {
             response = {
                 "success": true,
@@ -50,7 +45,6 @@ module.exports = {
                 "meme": await ctr.bot.settings.get(ctr.query.get('id'), 'meme')
             };
         }
-        // Return Result
         return ctr.print(response);
     }
 };

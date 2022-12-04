@@ -43,9 +43,7 @@ exports.default = {
         de: 'DER GEGENSTAND'
     })
         .setRequired(true)
-        .addChoices(
-    // Setup Choices
-    { name: '💣 NORMALE BOMBE', value: 'nbomb' }, { name: '💣 MEDIUM BOMBE', value: 'mbomb' }, { name: '💣 HYPER BOMBE', value: 'hbomb' }, { name: '💣 CRAZY BOMBE', value: 'cbomb' }))
+        .addChoices({ name: '💣 NORMALE BOMBE', value: 'nbomb' }, { name: '💣 MEDIUM BOMBE', value: 'mbomb' }, { name: '💣 HYPER BOMBE', value: 'hbomb' }, { name: '💣 CRAZY BOMBE', value: 'cbomb' }))
         .addIntegerOption((option) => option.setName('amount')
         .setNameLocalizations({
         de: 'anzahl'
@@ -56,9 +54,7 @@ exports.default = {
     })
         .setRequired(false)),
     async execute(interaction, client, lang, vote) {
-        // Check if Items are Enabled in Server
         if (!await bot.settings.get(interaction.guild.id, 'items')) {
-            // Create Embed
             let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» Items are disabled on this Server!')
@@ -69,21 +65,17 @@ exports.default = {
                     .setDescription('» Items sind auf diesem Server deaktiviert!')
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
-            // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ITEM : DISABLED');
             return interaction.reply({ embeds: [message], ephemeral: true });
         }
-        // Set Variables
         const itemid = bot.getOption(interaction, 'item');
         const amount = bot.getOption(interaction, 'amount');
         const balance = await bot.money.get(interaction.user.id);
-        // Calculate Cost Multiplier
         let costmul;
         if (!amount)
             costmul = 1;
         else
             costmul = amount;
-        // Calculate Cost
         let cost;
         if (await bot.businesses.get('g-' + interaction.guild.id + '-1-PRICE-' + itemid.toUpperCase()) === '0' || await bot.businesses.get('g-' + interaction.guild.id + '-1-PRICE-' + itemid.toUpperCase()) === 0) {
             if (itemid === 'nbomb')
@@ -98,7 +90,6 @@ exports.default = {
         else {
             cost = parseInt(await bot.businesses.get('g-' + interaction.guild.id + '-1-PRICE-' + itemid.toUpperCase())) * costmul;
         }
-        // Translate to Item Names
         let name;
         if (itemid === 'nbomb')
             name = '<:NBOMB:1021783222520127508> NORMAL BOMB';
@@ -118,10 +109,8 @@ exports.default = {
             if (itemid === 'cbomb')
                 name = '<:CBOMB:1021783405161091162> CRAZY BOMBE';
         }
-        // Check if User has enough Money
         if (balance < cost) {
             const missing = cost - balance;
-            // Create Embed
             let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» You dont have enough Money for that, you are missing **$' + missing + '**!')
@@ -132,20 +121,16 @@ exports.default = {
                     .setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
-            // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ITEMBUY : ' + itemid.toUpperCase() + ' : NOTENOUGHMONEY : ' + cost + '€');
             return interaction.reply({ embeds: [message], ephemeral: true });
         }
-        // Calculate Processed Amount
         let pamount;
         if (!amount)
             pamount = 1;
         else
             pamount = amount;
-        // Check if Max Slots are used
         const oldamount = await bot.items.get(interaction.user.id + '-' + itemid.toUpperCase() + 'S-' + interaction.guild.id, 'amount');
         if ((pamount + oldamount) > 15) {
-            // Create Embed
             let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» You dont have enough Slots for that!')
@@ -156,11 +141,9 @@ exports.default = {
                     .setDescription('» Du hast nicht genug Slots dafür!')
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
-            // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] ITEMBUY : ' + itemid.toUpperCase() + ' : MAXSLOTS');
             return interaction.reply({ embeds: [message], ephemeral: true });
         }
-        // Create Buttons
         let row = new discord_js_1.ActionRowBuilder()
             .addComponents(new discord_js_1.ButtonBuilder()
             .setLabel('YES')
@@ -187,7 +170,6 @@ exports.default = {
                 .setStyle(discord_js_1.ButtonStyle.Danger)
                 .setDisabled(false));
         }
-        // Create Embed
         let message;
         if (amount === null || amount === 1) {
             message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
@@ -213,7 +195,6 @@ exports.default = {
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
         }
-        // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ITEMBUY : ' + amount + 'x : ' + itemid.toUpperCase() + ' : ' + cost + '€');
         return interaction.reply({ embeds: [message], components: [row] });
     }

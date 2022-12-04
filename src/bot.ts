@@ -188,10 +188,10 @@ client.on(Events.InteractionCreate, async(interaction) => {
 
 	// Write to UserDB
 	bot.userdb.add({
-		avatar: (!!interaction.user.avatar) ? interaction.user.avatar : '',
-		discriminator: interaction.user.discriminator,
-		username: interaction.user.username,
-		id: interaction.user.id
+		"avatar": (!!interaction.user.avatar) ? interaction.user.avatar : '',
+		"discriminator": interaction.user.discriminator,
+		"username": interaction.user.username,
+		"id": interaction.user.id
 	})
 
 	// Get Guild Language

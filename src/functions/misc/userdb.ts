@@ -27,14 +27,18 @@ export const get = async(userId: string) => {
     const data = await db.query(`select * from userinfos where userid = $1;`, [userId])
 
     if (data.rowCount !== 1) {
-        const user: any = await client.users.fetch(userId).catch(() => { return 'N-FETCHABLE' })
-        bot.userdb.add(user)
+        let cont = true
+        const user: any = await client.users.fetch(userId).catch(() => { cont = false })
 
-        return {
-            userid: user.id,
-            username: user.username,
-            usertag: user.discriminator,
-            avatar: user.avatar
+        if (cont) {
+            bot.userdb.add(user)
+
+            return {
+                userid: user.id,
+                username: user.username,
+                usertag: user.discriminator,
+                avatar: user.avatar
+            }
         }
     }
 

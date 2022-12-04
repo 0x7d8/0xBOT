@@ -77,26 +77,27 @@ export default {
             if (psc === 'PAPER' && prc === 'ROCK') win = 'ps'
             if (psc === 'PAPER' && prc === 'SCISSORS') win = 'pr'
 
-            let winner: string
-            if (win === 'ps') winner = '<@' + sender + '>'
-            if (win === 'pr') winner = '<@' + reciever + '>'
-            if (win === 'none') winner = '**Noone**'
-            if (win === 'none' && lang === 'de') winner = '**Niemand**'
+            // Check Who Won
+            let winner = '**Noone**', rawWinner: string
+            if (lang === 'de') winner = '**Niemand**'
+
+            if (win === 'ps') { winner = '<@' + sender + '>'; rawWinner = sender }
+            if (win === 'pr') { winner = '<@' + reciever + '>'; rawWinner = reciever }
 
             // Transfer Money
             const betwon = bet * 2; let transaction: any
             if (winner !== '**Noone**' && winner !== '**Niemand**') {
-                bot.money.add(interaction.guild.id, winner, betwon)
+                bot.money.add(interaction.guild.id, rawWinner, betwon)
 
                 // Log Transaction
                 if (betwon > 0) transaction = await bot.transactions.log({
                     success: true,
                     sender: {
-                        id: (winner === sender ? reciever : sender),
+                        id: (rawWinner === sender ? reciever : sender),
                         amount: betwon,
                         type: 'negative'
                     }, reciever: {
-                        id: winner,
+                        id: rawWinner,
                         amount: betwon,
                         type: 'positive'
                     }

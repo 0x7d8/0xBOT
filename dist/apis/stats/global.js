@@ -8,7 +8,6 @@ module.exports = {
     type: rjweb_server_1.default.types.get,
     path: '/stats/global',
     async code(ctr) {
-        // Return Result
         return ctr.print({
             "success": true,
             "commands": await ctr.bot.stat.get(`t-all`, 'cmd'),

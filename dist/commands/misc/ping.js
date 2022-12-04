@@ -34,9 +34,7 @@ exports.default = {
         de: 'DER BOT PING'
     }),
     async execute(interaction, client, lang, vote) {
-        // Set Variables
         const ping = client.ws.ping;
-        // Create Embed
         let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
             .setTitle('<:GLOBE:1024403680503529583> » BOT PING')
             .setDescription('» The Bot Ping is **' + ping + 'ms**!')
@@ -47,7 +45,6 @@ exports.default = {
                 .setDescription('» Der Ping vom Bot ist **' + ping + 'ms**!')
                 .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
         }
-        // Send Correct Response
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] PING : ' + ping + 'ms');
         return interaction.reply({ embeds: [message], ephemeral: true });
     }

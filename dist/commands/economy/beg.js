@@ -53,12 +53,9 @@ exports.default = {
     })
         .setRequired(false)),
     async execute(interaction, client, lang, vote) {
-        // Set Variables
         const amount = bot.getOption(interaction, 'amount');
         const reason = bot.getOption(interaction, 'reason');
-        // Check if Balance is Minus
         if (amount < 0) {
-            // Create Embed
             let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» You cant ask for negative Money!')
@@ -69,13 +66,10 @@ exports.default = {
                     .setDescription('» Du kannst nicht nach negativem Geld fragen!')
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
-            // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] BEG : NEGATIVEMONEY : ' + amount + '€');
             return interaction.reply({ embeds: [message], ephemeral: true });
         }
-        // Check for Max Amount
         if (amount > 10000) {
-            // Create Embed
             let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
                 .setTitle('» BEGGING')
                 .setDescription('» You cant beg that much! **$10000** is the Maximum.')
@@ -86,11 +80,9 @@ exports.default = {
                     .setDescription('» Du kannst nicht soviel erbetteln! **10000€** ist das Maximum.')
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
-            // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] BEG : TOOMUCHMONEY : ' + amount + '€');
             return interaction.reply({ embeds: [message], ephemeral: true });
         }
-        // Set Reason Type
         let reasontype;
         if (reason === null) {
             reasontype = 'NONE';
@@ -102,7 +94,6 @@ exports.default = {
         if (reason === null) {
             reasonres = 'NULL';
         }
-        // Create Button
         let row = new discord_js_1.ActionRowBuilder()
             .addComponents(new discord_js_1.ButtonBuilder()
             .setLabel('GIVE ' + interaction.user.username.toUpperCase() + ' $' + amount)
@@ -117,7 +108,6 @@ exports.default = {
                 .setCustomId('BEG-' + interaction.user.id + '-' + amount + '-' + reasontype + '-' + reasonres.toString())
                 .setStyle(discord_js_1.ButtonStyle.Secondary));
         }
-        // Create Embed
         let message;
         if (!reason) {
             message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
@@ -143,7 +133,6 @@ exports.default = {
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
         }
-        // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] BEG : ' + amount + '€');
         return interaction.reply({ embeds: [message], components: [row] });
     }

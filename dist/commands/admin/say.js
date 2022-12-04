@@ -13,7 +13,6 @@ exports.default = {
         .setDMPermission(false)
         .setDefaultMemberPermissions(v10_1.PermissionFlagsBits.Administrator),
     async execute(interaction, client, lang, vote) {
-        // Create Modal
         const modal = new discord_js_1.ModalBuilder()
             .setCustomId('say')
             .setTitle('EMBED CONTENT');
@@ -44,7 +43,6 @@ exports.default = {
         const title = new discord_js_1.ActionRowBuilder().addComponents(titleInput);
         const content = new discord_js_1.ActionRowBuilder().addComponents(contentInput);
         modal.addComponents(title, content);
-        // Send Modal
         return interaction.showModal(modal);
     }
 };

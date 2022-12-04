@@ -27,7 +27,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
-// Connect to Database
 const _config_1 = __importDefault(require("@config"));
 const pg_1 = __importDefault(require("pg"));
 const db = new pg_1.default.Pool({
@@ -48,9 +47,7 @@ exports.default = {
         de: 'SEHE DIE TOP LEVEL'
     }),
     async execute(interaction, client, lang, vote) {
-        // Defer Reply
         await interaction.deferReply();
-        // Get Top Money
         let embedDesc = '';
         let count = 0;
         const rawvalues = await db.query(`select * from stats where name like $1 and type = 'msg' order by value desc;`, ['%' + interaction.guild.id + '-C']);
@@ -80,7 +77,6 @@ exports.default = {
                 embedDesc = 'Nichts zum Anzeigen.';
             }
         }
-        // Create Embed
         let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
             .setTitle('<:GLOBE:1024403680503529583> » TOP LEVELS')
             .setDescription(embedDesc)
@@ -91,7 +87,6 @@ exports.default = {
                 .setDescription(embedDesc)
                 .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
         }
-        // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] LEVELTOP');
         return interaction.editReply({ embeds: [message] }).catch(() => { });
     }

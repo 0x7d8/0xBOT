@@ -16,10 +16,10 @@ export default {
         // Check if Number is Negative
         if (typeof interaction.message.components[0].components[1] !== 'undefined') {
             if (number === 1) {
-                (interaction.message.components[0].components[1].disabled as boolean) = true
+                (interaction.message.components[0].components[1].data.disabled as boolean) = true
                 await interaction.message.edit({ components: interaction.message.components })
             } else {
-                (interaction.message.components[0].components[1].disabled as boolean) = false
+                (interaction.message.components[0].components[1].data.disabled as boolean) = false
                 await interaction.message.edit({ components: interaction.message.components })
             }
         }
@@ -43,6 +43,6 @@ export default {
 
         // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] COUNT : ' + number)
-        return interaction.update({ embeds: [message] })
+        return interaction.update({ embeds: [message], components: interaction.message.components })
     }
 }

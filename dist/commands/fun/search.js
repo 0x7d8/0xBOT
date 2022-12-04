@@ -49,18 +49,13 @@ exports.default = {
         de: 'DIE SUCHMASCHINE'
     })
         .setRequired(false)
-        .addChoices(
-    // Setup Choices
-    { name: '🤔 GOOGLE', value: 'Google' }, { name: '⭐ BING', value: 'Bing' }, { name: '⭐ YAHOO', value: 'Yahoo' }, { name: '⭐ DUCKDUCKGO', value: 'DuckDuckGo' })),
+        .addChoices({ name: '🤔 GOOGLE', value: 'Google' }, { name: '⭐ BING', value: 'Bing' }, { name: '⭐ YAHOO', value: 'Yahoo' }, { name: '⭐ DUCKDUCKGO', value: 'DuckDuckGo' })),
     async execute(interaction, client, lang, vote) {
-        // Set Variables
         let query = bot.getOption(interaction, 'query');
         let engine = bot.getOption(interaction, 'engine');
         if (!engine)
             engine = 'Google';
-        // Create Query
         query = encodeURIComponent(query);
-        // Create Buttons
         const google = new discord_js_1.ActionRowBuilder()
             .addComponents(new discord_js_1.ButtonBuilder()
             .setLabel('👀 ANSCHAUEN')
@@ -81,7 +76,6 @@ exports.default = {
             .setLabel('👀 ANSCHAUEN')
             .setURL("https://duckduckgo.com/?q=" + query)
             .setStyle(discord_js_1.ButtonStyle.Link));
-        // Create Embed
         let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
             .setTitle('<:SEARCH:1024389710279348354> » SEARCH')
             .setDescription('» Click Below to look up results for **' + decodeURIComponent(query) + '** on **' + engine + '**!')
@@ -92,7 +86,6 @@ exports.default = {
                 .setDescription('» Klicke unten um nach Ergebnissen für **' + decodeURIComponent(query) + '** auf **' + engine + '** zu finden!')
                 .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
         }
-        // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] SEARCH : "' + decodeURIComponent(query).toUpperCase() + '" : ' + engine.toUpperCase());
         if (engine === 'Google') {
             await interaction.reply({ embeds: [message], components: [google] });

@@ -216,32 +216,26 @@ export default {
             // Check Who Won
             const senderpoints = bot.memory.get('POINTS-' + sender)
             const recieverpoints = bot.memory.get('POINTS-' + reciever)
-            let winner: string
-            if (parseInt(senderpoints) > parseInt(recieverpoints)) {
-                winner = '<@' + sender + '>'
-            } else if (parseInt(senderpoints) < parseInt(recieverpoints)) {
-                winner = '<@' + reciever + '>'
-            } else {
-                winner = '**Noone**'
-                if (lang === 'de') {
-                    winner = '**Niemand**'
-                }
-            }
+
+            let winner = '**Noone**', rawWinner: string
+            if (lang === 'de') winner = '**Niemand**'
+            if (senderpoints > recieverpoints) winner = '<@' + sender + '>'
+            else if (senderpoints < recieverpoints) winner = '<@' + reciever + '>'
 
             // Transfer Money
             const betwon = bet * 2; let transaction: any
             if (winner !== '**Noone**' && winner !== '**Niemand**') {
-                bot.money.add(interaction.guild.id, winner, betwon)
+                bot.money.add(interaction.guild.id, rawWinner, betwon)
 
                 // Log Transaction
                 if (betwon > 0) transaction = await bot.transactions.log({
                     success: true,
                     sender: {
-                        id: (winner === sender ? reciever : sender),
+                        id: (rawWinner === sender ? reciever : sender),
                         amount: betwon,
                         type: 'negative'
                     }, reciever: {
-                        id: winner,
+                        id: rawWinner,
                         amount: betwon,
                         type: 'positive'
                     }

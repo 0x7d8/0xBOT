@@ -52,13 +52,9 @@ exports.default = {
         de: 'DAS GELD'
     })
         .setRequired(true)
-        .addChoices(
-    // Setup Choices
-    { name: '💸 [35%] 10€ - 20€', value: '35' }, { name: '🤑 [20%] 30€ - 50€', value: '20' }, { name: '💰 [05%] 60€ - 100€', value: '5' })),
+        .addChoices({ name: '💸 [35%] 10€ - 20€', value: '35' }, { name: '🤑 [20%] 30€ - 50€', value: '20' }, { name: '💰 [05%] 60€ - 100€', value: '5' })),
     async execute(interaction, client, lang, vote) {
-        // Check if Rob is Enabled in Server
         if (!await bot.settings.get(interaction.guild.id, 'rob')) {
-            // Create Embed
             let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» The **`/rob`** Command is disabled on this Server!')
@@ -69,21 +65,16 @@ exports.default = {
                     .setDescription('» Der **`/rob`** Befehl ist auf diesem Server deaktiviert!')
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
-            // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : DISABLED');
             return interaction.reply({ embeds: [message], ephemeral: true });
         }
-        // Set Variables
         const user = interaction.options.getUser("user");
         const money = bot.getOption(interaction, 'money');
         const moneysnd = await bot.money.get(interaction.user.id);
         const moneytar = await bot.money.get(user.id);
-        // Cooldown
         if (cooldown.get(interaction.user.id) - Date.now() > 0) {
-            // Translate Vars
             const timeLeft = cooldown.get(interaction.user.id) - Date.now();
             const cdown = timeLeft / 1000;
-            // Create Embed
             let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» You still have a Cooldown of **' + cdown.toFixed(0) + 's**!')
@@ -97,9 +88,7 @@ exports.default = {
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : ONCOOLDOWN : ' + cdown.toFixed(0) + 's');
             return interaction.reply({ embeds: [message], ephemeral: true });
         }
-        // Check if User is Author
         if (interaction.user.id === user.id) {
-            // Create Embed
             let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» You cant rob yourself?!')
@@ -113,9 +102,7 @@ exports.default = {
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : ' + user.id + ' : ' + money + '€ : SAMEPERSON');
             return interaction.reply({ embeds: [message], ephemeral: true });
         }
-        // Check if Target is Bot
         if (user.bot) {
-            // Create Embed
             let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» You cant rob a Bot!')
@@ -126,11 +113,9 @@ exports.default = {
                     .setDescription('» Du kannst einem Bot kein Geld klauen!')
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
-            // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : ' + user + ' : BOT');
             return interaction.reply({ embeds: [message], ephemeral: true });
         }
-        // Set Steal to Need
         let need;
         if (money === '35')
             need = 20;
@@ -138,8 +123,6 @@ exports.default = {
             need = 50;
         if (money === '5')
             need = 100;
-        // Check for enough Money #1
-        // Create Embed
         let notenoughmoney1 = new discord_js_1.EmbedBuilder().setColor(0x37009B)
             .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
             .setDescription('» You dont have enough Money for that, you need atleast **$' + need + '**! BRUH.')
@@ -150,7 +133,6 @@ exports.default = {
                 .setDescription('» Du hast nicht genug Geld dafür, du brauchst mindestens **' + need + '€**! BRUH.')
                 .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
         }
-        // Check Money
         if (money === '35' && moneysnd < 20) {
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : ' + user.id + ' : NOTENOUGHMONEY');
             return interaction.reply({ embeds: [notenoughmoney1.toJSON()], ephemeral: true });
@@ -166,8 +148,6 @@ exports.default = {
             return interaction.reply({ embeds: [notenoughmoney1.toJSON()], ephemeral: true });
         }
         ;
-        // Check for enough Money #2
-        // Create Embed
         let notenoughmoney2 = new discord_js_1.EmbedBuilder().setColor(0x37009B)
             .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
             .setDescription('» <@' + user + '> doesnt have enough Money for that, he needs atleast **$' + need + '**! LOL.')
@@ -178,7 +158,6 @@ exports.default = {
                 .setDescription('» <@' + user + '> hat nicht genug Geld dafür, er braucht mindestens **' + need + '€**! LOL.')
                 .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
         }
-        // Check Money
         if (money === '35' && moneytar < 20) {
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : ' + user.id + ' : NOTENOUGHMONEY');
             return interaction.reply({ embeds: [notenoughmoney2.toJSON()], ephemeral: true });
@@ -193,7 +172,6 @@ exports.default = {
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : ' + user.id + ' : NOTENOUGHMONEY');
             return interaction.reply({ embeds: [notenoughmoney2.toJSON()], ephemeral: true });
         }
-        // Setup Chances
         const random35 = bot.random(1, 3);
         const random20 = bot.random(1, 5);
         const random05 = bot.random(1, 20);
@@ -228,13 +206,11 @@ exports.default = {
                 amount = bot.random(50, 100);
             }
         }
-        // Set Punishment
         let punishment;
         if (moneysnd > need * 2)
             punishment = amount * 2;
         else
             punishment = amount;
-        // Set Extra Text
         let extra;
         if (amount < 20)
             extra = 'MEH.';
@@ -258,7 +234,6 @@ exports.default = {
             if (amount >= 80)
                 extra = 'EIN PRO??!!';
         }
-        // Create Embeds
         let success = new discord_js_1.EmbedBuilder().setColor(0x37009B)
             .setTitle('<:BAG:1024389219558367292> » AUSRAUBEN')
             .setDescription('» You stole <@' + user.id + '> **$' + amount + '**! ' + extra)
@@ -277,22 +252,17 @@ exports.default = {
                 .setDescription('» Du wolltest <@' + user.id + '> **' + amount + '€** klauen, aber die Polizei hat dich erwischt! Du musstest **' + punishment + '€** Strafgeld bezahlen! KEKW.')
                 .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
         }
-        // Set Money
         if (status == false) {
-            // Set Cooldown
             cooldown.set(interaction.user.id, Date.now() + 30000);
             setTimeout(() => cooldown.delete(interaction.user.id), 30000);
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : ' + user.id + ' : ' + amount + '€ : FAILURE : ' + punishment + '€');
             bot.money.rem(interaction.guild.id, interaction.user.id, punishment);
             return interaction.reply({ embeds: [failure] });
         }
-        // Set Cooldown
         cooldown.set(interaction.user.id, Date.now() + 30000);
         setTimeout(() => cooldown.delete(interaction.user.id), 30000);
-        // Set Money
         bot.money.rem(interaction.guild.id, user.id, amount);
         bot.money.add(interaction.guild.id, interaction.user.id, amount);
-        // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : ' + user.id + ' : ' + amount + '€ : SUCCESS');
         return interaction.reply({ embeds: [success] });
     }

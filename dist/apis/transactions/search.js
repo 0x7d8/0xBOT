@@ -8,7 +8,6 @@ module.exports = {
     type: rjweb_server_1.default.types.get,
     path: '/transactions/search',
     async code(ctr) {
-        // Check for Queries
         if (!ctr.header.get('senderid') || !ctr.header.get('recieverid') || !ctr.header.get('maxresults'))
             return ctr.print({ "success": false, "message": 'NO HEADERS' });
         let rawvalues;
@@ -30,7 +29,6 @@ module.exports = {
         }
         else
             rawvalues = await ctr.db.query(`select * from usertransactions order by timestamp desc;`);
-        // Generate JSON Object
         let output = [];
         let count = 0;
         for (const element of rawvalues.rows) {
@@ -60,7 +58,6 @@ module.exports = {
                 }
             });
         }
-        // Return Result
         return ctr.print(output);
     }
 };

@@ -43,9 +43,7 @@ exports.default = {
     })
         .setRequired(false)),
     async execute(interaction, client, lang, vote) {
-        // Set Variables
         const user = interaction.options.getUser("user");
-        // Get Money
         let money;
         if (!user) {
             money = await bot.money.get(interaction.user.id);
@@ -55,7 +53,6 @@ exports.default = {
             money = await bot.money.get(user.id);
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] BALANCE : ' + user + ' : ' + money + '€');
         }
-        // Create Embed
         let message;
         if (!user) {
             message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
@@ -77,11 +74,10 @@ exports.default = {
             if (lang === 'de') {
                 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:WALLET:1024387370793050273> » DER GELDSTAND VON ' + user.username.toUpperCase())
-                    .setDescription('» Der Geldstand von <@' + user + '> ist **' + money + '€**!')
+                    .setDescription('» Der Geldstand von <@' + user + '> beträgt **' + money + '€**!')
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
         }
-        // Send Message
         return interaction.reply({ embeds: [message] });
     }
 };

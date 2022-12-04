@@ -35,9 +35,7 @@ exports.default = {
         de: 'ARBEITE FÜR GELD'
     }),
     async execute(interaction, client, lang, vote) {
-        // Check if Work is Enabled in Server
         if (!await bot.settings.get(interaction.guild.id, 'work')) {
-            // Create Embed
             let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» The **`/work`** Command is disabled on this Server!')
@@ -48,15 +46,11 @@ exports.default = {
                     .setDescription('» Der **`/work`** Befehl ist auf diesem Server deaktiviert!')
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
-            // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] WORK : DISABLED');
             return interaction.reply({ embeds: [message], ephemeral: true });
         }
-        // Set Variables
         const random = bot.random(1, 4);
-        // Cooldown
         if (cooldown.get(interaction.user.id) - Date.now() > 0) {
-            // Translate Vars
             let use, cdown;
             const timeLeft = cooldown.get(interaction.user.id) - Date.now();
             use = 's';
@@ -65,7 +59,6 @@ exports.default = {
                 cdown = timeLeft / 1000 / 60;
                 use = 'm';
             }
-            // Create Embed
             let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» You still have a Cooldown of **' + cdown.toFixed(0) + use + '**!')
@@ -76,12 +69,10 @@ exports.default = {
                     .setDescription('» Du hast leider noch einen Cooldown von **' + cdown.toFixed(0) + use + '**!')
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
-            // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] WORK : ONCOOLDOWN : ' + cdown.toFixed(0) + use);
             return interaction.reply({ embeds: [message], ephemeral: true });
         }
         else {
-            // Set Jobs
             let job, result;
             if (random === 1)
                 job = 'PROGRAMMER';
@@ -105,7 +96,6 @@ exports.default = {
                 if (random === 4)
                     job = 'KÜNSTLER';
             }
-            // Check for Car Boost
             let carboost = false;
             let carboostam;
             const car = await bot.items.get(interaction.user.id + '-CAR-' + interaction.guild.id, 'value');
@@ -113,7 +103,6 @@ exports.default = {
                 carboost = true;
                 carboostam = await bot.items.get(interaction.user.id + '-CAR-' + interaction.guild.id, 'amount');
             }
-            // Set Extra Text
             let extra;
             if (!carboost) {
                 if (result < 40)
@@ -163,13 +152,11 @@ exports.default = {
                         extra = 'WOW!\n**+' + carboostam + '%** wegen deinem Auto!';
                 }
             }
-            // Calculate Result with Car
             let resultcar;
             if (!carboost)
                 resultcar = result;
             else
                 resultcar = Math.round(bot.perAdd(result, carboostam));
-            // Log Transaction
             const transaction = await bot.transactions.log({
                 success: true,
                 sender: {
@@ -182,7 +169,6 @@ exports.default = {
                     type: 'positive'
                 }
             });
-            // Create Embed
             let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:HAMMER:1024388163747184662> » WORK')
                 .setDescription('» You work as **' + job + '** and earn **$' + resultcar + '**! ' + extra + '\n\nID: ' + transaction.id)
@@ -193,13 +179,10 @@ exports.default = {
                     .setDescription('» Du arbeitest als **' + job + '** und verdienst **' + resultcar + '€**! ' + extra + '\n\nID: ' + transaction.id)
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
-            // Send Money
             bot.money.add(interaction.guild.id, interaction.user.id, resultcar);
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] WORK : ' + resultcar + '€');
-            // Set Cooldown
             cooldown.set(interaction.user.id, Date.now() + 1800000);
             setTimeout(() => cooldown.delete(interaction.user.id), 1800000);
-            // Send Message
             return interaction.reply({ embeds: [message] });
         }
     }

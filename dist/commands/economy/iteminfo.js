@@ -42,17 +42,12 @@ exports.default = {
         de: 'DER GEGENSTAND'
     })
         .setRequired(true)
-        .addChoices(
-    // Setup Choices
-    { name: '💣 NORMALE BOMBE', value: 'nbomb' }, { name: '💣 MEDIUM BOMBE', value: 'mbomb' }, { name: '💣 HYPER BOMBE', value: 'hbomb' }, { name: '💣 CRAZY BOMBE', value: 'cbomb' })),
+        .addChoices({ name: '💣 NORMALE BOMBE', value: 'nbomb' }, { name: '💣 MEDIUM BOMBE', value: 'mbomb' }, { name: '💣 HYPER BOMBE', value: 'hbomb' }, { name: '💣 CRAZY BOMBE', value: 'cbomb' })),
     async execute(interaction, client, lang, vote) {
-        // Set Variables
         const item = bot.getOption(interaction, 'item');
-        // Send Message
         let message;
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ITEMINFO : ' + item.toUpperCase());
         if (item === 'nbomb') {
-            // Create Embed
             message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:QUESTION:1024402860210921503> » ITEM INFO')
                 .setDescription('» The **<:NBOMB:1021783222520127508> NORMAL BOMB** is used to temporarily mute people, yes, mute people.\nTo not get muted the reciever has to solve a small problem.')
@@ -66,7 +61,6 @@ exports.default = {
             return interaction.reply({ embeds: [message], ephemeral: true });
         }
         if (item === 'mbomb') {
-            // Create Embed
             message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:QUESTION:1024402860210921503> » ITEM INFO')
                 .setDescription('» The **<:MBOMB:1021783295211601940> MEDIUM BOMB** is used to temporarily mute people, yes, mute people.\nIts slightly harder and has a longer mute time than the **<:NBOMB:1021783222520127508> NORMAL BOMB**.')
@@ -80,7 +74,6 @@ exports.default = {
             return interaction.reply({ embeds: [message], ephemeral: true });
         }
         if (item === 'hbomb') {
-            // Create Embed
             message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:QUESTION:1024402860210921503> » ITEM INFO')
                 .setDescription('» The **<:HBOMB:1022102357938536458> HYPER BOMB** is used to temporarily mute people, yes, mute people.\nIts alot harder and has a longer mute time than the **<:NBOMB:1021783222520127508> NORMAL BOMB** and the **<:MBOMB:1021783295211601940> MEDIUM BOMB**.')
@@ -94,7 +87,6 @@ exports.default = {
             return interaction.reply({ embeds: [message], ephemeral: true });
         }
         if (item === 'cbomb') {
-            // Create Embed
             message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:QUESTION:1024402860210921503> » ITEM INFO')
                 .setDescription('» The **<:CBOMB:1021783405161091162> CRAZY BOMB** is used to delete the last Message from someone in the Channel.\nTo not get the last message deleted, the reciever has to solve a small problem.')

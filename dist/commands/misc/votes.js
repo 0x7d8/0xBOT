@@ -43,9 +43,7 @@ exports.default = {
     })
         .setRequired(false)),
     async execute(interaction, client, lang, vote) {
-        // Set Variables
         const user = interaction.options.getUser("user");
-        // Set User ID
         let votes;
         if (!user) {
             votes = await bot.votes.get(interaction.user.id + '-A');
@@ -55,13 +53,11 @@ exports.default = {
             votes = await bot.votes.get(user.id + '-A');
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] VOTES : ' + user.id + ' : ' + votes);
         }
-        // Check if Plural or not
         let word;
         if (votes === 1)
             word = 'Vote';
         else
             word = 'Votes';
-        // Create Embed
         let message;
         if (!user) {
             message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
@@ -87,7 +83,6 @@ exports.default = {
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
         }
-        // Send Message
         return interaction.reply({ embeds: [message] });
     }
 };
