@@ -30,8 +30,10 @@ exports.default = {
         name: 'count'
     },
     async execute(interaction, client, lang, vote, type) {
+        // Get Count
         const cache = interaction.message.embeds;
         let number = Number(cache[0].description.toString().match(/\d+/g));
+        // Check if Number is Negative
         if (typeof interaction.message.components[0].components[1] !== 'undefined') {
             if (number === 1) {
                 interaction.message.components[0].components[1].data.disabled = true;
@@ -42,10 +44,12 @@ exports.default = {
                 await interaction.message.edit({ components: interaction.message.components });
             }
         }
+        // Count Number
         if (type === 'plus')
             number++;
         else
             number--;
+        // Create Embeds
         let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
             .setTitle('<:INFINITE:1024406060380979300> » COUNTING')
             .setDescription('» Lets Count! Current Number: **' + number + '**')
@@ -56,6 +60,7 @@ exports.default = {
                 .setDescription('» Komm Zählen! Aktuelle Nummer: **' + number + '**')
                 .setFooter({ text: '» ' + client.config.version });
         }
+        // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] COUNT : ' + number);
         return interaction.update({ embeds: [message], components: interaction.message.components });
     }

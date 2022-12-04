@@ -43,8 +43,10 @@ exports.default = {
     })
         .setRequired(true)),
     async execute(interaction, client, lang, vote) {
+        // Set Variables
         const question = bot.getOption(interaction, 'question');
         const random = bot.random(1, 20);
+        // Translate to Word
         let result;
         if (random === 1)
             result = 'Certainly.';
@@ -128,11 +130,13 @@ exports.default = {
             if (random === 20)
                 result = 'Ich bezweifle es.';
         }
+        // Add ? if there is none
         let formatted;
         if (question.slice(-1) === '?')
             formatted = question;
         else
             formatted = question + '?';
+        // Create Embeds
         let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
             .setTitle('<:QUESTION:1024402860210921503> » MAGIC BALL')
             .setDescription('» "' + formatted + '" -> ' + result)
@@ -143,6 +147,7 @@ exports.default = {
                 .setDescription('» "' + formatted + '" -> ' + result)
                 .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
         }
+        // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] 8BALL : ' + formatted.toUpperCase() + ' : ' + result.toUpperCase());
         return interaction.reply({ embeds: [message] });
     }

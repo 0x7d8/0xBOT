@@ -30,10 +30,13 @@ exports.default = {
         name: 'rps-choice'
     },
     async execute(interaction, client, lang, vote, bet, choice) {
+        // Get Users
         const cache = interaction.message.embeds;
         const description = cache[0].description.toString().replace(/[^\d@!]/g, '').split('!')[0].substring(1).split("@");
         const [sender, reciever] = description;
+        // Check if User is playing
         if (sender !== interaction.user.id && reciever !== interaction.user.id) {
+            // Create Embed
             let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» You arent playing!')
@@ -44,9 +47,11 @@ exports.default = {
                     .setDescription('» Du spielst garnicht mit!')
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
+            // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] RPS : NOTPLAYING');
             return interaction.reply({ embeds: [message], ephemeral: true });
         }
+        // Create Embed
         let choiceen;
         if (choice === 'ROCK')
             choiceen = '🪨 ROCK';
@@ -71,10 +76,14 @@ exports.default = {
                 .setDescription('» Du hast **' + choicede + '** ausgewählt!')
                 .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
         }
+        // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] RPS : ' + choice);
         interaction.reply({ embeds: [message], ephemeral: true });
+        // Set Variable
         bot.rps.set('CHOICE-' + interaction.user.id, choice);
+        // Check if Game is Done
         if (bot.rps.has('CHOICE-' + sender) && bot.rps.has('CHOICE-' + reciever)) {
+            // Calculate Winner
             const psc = bot.rps.get('CHOICE-' + sender);
             const prc = bot.rps.get('CHOICE-' + reciever);
             let win = 'none';
@@ -90,6 +99,7 @@ exports.default = {
                 win = 'ps';
             if (psc === 'PAPER' && prc === 'SCISSORS')
                 win = 'pr';
+            // Check Who Won
             let winner = '**Noone**', rawWinner;
             if (lang === 'de')
                 winner = '**Niemand**';
@@ -101,10 +111,12 @@ exports.default = {
                 winner = '<@' + reciever + '>';
                 rawWinner = reciever;
             }
+            // Transfer Money
             const betwon = bet * 2;
             let transaction;
             if (winner !== '**Noone**' && winner !== '**Niemand**') {
                 bot.money.add(interaction.guild.id, rawWinner, betwon);
+                // Log Transaction
                 if (betwon > 0)
                     transaction = await bot.transactions.log({
                         success: true,
@@ -123,6 +135,7 @@ exports.default = {
                 bot.money.add(interaction.guild.id, sender, bet);
                 bot.money.add(interaction.guild.id, reciever, bet);
             }
+            // Create Embed
             let send, reci;
             if (psc === 'SCISSORS')
                 send = '✂️ SCISSORS';
@@ -158,13 +171,16 @@ exports.default = {
                     .setDescription('» <@' + sender + '> wählte **' + send + '**\n» <@' + reciever + '> wählte **' + reci + '**\n\n<:AWARD:1024385473524793445> ' + winner + ' hat **' + betwon + '€** gewonnen.' + ((typeof transaction === 'object') ? `\nID: ${transaction.id}` : ''))
                     .setFooter({ text: '» ' + client.config.version });
             }
+            // Delete Variables
             bot.rps.delete('CHOICE-' + sender);
             bot.rps.delete('CHOICE-' + reciever);
+            // Edit Buttons
             {
                 interaction.message.components[0].components[0].data.disabled = true;
                 interaction.message.components[0].components[1].data.disabled = true;
                 interaction.message.components[0].components[2].data.disabled = true;
             }
+            // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] RPS : DONE');
             return interaction.message.edit({ embeds: [message], components: interaction.message.components, ephemeral: true });
         }

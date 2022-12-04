@@ -30,11 +30,14 @@ exports.default = {
         name: 'beg'
     },
     async execute(interaction, client, lang, vote, reciever, amount, reasontype, reason) {
+        // Set Variables
         const balance = await bot.money.get(interaction.user.id);
         const args = interaction.message.embeds[0].description.split('**');
         const total = Number(args[1].match(/\d+/g)) + amount;
+        // Check for enough Money
         if (balance < amount) {
             const missing = amount - balance;
+            // Create Embed
             let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» You dont have enough Money for that, you are missing **$' + missing + '**!')
@@ -45,10 +48,13 @@ exports.default = {
                     .setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
+            // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] BEG : ' + reciever + ' : ' + amount + '€ : NOTENOUGHMONEY');
             return interaction.reply({ embeds: [message], ephemeral: true });
         }
+        // Check if User is Author
         if (interaction.user.id == reciever) {
+            // Create Embed
             let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» You cant give yourself Money?')
@@ -59,9 +65,11 @@ exports.default = {
                     .setDescription('» Du kannst dir selber kein Geld geben?')
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
+            // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] BEG : ' + reciever + ' : ' + amount + '€ : SAMEPERSON');
             return interaction.reply({ embeds: [message], ephemeral: true });
         }
+        // Log Transaction
         const transaction = await bot.transactions.log({
             success: true,
             sender: {
@@ -74,8 +82,10 @@ exports.default = {
                 type: 'positive'
             }
         });
+        // Transfer Money
         bot.money.rem(interaction.guild.id, interaction.user.id, amount);
         bot.money.add(interaction.guild.id, reciever, amount);
+        // Create Embeds
         let message;
         if (reasontype !== 'SET') {
             message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
@@ -112,8 +122,10 @@ exports.default = {
                 .setDescription('» <@' + interaction.user.id + '> hat <@' + reciever + '> **' + amount + '€** gegeben!\n\nID: ' + transaction.id)
                 .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
         }
+        // Send Response Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] BEG : ' + reciever + ' : ' + amount + '€');
         await interaction.reply({ embeds: [rmessage] });
+        // Edit Original Message
         return interaction.message.edit({ embeds: [message] }).catch(() => { });
     }
 };

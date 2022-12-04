@@ -27,6 +27,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
+// Connect to Database
 const _config_1 = __importDefault(require("@config"));
 const pg_1 = __importDefault(require("pg"));
 const db = new pg_1.default.Pool({
@@ -55,10 +56,15 @@ exports.default = {
         de: 'DIE LISTE'
     })
         .setRequired(true)
-        .addChoices({ name: '🌍 GLOBAL', value: 'global' }, { name: '🏘️ SERVER', value: 'server' })),
+        .addChoices(
+    // Setup Choices
+    { name: '🌍 GLOBAL', value: 'global' }, { name: '🏘️ SERVER', value: 'server' })),
     async execute(interaction, client, lang, vote) {
+        // Set Variables
         const listtype = bot.getOption(interaction, 'list');
+        // Defer Reply
         await interaction.deferReply();
+        // Get Top Money
         let embedDesc = '';
         let count = 0;
         if (listtype === 'global') {
@@ -100,6 +106,7 @@ exports.default = {
                 embedDesc = 'Nichts zum Anzeigen.';
             }
         }
+        // Create Embed
         let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
             .setTitle('<:WALLET:1024387370793050273> » TOP BALANCES [' + listtype.toUpperCase() + ']')
             .setDescription(embedDesc)
@@ -110,6 +117,7 @@ exports.default = {
                 .setDescription(embedDesc)
                 .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
         }
+        // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] BALANCETOP : ' + listtype.toString().toUpperCase());
         return interaction.editReply({ embeds: [message] }).catch(() => { });
     }

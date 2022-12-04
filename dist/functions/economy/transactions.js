@@ -27,6 +27,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.log = exports.get = void 0;
+// Connect to Database
 const _config_1 = __importDefault(require("@config"));
 const pg_1 = __importDefault(require("pg"));
 const db = new pg_1.default.Pool({
@@ -38,6 +39,7 @@ const db = new pg_1.default.Pool({
     ssl: true
 });
 const utils = __importStar(require("rjutils-collection"));
+// Get Function
 const get = async (transactionId) => {
     const data = await db.query(`select * from usertransactions where id = $1;`, [transactionId]);
     if (data.rowCount !== 1)
@@ -58,6 +60,7 @@ const get = async (transactionId) => {
     };
 };
 exports.get = get;
+// Log Function
 const log = async (json) => {
     const transactionId = utils.randomStr({
         length: 20,

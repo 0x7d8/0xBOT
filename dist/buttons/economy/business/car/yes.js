@@ -30,7 +30,9 @@ exports.default = {
         name: 'car-yes'
     },
     async execute(interaction, client, lang, vote, car, userid, type) {
+        // Set Variables
         const balance = await bot.money.get(interaction.user.id);
+        // Set Car Value
         let carvalue;
         if (car === 'jeep')
             carvalue = 25;
@@ -42,6 +44,7 @@ exports.default = {
             carvalue = 100;
         if (car === 'porsche')
             carvalue = 200;
+        // Calculate Cost
         let cost, dopay = false;
         if (await bot.businesses.get('g-' + interaction.guild.id + '-3-PRICE-' + car.toUpperCase()) === '0' || await bot.businesses.get('g-' + interaction.guild.id + '-3-PRICE-' + car.toUpperCase()) === 0) {
             if (car === 'jeep')
@@ -73,6 +76,7 @@ exports.default = {
                     cost = 490000;
             }
         }
+        // Translate to Car Names
         let name;
         if (car === 'jeep')
             name = '2016 JEEP PATRIOT SPORT';
@@ -84,7 +88,9 @@ exports.default = {
             name = 'TESLA MODEL Y';
         if (car === 'porsche')
             name = '2019 PORSCHE 911 GT2RS';
+        // Check if User is Authorized
         if (interaction.user.id !== userid) {
+            // Create Embed
             let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» This choice is up to <@' + userid + '>!')
@@ -95,12 +101,16 @@ exports.default = {
                     .setDescription('» Diese Frage ist für <@' + userid + '>!')
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
+            // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] CARBUY : NOTSENDER');
             return interaction.reply({ embeds: [message], ephemeral: true });
         }
+        // Split Button with type
         if (type === 'buy') {
+            // Check if User has enough Money
             if (balance < cost) {
                 const missing = cost - balance;
+                // Create Embed
                 let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                     .setDescription('» You dont have enough Money for that, you are missing **$' + missing + '**!')
@@ -111,10 +121,13 @@ exports.default = {
                         .setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
                         .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
                 }
+                // Send Message
                 bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] CARBUY : ' + name.toUpperCase() + ' : NOTENOUGHMONEY : ' + cost + '€');
                 return interaction.reply({ embeds: [message], ephemeral: true });
             }
+            // Check if User already has a Car
             if (await bot.items.get(interaction.user.id + '-CAR-' + interaction.guild.id, 'amount') !== 0) {
+                // Translate to Car Names
                 const dbcar = await bot.items.get(interaction.user.id + '-CAR-' + interaction.guild.id, 'value');
                 if (dbcar == 'jeep')
                     name = '2016 JEEP PATRIOT SPORT';
@@ -126,6 +139,7 @@ exports.default = {
                     name = 'TESLA MODEL Y';
                 if (dbcar == 'porsche')
                     name = '2019 PORSCHE 911 GT2RS';
+                // Create Embed
                 let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                     .setDescription('» You already own a **' + name + '**!')
@@ -136,14 +150,17 @@ exports.default = {
                         .setDescription('» Du besitzt schon einen **' + name + '**!')
                         .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
                 }
+                // Send Message
                 bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] CARBUY : ALREADYOWNCAR : ' + name);
                 return interaction.reply({ embeds: [message], ephemeral: true });
             }
+            // Edit Buttons
             {
                 interaction.message.components[0].components[0].data.disabled = true;
                 interaction.message.components[0].components[1].data.disabled = true;
                 interaction.message.components[0].components[1].data.style = 2;
             }
+            // Log Transaction
             const transaction = await bot.transactions.log({
                 success: true,
                 sender: {
@@ -156,6 +173,7 @@ exports.default = {
                     type: 'positive'
                 }
             });
+            // Create Embed
             let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:BOXCHECK:1024401101589590156> » BUY CAR')
                 .setDescription('» You successfully bought a **' + name + '** for **$' + cost + '**!\n\nID: ' + transaction.id)
@@ -166,7 +184,9 @@ exports.default = {
                     .setDescription('» Du hast erfolgreich einen **' + name + '** für **' + cost + '€** gekauft!\n\nID: ' + transaction.id)
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
+            // Remove Money
             bot.money.rem(interaction.guild.id, interaction.user.id, cost);
+            // Transfer Money if Business is owned
             if (dopay) {
                 const businessowner = await bot.businesses.get('g-' + interaction.guild.id + '-3-OWNER');
                 if (car === 'jeep') {
@@ -190,12 +210,16 @@ exports.default = {
                     bot.businesses.add('g-' + interaction.guild.id + '-3-EARNING', cost - 500000);
                 }
             }
+            // Own Car
             bot.items.set(interaction.user.id + '-CAR-' + interaction.guild.id, car, carvalue);
+            // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] CARBUY : ' + name + ' : CONFIRM');
             return interaction.update({ embeds: [message], components: interaction.message.components });
         }
         else if (type === 'sell') {
+            // Check if User has a Car
             if (await bot.items.get(interaction.user.id + '-CAR-' + interaction.guild.id, 'amount') === 0) {
+                // Create Embed
                 let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                     .setDescription('» You dont own a Car!')
@@ -206,14 +230,17 @@ exports.default = {
                         .setDescription('» Du besitzt kein Auto!')
                         .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
                 }
+                // Send Message
                 bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] CARSELL : DONTOWNCAR');
                 return interaction.reply({ embeds: [message], ephemeral: true });
             }
+            // Edit Buttons
             {
                 interaction.message.components[0].components[0].data.disabled = true;
                 interaction.message.components[0].components[1].data.disabled = true;
                 interaction.message.components[0].components[1].data.style = 2;
             }
+            // Create Embed
             let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:BOXDOLLAR:1024402261784403999> » SELL CAR')
                 .setDescription('» You successfully sold your **' + name + '** for **$' + (cost / 2) + '**!')
@@ -224,8 +251,11 @@ exports.default = {
                     .setDescription('» Du hast erfolgreich deinen **' + name + '** für **' + (cost / 2) + '€** verkauft!')
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
+            // Add Money
             bot.money.add(interaction.guild.id, interaction.user.id, (cost / 2));
+            // unOwn Car
             bot.items.del(interaction.user.id + '-CAR-' + interaction.guild.id);
+            // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] CARSELL : ' + name + ' : CONFIRM');
             return interaction.update({ embeds: [message], components: interaction.message.components });
         }

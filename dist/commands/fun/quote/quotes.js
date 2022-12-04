@@ -43,7 +43,9 @@ exports.default = {
     })
         .setRequired(false)),
     async execute(interaction, client, lang, vote) {
+        // Check if Quotes are Enabled in Server
         if (!await bot.settings.get(interaction.guild.id, 'quotes')) {
+            // Create Embed
             let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» Quotes are disabled on this Server!')
@@ -54,10 +56,13 @@ exports.default = {
                     .setDescription('» Zitate sind auf diesem Server deaktiviert!')
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
+            // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] QUOTES : DISABLED');
             return interaction.reply({ embeds: [message], ephemeral: true });
         }
+        // Set Variables
         const user = interaction.options.getUser("user");
+        // Set User ID
         let quotes;
         if (user == null) {
             quotes = await bot.quotes.get(interaction.user.id);
@@ -67,6 +72,7 @@ exports.default = {
             quotes = await bot.quotes.get(user.id);
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] QUOTES : ' + user + ' : ' + quotes);
         }
+        // Check if Plural or not
         let word;
         if (quotes === 1)
             word = 'Quote';
@@ -78,6 +84,7 @@ exports.default = {
             else
                 word = 'Zitate';
         }
+        // Create Embed
         let message;
         if (!user) {
             message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
@@ -103,6 +110,7 @@ exports.default = {
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
         }
+        // Send Message
         return interaction.reply({ embeds: [message] });
     }
 };

@@ -28,6 +28,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 const promises_1 = require("timers/promises");
+// Connect to Database
 const _config_1 = __importDefault(require("@config"));
 const pg_1 = __importDefault(require("pg"));
 const db = new pg_1.default.Pool({
@@ -46,11 +47,13 @@ exports.default = {
     once: true,
     async execute(client, timed) {
         const axios = (await import("axios")).default;
+        // Log
         console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] STARTED AND LOGGED IN AS ${client.user?.tag} (${timed}ms)`);
         console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [END] $$$$$ LOADED 0xBOT ${_config_1.default.version}`);
         console.log(' ');
         console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [STA] $$$$$ STARTED LOGGING OF COMMANDS AND ERRORS`);
         console.log(' ');
+        // Set Status
         while (!+[]) {
             client.user?.setActivity(client.guilds.cache.size + ' Servers', { type: discord_js_1.ActivityType.Watching });
             await (0, promises_1.setTimeout)(20000);

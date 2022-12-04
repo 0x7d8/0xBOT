@@ -30,6 +30,7 @@ exports.default = {
         name: 'car-no'
     },
     async execute(interaction, client, lang, vote, car, userid, type) {
+        // Translate to Car Names
         let name;
         if (car === 'jeep')
             name = '2016 JEEP PATRIOT SPORT';
@@ -41,7 +42,9 @@ exports.default = {
             name = 'TESLA MODEL Y';
         if (car === 'porsche')
             name = '2019 PORSCHE 911 GT2RS';
+        // Check if User is Authorized
         if (interaction.user.id !== userid) {
+            // Create Embed
             let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» This choice is up to <@' + userid + '>!')
@@ -52,15 +55,19 @@ exports.default = {
                     .setDescription('» Diese Frage ist für <@' + userid + '>!')
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
+            // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] CARBUY : NOTSENDER');
             return interaction.reply({ embeds: [message], ephemeral: true });
         }
+        // Edit Buttons
         {
             interaction.message.components[0].components[0].data.disabled = true;
             interaction.message.components[0].components[1].data.disabled = true;
             interaction.message.components[0].components[1].data.style = 2;
         }
+        // Split Button with type
         if (type === 'buy') {
+            // Create Embed
             let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:BOXCHECK:1024401101589590156> » BUY CAR')
                 .setDescription('» <@' + interaction.user.id + '> said **NO** to a **' + name + '**.')
@@ -71,10 +78,12 @@ exports.default = {
                     .setDescription('» <@' + interaction.user.id + '> hat **NEIN** zu einem **' + name + '** gesagt.')
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
+            // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] CARBUY : ' + name + ' : DENY');
             return interaction.update({ embeds: [message], components: interaction.message.components });
         }
         else if (type === 'sell') {
+            // Create Embed
             let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:BOXDOLLAR:1024402261784403999> » SELL CAR')
                 .setDescription('» <@' + interaction.user.id + '> said **NO** to selling his **' + name + '**.')
@@ -85,6 +94,7 @@ exports.default = {
                     .setDescription('» <@' + interaction.user.id + '> hat **NEIN** zum verkaufen von seinem **' + name + '** gesagt.')
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
+            // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] CARSELL : ' + name + ' : DENY');
             return interaction.update({ embeds: [message], components: interaction.message.components });
         }

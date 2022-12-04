@@ -26,6 +26,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+// Module Register
 const module_alias_1 = __importDefault(require("module-alias"));
 module_alias_1.default.addAlias('@interfaces', __dirname + '/interfaces');
 module_alias_1.default.addAlias('@functions', __dirname + '/functions');
@@ -36,16 +37,20 @@ const pg_1 = __importDefault(require("pg"));
 const getAllFiles_js_1 = require("@utils/getAllFiles.js");
 const promises_1 = require("timers/promises");
 const _config_1 = __importDefault(require("@config"));
+// Create Client
 const discord_js_2 = require("discord.js");
 const client = new discord_js_2.Client({ intents: [
         discord_js_2.GatewayIntentBits.Guilds
     ] });
 client.login(_config_1.default.client.token);
 const bot = __importStar(require("@functions/bot.js"));
+// CLI Commands
 const stdin = process.openStdin();
 stdin.addListener("data", async (input) => {
+    // Get Arguments
     const args = input.toString().trim().split(' ');
     console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] RECIEVED COMMAND [' + input.toString().trim().toUpperCase() + ']');
+    // ADDBAL
     if (args[0].toUpperCase() === 'ADDBAL') {
         if (typeof args[1] !== 'undefined' && typeof args[2] !== 'undefined') {
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] ADDED ' + args[2] + '€ TO ' + args[1]);
@@ -55,6 +60,7 @@ stdin.addListener("data", async (input) => {
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] USAGE: ADDBAL [USERID] [AMOUNT]');
         }
     }
+    // REMBAL
     if (args[0].toUpperCase() === 'REMBAL') {
         if (typeof args[1] !== 'undefined' && typeof args[2] !== 'undefined') {
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] REMOVED ' + args[2] + '€ FROM ' + args[1]);
@@ -64,6 +70,7 @@ stdin.addListener("data", async (input) => {
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] USAGE: REMBAL [USERID] [AMOUNT]');
         }
     }
+    // SETBAL
     if (args[0].toUpperCase() === 'SETBAL') {
         if (typeof args[1] !== 'undefined' && typeof args[2] !== 'undefined') {
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] SET BALANCE OF ' + args[1] + ' TO ' + args[2] + '€');
@@ -73,6 +80,7 @@ stdin.addListener("data", async (input) => {
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] USAGE: SETBAL [USERID] [AMOUNT]');
         }
     }
+    // EVAL
     if (args[0].toUpperCase() === 'EVAL') {
         if (typeof args[1] !== 'undefined') {
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] RESULT OF EVAL:');
@@ -90,6 +98,7 @@ stdin.addListener("data", async (input) => {
         }
     }
 });
+// Show Logo
 console.log(' ');
 console.log('  /$$$$$$            /$$$$$$$   /$$$$$$  /$$$$$$$$');
 console.log(' /$$$_  $$          | $$__  $$ /$$__  $$|__  $$__/');
@@ -102,6 +111,7 @@ console.log(' \\______/ |__/  \\__/|_______/  \\______/    |__/   ');
 console.log(' ');
 console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$');
 console.log(' ');
+// Database Migrations
 const migrator = async (conn) => {
     const migrations = (0, getAllFiles_js_1.getAllFilesFilter)('./migrations', '.js');
     for (const file of migrations) {
@@ -124,6 +134,7 @@ const db = new pg_1.default.Pool({
 const domigrate = async () => { await migrator(db); };
 domigrate();
 const rjweb_server_1 = __importDefault(require("rjweb-server"));
+// Website
 const website = new rjweb_server_1.default.routeList();
 website.static('/', './dashboard/dist', {
     preload: true,
@@ -150,6 +161,7 @@ if (_config_1.default.web.dashboard) {
         console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [STA] $$$$$ STARTED DASHBOARD ON PORT ${res.port}`);
     });
 }
+// API
 const api = new rjweb_server_1.default.routeList();
 api.load('./apis');
 if (_config_1.default.web.api) {
@@ -184,6 +196,7 @@ if (_config_1.default.web.api) {
         console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [STA] $$$$$ STARTED API ON PORT ${res.port}`);
     });
 }
+// Start Shard
 const manager = new discord_js_1.ShardingManager('./bot.js', { token: _config_1.default.client.token, shards: 'auto', totalShards: 1 });
 manager.spawn().catch(async () => {
     await (0, promises_1.setTimeout)(8500);

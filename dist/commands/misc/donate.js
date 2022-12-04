@@ -34,6 +34,7 @@ exports.default = {
         de: 'SPENDE DEM BOT'
     }),
     async execute(interaction, client, lang, vote) {
+        // Create Embed
         let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
             .setTitle('<:DONATE:1024397357988720711> » DONATE')
             .setDescription('**»» DONATE**\n» LINK\nhttps://donate.rjansen.de\n» QR CODE')
@@ -46,6 +47,7 @@ exports.default = {
                 .setImage("https://img.rjansen.de/bot/donate.png")
                 .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
         }
+        // Send Correct Response
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] DONATE <3');
         return interaction.reply({ embeds: [message], ephemeral: true });
     }

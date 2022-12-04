@@ -27,6 +27,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.add = exports.get = void 0;
+// Connect to Database
 const _config_1 = __importDefault(require("@config"));
 const pg_1 = __importDefault(require("pg"));
 const db = new pg_1.default.Pool({
@@ -37,6 +38,7 @@ const db = new pg_1.default.Pool({
     port: 5432,
     ssl: true
 });
+// Login
 const bot = __importStar(require("@functions/bot.js"));
 const discord_js_1 = require("discord.js");
 const client = new discord_js_1.Client({
@@ -48,6 +50,7 @@ const client = new discord_js_1.Client({
     ]
 });
 client.login(_config_1.default.client.token);
+// Get Function
 const get = async (userId) => {
     const data = await db.query(`select * from userinfos where userid = $1;`, [userId]);
     if (!bot.isNumber(userId))
@@ -80,6 +83,7 @@ const get = async (userId) => {
     };
 };
 exports.get = get;
+// Add Function
 const add = async (json) => {
     const data = await db.query(`select * from userinfos where userid = $1;`, [json.id]);
     if (data.rowCount !== 1) {

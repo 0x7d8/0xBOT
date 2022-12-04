@@ -43,9 +43,13 @@ exports.default = {
         de: 'DAS SPIEL'
     })
         .setRequired(true)
-        .addChoices({ name: '🗺️ STADT LAND FLUSS', value: 'stadtlandfluss' }, { name: '🤔 SCRIBBL.IO', value: 'scribblio' }, { name: '⭐ GARTIC PHONE', value: 'garticphone' }, { name: '🧠 JKLM', value: 'jklm' })),
+        .addChoices(
+    // Setup Choices
+    { name: '🗺️ STADT LAND FLUSS', value: 'stadtlandfluss' }, { name: '🤔 SCRIBBL.IO', value: 'scribblio' }, { name: '⭐ GARTIC PHONE', value: 'garticphone' }, { name: '🧠 JKLM', value: 'jklm' })),
     async execute(interaction, client, lang, vote) {
+        // Set Variables
         const spiel = bot.getOption(interaction, 'game');
+        // Create Buttons
         const slfB = new discord_js_1.ActionRowBuilder()
             .addComponents(new discord_js_1.ButtonBuilder()
             .setLabel('LOBBY ERSTELLEN')
@@ -66,6 +70,7 @@ exports.default = {
             .setLabel('LOBBY ERSTELLEN')
             .setURL('https://jklm.fun/')
             .setStyle(discord_js_1.ButtonStyle.Link));
+        // Create Embeds
         const slf = new discord_js_2.EmbedBuilder().setColor(0x37009B)
             .setTitle('<:GAMEPAD:1024395990679167066> » STADT LAND FLUSS REGELN')
             .setDescription('**»» PERSONEN**\n» 100000+ ABONNENTEN\n» DEUTSCHE PERSON\n\n**»» STÄDTE**\n» 5000+ BEWOHNER\n» DEUTSCHE STADTNAMEN\n\n**»» SÄTZE**\n» KONTEXT WICHTIG\n» NUR DEUTSCH')
@@ -82,6 +87,7 @@ exports.default = {
             .setTitle('<:GAMEPAD:1024395990679167066> » JKLM.FUN REGELN')
             .setDescription('**»» GENERELL**\n» KEINE REGELN')
             .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
+        // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] GAME : ' + spiel.toUpperCase());
         if (spiel == 'stadtlandfluss') {
             await interaction.reply({ embeds: [slf.toJSON()], components: [slfB] });

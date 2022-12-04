@@ -35,6 +35,7 @@ exports.default = {
         de: 'GEHE ZUR STATUS SEITE'
     }),
     async execute(interaction, client, lang, vote) {
+        // Create Button
         let row = new discord_js_1.ActionRowBuilder()
             .addComponents(new discord_js_1.ButtonBuilder()
             .setLabel('GO')
@@ -47,6 +48,7 @@ exports.default = {
                 .setURL('https://status.0xbot.de')
                 .setStyle(discord_js_1.ButtonStyle.Link));
         }
+        // Create Embed
         let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
             .setTitle('<:GLOBE:1024403680503529583> » STATUS')
             .setDescription('» Click below to go to the Status Page!')
@@ -57,6 +59,7 @@ exports.default = {
                 .setDescription('» Klicke unten um zur Status Seite zu gelangen!')
                 .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
         }
+        // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] STATUS');
         await interaction.reply({ embeds: [message], components: [row], ephemeral: true });
     }

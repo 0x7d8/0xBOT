@@ -46,9 +46,11 @@ exports.default = {
     })
         .setRequired(true)),
     async execute(interaction, client, lang, vote) {
+        // Set Variables
         const min = bot.getOption(interaction, 'min');
         const max = bot.getOption(interaction, 'max');
         const res = bot.random(min, max);
+        // Create Embed
         let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
             .setTitle('<:GEAR:1024404241701417011> » RANDOM NUMBER')
             .setDescription('» Between **' + min + '** and **' + max + '** I choose **' + res + '**!')
@@ -59,6 +61,7 @@ exports.default = {
                 .setDescription('» Zwischen **' + min + '** und **' + max + '** wähle ich **' + res + '**!')
                 .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
         }
+        // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] NUMBER : ' + min + ' : ' + max + ' : ' + res);
         return interaction.reply({ embeds: [message] });
     }

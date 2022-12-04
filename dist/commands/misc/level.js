@@ -45,7 +45,9 @@ exports.default = {
         .setRequired(false)),
     async execute(interaction, client, lang, vote) {
         const canvas = (await import('canvacord')).default;
+        // Check if Levels are Enabled in Server
         if (!await bot.settings.get(interaction.guild.id, 'levels')) {
+            // Create Embed
             let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» The Level System is disabled on this Server!')
@@ -56,16 +58,20 @@ exports.default = {
                     .setDescription('» Das Level System ist auf diesem Server deaktiviert!')
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
+            // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] LEVEL : DISABLED');
             return interaction.reply({ embeds: [message], ephemeral: true });
         }
+        // Set Variables
         const user = interaction.options.getUser('user');
         let userobj;
         if (!user)
             userobj = interaction.user;
         else
             userobj = user;
+        // Defer Reply
         await interaction.deferReply();
+        // Set User ID
         const counts = [];
         if (!user) {
             counts.push(await bot.stat.get('u-' + interaction.user.id + '-' + interaction.guild.id + '-C', 'msg'));
@@ -77,15 +83,18 @@ exports.default = {
             counts.push(await bot.stat.get('u-' + user.id + '-' + interaction.guild.id + '-A', 'msg'));
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] LEVEL : ' + user.id + ' : ' + counts[0]);
         }
+        // Calculate Level
         const XP = Math.round(counts[0] / 5);
         let level = 0, levelXP = XP;
         while (levelXP >= 500) {
             level++;
             levelXP -= 500;
         }
+        // Generate Language Text
         let totalxp = 'TOTAL XP';
         if (lang === 'de')
             totalxp = 'ALLE XP';
+        // Generate Rank Image
         const rankCard = new canvas.Rank()
             .setAvatar(userobj.displayAvatarURL({ format: 'png' }))
             .setCurrentXP(levelXP)
@@ -107,6 +116,7 @@ exports.default = {
             return;
         };
         await buildCard();
+        // Create Embed
         let message;
         if (!user) {
             message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
@@ -132,6 +142,7 @@ exports.default = {
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
         }
+        // Send Message
         return interaction.editReply({ embeds: [message], files: [attachment] });
     }
 };

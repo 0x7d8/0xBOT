@@ -34,7 +34,9 @@ exports.default = {
         de: 'GENERIERE EINE MINECRAFT VERSION'
     }),
     async execute(interaction, client, lang, vote) {
+        // Set Variables
         const result = bot.random(1, 21);
+        // Create Embed
         let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
             .setTitle('<:CUBE:1024404832452350032> » RANDOM MINECRAFT VERSION')
             .setDescription('» I would choose **1.' + result + '**!')
@@ -45,6 +47,7 @@ exports.default = {
                 .setDescription('» Ich würde **1.' + result + '** nehmen!')
                 .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
         }
+        // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] MCVER : 1.' + result);
         return interaction.reply({ embeds: [message] });
     }

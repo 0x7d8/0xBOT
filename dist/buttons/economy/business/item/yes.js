@@ -30,7 +30,9 @@ exports.default = {
         name: 'item-yes'
     },
     async execute(interaction, client, lang, vote, itemid, userid, type, amount) {
+        // Check if User is Authorized
         if (interaction.user.id !== userid) {
+            // Create Embed
             let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» This choice is up to <@' + userid + '>!')
@@ -41,10 +43,13 @@ exports.default = {
                     .setDescription('» Diese Frage ist für <@' + userid + '>!')
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
+            // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] ITEMBUY : NOTSENDER');
             return interaction.reply({ embeds: [message], ephemeral: true });
         }
+        // Set Variables
         const balance = await bot.money.get(interaction.user.id);
+        // Calculate Cost
         let cost, dopay = false;
         if (await bot.businesses.get('g-' + interaction.guild.id + '-1-PRICE-' + itemid.toUpperCase()) === '0' || await bot.businesses.get('g-' + interaction.guild.id + '-1-PRICE-' + itemid.toUpperCase()) === 0) {
             if (itemid === 'nbomb')
@@ -60,6 +65,7 @@ exports.default = {
             dopay = true;
             cost = Number(await bot.businesses.get('g-' + interaction.guild.id + '-1-PRICE-' + itemid.toUpperCase())) * amount;
         }
+        // Translate to itemid Names
         let name;
         if (itemid === 'nbomb')
             name = '<:NBOMB:1021783222520127508> NORMAL BOMB';
@@ -79,9 +85,12 @@ exports.default = {
             if (itemid === 'cbomb')
                 name = '<:CBOMB:1021783405161091162> CRAZY BOMBE';
         }
+        // Split Button with type
         if (type === 'buy') {
+            // Check if User has enough Money
             if (balance < cost) {
                 const missing = cost - balance;
+                // Create Embed
                 let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                     .setDescription('» You dont have enough Money for that, you are missing **$' + missing + '**!')
@@ -92,11 +101,14 @@ exports.default = {
                         .setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
                         .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
                 }
+                // Send Message
                 bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] ITEMBUY : ' + itemid.toUpperCase() + ' : NOTENOUGHMONEY : ' + cost + '€');
                 return interaction.reply({ embeds: [message], ephemeral: true });
             }
+            // Check if Max Slots are used
             const oldamount = await bot.items.get(interaction.user.id + '-' + itemid.toUpperCase() + 'S-' + interaction.guild.id, 'amount');
             if ((amount + oldamount) > 15) {
+                // Create Embed
                 let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                     .setDescription('» You dont have enough Slots for that!')
@@ -107,14 +119,17 @@ exports.default = {
                         .setDescription('» Du hast nicht genug Slots dafür!')
                         .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
                 }
+                // Send Message
                 bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] ITEMBUY : ' + itemid.toUpperCase() + ' : MAXSLOTS');
                 return interaction.reply({ embeds: [message], ephemeral: true });
             }
+            // Edit Buttons
             {
                 interaction.message.components[0].components[0].data.disabled = true;
                 interaction.message.components[0].components[1].data.disabled = true;
                 interaction.message.components[0].components[1].data.style = 2;
             }
+            // Log Transaction
             const transaction = await bot.transactions.log({
                 success: true,
                 sender: {
@@ -127,6 +142,7 @@ exports.default = {
                     type: 'positive'
                 }
             });
+            // Create Embed
             let message;
             if (amount === 1) {
                 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
@@ -152,7 +168,9 @@ exports.default = {
                         .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
                 }
             }
+            // Remove Money
             bot.money.rem(interaction.guild.id, interaction.user.id, cost);
+            // Transfer Money if Business is owned
             if (dopay) {
                 const businessowner = await bot.businesses.get('g-' + interaction.guild.id + '-1-OWNER');
                 if (itemid == 'nbomb') {
@@ -172,7 +190,9 @@ exports.default = {
                     bot.businesses.add('g-' + interaction.guild.id + '-1-EARNING', cost - 7500);
                 }
             }
+            // Own Item(s)
             bot.items.add(interaction.user.id + '-' + itemid.toUpperCase() + 'S-' + interaction.guild.id, amount);
+            // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] ITEMBUY : ' + amount + 'x : ' + itemid.toUpperCase() + ' : CONFIRM');
             return interaction.update({ embeds: [message], components: interaction.message.components });
         }

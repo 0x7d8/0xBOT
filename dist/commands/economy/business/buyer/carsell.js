@@ -35,7 +35,9 @@ exports.default = {
         de: 'VERKAUFE DEIN AUTO'
     }),
     async execute(interaction, client, lang, vote) {
+        // Check if Cars are Enabled in Server
         if (!await bot.settings.get(interaction.guild.id, 'cars')) {
+            // Create Embed
             let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» Cars are disabled on this Server!')
@@ -46,10 +48,13 @@ exports.default = {
                     .setDescription('» Autos sind auf diesem Server deaktiviert!')
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
+            // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] CAR : DISABLED');
             return interaction.reply({ embeds: [message], ephemeral: true });
         }
+        // Set Variables
         const car = await bot.items.get(interaction.user.id + '-CAR-' + interaction.guild.id, 'value');
+        // Calculate Cost
         let cost;
         if (car === 'jeep')
             cost = 15000;
@@ -59,6 +64,7 @@ exports.default = {
             cost = 240000;
         if (car === 'porsche')
             cost = 490000;
+        // Translate to Car Names
         let name;
         if (car === 'jeep')
             name = '2016 JEEP PATRIOT SPORT';
@@ -68,7 +74,9 @@ exports.default = {
             name = 'TESLA MODEL Y';
         if (car === 'porsche')
             name = '2019 PORSCHE 911 GT2RS';
+        // Check if User has a Car
         if (await bot.items.get(interaction.user.id + '-CAR-' + interaction.guild.id, 'amount') === 0) {
+            // Create Embed
             let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» You dont own a Car!')
@@ -79,9 +87,11 @@ exports.default = {
                     .setDescription('» Du besitzt kein Auto!')
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
+            // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] CARSELL : DONTOWNCAR');
             return interaction.reply({ embeds: [message], ephemeral: true });
         }
+        // Create Buttons
         let row = new discord_js_1.ActionRowBuilder()
             .addComponents(new discord_js_1.ButtonBuilder()
             .setLabel('YES')
@@ -108,6 +118,7 @@ exports.default = {
                 .setStyle(discord_js_1.ButtonStyle.Danger)
                 .setDisabled(false));
         }
+        // Create Embed
         let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
             .setTitle('<:BOXDOLLAR:1024402261784403999> » SELL CAR')
             .setDescription('» Do you want to sell your **' + name + '** for **$' + (cost / 2) + '**?')
@@ -118,6 +129,7 @@ exports.default = {
                 .setDescription('» Willst du deinen **' + name + '** für **' + (cost / 2) + '€** verkaufen?')
                 .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
         }
+        // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] CARSELL : ' + name + ' : ' + cost + '€');
         return interaction.reply({ embeds: [message], components: [row] });
     }

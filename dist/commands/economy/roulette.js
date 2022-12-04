@@ -42,7 +42,9 @@ exports.default = {
         de: 'DIE FARBE'
     })
         .setRequired(true)
-        .addChoices({ name: '🟢 [x4] GRÜN', value: 'grün' }, { name: '⚫ [x2] SCHWARZ', value: 'schwarz' }, { name: '🔴 [x2] ROT', value: 'rot' }))
+        .addChoices(
+    // Setup Choices
+    { name: '🟢 [x4] GRÜN', value: 'grün' }, { name: '⚫ [x2] SCHWARZ', value: 'schwarz' }, { name: '🔴 [x2] ROT', value: 'rot' }))
         .addIntegerOption((option) => option.setName('bet')
         .setNameLocalizations({
         de: 'wette'
@@ -53,7 +55,9 @@ exports.default = {
     })
         .setRequired(true)),
     async execute(interaction, client, lang, vote) {
+        // Check if RNG Games are Enabled in Server
         if (!await bot.settings.get(interaction.guild.id, 'luckgames')) {
+            // Create Embed
             let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» Luck Games are disabled on this Server!')
@@ -64,14 +68,18 @@ exports.default = {
                     .setDescription('» Glücksspiele sind auf diesem Server deaktiviert!')
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
+            // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROULETTE : DISABLED');
             return interaction.reply({ embeds: [message], ephemeral: true });
         }
+        // Set Variables
         const farbe = bot.getOption(interaction, 'color');
         const wette = bot.getOption(interaction, 'bet');
         const money = await bot.money.get(interaction.user.id);
         const random = bot.random(1, 21);
+        // Check if Balance is Minus
         if (wette < 0) {
+            // Create Embed
             let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» You cant play with negative Money!')
@@ -82,9 +90,11 @@ exports.default = {
                     .setDescription('» Du kannst keine negativen Einsätze spielen!')
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
+            // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROULETTE : NEGATIVEMONEY : ' + wette + '€');
             return interaction.reply({ embeds: [message], ephemeral: true });
         }
+        // Calculate Color
         let color;
         if (random == 1)
             color = 'grün';
@@ -92,9 +102,10 @@ exports.default = {
             color = 'schwarz';
         if (random >= 11)
             color = 'rot';
+        // Calculate Status
         let status, transaction;
         if (color === farbe) {
-            status = 'WON';
+            status = 'WON'; // Log Transaction
             transaction = await bot.transactions.log({
                 success: true,
                 sender: {
@@ -110,7 +121,7 @@ exports.default = {
         }
         ;
         if (color !== farbe) {
-            status = 'LOST';
+            status = 'LOST'; // Log Transaction
             transaction = await bot.transactions.log({
                 success: true,
                 sender: {
@@ -130,8 +141,11 @@ exports.default = {
             if (color !== farbe)
                 status = 'VERLOREN';
         }
+        // Check for enough Money
         if (money >= wette) {
+            // Check for Max Amount
             if (wette > 15000) {
+                // Create Embed
                 let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                     .setDescription('» You cant bet that much! **$15000** is the Maximum.')
@@ -142,9 +156,11 @@ exports.default = {
                         .setDescription('» Du kannst nicht soviel Wetten! **15000€** ist das Maximum.')
                         .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
                 }
+                // Send Message
                 bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROULETTE : TOOMUCHMONEY : ' + wette + '€');
                 return interaction.reply({ embeds: [message], ephemeral: true });
             }
+            // Set Money
             let resultmul;
             if (color === farbe && color === 'grün')
                 resultmul = 4;
@@ -166,6 +182,7 @@ exports.default = {
                 colordis = 'red';
             if (farbe === 'schwarz')
                 colordis = 'black';
+            // Create Embed
             let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:CLOVER:1024388649418235925> » ROULETTE')
                 .setDescription('» You bet **$' + wette + '** on **' + colordis.toUpperCase() + '** and **' + status + '** **$' + resultdis + '**!\n\nID: ' + transaction.id)
@@ -176,15 +193,18 @@ exports.default = {
                     .setDescription('» Du hast **' + wette + '€** auf **' + farbe.toUpperCase() + '** gesetzt und **' + resultdis + '€** **' + status + '**!\n\nID: ' + transaction.id)
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
+            // Set Money
             if (color !== farbe)
                 bot.money.rem(interaction.guild.id, interaction.user.id, wette);
             if (color === farbe)
                 bot.money.add(interaction.guild.id, interaction.user.id, resultadd);
+            // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROULETTE : ' + farbe.toUpperCase() + '[W:' + color.toUpperCase() + '] : ' + status + ' : ' + resultdis + '€');
             return interaction.reply({ embeds: [message] });
         }
         else {
             const missing = wette - money;
+            // Create Embed
             let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» You dont have enough Money for that, you are missing **$' + missing + '**!')
@@ -195,6 +215,7 @@ exports.default = {
                     .setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
+            // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROULETTE : NOTENOUGHMONEY : ' + missing + '€');
             return interaction.reply({ embeds: [message], ephemeral: true });
         }

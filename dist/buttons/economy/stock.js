@@ -30,6 +30,7 @@ exports.default = {
         name: 'stocknext'
     },
     async execute(interaction, client, lang, vote, stock) {
+        // Set Emoji
         let emoji;
         if (stock === 'green')
             emoji = '🟢';
@@ -43,6 +44,7 @@ exports.default = {
             emoji = '⚪';
         if (stock === 'black')
             emoji = '⚫';
+        // Calculate Stock Percentage
         let stockEmojis = {
             green: '',
             blue: '',
@@ -70,6 +72,7 @@ exports.default = {
                 stockEmojis[stock] = '🧐';
             }
         }
+        // Create Embed
         let message;
         if (stock !== 'all') {
             message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
@@ -145,6 +148,7 @@ exports.default = {
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
         }
+        // Send Message
         if (stock !== 'all')
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] STOCKINFO : ' + stock.toUpperCase() + ' : ' + client.stocks[stock] + '€');
         else

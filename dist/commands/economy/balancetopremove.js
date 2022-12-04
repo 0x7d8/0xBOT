@@ -28,6 +28,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 const v10_1 = require("discord-api-types/v10");
+// Connect to Database
 const _config_1 = __importDefault(require("@config"));
 const pg_1 = __importDefault(require("pg"));
 const db = new pg_1.default.Pool({
@@ -58,7 +59,9 @@ exports.default = {
         .setRequired(true))
         .setDefaultMemberPermissions(v10_1.PermissionFlagsBits.Administrator),
     async execute(interaction, client, lang, vote) {
+        // Set Variables
         const user = interaction.options.getUser("user");
+        // Create Embed
         let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
             .setTitle('<:WALLET:1024387370793050273> » TOP BALANCE REMOVAL')
             .setDescription(`» Successfully removed <@${user.id}> from your Servers Top Balance!\nIf this User interacts with money again he will be on the List again.`)
@@ -70,6 +73,7 @@ exports.default = {
                 .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
         }
         await db.query(`update usermoney set guilds = array_remove(guilds, $1) where userid = $2;`, [interaction.guild.id, user.id]);
+        // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] BALANCETOPREMOVE : ' + user.id);
         return interaction.reply({ embeds: [message], ephemeral: true }).catch(() => { });
     }

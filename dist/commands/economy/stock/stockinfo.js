@@ -43,9 +43,13 @@ exports.default = {
         de: 'DIE AKTIE'
     })
         .setRequired(true)
-        .addChoices({ name: '👀 ALLE AKTIEN', value: 'all' }, { name: '🟢 GRÜNE AKTIE', value: 'green' }, { name: '🔵 BLAUE AKTIE', value: 'blue' }, { name: '🟡 GELBE AKTIE', value: 'yellow' }, { name: '🔴 ROTE AKTIE', value: 'red' }, { name: '⚪ WEISSE AKTIE', value: 'white' }, { name: '⚫ SCHWARZE AKTIE', value: 'black' })),
+        .addChoices(
+    // Setup Choices
+    { name: '👀 ALLE AKTIEN', value: 'all' }, { name: '🟢 GRÜNE AKTIE', value: 'green' }, { name: '🔵 BLAUE AKTIE', value: 'blue' }, { name: '🟡 GELBE AKTIE', value: 'yellow' }, { name: '🔴 ROTE AKTIE', value: 'red' }, { name: '⚪ WEISSE AKTIE', value: 'white' }, { name: '⚫ SCHWARZE AKTIE', value: 'black' })),
     async execute(interaction, client, lang, vote) {
+        // Check if Stocks are Enabled in Server
         if (!await bot.settings.get(interaction.guild.id, 'stocks')) {
+            // Create Embed
             let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» Stocks are disabled on this Server!')
@@ -56,10 +60,13 @@ exports.default = {
                     .setDescription('» Aktien sind auf diesem Server deaktiviert!')
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
+            // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] STOCKINFO : DISABLED');
             return interaction.reply({ embeds: [message], ephemeral: true });
         }
+        // Set Variables
         const stock = bot.getOption(interaction, 'stock');
+        // Set Emoji
         let emoji;
         if (stock === 'green')
             emoji = '🟢';
@@ -73,6 +80,7 @@ exports.default = {
             emoji = '⚪';
         if (stock === 'black')
             emoji = '⚫';
+        // Calculate Stock Percentage
         let stockEmojis = {
             green: '',
             blue: '',
@@ -100,6 +108,7 @@ exports.default = {
                 stockEmojis[stock] = '🧐';
             }
         }
+        // Create Button
         let row = new discord_js_2.ActionRowBuilder()
             .addComponents(new discord_js_2.ButtonBuilder()
             .setLabel('UPDATE')
@@ -114,6 +123,7 @@ exports.default = {
                 .setCustomId('STOCKNEXT-' + stock)
                 .setStyle(discord_js_2.ButtonStyle.Secondary));
         }
+        // Create Embed
         let message;
         if (stock !== 'all') {
             message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
@@ -189,6 +199,7 @@ exports.default = {
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
         }
+        // Send Message
         if (stock !== 'all')
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] STOCKINFO : ' + stock.toUpperCase() + ' : ' + client.stocks[stock] + '€');
         else

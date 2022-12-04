@@ -28,7 +28,10 @@ const discord_js_1 = require("discord.js");
 const stat = __importStar(require("./stats.js"));
 const utils = __importStar(require("rjutils-collection"));
 const fs = __importStar(require("fs"));
+/// Functions
+// Noname
 exports.stat = __importStar(require("./stats.js"));
+// Misc
 exports.apis = __importStar(require("./misc/apis.js"));
 exports.votes = __importStar(require("./misc/votes.js"));
 exports.quotes = __importStar(require("./misc/quotes.js"));
@@ -36,11 +39,13 @@ exports.polls = __importStar(require("./misc/polls.js"));
 exports.userdb = __importStar(require("./misc/userdb.js"));
 exports.settings = __importStar(require("./misc/settings.js"));
 exports.language = __importStar(require("./misc/language.js"));
+// Economy
 exports.items = __importStar(require("./economy/items.js"));
 exports.money = __importStar(require("./economy/money.js"));
 exports.stocks = __importStar(require("./economy/stocks.js"));
 exports.businesses = __importStar(require("./economy/businesses.js"));
 exports.transactions = __importStar(require("./economy/transactions.js"));
+// Math
 const inRange = (x, min, max) => {
     return ((x - min) * (x - max) <= 0);
 };
@@ -56,6 +61,7 @@ const perCalc = (newVal, oldVal) => {
     return (res < 0 ? "" : "+") + res;
 };
 exports.perCalc = perCalc;
+// Other
 exports.random = utils.randomNum;
 const log = (type, uid, gid, msg) => {
     if (!type) {
@@ -78,7 +84,9 @@ const isNumber = (string) => {
 };
 exports.isNumber = isNumber;
 const stats = (type, uid, gid) => {
+    // Count to Global Commands
     stat.add('t-all', type, 1);
+    // Count Guild Commands and User
     stat.add('g-' + gid, type, 1);
     stat.add('u-' + uid, type, 1);
 };
@@ -86,6 +94,7 @@ exports.stats = stats;
 const error = async (interaction, client, error, type, language, vote) => {
     if (!interaction.guild)
         return;
+    // Generate Error Code
     const errorid = utils.randomStr({
         length: 8,
         numbers: true,
@@ -94,8 +103,10 @@ const error = async (interaction, client, error, type, language, vote) => {
         symbols: false,
         exclude: ''
     });
+    // Check if Log Folder exists
     if (!fs.existsSync('logs'))
         fs.mkdirSync('logs');
+    // Log Error
     console.log('[0xBOT] [!] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] [' + type.toUpperCase() + '] ERROR : ' + errorid + ' :');
     console.error(error);
     const day = ('0' + new Date().getDate()).slice(-2);
@@ -103,6 +114,7 @@ const error = async (interaction, client, error, type, language, vote) => {
     const year = new Date().getFullYear();
     fs.appendFileSync('logs/error' + day + '-' + month + '-' + year + '.log', '[0xBOT] [!] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] [' + type.toUpperCase() + '] ERROR : ' + errorid + ' :\n');
     fs.appendFileSync('logs/error' + day + '-' + month + '-' + year + '.log', error.stack + '\n\n');
+    // Generate Correct Word
     let word = '';
     switch (type) {
         case 'cmd':
@@ -126,6 +138,7 @@ const error = async (interaction, client, error, type, language, vote) => {
                 word = 'dieses Events';
             break;
     }
+    // Create Error Embed
     let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
         .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         .setDescription('» <:ERROR:1020414987291861022> An Error has occured while executing ' + word + '.\nThe Error has been logged and will be fixed soon!')
@@ -136,9 +149,11 @@ const error = async (interaction, client, error, type, language, vote) => {
             .setDescription('» <:ERROR:1020414987291861022> Ein Fehler ist beim ausführen ' + word + ' aufgetreten.\nDer Fehler wurde geloggt und wird bald behoben!')
             .setFooter({ text: '» ' + vote + ' » ' + client.config.version + ' » FEHLER: ' + errorid });
     }
+    // Send Message
     await interaction.reply({ embeds: [message], ephemeral: true });
 };
 exports.error = error;
+// Game Caches
 exports.bomb = new Map();
 exports.game = new Map();
 exports.memory = new Map();

@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.rem = exports.add = exports.set = exports.get = void 0;
+// Connect to Database
 const _config_1 = __importDefault(require("@config"));
 const pg_1 = __importDefault(require("pg"));
 const db = new pg_1.default.Pool({
@@ -14,6 +15,7 @@ const db = new pg_1.default.Pool({
     port: 5432,
     ssl: true
 });
+// Get Function
 const get = async (userId) => {
     const data = await db.query(`select * from userquotes where userid = $1;`, [userId]);
     if (data.rowCount !== 1)
@@ -21,6 +23,7 @@ const get = async (userId) => {
     return Number(data.rows[0].quotes);
 };
 exports.get = get;
+// Set Function
 const set = async (userId, value) => {
     const data = await db.query(`select * from userquotes where userid = $1;`, [userId]);
     if (data.rowCount !== 1) {
@@ -37,6 +40,7 @@ const set = async (userId, value) => {
     }
 };
 exports.set = set;
+// Add Function
 const add = async (userId, value) => {
     const data = await db.query(`select * from userquotes where userid = $1;`, [userId]);
     if (data.rowCount !== 1) {
@@ -53,6 +57,7 @@ const add = async (userId, value) => {
     }
 };
 exports.add = add;
+// Rem Function
 const rem = async (userId, value) => {
     const data = await db.query(`select * from userquotes where userid = $1;`, [userId]);
     if (data.rowCount !== 1) {

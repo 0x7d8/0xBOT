@@ -42,9 +42,13 @@ exports.default = {
         de: 'DIE ANZAHL'
     })
         .setRequired(true)
-        .addChoices({ name: '💰 [01] 1000€', value: 1 }, { name: '💰 [02] 2000€', value: 2 }, { name: '💰 [03] 3000€', value: 3 }, { name: '💰 [04] 4000€', value: 4 }, { name: '💰 [05] 5000€', value: 5 })),
+        .addChoices(
+    // Setup Choices
+    { name: '💰 [01] 1000€', value: 1 }, { name: '💰 [02] 2000€', value: 2 }, { name: '💰 [03] 3000€', value: 3 }, { name: '💰 [04] 4000€', value: 4 }, { name: '💰 [05] 5000€', value: 5 })),
     async execute(interaction, client, lang, vote) {
+        // Check if Quotes are Enabled in Server
         if (!await bot.settings.get(interaction.guild.id, 'quotes')) {
+            // Create Embed
             let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» Quotes are disabled on this Server!')
@@ -55,14 +59,19 @@ exports.default = {
                     .setDescription('» Zitate sind auf diesem Server deaktiviert!')
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
+            // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] QUOTEREMOVE : DISABLED');
             return interaction.reply({ embeds: [message], ephemeral: true });
         }
+        // Set Variables
         const amount = bot.getOption(interaction, 'amount');
         const cost = amount * 1000;
+        // Get User Balances
         const quotes = await bot.quotes.get(interaction.user.id);
         const money = await bot.money.get(interaction.user.id);
+        // Check if not in Minus Quotes
         if (quotes - amount < 0) {
+            // Create Embed
             let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» You dont have that many Quotes, you only have **' + quotes + '**!')
@@ -73,11 +82,14 @@ exports.default = {
                     .setDescription('» Du hast garnicht so viele Zitate, du hast nur **' + quotes + '**!')
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
+            // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] QUOTEREMOVE : ' + amount + ' : NOTENOUGHQUOTES');
             return interaction.reply({ embeds: [message], ephemeral: true });
         }
+        // Check for enough Money
         if (money < cost) {
             const missing = cost - money;
+            // Create Embed
             let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» You dont have enough Money for that, you are Missing **$' + missing + '**!')
@@ -88,9 +100,11 @@ exports.default = {
                     .setDescription('» Du hast nicht genug Geld dafür, dir fehlen **' + missing + '€**!')
                     .setFooter({ text: '» ' + client.config.version + ' » QUOTES: ' + quotes });
             }
+            // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] QUOTEREMOVE : ' + amount + ' : NOTENOUGHMONEY');
             return interaction.reply({ embeds: [message], ephemeral: true });
         }
+        // Check if Plural or not
         let word;
         if (amount === 1)
             word = 'Quote';
@@ -102,6 +116,7 @@ exports.default = {
             else
                 word = 'Zitate';
         }
+        // Create Embed
         const newquotes = quotes - 1;
         let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
             .setTitle('<:QUOTES:1024406448127623228> » ZITATE ENTFERNEN')
@@ -113,8 +128,10 @@ exports.default = {
                 .setDescription('» Du hast erfolgreich **' + amount + '** ' + word + ' für **' + cost + '€** entfernt!')
                 .setFooter({ text: '» ' + client.config.version + ' » QUOTES: ' + newquotes });
         }
+        // Set Money and Quotes
         bot.money.rem(interaction.guild.id, interaction.user.id, cost);
         bot.quotes.rem(interaction.user.id, amount);
+        // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] QUOTEREMOVE : ' + amount + ' : ' + cost + '€');
         return interaction.reply({ embeds: [message] });
     }

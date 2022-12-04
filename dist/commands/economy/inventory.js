@@ -43,6 +43,7 @@ exports.default = {
     })
         .setRequired(false)),
     async execute(interaction, client, lang, vote) {
+        // Set Variables
         const user = interaction.options.getUser("user");
         let nbombs, mbombs, hbombs, cbombs, carname;
         if (!user) {
@@ -87,6 +88,7 @@ exports.default = {
             if (car === 'porsche')
                 carname = '2019 PORSCHE 911 GT2RS';
         }
+        // Create Embed
         let message;
         if (!user) {
             message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
@@ -112,6 +114,7 @@ exports.default = {
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
         }
+        // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] INVENTORY');
         return interaction.reply({ embeds: [message] });
     }

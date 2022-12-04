@@ -27,6 +27,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
+// Connect to Database
 const _config_1 = __importDefault(require("@config"));
 const pg_1 = __importDefault(require("pg"));
 const db = new pg_1.default.Pool({
@@ -62,8 +63,10 @@ exports.default = {
     })
         .setRequired(false)),
     async execute(interaction, client, lang, vote) {
+        // Set Variables
         const sender = interaction.options.getUser("sender");
         const reciever = interaction.options.getUser("reciever");
+        // Get Results
         let embedDesc = '';
         let rawvalues;
         if (sender !== null && reciever !== null) {
@@ -98,6 +101,7 @@ exports.default = {
                 embedDesc = 'Nichts Gefunden.';
             }
         }
+        // Create Embeds
         let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
             .setTitle('<:BAG:1024389219558367292> » TRANSACTION SEARCH')
             .setDescription(embedDesc)
@@ -108,6 +112,7 @@ exports.default = {
                 .setDescription(embedDesc)
                 .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
         }
+        // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] TRANSACTIONSEARCH : ' + (sender === null ? 'EMPTY' : sender.id) + ' : ' + (reciever === null ? 'EMPTY' : reciever.id));
         return interaction.reply({ embeds: [message] });
     }

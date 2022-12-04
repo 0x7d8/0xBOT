@@ -40,9 +40,12 @@ exports.default = {
     })
         .setRequired(true)),
     async execute(interaction, client, lang, vote) {
+        // Set Variables
         const transactionId = bot.getOption(interaction, 'id');
         const transaction = await bot.transactions.get(transactionId);
+        // Check if Transaction exists
         if (transaction === 'N-FOUND') {
+            // Create Embed
             let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» This Transaction doesnt exist!')
@@ -53,9 +56,11 @@ exports.default = {
                     .setDescription('» Diese Transaktion existiert nicht!')
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
+            // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] TRANSACTIONVIEW : NOTEXIST : ' + transactionId);
             return interaction.reply({ embeds: [message], ephemeral: true });
         }
+        // Fetch User Infos
         let sender, reciever;
         if (isNaN(transaction.sender.id.slice(-1))) {
             const senderInfo = await bot.userdb.get(transaction.sender.id);
@@ -72,6 +77,7 @@ exports.default = {
         else {
             reciever = transaction.reciever.id;
         }
+        // Create Embeds
         let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
             .setTitle('<:BAG:1024389219558367292> » TRANSACTION INFOS')
             .setDescription(`» ID: \`${transactionId}\`
@@ -98,6 +104,7 @@ exports.default = {
             `)
                 .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
         }
+        // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] TRANSACTIONVIEW : ' + transactionId);
         return interaction.reply({ embeds: [message] });
     }

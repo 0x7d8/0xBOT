@@ -35,7 +35,9 @@ exports.default = {
         de: 'VERKAUFE DEIN GESCHÄFT'
     }),
     async execute(interaction, client, lang, vote) {
+        // Check if Businesses are Enabled in Server
         if (!await bot.settings.get(interaction.guild.id, 'businesses')) {
+            // Create Embed
             let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» Businesses are disabled on this Server!')
@@ -46,10 +48,13 @@ exports.default = {
                     .setDescription('» Geschäfte sind auf diesem Server deaktiviert!')
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
+            // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] BUSINESS : DISABLED');
             return interaction.reply({ embeds: [message], ephemeral: true });
         }
+        // Set Variables
         const business = await bot.businesses.get('u-' + interaction.user.id + '-' + interaction.guild.id + '-BUSINESS');
+        // Calculate Cost
         let cost;
         if (business === 'market')
             cost = 150000;
@@ -57,6 +62,7 @@ exports.default = {
             cost = 390000;
         if (business === 'car dealership')
             cost = 520000;
+        // Translate to Business Names
         let name;
         if (business === 'market')
             name = 'MARKET';
@@ -72,7 +78,9 @@ exports.default = {
             if (business === 'car dealership')
                 name = 'AUTOHAUS';
         }
+        // Check if User has a Business
         if (await bot.businesses.get('u-' + interaction.user.id + '-' + interaction.guild.id + '-BUSINESS') === 0) {
+            // Create Embed
             let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» You dont own a Business!')
@@ -83,9 +91,11 @@ exports.default = {
                     .setDescription('» Du besitzt kein Geschäft!')
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
+            // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] BUSINESSSELL : DONTOWNBUSINESS');
             return interaction.reply({ embeds: [message], ephemeral: true });
         }
+        // Create Buttons
         let row = new discord_js_1.ActionRowBuilder()
             .addComponents(new discord_js_1.ButtonBuilder()
             .setLabel('YES')
@@ -112,6 +122,7 @@ exports.default = {
                 .setStyle(discord_js_1.ButtonStyle.Danger)
                 .setDisabled(false));
         }
+        // Create Embed
         let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
             .setTitle('<:BOXDOLLAR:1024402261784403999> » SELL BUSINESS')
             .setDescription('» Do you want to sell your **' + name + '** for **$' + (cost / 2) + '**?')
@@ -122,6 +133,7 @@ exports.default = {
                 .setDescription('» Willst du dein **' + name + '** für **' + (cost / 2) + '€** verkaufen?')
                 .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
         }
+        // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] BUSINESSSELL : ' + name + ' : ' + cost + '€');
         return interaction.reply({ embeds: [message], components: [row] });
     }

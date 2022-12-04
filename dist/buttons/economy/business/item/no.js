@@ -30,6 +30,7 @@ exports.default = {
         name: 'item-no'
     },
     async execute(interaction, client, lang, vote, itemid, userid, type, amount) {
+        // Translate to Item Names
         let name;
         if (itemid === 'nbomb')
             name = '<:NBOMB:1021783222520127508> NORMAL BOMB';
@@ -49,7 +50,9 @@ exports.default = {
             if (itemid === 'cbomb')
                 name = '<:CBOMB:1021783405161091162> CRAZY BOMBE';
         }
+        // Check if User is Authorized
         if (interaction.user.id !== userid) {
+            // Create Embed
             let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» This choice is up to <@' + userid + '>!')
@@ -60,15 +63,19 @@ exports.default = {
                     .setDescription('» Diese Frage ist für <@' + userid + '>!')
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
+            // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] ITEMBUY : NOTSENDER');
             return interaction.reply({ embeds: [message], ephemeral: true });
         }
+        // Edit Buttons
         {
             interaction.message.components[0].components[0].data.disabled = true;
             interaction.message.components[0].components[1].data.disabled = true;
             interaction.message.components[0].components[1].data.style = 2;
         }
+        // Split Button with type
         if (type === 'buy') {
+            // Create Embed
             let message;
             if (amount === 1) {
                 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
@@ -94,6 +101,7 @@ exports.default = {
                         .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
                 }
             }
+            // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] ITEMBUY : ' + amount + 'x : ' + itemid.toUpperCase() + ' : DENY');
             return interaction.update({ embeds: [message], components: interaction.message.components });
         }

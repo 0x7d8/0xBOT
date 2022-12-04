@@ -8,8 +8,10 @@ module.exports = {
     type: rjweb_server_1.default.types.get,
     path: '/stats/user',
     async code(ctr) {
+        // Check for Queries
         if (!ctr.query.has('id'))
             return ctr.print({ "success": false, "message": 'NO ID' });
+        // Return Result
         return ctr.print({
             "success": true,
             "commands": await ctr.bot.stat.get(`u-${ctr.query.get('id')}`, 'cmd'),
