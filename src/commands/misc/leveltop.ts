@@ -45,7 +45,7 @@ export default {
 
             if (count < 10) formattedcount = '0' + count
             if (cache[1] !== interaction.user.id) embedDesc += `\`${formattedcount}.\` » <@${cache[1]}> (**LVL ${level}, ${XP} XP**)\n`
-            else embedDesc += `**\`${formattedcount}.\`** » <@${cache[1]}> (**LVL ${level}**)\n`
+            else embedDesc += `**\`${formattedcount}.\`** » <@${cache[1]}> (**LVL ${level}, ${XP} XP**)\n`
         }; if (embedDesc === '') { embedDesc = 'Nothing to Display.'; if (lang === 'de') { embedDesc = 'Nichts zum Anzeigen.' } }
         
         // Create Embed
