@@ -81,7 +81,7 @@ exports.default = {
                 » IP
                 \`${info.ip}:${info.port}\`
 
-                » Spieler
+                » Players
                 \`${players.online}/${players.slots}\`
             `).setFooter({ text: '» ' + vote + ' » ' + client.config.version });
         if (lang === 'de') {
