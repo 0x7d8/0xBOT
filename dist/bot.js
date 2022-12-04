@@ -26,12 +26,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.start = void 0;
 const module_alias_1 = __importDefault(require("module-alias"));
 module_alias_1.default.addAlias('@interfaces', __dirname + '/interfaces');
 module_alias_1.default.addAlias('@functions', __dirname + '/functions');
 module_alias_1.default.addAlias('@utils', __dirname + '/utils');
 module_alias_1.default.addAlias('@config', __dirname + '/config.json');
 const sleep = (milliseconds) => Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, milliseconds);
+const cron = __importStar(require("node-cron"));
 const discord_js_1 = require("discord.js");
 const getAllFiles_js_1 = require("@utils/getAllFiles.js");
 const discord_js_2 = require("discord.js");
@@ -82,407 +84,404 @@ const login = (client, commandFiles) => {
         }
     });
 };
-console.log(' ');
-console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [STA] $$$$$ LOADING 0xBOT ${_config_1.default.version}`);
-console.log(' ');
-console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [STA] $$$$$ LOADING COMMANDS AND EVENTS`);
-console.log(' ');
 const bot = __importStar(require("@functions/bot.js"));
 client.config = _config_1.default;
-const fileList = [
-    {
-        "name": 'EVENTS',
-        "events": true,
-        "files": (0, getAllFiles_js_1.getAllFilesFilter)('./events', '.js')
-    },
-    {
-        "name": 'COMMANDS',
-        "events": false,
-        "files": (0, getAllFiles_js_1.getAllFilesFilter)('./commands', '.js')
-    },
-    {
-        "name": 'BUTTONS',
-        "events": false,
-        "files": (0, getAllFiles_js_1.getAllFilesFilter)('./buttons', '.js')
-    },
-    {
-        "name": 'MODALS',
-        "events": false,
-        "files": (0, getAllFiles_js_1.getAllFilesFilter)('./modals', '.js')
-    }
-];
-if (_config_1.default.client.quickload)
-    login(client, (0, getAllFiles_js_1.getAllFilesFilter)('./commands', '.js'));
-Promise.all(fileList.map(async (list) => {
-    console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] LOADED ${list.files.length} ${list.name}`);
-    if (!list.events) {
-        client[list.name.toLowerCase()] = new discord_js_1.Collection();
-        await Promise.all(list.files.map(async (file) => {
-            const content = (await import(file)).default.default;
-            client[list.name.toLowerCase()].set(content.data.name, content);
-        }));
-    }
-    else {
-        await Promise.all(list.files.map(async (file) => {
-            const content = (await import(file)).default.default;
-            if (_config_1.default.client.quickload && content.name.toLowerCase() === 'start bot')
-                return;
-            if (content.once)
-                client.once(content.event, (...args) => content.execute(...args));
-            else
-                client.on(content.event, (...args) => content.execute(...args, client));
-        }));
-    }
-}));
-console.log(' ');
-console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [END] $$$$$ LOADED COMMANDS AND EVENTS`);
-client.on(discord_js_1.Events.InteractionCreate, async (interaction) => {
-    if (!interaction.isCommand() && !interaction.isButton() && !interaction.isModalSubmit())
-        return;
-    if (!interaction.guild)
-        return;
-    bot.userdb.add({
-        "avatar": (!!interaction.user.avatar) ? interaction.user.avatar : '',
-        "discriminator": interaction.user.discriminator,
-        "username": interaction.user.username,
-        "id": interaction.user.id
-    });
-    const guildlang = await bot.language.get(interaction.guild.id);
-    let votet = 'VOTED';
-    const lastVote = await bot.votes.get(interaction.user.id + '-T');
-    if (lastVote < (Date.now() - 24 * 60 * 60 * 1000))
-        votet = 'NOT VOTED';
-    if (lastVote === 0)
-        votet = 'NOT VOTED -> /VOTE';
-    if (guildlang === 'de') {
-        votet = 'GEVOTED';
-        if (lastVote < (Date.now() - 24 * 60 * 60 * 1000))
-            votet = 'NICHT GEVOTET';
-        if (lastVote === 0)
-            votet = 'NICHT GEVOTED -> /VOTE';
-    }
-    if (interaction.locale === 'de')
-        bot.language.set(interaction.user.id, 'de');
-    else
-        bot.language.set(interaction.user.id, 'en');
-    if (interaction.isChatInputCommand()) {
-        bot.stats('cmd', interaction.user.id, interaction.guild.id);
-        const command = client.commands.get(interaction.commandName);
-        if (!command)
-            return;
-        try {
-            await command.execute(interaction, client, guildlang, votet);
+const start = () => {
+    const fileList = [
+        {
+            "name": 'EVENTS',
+            "events": true,
+            "files": (0, getAllFiles_js_1.getAllFilesFilter)('./events', '.js')
+        },
+        {
+            "name": 'COMMANDS',
+            "events": false,
+            "files": (0, getAllFiles_js_1.getAllFilesFilter)('./commands', '.js')
+        },
+        {
+            "name": 'BUTTONS',
+            "events": false,
+            "files": (0, getAllFiles_js_1.getAllFilesFilter)('./buttons', '.js')
+        },
+        {
+            "name": 'MODALS',
+            "events": false,
+            "files": (0, getAllFiles_js_1.getAllFilesFilter)('./modals', '.js')
         }
-        catch (e) {
-            try {
-                await bot.error(interaction, client, e, 'cmd', guildlang, votet);
-            }
-            catch (e) { }
-        }
-    }
-    if (interaction.isModalSubmit()) {
-        try {
-            bot.stats('mod', interaction.user.id, interaction.guild.id);
-            let sc = false;
-            const args = interaction.customId.split('-');
-            if (args[0] === 'API') {
-                let editedinteraction = interaction;
-                editedinteraction.customId = "api";
-                sc = true;
-                const modal = client.modals.get(editedinteraction.customId);
-                await modal.execute(editedinteraction, client, guildlang, votet, args[1], args[2].toLowerCase());
-            }
-            if (!sc) {
-                const modal = client.modals.get(interaction.customId);
-                if (!modal)
-                    return;
-                await modal.execute(interaction, client, guildlang, votet);
-            }
-            return;
-        }
-        catch (e) {
-            try {
-                await bot.error(interaction, client, e, 'mod', guildlang, votet);
-            }
-            catch (e) { }
-        }
-    }
-    if (interaction.isButton()) {
-        bot.stats('btn', interaction.user.id, interaction.guild.id);
-        try {
-            let sc = false;
-            const args = interaction.customId.split('-');
-            if (args[0] === 'BEG') {
-                let editedinteraction = interaction;
-                editedinteraction.customId = "beg";
-                sc = true;
-                const button = client.buttons.get(editedinteraction.customId);
-                await button.execute(editedinteraction, client, guildlang, votet, args[1], Number(args[2]), args[3], args[4]);
-            }
-            ;
-            if (args[0] === 'RPS') {
-                let choice;
-                let editedinteraction = interaction;
-                editedinteraction.customId = "rps-choice";
-                if (args[1] === '1')
-                    choice = 'ROCK';
-                if (args[1] === '2')
-                    choice = 'PAPER';
-                if (args[1] === '3')
-                    choice = 'SCISSORS';
-                if (args[1] === 'YES')
-                    editedinteraction.customId = "rps-yes";
-                if (args[1] === 'NO')
-                    editedinteraction.customId = "rps-no";
-                sc = true;
-                const button = client.buttons.get(editedinteraction.customId);
-                await button.execute(editedinteraction, client, guildlang, votet, Number(args[2]), choice);
-            }
-            ;
-            if (args[0] === 'MEMORY') {
-                let editedinteraction = interaction;
-                editedinteraction.customId = "memory-choice";
-                if (args[1] === 'YES')
-                    editedinteraction.customId = "memory-yes";
-                if (args[1] === 'NO')
-                    editedinteraction.customId = "memory-no";
-                sc = true;
-                const button = client.buttons.get(editedinteraction.customId);
-                await button.execute(editedinteraction, client, guildlang, votet, Number(args[2]), Number(args[1]));
-            }
-            ;
-            if (args[0] === 'TTT') {
-                let editedinteraction = interaction;
-                editedinteraction.customId = "ttt-choice";
-                if (args[1] === 'YES')
-                    editedinteraction.customId = "ttt-yes";
-                if (args[1] === 'NO')
-                    editedinteraction.customId = "ttt-no";
-                sc = true;
-                const button = client.buttons.get(editedinteraction.customId);
-                await button.execute(editedinteraction, client, guildlang, votet, Number(args[2]), Number(args[1]));
-            }
-            ;
-            if (args[0] === 'STOCKNEXT') {
-                let editedinteraction = interaction;
-                editedinteraction.customId = "stocknext";
-                sc = true;
-                const button = client.buttons.get(editedinteraction.customId);
-                await button.execute(editedinteraction, client, guildlang, votet, args[1]);
-            }
-            ;
-            if (args[0] === 'BUSINESS') {
-                let editedinteraction = interaction;
-                if (args[2] === 'YES')
-                    editedinteraction.customId = "business-yes";
-                if (args[2] === 'NO')
-                    editedinteraction.customId = "business-no";
-                sc = true;
-                const button = client.buttons.get(editedinteraction.customId);
-                await button.execute(editedinteraction, client, guildlang, votet, args[3], args[4], args[1].toLowerCase());
-            }
-            ;
-            if (args[0] === 'CAR') {
-                let editedinteraction = interaction;
-                if (args[2] === 'YES')
-                    editedinteraction.customId = "car-yes";
-                if (args[2] === 'NO')
-                    editedinteraction.customId = "car-no";
-                sc = true;
-                const button = client.buttons.get(editedinteraction.customId);
-                await button.execute(editedinteraction, client, guildlang, votet, args[3], args[4], args[1].toLowerCase());
-            }
-            ;
-            if (args[0] === 'ITEM') {
-                let editedinteraction = interaction;
-                if (args[2] === 'YES')
-                    editedinteraction.customId = "item-yes";
-                if (args[2] === 'NO')
-                    editedinteraction.customId = "item-no";
-                sc = true;
-                const button = client.buttons.get(editedinteraction.customId);
-                await button.execute(editedinteraction, client, guildlang, votet, args[3], args[4], args[1].toLowerCase(), Number(args[5]));
-            }
-            ;
-            if (args[0] === 'STOCKUPGRADE') {
-                let editedinteraction = interaction;
-                if (args[2] === 'YES')
-                    editedinteraction.customId = "stockupgrade-yes";
-                if (args[2] === 'NO')
-                    editedinteraction.customId = "stockupgrade-no";
-                sc = true;
-                const button = client.buttons.get(editedinteraction.customId);
-                await button.execute(editedinteraction, client, guildlang, votet, args[3], args[4], Number(args[5]));
-            }
-            ;
-            if (args[0] === 'BOMB') {
-                let editedinteraction = interaction;
-                editedinteraction.customId = 'item-bomb';
-                sc = true;
-                const button = client.buttons.get(editedinteraction.customId);
-                await button.execute(editedinteraction, client, guildlang, votet, args[1], args[2], args[3], args[4], args[5], args[6]);
-            }
-            ;
-            if (args[0] === 'COUNT') {
-                let editedinteraction = interaction;
-                editedinteraction.customId = 'count';
-                sc = true;
-                const button = client.buttons.get(editedinteraction.customId);
-                await button.execute(editedinteraction, client, guildlang, votet, args[1].toLowerCase());
-            }
-            ;
-            if (args[0] === 'POLL') {
-                let editedinteraction = interaction;
-                editedinteraction.customId = 'poll';
-                sc = true;
-                const button = client.buttons.get(editedinteraction.customId);
-                await button.execute(editedinteraction, client, guildlang, votet, args[1].toLowerCase());
-            }
-            if (!sc) {
-                const button = client.buttons.get(interaction.customId);
-                if (!button)
-                    return;
-                await button.execute(interaction, client, guildlang, votet);
-            }
-            return;
-        }
-        catch (e) {
-            try {
-                await bot.error(interaction, client, e, 'btn', guildlang, votet);
-            }
-            catch (e) { }
-        }
-    }
-});
-console.log(' ');
-console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] LOGGING IN...`);
-if (!_config_1.default.client.quickload)
-    login(client, (0, getAllFiles_js_1.getAllFilesFilter)('./commands', '.js'));
-else
-    didload = true;
-if (_config_1.default.web.stats) {
-    const { AutoPoster } = require('topgg-autoposter');
-    const aP = AutoPoster(_config_1.default.web.keys.apikey, client);
-    aP.on('posted', () => {
-        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] TOP.GG STATS POSTED');
-    });
-}
-if (_config_1.default.web.votes) {
-    const Topgg = require("@top-gg/sdk");
-    const express = require("express");
-    const app = express();
-    const webhook = new Topgg.Webhook(_config_1.default.web.keys.webkey);
-    app.post("/dblwebhook", webhook.listener(async (vote) => {
-        if (!vote)
-            return;
-        if (!vote.user)
-            return;
-        const random = bot.random(7500, 15000);
-        let extra;
-        if ((await bot.votes.get(vote.user + '-A') + 1) % 10 === 0)
-            extra = ((await bot.votes.get(vote.user + '-A') + 1) * 10000) / 2;
-        let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
-            .setTitle('» VOTING')
-            .setDescription('» Thanks for Voting! You got **$' + random + '** from me :)\n» Danke fürs Voten! Du hast **' + random + '€** von mir erhalten :)')
-            .setFooter({ text: '» ' + _config_1.default.version });
-        if (await bot.language.get(vote.user) === 'de') {
-            message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
-                .setTitle('» VOTING')
-                .setDescription('» Danke fürs Voten! Du hast **' + random + '€** von mir erhalten :)')
-                .setFooter({ text: '» ' + _config_1.default.version });
+    ];
+    if (_config_1.default.client.quickload)
+        login(client, (0, getAllFiles_js_1.getAllFilesFilter)('./commands', '.js'));
+    Promise.all(fileList.map(async (list) => {
+        console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] LOADED ${list.files.length} ${list.name}`);
+        if (!list.events) {
+            client[list.name.toLowerCase()] = new discord_js_1.Collection();
+            await Promise.all(list.files.map(async (file) => {
+                const content = (await import(file)).default.default;
+                client[list.name.toLowerCase()].set(content.data.name, content);
+            }));
         }
         else {
-            message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
-                .setTitle('» VOTING')
-                .setDescription('» Thanks for Voting! You got **$' + random + '** from me :)')
-                .setFooter({ text: '» ' + _config_1.default.version });
+            await Promise.all(list.files.map(async (file) => {
+                const content = (await import(file)).default.default;
+                if (_config_1.default.client.quickload && content.name.toLowerCase() === 'start bot')
+                    return;
+                if (content.once)
+                    client.once(content.event, (...args) => content.execute(...args));
+                else
+                    client.on(content.event, (...args) => content.execute(...args, client));
+            }));
         }
-        ;
-        let messageBonus = new discord_js_2.EmbedBuilder().setColor(0x37009B)
-            .setTitle('» VOTING')
-            .setDescription('» Thanks for Voting **' + ((await bot.votes.get(vote.user + '-A')) + 1) + '** times!\nAs A Gift I give you extra **$' + extra + '**!')
-            .setFooter({ text: '» ' + _config_1.default.version });
-        if (await bot.language.get(vote.user) === 'de') {
-            messageBonus = new discord_js_2.EmbedBuilder().setColor(0x37009B)
-                .setTitle('» VOTING')
-                .setDescription('» Danke, dass du **' + ((await bot.votes.get(vote.user + '-A')) + 1) + '** mal gevotet hast!\nAls Geschenk gebe ich dir extra **' + extra + '€**!')
-                .setFooter({ text: '» ' + _config_1.default.version });
-        }
-        await bot.money.add(false, vote.user, random);
-        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] VOTED : ' + vote.user + ' : ' + random + '€');
-        client.users.send(vote.user, { embeds: [message] });
-        if ((await bot.votes.get(vote.user + '-A') + 1) % 10 === 0) {
-            bot.money.add(false, vote.user, extra);
-            client.users.send(vote.user, { embeds: [messageBonus] });
-        }
-        ;
-        bot.votes.add(vote.user + '-A', 1);
-        bot.votes.set(vote.user + '-T', Date.now());
     }));
-    app.listen(_config_1.default.web.ports.votes);
-}
-const cron = __importStar(require("node-cron"));
-client.stocks = {
-    green: 0,
-    blue: 0,
-    yellow: 0,
-    red: 0,
-    black: 0,
-    white: 0
-};
-const dostocks = () => {
-    client.stocks.oldgreen = client.stocks.green;
-    client.stocks.green = (Math.floor(Math.random()
-        * (30 - 25 + 1)) + 25)
-        * (Math.floor(Math.random()
-            * (20 - 15 + 1)) + 15)
-        + (Math.floor(Math.random()
-            * (400 - 350 + 1))
-            + 350);
-    client.stocks.oldblue = client.stocks.blue;
-    client.stocks.blue = (Math.floor(Math.random()
-        * (70 - 45 + 1)) + 45)
-        * (Math.floor(Math.random()
-            * (40 - 30 + 1)) + 30)
-        - (Math.floor(Math.random()
-            * (200 - 100 + 1))
-            + 100);
-    client.stocks.oldyellow = client.stocks.yellow;
-    client.stocks.yellow = (Math.floor(Math.random()
-        * (90 - 65 + 1)) + 65)
-        * (Math.floor(Math.random()
-            * (60 - 50 + 1)) + 50)
-        + (Math.floor(Math.random()
-            * (200 - 100 + 1))
-            + 100);
-    client.stocks.oldred = client.stocks.red;
-    client.stocks.red = (Math.floor(Math.random()
-        * (120 - 105 + 1)) + 105)
-        * (Math.floor(Math.random()
-            * (80 - 70 + 1)) + 70)
-        + (Math.floor(Math.random()
-            * (400 - 100 + 1))
-            + 100);
-    client.stocks.oldwhite = client.stocks.white;
-    client.stocks.white = (Math.floor(Math.random()
-        * (150 - 130 + 1)) + 130)
-        * (Math.floor(Math.random()
-            * (120 - 100 + 1)) + 100)
-        + (Math.floor(Math.random()
-            * (600 - 100 + 1))
-            + 100);
-    client.stocks.oldblack = client.stocks.black;
-    client.stocks.black = (Math.floor(Math.random()
-        * (250 - 200 + 1)) + 200)
-        * (Math.floor(Math.random()
-            * (170 - 150 + 1)) + 150)
-        + (Math.floor(Math.random()
-            * (800 - 200 + 1))
-            + 200);
-};
-dostocks();
-cron.schedule('* * * * *', () => {
+    console.log(' ');
+    console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [END] $$$$$ LOADED COMMANDS AND EVENTS`);
+    client.on(discord_js_1.Events.InteractionCreate, async (interaction) => {
+        if (!interaction.isCommand() && !interaction.isButton() && !interaction.isModalSubmit())
+            return;
+        if (!interaction.guild)
+            return;
+        bot.userdb.add({
+            "avatar": (!!interaction.user.avatar) ? interaction.user.avatar : '',
+            "discriminator": interaction.user.discriminator,
+            "username": interaction.user.username,
+            "id": interaction.user.id
+        });
+        const guildlang = await bot.language.get(interaction.guild.id);
+        let votet = 'VOTED';
+        const lastVote = await bot.votes.get(interaction.user.id + '-T');
+        if (lastVote < (Date.now() - 24 * 60 * 60 * 1000))
+            votet = 'NOT VOTED';
+        if (lastVote === 0)
+            votet = 'NOT VOTED -> /VOTE';
+        if (guildlang === 'de') {
+            votet = 'GEVOTED';
+            if (lastVote < (Date.now() - 24 * 60 * 60 * 1000))
+                votet = 'NICHT GEVOTET';
+            if (lastVote === 0)
+                votet = 'NICHT GEVOTED -> /VOTE';
+        }
+        if (interaction.locale === 'de')
+            bot.language.set(interaction.user.id, 'de');
+        else
+            bot.language.set(interaction.user.id, 'en');
+        if (interaction.isChatInputCommand()) {
+            bot.stats('cmd', interaction.user.id, interaction.guild.id);
+            const command = client.commands.get(interaction.commandName);
+            if (!command)
+                return;
+            try {
+                await command.execute(interaction, client, guildlang, votet);
+            }
+            catch (e) {
+                try {
+                    await bot.error(interaction, client, e, 'cmd', guildlang, votet);
+                }
+                catch (e) { }
+            }
+        }
+        if (interaction.isModalSubmit()) {
+            try {
+                bot.stats('mod', interaction.user.id, interaction.guild.id);
+                let sc = false;
+                const args = interaction.customId.split('-');
+                if (args[0] === 'API') {
+                    let editedinteraction = interaction;
+                    editedinteraction.customId = "api";
+                    sc = true;
+                    const modal = client.modals.get(editedinteraction.customId);
+                    await modal.execute(editedinteraction, client, guildlang, votet, args[1], args[2].toLowerCase());
+                }
+                if (!sc) {
+                    const modal = client.modals.get(interaction.customId);
+                    if (!modal)
+                        return;
+                    await modal.execute(interaction, client, guildlang, votet);
+                }
+                return;
+            }
+            catch (e) {
+                try {
+                    await bot.error(interaction, client, e, 'mod', guildlang, votet);
+                }
+                catch (e) { }
+            }
+        }
+        if (interaction.isButton()) {
+            bot.stats('btn', interaction.user.id, interaction.guild.id);
+            try {
+                let sc = false;
+                const args = interaction.customId.split('-');
+                if (args[0] === 'BEG') {
+                    let editedinteraction = interaction;
+                    editedinteraction.customId = "beg";
+                    sc = true;
+                    const button = client.buttons.get(editedinteraction.customId);
+                    await button.execute(editedinteraction, client, guildlang, votet, args[1], Number(args[2]), args[3], args[4]);
+                }
+                ;
+                if (args[0] === 'RPS') {
+                    let choice;
+                    let editedinteraction = interaction;
+                    editedinteraction.customId = "rps-choice";
+                    if (args[1] === '1')
+                        choice = 'ROCK';
+                    if (args[1] === '2')
+                        choice = 'PAPER';
+                    if (args[1] === '3')
+                        choice = 'SCISSORS';
+                    if (args[1] === 'YES')
+                        editedinteraction.customId = "rps-yes";
+                    if (args[1] === 'NO')
+                        editedinteraction.customId = "rps-no";
+                    sc = true;
+                    const button = client.buttons.get(editedinteraction.customId);
+                    await button.execute(editedinteraction, client, guildlang, votet, Number(args[2]), choice);
+                }
+                ;
+                if (args[0] === 'MEMORY') {
+                    let editedinteraction = interaction;
+                    editedinteraction.customId = "memory-choice";
+                    if (args[1] === 'YES')
+                        editedinteraction.customId = "memory-yes";
+                    if (args[1] === 'NO')
+                        editedinteraction.customId = "memory-no";
+                    sc = true;
+                    const button = client.buttons.get(editedinteraction.customId);
+                    await button.execute(editedinteraction, client, guildlang, votet, Number(args[2]), Number(args[1]));
+                }
+                ;
+                if (args[0] === 'TTT') {
+                    let editedinteraction = interaction;
+                    editedinteraction.customId = "ttt-choice";
+                    if (args[1] === 'YES')
+                        editedinteraction.customId = "ttt-yes";
+                    if (args[1] === 'NO')
+                        editedinteraction.customId = "ttt-no";
+                    sc = true;
+                    const button = client.buttons.get(editedinteraction.customId);
+                    await button.execute(editedinteraction, client, guildlang, votet, Number(args[2]), Number(args[1]));
+                }
+                ;
+                if (args[0] === 'STOCKNEXT') {
+                    let editedinteraction = interaction;
+                    editedinteraction.customId = "stocknext";
+                    sc = true;
+                    const button = client.buttons.get(editedinteraction.customId);
+                    await button.execute(editedinteraction, client, guildlang, votet, args[1]);
+                }
+                ;
+                if (args[0] === 'BUSINESS') {
+                    let editedinteraction = interaction;
+                    if (args[2] === 'YES')
+                        editedinteraction.customId = "business-yes";
+                    if (args[2] === 'NO')
+                        editedinteraction.customId = "business-no";
+                    sc = true;
+                    const button = client.buttons.get(editedinteraction.customId);
+                    await button.execute(editedinteraction, client, guildlang, votet, args[3], args[4], args[1].toLowerCase());
+                }
+                ;
+                if (args[0] === 'CAR') {
+                    let editedinteraction = interaction;
+                    if (args[2] === 'YES')
+                        editedinteraction.customId = "car-yes";
+                    if (args[2] === 'NO')
+                        editedinteraction.customId = "car-no";
+                    sc = true;
+                    const button = client.buttons.get(editedinteraction.customId);
+                    await button.execute(editedinteraction, client, guildlang, votet, args[3], args[4], args[1].toLowerCase());
+                }
+                ;
+                if (args[0] === 'ITEM') {
+                    let editedinteraction = interaction;
+                    if (args[2] === 'YES')
+                        editedinteraction.customId = "item-yes";
+                    if (args[2] === 'NO')
+                        editedinteraction.customId = "item-no";
+                    sc = true;
+                    const button = client.buttons.get(editedinteraction.customId);
+                    await button.execute(editedinteraction, client, guildlang, votet, args[3], args[4], args[1].toLowerCase(), Number(args[5]));
+                }
+                ;
+                if (args[0] === 'STOCKUPGRADE') {
+                    let editedinteraction = interaction;
+                    if (args[2] === 'YES')
+                        editedinteraction.customId = "stockupgrade-yes";
+                    if (args[2] === 'NO')
+                        editedinteraction.customId = "stockupgrade-no";
+                    sc = true;
+                    const button = client.buttons.get(editedinteraction.customId);
+                    await button.execute(editedinteraction, client, guildlang, votet, args[3], args[4], Number(args[5]));
+                }
+                ;
+                if (args[0] === 'BOMB') {
+                    let editedinteraction = interaction;
+                    editedinteraction.customId = 'item-bomb';
+                    sc = true;
+                    const button = client.buttons.get(editedinteraction.customId);
+                    await button.execute(editedinteraction, client, guildlang, votet, args[1], args[2], args[3], args[4], args[5], args[6]);
+                }
+                ;
+                if (args[0] === 'COUNT') {
+                    let editedinteraction = interaction;
+                    editedinteraction.customId = 'count';
+                    sc = true;
+                    const button = client.buttons.get(editedinteraction.customId);
+                    await button.execute(editedinteraction, client, guildlang, votet, args[1].toLowerCase());
+                }
+                ;
+                if (args[0] === 'POLL') {
+                    let editedinteraction = interaction;
+                    editedinteraction.customId = 'poll';
+                    sc = true;
+                    const button = client.buttons.get(editedinteraction.customId);
+                    await button.execute(editedinteraction, client, guildlang, votet, args[1].toLowerCase());
+                }
+                if (!sc) {
+                    const button = client.buttons.get(interaction.customId);
+                    if (!button)
+                        return;
+                    await button.execute(interaction, client, guildlang, votet);
+                }
+                return;
+            }
+            catch (e) {
+                try {
+                    await bot.error(interaction, client, e, 'btn', guildlang, votet);
+                }
+                catch (e) { }
+            }
+        }
+    });
+    console.log(' ');
+    console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] LOGGING IN...`);
+    if (!_config_1.default.client.quickload)
+        login(client, (0, getAllFiles_js_1.getAllFilesFilter)('./commands', '.js'));
+    else
+        didload = true;
+    if (_config_1.default.web.stats) {
+        const { AutoPoster } = require('topgg-autoposter');
+        const aP = AutoPoster(_config_1.default.web.keys.apikey, client);
+        aP.on('posted', () => {
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] TOP.GG STATS POSTED');
+        });
+    }
+    if (_config_1.default.web.votes) {
+        const Topgg = require("@top-gg/sdk");
+        const express = require("express");
+        const app = express();
+        const webhook = new Topgg.Webhook(_config_1.default.web.keys.webkey);
+        app.post("/dblwebhook", webhook.listener(async (vote) => {
+            if (!vote)
+                return;
+            if (!vote.user)
+                return;
+            const random = bot.random(7500, 15000);
+            let extra;
+            if ((await bot.votes.get(vote.user + '-A') + 1) % 10 === 0)
+                extra = ((await bot.votes.get(vote.user + '-A') + 1) * 10000) / 2;
+            let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
+                .setTitle('» VOTING')
+                .setDescription('» Thanks for Voting! You got **$' + random + '** from me :)\n» Danke fürs Voten! Du hast **' + random + '€** von mir erhalten :)')
+                .setFooter({ text: '» ' + _config_1.default.version });
+            if (await bot.language.get(vote.user) === 'de') {
+                message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
+                    .setTitle('» VOTING')
+                    .setDescription('» Danke fürs Voten! Du hast **' + random + '€** von mir erhalten :)')
+                    .setFooter({ text: '» ' + _config_1.default.version });
+            }
+            else {
+                message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
+                    .setTitle('» VOTING')
+                    .setDescription('» Thanks for Voting! You got **$' + random + '** from me :)')
+                    .setFooter({ text: '» ' + _config_1.default.version });
+            }
+            ;
+            let messageBonus = new discord_js_2.EmbedBuilder().setColor(0x37009B)
+                .setTitle('» VOTING')
+                .setDescription('» Thanks for Voting **' + ((await bot.votes.get(vote.user + '-A')) + 1) + '** times!\nAs A Gift I give you extra **$' + extra + '**!')
+                .setFooter({ text: '» ' + _config_1.default.version });
+            if (await bot.language.get(vote.user) === 'de') {
+                messageBonus = new discord_js_2.EmbedBuilder().setColor(0x37009B)
+                    .setTitle('» VOTING')
+                    .setDescription('» Danke, dass du **' + ((await bot.votes.get(vote.user + '-A')) + 1) + '** mal gevotet hast!\nAls Geschenk gebe ich dir extra **' + extra + '€**!')
+                    .setFooter({ text: '» ' + _config_1.default.version });
+            }
+            await bot.money.add(false, vote.user, random);
+            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] VOTED : ' + vote.user + ' : ' + random + '€');
+            client.users.send(vote.user, { embeds: [message] });
+            if ((await bot.votes.get(vote.user + '-A') + 1) % 10 === 0) {
+                bot.money.add(false, vote.user, extra);
+                client.users.send(vote.user, { embeds: [messageBonus] });
+            }
+            ;
+            bot.votes.add(vote.user + '-A', 1);
+            bot.votes.set(vote.user + '-T', Date.now());
+        }));
+        app.listen(_config_1.default.web.ports.votes);
+    }
+    client.stocks = {
+        green: 0,
+        blue: 0,
+        yellow: 0,
+        red: 0,
+        black: 0,
+        white: 0
+    };
+    const dostocks = () => {
+        client.stocks.oldgreen = client.stocks.green;
+        client.stocks.green = (Math.floor(Math.random()
+            * (30 - 25 + 1)) + 25)
+            * (Math.floor(Math.random()
+                * (20 - 15 + 1)) + 15)
+            + (Math.floor(Math.random()
+                * (400 - 350 + 1))
+                + 350);
+        client.stocks.oldblue = client.stocks.blue;
+        client.stocks.blue = (Math.floor(Math.random()
+            * (70 - 45 + 1)) + 45)
+            * (Math.floor(Math.random()
+                * (40 - 30 + 1)) + 30)
+            - (Math.floor(Math.random()
+                * (200 - 100 + 1))
+                + 100);
+        client.stocks.oldyellow = client.stocks.yellow;
+        client.stocks.yellow = (Math.floor(Math.random()
+            * (90 - 65 + 1)) + 65)
+            * (Math.floor(Math.random()
+                * (60 - 50 + 1)) + 50)
+            + (Math.floor(Math.random()
+                * (200 - 100 + 1))
+                + 100);
+        client.stocks.oldred = client.stocks.red;
+        client.stocks.red = (Math.floor(Math.random()
+            * (120 - 105 + 1)) + 105)
+            * (Math.floor(Math.random()
+                * (80 - 70 + 1)) + 70)
+            + (Math.floor(Math.random()
+                * (400 - 100 + 1))
+                + 100);
+        client.stocks.oldwhite = client.stocks.white;
+        client.stocks.white = (Math.floor(Math.random()
+            * (150 - 130 + 1)) + 130)
+            * (Math.floor(Math.random()
+                * (120 - 100 + 1)) + 100)
+            + (Math.floor(Math.random()
+                * (600 - 100 + 1))
+                + 100);
+        client.stocks.oldblack = client.stocks.black;
+        client.stocks.black = (Math.floor(Math.random()
+            * (250 - 200 + 1)) + 200)
+            * (Math.floor(Math.random()
+                * (170 - 150 + 1)) + 150)
+            + (Math.floor(Math.random()
+                * (800 - 200 + 1))
+                + 200);
+    };
     dostocks();
-    client.stocks.refresh = Math.floor(+new Date() / 1000) + 60;
-});
+    cron.schedule('* * * * *', () => {
+        dostocks();
+        client.stocks.refresh = Math.floor(+new Date() / 1000) + 60;
+    });
+};
+exports.start = start;
 //# sourceMappingURL=bot.js.map

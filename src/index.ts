@@ -5,11 +5,13 @@ moduleAlias.addAlias('@functions', __dirname+'/functions')
 moduleAlias.addAlias('@utils', __dirname+'/utils')
 moduleAlias.addAlias('@config', __dirname+'/config.json')
 
-import { ShardingManager } from "discord.js"
+import { start } from "./bot.js"
 import { default as pg } from "pg"
 import { getAllFilesFilter } from "@utils/getAllFiles.js"
-import { setTimeout as wait } from "timers/promises"
 import config from "@config"
+
+import WebserverInterface from "@interfaces/Webserver.js"
+import { default as webserver } from "rjweb-server"
 
 // Create Client
 import { Client, GatewayIntentBits } from "discord.js"
@@ -74,114 +76,115 @@ stdin.addListener("data", async(input) => {
     }
 })
 
-// Show Logo
-console.log(' ')
-console.log('  /$$$$$$            /$$$$$$$   /$$$$$$  /$$$$$$$$')
-console.log(' /$$$_  $$          | $$__  $$ /$$__  $$|__  $$__/')
-console.log('| $$$$\\ $$ /$$   /$$| $$  \\ $$| $$  \\ $$   | $$   ')
-console.log('| $$ $$ $$|  $$ /$$/| $$$$$$$ | $$  | $$   | $$   ')
-console.log('| $$\\ $$$$ \\  $$$$/ | $$__  $$| $$  | $$   | $$   ')
-console.log('| $$ \\ $$$  |$$  $$ | $$  \\ $$| $$  | $$   | $$   ')
-console.log('|  $$$$$$/ /$$/\\  $$| $$$$$$$/|  $$$$$$/   | $$   ')
-console.log(' \\______/ |__/  \\__/|_______/  \\______/    |__/   ')
-console.log(' ')
-console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
-console.log(' ')
+{(async() => {
+    // Show Logo
+    console.log(' ')
+    console.log('  /$$$$$$            /$$$$$$$   /$$$$$$  /$$$$$$$$')
+    console.log(' /$$$_  $$          | $$__  $$ /$$__  $$|__  $$__/')
+    console.log('| $$$$\\ $$ /$$   /$$| $$  \\ $$| $$  \\ $$   | $$   ')
+    console.log('| $$ $$ $$|  $$ /$$/| $$$$$$$ | $$  | $$   | $$   ')
+    console.log('| $$\\ $$$$ \\  $$$$/ | $$__  $$| $$  | $$   | $$   ')
+    console.log('| $$ \\ $$$  |$$  $$ | $$  \\ $$| $$  | $$   | $$   ')
+    console.log('|  $$$$$$/ /$$/\\  $$| $$$$$$$/|  $$$$$$/   | $$   ')
+    console.log(' \\______/ |__/  \\__/|_______/  \\______/    |__/   ')
+    console.log(' ')
+    console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
+    console.log(' ')
 
-// Database Migrations
-const migrator = async(conn: any) => {
-    const migrations = getAllFilesFilter('./migrations', '.js')
-    for (const file of migrations) {
-    	const migration = (await import(file)).default.default
+    // Database Migrations
+    const migrator = async(conn: any) => {
+        const migrations = getAllFilesFilter('./migrations', '.js')
+        for (const file of migrations) {
+            const migration = (await import(file)).default.default
 
-    	const status = await migration.migrate(conn)
-        if (status) console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] MIGRATED ${migration.data.name}`)
-        else console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] DIDNT MIGRATE ${migration.data.name}`)
+            const status = await migration.migrate(conn)
+            if (status) console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] MIGRATED ${migration.data.name}`)
+            else console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] DIDNT MIGRATE ${migration.data.name}`)
+        }
+    }; const db = new pg.Pool({
+        host: config.database.oxbot.host,
+        database: config.database.oxbot.database,
+        user: config.database.oxbot.username,
+        password: config.database.oxbot.password,
+        ssl: true,
+        port: 5432
+    }); const domigrate = async() => { await migrator(db) }
+    await domigrate()
+
+    /// Dashboard
+    // Website
+    const website = new webserver.routeList()
+
+    website.static('/', './dashboard/dist', {
+        preload: true,
+        remHTML: true
+    })
+
+    if (config.web.dashboard) {
+        await webserver.start({
+            bind: '0.0.0.0',
+            urls: website,
+            pages: {
+                async notFound(ctr: WebserverInterface) {
+                    return ctr.printFile('./dashboard/dist/index.html')
+                }
+            }, port: config.web.ports.dashboard,
+            events: {
+                async request(ctr: WebserverInterface) {
+                    if (ctr.reqUrl.href.endsWith('.js')) ctr.setHeader('Content-Type', 'text/javascript')
+                    if (ctr.reqUrl.href.endsWith('.css')) ctr.setHeader('Content-Type', 'text/css')
+                }
+            }
+        }).then((res: any) => {
+            console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [STA] $$$$$ STARTED DASHBOARD ON PORT ${res.port}`)
+        })
     }
-}; const db = new pg.Pool({
-    host: config.database.oxbot.host,
-    database: config.database.oxbot.database,
-    user: config.database.oxbot.username,
-    password: config.database.oxbot.password,
-    ssl: true,
-    port: 5432
-}); const domigrate = async() => { await migrator(db) }
-domigrate()
 
-/// Dashboard
-import WebserverInterface from "@interfaces/Webserver.js"
-import { default as webserver } from "rjweb-server"
+    // API
+    const api = new webserver.routeList()
 
-// Website
-const website = new webserver.routeList()
+    api.load('./apis')
 
-website.static('/', './dashboard/dist', {
-    preload: true,
-    remHTML: true
-})
-
-if (config.web.dashboard) {
-    webserver.start({
-        bind: '0.0.0.0',
-        urls: website,
-        pages: {
-            async notFound(ctr: WebserverInterface) {
-                return ctr.printFile('./dashboard/dist/index.html')
+    if (config.web.api) {
+        await webserver.start({
+            bind: '0.0.0.0',
+            cors: true,
+            urls: api,
+            pages: {
+                async notFound(ctr: WebserverInterface) {
+                    return ctr.print({
+                        "success": false,
+                        "message": 'NOT FOUND'
+                    })
+                }, async reqError(ctr: WebserverInterface) {
+                    console.log(ctr.error.stack)
+                    ctr.status(500)
+                    return ctr.print({
+                        "success": false,
+                        "message": 'SERVER ERROR'
+                    })
+                }
+            }, port: config.web.ports.api,
+            events: {
+                async request(ctr: WebserverInterface) {
+                    ctr.api = (await import('./functions/api.js')).default
+                    ctr.bot = (await import('./functions/bot.js')).default
+                    ctr.config = config
+                    ctr.client = client
+                    ctr.db = db
+                }
             }
-        }, port: config.web.ports.dashboard,
-        events: {
-            async request(ctr: WebserverInterface) {
-                if (ctr.reqUrl.href.endsWith('.js')) ctr.setHeader('Content-Type', 'text/javascript')
-                if (ctr.reqUrl.href.endsWith('.css')) ctr.setHeader('Content-Type', 'text/css')
-            }
-        }
-    }).then((res: any) => {
-        console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [STA] $$$$$ STARTED DASHBOARD ON PORT ${res.port}`)
-    })
-}
+        }).then((res: any) => {
+            console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [STA] $$$$$ STARTED API ON PORT ${res.port}`)
+        })
+    }
 
-// API
-const api = new webserver.routeList()
+    // Start Bot
+    console.log(' ')
+    console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [STA] $$$$$ LOADING 0xBOT ${config.version}`)
+    console.log(' ')
+    console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [STA] $$$$$ LOADING COMMANDS AND EVENTS`)
+    console.log(' ')
 
-api.load('./apis')
-
-if (config.web.api) {
-    webserver.start({
-        bind: '0.0.0.0',
-        cors: true,
-        urls: api,
-        pages: {
-            async notFound(ctr: WebserverInterface) {
-                return ctr.print({
-                    "success": false,
-                    "message": 'NOT FOUND'
-                })
-            }, async reqError(ctr: WebserverInterface) {
-                console.log(ctr.error.stack)
-                ctr.status(500)
-                return ctr.print({
-                    "success": false,
-                    "message": 'SERVER ERROR'
-                })
-            }
-        }, port: config.web.ports.api,
-        events: {
-            async request(ctr: WebserverInterface) {
-                ctr.api = (await import('./functions/api.js')).default
-                ctr.bot = (await import('./functions/bot.js')).default
-                ctr.config = config
-                ctr.client = client
-                ctr.db = db
-            }
-        }
-    }).then((res: any) => {
-        console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [STA] $$$$$ STARTED API ON PORT ${res.port}`)
-    })
-}
-
-// Start Shard
-const manager = new ShardingManager('./bot.js', { token: config.client.token, shards: 'auto', totalShards: 1 } as any)
-manager.spawn().catch(async() => {
-    await wait(8500)
-    manager.spawn()
-})
+    start()
+}) ()}

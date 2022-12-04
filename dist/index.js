@@ -31,14 +31,14 @@ module_alias_1.default.addAlias('@interfaces', __dirname + '/interfaces');
 module_alias_1.default.addAlias('@functions', __dirname + '/functions');
 module_alias_1.default.addAlias('@utils', __dirname + '/utils');
 module_alias_1.default.addAlias('@config', __dirname + '/config.json');
-const discord_js_1 = require("discord.js");
+const bot_js_1 = require("./bot.js");
 const pg_1 = __importDefault(require("pg"));
 const getAllFiles_js_1 = require("@utils/getAllFiles.js");
-const promises_1 = require("timers/promises");
 const _config_1 = __importDefault(require("@config"));
-const discord_js_2 = require("discord.js");
-const client = new discord_js_2.Client({ intents: [
-        discord_js_2.GatewayIntentBits.Guilds
+const rjweb_server_1 = __importDefault(require("rjweb-server"));
+const discord_js_1 = require("discord.js");
+const client = new discord_js_1.Client({ intents: [
+        discord_js_1.GatewayIntentBits.Guilds
     ] });
 client.login(_config_1.default.client.token);
 const bot = __importStar(require("@functions/bot.js"));
@@ -90,104 +90,108 @@ stdin.addListener("data", async (input) => {
         }
     }
 });
-console.log(' ');
-console.log('  /$$$$$$            /$$$$$$$   /$$$$$$  /$$$$$$$$');
-console.log(' /$$$_  $$          | $$__  $$ /$$__  $$|__  $$__/');
-console.log('| $$$$\\ $$ /$$   /$$| $$  \\ $$| $$  \\ $$   | $$   ');
-console.log('| $$ $$ $$|  $$ /$$/| $$$$$$$ | $$  | $$   | $$   ');
-console.log('| $$\\ $$$$ \\  $$$$/ | $$__  $$| $$  | $$   | $$   ');
-console.log('| $$ \\ $$$  |$$  $$ | $$  \\ $$| $$  | $$   | $$   ');
-console.log('|  $$$$$$/ /$$/\\  $$| $$$$$$$/|  $$$$$$/   | $$   ');
-console.log(' \\______/ |__/  \\__/|_______/  \\______/    |__/   ');
-console.log(' ');
-console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$');
-console.log(' ');
-const migrator = async (conn) => {
-    const migrations = (0, getAllFiles_js_1.getAllFilesFilter)('./migrations', '.js');
-    for (const file of migrations) {
-        const migration = (await import(file)).default.default;
-        const status = await migration.migrate(conn);
-        if (status)
-            console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] MIGRATED ${migration.data.name}`);
-        else
-            console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] DIDNT MIGRATE ${migration.data.name}`);
-    }
-};
-const db = new pg_1.default.Pool({
-    host: _config_1.default.database.oxbot.host,
-    database: _config_1.default.database.oxbot.database,
-    user: _config_1.default.database.oxbot.username,
-    password: _config_1.default.database.oxbot.password,
-    ssl: true,
-    port: 5432
-});
-const domigrate = async () => { await migrator(db); };
-domigrate();
-const rjweb_server_1 = __importDefault(require("rjweb-server"));
-const website = new rjweb_server_1.default.routeList();
-website.static('/', './dashboard/dist', {
-    preload: true,
-    remHTML: true
-});
-if (_config_1.default.web.dashboard) {
-    rjweb_server_1.default.start({
-        bind: '0.0.0.0',
-        urls: website,
-        pages: {
-            async notFound(ctr) {
-                return ctr.printFile('./dashboard/dist/index.html');
+{
+    (async () => {
+        console.log(' ');
+        console.log('  /$$$$$$            /$$$$$$$   /$$$$$$  /$$$$$$$$');
+        console.log(' /$$$_  $$          | $$__  $$ /$$__  $$|__  $$__/');
+        console.log('| $$$$\\ $$ /$$   /$$| $$  \\ $$| $$  \\ $$   | $$   ');
+        console.log('| $$ $$ $$|  $$ /$$/| $$$$$$$ | $$  | $$   | $$   ');
+        console.log('| $$\\ $$$$ \\  $$$$/ | $$__  $$| $$  | $$   | $$   ');
+        console.log('| $$ \\ $$$  |$$  $$ | $$  \\ $$| $$  | $$   | $$   ');
+        console.log('|  $$$$$$/ /$$/\\  $$| $$$$$$$/|  $$$$$$/   | $$   ');
+        console.log(' \\______/ |__/  \\__/|_______/  \\______/    |__/   ');
+        console.log(' ');
+        console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$');
+        console.log(' ');
+        const migrator = async (conn) => {
+            const migrations = (0, getAllFiles_js_1.getAllFilesFilter)('./migrations', '.js');
+            for (const file of migrations) {
+                const migration = (await import(file)).default.default;
+                const status = await migration.migrate(conn);
+                if (status)
+                    console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] MIGRATED ${migration.data.name}`);
+                else
+                    console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] DIDNT MIGRATE ${migration.data.name}`);
             }
-        }, port: _config_1.default.web.ports.dashboard,
-        events: {
-            async request(ctr) {
-                if (ctr.reqUrl.href.endsWith('.js'))
-                    ctr.setHeader('Content-Type', 'text/javascript');
-                if (ctr.reqUrl.href.endsWith('.css'))
-                    ctr.setHeader('Content-Type', 'text/css');
-            }
+        };
+        const db = new pg_1.default.Pool({
+            host: _config_1.default.database.oxbot.host,
+            database: _config_1.default.database.oxbot.database,
+            user: _config_1.default.database.oxbot.username,
+            password: _config_1.default.database.oxbot.password,
+            ssl: true,
+            port: 5432
+        });
+        const domigrate = async () => { await migrator(db); };
+        await domigrate();
+        const website = new rjweb_server_1.default.routeList();
+        website.static('/', './dashboard/dist', {
+            preload: true,
+            remHTML: true
+        });
+        if (_config_1.default.web.dashboard) {
+            await rjweb_server_1.default.start({
+                bind: '0.0.0.0',
+                urls: website,
+                pages: {
+                    async notFound(ctr) {
+                        return ctr.printFile('./dashboard/dist/index.html');
+                    }
+                }, port: _config_1.default.web.ports.dashboard,
+                events: {
+                    async request(ctr) {
+                        if (ctr.reqUrl.href.endsWith('.js'))
+                            ctr.setHeader('Content-Type', 'text/javascript');
+                        if (ctr.reqUrl.href.endsWith('.css'))
+                            ctr.setHeader('Content-Type', 'text/css');
+                    }
+                }
+            }).then((res) => {
+                console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [STA] $$$$$ STARTED DASHBOARD ON PORT ${res.port}`);
+            });
         }
-    }).then((res) => {
-        console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [STA] $$$$$ STARTED DASHBOARD ON PORT ${res.port}`);
-    });
-}
-const api = new rjweb_server_1.default.routeList();
-api.load('./apis');
-if (_config_1.default.web.api) {
-    rjweb_server_1.default.start({
-        bind: '0.0.0.0',
-        cors: true,
-        urls: api,
-        pages: {
-            async notFound(ctr) {
-                return ctr.print({
-                    "success": false,
-                    "message": 'NOT FOUND'
-                });
-            }, async reqError(ctr) {
-                console.log(ctr.error.stack);
-                ctr.status(500);
-                return ctr.print({
-                    "success": false,
-                    "message": 'SERVER ERROR'
-                });
-            }
-        }, port: _config_1.default.web.ports.api,
-        events: {
-            async request(ctr) {
-                ctr.api = (await import('./functions/api.js')).default;
-                ctr.bot = (await import('./functions/bot.js')).default;
-                ctr.config = _config_1.default;
-                ctr.client = client;
-                ctr.db = db;
-            }
+        const api = new rjweb_server_1.default.routeList();
+        api.load('./apis');
+        if (_config_1.default.web.api) {
+            await rjweb_server_1.default.start({
+                bind: '0.0.0.0',
+                cors: true,
+                urls: api,
+                pages: {
+                    async notFound(ctr) {
+                        return ctr.print({
+                            "success": false,
+                            "message": 'NOT FOUND'
+                        });
+                    }, async reqError(ctr) {
+                        console.log(ctr.error.stack);
+                        ctr.status(500);
+                        return ctr.print({
+                            "success": false,
+                            "message": 'SERVER ERROR'
+                        });
+                    }
+                }, port: _config_1.default.web.ports.api,
+                events: {
+                    async request(ctr) {
+                        ctr.api = (await import('./functions/api.js')).default;
+                        ctr.bot = (await import('./functions/bot.js')).default;
+                        ctr.config = _config_1.default;
+                        ctr.client = client;
+                        ctr.db = db;
+                    }
+                }
+            }).then((res) => {
+                console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [STA] $$$$$ STARTED API ON PORT ${res.port}`);
+            });
         }
-    }).then((res) => {
-        console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [STA] $$$$$ STARTED API ON PORT ${res.port}`);
-    });
+        console.log(' ');
+        console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [STA] $$$$$ LOADING 0xBOT ${_config_1.default.version}`);
+        console.log(' ');
+        console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [STA] $$$$$ LOADING COMMANDS AND EVENTS`);
+        console.log(' ');
+        (0, bot_js_1.start)();
+    })();
 }
-const manager = new discord_js_1.ShardingManager('./bot.js', { token: _config_1.default.client.token, shards: 'auto', totalShards: 1 });
-manager.spawn().catch(async () => {
-    await (0, promises_1.setTimeout)(8500);
-    manager.spawn();
-});
 //# sourceMappingURL=index.js.map
