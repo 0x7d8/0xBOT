@@ -19,7 +19,7 @@ export default {
             let oldLevel = 0, oldLevelXP = oldXP
             while (oldLevelXP >= 500) {
                 oldLevel++; oldLevelXP -= 500
-            }; oldLevelXP = Math.floor(oldLevelXP / 2)
+            }
 
             // Level Stats
             await bot.stat.add('u-' + message.author.id + '-TOTAL-A', 'msg', 1)
@@ -34,7 +34,7 @@ export default {
             let newLevel = 0, newLevelXP = newXP
             while (newLevelXP >= 500) {
                 newLevel++; newLevelXP -= 500
-            }; newLevelXP = Math.floor(newLevelXP / 2)
+            }
 
             // Send LevelUp Message if needed
             if (oldLevel < newLevel) {
@@ -44,7 +44,7 @@ export default {
                 if (parseInt(glang) === 1) guildlang = 'de'
 
                 // Create Button
-                const button = new ActionRowBuilder()
+                const row = new ActionRowBuilder()
 			        .addComponents(
 			        	new ButtonBuilder()
 			        		.setEmoji('1030476921777180672')
@@ -57,7 +57,7 @@ export default {
                 if (guildlang === 'de') content = `» Gutes schreiben <@${message.author.id}>! Du bist nun Level **${newLevel}**.\nZum anschauen deines Levels mach </level:1030147810194100245>`
 
                 // Send Message
-                return message.channel.send({ content: content, components: [button as any] })
+                return message.channel.send({ content: content, components: [row as any] })
             }
         }
 	}

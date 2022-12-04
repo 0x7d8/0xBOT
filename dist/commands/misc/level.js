@@ -83,8 +83,6 @@ exports.default = {
             level++;
             levelXP -= 500;
         }
-        ;
-        levelXP = Math.floor(levelXP / 2);
         let totalxp = 'TOTAL XP';
         if (lang === 'de')
             totalxp = 'ALLE XP';

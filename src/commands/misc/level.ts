@@ -72,7 +72,7 @@ export default {
         let level = 0, levelXP = XP
         while (levelXP >= 500) {
             level++; levelXP -= 500
-        }; levelXP = Math.floor(levelXP / 2)
+        }
 
         // Generate Language Text
         let totalxp = 'TOTAL XP'
