@@ -36,14 +36,15 @@ export default {
             let formattedcount = count.toString()
 
             const cache = element.name.split('-')
+            // Calculate Level
             const XP = Math.round(element.value / 5)
             let level = 0, levelXP = XP
             while (levelXP >= 500) {
                 level++; levelXP -= 500
-            }; levelXP = Math.floor(levelXP / 2)
+            }
 
             if (count < 10) formattedcount = '0' + count
-            if (cache[1] !== interaction.user.id) embedDesc += `\`${formattedcount}.\` » <@${cache[1]}> (**LVL ${level}**)\n`
+            if (cache[1] !== interaction.user.id) embedDesc += `\`${formattedcount}.\` » <@${cache[1]}> (**LVL ${level}, ${XP} XP**)\n`
             else embedDesc += `**\`${formattedcount}.\`** » <@${cache[1]}> (**LVL ${level}**)\n`
         }; if (embedDesc === '') { embedDesc = 'Nothing to Display.'; if (lang === 'de') { embedDesc = 'Nichts zum Anzeigen.' } }
         

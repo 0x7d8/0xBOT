@@ -61,12 +61,10 @@ exports.default = {
                 level++;
                 levelXP -= 500;
             }
-            ;
-            levelXP = Math.floor(levelXP / 2);
             if (count < 10)
                 formattedcount = '0' + count;
             if (cache[1] !== interaction.user.id)
-                embedDesc += `\`${formattedcount}.\` » <@${cache[1]}> (**LVL ${level}**)\n`;
+                embedDesc += `\`${formattedcount}.\` » <@${cache[1]}> (**LVL ${level}, ${XP} XP**)\n`;
             else
                 embedDesc += `**\`${formattedcount}.\`** » <@${cache[1]}> (**LVL ${level}**)\n`;
         }
