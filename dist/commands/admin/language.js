@@ -43,22 +43,16 @@ exports.default = {
         de: 'DIE SPRACHE'
     })
         .setRequired(true)
-        .addChoices(
-    // Setup Choices
-    { name: '🇩🇪 DEUTSCH', value: 'de' }, { name: '🇬🇧 ENGLISH', value: 'en' }))
+        .addChoices({ name: '🇩🇪 DEUTSCH', value: 'de' }, { name: '🇬🇧 ENGLISH', value: 'en' }))
         .setDefaultMemberPermissions(v10_1.PermissionFlagsBits.ManageMessages),
     async execute(interaction, client, bin, vote) {
-        // Set Variables
         const lang = bot.getOption(interaction, 'language');
-        // Get String
         let langString;
         if (lang === 'de')
             langString = 'DEUTSCH';
         if (lang === 'en')
             langString = 'ENGLISH';
-        // Set Language
         bot.language.set(interaction.guild.id, lang);
-        // Create Embed
         let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
             .setTitle('» LANGUAGE')
             .setDescription('» Language successfully set to **' + langString + '**!')
@@ -69,7 +63,6 @@ exports.default = {
                 .setDescription('» Sprache erfolgreich auf **' + langString + '** gesetzt!')
                 .setFooter({ text: '» ' + client.config.version });
         }
-        // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] LANGUAGE : ' + langString);
         return interaction.reply({ embeds: [message], ephemeral: true });
     }

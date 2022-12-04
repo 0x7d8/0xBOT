@@ -43,13 +43,9 @@ exports.default = {
         de: 'DAS GESCHÄFT'
     })
         .setRequired(true)
-        .addChoices(
-    // Setup Choices
-    { name: '🟢 [150000€] SUPERMARKT', value: 'market' }, { name: '🔵 [390000€] PARKHAUS (WIP)', value: 'parking garage' }, { name: '🟡 [520000€] AUTOHAUS', value: 'car dealership' })),
+        .addChoices({ name: '🟢 [150000€] SUPERMARKT', value: 'market' }, { name: '🔵 [390000€] PARKHAUS (WIP)', value: 'parking garage' }, { name: '🟡 [520000€] AUTOHAUS', value: 'car dealership' })),
     async execute(interaction, client, lang, vote) {
-        // Check if Businesses are Enabled in Server
         if (!await bot.settings.get(interaction.guild.id, 'businesses')) {
-            // Create Embed
             let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» Businesses are disabled on this Server!')
@@ -60,16 +56,12 @@ exports.default = {
                     .setDescription('» Geschäfte sind auf diesem Server deaktiviert!')
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
-            // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] BUSINESS : DISABLED');
             return interaction.reply({ embeds: [message], ephemeral: true });
         }
-        // Set Variables
         const business = bot.getOption(interaction, 'business');
         const balance = await bot.money.get(interaction.user.id);
-        // Check if User Selected Parking Garage
         if (business === 'parking garage') {
-            // Create Embed
             let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» This Business will be included in **2.5.0**!')
@@ -80,11 +72,9 @@ exports.default = {
                     .setDescription('» Dieses Geschäft wird in **2.5.0** hinzugefügt!')
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
-            // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] BUSINESSBUY : WIP');
             return interaction.reply({ embeds: [message], ephemeral: true });
         }
-        // Translate to Business ID
         let businessid;
         if (business === 'market')
             businessid = '1';
@@ -92,7 +82,6 @@ exports.default = {
             businessid = '2';
         if (business === 'car dealership')
             businessid = '3';
-        // Check if Business is Empty
         let businessowner, oldleft;
         if (await bot.businesses.get('g-' + interaction.guild.id + '-' + businessid + '-OWNER') !== 0) {
             oldleft = false;
@@ -101,7 +90,6 @@ exports.default = {
             if (typeof fetchc === 'undefined')
                 oldleft = true;
             if (!oldleft) {
-                // Create Embed
                 let message;
                 if (interaction.user.id !== businessowner) {
                     message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
@@ -127,15 +115,12 @@ exports.default = {
                             .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
                     }
                 }
-                // Send Message
                 bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] BUSINESSBUY : ALREADYOWNED');
                 return interaction.reply({ embeds: [message], ephemeral: true });
             }
         }
-        // Check if User already has Business
         if (await bot.businesses.get('u-' + interaction.user.id + '-BUSINESS') !== 0) {
             const userbusiness = await bot.businesses.get('u-' + interaction.user.id + '-BUSINESS');
-            // Translate to Business Names
             let name;
             if (userbusiness === 'market')
                 name = 'MARKET';
@@ -151,7 +136,6 @@ exports.default = {
                 if (userbusiness === 'car dealership')
                     name = 'AUTOHAUS';
             }
-            // Create Embed
             let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» You already own a **' + name + '**!')
@@ -162,11 +146,9 @@ exports.default = {
                     .setDescription('» Du besitzt schon ein **' + name + '**!')
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
-            // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] BUSINESSBUY : ALREADYBUSINESS');
             return interaction.reply({ embeds: [message], ephemeral: true });
         }
-        // Calculate Cost
         let cost;
         if (business === 'market')
             cost = 150000;
@@ -174,7 +156,6 @@ exports.default = {
             cost = 390000;
         if (business === 'car dealership')
             cost = 520000;
-        // Translate to Business Names
         let name;
         if (business === 'market') {
             name = 'MARKET';
@@ -196,10 +177,8 @@ exports.default = {
                 name = 'AUTOHAUS';
             }
         }
-        // Check if User has enough Money
         if (balance < cost) {
             const missing = cost - balance;
-            // Create Embed
             let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» You dont have enough Money for that, you are missing **$' + missing + '**!')
@@ -210,11 +189,9 @@ exports.default = {
                     .setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
-            // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] BUSINESSBUY : ' + name.toUpperCase() + ' : NOTENOUGHMONEY : ' + cost + '€');
             return interaction.reply({ embeds: [message], ephemeral: true });
         }
-        // Create Buttons
         let row = new discord_js_1.ActionRowBuilder()
             .addComponents(new discord_js_1.ButtonBuilder()
             .setLabel('YES')
@@ -241,10 +218,8 @@ exports.default = {
                 .setStyle(discord_js_1.ButtonStyle.Danger)
                 .setDisabled(false));
         }
-        // Delete Old Data as Left User is Confirmed
         bot.businesses.del('g-' + interaction.guild.id + '-' + businessid + '-OWNER');
         bot.businesses.del('u-' + businessowner + '-' + interaction.guild.id + '-BUSINESS');
-        // Create Embed
         let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
             .setTitle('<:BOXCHECK:1024401101589590156> » BUY BUSINESS')
             .setDescription('» Do you want to buy a **' + name + '** for **$' + cost + '**?')
@@ -255,7 +230,6 @@ exports.default = {
                 .setDescription('» Willst du ein **' + name + '** für **' + cost + '€** kaufen?')
                 .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
         }
-        // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] BUSINESSBUY : ' + name.toUpperCase() + ' : ' + cost + '€');
         return interaction.reply({ embeds: [message], components: [row] });
     }

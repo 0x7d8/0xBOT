@@ -52,14 +52,10 @@ exports.default = {
         de: 'DER GEGENSTAND'
     })
         .setRequired(true)
-        .addChoices(
-    // Setup Choices
-    { name: '💣 NORMALE BOMBE', value: 'nbomb-bomb' }, { name: '💣 MEDIUM BOMBE', value: 'mbomb-bomb' }, { name: '💣 HYPER BOMBE', value: 'hbomb-bomb' }, { name: '💣 CRAZY BOMBE', value: 'cbomb-bomb' })),
+        .addChoices({ name: '💣 NORMALE BOMBE', value: 'nbomb-bomb' }, { name: '💣 MEDIUM BOMBE', value: 'mbomb-bomb' }, { name: '💣 HYPER BOMBE', value: 'hbomb-bomb' }, { name: '💣 CRAZY BOMBE', value: 'cbomb-bomb' })),
     async execute(interaction, client, lang, vote) {
         const mathjs = await import('mathjs');
-        // Check if Items are Enabled in Server
         if (!await bot.settings.get(interaction.guild.id, 'items')) {
-            // Create Embed
             let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» Items are disabled on this Server!')
@@ -70,16 +66,13 @@ exports.default = {
                     .setDescription('» Items sind auf diesem Server deaktiviert!')
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
-            // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ITEM : DISABLED');
             return interaction.reply({ embeds: [message], ephemeral: true });
         }
-        // Set Variables
         const user = interaction.options.getUser("user");
         const itemstr = bot.getOption(interaction, 'item');
         const cache = itemstr.split('-');
         const [itemid, itemcat] = cache;
-        // Translate to Item Names
         let name;
         if (itemid === 'nbomb')
             name = '<:NBOMB:1021783222520127508> NORMAL BOMB';
@@ -99,9 +92,7 @@ exports.default = {
             if (itemid === 'cbomb')
                 name = '<:CBOMB:1021783405161091162> CRAZY BOMBE';
         }
-        // Check if Target is Bot
         if (user.bot) {
-            // Create Embed
             let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» You cant use Items on Bots!')
@@ -112,13 +103,10 @@ exports.default = {
                     .setDescription('» Du kannst keine Gegenstände auf einem Bot nutzen!')
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
-            // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ITEMUSE : ' + user.id + ' : BOT : ' + itemid.toUpperCase());
             return interaction.reply({ embeds: [message], ephemeral: true });
         }
-        // Check if User has enough of the Item
         if (await bot.items.get(interaction.user.id + '-' + itemid.toUpperCase() + 'S-' + interaction.guild.id, 'amount') < 1) {
-            // Create Embed
             let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» You dont have enough of that Item!')
@@ -129,13 +117,10 @@ exports.default = {
                     .setDescription('» Du hast nicht genug von dem Gegenstand!')
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
-            // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ITEMUSE : ' + user.id + ' : NOTENOUGHITEMS : ' + itemid.toUpperCase());
             return interaction.reply({ embeds: [message], ephemeral: true });
         }
-        // Check if User is Author
         if (interaction.user.id === user.id && itemcat === 'bomb') {
-            // Create Embed
             let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» You cant use Bombs on yourself?')
@@ -146,13 +131,10 @@ exports.default = {
                     .setDescription('» Du kannst Bomben nicht auf dir selber nutzen?')
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
-            // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ITEMUSE : ' + user.id + ' : ' + itemid.toUpperCase());
             return interaction.reply({ embeds: [message], ephemeral: true });
         }
-        // Check if Reciever is already being Bombed
         if (bot.bomb.has('TIMEOUT-' + user.id + '-' + interaction.guild.id)) {
-            // Create Embed
             let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» <@' + user.id + '> is already being bombed!')
@@ -163,17 +145,13 @@ exports.default = {
                     .setDescription('» <@' + user.id + '> wird schon bombadiert!')
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
-            // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ITEMUSE : ' + user.id + ' : ' + itemid.toUpperCase());
             return interaction.reply({ embeds: [message], ephemeral: true });
         }
-        // Fetch Channel for Later
         const channel = interaction.channel;
         const messages = channel.messages.fetch();
         bot.bomb.set('MESSAGES-' + user.id + '-' + interaction.guild.id, messages);
-        // Init Timeout Function
         bot.bomb.set('TIMEOUT-' + user.id + '-' + interaction.guild.id, true);
-        // Generate Math Questions
         let math;
         if (itemid === 'nbomb')
             math = bot.random(80, 1000) + ' + ' + bot.random(10, 20) + ' - ' + bot.random(150, 200);
@@ -183,16 +161,13 @@ exports.default = {
             math = bot.random(10, 20) + ' * ' + bot.random(10, 40) + ' * ' + bot.random(60, 100);
         if (itemid === 'cbomb')
             math = bot.random(10, 40) + ' * (' + bot.random(100, 4000) + ' + ' + bot.random(600, 2000) + ')';
-        // Solve the Math Question
         const mathres = await mathjs.evaluate(math);
-        // Generate Button Labels
         let b1 = (mathres - bot.random(10, 50));
         let b2 = (mathres + bot.random(10, 50) + bot.random(10, 50));
         let b3 = (mathres + bot.random(50, 100) + 50);
         let b4 = (mathres - bot.random(100, 150) + bot.random(5, 25));
         const sb = bot.random(1, 4);
         await eval('b' + sb + ' = ' + mathres);
-        // Create Buttons
         const row = new discord_js_1.ActionRowBuilder()
             .addComponents(new discord_js_1.ButtonBuilder()
             .setLabel(b1.toString())
@@ -207,7 +182,6 @@ exports.default = {
             .setLabel(b4.toString())
             .setCustomId('BOMB-' + mathres + '-' + b4 + '-' + sb + '-4-' + itemid + '-' + user.id)
             .setStyle(discord_js_1.ButtonStyle.Secondary));
-        // Create Embed
         let message;
         if (itemcat === 'bomb') {
             message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
@@ -221,19 +195,15 @@ exports.default = {
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
         }
-        // Remove Item
         bot.items.rem(interaction.user.id + '-' + itemid.toUpperCase() + 'S-' + interaction.guild.id, 1);
-        // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ITEMUSE : ' + user.id + ' : ' + itemid.toUpperCase());
         if (itemcat === 'bomb') {
             let msg = await interaction.reply({ content: '<@' + user.id + '>', embeds: [message], components: [row], fetchReply: true });
             const expiration = async () => {
-                // Check if Message wasnt already answered
                 if (!bot.bomb.has('TIMEOUT-' + user.id + '-' + interaction.guild.id))
                     return;
                 bot.bomb.delete('TIMEOUT-' + user.id + '-' + interaction.guild.id);
                 bot.bomb.delete('MESSAGES-' + user.id + '-' + interaction.guild.id);
-                // Edit Buttons
                 {
                     msg.components[0].components[0].data.disabled = true;
                     msg.components[0].components[1].data.disabled = true;
@@ -242,7 +212,6 @@ exports.default = {
                 }
                 ;
                 msg.components[0].components[Number(sb) - 1].data.style = discord_js_1.ButtonStyle.Success;
-                // Punish User
                 if (itemid === 'nbomb') {
                     const member = await interaction.guild.members.fetch(user.id);
                     member.timeout(15 * 1000, 'BOMB TIMEOUT FROM ' + interaction.user.id).catch(() => { });
@@ -271,7 +240,6 @@ exports.default = {
                     }
                     await channel.bulkDelete(filtered, true);
                 }
-                // Create Embed
                 message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:BOXOPEN:1024395281460101213> » USE ITEM')
                     .setDescription('» <@' + user.id + '> has failed to diffuse the Bomb! OHNO')

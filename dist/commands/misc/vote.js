@@ -35,7 +35,6 @@ exports.default = {
         de: 'VOTE FÜR DEN BOT'
     }),
     async execute(interaction, client, lang, vote) {
-        // Create Button
         let row = new discord_js_1.ActionRowBuilder()
             .addComponents(new discord_js_1.ButtonBuilder()
             .setLabel('VOTE')
@@ -48,7 +47,6 @@ exports.default = {
                 .setURL('https://top.gg/bot/1001944224545128588/vote')
                 .setStyle(discord_js_1.ButtonStyle.Link));
         }
-        // Create Embed
         let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
             .setTitle('<:GLOBE:1024403680503529583> » VOTE')
             .setDescription('» Click below to go to Vote for the Bot!')
@@ -59,7 +57,6 @@ exports.default = {
                 .setDescription('» Klicke unten um für den Bot zu voten!')
                 .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
         }
-        // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] VOTE');
         await interaction.reply({ embeds: [message], components: [row], ephemeral: true });
     }

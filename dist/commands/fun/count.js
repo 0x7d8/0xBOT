@@ -43,13 +43,9 @@ exports.default = {
         de: 'DER MODUS'
     })
         .setRequired(true)
-        .addChoices(
-    // Setup Choices
-    { name: '🟢 PLUS', value: 'plus' }, { name: '🟡 PLUS & MINUS', value: 'minus' })),
+        .addChoices({ name: '🟢 PLUS', value: 'plus' }, { name: '🟡 PLUS & MINUS', value: 'minus' })),
     async execute(interaction, client, lang, vote) {
-        // Set Variables
         const mode = bot.getOption(interaction, 'mode');
-        // Create Button
         let row;
         if (mode === 'plus') {
             row = new discord_js_1.ActionRowBuilder()
@@ -69,7 +65,6 @@ exports.default = {
                 .setStyle(discord_js_1.ButtonStyle.Secondary)
                 .setDisabled(true));
         }
-        // Create Embed
         let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
             .setTitle('<:INFINITE:1024406060380979300> » COUNTING')
             .setDescription('» Lets Count! Current Number: **0**')
@@ -80,7 +75,6 @@ exports.default = {
                 .setDescription('» Komm Zählen! Aktuelle Nummer: **0**')
                 .setFooter({ text: '» ' + client.config.version });
         }
-        // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] COUNT : ' + mode.toUpperCase());
         return interaction.reply({ embeds: [message], components: [row] });
     }

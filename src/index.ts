@@ -167,9 +167,10 @@ if (config.web.api) {
         }, port: config.web.ports.api,
         events: {
             async request(ctr: WebserverInterface) {
+                ctr.api = (await import('./functions/api.js')).default
+                ctr.bot = (await import('./functions/bot.js')).default
                 ctr.config = config
                 ctr.client = client
-                ctr.bot = bot
                 ctr.db = db
             }
         }

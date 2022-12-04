@@ -44,13 +44,10 @@ exports.default = {
         .setRequired(true)),
     async execute(interaction, client, lang, vote) {
         const axios = (await import('axios')).default;
-        // Set Variables
         const address = bot.getOption(interaction, 'address');
         const req = await axios.get(`https://api.mcsrvstat.us/2/${encodeURIComponent(address)}`);
         const info = req.data;
-        // Check if Server exists
         if (info.ip === '127.0.0.1') {
-            // Create Embed
             let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:CUBE:1024404832452350032> » MINECRAFT SERVER INFO')
                 .setDescription(`» The Server **${address}** was not found!`)
@@ -61,11 +58,9 @@ exports.default = {
                     .setDescription(`» Der Server **${address}** wurde nicht gefunden!`)
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
-            // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] MCSRVINFO : ' + address.toUpperCase() + ' : NOTEXIST');
             return interaction.reply({ embeds: [message], ephemeral: true });
         }
-        // Get Infos
         let icon = 'https://img.rjansen.de/bot/missing.png';
         if ('icon' in info)
             icon = `https://api.mcsrvstat.us/icon/${encodeURIComponent(address)}`;
@@ -77,7 +72,6 @@ exports.default = {
         let players = { online: '?', slots: '?' };
         if ('players' in info)
             players = { online: info.players.online.toString(), slots: info.players.max.toString() };
-        // Create Embed
         let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
             .setTitle('<:CUBE:1024404832452350032> » MINECRAFT SERVER INFO')
             .setThumbnail(icon)
@@ -104,7 +98,6 @@ exports.default = {
                     \`${players.online}/${players.slots}\`
                 `).setFooter({ text: '» ' + vote + ' » ' + client.config.version });
         }
-        // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] MCSRVINFO : ' + address.toUpperCase());
         return interaction.reply({ embeds: [message] });
     }

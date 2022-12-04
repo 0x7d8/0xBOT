@@ -32,16 +32,12 @@ exports.default = {
         name: 'memory-yes'
     },
     async execute(interaction, client, lang, vote, bet) {
-        // Get Users
         const cache = interaction.message.embeds;
         const description = cache[0].description.toString().replace(/[^\d@!]/g, '').split('!')[0].substring(1).split("@");
         const [sender, reciever] = description;
-        // Set Variables
         const balance = await bot.money.get(reciever);
         const otherbalance = await bot.money.get(sender);
-        // Check if User is Authorized
         if (interaction.user.id !== reciever) {
-            // Create Embed
             let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» <@' + reciever + '> has to decide this!')
@@ -52,13 +48,10 @@ exports.default = {
                     .setDescription('» <@' + reciever + '> muss das entscheiden!')
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
-            // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] MEMORY : YES : NOTALLOWED');
             return interaction.reply({ embeds: [message], ephemeral: true });
         }
-        // Check if Person is already in a Lobby
         if (bot.game.has('PLAYING-' + reciever)) {
-            // Create Embed
             let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» You are already in a Lobby!')
@@ -69,13 +62,10 @@ exports.default = {
                     .setDescription('» Du bist schon in einer Lobby!')
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
-            // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] MEMORY : ' + reciever + ' : ALREADYLOBBY');
             return interaction.reply({ embeds: [message], ephemeral: true });
         }
-        // Check if Other Person is already in a Lobby
         if (bot.game.has('PLAYING-' + sender)) {
-            // Create Embed
             let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» <@' + sender + '> is already in a Lobby!')
@@ -86,14 +76,11 @@ exports.default = {
                     .setDescription('» <@' + sender + '> ist schon in einer Lobby!')
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
-            // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] MEMORY : ' + sender + ' : ALREADYLOBBY');
             return interaction.reply({ embeds: [message], ephemeral: true });
         }
-        // Check for enough Money
         if (balance < bet) {
             const missing = bet - balance;
-            // Create Embed
             let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» You dont have enough Money for that, you are missing **$' + missing + '**!')
@@ -104,13 +91,11 @@ exports.default = {
                     .setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
-            // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] MEMORY : ' + reciever + ' : ' + bet + '€ : NOTENOUGHMONEY');
             return interaction.reply({ embeds: [message], ephemeral: true });
         }
         if (otherbalance < bet) {
             const missing = bet - otherbalance;
-            // Create Embed
             let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» <@' + sender + '> doesnt have enough Money, he is Missing **$' + missing + '**!')
@@ -121,15 +106,11 @@ exports.default = {
                     .setDescription('» <@' + sender + '> hat nicht genug Geld, im fehlen **' + missing + '€**!')
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
-            // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] MEMORY : ' + reciever + ' : ' + bet + '€ : NOTENOUGHMONEY');
             return interaction.reply({ embeds: [message], ephemeral: true });
         }
-        // Defer Reply
         await interaction.deferUpdate();
-        // Answer Timeout Function
         bot.memory.delete('TIMEOUT-' + sender + '-' + interaction.message.id);
-        // Create Buttons
         let row1 = new discord_js_1.ActionRowBuilder()
             .addComponents(new discord_js_1.ButtonBuilder()
             .setEmoji('1020411843644243998')
@@ -198,7 +179,6 @@ exports.default = {
             .setEmoji('1020411843644243998')
             .setCustomId('MEMORY-20-' + bet)
             .setStyle(discord_js_1.ButtonStyle.Secondary));
-        // Set Variables
         bot.game.set('PLAYING-' + sender, 'MEMORY');
         bot.game.set('PLAYING-' + reciever, 'MEMORY');
         bot.memory.set('A_PLAYERSELECT-' + sender, 0);
@@ -211,7 +191,6 @@ exports.default = {
         bot.memory.set('B_PLAYERSELECT-' + sender, []);
         bot.memory.set('C_PLAYERSELECT-' + reciever, []);
         bot.memory.set('C_PLAYERSELECT-' + sender, []);
-        // Generate Emoji Grid
         const emojis = [];
         const emojis2 = [];
         const emojilistraw = [
@@ -253,7 +232,7 @@ exports.default = {
             "1019254562214903869",
             "1023932900749627483",
             "1023933347078094891",
-            "790990037982248971", // :PEPEOK:
+            "790990037982248971",
         ];
         const copied = [...emojilistraw];
         const emojilist = [];
@@ -294,10 +273,8 @@ exports.default = {
             }
         };
         await rdo();
-        // Transfer Money
         bot.money.rem(interaction.guild.id, sender, bet);
         bot.money.rem(interaction.guild.id, reciever, bet);
-        // Create Embed
         let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
             .setTitle('<:GAMEPAD:1024395990679167066> » MEMORY')
             .setDescription('» <@' + sender + '> is playing Memory with <@' + reciever + '>!\nThe Bet is **$' + bet + '**\n\n🔵 » Points of <@' + sender + '> are **0**\n🔴 » Points of <@' + reciever + '> are **0**')
@@ -308,14 +285,12 @@ exports.default = {
                 .setDescription('» <@' + sender + '> spielt mit <@' + reciever + '> Memory!\nDie Wette ist **' + bet + '€**\n\n🔵 » Punkte von <@' + sender + '> sind **0**\n🔴 » Punkte von <@' + reciever + '> sind **0**')
                 .setFooter({ text: '» ' + client.config.version + ' » AM ZUG: 🔵' });
         }
-        // Set Default Button Values
         bot.memory.set('TURN-' + sender, sender);
         for (let i = 0; i < 20; i++) {
             bot.memory.set('STYLE-' + (i + 1) + '-' + sender, discord_js_1.ButtonStyle.Secondary);
             bot.memory.set('DISABLED-' + (i + 1) + '-' + sender, false);
             bot.memory.set('D_EMOJI-' + (i + 1) + '-' + sender, { id: '1020411843644243998', name: 'MEMORY' });
         }
-        // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] MEMORY : ' + sender + ' : ACCEPT');
         return interaction.editReply({ content: '', embeds: [message], components: [row1, row2, row3, row4] });
     }

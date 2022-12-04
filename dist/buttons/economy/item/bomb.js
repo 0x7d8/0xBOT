@@ -30,9 +30,7 @@ exports.default = {
         name: 'item-bomb'
     },
     async execute(interaction, client, lang, vote, solution, choice, solbutton, button, itemid, reciever) {
-        // Check if User is Authorized
         if (interaction.user.id !== reciever) {
-            // Create Embed
             let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» This choice is up to <@' + reciever + '>!')
@@ -43,13 +41,10 @@ exports.default = {
                     .setDescription('» Diese Frage ist für <@' + reciever + '>!')
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
-            // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] ITEMUSE : NOTSENDER');
             return interaction.reply({ embeds: [message], ephemeral: true });
         }
-        // Answer Timeout Function
         bot.bomb.delete('TIMEOUT-' + reciever + '-' + interaction.guild.id);
-        // Edit Buttons
         {
             interaction.message.components[0].components[0].data.disabled = true;
             interaction.message.components[0].components[1].data.disabled = true;
@@ -58,7 +53,6 @@ exports.default = {
             interaction.message.components[0].components[Number(button) - 1].data.style = discord_js_1.ButtonStyle.Danger;
             interaction.message.components[0].components[Number(solbutton) - 1].data.style = discord_js_1.ButtonStyle.Success;
         }
-        // Create Embed
         let message;
         if (solution == choice) {
             message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
@@ -84,7 +78,6 @@ exports.default = {
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
         }
-        // Punish User if Lost
         const messages = bot.bomb.get('MESSAGES-' + reciever + '-' + interaction.guild.id);
         bot.bomb.delete('MESSAGES-' + reciever + '-' + interaction.guild.id);
         if (solution !== choice) {
@@ -114,7 +107,6 @@ exports.default = {
                 await interaction.channel.bulkDelete(filtered, true);
             }
         }
-        // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] ITEMUSE : BOMB : ' + choice + ' : ' + solution);
         return interaction.update({ content: '', embeds: [message], components: interaction.message.components });
     }

@@ -43,16 +43,13 @@ exports.default = {
     })
         .setRequired(false)),
     async execute(interaction, client, lang, vote) {
-        // Set Variables
         let amount = bot.getOption(interaction, 'amount');
         let heads = 0;
         let tails = 0;
         let tries = 0;
         if (!amount)
             amount = 1;
-        // Check if Number is negative
         if (amount < 1) {
-            // Create Embed
             let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» You need to throw atleast **1** Coin!')
@@ -63,13 +60,10 @@ exports.default = {
                     .setDescription('» Du musst schon mindestens **1** Münze werfen!')
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
-            // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] COINFLIP : NOTENOUGHCOINS : ' + amount);
             return interaction.reply({ embeds: [message], ephemeral: true });
         }
-        // Check if Number is too Big
         if (amount > 1000) {
-            // Create Embed
             let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» You cant throw more than **1000** Coins!')
@@ -80,11 +74,9 @@ exports.default = {
                     .setDescription('» Du darfst nicht mehr als **1000** Münzen werfen!')
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
-            // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] COINFLIP : TOOMANYCOINS : ' + amount);
             return interaction.reply({ embeds: [message], ephemeral: true });
         }
-        // Loop
         let coin;
         while (amount !== tries) {
             const random = bot.random(1, 2);
@@ -98,7 +90,6 @@ exports.default = {
             }
             tries = tries + 1;
         }
-        // Create Embed
         let message;
         if (amount === 1) {
             message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
@@ -128,7 +119,6 @@ exports.default = {
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
         }
-        // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] COINFLIP : H[' + heads + '] : T[' + tails + ']');
         return interaction.reply({ embeds: [message] });
     }

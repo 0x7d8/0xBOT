@@ -4,7 +4,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.del = exports.set = exports.get = void 0;
-// Connect to Database
 const _config_1 = __importDefault(require("@config"));
 const pg_1 = __importDefault(require("pg"));
 const db = new pg_1.default.Pool({
@@ -15,7 +14,6 @@ const db = new pg_1.default.Pool({
     port: 5432,
     ssl: true
 });
-// Get Function
 const get = async (messageId, userId) => {
     const data = await db.query(`select * from userpolls where messageid = $1 and userid = $2;`, [messageId, userId]);
     if (data.rowCount !== 1)
@@ -23,7 +21,6 @@ const get = async (messageId, userId) => {
     return data.rows[0].vote;
 };
 exports.get = get;
-// Set Function
 const set = async (messageId, userId, value) => {
     const data = await db.query(`select * from userpolls where messageid = $1 and userid = $2;`, [messageId, userId]);
     if (data.rowCount !== 1) {
@@ -42,7 +39,6 @@ const set = async (messageId, userId, value) => {
     }
 };
 exports.set = set;
-// Del Function
 const del = async (messageId, userId) => {
     await db.query(`delete from userpolls where messageid = $1 and userid = $2;`, [messageId, userId]);
 };

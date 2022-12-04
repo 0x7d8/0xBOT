@@ -8,13 +8,10 @@ module.exports = {
     type: rjweb_server_1.default.types.get,
     path: '/options/email',
     async code(ctr) {
-        // Check for Queries
         if (!ctr.query.has('email'))
             return ctr.print({ "success": false, "message": 'NO EMAIL' });
-        // Check Permissions
         if (!await ctr.api.checkEmail(ctr.header.get('accesstoken'), ctr.header.get('tokentype'), ctr.header.get('userid'), ctr.query.get('email')))
             return ctr.print({ "success": false, "message": 'PERMISSION DENIED' });
-        // Get Email
         const email = await ctr.db.query(`select * from useremails where userid = $1 and email = $2;`, [
             ctr.header.get('userid'),
             ctr.query.get('email')

@@ -53,9 +53,7 @@ exports.default = {
     })
         .setRequired(false)),
     async execute(interaction, client, lang, vote) {
-        // Check if Quotes are Enabled in Server
         if (!await bot.settings.get(interaction.guild.id, 'quotes')) {
-            // Create Embed
             let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» Quotes are disabled on this Server!')
@@ -66,19 +64,14 @@ exports.default = {
                     .setDescription('» Zitate sind auf diesem Server deaktiviert!')
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
-            // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] QUOTE : DISABLED');
             return interaction.reply({ embeds: [message], ephemeral: true });
         }
-        // Set Variables
         const quote = bot.getOption(interaction, 'quote');
         const author = interaction.options.getUser("author");
-        // Cooldown
         if (cooldown.get(interaction.user.id) - Date.now() > 0) {
-            // Translate Vars
             const timeLeft = cooldown.get(interaction.user.id) - Date.now();
             const cdown = timeLeft / 1000;
-            // Create Embed
             let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» You still have a Cooldown of **' + cdown.toFixed(0) + 's**!')
@@ -89,11 +82,9 @@ exports.default = {
                     .setDescription('» Du hast leider noch einen Cooldown von **' + cdown.toFixed(0) + 's**!')
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
-            // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] QUOTE : ONCOOLDOWN : ' + cdown.toFixed(0) + 's');
             return interaction.reply({ embeds: [message], ephemeral: true });
         }
-        // Check if there is a author specified
         let message;
         if (!author || interaction.user.id === author.id) {
             const amount = await bot.quotes.get(interaction.user.id) + 1;
@@ -124,10 +115,8 @@ exports.default = {
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] QUOTE : ' + quote.toUpperCase() + ' : ~' + author);
             bot.quotes.add(author.toString().replace(/\D/g, ''), 1);
         }
-        // Set Cooldown
         cooldown.set(interaction.user.id, Date.now() + 45000);
         setTimeout(() => cooldown.delete(interaction.user.id), 45000);
-        // Send Message
         return interaction.reply({ embeds: [message] });
     }
 };

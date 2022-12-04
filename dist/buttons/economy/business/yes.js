@@ -30,9 +30,7 @@ exports.default = {
         name: 'business-yes'
     },
     async execute(interaction, client, lang, vote, business, userid, type) {
-        // Set Variables
         const balance = await bot.money.get(interaction.user.id);
-        // Translate to Business ID
         let businessid;
         if (business === 'market')
             businessid = '1';
@@ -40,7 +38,6 @@ exports.default = {
             businessid = '2';
         if (business === 'car dealership')
             businessid = '3';
-        // Calculate Cost
         let cost;
         if (business === 'market')
             cost = 150000;
@@ -48,7 +45,6 @@ exports.default = {
             cost = 390000;
         if (business === 'car dealership')
             cost = 520000;
-        // Translate to Business Names
         let name;
         if (business === 'market')
             name = 'MARKET';
@@ -64,9 +60,7 @@ exports.default = {
             if (business === 'car dealership')
                 name = 'AUTOHAUS';
         }
-        // Check if User is Authorized
         if (interaction.user.id !== userid) {
-            // Create Embed
             let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» This choice is up to <@' + userid + '>!')
@@ -77,16 +71,12 @@ exports.default = {
                     .setDescription('» Diese Frage ist für <@' + userid + '>!')
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
-            // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] BUSINESSBUY : NOTSENDER');
             return interaction.reply({ embeds: [message], ephemeral: true });
         }
-        // Split Button with type
         if (type === 'buy') {
-            // Check if User has enough Money
             if (balance < cost) {
                 const missing = cost - balance;
-                // Create Embed
                 let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                     .setDescription('» You dont have enough Money for that, you are missing **$' + missing + '**!')
@@ -97,14 +87,11 @@ exports.default = {
                         .setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
                         .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
                 }
-                // Send Message
                 bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] BUSINESSBUY : ' + name.toUpperCase() + ' : NOTENOUGHMONEY : ' + cost + '€');
                 return interaction.reply({ embeds: [message], ephemeral: true });
             }
-            // Check if User already has Business
             if (await bot.businesses.get('u-' + interaction.user.id + '-' + interaction.guild.id + '-BUSINESS') !== 0) {
                 const userbusiness = await bot.businesses.get('u-' + interaction.user.id + '-' + interaction.guild.id + '-BUSINESS');
-                // Translate to Business Names
                 let name;
                 if (userbusiness === 'market')
                     name = 'MARKET';
@@ -120,7 +107,6 @@ exports.default = {
                     if (userbusiness === 'car dealership')
                         name = 'AUTOHAUS';
                 }
-                // Create Embed
                 let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                     .setDescription('» You already own a **' + name + '**!')
@@ -131,17 +117,14 @@ exports.default = {
                         .setDescription('» Du besitzt schon ein **' + name + '**!')
                         .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
                 }
-                // Send Message
                 bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] BUSINESSBUY : ALREADYBUSINESS');
                 return interaction.reply({ embeds: [message], ephemeral: true });
             }
-            // Edit Buttons
             {
                 interaction.message.components[0].components[0].data.disabled = true;
                 interaction.message.components[0].components[1].data.disabled = true;
                 interaction.message.components[0].components[1].data.style = 2;
             }
-            // Log Transaction
             const transaction = await bot.transactions.log({
                 success: true,
                 sender: {
@@ -154,9 +137,7 @@ exports.default = {
                     type: 'positive'
                 }
             });
-            // Remove Money
             bot.money.rem(interaction.guild.id, interaction.user.id, cost);
-            // Own Business
             bot.businesses.set('g-' + interaction.guild.id + '-' + businessid + '-OWNER', interaction.user.id);
             bot.businesses.set('u-' + interaction.user.id + '-' + interaction.guild.id + '-BUSINESS', business);
             if (business === 'market') {
@@ -172,7 +153,6 @@ exports.default = {
                 bot.businesses.set('g-' + interaction.guild.id + '-3-PRICE-TESLA', '250000');
                 bot.businesses.set('g-' + interaction.guild.id + '-3-PRICE-PORSCHE', '520000');
             }
-            // Create Embed
             let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:BOXCHECK:1024401101589590156> » BUY BUSINESS')
                 .setDescription('» You successfully bought a **' + name + '** for **$' + cost + '**!\n\nID: ' + transaction.id)
@@ -183,13 +163,11 @@ exports.default = {
                     .setDescription('» Du hast erfolgreich ein **' + name + '** für **' + cost + '€** gekauft!\n\nID: ' + transaction.id)
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
-            // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] BUSINESSBUY : ' + name + ' : CONFIRM');
             return interaction.update({ embeds: [message], components: interaction.message.components });
         }
         else if (type === 'sell') {
             const business = await bot.businesses.get('u-' + interaction.user.id + '-' + interaction.guild.id + '-BUSINESS');
-            // Translate to Business ID
             let businessid;
             if (business === 'market')
                 businessid = '1';
@@ -197,7 +175,6 @@ exports.default = {
                 businessid = '2';
             if (business === 'car dealership')
                 businessid = '3';
-            // Calculate Cost
             let cost;
             if (business === 'market')
                 cost = 150000;
@@ -205,9 +182,7 @@ exports.default = {
                 cost = 390000;
             if (business === 'car dealership')
                 cost = 520000;
-            // Check if User has a Business
             if (await bot.businesses.get('u-' + interaction.user.id + '-' + interaction.guild.id + '-BUSINESS', false) === 0) {
-                // Create Embed
                 let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                     .setDescription('» You dont own a Business!')
@@ -218,17 +193,14 @@ exports.default = {
                         .setDescription('» Du besitzt kein Geschäft!')
                         .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
                 }
-                // Send Message
                 bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] BUSINESSSELL : DONTOWNBUSINESS');
                 return interaction.reply({ embeds: [message], ephemeral: true });
             }
-            // Edit Buttons
             {
                 interaction.message.components[0].components[0].data.disabled = true;
                 interaction.message.components[0].components[1].data.disabled = true;
                 interaction.message.components[0].components[1].data.style = 2;
             }
-            // Create Embed
             let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:BOXCHECK:1024401101589590156> » SELL BUSINESS')
                 .setDescription('» You successfully sold your **' + name + '** for **$' + (cost / 2) + '**!')
@@ -239,9 +211,7 @@ exports.default = {
                     .setDescription('» Du hast erfolgreich dein **' + name + '** für **' + (cost / 2) + '€** verkauft!')
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
-            // Add Money
             bot.money.add(interaction.guild.id, interaction.user.id, (cost / 2));
-            // unOwn Business
             bot.businesses.del('u-' + interaction.user.id + '-' + interaction.guild.id + '-BUSINESS');
             bot.businesses.del('g-' + interaction.guild.id + '-' + businessid + '-OWNER');
             if (business === 'market') {
@@ -257,7 +227,6 @@ exports.default = {
                 bot.businesses.del('g-' + interaction.guild.id + '-3-PRICE-TESLA');
                 bot.businesses.del('g-' + interaction.guild.id + '-3-PRICE-PORSCHE');
             }
-            // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] BUSINESSSELL : ' + name + ' : CONFIRM');
             return interaction.update({ embeds: [message], components: interaction.message.components });
         }

@@ -26,7 +26,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-// Module Register
 const module_alias_1 = __importDefault(require("module-alias"));
 module_alias_1.default.addAlias('@interfaces', __dirname + '/interfaces');
 module_alias_1.default.addAlias('@functions', __dirname + '/functions');
@@ -47,7 +46,6 @@ const client = new discord_js_1.Client({
         discord_js_1.GatewayIntentBits.GuildVoiceStates
     ]
 });
-// Login Function
 const timer = new timer_js_1.Timer();
 let didload = false;
 const login = (client, commandFiles) => {
@@ -55,7 +53,6 @@ const login = (client, commandFiles) => {
     client.login(_config_1.default.client.token).then(async () => {
         if (_config_1.default.client.quickload) {
             timer.stop();
-            // Deploy Commands
             const commands = [];
             await Promise.all(commandFiles.map(async (file) => {
                 const command = (await import(file)).default.default;
@@ -64,7 +61,6 @@ const login = (client, commandFiles) => {
             }));
             const clientCommands = commands;
             client.application?.commands.set(clientCommands);
-            // Execute Event
             const ready = (await import('./events/ready.js')).default.default;
             while (!didload) {
                 sleep(500);
@@ -73,7 +69,6 @@ const login = (client, commandFiles) => {
         }
         else {
             timer.stop();
-            // Deploy Commands
             const commands = [];
             await Promise.all(commandFiles.map(async (file) => {
                 const command = (await import(file)).default.default;
@@ -82,23 +77,18 @@ const login = (client, commandFiles) => {
             }));
             const clientCommands = commands;
             client.application?.commands.set(clientCommands);
-            // Execute Event
             const ready = (await import('./events/ready.js')).default.default;
             return ready.execute(client, timer.getTime());
         }
     });
 };
-// MongoDB
 console.log(' ');
 console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [STA] $$$$$ LOADING 0xBOT ${_config_1.default.version}`);
 console.log(' ');
 console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [STA] $$$$$ LOADING COMMANDS AND EVENTS`);
 console.log(' ');
-// Bot Functions
 const bot = __importStar(require("@functions/bot.js"));
 client.config = _config_1.default;
-/// Register External Files
-// Get Files
 const fileList = [
     {
         "name": 'EVENTS',
@@ -121,10 +111,8 @@ const fileList = [
         "files": (0, getAllFiles_js_1.getAllFilesFilter)('./modals', '.js')
     }
 ];
-// Login Quickload
 if (_config_1.default.client.quickload)
     login(client, (0, getAllFiles_js_1.getAllFilesFilter)('./commands', '.js'));
-// Load Files
 Promise.all(fileList.map(async (list) => {
     console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] LOADED ${list.files.length} ${list.name}`);
     if (!list.events) {
@@ -148,22 +136,18 @@ Promise.all(fileList.map(async (list) => {
 }));
 console.log(' ');
 console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [END] $$$$$ LOADED COMMANDS AND EVENTS`);
-// Interaction Handler
 client.on(discord_js_1.Events.InteractionCreate, async (interaction) => {
     if (!interaction.isCommand() && !interaction.isButton() && !interaction.isModalSubmit())
         return;
     if (!interaction.guild)
         return;
-    // Write to UserDB
     bot.userdb.add({
         "avatar": (!!interaction.user.avatar) ? interaction.user.avatar : '',
         "discriminator": interaction.user.discriminator,
         "username": interaction.user.username,
         "id": interaction.user.id
     });
-    // Get Guild Language
     const guildlang = await bot.language.get(interaction.guild.id);
-    // Get Vote Status
     let votet = 'VOTED';
     const lastVote = await bot.votes.get(interaction.user.id + '-T');
     if (lastVote < (Date.now() - 24 * 60 * 60 * 1000))
@@ -177,20 +161,15 @@ client.on(discord_js_1.Events.InteractionCreate, async (interaction) => {
         if (lastVote === 0)
             votet = 'NICHT GEVOTED -> /VOTE';
     }
-    // Set User Language
     if (interaction.locale === 'de')
         bot.language.set(interaction.user.id, 'de');
     else
         bot.language.set(interaction.user.id, 'en');
-    // Handle Commands
     if (interaction.isChatInputCommand()) {
-        // Stats
         bot.stats('cmd', interaction.user.id, interaction.guild.id);
-        // Check if Command Exists
         const command = client.commands.get(interaction.commandName);
         if (!command)
             return;
-        // Execute Command
         try {
             await command.execute(interaction, client, guildlang, votet);
         }
@@ -201,13 +180,10 @@ client.on(discord_js_1.Events.InteractionCreate, async (interaction) => {
             catch (e) { }
         }
     }
-    // Handle Modals
     if (interaction.isModalSubmit()) {
         try {
-            // Stats
             bot.stats('mod', interaction.user.id, interaction.guild.id);
             let sc = false;
-            // Special Button Cases
             const args = interaction.customId.split('-');
             if (args[0] === 'API') {
                 let editedinteraction = interaction;
@@ -216,7 +192,6 @@ client.on(discord_js_1.Events.InteractionCreate, async (interaction) => {
                 const modal = client.modals.get(editedinteraction.customId);
                 await modal.execute(editedinteraction, client, guildlang, votet, args[1], args[2].toLowerCase());
             }
-            // Other Button Cases
             if (!sc) {
                 const modal = client.modals.get(interaction.customId);
                 if (!modal)
@@ -232,14 +207,10 @@ client.on(discord_js_1.Events.InteractionCreate, async (interaction) => {
             catch (e) { }
         }
     }
-    // Handle Buttons
     if (interaction.isButton()) {
-        // Stats
         bot.stats('btn', interaction.user.id, interaction.guild.id);
-        // Execute Button
         try {
             let sc = false;
-            // Special Button Cases
             const args = interaction.customId.split('-');
             if (args[0] === 'BEG') {
                 let editedinteraction = interaction;
@@ -367,7 +338,6 @@ client.on(discord_js_1.Events.InteractionCreate, async (interaction) => {
                 const button = client.buttons.get(editedinteraction.customId);
                 await button.execute(editedinteraction, client, guildlang, votet, args[1].toLowerCase());
             }
-            // Other Button Cases
             if (!sc) {
                 const button = client.buttons.get(interaction.customId);
                 if (!button)
@@ -390,7 +360,6 @@ if (!_config_1.default.client.quickload)
     login(client, (0, getAllFiles_js_1.getAllFilesFilter)('./commands', '.js'));
 else
     didload = true;
-// Top.gg Stats
 if (_config_1.default.web.stats) {
     const { AutoPoster } = require('topgg-autoposter');
     const aP = AutoPoster(_config_1.default.web.keys.apikey, client);
@@ -398,7 +367,6 @@ if (_config_1.default.web.stats) {
         console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] TOP.GG STATS POSTED');
     });
 }
-// Top.gg Voting
 if (_config_1.default.web.votes) {
     const Topgg = require("@top-gg/sdk");
     const express = require("express");
@@ -410,11 +378,9 @@ if (_config_1.default.web.votes) {
         if (!vote.user)
             return;
         const random = bot.random(7500, 15000);
-        // Calculate Extra
         let extra;
         if ((await bot.votes.get(vote.user + '-A') + 1) % 10 === 0)
             extra = ((await bot.votes.get(vote.user + '-A') + 1) * 10000) / 2;
-        // Create Embeds
         let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
             .setTitle('» VOTING')
             .setDescription('» Thanks for Voting! You got **$' + random + '** from me :)\n» Danke fürs Voten! Du hast **' + random + '€** von mir erhalten :)')
@@ -442,12 +408,9 @@ if (_config_1.default.web.votes) {
                 .setDescription('» Danke, dass du **' + ((await bot.votes.get(vote.user + '-A')) + 1) + '** mal gevotet hast!\nAls Geschenk gebe ich dir extra **' + extra + '€**!')
                 .setFooter({ text: '» ' + _config_1.default.version });
         }
-        // Add Money
         await bot.money.add(false, vote.user, random);
         console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] VOTED : ' + vote.user + ' : ' + random + '€');
-        // Send Message
         client.users.send(vote.user, { embeds: [message] });
-        // Count to Stats
         if ((await bot.votes.get(vote.user + '-A') + 1) % 10 === 0) {
             bot.money.add(false, vote.user, extra);
             client.users.send(vote.user, { embeds: [messageBonus] });
@@ -458,8 +421,6 @@ if (_config_1.default.web.votes) {
     }));
     app.listen(_config_1.default.web.ports.votes);
 }
-/// Cronjobs
-// Stock Prices
 const cron = __importStar(require("node-cron"));
 client.stocks = {
     green: 0,
@@ -470,7 +431,6 @@ client.stocks = {
     white: 0
 };
 const dostocks = () => {
-    // Green Stock
     client.stocks.oldgreen = client.stocks.green;
     client.stocks.green = (Math.floor(Math.random()
         * (30 - 25 + 1)) + 25)
@@ -479,7 +439,6 @@ const dostocks = () => {
         + (Math.floor(Math.random()
             * (400 - 350 + 1))
             + 350);
-    // Blue Stock
     client.stocks.oldblue = client.stocks.blue;
     client.stocks.blue = (Math.floor(Math.random()
         * (70 - 45 + 1)) + 45)
@@ -488,7 +447,6 @@ const dostocks = () => {
         - (Math.floor(Math.random()
             * (200 - 100 + 1))
             + 100);
-    // Yellow Stock
     client.stocks.oldyellow = client.stocks.yellow;
     client.stocks.yellow = (Math.floor(Math.random()
         * (90 - 65 + 1)) + 65)
@@ -497,7 +455,6 @@ const dostocks = () => {
         + (Math.floor(Math.random()
             * (200 - 100 + 1))
             + 100);
-    // Red Stock
     client.stocks.oldred = client.stocks.red;
     client.stocks.red = (Math.floor(Math.random()
         * (120 - 105 + 1)) + 105)
@@ -506,7 +463,6 @@ const dostocks = () => {
         + (Math.floor(Math.random()
             * (400 - 100 + 1))
             + 100);
-    // White Stock
     client.stocks.oldwhite = client.stocks.white;
     client.stocks.white = (Math.floor(Math.random()
         * (150 - 130 + 1)) + 130)
@@ -515,7 +471,6 @@ const dostocks = () => {
         + (Math.floor(Math.random()
             * (600 - 100 + 1))
             + 100);
-    // Black Stock
     client.stocks.oldblack = client.stocks.black;
     client.stocks.black = (Math.floor(Math.random()
         * (250 - 200 + 1)) + 200)
@@ -528,7 +483,6 @@ const dostocks = () => {
 dostocks();
 cron.schedule('* * * * *', () => {
     dostocks();
-    // Unix Time
     client.stocks.refresh = Math.floor(+new Date() / 1000) + 60;
 });
 //# sourceMappingURL=bot.js.map

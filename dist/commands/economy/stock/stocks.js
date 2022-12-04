@@ -43,9 +43,7 @@ exports.default = {
     })
         .setRequired(false)),
     async execute(interaction, client, lang, vote) {
-        // Check if Stocks are Enabled in Server
         if (!await bot.settings.get(interaction.guild.id, 'stocks')) {
-            // Create Embed
             let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» Stocks are disabled on this Server!')
@@ -56,19 +54,15 @@ exports.default = {
                     .setDescription('» Aktien sind auf diesem Server deaktiviert!')
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
-            // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] STOCKS : DISABLED');
             return interaction.reply({ embeds: [message], ephemeral: true });
         }
-        // Set Variables
         const user = interaction.options.getUser("user");
-        // Set User Object
         let userobj;
         if (!user)
             userobj = interaction.user;
         else
             userobj = user;
-        // Fetch Stocks
         const green = await bot.stocks.get(userobj.id, 'green', 'used');
         const greenMax = await bot.stocks.get(userobj.id, 'green', 'max');
         const blue = await bot.stocks.get(userobj.id, 'blue', 'used');
@@ -81,7 +75,6 @@ exports.default = {
         const whiteMax = await bot.stocks.get(userobj.id, 'white', 'max');
         const black = await bot.stocks.get(userobj.id, 'black', 'used');
         const blackMax = await bot.stocks.get(userobj.id, 'black', 'max');
-        // Create Embed
         let message;
         if (!user) {
             message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
@@ -107,7 +100,6 @@ exports.default = {
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
         }
-        // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] STOCKS : ' + green + ' : ' + blue + ' : ' + yellow + ' : ' + red + ' : ' + white + ' : ' + black);
         return interaction.reply({ embeds: [message] });
     }

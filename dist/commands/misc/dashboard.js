@@ -35,7 +35,6 @@ exports.default = {
         de: 'GEHE ZUM DASHBOARD'
     }),
     async execute(interaction, client, lang, vote) {
-        // Create Button
         let row = new discord_js_1.ActionRowBuilder()
             .addComponents(new discord_js_1.ButtonBuilder()
             .setLabel('GO')
@@ -48,7 +47,6 @@ exports.default = {
                 .setURL('https://0xbot.de')
                 .setStyle(discord_js_1.ButtonStyle.Link));
         }
-        // Create Embed
         let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
             .setTitle('<:GLOBE:1024403680503529583> » DASHBOARD')
             .setDescription('» Click below to go to the Dashboard!')
@@ -59,7 +57,6 @@ exports.default = {
                 .setDescription('» Klicke unten um zum Dashboard zu gelangen!')
                 .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
         }
-        // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] DASHBOARD');
         await interaction.reply({ embeds: [message], components: [row], ephemeral: true });
     }

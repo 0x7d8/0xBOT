@@ -8,16 +8,13 @@ module.exports = {
     type: rjweb_server_1.default.types.post,
     path: '/options/guild',
     async code(ctr) {
-        // Check for Queries
         if (!ctr.query.has('id'))
             return ctr.print({ "success": false, "message": 'NO ID' });
         if (!('option' in ctr.reqBody) || !('value' in ctr.reqBody))
             return ctr.print({ "success": false, "message": 'NO HEADERS' });
-        // Check Permissions
         if (!await ctr.api.checkSession(ctr.header.get('accesstoken'), ctr.header.get('tokentype'), ctr.header.get('userid'), ctr.query.get('id')))
             return ctr.print({ "success": false, "message": 'PERMISSION DENIED' });
         let response = { "success": false, "message": 'NOT FOUND' };
-        // Custom
         if (ctr.reqBody.option === 'LANGUAGE') {
             if (ctr.reqBody.value !== 'GERMAN' && ctr.reqBody.value !== 'ENGLISH')
                 return ctr.print({ "success": false, "message": 'INVALID VALUE' });
@@ -28,14 +25,12 @@ module.exports = {
             ctr.bot.language.set(ctr.query.get('id'), set);
             response = { "success": true, "message": 'OPTION UPDATED' };
         }
-        // Boolean
         if (ctr.reqBody.option !== 'LANGUAGE') {
             if (ctr.reqBody.value !== true && ctr.reqBody.value !== false)
                 return ctr.print({ "success": false, "message": 'INVALID VALUE' });
             ctr.bot.settings.set(ctr.query.get('id'), ctr.reqBody.option.toLowerCase(), ctr.reqBody.value);
             response = { "success": true, "message": 'OPTION UPDATED' };
         }
-        // Return Result
         return ctr.print(response);
     }
 };

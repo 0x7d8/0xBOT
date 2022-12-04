@@ -31,16 +31,12 @@ exports.default = {
         name: 'ttt-yes'
     },
     async execute(interaction, client, lang, vote, bet) {
-        // Get Users
         const cache = interaction.message.embeds;
         const description = cache[0].description.toString().replace(/[^\d@!]/g, '').split('!')[0].substring(1).split("@");
         const [sender, reciever] = description;
-        // Set Variables
         const balance = await bot.money.get(reciever);
         const otherbalance = await bot.money.get(sender);
-        // Check if User is Authorized
         if (interaction.user.id !== reciever) {
-            // Create Embed
             let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» <@' + reciever + '> has to decide this!')
@@ -51,13 +47,10 @@ exports.default = {
                     .setDescription('» <@' + reciever + '> muss das entscheiden!')
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
-            // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] TICTACTOE : YES : NOTALLOWED');
             return interaction.reply({ embeds: [message], ephemeral: true });
         }
-        // Check if Person is already in a Lobby
         if (bot.game.has('PLAYING-' + reciever)) {
-            // Create Embed
             let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» You are already in a Lobby!')
@@ -68,13 +61,10 @@ exports.default = {
                     .setDescription('» Du bist schon in einer Lobby!')
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
-            // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] TICTACTOE : ' + reciever + ' : ALREADYLOBBY');
             return interaction.reply({ embeds: [message], ephemeral: true });
         }
-        // Check if Other Person is already in a Lobby
         if (bot.game.has('PLAYING-' + sender)) {
-            // Create Embed
             let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» <@' + sender + '> is already in a Lobby!')
@@ -85,14 +75,11 @@ exports.default = {
                     .setDescription('» <@' + sender + '> ist schon in einer Lobby!')
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
-            // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] TICTACTOE : ' + sender + ' : ALREADYLOBBY');
             return interaction.reply({ embeds: [message], ephemeral: true });
         }
-        // Check for enough Money
         if (balance < bet) {
             const missing = bet - balance;
-            // Create Embed
             let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» You dont have enough Money for that, you are missing **$' + missing + '**!')
@@ -103,13 +90,11 @@ exports.default = {
                     .setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
-            // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] TICTACTOE : ' + reciever + ' : ' + bet + '€ : NOTENOUGHMONEY');
             return interaction.reply({ embeds: [message], ephemeral: true });
         }
         if (otherbalance < bet) {
             const missing = bet - otherbalance;
-            // Create Embed
             let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» <@' + sender + '> doesnt have enough Money, he is Missing **$' + missing + '**!')
@@ -120,13 +105,10 @@ exports.default = {
                     .setDescription('» <@' + sender + '> hat nicht genug Geld, im fehlen **' + missing + '€**!')
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
-            // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] TICTACTOE : ' + reciever + ' : ' + bet + '€ : NOTENOUGHMONEY');
             return interaction.reply({ embeds: [message], ephemeral: true });
         }
-        // Answer Timeout Function
         bot.ttt.delete('TIMEOUT-' + sender + '-' + interaction.message.id);
-        // Create Buttons
         let row1 = new discord_js_1.ActionRowBuilder()
             .addComponents(new discord_js_1.ButtonBuilder()
             .setEmoji('1020411843644243998')
@@ -160,7 +142,6 @@ exports.default = {
             .setEmoji('1020411843644243998')
             .setCustomId('TTT-9-' + bet)
             .setStyle(discord_js_1.ButtonStyle.Secondary));
-        // Set Variables
         bot.game.set('PLAYING-' + sender, 'TICTACTOE');
         bot.game.set('PLAYING-' + reciever, 'TICTACTOE');
         bot.ttt.set('TURN-' + sender, sender);
@@ -175,10 +156,8 @@ exports.default = {
         bot.ttt.set('FIELD-7-' + sender, null);
         bot.ttt.set('FIELD-8-' + sender, null);
         bot.ttt.set('FIELD-9-' + sender, null);
-        // Transfer Money
         bot.money.rem(interaction.guild.id, sender, bet);
         bot.money.rem(interaction.guild.id, reciever, bet);
-        // Create Embed
         let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
             .setTitle('<:GAMEPAD:1024395990679167066> » TICTACTOE')
             .setDescription('» <@' + sender + '> is playing Tic Tac Toe with <@' + reciever + '>!\nThe Bet is **$' + bet + '**\n\n🔵 » <@' + sender + '>\n🔴 » <@' + reciever + '>')
@@ -189,7 +168,6 @@ exports.default = {
                 .setDescription('» <@' + sender + '> spielt mit <@' + reciever + '> Tic Tac Toe!\nDie Wette ist **' + bet + '€**\n\n🔵 » <@' + sender + '>\n🔴 » <@' + reciever + '>')
                 .setFooter({ text: '» ' + client.config.version + ' » AM ZUG: 🔵' });
         }
-        // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] TICTACTOE : ' + sender + ' : ACCEPT');
         return interaction.update({ content: '', embeds: [message], components: [row1, row2, row3] });
     }

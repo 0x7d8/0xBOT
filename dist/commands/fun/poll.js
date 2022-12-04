@@ -41,9 +41,7 @@ exports.default = {
     })
         .setRequired(true)),
     async execute(interaction, client, lang, vote) {
-        // Set Variables
         const question = bot.getOption(interaction, 'text');
-        // Create Buttons
         const row = new discord_js_1.ActionRowBuilder()
             .addComponents(new discord_js_1.ButtonBuilder()
             .setEmoji('1044959793317691513')
@@ -54,7 +52,6 @@ exports.default = {
             .setLabel('0 [0%]')
             .setCustomId('POLL-NO')
             .setStyle(discord_js_1.ButtonStyle.Danger));
-        // Create Embed
         let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
             .setTitle('<:POLL:1024391847092703365> » POLL')
             .setDescription('» ' + question)
@@ -65,7 +62,6 @@ exports.default = {
                 .setDescription('» ' + question)
                 .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
         }
-        // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] POLL : ' + question.toUpperCase());
         return interaction.reply({ embeds: [message], components: [row] });
     }

@@ -42,9 +42,7 @@ exports.default = {
         de: 'DER BEREICH'
     })
         .setRequired(true)
-        .addChoices(
-    // Setup Choices
-    { name: '🟢 [x2] 1-10', value: '10' }, { name: '🟡 [x4] 1-100', value: '100' }, { name: '🔴 [x6] 1-1000', value: '1000' }))
+        .addChoices({ name: '🟢 [x2] 1-10', value: '10' }, { name: '🟡 [x4] 1-100', value: '100' }, { name: '🔴 [x6] 1-1000', value: '1000' }))
         .addIntegerOption((option) => option.setName('bet')
         .setNameLocalizations({
         de: 'wette'
@@ -64,9 +62,7 @@ exports.default = {
     })
         .setRequired(true)),
     async execute(interaction, client, lang, vote) {
-        // Check if RNG Games are Enabled in Server
         if (!await bot.settings.get(interaction.guild.id, 'luckgames')) {
-            // Create Embed
             let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» Luck Games are disabled on this Server!')
@@ -77,11 +73,9 @@ exports.default = {
                     .setDescription('» Glücksspiele sind auf diesem Server deaktiviert!')
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
-            // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROULETTE : DISABLED');
             return interaction.reply({ embeds: [message], ephemeral: true });
         }
-        // Set Variables
         const bet = bot.getOption(interaction, 'bet');
         const range = bot.getOption(interaction, 'range');
         const guess = bot.getOption(interaction, 'number');
@@ -89,9 +83,7 @@ exports.default = {
         const random10 = bot.random(1, 10);
         const random100 = bot.random(1, 100);
         const random1000 = bot.random(1, 1000);
-        // Check if Balance is Minus
         if (bet < 0) {
-            // Create Embed
             let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» You cant play with negative Money!')
@@ -102,16 +94,12 @@ exports.default = {
                     .setDescription('» Du kannst keine negativen Einsätze spielen!')
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
-            // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] GUESS : NEGATIVEMONEY : ' + bet + '€');
             return interaction.reply({ embeds: [message], ephemeral: true });
         }
-        // Check for enough Money
         let status, result;
         if (money >= bet) {
-            // Check for Max Amount
             if (bet > 15000) {
-                // Create Embed
                 let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                     .setDescription('» You cant bet that much! **$15000** is the Maximum.')
@@ -122,11 +110,9 @@ exports.default = {
                         .setDescription('» Du kannst nicht soviel Wetten! **15000€** ist das Maximum.')
                         .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
                 }
-                // Send Message
                 bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] GUESS : TOOMUCHMONEY : ' + bet + '€');
                 return interaction.reply({ embeds: [message], ephemeral: true });
             }
-            // Calculate Winnings
             if (range === '10') {
                 if (guess === random10) {
                     status = 'WON';
@@ -192,7 +178,6 @@ exports.default = {
         }
         else {
             const missing = bet - money;
-            // Create Embed
             let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» You dont have enough Money for that, you are missing **$' + missing + '**!')
@@ -203,16 +188,13 @@ exports.default = {
                     .setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
-            // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] GUESS : NOTENOUGHMONEY : ' + missing + '€');
             return interaction.reply({ embeds: [message], ephemeral: true });
         }
-        // Set Money
         let transaction;
         bot.money.rem(interaction.guild.id, interaction.user.id, result);
         if (status === 'GEWONNEN' || status === 'WON') {
             bot.money.add(interaction.guild.id, interaction.user.id, result);
-            // Log Transaction
             transaction = await bot.transactions.log({
                 success: true,
                 sender: {
@@ -227,7 +209,6 @@ exports.default = {
             });
         }
         else {
-            // Log Transaction
             transaction = await bot.transactions.log({
                 success: true,
                 sender: {
@@ -241,7 +222,6 @@ exports.default = {
                 }
             });
         }
-        // Create Embed
         let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
             .setTitle('<:CLOVER:1024388649418235925> » GUESS')
             .setDescription('» You set **$' + bet + '** on **' + guess + '** and **' + status + '** **$' + result + '**!\n\nID: ' + transaction.id)
@@ -252,7 +232,6 @@ exports.default = {
                 .setDescription('» Du hast **' + bet + '€** auf **' + guess + '** gesetzt und **' + result + '€** **' + status + '**!\n\nID: ' + transaction.id)
                 .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
         }
-        // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] GUESS : ' + guess + ' : ' + status + ' : ' + result + '€');
         return interaction.reply({ embeds: [message] });
     }
