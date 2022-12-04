@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "resolveJsonModule": true,
+    "target": "ES2020",
+    "sourceMap": true,
+    "outDir": "dist",
+    "baseUrl": "src",
+    "paths": {
+      "@interfaces/*": ["interfaces/*"],
+      "@functions/*": ["functions/*"],
+      "@utils/*": ["utils/*"],
+      "@config": ["config.json"]
+    },
+  }, "include": ["src/**/*"]
+}

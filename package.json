@@ -1,24 +1,26 @@
 {
-  "main": "index.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/rotvproHD/0xBOT.git"
-  },
-  "author": "Robert Jansen",
+  "main": "dist/index.js",
+  "repository": "https://github.com/rotvproHD/0xBOT",
+  "type": "commonjs",
+  "author": "0x4096",
   "license": "MIT",
-  "homepage": "https://0xbot.de",
+  "scripts": {
+    "test": "tsc && cd dist && node bot && cd ..",
+    "build": "tsc --pretty false --removeComments true"
+  }, "homepage": "https://0xbot.de",
   "dependencies": {
-    "rjutils-collection": "^1.0.2",
-    "rjweb-server": "^0.7.5",
-    "topgg-autoposter": "^2.0.1",
     "@koa/cors": "^4.0.0",
     "@top-gg/sdk": "^3.1.3",
+    "@types/cli-progress": "^3.11.0",
+    "@types/module-alias": "^2.0.1",
+    "@types/node": "^18.11.10",
+    "@types/node-cron": "^3.0.6",
+    "@types/pg": "^8.6.5",
     "axios": "1.1.3",
     "canvacord": "^5.4.8",
-    "chalk": "^4.1.2",
     "cli-progress": "^3.11.2",
     "discord-api-types": "^0.37.14",
-    "discord.js": "^14.6.0",
+    "discord.js": "^14.7.1",
     "express": "^4.18.2",
     "git-commit-count": "^1.1.3",
     "koa": "^2.13.4",
@@ -27,7 +29,11 @@
     "koa-ratelimit": "^5.0.1",
     "koa-router": "^12.0.0",
     "mathjs": "^11.3.2",
+    "module-alias": "^2.2.2",
     "node-cron": "^3.0.2",
-    "pg": "^8.8.0"
+    "pg": "^8.8.0",
+    "rjutils-collection": "^1.0.2",
+    "rjweb-server": "^0.7.5",
+    "topgg-autoposter": "^2.0.1"
   }
 }
