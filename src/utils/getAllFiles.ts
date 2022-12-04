@@ -11,8 +11,7 @@ export const getAllFiles = (dirPath: string, arrayOfFiles?: string[]) => {
             let filePath = dirPath + "/" + file
             arrayOfFiles?.push(filePath)
         }
-    })
-    return arrayOfFiles
+    }); return arrayOfFiles
 }
 
 export const getAllFilesFilter = (dirPath: string, suffix: string, arrayOfFiles?: string[]) => {
