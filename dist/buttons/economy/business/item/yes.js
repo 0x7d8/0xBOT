@@ -58,7 +58,7 @@ exports.default = {
         }
         else {
             dopay = true;
-            cost = parseInt(await bot.businesses.get('g-' + interaction.guild.id + '-1-PRICE-' + itemid.toUpperCase())) * amount;
+            cost = Number(await bot.businesses.get('g-' + interaction.guild.id + '-1-PRICE-' + itemid.toUpperCase())) * amount;
         }
         let name;
         if (itemid === 'nbomb')

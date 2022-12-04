@@ -33,23 +33,23 @@ export const get = async(transactionId: string) => {
     }
 }
 
-interface set {
+interface log {
     success: boolean
     sender: {
         id: string
-        amount: any
+        amount: number
         type: string
     }
 
     reciever: {
         id: string
-        amount: any
+        amount: number
         type: string
     }
 }
 
 // Log Function
-export const log = async(json: set) => {
+export const log = async(json: log) => {
     const transactionId = utils.randomStr({
         length: 20,
         numbers: true,
@@ -61,11 +61,11 @@ export const log = async(json: set) => {
 
     if (json.sender.id === undefined) json.sender = {
         id: 'empty',
-        amount: '0',
+        amount: 0,
         type: 'empty'
     }; if (json.reciever.id === undefined) json.reciever = {
         id: 'empty',
-        amount: '0',
+        amount: 0,
         type: 'empty'
     }
 

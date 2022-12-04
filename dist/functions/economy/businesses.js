@@ -21,7 +21,7 @@ const get = async (userId, type) => {
     if (!type)
         return data.rows[0].txtvalue;
     else
-        return parseInt(data.rows[0].intvalue);
+        return Number(data.rows[0].intvalue);
 };
 exports.get = get;
 const set = async (userId, value) => {

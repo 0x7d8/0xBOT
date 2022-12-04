@@ -23,40 +23,43 @@ module.exports = {
             rawvalues = await ctr.db.query(`select * from usertransactions where recieverid = $1 order by timestamp desc;`, [
                 ctr.header.get('recieverid')
             ])
-        } else rawvalues = await ctr.db.query(`select * from usertransactions order by timestamp desc;`)
+        } else {
+            rawvalues = await ctr.db.query(`select * from usertransactions order by timestamp desc;`)
+        }
 
         // Generate JSON Object
-        let output = []; let count = 0
-        for (const element of rawvalues.rows) {
-            count++
-            if (count > parseInt(ctr.header.get('maxresults'))) break
+        const transactions = []; let count = 0
+        await Promise.all(rawvalues.rows.map(async(transaction: any) => {
+            if (++count > Number(ctr.header.get('maxresults'))) return
 
-            const senderInfo = await ctr.bot.userdb.get(element.senderid)
-            const recieverInfo = await ctr.bot.userdb.get(element.recieverid)
+            const senderInfo = await ctr.bot.userdb.get(transaction.senderid)
+            const recieverInfo = await ctr.bot.userdb.get(transaction.recieverid)
 
-            output.push({
-                "success": true,
-                "id": element.id,
-                "timestamp": element.timestamp,
+            transactions.push({
+                "id": transaction.id,
+                "timestamp": transaction.timestamp,
                 "sender": {
-                    "id": element.senderid,
+                    "id": transaction.senderid,
                     "username": senderInfo.username,
                     "usertag": senderInfo.usertag,
                     "avatar": senderInfo.avatar,
-                    "amount": element.senderamount,
-                    "type": element.sendertype
+                    "amount": Number(transaction.senderamount),
+                    "type": transaction.sendertype
                 }, "reciever": {
-                    "id": element.recieverid,
+                    "id": transaction.recieverid,
                     "username": recieverInfo.username,
                     "usertag": recieverInfo.usertag,
                     "avatar": recieverInfo.avatar,
-                    "amount": element.recieveramount,
-                    "type": element.recievertype
+                    "amount": Number(transaction.recieveramount),
+                    "type": transaction.recievertype
                 }
             })
-        }
+        }))
 
         // Return Result
-        return ctr.print(output)
+        return ctr.print({
+            "success": true,
+            "results": transactions
+        })
     }
 }

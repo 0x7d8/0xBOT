@@ -18,7 +18,7 @@ const get = async (userId) => {
     const data = await db.query(`select * from userapis where userid = $1;`, [userId]);
     if (data.rowCount !== 1)
         return 0;
-    return parseInt(data.rows[0].apis);
+    return Number(data.rows[0].apis);
 };
 exports.get = get;
 const set = async (userId, value) => {

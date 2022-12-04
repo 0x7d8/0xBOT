@@ -24,7 +24,7 @@ const get = async (userId, stock, type) => {
         return 0;
     if (data.rowCount !== 1 && type === 'max')
         return 10;
-    return parseInt(data.rows[0].value);
+    return Number(data.rows[0].value);
 };
 exports.get = get;
 const set = async (userId, stock, type, value) => {

@@ -12,7 +12,7 @@ export default {
         // Set Variables
         const balance = await bot.money.get(interaction.user.id)
         const args = interaction.message.embeds[0].description.split('**')
-        const total = parseInt(args[1].match(/\d+/g) as any)+amount
+        const total = Number(args[1].match(/\d+/g) as any)+amount
 
         // Check for enough Money
         if (balance < amount) {

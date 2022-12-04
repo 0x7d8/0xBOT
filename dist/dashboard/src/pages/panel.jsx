@@ -20,7 +20,7 @@ import { useNavigate } from 'react-router-dom'
 import { TbServer, TbHandClick } from 'react-icons/all'
 import axios from 'axios'
 
-import Animated from '../Animated'
+import Animated from '/src/Animated'
 
 import * as cookie from '/src/scripts/cookies'
 function ProfileBox() {

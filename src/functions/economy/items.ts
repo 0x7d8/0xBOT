@@ -17,7 +17,7 @@ export const get = async(userId: string, type: any) => {
 
     if (type === null) return data.rows[0]
     else if (type === 'value') return data.rows[0].value
-    else return parseInt(data.rows[0].amount)
+    else return Number(data.rows[0].amount)
 }
 
 // Set Function

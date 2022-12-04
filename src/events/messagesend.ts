@@ -11,7 +11,7 @@ export default {
         if (!message.guildId) return
 
         // Level System
-		if (!message.author.bot && parseInt(message.guildId) > 1000 && (await bot.settings.get(message.guildId, 'level'))) {
+		if (!message.author.bot && Number(message.guildId) > 1000 && (await bot.settings.get(message.guildId, 'level'))) {
             // Calculate old Level
             const oldCache = await bot.stat.get('u-' + message.author.id + '-' + message.guildId + '-C', 'msg')
 
@@ -41,7 +41,7 @@ export default {
                 // Get Guild Language
 	            let guildlang = 'en'
 	            const glang = await bot.language.get(message.guildId)
-                if (parseInt(glang) === 1) guildlang = 'de'
+                if (Number(glang) === 1) guildlang = 'de'
 
                 // Create Button
                 const row = new ActionRowBuilder()

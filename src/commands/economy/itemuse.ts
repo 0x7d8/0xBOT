@@ -248,7 +248,7 @@ export default {
                     (msg.components[0].components[1].data.disabled as boolean) = true;
                     (msg.components[0].components[2].data.disabled as boolean) = true;
                     (msg.components[0].components[3].data.disabled as boolean) = true;
-                }; (msg.components[0].components[parseInt(sb)-1] as any).data.style = ButtonStyle.Success
+                }; (msg.components[0].components[Number(sb)-1] as any).data.style = ButtonStyle.Success
 
                 // Punish User
                 if (itemid === 'nbomb') {

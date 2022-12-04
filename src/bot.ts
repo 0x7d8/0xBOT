@@ -244,7 +244,7 @@ client.on(Events.InteractionCreate, async(interaction) => {
 				sc = true
 
 				const button = client.buttons.get(editedinteraction.customId)
-				await button.execute(editedinteraction, client, guildlang, votet, args[1], parseInt(args[2]), args[3], args[4])
+				await button.execute(editedinteraction, client, guildlang, votet, args[1], Number(args[2]), args[3], args[4])
 			}; if (args[0] === 'RPS') {
 				let choice: string
 				let editedinteraction: any = interaction
@@ -259,7 +259,7 @@ client.on(Events.InteractionCreate, async(interaction) => {
 				sc = true
 
 				const button = client.buttons.get(editedinteraction.customId)
-				await button.execute(editedinteraction, client, guildlang, votet, parseInt(args[2]), choice)
+				await button.execute(editedinteraction, client, guildlang, votet, Number(args[2]), choice)
 			}; if (args[0] === 'MEMORY') {
 				let editedinteraction: any = interaction
 				editedinteraction.customId = "memory-choice"
@@ -269,7 +269,7 @@ client.on(Events.InteractionCreate, async(interaction) => {
 				sc = true
 
 				const button = client.buttons.get(editedinteraction.customId)
-				await button.execute(editedinteraction, client, guildlang, votet, parseInt(args[2]), parseInt(args[1]))
+				await button.execute(editedinteraction, client, guildlang, votet, Number(args[2]), Number(args[1]))
 			}; if (args[0] === 'TTT') {
 				let editedinteraction: any = interaction
 				editedinteraction.customId = "ttt-choice"
@@ -279,7 +279,7 @@ client.on(Events.InteractionCreate, async(interaction) => {
 				sc = true
 
 				const button = client.buttons.get(editedinteraction.customId)
-				await button.execute(editedinteraction, client, guildlang, votet, parseInt(args[2]), parseInt(args[1]))
+				await button.execute(editedinteraction, client, guildlang, votet, Number(args[2]), Number(args[1]))
 			}; if (args[0] === 'STOCKNEXT') {
 				let editedinteraction: any = interaction
 
@@ -314,7 +314,7 @@ client.on(Events.InteractionCreate, async(interaction) => {
 				sc = true
 
 				const button = client.buttons.get(editedinteraction.customId)
-				await button.execute(editedinteraction, client, guildlang, votet, args[3], args[4], args[1].toLowerCase(), parseInt(args[5]))
+				await button.execute(editedinteraction, client, guildlang, votet, args[3], args[4], args[1].toLowerCase(), Number(args[5]))
 			}; if (args[0] === 'STOCKUPGRADE') {
 				let editedinteraction: any = interaction
 
@@ -323,7 +323,7 @@ client.on(Events.InteractionCreate, async(interaction) => {
 				sc = true
 
 				const button = client.buttons.get(editedinteraction.customId)
-				await button.execute(editedinteraction, client, guildlang, votet, args[3], args[4], parseInt(args[5]))
+				await button.execute(editedinteraction, client, guildlang, votet, args[3], args[4], Number(args[5]))
 			}; if (args[0] === 'BOMB') {
 				let editedinteraction: any = interaction
 

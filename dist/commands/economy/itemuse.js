@@ -211,7 +211,7 @@ exports.default = {
                     msg.components[0].components[3].data.disabled = true;
                 }
                 ;
-                msg.components[0].components[parseInt(sb) - 1].data.style = discord_js_1.ButtonStyle.Success;
+                msg.components[0].components[Number(sb) - 1].data.style = discord_js_1.ButtonStyle.Success;
                 if (itemid === 'nbomb') {
                     const member = await interaction.guild.members.fetch(user.id);
                     member.timeout(15 * 1000, 'BOMB TIMEOUT FROM ' + interaction.user.id).catch(() => { });

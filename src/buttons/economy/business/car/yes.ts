@@ -30,7 +30,7 @@ export default {
             if (car === 'porsche') cost = 490000
         } else {
             if (type === 'buy') {
-                cost = parseInt(await bot.businesses.get('g-' + interaction.guild.id + '-3-PRICE-' + car.toUpperCase()))
+                cost = Number(await bot.businesses.get('g-' + interaction.guild.id + '-3-PRICE-' + car.toUpperCase()))
                 dopay = true
             } else {
                 if (car === 'jeep') cost = 15000

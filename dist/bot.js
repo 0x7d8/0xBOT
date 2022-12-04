@@ -217,7 +217,7 @@ client.on(discord_js_1.Events.InteractionCreate, async (interaction) => {
                 editedinteraction.customId = "beg";
                 sc = true;
                 const button = client.buttons.get(editedinteraction.customId);
-                await button.execute(editedinteraction, client, guildlang, votet, args[1], parseInt(args[2]), args[3], args[4]);
+                await button.execute(editedinteraction, client, guildlang, votet, args[1], Number(args[2]), args[3], args[4]);
             }
             ;
             if (args[0] === 'RPS') {
@@ -236,7 +236,7 @@ client.on(discord_js_1.Events.InteractionCreate, async (interaction) => {
                     editedinteraction.customId = "rps-no";
                 sc = true;
                 const button = client.buttons.get(editedinteraction.customId);
-                await button.execute(editedinteraction, client, guildlang, votet, parseInt(args[2]), choice);
+                await button.execute(editedinteraction, client, guildlang, votet, Number(args[2]), choice);
             }
             ;
             if (args[0] === 'MEMORY') {
@@ -248,7 +248,7 @@ client.on(discord_js_1.Events.InteractionCreate, async (interaction) => {
                     editedinteraction.customId = "memory-no";
                 sc = true;
                 const button = client.buttons.get(editedinteraction.customId);
-                await button.execute(editedinteraction, client, guildlang, votet, parseInt(args[2]), parseInt(args[1]));
+                await button.execute(editedinteraction, client, guildlang, votet, Number(args[2]), Number(args[1]));
             }
             ;
             if (args[0] === 'TTT') {
@@ -260,7 +260,7 @@ client.on(discord_js_1.Events.InteractionCreate, async (interaction) => {
                     editedinteraction.customId = "ttt-no";
                 sc = true;
                 const button = client.buttons.get(editedinteraction.customId);
-                await button.execute(editedinteraction, client, guildlang, votet, parseInt(args[2]), parseInt(args[1]));
+                await button.execute(editedinteraction, client, guildlang, votet, Number(args[2]), Number(args[1]));
             }
             ;
             if (args[0] === 'STOCKNEXT') {
@@ -301,7 +301,7 @@ client.on(discord_js_1.Events.InteractionCreate, async (interaction) => {
                     editedinteraction.customId = "item-no";
                 sc = true;
                 const button = client.buttons.get(editedinteraction.customId);
-                await button.execute(editedinteraction, client, guildlang, votet, args[3], args[4], args[1].toLowerCase(), parseInt(args[5]));
+                await button.execute(editedinteraction, client, guildlang, votet, args[3], args[4], args[1].toLowerCase(), Number(args[5]));
             }
             ;
             if (args[0] === 'STOCKUPGRADE') {
@@ -312,7 +312,7 @@ client.on(discord_js_1.Events.InteractionCreate, async (interaction) => {
                     editedinteraction.customId = "stockupgrade-no";
                 sc = true;
                 const button = client.buttons.get(editedinteraction.customId);
-                await button.execute(editedinteraction, client, guildlang, votet, args[3], args[4], parseInt(args[5]));
+                await button.execute(editedinteraction, client, guildlang, votet, args[3], args[4], Number(args[5]));
             }
             ;
             if (args[0] === 'BOMB') {

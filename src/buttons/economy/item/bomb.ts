@@ -38,8 +38,8 @@ export default {
             (interaction.message.components[0].components[1].data.disabled as boolean) = true;
             (interaction.message.components[0].components[2].data.disabled as boolean) = true;
             (interaction.message.components[0].components[3].data.disabled as boolean) = true;
-            (interaction.message.components[0].components[parseInt(button)-1] as any).data.style = ButtonStyle.Danger;
-            (interaction.message.components[0].components[parseInt(solbutton)-1] as any).data.style = ButtonStyle.Success;
+            (interaction.message.components[0].components[Number(button)-1] as any).data.style = ButtonStyle.Danger;
+            (interaction.message.components[0].components[Number(solbutton)-1] as any).data.style = ButtonStyle.Success;
         }
 
         // Create Embed

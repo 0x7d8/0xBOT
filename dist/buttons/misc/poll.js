@@ -30,8 +30,8 @@ exports.default = {
     },
     async execute(interaction, client, lang, vote, choice) {
         const cache = interaction.message.components[0];
-        let yes = parseInt((cache.components[0].data.label.split(' ['))[0]);
-        let no = parseInt((cache.components[1].data.label.split(' ['))[0]);
+        let yes = Number((cache.components[0].data.label.split(' ['))[0]);
+        let no = Number((cache.components[1].data.label.split(' ['))[0]);
         const dbChoice = await bot.polls.get(interaction.message.id, interaction.user.id);
         if (dbChoice === '') {
             if (choice === 'yes')

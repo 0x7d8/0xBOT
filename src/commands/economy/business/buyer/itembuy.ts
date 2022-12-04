@@ -79,7 +79,7 @@ export default {
             if (itemid === 'hbomb') cost = 5000*costmul
             if (itemid === 'cbomb') cost = 15000*costmul
         } else {
-            cost = parseInt(await bot.businesses.get('g-' + interaction.guild.id + '-1-PRICE-' + itemid.toUpperCase()))*costmul
+            cost = Number(await bot.businesses.get('g-' + interaction.guild.id + '-1-PRICE-' + itemid.toUpperCase()))*costmul
         }
 
         // Translate to Item Names

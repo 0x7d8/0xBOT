@@ -27,38 +27,40 @@ module.exports = {
                 ctr.header.get('recieverid')
             ]);
         }
-        else
+        else {
             rawvalues = await ctr.db.query(`select * from usertransactions order by timestamp desc;`);
-        let output = [];
+        }
+        const transactions = [];
         let count = 0;
-        for (const element of rawvalues.rows) {
-            count++;
-            if (count > parseInt(ctr.header.get('maxresults')))
-                break;
-            const senderInfo = await ctr.bot.userdb.get(element.senderid);
-            const recieverInfo = await ctr.bot.userdb.get(element.recieverid);
-            output.push({
-                "success": true,
-                "id": element.id,
-                "timestamp": element.timestamp,
+        await Promise.all(rawvalues.rows.map(async (transaction) => {
+            if (++count > Number(ctr.header.get('maxresults')))
+                return;
+            const senderInfo = await ctr.bot.userdb.get(transaction.senderid);
+            const recieverInfo = await ctr.bot.userdb.get(transaction.recieverid);
+            transactions.push({
+                "id": transaction.id,
+                "timestamp": transaction.timestamp,
                 "sender": {
-                    "id": element.senderid,
+                    "id": transaction.senderid,
                     "username": senderInfo.username,
                     "usertag": senderInfo.usertag,
                     "avatar": senderInfo.avatar,
-                    "amount": element.senderamount,
-                    "type": element.sendertype
+                    "amount": Number(transaction.senderamount),
+                    "type": transaction.sendertype
                 }, "reciever": {
-                    "id": element.recieverid,
+                    "id": transaction.recieverid,
                     "username": recieverInfo.username,
                     "usertag": recieverInfo.usertag,
                     "avatar": recieverInfo.avatar,
-                    "amount": element.recieveramount,
-                    "type": element.recievertype
+                    "amount": Number(transaction.recieveramount),
+                    "type": transaction.recievertype
                 }
             });
-        }
-        return ctr.print(output);
+        }));
+        return ctr.print({
+            "success": true,
+            "results": transactions
+        });
     }
 };
 //# sourceMappingURL=search.js.map

@@ -20,7 +20,7 @@ export const get = async(userId: string, stock: string, type: string) => {
 
     if (data.rowCount !== 1 && type === 'used') return 0
     if (data.rowCount !== 1 && type === 'max') return 10
-    return parseInt(data.rows[0].value)
+    return Number(data.rows[0].value)
 }
 
 // Set Function

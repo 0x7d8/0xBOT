@@ -23,7 +23,7 @@ import { TbArrowDown, TbCaretDown, TbSearch } from 'react-icons/all'
 import ImageSlash from '/src/static/ImageSlash.svg';
 import axios from 'axios'
 
-import Animated from '../Animated'
+import Animated from '/src/Animated'
 
 function getWindowDimensions() {
   const { innerWidth: width, innerHeight: height } = window
@@ -53,9 +53,9 @@ function TransactionBox(props) {
   if (width < 1150 && width > 750) { useWidth = 75 }
 
   let sender = `${props.userobjs.sender.username}#${props.userobjs.sender.usertag}`
-  if (isNaN(props.userobjs.sender.id.slice(-1))) sender = props.userobjs.sender.id
+  if (props.userobjs.sender.username === 'unknown') sender = props.userobjs.sender.id
   let reciever = `${props.userobjs.reciever.username}#${props.userobjs.reciever.usertag}`
-  if (isNaN(props.userobjs.reciever.id.slice(-1))) reciever = props.userobjs.reciever.id
+  if (props.userobjs.reciever.username === 'unknown') reciever = props.userobjs.reciever.id
 
   return (
     <Flex alignItems="center" marginTop="2rem" id={props.id} justifyContent="center">
@@ -149,7 +149,7 @@ function TransactionBox(props) {
       }
     }); const res = req.data
 
-    setResults(res)
+    setResults(res.results)
   }; useEffect(() => { window.doSearch() }, [])
 
   return (

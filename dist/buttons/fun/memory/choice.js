@@ -104,10 +104,10 @@ exports.default = {
         }
         bot.memory.get('C_PLAYERSELECT-' + interaction.user.id).push(bot.memory.get('I_EMOJI-' + sel + '-' + sender));
         bot.memory.get('B_PLAYERSELECT-' + interaction.user.id).push(sel);
-        bot.memory.set('A_PLAYERSELECT-' + interaction.user.id, (parseInt(bot.memory.get('A_PLAYERSELECT-' + interaction.user.id)) + 1));
+        bot.memory.set('A_PLAYERSELECT-' + interaction.user.id, (Number(bot.memory.get('A_PLAYERSELECT-' + interaction.user.id)) + 1));
         if (bot.memory.get('A_PLAYERSELECT-' + interaction.user.id) === 2) {
             if (bot.memory.get('C_PLAYERSELECT-' + interaction.user.id)[0] === bot.memory.get('C_PLAYERSELECT-' + interaction.user.id)[1]) {
-                bot.memory.set('POINTS-' + interaction.user.id, (parseInt(bot.memory.get('POINTS-' + interaction.user.id)) + 1));
+                bot.memory.set('POINTS-' + interaction.user.id, (Number(bot.memory.get('POINTS-' + interaction.user.id)) + 1));
                 const comp1 = rowGet(bot.memory.get('B_PLAYERSELECT-' + interaction.user.id)[0]);
                 const comp2 = rowGet(bot.memory.get('B_PLAYERSELECT-' + interaction.user.id)[1]);
                 if (interaction.user.id == sender) {

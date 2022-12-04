@@ -49,7 +49,7 @@ stdin.addListener("data", async (input) => {
     if (args[0].toUpperCase() === 'ADDBAL') {
         if (typeof args[1] !== 'undefined' && typeof args[2] !== 'undefined') {
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] ADDED ' + args[2] + '€ TO ' + args[1]);
-            bot.money.add(false, args[1].toString(), parseInt(args[2]));
+            bot.money.add(false, args[1].toString(), Number(args[2]));
         }
         else {
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] USAGE: ADDBAL [USERID] [AMOUNT]');
@@ -58,7 +58,7 @@ stdin.addListener("data", async (input) => {
     if (args[0].toUpperCase() === 'REMBAL') {
         if (typeof args[1] !== 'undefined' && typeof args[2] !== 'undefined') {
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] REMOVED ' + args[2] + '€ FROM ' + args[1]);
-            bot.money.rem(false, args[1].toString(), parseInt(args[2]));
+            bot.money.rem(false, args[1].toString(), Number(args[2]));
         }
         else {
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] USAGE: REMBAL [USERID] [AMOUNT]');
@@ -67,7 +67,7 @@ stdin.addListener("data", async (input) => {
     if (args[0].toUpperCase() === 'SETBAL') {
         if (typeof args[1] !== 'undefined' && typeof args[2] !== 'undefined') {
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] SET BALANCE OF ' + args[1] + ' TO ' + args[2] + '€');
-            bot.money.set(false, args[1].toString(), parseInt(args[2]));
+            bot.money.set(false, args[1].toString(), Number(args[2]));
         }
         else {
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] USAGE: SETBAL [USERID] [AMOUNT]');
@@ -164,6 +164,7 @@ if (_config_1.default.web.api) {
                     "message": 'NOT FOUND'
                 });
             }, async reqError(ctr) {
+                console.log(ctr.error.stack);
                 ctr.status(500);
                 return ctr.print({
                     "success": false,

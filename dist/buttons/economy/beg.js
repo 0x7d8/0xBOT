@@ -32,7 +32,7 @@ exports.default = {
     async execute(interaction, client, lang, vote, reciever, amount, reasontype, reason) {
         const balance = await bot.money.get(interaction.user.id);
         const args = interaction.message.embeds[0].description.split('**');
-        const total = parseInt(args[1].match(/\d+/g)) + amount;
+        const total = Number(args[1].match(/\d+/g)) + amount;
         if (balance < amount) {
             const missing = amount - balance;
             let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)

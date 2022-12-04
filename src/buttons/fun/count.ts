@@ -11,7 +11,7 @@ export default {
     async execute(interaction: ButtonInteraction, client: Client, lang: string, vote: string, type: string) {
         // Get Count
         const cache = interaction.message.embeds
-        let number = parseInt(cache[0].description.toString().match(/\d+/g) as any)
+        let number = Number(cache[0].description.toString().match(/\d+/g) as any)
 
         // Check if Number is Negative
         if (typeof interaction.message.components[0].components[1] !== 'undefined') {

@@ -16,7 +16,7 @@ export const get = async(userId: string, type?: boolean) => {
     if (data.rowCount !== 1) return 0
 
     if (!type) return data.rows[0].txtvalue
-    else return parseInt(data.rows[0].intvalue)
+    else return Number(data.rows[0].intvalue)
 }
 
 // Set Function

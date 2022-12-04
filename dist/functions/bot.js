@@ -23,7 +23,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ttt = exports.rps = exports.memory = exports.game = exports.bomb = exports.error = exports.stats = exports.getOption = exports.log = exports.random = exports.perCalc = exports.perAdd = exports.inRange = exports.transactions = exports.businesses = exports.stocks = exports.money = exports.items = exports.language = exports.settings = exports.userdb = exports.polls = exports.quotes = exports.votes = exports.apis = exports.stat = void 0;
+exports.ttt = exports.rps = exports.memory = exports.game = exports.bomb = exports.error = exports.stats = exports.isNumber = exports.getOption = exports.log = exports.random = exports.perCalc = exports.perAdd = exports.inRange = exports.transactions = exports.businesses = exports.stocks = exports.money = exports.items = exports.language = exports.settings = exports.userdb = exports.polls = exports.quotes = exports.votes = exports.apis = exports.stat = void 0;
 const discord_js_1 = require("discord.js");
 const stat = __importStar(require("./stats.js"));
 const utils = __importStar(require("rjutils-collection"));
@@ -73,6 +73,10 @@ const getOption = (interaction, option) => {
         return interaction.options.get(option).value;
 };
 exports.getOption = getOption;
+const isNumber = (string) => {
+    return [...string].every((c) => '0123456789'.includes(c));
+};
+exports.isNumber = isNumber;
 const stats = (type, uid, gid) => {
     stat.add('t-all', type, 1);
     stat.add('g-' + gid, type, 1);

@@ -50,8 +50,8 @@ exports.default = {
             interaction.message.components[0].components[1].data.disabled = true;
             interaction.message.components[0].components[2].data.disabled = true;
             interaction.message.components[0].components[3].data.disabled = true;
-            interaction.message.components[0].components[parseInt(button) - 1].data.style = discord_js_1.ButtonStyle.Danger;
-            interaction.message.components[0].components[parseInt(solbutton) - 1].data.style = discord_js_1.ButtonStyle.Success;
+            interaction.message.components[0].components[Number(button) - 1].data.style = discord_js_1.ButtonStyle.Danger;
+            interaction.message.components[0].components[Number(solbutton) - 1].data.style = discord_js_1.ButtonStyle.Success;
         }
         let message;
         if (solution == choice) {

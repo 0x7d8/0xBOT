@@ -26,6 +26,13 @@ const client = new Client({
 export const get = async(userId: string) => {
     const data = await db.query(`select * from userinfos where userid = $1;`, [userId])
 
+    if (!bot.isNumber(userId)) return {
+        userid: userId,
+        username: "unknown",
+        usertag: "unknown",
+        avatar: "unknown"
+    }
+
     if (data.rowCount !== 1) {
         let cont = true
         const user: any = await client.users.fetch(userId).catch(() => { cont = false })
@@ -39,7 +46,7 @@ export const get = async(userId: string) => {
                 usertag: user.discriminator,
                 avatar: user.avatar
             }
-        }
+        } else return
     }
 
     return {

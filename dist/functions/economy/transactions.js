@@ -70,13 +70,13 @@ const log = async (json) => {
     if (json.sender.id === undefined)
         json.sender = {
             id: 'empty',
-            amount: '0',
+            amount: 0,
             type: 'empty'
         };
     if (json.reciever.id === undefined)
         json.reciever = {
             id: 'empty',
-            amount: '0',
+            amount: 0,
             type: 'empty'
         };
     await db.query(`insert into usertransactions values ($1, $2, $3, $4, $5, $6, $7, $8, $9)`, [

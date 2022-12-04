@@ -41,7 +41,7 @@ export default {
             if (itemid === 'cbomb') cost = 15000*amount
         } else {
             dopay = true
-            cost = parseInt(await bot.businesses.get('g-' + interaction.guild.id + '-1-PRICE-' + itemid.toUpperCase()))*amount
+            cost = Number(await bot.businesses.get('g-' + interaction.guild.id + '-1-PRICE-' + itemid.toUpperCase()))*amount
         }
 
         // Translate to itemid Names

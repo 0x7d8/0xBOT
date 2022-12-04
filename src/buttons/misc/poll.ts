@@ -9,8 +9,8 @@ export default {
     async execute(interaction: ButtonInteraction, client: Client, lang: string, vote: string, choice: string) {
         // Get Choices
         const cache = interaction.message.components[0]
-        let yes = parseInt(((cache.components[0] as any).data.label.split(' ['))[0])
-        let no = parseInt(((cache.components[1] as any).data.label.split(' ['))[0])
+        let yes = Number(((cache.components[0] as any).data.label.split(' ['))[0])
+        let no = Number(((cache.components[1] as any).data.label.split(' ['))[0])
 
         // Count Choice
         const dbChoice = await bot.polls.get(interaction.message.id, interaction.user.id)

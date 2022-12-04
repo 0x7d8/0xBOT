@@ -18,7 +18,7 @@ const get = async (userId) => {
     const data = await db.query(`select * from uservotes where userid = $1;`, [userId]);
     if (data.rowCount !== 1)
         return 0;
-    return parseInt(data.rows[0].votes);
+    return Number(data.rows[0].votes);
 };
 exports.get = get;
 const set = async (userId, value) => {

@@ -33,7 +33,7 @@ exports.default = {
     async execute(message, client) {
         if (!message.guildId)
             return;
-        if (!message.author.bot && parseInt(message.guildId) > 1000 && (await bot.settings.get(message.guildId, 'level'))) {
+        if (!message.author.bot && Number(message.guildId) > 1000 && (await bot.settings.get(message.guildId, 'level'))) {
             const oldCache = await bot.stat.get('u-' + message.author.id + '-' + message.guildId + '-C', 'msg');
             const oldXP = Math.round(oldCache / 5);
             let oldLevel = 0, oldLevelXP = oldXP;
@@ -55,7 +55,7 @@ exports.default = {
             if (oldLevel < newLevel) {
                 let guildlang = 'en';
                 const glang = await bot.language.get(message.guildId);
-                if (parseInt(glang) === 1)
+                if (Number(glang) === 1)
                     guildlang = 'de';
                 const row = new discord_js_1.ActionRowBuilder()
                     .addComponents(new discord_js_1.ButtonBuilder()

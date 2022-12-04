@@ -94,14 +94,14 @@ export default {
         bot.memory.get('B_PLAYERSELECT-' + interaction.user.id).push(sel)
 
         // Count Player Interactions Up by 1
-        bot.memory.set('A_PLAYERSELECT-' + interaction.user.id, (parseInt(bot.memory.get('A_PLAYERSELECT-' + interaction.user.id))+1))
+        bot.memory.set('A_PLAYERSELECT-' + interaction.user.id, (Number(bot.memory.get('A_PLAYERSELECT-' + interaction.user.id))+1))
 
         // Check if its the 2nd Player Interaction
         if (bot.memory.get('A_PLAYERSELECT-' + interaction.user.id) === 2) {
             // Check if Both Fields have the same Emoji
             if (bot.memory.get('C_PLAYERSELECT-' + interaction.user.id)[0] === bot.memory.get('C_PLAYERSELECT-' + interaction.user.id)[1]) {
                 // Add Point
-                bot.memory.set('POINTS-' + interaction.user.id, (parseInt(bot.memory.get('POINTS-' + interaction.user.id))+1))
+                bot.memory.set('POINTS-' + interaction.user.id, (Number(bot.memory.get('POINTS-' + interaction.user.id))+1))
 
                 // Get Button Position
                 const comp1 = rowGet(bot.memory.get('B_PLAYERSELECT-' + interaction.user.id)[0])

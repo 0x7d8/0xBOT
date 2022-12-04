@@ -57,6 +57,10 @@ export const getOption = (interaction: CommandInteraction, option: string) => {
     else return interaction.options.get(option).value
 }
 
+export const isNumber = (string: string) => {
+    return [...string].every((c) => '0123456789'.includes(c))
+}
+
 export const stats = (type: string, uid: string, gid: string) => {
     // Count to Global Commands
 	stat.add('t-all', type, 1)
@@ -66,7 +70,7 @@ export const stats = (type: string, uid: string, gid: string) => {
 	stat.add('u-' + uid, type, 1)
 }
 
-export const error = async(interaction: CommandInteraction, client: Client, error: any, type: string, language: string, vote: string) => {
+export const error = async(interaction: CommandInteraction, client: Client, error: Error, type: string, language: string, vote: string) => {
     if (!interaction.guild) return
 
     // Generate Error Code
@@ -119,12 +123,12 @@ export const error = async(interaction: CommandInteraction, client: Client, erro
     let message = new EmbedBuilder().setColor(0x37009B)
         .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
         .setDescription('» <:ERROR:1020414987291861022> An Error has occured while executing ' + word + '.\nThe Error has been logged and will be fixed soon!')
-        .setFooter({ text: '» ' + vote + ' » ' + client.config.version + ' » ERROR: ' + errorid });
+        .setFooter({ text: '» ' + vote + ' » ' + client.config.version + ' » ERROR: ' + errorid })
     if (language === 'de') {
         message = new EmbedBuilder().setColor(0x37009B)
             .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
             .setDescription('» <:ERROR:1020414987291861022> Ein Fehler ist beim ausführen ' + word + ' aufgetreten.\nDer Fehler wurde geloggt und wird bald behoben!')
-            .setFooter({ text: '» ' + vote + ' » ' + client.config.version + ' » FEHLER: ' + errorid });
+            .setFooter({ text: '» ' + vote + ' » ' + client.config.version + ' » FEHLER: ' + errorid })
     }
 
     // Send Message

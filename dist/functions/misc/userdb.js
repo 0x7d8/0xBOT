@@ -50,6 +50,13 @@ const client = new discord_js_1.Client({
 client.login(_config_1.default.client.token);
 const get = async (userId) => {
     const data = await db.query(`select * from userinfos where userid = $1;`, [userId]);
+    if (!bot.isNumber(userId))
+        return {
+            userid: userId,
+            username: "unknown",
+            usertag: "unknown",
+            avatar: "unknown"
+        };
     if (data.rowCount !== 1) {
         let cont = true;
         const user = await client.users.fetch(userId).catch(() => { cont = false; });
@@ -62,6 +69,8 @@ const get = async (userId) => {
                 avatar: user.avatar
             };
         }
+        else
+            return;
     }
     return {
         userid: data.rows[0].userid,

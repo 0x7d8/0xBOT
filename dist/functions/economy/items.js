@@ -23,7 +23,7 @@ const get = async (userId, type) => {
     else if (type === 'value')
         return data.rows[0].value;
     else
-        return parseInt(data.rows[0].amount);
+        return Number(data.rows[0].amount);
 };
 exports.get = get;
 const set = async (userId, value, amount) => {

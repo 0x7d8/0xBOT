@@ -63,7 +63,7 @@ exports.default = {
             await (0, promises_1.setTimeout)(20000);
             const rawvalues = await db.query(`select * from usermoney;`);
             let total = 0;
-            rawvalues.rows.forEach((element) => total += parseInt(element.money));
+            rawvalues.rows.forEach((element) => total += Number(element.money));
             client.user?.setActivity('$' + total + ' in Circulation', { type: discord_js_1.ActivityType.Watching });
             await (0, promises_1.setTimeout)(20000);
             const req = await axios.get('https://top.gg/api/bots/1001944224545128588', {

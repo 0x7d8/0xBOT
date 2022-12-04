@@ -31,7 +31,7 @@ exports.default = {
     },
     async execute(interaction, client, lang, vote, type) {
         const cache = interaction.message.embeds;
-        let number = parseInt(cache[0].description.toString().match(/\d+/g));
+        let number = Number(cache[0].description.toString().match(/\d+/g));
         if (typeof interaction.message.components[0].components[1] !== 'undefined') {
             if (number === 1) {
                 interaction.message.components[0].components[1].data.disabled = true;
