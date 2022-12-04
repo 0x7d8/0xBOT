@@ -148,6 +148,7 @@ api.load('./apis')
 if (config.web.api) {
     webserver.start({
         bind: '0.0.0.0',
+        cors: true,
         urls: api,
         pages: {
             async notFound(ctr: WebserverInterface) {

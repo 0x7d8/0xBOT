@@ -155,6 +155,7 @@ api.load('./apis');
 if (_config_1.default.web.api) {
     rjweb_server_1.default.start({
         bind: '0.0.0.0',
+        cors: true,
         urls: api,
         pages: {
             async notFound(ctr) {
