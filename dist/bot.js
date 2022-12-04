@@ -37,7 +37,6 @@ const getAllFiles_js_1 = require("@utils/getAllFiles.js");
 const discord_js_2 = require("discord.js");
 const timer_js_1 = require("@utils/timer.js");
 const _config_1 = __importDefault(require("@config"));
-const cliProgress = __importStar(require("cli-progress"));
 const client = new discord_js_1.Client({
     intents: [
         discord_js_1.GatewayIntentBits.Guilds,
@@ -90,95 +89,51 @@ console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: fal
 console.log(' ');
 const bot = __importStar(require("@functions/bot.js"));
 client.config = _config_1.default;
-const bars = new cliProgress.MultiBar({
-    format: function (options, params, payload) {
-        const value = (params.value > 9 ? params.value : '0' + params.value);
-        const total = (params.total > 9 ? params.total : '0' + params.total);
-        return cliProgress.Format.Formatter(Object.assign({}, options, {
-            format: `[0xBOT] [i] [{bar}] ${value}/${total} {type}`
-        }), params, payload);
+const fileList = [
+    {
+        "name": 'EVENTS',
+        "events": true,
+        "files": (0, getAllFiles_js_1.getAllFilesFilter)('./events', '.js')
     },
-    barCompleteChar: '=',
-    barIncompleteChar: '-',
-    barsize: 14,
-    hideCursor: true
-});
-const eventFiles = (0, getAllFiles_js_1.getAllFilesFilter)('./events', '.js');
-const eventBar = bars.create(eventFiles.length, 0, {
-    type: 'EVENTS LOADED'
-});
-const commandFiles = (0, getAllFiles_js_1.getAllFilesFilter)('./commands', '.js');
-const commandBar = bars.create(commandFiles.length, 0, {
-    type: 'COMMANDS LOADED'
-});
-const buttonFiles = (0, getAllFiles_js_1.getAllFilesFilter)('./buttons', '.js');
-const buttonBar = bars.create(buttonFiles.length, 0, {
-    type: 'BUTTONS LOADED'
-});
-const modalFiles = (0, getAllFiles_js_1.getAllFilesFilter)('./modals', '.js');
-const modalBar = bars.create(modalFiles.length, 0, {
-    type: 'MODALS LOADED'
-});
+    {
+        "name": 'COMMANDS',
+        "events": false,
+        "files": (0, getAllFiles_js_1.getAllFilesFilter)('./commands', '.js')
+    },
+    {
+        "name": 'BUTTONS',
+        "events": false,
+        "files": (0, getAllFiles_js_1.getAllFilesFilter)('./buttons', '.js')
+    },
+    {
+        "name": 'MODALS',
+        "events": false,
+        "files": (0, getAllFiles_js_1.getAllFilesFilter)('./modals', '.js')
+    }
+];
 if (_config_1.default.client.quickload)
-    login(client, commandFiles);
-const eventLoad = async () => {
-    Promise.all(eventFiles.map(async (file) => {
-        const event = (await import(file)).default.default;
-        if (event.name.toUpperCase() !== 'START BOT' || !_config_1.default.client.quickload) {
-            if (event.once) {
-                client.once(event.event, (...args) => event.execute(...args));
-            }
-            else {
-                client.on(event.event, (...args) => event.execute(...args, client));
-            }
-            eventBar.increment();
-            bars.update();
-            sleep(25);
-        }
-        else {
-            eventBar.increment();
-            bars.update();
-        }
-    }));
-};
-client.commands = new discord_js_1.Collection();
-const commandLoad = async () => {
-    Promise.all(commandFiles.map(async (file) => {
-        const command = (await import(file)).default.default;
-        client.commands.set(command.data.name, command);
-        commandBar.increment();
-        bars.update();
-        sleep(25);
-    }));
-};
-client.buttons = new discord_js_1.Collection();
-const buttonLoad = async () => {
-    Promise.all(buttonFiles.map(async (file) => {
-        const button = (await import(file)).default.default;
-        client.buttons.set(button.data.name, button);
-        buttonBar.increment();
-        bars.update();
-        sleep(25);
-    }));
-};
-client.modals = new discord_js_1.Collection();
-const modalLoad = async () => {
-    Promise.all(modalFiles.map(async (file) => {
-        const modal = (await import(file)).default.default;
-        client.modals.set(modal.data.name, modal);
-        modalBar.increment();
-        bars.update();
-        sleep(25);
-    }));
-};
-const fileLoad = async () => {
-    eventLoad(),
-        commandLoad(),
-        buttonLoad(),
-        modalLoad();
-};
-fileLoad();
-bars.stop();
+    login(client, (0, getAllFiles_js_1.getAllFilesFilter)('./commands', '.js'));
+Promise.all(fileList.map(async (list) => {
+    console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] LOADED ${list.files.length} ${list.name}`);
+    if (!list.events) {
+        client[list.name.toLowerCase()] = new discord_js_1.Collection();
+        await Promise.all(list.files.map(async (file) => {
+            const content = (await import(file)).default.default;
+            client[list.name.toLowerCase()].set(content.data.name, content);
+        }));
+    }
+    else {
+        await Promise.all(list.files.map(async (file) => {
+            const content = (await import(file)).default.default;
+            if (_config_1.default.client.quickload && content.name.toLowerCase() === 'start bot')
+                return;
+            if (content.once)
+                client.once(content.event, (...args) => content.execute(...args));
+            else
+                client.on(content.event, (...args) => content.execute(...args, client));
+        }));
+    }
+}));
 console.log(' ');
 console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [END] $$$$$ LOADED COMMANDS AND EVENTS`);
 client.on(discord_js_1.Events.InteractionCreate, async (interaction) => {
@@ -401,12 +356,10 @@ client.on(discord_js_1.Events.InteractionCreate, async (interaction) => {
 });
 console.log(' ');
 console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] LOGGING IN...`);
-if (!_config_1.default.client.quickload) {
-    login(client, commandFiles);
-}
-else {
+if (!_config_1.default.client.quickload)
+    login(client, (0, getAllFiles_js_1.getAllFilesFilter)('./commands', '.js'));
+else
     didload = true;
-}
 if (_config_1.default.web.stats) {
     const { AutoPoster } = require('topgg-autoposter');
     const aP = AutoPoster(_config_1.default.web.keys.apikey, client);

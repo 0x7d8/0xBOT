@@ -2,6 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Timer = void 0;
 class Timer {
+    isRunning;
+    startTime;
+    overallTime;
     constructor() {
         this.isRunning = false;
         this.startTime = 0;

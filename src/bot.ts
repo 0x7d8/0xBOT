@@ -13,7 +13,6 @@ import { EmbedBuilder } from "discord.js"
 import { Timer } from "@utils/timer.js"
 
 import config from "@config"
-import * as cliProgress from "cli-progress"
 
 // Create Client
 import iClient from "@interfaces/Client.js"
@@ -89,94 +88,55 @@ import * as bot from "@functions/bot.js"
 client.config = config
 
 /// Register External Files
-// Init Progress Bar
-const bars = new cliProgress.MultiBar({
-	format: function(options: any, params: any, payload: any){
-		const value = (params.value > 9 ? params.value : '0' + params.value)
-		const total = (params.total > 9 ? params.total : '0' + params.total)
-
-        return cliProgress.Format.Formatter(Object.assign({}, options, {
-            format: `[0xBOT] [i] [{bar}] ${value}/${total} {type}`
-        }), params, payload);
-    },
-    barCompleteChar: '=',
-    barIncompleteChar: '-',
-	barsize: 14,
-    hideCursor: true
-})
 
 // Get Files
-const eventFiles: string[] = getAllFilesFilter('./events', '.js')
-const eventBar = bars.create(eventFiles.length, 0, {
-	type: 'EVENTS LOADED'
-})
-const commandFiles: string[] = getAllFilesFilter('./commands', '.js')
-const commandBar = bars.create(commandFiles.length, 0, {
-	type: 'COMMANDS LOADED'
-})
-const buttonFiles: string[] = getAllFilesFilter('./buttons', '.js')
-const buttonBar = bars.create(buttonFiles.length, 0, {
-	type: 'BUTTONS LOADED'
-})
-const modalFiles: string[] = getAllFilesFilter('./modals', '.js')
-const modalBar = bars.create(modalFiles.length, 0, {
-	type: 'MODALS LOADED'
-})
+const fileList = [
+	{
+		"name": 'EVENTS',
+		"events": true,
+		"files": getAllFilesFilter('./events', '.js')
+	},
+	{
+        "name": 'COMMANDS',
+		"events": false,
+		"files": getAllFilesFilter('./commands', '.js')
+	},
+	{
+		"name": 'BUTTONS',
+		"events": false,
+		"files": getAllFilesFilter('./buttons', '.js')
+	},
+	{
+		"name": 'MODALS',
+		"events": false,
+		"files": getAllFilesFilter('./modals', '.js')
+	}
+]
 
 // Login Quickload
-if (config.client.quickload) login(client, commandFiles)
+if (config.client.quickload) login(client, getAllFilesFilter('./commands', '.js'))
 
-// Load all Files Functions
-const eventLoad = async() => {
-	Promise.all(eventFiles.map(async(file) => {
-		const event = (await import(file)).default.default
-		if (event.name.toUpperCase() !== 'START BOT' || !config.client.quickload) {
-			if (event.once) { client.once(event.event, (...args) => event.execute(...args)) } else { client.on(event.event, (...args) => event.execute(...args, client)) }
-			eventBar.increment()
-			bars.update()
-			sleep(25)
-		} else {
-			eventBar.increment()
-			bars.update()
-		}
-	}))
-}; client.commands = new Collection()
-const commandLoad = async() => {
-	Promise.all(commandFiles.map(async(file) => {
-		const command = (await import(file)).default.default
-		client.commands.set(command.data.name, command)
+// Load Files
+Promise.all(fileList.map(async(list) => {
+	console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] LOADED ${list.files.length} ${list.name}`)
 
-		commandBar.increment()
-		bars.update()
-		sleep(25)
-	}))
-}; client.buttons = new Collection()
-const buttonLoad = async() => {
-	Promise.all(buttonFiles.map(async(file) => {
-		const button = (await import(file)).default.default
-		client.buttons.set(button.data.name, button)
+	if (!list.events) {
+		client[list.name.toLowerCase()] = new Collection()
+		await Promise.all(list.files.map(async(file) => {
+			const content = (await import(file)).default.default
 
-		buttonBar.increment()
-		bars.update()
-		sleep(25)
-	}))
-}; client.modals = new Collection()
-const modalLoad = async() => {
-	Promise.all(modalFiles.map(async(file) => {
-		const modal = (await import(file)).default.default
-		client.modals.set(modal.data.name, modal)
+			client[list.name.toLowerCase()].set(content.data.name, content)
+		}))
+	} else {
+		await Promise.all(list.files.map(async(file) => {
+			const content = (await import(file)).default.default
+			if (config.client.quickload && content.name.toLowerCase() === 'start bot') return
 
-		modalBar.increment()
-		bars.update()
-		sleep(25)
-	}))
-}; const fileLoad = async() => {
-	eventLoad(),
-	commandLoad(),
-	buttonLoad(),
-	modalLoad()
-}; fileLoad()
-bars.stop()
+			if (content.once) client.once(content.event, (...args) => content.execute(...args))
+			else client.on(content.event, (...args) => content.execute(...args, client))
+		}))
+	}
+}))
 
 console.log(' ')
 console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [END] $$$$$ LOADED COMMANDS AND EVENTS`)
@@ -413,7 +373,8 @@ client.on(Events.InteractionCreate, async(interaction) => {
 console.log(' ')
 console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] LOGGING IN...`)
 
-if (!config.client.quickload) { login(client, commandFiles) } else { didload = true }
+if (!config.client.quickload) login(client, getAllFilesFilter('./commands', '.js'))
+else didload = true
 
 // Top.gg Stats
 if (config.web.stats) {
