@@ -1,6 +1,20 @@
-import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js"
 import { EmbedBuilder } from "discord.js"
 import { setTimeout as wait } from "timers/promises"
+
+// Function for Button Row Grabber
+const rowGet = (button: number) => {
+    let row: number, btn: number
+    if (button < 10) { row = 2; btn = button-6 }
+    if (button < 7) { row = 1; btn = button-3 }
+    if (button < 4) { row = 0; btn = button }
+
+    const output = []
+    if (btn > 0) output[0] = (btn - 1)
+    else output[0] = btn
+    output[1] = row
+
+    return output
+}
 
 import * as bot from "@functions/bot.js"
 import Client from "@interfaces/Client.js"
@@ -28,7 +42,7 @@ export default {
                 message = new EmbedBuilder().setColor(0x37009B)
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
         		    .setDescription('» Du spielst garnicht mit!')
-        		    .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
+        		    .setFooter({ text: '» ' + vote + ' » ' + client.config.version })
             }
             
             // Send Message
@@ -37,7 +51,7 @@ export default {
         }
 
         // Check Turn
-        const turn = await eval('tttdatatu' + sender)
+        const turn = bot.ttt.get('TURN-' + sender)
         if (interaction.user.id !== turn) {
             // Create Embed
             let message = new EmbedBuilder().setColor(0x37009B)
@@ -65,93 +79,32 @@ export default {
         if (turn === sender) turnemoji = '🔵'
         if (turn === reciever) turnemoji = '🔴'
 
-        // Set Variables
-        await eval('global.tttdatatuf' + sender + ' = parseInt(tttdatatuf' + sender + ') + 1')
-        await eval('global.tttdatad' + sel + sender + ' = true')
-
-        const msel = sel - 1
-        if (interaction.user.id == sender) {
-            await eval('global.tttdataf' + sel + sender + ' = "1020411088245903451"')
-            await eval('global.tttdatabc' + sel + sender + ' = ButtonStyle.Primary')
-            await eval('global.tttdata1a' + sender + '[' + msel+ '] = true')
-        }
-        if (interaction.user.id == reciever) {
-            await eval('global.tttdataf' + sel + sender + ' = "1020411023414542447"')
-            await eval('global.tttdatabc' + sel + sender + ' = ButtonStyle.Danger')
-            await eval('global.tttdata2a' + sender + '[' + msel + '] = true')
-        }
-
         // Turn Switcher
-        if (turn == sender) {
-            await eval('global.tttdatatu' + sender + ' = ' + reciever)
+        if (turn === sender) {
+            bot.ttt.set('TURN-' + sender, reciever)
             turnemoji = '🔴'
-        }
-        if (turn == reciever) {
-            await eval('global.tttdatatu' + sender + ' = ' + sender)
+        }; if (turn === reciever) {
+            bot.ttt.set('TURN-' + sender, sender)
             turnemoji = '🔵'
         }
 
-        // Create Buttons
-        let row1 = new ActionRowBuilder()
-			.addComponents(
-				new ButtonBuilder()
-                    .setEmoji(eval('tttdataf1' + sender))
-                    .setCustomId('TTT-1-' + bet)
-					.setStyle(eval('tttdatabc1' + sender))
-                    .setDisabled(eval('tttdatad1' + sender)),
+        // Edit Buttons
+        const comp = rowGet(sel)
+        if (interaction.user.id === sender) {
+            bot.ttt.set('FIELD-' + sel + '-' + sender, sender)
+            bot.ttt.get('FIELDS-' + sender).push(sel);
 
-                new ButtonBuilder()
-                    .setEmoji(eval('tttdataf2' + sender))
-                    .setCustomId('TTT-2-' + bet)
-					.setStyle(eval('tttdatabc2' + sender))
-                    .setDisabled(eval('tttdatad2' + sender)),
+            (interaction.message.components[comp[1]].components[comp[0]].data.disabled as boolean) = true;
+            (interaction.message.components[comp[1]].components[comp[0]] as any).data.emoji = { id: '1020411088245903451', name: 'TICTACTOE' };
+            (interaction.message.components[comp[1]].components[comp[0]] as any).data.style = 1;
+        }; if (interaction.user.id === reciever) {
+            bot.ttt.set('FIELD-' + sel + '-' + sender, reciever)
+            bot.ttt.get('FIELDS-' + reciever).push(sel);
 
-                new ButtonBuilder()
-                    .setEmoji(eval('tttdataf3' + sender))
-                    .setCustomId('TTT-3-' + bet)
-					.setStyle(eval('tttdatabc3' + sender))
-                    .setDisabled(eval('tttdatad3' + sender)),
-			)
-        let row2 = new ActionRowBuilder()
-			.addComponents(
-				new ButtonBuilder()
-                    .setEmoji(eval('tttdataf4' + sender))
-                    .setCustomId('TTT-4-' + bet)
-					.setStyle(eval('tttdatabc4' + sender))
-                    .setDisabled(eval('tttdatad4' + sender)),
-
-                new ButtonBuilder()
-                    .setEmoji(eval('tttdataf5' + sender))
-                    .setCustomId('TTT-5-' + bet)
-					.setStyle(eval('tttdatabc5' + sender))
-                    .setDisabled(eval('tttdatad5' + sender)),
-
-                new ButtonBuilder()
-                    .setEmoji(eval('tttdataf6' + sender))
-                    .setCustomId('TTT-6-' + bet)
-					.setStyle(eval('tttdatabc6' + sender))
-                    .setDisabled(eval('tttdatad6' + sender)),
-			)
-        let row3 = new ActionRowBuilder()
-			.addComponents(
-				new ButtonBuilder()
-                    .setEmoji(eval('tttdataf7' + sender))
-                    .setCustomId('TTT-7-' + bet)
-					.setStyle(eval('tttdatabc7' + sender))
-                    .setDisabled(eval('tttdatad7' + sender)),
-
-                new ButtonBuilder()
-                    .setEmoji(eval('tttdataf8' + sender))
-                    .setCustomId('TTT-8-' + bet)
-					.setStyle(eval('tttdatabc8' + sender))
-                    .setDisabled(eval('tttdatad8' + sender)),
-
-                new ButtonBuilder()
-                    .setEmoji(eval('tttdataf9' + sender))
-                    .setCustomId('TTT-9-' + bet)
-					.setStyle(eval('tttdatabc9' + sender))
-                    .setDisabled(eval('tttdatad9' + sender)),
-			)
+            (interaction.message.components[comp[1]].components[comp[0]].data.disabled as boolean) = true;
+            (interaction.message.components[comp[1]].components[comp[0]] as any).data.emoji = { id: '1020411023414542447', name: 'TICTACTOE' };
+            (interaction.message.components[comp[1]].components[comp[0]] as any).data.style = 4;
+        }
 
         // Create Embed
         let message = new EmbedBuilder().setColor(0x37009B)
@@ -168,184 +121,87 @@ export default {
 
         // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] TICTACTOE : ' + sel)
-        interaction.editReply({ embeds: [message], components: [row1 as any, row2 as any, row3 as any], ephemeral: true } as any)
+        interaction.editReply({ embeds: [message], components: interaction.message.components, ephemeral: true } as any)
+        await wait(500)
 
-        // Update Message
-        await interaction.message.edit({ embeds: [message], components: [row1 as any, row2 as any, row3 as any], ephemeral: true } as any)
-        await wait(1000)
-
-        // Check if Anyone Won
+        /// Check if Anyone Won
+        const fields = []
         let won = false
-        if (await eval('tttdata1a' + sender + '[0] == true') && await eval('tttdata1a' + sender + '[1] == true') && await eval('tttdata1a' + sender + '[2] == true')) {
-            won = true
-        }
-        if (await eval('tttdata1a' + sender + '[3] == true') && await eval('tttdata1a' + sender + '[4] == true') && await eval('tttdata1a' + sender + '[5] == true')) {
-            won = true
-        }
-        if (await eval('tttdata1a' + sender + '[6] == true') && await eval('tttdata1a' + sender + '[7] == true') && await eval('tttdata1a' + sender + '[8] == true')) {
-            won = true
-        }
-        if (await eval('tttdata1a' + sender + '[0] == true') && await eval('tttdata1a' + sender + '[3] == true') && await eval('tttdata1a' + sender + '[6] == true')) {
-            won = true
-        }
-        if (await eval('tttdata1a' + sender + '[1] == true') && await eval('tttdata1a' + sender + '[4] == true') && await eval('tttdata1a' + sender + '[7] == true')) {
-            won = true
-        }
-        if (await eval('tttdata1a' + sender + '[2] == true') && await eval('tttdata1a' + sender + '[5] == true') && await eval('tttdata1a' + sender + '[8] == true')) {
-            won = true
-        }
-        if (await eval('tttdata1a' + sender + '[0] == true') && await eval('tttdata1a' + sender + '[4] == true') && await eval('tttdata1a' + sender + '[8] == true')) {
-            won = true
-        }
-        if (await eval('tttdata1a' + sender + '[6] == true') && await eval('tttdata1a' + sender + '[4] == true') && await eval('tttdata1a' + sender + '[2] == true')) {
-            won = true
-        }
-        if (await eval('tttdata2a' + sender + '[0] == true') && await eval('tttdata2a' + sender + '[1] == true') && await eval('tttdata2a' + sender + '[2] == true')) {
-            won = true
-        }
-        if (await eval('tttdata2a' + sender + '[3] == true') && await eval('tttdata2a' + sender + '[4] == true') && await eval('tttdata2a' + sender + '[5] == true')) {
-            won = true
-        }
-        if (await eval('tttdata2a' + sender + '[6] == true') && await eval('tttdata2a' + sender + '[7] == true') && await eval('tttdata2a' + sender + '[8] == true')) {
-            won = true
-        }
-        if (await eval('tttdata2a' + sender + '[0] == true') && await eval('tttdata2a' + sender + '[3] == true') && await eval('tttdata2a' + sender + '[6] == true')) {
-            won = true
-        }
-        if (await eval('tttdata2a' + sender + '[1] == true') && await eval('tttdata2a' + sender + '[4] == true') && await eval('tttdata2a' + sender + '[7] == true')) {
-            won = true
-        }
-        if (await eval('tttdata2a' + sender + '[2] == true') && await eval('tttdata2a' + sender + '[5] == true') && await eval('tttdata2a' + sender + '[8] == true')) {
-            won = true
-        }
-        if (await eval('tttdata2a' + sender + '[0] == true') && await eval('tttdata2a' + sender + '[4] == true') && await eval('tttdata2a' + sender + '[8] == true')) {
-            won = true
-        }
-        if (await eval('tttdata2a' + sender + '[6] == true') && await eval('tttdata2a' + sender + '[4] == true') && await eval('tttdata2a' + sender + '[2] == true')) {
-            won = true
-        }
+
+        // Horizontal
+        if (
+            bot.ttt.get('FIELD-1-' + sender) === bot.ttt.get('FIELD-2-' + sender) &&
+            bot.ttt.get('FIELD-1-' + sender) === bot.ttt.get('FIELD-3-' + sender) &&
+            bot.ttt.get('FIELD-1-' + sender) !== null &&
+            bot.ttt.get('FIELD-2-' + sender) !== null &&
+            bot.ttt.get('FIELD-3-' + sender) !== null
+        ) { won = true; fields.push(1, 2, 3) }
+        if (
+            bot.ttt.get('FIELD-4-' + sender) === bot.ttt.get('FIELD-5-' + sender) &&
+            bot.ttt.get('FIELD-4-' + sender) === bot.ttt.get('FIELD-6-' + sender) &&
+            bot.ttt.get('FIELD-3-' + sender) !== null &&
+            bot.ttt.get('FIELD-4-' + sender) !== null &&
+            bot.ttt.get('FIELD-5-' + sender) !== null
+        ) { won = true; fields.push(3, 4, 5) }
+        if (
+            bot.ttt.get('FIELD-7-' + sender) === bot.ttt.get('FIELD-8-' + sender) &&
+            bot.ttt.get('FIELD-7-' + sender) === bot.ttt.get('FIELD-9-' + sender) &&
+            bot.ttt.get('FIELD-7-' + sender) !== null &&
+            bot.ttt.get('FIELD-8-' + sender) !== null &&
+            bot.ttt.get('FIELD-9-' + sender) !== null
+        ) { won = true; fields.push(7, 8, 9) }
+
+        // Vertical
+        if (
+            bot.ttt.get('FIELD-1-' + sender) === bot.ttt.get('FIELD-4-' + sender) &&
+            bot.ttt.get('FIELD-1-' + sender) === bot.ttt.get('FIELD-7-' + sender) &&
+            bot.ttt.get('FIELD-1-' + sender) !== null &&
+            bot.ttt.get('FIELD-4-' + sender) !== null &&
+            bot.ttt.get('FIELD-7-' + sender) !== null
+        ) { won = true; fields.push(1, 4, 7) }
+        if (
+            bot.ttt.get('FIELD-2-' + sender) === bot.ttt.get('FIELD-5-' + sender) &&
+            bot.ttt.get('FIELD-2-' + sender) === bot.ttt.get('FIELD-8-' + sender) &&
+            bot.ttt.get('FIELD-2-' + sender) !== null &&
+            bot.ttt.get('FIELD-5-' + sender) !== null &&
+            bot.ttt.get('FIELD-8-' + sender) !== null
+        ) { won = true; fields.push(2, 5, 8) }
+        if (
+            bot.ttt.get('FIELD-3-' + sender) === bot.ttt.get('FIELD-6-' + sender) &&
+            bot.ttt.get('FIELD-3-' + sender) === bot.ttt.get('FIELD-9-' + sender) &&
+            bot.ttt.get('FIELD-3-' + sender) !== null &&
+            bot.ttt.get('FIELD-6-' + sender) !== null &&
+            bot.ttt.get('FIELD-9-' + sender) !== null
+        ) { won = true; fields.push(3, 6, 9) }
+
+        // Diagonal
+        if (
+            bot.ttt.get('FIELD-1-' + sender) === bot.ttt.get('FIELD-5-' + sender) &&
+            bot.ttt.get('FIELD-1-' + sender) === bot.ttt.get('FIELD-9-' + sender) &&
+            bot.ttt.get('FIELD-1-' + sender) !== null &&
+            bot.ttt.get('FIELD-5-' + sender) !== null &&
+            bot.ttt.get('FIELD-9-' + sender) !== null
+        ) { won = true; fields.push(1, 5, 9) }
+        if (
+            bot.ttt.get('FIELD-3-' + sender) === bot.ttt.get('FIELD-5-' + sender) &&
+            bot.ttt.get('FIELD-3-' + sender) === bot.ttt.get('FIELD-7-' + sender) &&
+            bot.ttt.get('FIELD-3-' + sender) !== null &&
+            bot.ttt.get('FIELD-5-' + sender) !== null &&
+            bot.ttt.get('FIELD-7-' + sender) !== null
+        ) { won = true; fields.push(3, 5, 7) }
 
         // Check if Round has ended
-        if(won || await eval('tttdatatuf' + sender + ' == 9')) {
+        if (won || (bot.ttt.get('FIELDS-' + sender).length + bot.ttt.get('FIELDS-' + reciever).length) === 9) {
             // Check Who Won
             let winner = '**Noone**'
-            if (lang === 'de') { winner = '**Niemand**' }
-            if (await eval('tttdata1a' + sender + '[0] == true') && await eval('tttdata1a' + sender + '[1] == true') && await eval('tttdata1a' + sender + '[2] == true')) {
-                winner = '<@' + sender + '>'
-                await eval('global.tttdatabc1' + sender + ' = ButtonStyle.Success')
-                await eval('global.tttdatabc2' + sender + ' = ButtonStyle.Success')
-                await eval('global.tttdatabc3' + sender + ' = ButtonStyle.Success')
-            }
-            if (await eval('tttdata1a' + sender + '[3] == true') && await eval('tttdata1a' + sender + '[4] == true') && await eval('tttdata1a' + sender + '[5] == true')) {
-                winner = '<@' + sender + '>'
-                await eval('global.tttdatabc4' + sender + ' = ButtonStyle.Success')
-                await eval('global.tttdatabc5' + sender + ' = ButtonStyle.Success')
-                await eval('global.tttdatabc6' + sender + ' = ButtonStyle.Success')
-            }
-            if (await eval('tttdata1a' + sender + '[6] == true') && await eval('tttdata1a' + sender + '[7] == true') && await eval('tttdata1a' + sender + '[8] == true')) {
-                winner = '<@' + sender + '>'
-                await eval('global.tttdatabc7' + sender + ' = ButtonStyle.Success')
-                await eval('global.tttdatabc8' + sender + ' = ButtonStyle.Success')
-                await eval('global.tttdatabc9' + sender + ' = ButtonStyle.Success')
-            }
-            if (await eval('tttdata1a' + sender + '[0] == true') && await eval('tttdata1a' + sender + '[3] == true') && await eval('tttdata1a' + sender + '[6] == true')) {
-                winner = '<@' + sender + '>'
-                await eval('global.tttdatabc1' + sender + ' = ButtonStyle.Success')
-                await eval('global.tttdatabc4' + sender + ' = ButtonStyle.Success')
-                await eval('global.tttdatabc7' + sender + ' = ButtonStyle.Success')
-            }
-            if (await eval('tttdata1a' + sender + '[1] == true') && await eval('tttdata1a' + sender + '[4] == true') && await eval('tttdata1a' + sender + '[7] == true')) {
-                winner = '<@' + sender + '>'
-                await eval('global.tttdatabc2' + sender + ' = ButtonStyle.Success')
-                await eval('global.tttdatabc5' + sender + ' = ButtonStyle.Success')
-                await eval('global.tttdatabc8' + sender + ' = ButtonStyle.Success')
-            }
-            if (await eval('tttdata1a' + sender + '[2] == true') && await eval('tttdata1a' + sender + '[5] == true') && await eval('tttdata1a' + sender + '[8] == true')) {
-                winner = '<@' + sender + '>'
-                await eval('global.tttdatabc3' + sender + ' = ButtonStyle.Success')
-                await eval('global.tttdatabc6' + sender + ' = ButtonStyle.Success')
-                await eval('global.tttdatabc9' + sender + ' = ButtonStyle.Success')
-            }
-            if (await eval('tttdata1a' + sender + '[0] == true') && await eval('tttdata1a' + sender + '[4] == true') && await eval('tttdata1a' + sender + '[8] == true')) {
-                winner = '<@' + sender + '>'
-                await eval('global.tttdatabc1' + sender + ' = ButtonStyle.Success')
-                await eval('global.tttdatabc5' + sender + ' = ButtonStyle.Success')
-                await eval('global.tttdatabc9' + sender + ' = ButtonStyle.Success')
-            }
-            if (await eval('tttdata1a' + sender + '[6] == true') && await eval('tttdata1a' + sender + '[4] == true') && await eval('tttdata1a' + sender + '[2] == true')) {
-                winner = '<@' + sender + '>'
-                await eval('global.tttdatabc3' + sender + ' = ButtonStyle.Success')
-                await eval('global.tttdatabc5' + sender + ' = ButtonStyle.Success')
-                await eval('global.tttdatabc7' + sender + ' = ButtonStyle.Success')
-            }
-            if (await eval('tttdata2a' + sender + '[0] == true') && await eval('tttdata2a' + sender + '[1] == true') && await eval('tttdata2a' + sender + '[2] == true')) {
-                winner = '<@' + reciever + '>'
-                await eval('global.tttdatabc1' + sender + ' = ButtonStyle.Success')
-                await eval('global.tttdatabc2' + sender + ' = ButtonStyle.Success')
-                await eval('global.tttdatabc3' + sender + ' = ButtonStyle.Success')
-            }
-            if (await eval('tttdata2a' + sender + '[3] == true') && await eval('tttdata2a' + sender + '[4] == true') && await eval('tttdata2a' + sender + '[5] == true')) {
-                winner = '<@' + reciever + '>'
-                await eval('global.tttdatabc4' + sender + ' = ButtonStyle.Success')
-                await eval('global.tttdatabc5' + sender + ' = ButtonStyle.Success')
-                await eval('global.tttdatabc6' + sender + ' = ButtonStyle.Success')
-            }
-            if (await eval('tttdata2a' + sender + '[6] == true') && await eval('tttdata2a' + sender + '[7] == true') && await eval('tttdata2a' + sender + '[8] == true')) {
-                winner = '<@' + reciever + '>'
-                await eval('global.tttdatabc7' + sender + ' = ButtonStyle.Success')
-                await eval('global.tttdatabc8' + sender + ' = ButtonStyle.Success')
-                await eval('global.tttdatabc9' + sender + ' = ButtonStyle.Success')
-            }
-            if (await eval('tttdata2a' + sender + '[0] == true') && await eval('tttdata2a' + sender + '[3] == true') && await eval('tttdata2a' + sender + '[6] == true')) {
-                winner = '<@' + reciever + '>'
-                await eval('global.tttdatabc1' + sender + ' = ButtonStyle.Success')
-                await eval('global.tttdatabc4' + sender + ' = ButtonStyle.Success')
-                await eval('global.tttdatabc7' + sender + ' = ButtonStyle.Success')
-            }
-            if (await eval('tttdata2a' + sender + '[1] == true') && await eval('tttdata2a' + sender + '[4] == true') && await eval('tttdata2a' + sender + '[7] == true')) {
-                winner = '<@' + reciever + '>'
-                await eval('global.tttdatabc2' + sender + ' = ButtonStyle.Success')
-                await eval('global.tttdatabc5' + sender + ' = ButtonStyle.Success')
-                await eval('global.tttdatabc8' + sender + ' = ButtonStyle.Success')
-            }
-            if (await eval('tttdata2a' + sender + '[2] == true') && await eval('tttdata2a' + sender + '[5] == true') && await eval('tttdata2a' + sender + '[8] == true')) {
-                winner = '<@' + reciever + '>'
-                await eval('global.tttdatabc3' + sender + ' = ButtonStyle.Success')
-                await eval('global.tttdatabc6' + sender + ' = ButtonStyle.Success')
-                await eval('global.tttdatabc9' + sender + ' = ButtonStyle.Success')
-            }
-            if (await eval('tttdata2a' + sender + '[0] == true') && await eval('tttdata2a' + sender + '[4] == true') && await eval('tttdata2a' + sender + '[8] == true')) {
-                winner = '<@' + reciever + '>'
-                await eval('global.tttdatabc1' + sender + ' = ButtonStyle.Success')
-                await eval('global.tttdatabc5' + sender + ' = ButtonStyle.Success')
-                await eval('global.tttdatabc9' + sender + ' = ButtonStyle.Success')
-            }
-            if (await eval('tttdata2a' + sender + '[6] == true') && await eval('tttdata2a' + sender + '[4] == true') && await eval('tttdata2a' + sender + '[2] == true')) {
-                winner = '<@' + reciever + '>'
-                await eval('global.tttdatabc3' + sender + ' = ButtonStyle.Success')
-                await eval('global.tttdatabc5' + sender + ' = ButtonStyle.Success')
-                await eval('global.tttdatabc7' + sender + ' = ButtonStyle.Success')
-            }
+            if (lang === 'de') winner = '**Niemand**'
 
-            // Deactivate all Buttons
-            const buttondatas = []
-            let buttoncount = 1
-            let donebutton = false
-            const dbtn = async () => {
-                while (donebutton == false) {
-                    await wait(10)
-                    if (await eval('tttdatad' + buttoncount + sender + ' == false')) {
-                        await eval('global.tttdatad' + buttoncount + sender + ' = true')
-                        buttondatas.push(buttoncount.toString())
-                    }
-                    buttoncount = buttoncount + 1
-                    if (buttoncount == 10) {
-                        donebutton = true
-                        return
-                    }
-                }
-            }
-        await dbtn()
+            winner = '<@' + bot.ttt.get('FIELD-' + fields[0] + '-' + sender) + '>'
+            fields.forEach((field: number) => {
+                const comp = rowGet(field);
+
+                (interaction.message.components[comp[1]].components[comp[0]] as any).data.style = 3
+            })
 
             // Transfer Money
             const betwon = bet * 2; let transaction: any
@@ -370,68 +226,6 @@ export default {
                 bot.money.add(interaction.guild.id, reciever, bet)
             }
 
-            // Create Buttons
-            row1 = new ActionRowBuilder()
-                .addComponents(
-                    new ButtonBuilder()
-                        .setEmoji(eval('tttdataf1' + sender))
-                        .setCustomId('TTT-1-' + bet)
-                        .setStyle(eval('tttdatabc1' + sender))
-                        .setDisabled(eval('tttdatad1' + sender)),
-
-                    new ButtonBuilder()
-                        .setEmoji(eval('tttdataf2' + sender))
-                        .setCustomId('TTT-2-' + bet)
-                        .setStyle(eval('tttdatabc2' + sender))
-                        .setDisabled(eval('tttdatad2' + sender)),
-
-                    new ButtonBuilder()
-                        .setEmoji(eval('tttdataf3' + sender))
-                        .setCustomId('TTT-3-' + bet)
-                        .setStyle(eval('tttdatabc3' + sender))
-                        .setDisabled(eval('tttdatad3' + sender)),
-                )
-            row2 = new ActionRowBuilder()
-                .addComponents(
-                    new ButtonBuilder()
-                        .setEmoji(eval('tttdataf4' + sender))
-                        .setCustomId('TTT-4-' + bet)
-                        .setStyle(eval('tttdatabc4' + sender))
-                        .setDisabled(eval('tttdatad4' + sender)),
-
-                    new ButtonBuilder()
-                        .setEmoji(eval('tttdataf5' + sender))
-                        .setCustomId('TTT-5-' + bet)
-                        .setStyle(eval('tttdatabc5' + sender))
-                        .setDisabled(eval('tttdatad5' + sender)),
-
-                    new ButtonBuilder()
-                        .setEmoji(eval('tttdataf6' + sender))
-                        .setCustomId('TTT-6-' + bet)
-                        .setStyle(eval('tttdatabc6' + sender))
-                        .setDisabled(eval('tttdatad6' + sender)),
-                )
-            row3 = new ActionRowBuilder()
-                .addComponents(
-                    new ButtonBuilder()
-                        .setEmoji(eval('tttdataf7' + sender))
-                        .setCustomId('TTT-7-' + bet)
-                        .setStyle(eval('tttdatabc7' + sender))
-                        .setDisabled(eval('tttdatad7' + sender)),
-
-                    new ButtonBuilder()
-                        .setEmoji(eval('tttdataf8' + sender))
-                        .setCustomId('TTT-8-' + bet)
-                        .setStyle(eval('tttdatabc8' + sender))
-                        .setDisabled(eval('tttdatad8' + sender)),
-
-                    new ButtonBuilder()
-                        .setEmoji(eval('tttdataf9' + sender))
-                        .setCustomId('TTT-9-' + bet)
-                        .setStyle(eval('tttdatabc9' + sender))
-                        .setDisabled(eval('tttdatad9' + sender)),
-                )
-
             // Create Embed
             message = new EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:GAMEPAD:1024395990679167066> » TICTACTOE')
@@ -445,119 +239,35 @@ export default {
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version })
             }
 
+            // Edit Buttons
+            for (let i = 0; i <= 9; i++) {
+                const comp = rowGet(i);
+
+                (interaction.message.components[comp[1]].components[comp[0]].data.disabled as boolean) = true
+            }
+
             // Delete Variables
-            eval('delete tttdatatu' + sender)
-            eval('delete tttdatatuf' + sender)
+            bot.game.delete('PLAYING-' + sender)
+            bot.game.delete('PLAYING-' + reciever)
 
-            eval('delete tttdataf1' + sender)
-            eval('delete tttdataf2' + sender)
-            eval('delete tttdataf3' + sender)
-            eval('delete tttdataf4' + sender)
-            eval('delete tttdataf5' + sender)
-            eval('delete tttdataf6' + sender)
-            eval('delete tttdataf7' + sender)
-            eval('delete tttdataf8' + sender)
-            eval('delete tttdataf9' + sender)
+            bot.ttt.delete('TURN-' + sender)
+            bot.ttt.delete('TURN-' + reciever)
 
-            eval('delete tttdatabc1' + sender)
-            eval('delete tttdatabc2' + sender)
-            eval('delete tttdatabc3' + sender)
-            eval('delete tttdatabc4' + sender)
-            eval('delete tttdatabc5' + sender)
-            eval('delete tttdatabc6' + sender)
-            eval('delete tttdatabc7' + sender)
-            eval('delete tttdatabc8' + sender)
-            eval('delete tttdatabc9' + sender)
+            bot.ttt.delete('FIELDS-' + sender)
+            bot.ttt.delete('FIELDS-' + reciever)
 
-            eval('delete tttdatad1' + sender)
-            eval('delete tttdatad2' + sender)
-            eval('delete tttdatad3' + sender)
-            eval('delete tttdatad4' + sender)
-            eval('delete tttdatad5' + sender)
-            eval('delete tttdatad6' + sender)
-            eval('delete tttdatad7' + sender)
-            eval('delete tttdatad8' + sender)
-            eval('delete tttdatad9' + sender)
-
-            eval('delete tttdatap' + sender)
-            eval('delete tttdatap' + reciever)
-            eval('delete tttdatapc' + sender)
-            eval('delete tttdatapc' + reciever)
-            eval('delete tttdatapcn' + sender)
-            eval('delete tttdatapcn' + reciever)
-            eval('delete tttdatapca' + sender)
-            eval('delete tttdatapca' + reciever)
-
-            eval('delete ttts' + sender)
-            eval('delete ttts' + reciever)
+            bot.ttt.delete('FIELD-1-' + sender)
+            bot.ttt.delete('FIELD-2-' + sender)
+            bot.ttt.delete('FIELD-3-' + sender)
+            bot.ttt.delete('FIELD-4-' + sender)
+            bot.ttt.delete('FIELD-5-' + sender)
+            bot.ttt.delete('FIELD-6-' + sender)
+            bot.ttt.delete('FIELD-7-' + sender)
+            bot.ttt.delete('FIELD-8-' + sender)
+            bot.ttt.delete('FIELD-9-' + sender)
 
             // Update Message
-            return interaction.message.edit({ embeds: [message], components: [row1 as any, row2 as any, row3 as any], ephemeral: true } as any)
+            return interaction.message.edit({ embeds: [message], components: interaction.message.components, ephemeral: true } as any)
         }
-
-        // Create Buttons
-        row1 = new ActionRowBuilder()
-			.addComponents(
-				new ButtonBuilder()
-                    .setEmoji(eval('tttdataf1' + sender))
-                    .setCustomId('TTT-1-' + bet)
-					.setStyle(eval('tttdatabc1' + sender))
-                    .setDisabled(eval('tttdatad1' + sender)),
-
-                new ButtonBuilder()
-                    .setEmoji(eval('tttdataf2' + sender))
-                    .setCustomId('TTT-2-' + bet)
-					.setStyle(eval('tttdatabc2' + sender))
-                    .setDisabled(eval('tttdatad2' + sender)),
-
-                new ButtonBuilder()
-                    .setEmoji(eval('tttdataf3' + sender))
-                    .setCustomId('TTT-3-' + bet)
-					.setStyle(eval('tttdatabc3' + sender))
-                    .setDisabled(eval('tttdatad3' + sender)),
-			)
-        row2 = new ActionRowBuilder()
-			.addComponents(
-				new ButtonBuilder()
-                    .setEmoji(eval('tttdataf4' + sender))
-                    .setCustomId('TTT-4-' + bet)
-					.setStyle(eval('tttdatabc4' + sender))
-                    .setDisabled(eval('tttdatad4' + sender)),
-
-                new ButtonBuilder()
-                    .setEmoji(eval('tttdataf5' + sender))
-                    .setCustomId('TTT-5-' + bet)
-					.setStyle(eval('tttdatabc5' + sender))
-                    .setDisabled(eval('tttdatad5' + sender)),
-
-                new ButtonBuilder()
-                    .setEmoji(eval('tttdataf6' + sender))
-                    .setCustomId('TTT-6-' + bet)
-					.setStyle(eval('tttdatabc6' + sender))
-                    .setDisabled(eval('tttdatad6' + sender)),
-			)
-        row3 = new ActionRowBuilder()
-			.addComponents(
-				new ButtonBuilder()
-                    .setEmoji(eval('tttdataf7' + sender))
-                    .setCustomId('TTT-7-' + bet)
-					.setStyle(eval('tttdatabc7' + sender))
-                    .setDisabled(eval('tttdatad7' + sender)),
-
-                new ButtonBuilder()
-                    .setEmoji(eval('tttdataf8' + sender))
-                    .setCustomId('TTT-8-' + bet)
-					.setStyle(eval('tttdatabc8' + sender))
-                    .setDisabled(eval('tttdatad8' + sender)),
-
-                new ButtonBuilder()
-                    .setEmoji(eval('tttdataf9' + sender))
-                    .setCustomId('TTT-9-' + bet)
-					.setStyle(eval('tttdatabc9' + sender))
-                    .setDisabled(eval('tttdatad9' + sender)),
-			)
-
-        // Update Message
-        return interaction.message.edit({ embeds: [message], components: [row1 as any, row2 as any, row3 as any], ephemeral: true } as any)
     }
 }

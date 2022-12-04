@@ -236,7 +236,7 @@ export default {
         // Init Timeout Function
         bot.rps.set('TIMEOUT-' + interaction.user.id + '-' + msg.id, true)
 
-        const expiration = async () => {
+        const expiration = async() => {
             // Check if Message wasnt already answered
             if (!bot.rps.has('TIMEOUT-' + interaction.user.id + '-' + msg.id)) return
             bot.rps.delete('TIMEOUT-' + interaction.user.id + '-' + msg.id)

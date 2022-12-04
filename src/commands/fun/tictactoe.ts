@@ -234,9 +234,9 @@ export default {
         const msg = await interaction.reply({ content: '<@' + user.id + '>', embeds: [message], components: [row as any], fetchReply: true })
 
         // Init Timeout Function
-        bot.ttt.set('TIMEOUT-' + interaction.user.id + '-', msg.id)
+        bot.ttt.set('TIMEOUT-' + interaction.user.id + '-' + msg.id, true)
 
-        const expiration = async () => {
+        const expiration = async() => {
             // Check if Message wasnt already answered
             if (!bot.ttt.has('TIMEOUT-' + interaction.user.id + '-' + msg.id)) return
             bot.ttt.delete('TIMEOUT-' + interaction.user.id + '-' + msg.id)

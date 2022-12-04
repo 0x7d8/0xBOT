@@ -236,7 +236,7 @@ export default {
         // Init Timeout Function
         bot.memory.set('TIMEOUT-' + interaction.user.id + '-' + msg.id, true)
 
-        const expiration = async () => {
+        const expiration = async() => {
             // Check if Message wasnt already answered
             if (!bot.memory.has('TIMEOUT-' + interaction.user.id + '-' + msg.id)) return
             bot.memory.delete('TIMEOUT-' + interaction.user.id + '-' + msg.id)

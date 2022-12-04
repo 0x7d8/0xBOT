@@ -132,7 +132,7 @@ const db = new pg_1.default.Pool({
     port: 5432
 });
 const domigrate = async () => { await migrator(db); };
-domigrate().then(() => console.log(' '));
+domigrate();
 const rjweb_server_1 = __importDefault(require("rjweb-server"));
 // Website
 const website = new rjweb_server_1.default.routeList();

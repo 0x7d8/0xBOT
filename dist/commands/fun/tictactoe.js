@@ -218,7 +218,7 @@ exports.default = {
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] TICTACTOE : ' + user.id + ' : ' + bet + '€');
         const msg = await interaction.reply({ content: '<@' + user.id + '>', embeds: [message], components: [row], fetchReply: true });
         // Init Timeout Function
-        bot.ttt.set('TIMEOUT-' + interaction.user.id + '-', msg.id);
+        bot.ttt.set('TIMEOUT-' + interaction.user.id + '-' + msg.id, true);
         const expiration = async () => {
             // Check if Message wasnt already answered
             if (!bot.ttt.has('TIMEOUT-' + interaction.user.id + '-' + msg.id))

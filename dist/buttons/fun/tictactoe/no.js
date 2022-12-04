@@ -35,16 +35,16 @@ exports.default = {
         const description = cache[0].description.toString().replace(/[^\d@!]/g, '').split('!')[0].substring(1).split("@");
         const [sender, reciever] = description;
         // Check if User is Authorized
-        if (interaction.user.id !== reciever.toString().replace(/\D/g, '') && interaction.user.id !== sender.toString().replace(/\D/g, '')) {
+        if (interaction.user.id !== reciever && interaction.user.id !== sender) {
             // Create Embed
             let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-                .setDescription('» <@' + reciever.toString().replace(/\D/g, '') + '> or <@' + sender.toString().replace(/\D/g, '') + '> has to decide this!')
+                .setDescription('» <@' + reciever + '> or <@' + sender + '> has to decide this!')
                 .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             if (lang === 'de') {
                 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-                    .setDescription('» <@' + reciever.toString().replace(/\D/g, '') + '> oder <@' + sender.toString().replace(/\D/g, '') + '> muss das entscheiden!')
+                    .setDescription('» <@' + reciever + '> oder <@' + sender + '> muss das entscheiden!')
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
             // Send Message
@@ -71,7 +71,7 @@ exports.default = {
                 .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
         }
         // Send Message
-        bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] TICTACTOE : ' + sender.toString().replace(/\D/g, '') + ' : DENY');
+        bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] TICTACTOE : ' + sender + ' : DENY');
         return interaction.update({ content: '', embeds: [message], components: interaction.message.components });
     }
 };

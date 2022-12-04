@@ -16,21 +16,21 @@ export default {
         const [ sender, reciever ] = description
 
         // Set Variables
-        const balance = await bot.money.get(reciever.toString().replace(/\D/g, ''))
-        const otherbalance = await bot.money.get(sender.toString().replace(/\D/g, ''))
+        const balance = await bot.money.get(reciever)
+        const otherbalance = await bot.money.get(sender)
 
         // Check if User is Authorized
-        if (interaction.user.id !== reciever.toString().replace(/\D/g, '')) {
+        if (interaction.user.id !== reciever) {
             // Create Embed
             let message = new EmbedBuilder().setColor(0x37009B)
         		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-        		.setDescription('» <@' + reciever.toString().replace(/\D/g, '') + '> has to decide this!')
+        		.setDescription('» <@' + reciever + '> has to decide this!')
         		.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
 
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
         		    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-        		    .setDescription('» <@' + reciever.toString().replace(/\D/g, '') + '> muss das entscheiden!')
+        		    .setDescription('» <@' + reciever + '> muss das entscheiden!')
         		    .setFooter({ text: '» ' + vote + ' » ' + client.config.version })
             }
             
@@ -55,7 +55,7 @@ export default {
             }
             
             // Send Message
-            bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] TICTACTOE : ' + reciever.toString().replace(/\D/g, '') + ' : ALREADYLOBBY')
+            bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] TICTACTOE : ' + reciever + ' : ALREADYLOBBY')
             return interaction.reply({ embeds: [message], ephemeral: true })
         }
 
@@ -75,7 +75,7 @@ export default {
             }
             
             // Send Message
-            bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] TICTACTOE : ' + sender.toString().replace(/\D/g, '') + ' : ALREADYLOBBY')
+            bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] TICTACTOE : ' + sender + ' : ALREADYLOBBY')
             return interaction.reply({ embeds: [message], ephemeral: true })
         }
 
@@ -97,7 +97,7 @@ export default {
             }
             
             // Send Message
-            bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] TICTACTOE : ' + reciever.toString().replace(/\D/g, '') + ' : ' + bet + '€ : NOTENOUGHMONEY')
+            bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] TICTACTOE : ' + reciever + ' : ' + bet + '€ : NOTENOUGHMONEY')
             return interaction.reply({ embeds: [message], ephemeral: true })
         }
         if (otherbalance < bet) {
@@ -106,18 +106,18 @@ export default {
             // Create Embed
             let message = new EmbedBuilder().setColor(0x37009B)
             	.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-  				.setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> doesnt have enough Money, he is Missing **$' + missing + '**!')
+  				.setDescription('» <@' + sender + '> doesnt have enough Money, he is Missing **$' + missing + '**!')
             	.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
 
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
             	    .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-  				    .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> hat nicht genug Geld, im fehlen **' + missing + '€**!')
+  				    .setDescription('» <@' + sender + '> hat nicht genug Geld, im fehlen **' + missing + '€**!')
             	    .setFooter({ text: '» ' + vote + ' » ' + client.config.version })
             }
             
             // Send Message
-            bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] TICTACTOE : ' + reciever.toString().replace(/\D/g, '') + ' : ' + bet + '€ : NOTENOUGHMONEY')
+            bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] TICTACTOE : ' + reciever + ' : ' + bet + '€ : NOTENOUGHMONEY')
             return interaction.reply({ embeds: [message], ephemeral: true })
         }
 
@@ -178,75 +178,43 @@ export default {
 			)
 
         // Set Variables
-        eval('global.ttts' + sender.toString().replace(/\D/g, '') + ' = true')
-        eval('global.ttts' + reciever.toString().replace(/\D/g, '') + ' = true')
-        eval('delete tttlc' + sender.replace(/\D/g, ''))
+        bot.game.set('PLAYING-' + sender, 'TICTACTOE')
+        bot.game.set('PLAYING-' + reciever, 'TICTACTOE')
 
-        eval('global.tttdatap' + sender.toString().replace(/\D/g, '') + ' = 0')
-        eval('global.tttdatap' + reciever.toString().replace(/\D/g, '') + ' = 0')
+        bot.ttt.set('TURN-' + sender, sender)
 
-        eval('global.tttdatatu' + sender.toString().replace(/\D/g, '') + ' = ' + sender.toString().replace(/\D/g, ''))
-        eval('global.tttdatatuf' + sender.toString().replace(/\D/g, '') + ' = 0')
+        bot.ttt.set('FIELDS-' + sender, [])
+        bot.ttt.set('FIELDS-' + reciever, [])
 
-        eval('global.tttdata1a' + sender.toString().replace(/\D/g, '') + ' = []')
-        eval('global.tttdata2a' + sender.toString().replace(/\D/g, '') + ' = []')
-
-        eval('global.tttdatapc' + sender.toString().replace(/\D/g, '') + ' = []')
-        eval('global.tttdatapc' + reciever.toString().replace(/\D/g, '') + ' = []')
-        eval('global.tttdatapcn' + sender.toString().replace(/\D/g, '') + ' = []')
-        eval('global.tttdatapcn' + reciever.toString().replace(/\D/g, '') + ' = []')
-        eval('global.tttdatapca' + sender.toString().replace(/\D/g, '') + ' = 0')
-        eval('global.tttdatapca' + reciever.toString().replace(/\D/g, '') + ' = 0')
-
-        eval('global.tttdataf1' + sender.toString().replace(/\D/g, '') + ' = "1020411843644243998"')
-        eval('global.tttdataf2' + sender.toString().replace(/\D/g, '') + ' = "1020411843644243998"')
-        eval('global.tttdataf3' + sender.toString().replace(/\D/g, '') + ' = "1020411843644243998"')
-        eval('global.tttdataf4' + sender.toString().replace(/\D/g, '') + ' = "1020411843644243998"')
-        eval('global.tttdataf5' + sender.toString().replace(/\D/g, '') + ' = "1020411843644243998"')
-        eval('global.tttdataf6' + sender.toString().replace(/\D/g, '') + ' = "1020411843644243998"')
-        eval('global.tttdataf7' + sender.toString().replace(/\D/g, '') + ' = "1020411843644243998"')
-        eval('global.tttdataf8' + sender.toString().replace(/\D/g, '') + ' = "1020411843644243998"')
-        eval('global.tttdataf9' + sender.toString().replace(/\D/g, '') + ' = "1020411843644243998"')
-
-        eval('global.tttdatabc1' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Secondary')
-        eval('global.tttdatabc2' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Secondary')
-        eval('global.tttdatabc3' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Secondary')
-        eval('global.tttdatabc4' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Secondary')
-        eval('global.tttdatabc5' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Secondary')
-        eval('global.tttdatabc6' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Secondary')
-        eval('global.tttdatabc7' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Secondary')
-        eval('global.tttdatabc8' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Secondary')
-        eval('global.tttdatabc9' + sender.toString().replace(/\D/g, '') + ' = ButtonStyle.Secondary')
-
-        eval('global.tttdatad1' + sender.toString().replace(/\D/g, '') + ' = false')
-        eval('global.tttdatad2' + sender.toString().replace(/\D/g, '') + ' = false')
-        eval('global.tttdatad3' + sender.toString().replace(/\D/g, '') + ' = false')
-        eval('global.tttdatad4' + sender.toString().replace(/\D/g, '') + ' = false')
-        eval('global.tttdatad5' + sender.toString().replace(/\D/g, '') + ' = false')
-        eval('global.tttdatad6' + sender.toString().replace(/\D/g, '') + ' = false')
-        eval('global.tttdatad7' + sender.toString().replace(/\D/g, '') + ' = false')
-        eval('global.tttdatad8' + sender.toString().replace(/\D/g, '') + ' = false')
-        eval('global.tttdatad9' + sender.toString().replace(/\D/g, '') + ' = false')
+        bot.ttt.set('FIELD-1-' + sender, null)
+        bot.ttt.set('FIELD-2-' + sender, null)
+        bot.ttt.set('FIELD-3-' + sender, null)
+        bot.ttt.set('FIELD-4-' + sender, null)
+        bot.ttt.set('FIELD-5-' + sender, null)
+        bot.ttt.set('FIELD-6-' + sender, null)
+        bot.ttt.set('FIELD-7-' + sender, null)
+        bot.ttt.set('FIELD-8-' + sender, null)
+        bot.ttt.set('FIELD-9-' + sender, null)
 
         // Transfer Money
-        bot.money.rem(interaction.guild.id, sender.toString().replace(/\D/g, ''), bet)
-        bot.money.rem(interaction.guild.id, reciever.toString().replace(/\D/g, ''), bet)
+        bot.money.rem(interaction.guild.id, sender, bet)
+        bot.money.rem(interaction.guild.id, reciever, bet)
 
         // Create Embed
         let message = new EmbedBuilder().setColor(0x37009B)
             .setTitle('<:GAMEPAD:1024395990679167066> » TICTACTOE')
-            .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> is playing Tic Tac Toe with <@' + reciever.toString().replace(/\D/g, '') + '>!\nThe Bet is **$' + bet + '**\n\n🔵 » <@' + sender.toString().replace(/\D/g, '') + '>\n🔴 » <@' + reciever.toString().replace(/\D/g, '') + '>')
+            .setDescription('» <@' + sender + '> is playing Tic Tac Toe with <@' + reciever + '>!\nThe Bet is **$' + bet + '**\n\n🔵 » <@' + sender + '>\n🔴 » <@' + reciever + '>')
             .setFooter({ text: '» ' + client.config.version + ' » CURRENT TURN: 🔵' })
 
         if (lang === 'de') {
             message = new EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:GAMEPAD:1024395990679167066> » TICTACTOE')
-                .setDescription('» <@' + sender.toString().replace(/\D/g, '') + '> spielt mit <@' + reciever.toString().replace(/\D/g, '') + '> Tic Tac Toe!\nDie Wette ist **' + bet + '€**\n\n🔵 » <@' + sender.toString().replace(/\D/g, '') + '>\n🔴 » <@' + reciever.toString().replace(/\D/g, '') + '>')
+                .setDescription('» <@' + sender + '> spielt mit <@' + reciever + '> Tic Tac Toe!\nDie Wette ist **' + bet + '€**\n\n🔵 » <@' + sender + '>\n🔴 » <@' + reciever + '>')
                 .setFooter({ text: '» ' + client.config.version + ' » AM ZUG: 🔵' })
         }
 
         // Send Message
-        bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] TICTACTOE : ' + sender.toString().replace(/\D/g, '') + ' : ACCEPT')
+        bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] TICTACTOE : ' + sender + ' : ACCEPT')
         return interaction.update({ content: '', embeds: [message], components: [row1 as any, row2 as any, row3 as any] })
     }
 }

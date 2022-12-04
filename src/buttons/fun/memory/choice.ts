@@ -2,7 +2,7 @@ import { EmbedBuilder, ButtonStyle } from "discord.js"
 import { setTimeout as wait } from "timers/promises"
 
 // Function for Button Row Grabber
-const rowget = (button: number) => {
+const rowGet = (button: number) => {
     let row: number, btn: number
     if (button < 21) { row = 3; btn = button-15 }
     if (button < 16) { row = 2; btn = button-10 }
@@ -10,7 +10,8 @@ const rowget = (button: number) => {
     if (button < 6) { row = 0; btn = button }
 
     const output = []
-    output[0] = btn-1
+    if (btn > 0) output[0] = (btn - 1)
+    else output[0] = btn
     output[1] = row
 
     return output
@@ -83,7 +84,7 @@ export default {
         // Select Field
         bot.memory.set('D_EMOJI-' + sel + '-' + sender, { id: bot.memory.get('I_EMOJI-' + sel + '-' + sender), name: 'MEMORY' })
         bot.memory.set('DISABLED-' + sel + '-' + sender, true)
-        const comp = rowget(sel); {
+        const comp = rowGet(sel); {
             (interaction.message.components[comp[1]].components[comp[0]].data.disabled as boolean) = true;
             (interaction.message.components[comp[1]].components[comp[0]] as any).data.emoji = bot.memory.get('D_EMOJI-' + sel + '-' + sender);
         }
@@ -103,8 +104,8 @@ export default {
                 bot.memory.set('POINTS-' + interaction.user.id, (parseInt(bot.memory.get('POINTS-' + interaction.user.id))+1))
 
                 // Get Button Position
-                const comp1 = rowget(bot.memory.get('B_PLAYERSELECT-' + interaction.user.id)[0])
-                const comp2 = rowget(bot.memory.get('B_PLAYERSELECT-' + interaction.user.id)[1])
+                const comp1 = rowGet(bot.memory.get('B_PLAYERSELECT-' + interaction.user.id)[0])
+                const comp2 = rowGet(bot.memory.get('B_PLAYERSELECT-' + interaction.user.id)[1])
 
                 // Color the Fields
                 if (interaction.user.id == sender) {
@@ -126,8 +127,8 @@ export default {
                 bot.memory.set('C_PLAYERSELECT-' + interaction.user.id, [])
             } else { // If they dont have the same Emoji
                 // Get Button Positions
-                const comp1 = await rowget(bot.memory.get('B_PLAYERSELECT-' + interaction.user.id)[0])
-                const comp2 = await rowget(bot.memory.get('B_PLAYERSELECT-' + interaction.user.id)[1])
+                const comp1 = await rowGet(bot.memory.get('B_PLAYERSELECT-' + interaction.user.id)[0])
+                const comp2 = await rowGet(bot.memory.get('B_PLAYERSELECT-' + interaction.user.id)[1])
 
                 // Clear the Fields
                 {
@@ -267,8 +268,8 @@ export default {
             bot.game.delete('PLAYING-' + sender)
             bot.game.delete('PLAYING-' + reciever)
 
-            bot.memory.delete('TURN-' + sender,)
-            bot.memory.delete('A_PLAYERSELECT-' + sender,)
+            bot.memory.delete('TURN-' + sender)
+            bot.memory.delete('A_PLAYERSELECT-' + sender)
             bot.memory.delete('A_PLAYERSELECT-' + reciever)
             bot.memory.delete('POINTS-' + sender)
             bot.memory.delete('POINTS-' + reciever)

@@ -178,7 +178,6 @@ if (config.web.api) {
 
 // Start Shard
 const manager = new ShardingManager('./bot.js', { token: config.client.token, shards: 'auto', totalShards: 1 } as any)
-
 manager.spawn().catch(async() => {
     await wait(8500)
     manager.spawn()
