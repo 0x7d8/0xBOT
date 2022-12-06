@@ -44,7 +44,7 @@ exports.default = {
         .setRequired(true)),
     async execute(interaction, client, lang, vote) {
         const axios = (await import('axios')).default;
-        interaction.deferReply();
+        await interaction.deferReply();
         const address = bot.getOption(interaction, 'address');
         const req = await axios({
             method: 'GET',

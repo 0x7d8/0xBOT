@@ -26,7 +26,7 @@ export default {
         const axios = (await import('axios')).default
 
         // Defer Reply
-        interaction.deferReply()
+        await interaction.deferReply()
 
         // Set Variables
         const address = bot.getOption(interaction, 'address') as string
