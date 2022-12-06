@@ -22,6 +22,9 @@ export default {
     async execute(interaction: CommandInteraction, client: Client, lang: string, vote: string) {
         const axios = (await import('axios')).default
 
+        // Defer Reply
+        interaction.deferReply()
+
         // Set Variables
         const id = bot.getOption(interaction, 'id') as string
         const req = await axios({
@@ -48,7 +51,7 @@ export default {
 
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] CATROBATINFO : ' + id.toUpperCase() + ' : SERVERSDOWN')
-            return interaction.reply({ embeds: [message], ephemeral: true })
+            return interaction.editReply({ embeds: [message] })
         }
 
         // Check if Project exists
@@ -68,7 +71,7 @@ export default {
 
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] CATROBATINFO : ' + id.toUpperCase() + ' : NOTEXIST')
-            return interaction.reply({ embeds: [message], ephemeral: true })
+            return interaction.editReply({ embeds: [message] })
         }
 
         // Create Embed
@@ -88,6 +91,6 @@ export default {
 
         // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] CATROBATINFO : ' + id.toUpperCase())
-        return interaction.reply({ embeds: [message] })
+        return interaction.editReply({ embeds: [message] })
     }
 }

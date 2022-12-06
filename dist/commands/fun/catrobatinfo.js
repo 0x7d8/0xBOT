@@ -41,6 +41,7 @@ exports.default = {
         .setRequired(true)),
     async execute(interaction, client, lang, vote) {
         const axios = (await import('axios')).default;
+        interaction.deferReply();
         const id = bot.getOption(interaction, 'id');
         const req = await axios({
             method: 'GET',
@@ -61,7 +62,7 @@ exports.default = {
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] CATROBATINFO : ' + id.toUpperCase() + ' : SERVERSDOWN');
-            return interaction.reply({ embeds: [message], ephemeral: true });
+            return interaction.editReply({ embeds: [message] });
         }
         if (req.status === 404) {
             let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
@@ -75,7 +76,7 @@ exports.default = {
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] CATROBATINFO : ' + id.toUpperCase() + ' : NOTEXIST');
-            return interaction.reply({ embeds: [message], ephemeral: true });
+            return interaction.editReply({ embeds: [message] });
         }
         let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
             .setTitle('<:CUBE:1024404832452350032> » CATROBAT PROJECT INFO')
@@ -90,7 +91,7 @@ exports.default = {
                 .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
         }
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] CATROBATINFO : ' + id.toUpperCase());
-        return interaction.reply({ embeds: [message] });
+        return interaction.editReply({ embeds: [message] });
     }
 };
 //# sourceMappingURL=catrobatinfo.js.map

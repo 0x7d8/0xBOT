@@ -25,6 +25,9 @@ export default {
     async execute(interaction: CommandInteraction, client: Client, lang: string, vote: string) {
         const axios = (await import('axios')).default
 
+        // Defer Reply
+        interaction.deferReply()
+
         // Set Variables
         const address = bot.getOption(interaction, 'address') as string
         const req = await axios({
@@ -51,7 +54,7 @@ export default {
 
             // Send Message
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] MCSRVINFO : ' + address.toUpperCase() + ' : NOTEXIST')
-            return interaction.reply({ embeds: [message], ephemeral: true })
+            return interaction.editReply({ embeds: [message] })
         }
 
         // Get Infos
@@ -79,6 +82,6 @@ export default {
 
         // Send Message
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] MCSRVINFO : ' + address.toUpperCase())
-        return interaction.reply({ embeds: [message] })
+        return interaction.editReply({ embeds: [message] })
     }
 }
