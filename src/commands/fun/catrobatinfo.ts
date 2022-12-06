@@ -31,8 +31,28 @@ export default {
             headers: {}
         }); const info = req.data
 
+        // Check for Server Error
+        if (req.status === 500) {
+            // Create Embed
+            let message = new EmbedBuilder().setColor(0x37009B)
+                .setTitle('<:CUBE:1024404832452350032> » CATROBAT PROJECT INFO')
+                .setDescription(`» The Catrobat Servers are down! (Status 500)`)
+                .setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+
+            if (lang === 'de') {
+                message = new EmbedBuilder().setColor(0x37009B)
+                    .setTitle('<:CUBE:1024404832452350032> » CATROBAT PROJEKT INFO')
+                    .setDescription(`» Die Catrobat Server sind down! (Status 500)`)
+                    .setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+            }
+
+            // Send Message
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] CATROBATINFO : ' + id.toUpperCase() + ' : SERVERSDOWN')
+            return interaction.reply({ embeds: [message], ephemeral: true })
+        }
+
         // Check if Project exists
-        if (req.status !== 200) {
+        if (req.status === 404) {
             // Create Embed
             let message = new EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:CUBE:1024404832452350032> » CATROBAT PROJECT INFO')
@@ -55,14 +75,14 @@ export default {
         let message = new EmbedBuilder().setColor(0x37009B)
         	.setTitle('<:CUBE:1024404832452350032> » CATROBAT PROJECT INFO')
             .setThumbnail(info.screenshot_small)
-  			.setDescription(`${info.name}\n\n» Description\n\`${info.description.replace('`', '"')}\`\n\n» Size\n\`${Number(info.filesize).toFixed(2)}MB\``)
+  			.setDescription(`[${info.name}](https://share.catrob.at/project/${id})\n\n» Description\n\`${info.description.replace('`', '"')}\`\n\n» Size\n\`${Number(info.filesize).toFixed(2)}MB\``)
             .setFooter({ text: '» ' + vote + ' » ' + client.config.version })
 
         if (lang === 'de') {
             message = new EmbedBuilder().setColor(0x37009B)
         	    .setTitle('<:CUBE:1024404832452350032> » CATOBAT PROJEKT INFO')
                 .setThumbnail(info.screenshot_small)
-                .setDescription(`${info.name}\n\n» Beschreibung\n\`${info.description.replace('`', '"')}\`\n\n» Größe\n\`${Number(info.filesize).toFixed(2)}MB\``)
+                .setDescription(`[${info.name}](https://share.catrob.at/project/${id})\n\n» Beschreibung\n\`${info.description.replace('`', '"')}\`\n\n» Größe\n\`${Number(info.filesize).toFixed(2)}MB\``)
                 .setFooter({ text: '» ' + vote + ' » ' + client.config.version })
         }
 

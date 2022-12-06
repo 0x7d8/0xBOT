@@ -49,7 +49,21 @@ exports.default = {
             headers: {}
         });
         const info = req.data;
-        if (req.status !== 200) {
+        if (req.status === 500) {
+            let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
+                .setTitle('<:CUBE:1024404832452350032> » CATROBAT PROJECT INFO')
+                .setDescription(`» The Catrobat Servers are down! (Status 500)`)
+                .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
+            if (lang === 'de') {
+                message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
+                    .setTitle('<:CUBE:1024404832452350032> » CATROBAT PROJEKT INFO')
+                    .setDescription(`» Die Catrobat Server sind down! (Status 500)`)
+                    .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
+            }
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] CATROBATINFO : ' + id.toUpperCase() + ' : SERVERSDOWN');
+            return interaction.reply({ embeds: [message], ephemeral: true });
+        }
+        if (req.status === 404) {
             let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:CUBE:1024404832452350032> » CATROBAT PROJECT INFO')
                 .setDescription(`» The Project **${id}** was not found!`)
@@ -66,13 +80,13 @@ exports.default = {
         let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
             .setTitle('<:CUBE:1024404832452350032> » CATROBAT PROJECT INFO')
             .setThumbnail(info.screenshot_small)
-            .setDescription(`${info.name}\n\n» Description\n\`${info.description.replace('`', '"')}\`\n\n» Size\n\`${Number(info.filesize).toFixed(2)}MB\``)
+            .setDescription(`[${info.name}](https://share.catrob.at/project/${id})\n\n» Description\n\`${info.description.replace('`', '"')}\`\n\n» Size\n\`${Number(info.filesize).toFixed(2)}MB\``)
             .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
         if (lang === 'de') {
             message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:CUBE:1024404832452350032> » CATOBAT PROJEKT INFO')
                 .setThumbnail(info.screenshot_small)
-                .setDescription(`${info.name}\n\n» Beschreibung\n\`${info.description.replace('`', '"')}\`\n\n» Größe\n\`${Number(info.filesize).toFixed(2)}MB\``)
+                .setDescription(`[${info.name}](https://share.catrob.at/project/${id})\n\n» Beschreibung\n\`${info.description.replace('`', '"')}\`\n\n» Größe\n\`${Number(info.filesize).toFixed(2)}MB\``)
                 .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
         }
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] CATROBATINFO : ' + id.toUpperCase());
