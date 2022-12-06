@@ -50,15 +50,15 @@ exports.default = {
             headers: {}
         });
         const info = req.data;
-        if (req.status === 500) {
+        if (req.status !== 200 && req.status !== 404) {
             let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:CUBE:1024404832452350032> » CATROBAT PROJECT INFO')
-                .setDescription(`» The Catrobat Servers are down! (Status 500)`)
+                .setDescription(`» Couldnt reach the Catrobat Servers! (Status ${req.status})`)
                 .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             if (lang === 'de') {
                 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:CUBE:1024404832452350032> » CATROBAT PROJEKT INFO')
-                    .setDescription(`» Die Catrobat Server sind down! (Status 500)`)
+                    .setDescription(`» Konnte die Catrobat Server nicht erreichen! (Status ${req.status})`)
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
             bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] CATROBATINFO : ' + id.toUpperCase() + ' : SERVERSDOWN');

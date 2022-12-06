@@ -35,17 +35,17 @@ export default {
         }); const info = req.data
 
         // Check for Server Error
-        if (req.status === 500) {
+        if (req.status !== 200 && req.status !== 404) {
             // Create Embed
             let message = new EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:CUBE:1024404832452350032> » CATROBAT PROJECT INFO')
-                .setDescription(`» The Catrobat Servers are down! (Status 500)`)
+                .setDescription(`» Couldnt reach the Catrobat Servers! (Status ${req.status})`)
                 .setFooter({ text: '» ' + vote + ' » ' + client.config.version })
 
             if (lang === 'de') {
                 message = new EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:CUBE:1024404832452350032> » CATROBAT PROJEKT INFO')
-                    .setDescription(`» Die Catrobat Server sind down! (Status 500)`)
+                    .setDescription(`» Konnte die Catrobat Server nicht erreichen! (Status ${req.status})`)
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version })
             }
 
