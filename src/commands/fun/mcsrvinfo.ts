@@ -1,5 +1,4 @@
 import { SlashCommandBuilder, EmbedBuilder } from "discord.js"
-import { AttachmentBuilder } from "discord.js"
 
 import * as bot from "@functions/bot.js"
 import Client from "@interfaces/Client.js"
@@ -28,8 +27,12 @@ export default {
 
         // Set Variables
         const address = bot.getOption(interaction, 'address') as string
-        const req = await axios.get(`https://api.mcsrvstat.us/2/${encodeURIComponent(address)}`)
-        const info = req.data
+        const req = await axios({
+            method: 'GET',
+            url: `https://api.mcsrvstat.us/2/${encodeURIComponent(address)}`,
+            validateStatus: false as any,
+            headers: {}
+        }); const info = req.data
 
         // Check if Server exists
         if (info.ip === '127.0.0.1') {
@@ -52,10 +55,7 @@ export default {
         }
 
         // Get Infos
-        let icon: any = 'https://img.rjansen.de/bot/missing.png'
-        if ('icon' in info) icon = `https://api.mcsrvstat.us/icon/${encodeURIComponent(address)}`
-
-        let status: string = '🟡 UNKNOWN'
+        let status = '🟡 UNKNOWN'
         if ('online' in info && info.online) status = '🟢 ONLINE'
         if ('online' in info && !info.online) status = '🔴 OFFLINE'
 
@@ -65,30 +65,16 @@ export default {
         // Create Embed
         let message = new EmbedBuilder().setColor(0x37009B)
         	.setTitle('<:CUBE:1024404832452350032> » MINECRAFT SERVER INFO')
-            .setThumbnail(icon)
-  			.setDescription(`
-                ${status}
-
-                » IP
-                \`${info.ip}:${info.port}\`
-
-                » Players
-                \`${players.online}/${players.slots}\`
-            `).setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+            .setThumbnail(`https://api.mcsrvstat.us/icon/${encodeURIComponent(address)}`)
+  			.setDescription(`${status}\n\n» IP\n\`${info.ip}:${info.port}\`\n\n» Players\n\`${players.online}/${players.slots}\``)
+            .setFooter({ text: '» ' + vote + ' » ' + client.config.version })
 
         if (lang === 'de') {
             message = new EmbedBuilder().setColor(0x37009B)
         	    .setTitle('<:CUBE:1024404832452350032> » MINECRAFT SERVER INFO')
-                .setThumbnail(icon)
-  			    .setDescription(`
-                    ${status}
-
-                    » IP
-                    \`${info.ip}:${info.port}\`
-
-                    » Spieler
-                    \`${players.online}/${players.slots}\`
-                `).setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+                .setThumbnail(`https://api.mcsrvstat.us/icon/${encodeURIComponent(address)}`)
+                .setDescription(`${status}\n\n» IP\n\`${info.ip}:${info.port}\`\n\n» Spieler\n\`${players.online}/${players.slots}\``)
+                .setFooter({ text: '» ' + vote + ' » ' + client.config.version })
         }
 
         // Send Message

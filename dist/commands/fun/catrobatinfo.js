@@ -27,67 +27,56 @@ const discord_js_1 = require("discord.js");
 const bot = __importStar(require("@functions/bot.js"));
 exports.default = {
     data: new discord_js_1.SlashCommandBuilder()
-        .setName('mcsrvinfo')
+        .setName('catrobatinfo')
         .setDMPermission(false)
-        .setDescription('GET INFO ABOUT A MINECRAFT SERVER')
+        .setDescription('GET INFO ABOUT A CATROBAT PROJECT')
         .setDescriptionLocalizations({
-        de: 'BEKOMME INFO ÜBER EINEN MINECRAFT SERVER'
+        de: 'BEKOMME INFO ÜBER EIN CATROBAT PROJEKT'
     })
-        .addStringOption((option) => option.setName('address')
-        .setNameLocalizations({
-        de: 'adresse'
-    })
-        .setDescription('THE ADDRESS')
+        .addStringOption((option) => option.setName('id')
+        .setDescription('THE ID')
         .setDescriptionLocalizations({
-        de: 'DIE ADRESSE'
+        de: 'DIE ID'
     })
         .setRequired(true)),
     async execute(interaction, client, lang, vote) {
         const axios = (await import('axios')).default;
-        const address = bot.getOption(interaction, 'address');
+        const id = bot.getOption(interaction, 'id');
         const req = await axios({
             method: 'GET',
-            url: `https://api.mcsrvstat.us/2/${encodeURIComponent(address)}`,
+            url: `https://share.catrob.at/api/project/${id}`,
             validateStatus: false,
             headers: {}
         });
         const info = req.data;
-        if (info.ip === '127.0.0.1') {
+        if (req.status !== 200) {
             let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
-                .setTitle('<:CUBE:1024404832452350032> » MINECRAFT SERVER INFO')
-                .setDescription(`» The Server **${address}** was not found!`)
+                .setTitle('<:CUBE:1024404832452350032> » CATROBAT PROJECT INFO')
+                .setDescription(`» The Project **${id}** was not found!`)
                 .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             if (lang === 'de') {
                 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
-                    .setTitle('<:CUBE:1024404832452350032> » MINECRAFT SERVER INFO')
-                    .setDescription(`» Der Server **${address}** wurde nicht gefunden!`)
+                    .setTitle('<:CUBE:1024404832452350032> » CATROBAT PROJEKT INFO')
+                    .setDescription(`» Das Projekt **${id}** wurde nicht gefunden!`)
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
-            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] MCSRVINFO : ' + address.toUpperCase() + ' : NOTEXIST');
+            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] CATROBATINFO : ' + id.toUpperCase() + ' : NOTEXIST');
             return interaction.reply({ embeds: [message], ephemeral: true });
         }
-        let status = '🟡 UNKNOWN';
-        if ('online' in info && info.online)
-            status = '🟢 ONLINE';
-        if ('online' in info && !info.online)
-            status = '🔴 OFFLINE';
-        let players = { online: '?', slots: '?' };
-        if ('players' in info)
-            players = { online: info.players.online.toString(), slots: info.players.max.toString() };
         let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
-            .setTitle('<:CUBE:1024404832452350032> » MINECRAFT SERVER INFO')
-            .setThumbnail(`https://api.mcsrvstat.us/icon/${encodeURIComponent(address)}`)
-            .setDescription(`${status}\n\n» IP\n\`${info.ip}:${info.port}\`\n\n» Players\n\`${players.online}/${players.slots}\``)
+            .setTitle('<:CUBE:1024404832452350032> » CATROBAT PROJECT INFO')
+            .setThumbnail(info.screenshot_small)
+            .setDescription(`${info.name}\n\n» Description\n\`${info.description.replace('`', '"')}\`\n\n» Size\n\`${Number(info.filesize).toFixed(2)}MB\``)
             .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
         if (lang === 'de') {
             message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
-                .setTitle('<:CUBE:1024404832452350032> » MINECRAFT SERVER INFO')
-                .setThumbnail(`https://api.mcsrvstat.us/icon/${encodeURIComponent(address)}`)
-                .setDescription(`${status}\n\n» IP\n\`${info.ip}:${info.port}\`\n\n» Spieler\n\`${players.online}/${players.slots}\``)
+                .setTitle('<:CUBE:1024404832452350032> » CATOBAT PROJEKT INFO')
+                .setThumbnail(info.screenshot_small)
+                .setDescription(`${info.name}\n\n» Beschreibung\n\`${info.description.replace('`', '"')}\`\n\n» Größe\n\`${Number(info.filesize).toFixed(2)}MB\``)
                 .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
         }
-        bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] MCSRVINFO : ' + address.toUpperCase());
+        bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] CATROBATINFO : ' + id.toUpperCase());
         return interaction.reply({ embeds: [message] });
     }
 };
-//# sourceMappingURL=mcsrvinfo.js.map
+//# sourceMappingURL=catrobatinfo.js.map
