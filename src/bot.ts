@@ -10,7 +10,6 @@ const sleep = (milliseconds: number) => Atomics.wait(new Int32Array(new SharedAr
 import * as cron from "node-cron"
 import { Events, Client, Collection, GatewayIntentBits } from "discord.js"
 import { getAllFilesFilter } from "@utils/getAllFiles.js"
-import { EmbedBuilder } from "discord.js"
 import { Timer } from "@utils/timer.js"
 
 import config from "@config"
@@ -377,66 +376,6 @@ export const start = () => {
 		aP.on('posted', () => {
 			console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] TOP.GG STATS POSTED')
 		})
-	}
-
-	// Top.gg Voting
-	if (config.web.votes) {
-		const Topgg = require("@top-gg/sdk")
-		const express = require("express")
-
-		const app = express()
-		const webhook = new Topgg.Webhook(config.web.keys.webkey)
-
-		app.post("/dblwebhook", webhook.listener(async(vote: any) => {
-			if(!vote) return
-			if(!vote.user) return
-
-			const random = bot.random(7500, 15000)
-
-			// Calculate Extra
-			let extra: number
-			if ((await bot.votes.get(vote.user + '-A')+1) % 10 === 0) extra = ((await bot.votes.get(vote.user + '-A')+1) * 10000)/2
-
-			// Create Embeds
-			let message = new EmbedBuilder().setColor(0x37009B)
-				.setTitle('» VOTING')
-				.setDescription('» Thanks for Voting! You got **$' + random + '** from me :)\n» Danke fürs Voten! Du hast **' + random + '€** von mir erhalten :)')
-				.setFooter({ text: '» ' + config.version })
-			if (await bot.language.get(vote.user) === 'de') {
-				message = new EmbedBuilder().setColor(0x37009B)
-					.setTitle('» VOTING')
-					.setDescription('» Danke fürs Voten! Du hast **' + random + '€** von mir erhalten :)')
-					.setFooter({ text: '» ' + config.version })
-			} else {
-				message = new EmbedBuilder().setColor(0x37009B)
-					.setTitle('» VOTING')
-					.setDescription('» Thanks for Voting! You got **$' + random + '** from me :)')
-					.setFooter({ text: '» ' + config.version })
-			}; let messageBonus = new EmbedBuilder().setColor(0x37009B)
-				.setTitle('» VOTING')
-				.setDescription('» Thanks for Voting **' + ((await bot.votes.get(vote.user + '-A'))+1) + '** times!\nAs A Gift I give you extra **$' + extra + '**!')
-				.setFooter({ text: '» ' + config.version })
-			if (await bot.language.get(vote.user) === 'de') {
-				messageBonus = new EmbedBuilder().setColor(0x37009B)
-					.setTitle('» VOTING')
-					.setDescription('» Danke, dass du **' + ((await bot.votes.get(vote.user + '-A'))+1) + '** mal gevotet hast!\nAls Geschenk gebe ich dir extra **' + extra + '€**!')
-					.setFooter({ text: '» ' + config.version })
-			}
-
-			// Add Money
-			await bot.money.add(false, vote.user, random)
-			console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] VOTED : ' + vote.user + ' : ' + random + '€')
-
-			// Send Message
-			client.users.send(vote.user, { embeds: [message] })
-
-			// Count to Stats
-			if ((await bot.votes.get(vote.user + '-A')+1) % 10 === 0) {
-				bot.money.add(false, vote.user, extra)
-				client.users.send(vote.user, { embeds: [messageBonus] })
-			}; bot.votes.add(vote.user + '-A', 1)
-			bot.votes.set(vote.user + '-T', Date.now())
-		})); app.listen(config.web.ports.votes)
 	}
 
 	/// Cronjobs

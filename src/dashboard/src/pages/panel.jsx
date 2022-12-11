@@ -157,7 +157,7 @@ function ProfileBox() {
                 color={useColorModeValue('gray.800', 'gray.200')}
                 alignContent="center"
               >
-                <TbHandClick size="3rem" />
+                <TbHandClick size={48} />
               </Box>
             </Flex>
           </Stat>
@@ -185,7 +185,7 @@ function ProfileBox() {
                 color={useColorModeValue('gray.800', 'gray.200')}
                 alignContent="center"
               >
-                <TbHandClick size="3rem" />
+                <TbHandClick size={48} />
               </Box>
             </Flex>
           </Stat>
@@ -213,7 +213,7 @@ function ProfileBox() {
                 color={useColorModeValue('gray.800', 'gray.200')}
                 alignContent="center"
               >
-                <TbHandClick size="3rem" />
+                <TbHandClick size={48} />
               </Box>
             </Flex>
           </Stat>
@@ -225,7 +225,7 @@ function ProfileBox() {
           colorScheme="gray"
           variant="outline"
           alignSelf="center"
-          leftIcon={<TbServer size="1.5rem" />}
+          leftIcon={<TbServer size={24} />}
           onClick={() => {navigate('/panel/servers')}}
         >
           MANAGE SERVERS

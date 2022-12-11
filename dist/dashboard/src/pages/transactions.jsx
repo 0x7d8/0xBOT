@@ -209,7 +209,7 @@ function TransactionBox(props) {
             alignSelf="center"
           />
 
-          <TbArrowDown size="3rem" />
+          <TbArrowDown size={48} />
 
           <Input
             w="20rem"
@@ -229,7 +229,7 @@ function TransactionBox(props) {
             variant="outline"
             colorScheme="gray"
             alignSelf="center"
-            leftIcon={<TbSearch size="1.5rem" />}
+            leftIcon={<TbSearch size={24} />}
             onClick={() => window.doSearch() }
           >
             SEARCH
@@ -242,7 +242,7 @@ function TransactionBox(props) {
               colorScheme="gray"
               variant="outline"
               alignSelf="center"
-              leftIcon={<TbCaretDown size="1.5rem" />}
+              leftIcon={<TbCaretDown size={24} />}
             >
               {results}
             </MenuButton>

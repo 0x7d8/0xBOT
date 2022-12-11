@@ -36,7 +36,6 @@ const sleep = (milliseconds) => Atomics.wait(new Int32Array(new SharedArrayBuffe
 const cron = __importStar(require("node-cron"));
 const discord_js_1 = require("discord.js");
 const getAllFiles_js_1 = require("@utils/getAllFiles.js");
-const discord_js_2 = require("discord.js");
 const timer_js_1 = require("@utils/timer.js");
 const _config_1 = __importDefault(require("@config"));
 const client = new discord_js_1.Client({
@@ -364,60 +363,6 @@ const start = () => {
         aP.on('posted', () => {
             console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] TOP.GG STATS POSTED');
         });
-    }
-    if (_config_1.default.web.votes) {
-        const Topgg = require("@top-gg/sdk");
-        const express = require("express");
-        const app = express();
-        const webhook = new Topgg.Webhook(_config_1.default.web.keys.webkey);
-        app.post("/dblwebhook", webhook.listener(async (vote) => {
-            if (!vote)
-                return;
-            if (!vote.user)
-                return;
-            const random = bot.random(7500, 15000);
-            let extra;
-            if ((await bot.votes.get(vote.user + '-A') + 1) % 10 === 0)
-                extra = ((await bot.votes.get(vote.user + '-A') + 1) * 10000) / 2;
-            let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
-                .setTitle('» VOTING')
-                .setDescription('» Thanks for Voting! You got **$' + random + '** from me :)\n» Danke fürs Voten! Du hast **' + random + '€** von mir erhalten :)')
-                .setFooter({ text: '» ' + _config_1.default.version });
-            if (await bot.language.get(vote.user) === 'de') {
-                message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
-                    .setTitle('» VOTING')
-                    .setDescription('» Danke fürs Voten! Du hast **' + random + '€** von mir erhalten :)')
-                    .setFooter({ text: '» ' + _config_1.default.version });
-            }
-            else {
-                message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
-                    .setTitle('» VOTING')
-                    .setDescription('» Thanks for Voting! You got **$' + random + '** from me :)')
-                    .setFooter({ text: '» ' + _config_1.default.version });
-            }
-            ;
-            let messageBonus = new discord_js_2.EmbedBuilder().setColor(0x37009B)
-                .setTitle('» VOTING')
-                .setDescription('» Thanks for Voting **' + ((await bot.votes.get(vote.user + '-A')) + 1) + '** times!\nAs A Gift I give you extra **$' + extra + '**!')
-                .setFooter({ text: '» ' + _config_1.default.version });
-            if (await bot.language.get(vote.user) === 'de') {
-                messageBonus = new discord_js_2.EmbedBuilder().setColor(0x37009B)
-                    .setTitle('» VOTING')
-                    .setDescription('» Danke, dass du **' + ((await bot.votes.get(vote.user + '-A')) + 1) + '** mal gevotet hast!\nAls Geschenk gebe ich dir extra **' + extra + '€**!')
-                    .setFooter({ text: '» ' + _config_1.default.version });
-            }
-            await bot.money.add(false, vote.user, random);
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] VOTED : ' + vote.user + ' : ' + random + '€');
-            client.users.send(vote.user, { embeds: [message] });
-            if ((await bot.votes.get(vote.user + '-A') + 1) % 10 === 0) {
-                bot.money.add(false, vote.user, extra);
-                client.users.send(vote.user, { embeds: [messageBonus] });
-            }
-            ;
-            bot.votes.add(vote.user + '-A', 1);
-            bot.votes.set(vote.user + '-T', Date.now());
-        }));
-        app.listen(_config_1.default.web.ports.votes);
     }
     client.stocks = {
         green: 0,

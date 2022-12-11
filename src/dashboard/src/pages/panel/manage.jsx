@@ -59,7 +59,7 @@ const General = () => {
               textAlign='left'
             >
               <Flex flexDirection="row" justifyContent="center">
-                <TbCaretDown size="3rem" />
+                <TbCaretDown size={48} />
                 <Text fontSize="3xl" as="b">
                   GENERAL
                 </Text>
@@ -92,7 +92,7 @@ const General = () => {
               textAlign='left'
             >
               <Flex flexDirection="row" justifyContent="center">
-                <TbCaretDown size="3rem" />
+                <TbCaretDown size={48} />
                 <Text fontSize="3xl" as="b">
                   ECONOMY
                 </Text>
@@ -117,7 +117,7 @@ const General = () => {
                     textAlign='left'
                   >
                     <Flex flexDirection="row" justifyContent="center">
-                      <TbCaretDown size="3rem" />
+                      <TbCaretDown size={48} />
                       <Text fontSize="3xl" as="b">
                         SYSTEMS
                       </Text>
@@ -150,7 +150,7 @@ const General = () => {
                     textAlign='left'
                   >
                     <Flex flexDirection="row" justifyContent="center">
-                      <TbCaretDown size="3rem" />
+                      <TbCaretDown size={48} />
                       <Text fontSize="3xl" as="b">
                         OTHERS
                       </Text>
@@ -188,7 +188,7 @@ const General = () => {
               textAlign='left'
             >
               <Flex flexDirection="row" justifyContent="center">
-                <TbCaretDown size="3rem" />
+                <TbCaretDown size={48} />
                 <Text fontSize="3xl" as="b">
                   MISCELLANEOUS
                 </Text>
@@ -213,7 +213,7 @@ const General = () => {
                     textAlign='left'
                   >
                     <Flex flexDirection="row" justifyContent="center">
-                      <TbCaretDown size="3rem" />
+                      <TbCaretDown size={48} />
                       <Text fontSize="3xl" as="b">
                         SYSTEMS
                       </Text>
@@ -244,7 +244,7 @@ const General = () => {
                     textAlign='left'
                   >
                     <Flex flexDirection="row" justifyContent="center">
-                      <TbCaretDown size="3rem" />
+                      <TbCaretDown size={48} />
                       <Text fontSize="3xl" as="b">
                         OTHERS
                       </Text>
@@ -353,7 +353,7 @@ const ServerInfo = () => {
                 color={useColorModeValue('gray.800', 'gray.200')}
                 alignContent="center"
               >
-                <TbHandClick size="3rem" />
+                <TbHandClick size={48} />
               </Box>
             </Flex>
           </Stat>
@@ -381,7 +381,7 @@ const ServerInfo = () => {
                 color={useColorModeValue('gray.800', 'gray.200')}
                 alignContent="center"
               >
-                <TbHandClick size="3rem" />
+                <TbHandClick size={48} />
               </Box>
             </Flex>
           </Stat>
@@ -409,7 +409,7 @@ const ServerInfo = () => {
                 color={useColorModeValue('gray.800', 'gray.200')}
                 alignContent="center"
               >
-                <TbHandClick size="3rem" />
+                <TbHandClick size={48} />
               </Box>
             </Flex>
           </Stat>

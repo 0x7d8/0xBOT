@@ -24,7 +24,7 @@ import axios from 'axios'
 /* ---------------- *
  * Version          *
  * ---------------- */
-const version = '3.5.4'
+const version = '3.5.5'
 
 function getWindowDimensions() {
   const { innerWidth: width, innerHeight: height } = window;
@@ -82,7 +82,7 @@ function Bot() {
           width="15rem"
           variant="outline"
           colorScheme="gray"
-          leftIcon={<TbRocket size="1.5rem" />}
+          leftIcon={<TbRocket size={24} />}
           onClick={() => document.location.replace('https://discord.com/api/oauth2/authorize?client_id=1001944224545128588&redirect_uri=https%3A%2F%2F0xbot.de%2F&response_type=token&scope=identify%20email%20guilds')}
         >
           GET STARTED
@@ -146,7 +146,7 @@ function Bot() {
                 color={useColorModeValue('gray.800', 'gray.200')}
                 alignContent="center"
               >
-                <TbHandClick size="3rem" />
+                <TbHandClick size={48} />
               </Box>
             </Flex>
           </Stat>
@@ -174,7 +174,7 @@ function Bot() {
                 color={useColorModeValue('gray.800', 'gray.200')}
                 alignContent="center"
               >
-                <TbHandClick size="3rem" />
+                <TbHandClick size={48} />
               </Box>
             </Flex>
           </Stat>
@@ -202,7 +202,7 @@ function Bot() {
                 color={useColorModeValue('gray.800', 'gray.200')}
                 alignContent="center"
               >
-                <TbHandClick size="3rem" />
+                <TbHandClick size={48} />
               </Box>
             </Flex>
           </Stat>
@@ -214,7 +214,7 @@ function Bot() {
           width="20rem"
           variant="outline"
           colorScheme="gray"
-          leftIcon={<TbListSearch size="1.5rem" />}
+          leftIcon={<TbListSearch size={24} />}
           onClick={() => navigate('/transactions') }
         >
           TRANSACTION BROWSER

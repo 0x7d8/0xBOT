@@ -42,7 +42,7 @@ const MenuItems = () => {
           w="92.5%"
           textAlign="center"
           justifyContent="center"
-          icon={<FiList size="1.5rem" />}
+          icon={<FiList size={24} />}
           iconSpacing={0}
           onClick={() => navigate('/panel/servers') }
         >
@@ -55,7 +55,7 @@ const MenuItems = () => {
           w="92.5%"
           textAlign="center"
           justifyContent="center"
-          icon={<HiOutlineLogout size="1.5rem" />}
+          icon={<HiOutlineLogout size={24} />}
           iconSpacing={0}
           onClick={() => {
             cookie.set('accessToken', '', 1)
@@ -82,7 +82,7 @@ const MenuItems = () => {
           w="92.5%"
           textAlign="center"
           justifyContent="center"
-          icon={<HiOutlineLogin size="1.5rem" />}
+          icon={<HiOutlineLogin size={24} />}
           iconSpacing={0}
           onClick={() => window.location.replace('https://discord.com/api/oauth2/authorize?client_id=1001944224545128588&redirect_uri=https%3A%2F%2F0xbot.de%2F&response_type=token&scope=identify%20email%20guilds')}
         >
@@ -145,7 +145,7 @@ export function NavBar() {
                 fontSize="lg"
                 variant="ghost"
                 colorScheme="gray"
-                icon={<SwitchIcon size="1.75rem" />}
+                icon={<SwitchIcon size={28} />}
                 onClick={() => {
                   toast({
                     title: <Center>INFO</Center>,
