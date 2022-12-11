@@ -66,9 +66,12 @@ exports.default = {
             rawvalues.rows.forEach((element) => total += Number(element.money));
             client.user?.setActivity('$' + total + ' in Circulation', { type: discord_js_1.ActivityType.Watching });
             await (0, promises_1.setTimeout)(20000);
-            const req = await axios.get('https://top.gg/api/bots/1001944224545128588', {
+            const req = await axios({
+                method: 'GET',
+                url: `https://top.gg/api/bots/${_config_1.default.client.id}`,
+                validateStatus: false,
                 headers: {
-                    Authorization: _config_1.default.web.keys.topgg.apikey
+                    "Authorization": _config_1.default.web.keys.topgg.apikey
                 }
             });
             const res = req.data;
