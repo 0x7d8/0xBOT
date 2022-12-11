@@ -2,7 +2,7 @@ import { ActionRowBuilder, ModalBuilder, TextInputBuilder, TextInputStyle } from
 import { PermissionFlagsBits } from "discord-api-types/v10"
 import { SlashCommandBuilder } from "discord.js"
 
-import Client from "../../interfaces/Client.js"
+import Client from "@interfaces/Client.js"
 import { CommandInteraction } from "discord.js"
 export default {
     data: new SlashCommandBuilder()

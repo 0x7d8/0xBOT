@@ -10,14 +10,13 @@ module.exports = {
     async code(ctr: webserverInterface) {
         // Check Authorization
         if (ctr.header.get('authorization') !== ctr.config.web.keys.webkey) return ctr.print({ "success": false, "message": 'WRONG AUTHORIZATION' })
+        if (!(ctr.reqBody as any).user) return
 
-        if(!(ctr.reqBody as any).user) return
+		const random = ctr.bot.random(7500, 15000)
 
-			const random = ctr.bot.random(7500, 15000)
-
-			// Calculate Extra
-			let extra: number
-			if ((await ctr.bot.votes.get((ctr.reqBody as any).user + '-A')+1) % 10 === 0) extra = ((await ctr.bot.votes.get((ctr.reqBody as any).user + '-A')+1) * 10000)/2
+		// Calculate Extra
+		let extra: number
+		if ((await ctr.bot.votes.get((ctr.reqBody as any).user + '-A')+1) % 10 === 0) extra = ((await ctr.bot.votes.get((ctr.reqBody as any).user + '-A')+1) * 10000)/2
 
 		// Create Embeds
 		let message = new EmbedBuilder().setColor(0x37009B)
@@ -60,8 +59,6 @@ module.exports = {
 		ctr.bot.votes.set((ctr.reqBody as any).user + '-T', Date.now())
 
         // Return Result
-        return ctr.print({
-            "success": true
-        })
+        return ctr.print({ "success": true, "message": 'VOTE RECIEVED' })
     }
 }

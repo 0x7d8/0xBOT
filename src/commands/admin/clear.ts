@@ -1,8 +1,8 @@
 import { SlashCommandBuilder, EmbedBuilder } from "discord.js"
 import { PermissionFlagsBits } from "discord-api-types/v10"
 
-import * as bot from "../../functions/bot.js"
-import Client from "../../interfaces/Client.js"
+import * as bot from "@functions/bot.js"
+import Client from "@interfaces/Client.js"
 import { CommandInteraction, Message } from "discord.js"
 export default {
     data: new SlashCommandBuilder()
