@@ -370,11 +370,11 @@ export const start = () => {
 
 	// Top.gg Stats
 	if (config.web.stats) {
-		cron.schedule('*/30 * * * *', async() => {
+		cron.schedule('0 */1 * * *', async() => {
 			const axios = (await import('axios')).default
 			const req = await axios({
 				method: 'POST',
-				url: `https://top.gg/bots/${config.client.id}/stats`,
+				url: `https://top.gg/api/bots/${config.client.id}/stats`,
 				validateStatus: false,
 				headers: {
 					"Authorization": config.web.keys.topgg.apikey

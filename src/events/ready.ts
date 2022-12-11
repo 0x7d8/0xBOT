@@ -51,11 +51,14 @@ export default {
 			client.user?.setActivity('$' + total + ' in Circulation', { type: ActivityType.Watching })
 			await wait(20000)
 
-			const req = await axios.get('https://top.gg/api/bots/1001944224545128588', {
+			const req = await axios({
+				method: 'GET',
+				url: `https://top.gg/api/bots/${config.client.id}`,
+				validateStatus: false,
 				headers: {
-					Authorization: config.web.keys.topgg.apikey
+					"Authorization": config.web.keys.topgg.apikey
 				}
-			}); const res = req.data
+			} as any); const res = req.data
 
 			client.user?.setActivity(res.monthlyPoints + ' Votes this Month', { type: ActivityType.Watching })
 			await wait(20000)
