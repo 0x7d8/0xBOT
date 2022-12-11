@@ -28,11 +28,11 @@ const discord_js_2 = require("discord.js");
 const bot = __importStar(require("@functions/bot.js"));
 exports.default = {
     data: new discord_js_2.SlashCommandBuilder()
-        .setName('dashboard')
+        .setName('website')
         .setDMPermission(false)
-        .setDescription('GO TO THE DASHBOARD')
+        .setDescription('GO TO THE WEBSITE')
         .setDescriptionLocalizations({
-        de: 'GEHE ZUM DASHBOARD'
+        de: 'GEHE ZUR WEBSEITE'
     }),
     async execute(interaction, client, lang, vote) {
         let row = new discord_js_1.ActionRowBuilder()
@@ -48,17 +48,17 @@ exports.default = {
                 .setStyle(discord_js_1.ButtonStyle.Link));
         }
         let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
-            .setTitle('<:GLOBE:1024403680503529583> » DASHBOARD')
-            .setDescription('» Click below to go to the Dashboard!')
+            .setTitle('<:GLOBE:1024403680503529583> » WEBSITE')
+            .setDescription('» Click below to go to the Website!')
             .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
         if (lang === 'de') {
             message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
-                .setTitle('<:GLOBE:1024403680503529583> » DASHBOARD')
-                .setDescription('» Klicke unten um zum Dashboard zu gelangen!')
+                .setTitle('<:GLOBE:1024403680503529583> » WEBSITE')
+                .setDescription('» Klicke unten um zur Webseite zu gelangen!')
                 .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
         }
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] DASHBOARD');
         await interaction.reply({ embeds: [message], components: [row], ephemeral: true });
     }
 };
-//# sourceMappingURL=dashboard.js.map
+//# sourceMappingURL=website.js.map

@@ -17,13 +17,13 @@ import config from "@config"
 // Create Client
 import iClient from "@interfaces/Client.js"
 const client: iClient = new Client({
-    intents: [
-	    GatewayIntentBits.Guilds,
+	intents: [
+		GatewayIntentBits.Guilds,
 		GatewayIntentBits.GuildMembers,
-	    GatewayIntentBits.GuildMessages,
-	    GatewayIntentBits.MessageContent,
+		GatewayIntentBits.GuildMessages,
+		GatewayIntentBits.MessageContent,
 		GatewayIntentBits.GuildVoiceStates
-    ]
+	]
 })
 
 // Login Function
@@ -384,8 +384,8 @@ export const start = () => {
 				}
 			} as any)
 
-			if (req.status !== 200) console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] FAILED TO POST TOPGG STATS`)
-			else console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] POSTED TOPGG STATS`)
+			if (req.status !== 200) console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] [${req.status}] FAILED TO POST TOPGG STATS`)
+			else console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] [${req.status}] POSTED TOPGG STATS`)
 		})
 	}
 

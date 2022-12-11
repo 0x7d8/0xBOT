@@ -63,19 +63,17 @@ exports.default = {
             await (0, promises_1.setTimeout)(20000);
             const rawvalues = await db.query(`select * from usermoney;`);
             let total = 0;
-            rawvalues.rows.forEach((element) => total += Number(element.money));
+            rawvalues.rows.forEach((user) => total += Number(user.money));
             client.user?.setActivity('$' + total + ' in Circulation', { type: discord_js_1.ActivityType.Watching });
             await (0, promises_1.setTimeout)(20000);
             const req = await axios({
                 method: 'GET',
-                url: `https://top.gg/api/bots/${_config_1.default.client.id}`,
+                url: 'https://status.0xbot.de/api/status-page/heartbeat/all',
                 validateStatus: false,
-                headers: {
-                    "Authorization": _config_1.default.web.keys.topgg.apikey
-                }
+                headers: {}
             });
             const res = req.data;
-            client.user?.setActivity(res.monthlyPoints + ' Votes this Month', { type: discord_js_1.ActivityType.Watching });
+            client.user.setActivity(Math.round((res.uptimeList['1_24'] * 100) * 100) / 100 + '% Bot Uptime', { type: discord_js_1.ActivityType.Watching });
             await (0, promises_1.setTimeout)(20000);
         }
     }

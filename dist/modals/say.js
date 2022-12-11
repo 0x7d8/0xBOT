@@ -33,7 +33,7 @@ exports.default = {
         const title = interaction.fields.getTextInputValue('say-title');
         const content = interaction.fields.getTextInputValue('say-content');
         let message;
-        if (interaction.user.id != '745619551865012274') {
+        if (interaction.user.id !== '745619551865012274') {
             message = new EmbedBuilder().setColor(0x37009B)
                 .setTitle(title)
                 .setDescription(content)

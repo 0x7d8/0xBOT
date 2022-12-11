@@ -35,18 +35,14 @@ exports.default = {
         de: 'VOTE FÜR DEN BOT'
     }),
     async execute(interaction, client, lang, vote) {
-        let row = new discord_js_1.ActionRowBuilder()
+        const row = new discord_js_1.ActionRowBuilder()
             .addComponents(new discord_js_1.ButtonBuilder()
-            .setLabel('VOTE')
+            .setLabel('TOPGG')
             .setURL('https://top.gg/bot/1001944224545128588/vote')
+            .setStyle(discord_js_1.ButtonStyle.Link), new discord_js_1.ButtonBuilder()
+            .setLabel('DBL EU')
+            .setURL('https://discord-botlist.eu/vote/1001944224545128588')
             .setStyle(discord_js_1.ButtonStyle.Link));
-        if (lang === 'de') {
-            row = new discord_js_1.ActionRowBuilder()
-                .addComponents(new discord_js_1.ButtonBuilder()
-                .setLabel('VOTEN')
-                .setURL('https://top.gg/bot/1001944224545128588/vote')
-                .setStyle(discord_js_1.ButtonStyle.Link));
-        }
         let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
             .setTitle('<:GLOBE:1024403680503529583> » VOTE')
             .setDescription('» Click below to go to Vote for the Bot!')
@@ -58,7 +54,7 @@ exports.default = {
                 .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
         }
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] VOTE');
-        await interaction.reply({ embeds: [message], components: [row], ephemeral: true });
+        return interaction.reply({ embeds: [message], components: [row], ephemeral: true });
     }
 };
 //# sourceMappingURL=vote.js.map

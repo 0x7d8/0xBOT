@@ -119,21 +119,21 @@ exports.default = {
             message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:CHART:1024398298204876941> » ' + emoji + ' STOCK INFO')
                 .setDescription(`» NEXT PRICES
-                    <t:${client.stocks.refresh}:R>
+					<t:${client.stocks.refresh}:R>
 
-                    » PRICE
-                    **${stockEmojis[stock]} \`$${client.stocks[stock]}\` (${bot.perCalc(client.stocks[stock], client.stocks['old' + stock])}%)
-                `)
+					» PRICE
+					**${stockEmojis[stock]} \`$${client.stocks[stock]}\` (${bot.perCalc(client.stocks[stock], client.stocks['old' + stock])}%)
+				`)
                 .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             if (lang === 'de') {
                 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:CHART:1024398298204876941> » ' + emoji + ' AKTIEN INFO')
                     .setDescription(`» NÄCHSTEN PREISE
-                        <t:${client.stocks.refresh}:R>
+						<t:${client.stocks.refresh}:R>
 
-                        » PREIS
-                        **${stockEmojis[stock]} \`${client.stocks[stock]}€\` (${bot.perCalc(client.stocks[stock], client.stocks['old' + stock])}%)
-                    `)
+						» PREIS
+						**${stockEmojis[stock]} \`${client.stocks[stock]}€\` (${bot.perCalc(client.stocks[stock], client.stocks['old' + stock])}%)
+					`)
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
         }
@@ -141,51 +141,51 @@ exports.default = {
             message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:CHART:1024398298204876941> » FULL STOCK INFO')
                 .setDescription(`» NEXT PRICES
-                    <t:${client.stocks.refresh}:R>
+					<t:${client.stocks.refresh}:R>
 
-                    » 🟢 GREEN STOCK
-                    **${stockEmojis.green} \`$${client.stocks.green}\` (${bot.perCalc(client.stocks.green, client.stocks.oldgreen)}%)**
+					» 🟢 GREEN STOCK
+					**${stockEmojis.green} \`$${client.stocks.green}\` (${bot.perCalc(client.stocks.green, client.stocks.oldgreen)}%)**
 
-                    » 🔵 BLUE STOCK
-                    **${stockEmojis.blue} \`$${client.stocks.blue}\` (${bot.perCalc(client.stocks.blue, client.stocks.oldblue)}%)**
+					» 🔵 BLUE STOCK
+					**${stockEmojis.blue} \`$${client.stocks.blue}\` (${bot.perCalc(client.stocks.blue, client.stocks.oldblue)}%)**
 
-                    » 🟡 YELLOW STOCK
-                    **${stockEmojis.yellow} \`$${client.stocks.yellow}\` (${bot.perCalc(client.stocks.yellow, client.stocks.oldyellow)}%)**
+					» 🟡 YELLOW STOCK
+					**${stockEmojis.yellow} \`$${client.stocks.yellow}\` (${bot.perCalc(client.stocks.yellow, client.stocks.oldyellow)}%)**
 
-                    » 🔴 RED STOCK
-                    **${stockEmojis.red} \`$${client.stocks.red}\` (${bot.perCalc(client.stocks.red, client.stocks.oldred)}%)**
+					» 🔴 RED STOCK
+					**${stockEmojis.red} \`$${client.stocks.red}\` (${bot.perCalc(client.stocks.red, client.stocks.oldred)}%)**
 
-                    » ⚪ WHITE STOCK
-                    **${stockEmojis.white} \`$${client.stocks.white}\` (${bot.perCalc(client.stocks.white, client.stocks.oldwhite)}%)**
+					» ⚪ WHITE STOCK
+					**${stockEmojis.white} \`$${client.stocks.white}\` (${bot.perCalc(client.stocks.white, client.stocks.oldwhite)}%)**
 
-                    » ⚫ BLACK STOCK
-                    **${stockEmojis.black} \`$${client.stocks.black}\` (${bot.perCalc(client.stocks.black, client.stocks.oldblack)}%)**
-                `)
+					» ⚫ BLACK STOCK
+					**${stockEmojis.black} \`$${client.stocks.black}\` (${bot.perCalc(client.stocks.black, client.stocks.oldblack)}%)**
+				`)
                 .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             if (lang === 'de') {
                 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:CHART:1024398298204876941> » VOLLE AKTIEN INFOS')
                     .setDescription(`» NÄCHSTEN PREISE
-                        <t:${client.stocks.refresh}:R>
+						<t:${client.stocks.refresh}:R>
 
-                        » 🟢 GRÜNE AKTIE
-                        **${stockEmojis.green} \`${client.stocks.green}€\` (${bot.perCalc(client.stocks.green, client.stocks.oldgreen)}%)**
+						» 🟢 GRÜNE AKTIE
+						**${stockEmojis.green} \`${client.stocks.green}€\` (${bot.perCalc(client.stocks.green, client.stocks.oldgreen)}%)**
 
-                        » 🔵 BLAUE AKTIE
-                        **${stockEmojis.blue} \`${client.stocks.blue}€\` (${bot.perCalc(client.stocks.blue, client.stocks.oldblue)}%)**
+						» 🔵 BLAUE AKTIE
+						**${stockEmojis.blue} \`${client.stocks.blue}€\` (${bot.perCalc(client.stocks.blue, client.stocks.oldblue)}%)**
 
-                        » 🟡 GELBE AKTIE
-                        **${stockEmojis.yellow} \`${client.stocks.yellow}€\` (${bot.perCalc(client.stocks.yellow, client.stocks.oldyellow)}%)**
+						» 🟡 GELBE AKTIE
+						**${stockEmojis.yellow} \`${client.stocks.yellow}€\` (${bot.perCalc(client.stocks.yellow, client.stocks.oldyellow)}%)**
 
-                        » 🔴 ROTE AKTIE
-                        **${stockEmojis.red} \`${client.stocks.red}€\` (${bot.perCalc(client.stocks.red, client.stocks.oldred)}%)**
+						» 🔴 ROTE AKTIE
+						**${stockEmojis.red} \`${client.stocks.red}€\` (${bot.perCalc(client.stocks.red, client.stocks.oldred)}%)**
 
-                        » ⚪ WEIßE AKTIE
-                        **${stockEmojis.white} \`${client.stocks.white}€\` (${bot.perCalc(client.stocks.white, client.stocks.oldwhite)}%)**
+						» ⚪ WEIßE AKTIE
+						**${stockEmojis.white} \`${client.stocks.white}€\` (${bot.perCalc(client.stocks.white, client.stocks.oldwhite)}%)**
 
-                        » ⚫ SCHWARZE AKTIE
-                        **${stockEmojis.black} \`${client.stocks.black}€\` (${bot.perCalc(client.stocks.black, client.stocks.oldblack)}%)**
-                    `)
+						» ⚫ SCHWARZE AKTIE
+						**${stockEmojis.black} \`${client.stocks.black}€\` (${bot.perCalc(client.stocks.black, client.stocks.oldblack)}%)**
+					`)
                     .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
             }
         }

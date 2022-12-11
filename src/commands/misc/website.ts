@@ -6,11 +6,11 @@ import Client from "@interfaces/Client.js"
 import { CommandInteraction } from "discord.js"
 export default {
 	data: new SlashCommandBuilder()
-		.setName('status')
+		.setName('website')
 		.setDMPermission(false)
-		.setDescription('GO TO THE STATUS PAGE')
+		.setDescription('GO TO THE WEBSITE')
 		.setDescriptionLocalizations({
-			de: 'GEHE ZUR STATUS SEITE'
+			de: 'GEHE ZUR WEBSEITE'
 		}),
 
 	async execute(interaction: CommandInteraction, client: Client, lang: string, vote: string) {
@@ -19,7 +19,7 @@ export default {
 			.addComponents(
 				new ButtonBuilder()
 					.setLabel('GO')
-					.setURL('https://status.0xbot.de')
+					.setURL('https://0xbot.de')
 					.setStyle(ButtonStyle.Link),
 			)
 
@@ -28,26 +28,26 @@ export default {
 				.addComponents(
 					new ButtonBuilder()
 						.setLabel('LOS')
-						.setURL('https://status.0xbot.de')
+						.setURL('https://0xbot.de')
 						.setStyle(ButtonStyle.Link),
 				)
 		}
 		
 		// Create Embed
 	   	let message = new EmbedBuilder().setColor(0x37009B)
-			.setTitle('<:GLOBE:1024403680503529583> » STATUS')
-  			.setDescription('» Click below to go to the Status Page!')
+			.setTitle('<:GLOBE:1024403680503529583> » WEBSITE')
+  			.setDescription('» Click below to go to the Website!')
 			.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
 
 		if (lang === 'de') {
 			message = new EmbedBuilder().setColor(0x37009B)
-				.setTitle('<:GLOBE:1024403680503529583> » STATUS')
-  				.setDescription('» Klicke unten um zur Status Seite zu gelangen!')
+				.setTitle('<:GLOBE:1024403680503529583> » WEBSITE')
+  				.setDescription('» Klicke unten um zur Webseite zu gelangen!')
 				.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
 		}
 		
 		// Send Message
-		bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] STATUS')
+		bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] DASHBOARD')
 		await interaction.reply({ embeds: [message], components: [row as any], ephemeral: true })
 	}
 }

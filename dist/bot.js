@@ -372,9 +372,9 @@ const start = () => {
                 }
             });
             if (req.status !== 200)
-                console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] FAILED TO POST TOPGG STATS`);
+                console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] [${req.status}] FAILED TO POST TOPGG STATS`);
             else
-                console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] POSTED TOPGG STATS`);
+                console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] [${req.status}] POSTED TOPGG STATS`);
         });
     }
     client.stocks = {

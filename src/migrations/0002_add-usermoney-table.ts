@@ -5,17 +5,17 @@
 const migid = 2; const migna = 'ADD USERMONEY TABLE'
 
 export default {
-    data: {
-        "name": migna
-    },
+	data: {
+		"name": migna
+	},
 
-    async migrate(db: any) {
-        // Check if Migration has already occured
-        const status = await db.query(`select id from migrations where id = ${migid};`)
-        if (status.rowCount !== 1) {
-            await db.query(`create table usermoney (userid text, money numeric)`)
-            await db.query(`insert into migrations values (${migid}, $1)`, [migna])
-            return true
-        }; return false
-    }
+	async migrate(db: any) {
+		// Check if Migration has already occured
+		const status = await db.query(`select id from migrations where id = ${migid};`)
+		if (status.rowCount !== 1) {
+			await db.query(`create table usermoney (userid text, money numeric)`)
+			await db.query(`insert into migrations values (${migid}, $1)`, [migna])
+			return true
+		}; return false
+	}
 }

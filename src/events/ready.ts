@@ -5,12 +5,12 @@ import { setTimeout as wait } from "timers/promises"
 import config from "@config"
 import { default as pg } from "pg"
 const db = new pg.Pool({
-    host: config.database.oxbot.host,
-    database: config.database.oxbot.database,
-    user: config.database.oxbot.username,
-    password: config.database.oxbot.password,
-    port: 5432,
-    ssl: true
+	host: config.database.oxbot.host,
+	database: config.database.oxbot.database,
+	user: config.database.oxbot.username,
+	password: config.database.oxbot.password,
+	port: 5432,
+	ssl: true
 })
 
 import { default as commitCount } from "git-commit-count"
@@ -21,6 +21,7 @@ export default {
 	name: 'START BOT',
 	event: Events.ClientReady,
 	once: true,
+
 	async execute(client: Client, timed: number) {
 		const axios = (await import("axios")).default
 
@@ -47,20 +48,18 @@ export default {
 			await wait(20000)
 
 			const rawvalues = await db.query(`select * from usermoney;`); let total = 0
-			rawvalues.rows.forEach((element) => total += Number(element.money) )
+			rawvalues.rows.forEach((user: { money: string }) => total += Number(user.money) )
 			client.user?.setActivity('$' + total + ' in Circulation', { type: ActivityType.Watching })
 			await wait(20000)
 
 			const req = await axios({
 				method: 'GET',
-				url: `https://top.gg/api/bots/${config.client.id}`,
+				url: 'https://status.0xbot.de/api/status-page/heartbeat/all',
 				validateStatus: false,
-				headers: {
-					"Authorization": config.web.keys.topgg.apikey
-				}
+				headers: {}
 			} as any); const res = req.data
 
-			client.user?.setActivity(res.monthlyPoints + ' Votes this Month', { type: ActivityType.Watching })
+			client.user.setActivity(Math.round((res.uptimeList['1_24']*100) * 100) / 100 + '% Bot Uptime', { type: ActivityType.Watching })
 			await wait(20000)
 		}
 	}

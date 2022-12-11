@@ -4,13 +4,13 @@ import webserverInterface from "@interfaces/Webserver.js"
 import { EmbedBuilder } from "discord.js"
 
 module.exports = {
-    type: webserver.types.post,
-    path: '/webhook/topggvote',
+	type: webserver.types.post,
+	path: '/webhook/topggvote',
 
-    async code(ctr: webserverInterface) {
-        // Check Authorization
-        if (ctr.header.get('authorization') !== ctr.config.web.keys.topgg.webkey) return ctr.print({ "success": false, "message": 'WRONG AUTHORIZATION' })
-        if (!(ctr.reqBody as any).user) return
+	async code(ctr: webserverInterface) {
+		// Check Authorization
+		if (ctr.header.get('authorization') !== ctr.config.web.keys.topgg.webkey) return ctr.print({ "success": false, "message": 'WRONG AUTHORIZATION' })
+		if (!(ctr.reqBody as any).user) return
 
 		const random = ctr.bot.random(7500, 15000)
 
@@ -58,7 +58,7 @@ module.exports = {
 		}; ctr.bot.votes.add((ctr.reqBody as any).user + '-A', 1)
 		ctr.bot.votes.set((ctr.reqBody as any).user + '-T', Date.now())
 
-        // Return Result
-        return ctr.print({ "success": true, "message": 'VOTE RECIEVED' })
-    }
+		// Return Result
+		return ctr.print({ "success": true, "message": 'VOTE RECIEVED' })
+	}
 }

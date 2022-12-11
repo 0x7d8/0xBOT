@@ -75,27 +75,27 @@ exports.default = {
         let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
             .setTitle('<:BAG:1024389219558367292> » TRANSACTION INFOS')
             .setDescription(`» ID: \`${transactionId}\`
-                <t:${transaction.timestamp}>
+				<t:${transaction.timestamp}>
 
-                » ${sender}
-                **${transaction.sender.type === 'positive' ? '+' : '-'}$${transaction.sender.amount}**
+				» ${sender}
+				**${transaction.sender.type === 'positive' ? '+' : '-'}$${transaction.sender.amount}**
 
-                » ${reciever}
-                **${transaction.reciever.type === 'positive' ? '+' : '-'}$${transaction.reciever.amount}**
-            `)
+				» ${reciever}
+				**${transaction.reciever.type === 'positive' ? '+' : '-'}$${transaction.reciever.amount}**
+			`)
             .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
         if (lang === 'de') {
             message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:BAG:1024389219558367292> » TRANSAKTIONS INFOS')
                 .setDescription(`» ID: \`${transactionId}\`
-                <t:${transaction.timestamp}>
+				<t:${transaction.timestamp}>
 
-                » ${sender}
-                **${transaction.sender.type === 'positive' ? '+' : '-'}${transaction.sender.amount}€**
+				» ${sender}
+				**${transaction.sender.type === 'positive' ? '+' : '-'}${transaction.sender.amount}€**
 
-                » ${reciever}
-                **${transaction.reciever.type === 'positive' ? '+' : '-'}${transaction.reciever.amount}€**
-            `)
+				» ${reciever}
+				**${transaction.reciever.type === 'positive' ? '+' : '-'}${transaction.reciever.amount}€**
+			`)
                 .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
         }
         bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] TRANSACTIONVIEW : ' + transactionId);

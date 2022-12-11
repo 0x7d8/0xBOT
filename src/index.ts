@@ -16,7 +16,7 @@ import { default as webserver } from "rjweb-server"
 // Create Client
 import { Client, GatewayIntentBits } from "discord.js"
 const client = new Client({ intents: [
-    GatewayIntentBits.Guilds
+	GatewayIntentBits.Guilds
 ] }); client.login(config.client.token)
 
 import * as bot from "@functions/bot.js"
@@ -24,167 +24,167 @@ import * as bot from "@functions/bot.js"
 // CLI Commands
 const stdin = process.openStdin()
 stdin.addListener("data", async(input) => {
-    // Get Arguments
-    const args = input.toString().trim().split(' ')
-    console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] RECIEVED COMMAND [' + input.toString().trim().toUpperCase() + ']')
+	// Get Arguments
+	const args = input.toString().trim().split(' ')
+	console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] RECIEVED COMMAND [' + input.toString().trim().toUpperCase() + ']')
 
-    // ADDBAL
-    if (args[0].toUpperCase() === 'ADDBAL') {
-        if (typeof args[1] !== 'undefined' && typeof args[2] !== 'undefined') {
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] ADDED ' + args[2] + '€ TO ' + args[1])
-            bot.money.add(false, args[1].toString(), Number(args[2]))
-        } else {
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] USAGE: ADDBAL [USERID] [AMOUNT]')
-        }
-    }
+	// ADDBAL
+	if (args[0].toUpperCase() === 'ADDBAL') {
+		if (typeof args[1] !== 'undefined' && typeof args[2] !== 'undefined') {
+			console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] ADDED ' + args[2] + '€ TO ' + args[1])
+			bot.money.add(false, args[1].toString(), Number(args[2]))
+		} else {
+			console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] USAGE: ADDBAL [USERID] [AMOUNT]')
+		}
+	}
 
-    // REMBAL
-    if (args[0].toUpperCase() === 'REMBAL') {
-        if (typeof args[1] !== 'undefined' && typeof args[2] !== 'undefined') {
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] REMOVED ' + args[2] + '€ FROM ' + args[1])
-            bot.money.rem(false, args[1].toString(), Number(args[2]))
-        } else {
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] USAGE: REMBAL [USERID] [AMOUNT]')
-        }
-    }
+	// REMBAL
+	if (args[0].toUpperCase() === 'REMBAL') {
+		if (typeof args[1] !== 'undefined' && typeof args[2] !== 'undefined') {
+			console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] REMOVED ' + args[2] + '€ FROM ' + args[1])
+			bot.money.rem(false, args[1].toString(), Number(args[2]))
+		} else {
+			console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] USAGE: REMBAL [USERID] [AMOUNT]')
+		}
+	}
 
-    // SETBAL
-    if (args[0].toUpperCase() === 'SETBAL') {
-        if (typeof args[1] !== 'undefined' && typeof args[2] !== 'undefined') {
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] SET BALANCE OF ' + args[1] + ' TO ' + args[2] + '€')
-            bot.money.set(false, args[1].toString(), Number(args[2]))
-        } else {
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] USAGE: SETBAL [USERID] [AMOUNT]')
-        }
-    }
+	// SETBAL
+	if (args[0].toUpperCase() === 'SETBAL') {
+		if (typeof args[1] !== 'undefined' && typeof args[2] !== 'undefined') {
+			console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] SET BALANCE OF ' + args[1] + ' TO ' + args[2] + '€')
+			bot.money.set(false, args[1].toString(), Number(args[2]))
+		} else {
+			console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] USAGE: SETBAL [USERID] [AMOUNT]')
+		}
+	}
 
-    // EVAL
-    if (args[0].toUpperCase() === 'EVAL') {
-        if (typeof args[1] !== 'undefined') {
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] RESULT OF EVAL:')
-            args.shift()
+	// EVAL
+	if (args[0].toUpperCase() === 'EVAL') {
+		if (typeof args[1] !== 'undefined') {
+			console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] RESULT OF EVAL:')
+			args.shift()
 
-            try {
-                console.log(await eval(args.join(' ')))
-            } catch(e) {
-                console.log(e)
-                console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] EVAL RETURNED AN ERROR')
-            }
-        } else {
-            console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] USAGE: EVAL [COMMAND]')
-        }
-    }
+			try {
+				console.log(await eval(args.join(' ')))
+			} catch(e) {
+				console.log(e)
+				console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] EVAL RETURNED AN ERROR')
+			}
+		} else {
+			console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] USAGE: EVAL [COMMAND]')
+		}
+	}
 })
 
 {(async() => {
-    // Show Logo
-    console.log(' ')
-    console.log('  /$$$$$$            /$$$$$$$   /$$$$$$  /$$$$$$$$')
-    console.log(' /$$$_  $$          | $$__  $$ /$$__  $$|__  $$__/')
-    console.log('| $$$$\\ $$ /$$   /$$| $$  \\ $$| $$  \\ $$   | $$   ')
-    console.log('| $$ $$ $$|  $$ /$$/| $$$$$$$ | $$  | $$   | $$   ')
-    console.log('| $$\\ $$$$ \\  $$$$/ | $$__  $$| $$  | $$   | $$   ')
-    console.log('| $$ \\ $$$  |$$  $$ | $$  \\ $$| $$  | $$   | $$   ')
-    console.log('|  $$$$$$/ /$$/\\  $$| $$$$$$$/|  $$$$$$/   | $$   ')
-    console.log(' \\______/ |__/  \\__/|_______/  \\______/    |__/   ')
-    console.log(' ')
-    console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
-    console.log(' ')
+	// Show Logo
+	console.log(' ')
+	console.log('  /$$$$$$            /$$$$$$$   /$$$$$$  /$$$$$$$$')
+	console.log(' /$$$_  $$          | $$__  $$ /$$__  $$|__  $$__/')
+	console.log('| $$$$\\ $$ /$$   /$$| $$  \\ $$| $$  \\ $$   | $$   ')
+	console.log('| $$ $$ $$|  $$ /$$/| $$$$$$$ | $$  | $$   | $$   ')
+	console.log('| $$\\ $$$$ \\  $$$$/ | $$__  $$| $$  | $$   | $$   ')
+	console.log('| $$ \\ $$$  |$$  $$ | $$  \\ $$| $$  | $$   | $$   ')
+	console.log('|  $$$$$$/ /$$/\\  $$| $$$$$$$/|  $$$$$$/   | $$   ')
+	console.log(' \\______/ |__/  \\__/|_______/  \\______/    |__/   ')
+	console.log(' ')
+	console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
+	console.log(' ')
 
-    // Database Migrations
-    const migrator = async(conn: any) => {
-        const migrations = getAllFilesFilter('./migrations', '.js')
-        for (const file of migrations) {
-            const migration = (await import(file)).default.default
+	// Database Migrations
+	const migrator = async(conn: any) => {
+		const migrations = getAllFilesFilter('./migrations', '.js')
+		for (const file of migrations) {
+			const migration = (await import(file)).default.default
 
-            const status = await migration.migrate(conn)
-            if (status) console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] MIGRATED ${migration.data.name}`)
-            else console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] DIDNT MIGRATE ${migration.data.name}`)
-        }
-    }; const db = new pg.Pool({
-        host: config.database.oxbot.host,
-        database: config.database.oxbot.database,
-        user: config.database.oxbot.username,
-        password: config.database.oxbot.password,
-        ssl: true,
-        port: 5432
-    }); const domigrate = async() => { await migrator(db) }
-    await domigrate()
+			const status = await migration.migrate(conn)
+			if (status) console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] MIGRATED ${migration.data.name}`)
+			else console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] DIDNT MIGRATE ${migration.data.name}`)
+		}
+	}; const db = new pg.Pool({
+		host: config.database.oxbot.host,
+		database: config.database.oxbot.database,
+		user: config.database.oxbot.username,
+		password: config.database.oxbot.password,
+		ssl: true,
+		port: 5432
+	}); const domigrate = async() => { await migrator(db) }
+	await domigrate()
 
-    /// Dashboard
-    // Website
-    const website = new webserver.routeList()
+	/// Dashboard
+	// Website
+	const website = new webserver.routeList()
 
-    website.static('/', './dashboard/dist', {
-        preload: true,
-        remHTML: true
-    })
+	website.static('/', './dashboard/dist', {
+		preload: true,
+		remHTML: true
+	})
 
-    if (config.web.dashboard) {
-        await webserver.start({
-            bind: '0.0.0.0',
-            urls: website,
-            pages: {
-                async notFound(ctr: WebserverInterface) {
-                    return ctr.printFile('./dashboard/dist/index.html')
-                }
-            }, port: config.web.ports.dashboard,
-            events: {
-                async request(ctr: WebserverInterface) {
-                    if (ctr.reqUrl.href.endsWith('.js')) ctr.setHeader('Content-Type', 'text/javascript')
-                    if (ctr.reqUrl.href.endsWith('.css')) ctr.setHeader('Content-Type', 'text/css')
-                }
-            }
-        }).then((res: any) => {
-            console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [STA] $$$$$ STARTED DASHBOARD ON PORT ${res.port}`)
-        })
-    }
+	if (config.web.dashboard) {
+		await webserver.start({
+			bind: '0.0.0.0',
+			urls: website,
+			pages: {
+				async notFound(ctr: WebserverInterface) {
+					return ctr.printFile('./dashboard/dist/index.html')
+				}
+			}, port: config.web.ports.dashboard,
+			events: {
+				async request(ctr: WebserverInterface) {
+					if (ctr.reqUrl.href.endsWith('.js')) ctr.setHeader('Content-Type', 'text/javascript')
+					if (ctr.reqUrl.href.endsWith('.css')) ctr.setHeader('Content-Type', 'text/css')
+				}
+			}
+		}).then((res: any) => {
+			console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [STA] $$$$$ STARTED DASHBOARD ON PORT ${res.port}`)
+		})
+	}
 
-    // API
-    const api = new webserver.routeList()
+	// API
+	const api = new webserver.routeList()
 
-    api.load('./apis')
+	api.load('./apis')
 
-    if (config.web.api) {
-        await webserver.start({
-            bind: '0.0.0.0',
-            cors: true,
-            urls: api,
-            pages: {
-                async notFound(ctr: WebserverInterface) {
-                    return ctr.print({
-                        "success": false,
-                        "message": 'NOT FOUND'
-                    })
-                }, async reqError(ctr: WebserverInterface) {
-                    console.log(ctr.error.stack)
-                    ctr.status(500)
-                    return ctr.print({
-                        "success": false,
-                        "message": 'SERVER ERROR'
-                    })
-                }
-            }, port: config.web.ports.api,
-            events: {
-                async request(ctr: WebserverInterface) {
-                    ctr.api = (await import('./functions/api.js')).default
-                    ctr.bot = (await import('./functions/bot.js')).default
-                    ctr.config = config
-                    ctr.client = client
-                    ctr.db = db
-                }
-            }
-        }).then((res: any) => {
-            console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [STA] $$$$$ STARTED API ON PORT ${res.port}`)
-        })
-    }
+	if (config.web.api) {
+		await webserver.start({
+			bind: '0.0.0.0',
+			cors: true,
+			urls: api,
+			pages: {
+				async notFound(ctr: WebserverInterface) {
+					return ctr.print({
+						"success": false,
+						"message": 'NOT FOUND'
+					})
+				}, async reqError(ctr: WebserverInterface) {
+					console.log(ctr.error.stack)
+					ctr.status(500)
+					return ctr.print({
+						"success": false,
+						"message": 'SERVER ERROR'
+					})
+				}
+			}, port: config.web.ports.api,
+			events: {
+				async request(ctr: WebserverInterface) {
+					ctr.api = (await import('./functions/api.js')).default
+					ctr.bot = (await import('./functions/bot.js')).default
+					ctr.config = config
+					ctr.client = client
+					ctr.db = db
+				}
+			}
+		}).then((res: any) => {
+			console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [STA] $$$$$ STARTED API ON PORT ${res.port}`)
+		})
+	}
 
-    // Start Bot
-    console.log(' ')
-    console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [STA] $$$$$ LOADING 0xBOT ${config.version}`)
-    console.log(' ')
-    console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [STA] $$$$$ LOADING COMMANDS AND EVENTS`)
-    console.log(' ')
+	// Start Bot
+	console.log(' ')
+	console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [STA] $$$$$ LOADING 0xBOT ${config.version}`)
+	console.log(' ')
+	console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [STA] $$$$$ LOADING COMMANDS AND EVENTS`)
+	console.log(' ')
 
-    start()
+	start()
 }) ()}
