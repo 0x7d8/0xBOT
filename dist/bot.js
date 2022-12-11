@@ -358,7 +358,7 @@ const start = () => {
     else
         didload = true;
     if (_config_1.default.web.stats) {
-        cron.schedule('0 */2 * * *', async () => {
+        cron.schedule('*/30 * * * *', async () => {
             const axios = (await import('axios')).default;
             const req = await axios({
                 method: 'POST',

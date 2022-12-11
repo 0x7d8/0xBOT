@@ -370,7 +370,7 @@ export const start = () => {
 
 	// Top.gg Stats
 	if (config.web.stats) {
-		cron.schedule('0 */2 * * *', async() => {
+		cron.schedule('*/30 * * * *', async() => {
 			const axios = (await import('axios')).default
 			const req = await axios({
 				method: 'POST',
