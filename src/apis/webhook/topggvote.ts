@@ -9,7 +9,7 @@ module.exports = {
 
     async code(ctr: webserverInterface) {
         // Check Authorization
-        if (ctr.header.get('authorization') !== ctr.config.web.keys.webkey) return ctr.print({ "success": false, "message": 'WRONG AUTHORIZATION' })
+        if (ctr.header.get('authorization') !== ctr.config.web.keys.topgg.webkey) return ctr.print({ "success": false, "message": 'WRONG AUTHORIZATION' })
         if (!(ctr.reqBody as any).user) return
 
 		const random = ctr.bot.random(7500, 15000)

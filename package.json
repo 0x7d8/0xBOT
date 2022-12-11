@@ -24,7 +24,6 @@
     "node-cron": "^3.0.2",
     "pg": "^8.8.0",
     "rjutils-collection": "^1.0.2",
-    "rjweb-server": "*",
-    "topgg-autoposter": "^2.0.1"
+    "rjweb-server": "*"
   }
 }

@@ -9,7 +9,7 @@ module.exports = {
     type: rjweb_server_1.default.types.post,
     path: '/webhook/topggvote',
     async code(ctr) {
-        if (ctr.header.get('authorization') !== ctr.config.web.keys.webkey)
+        if (ctr.header.get('authorization') !== ctr.config.web.keys.topgg.webkey)
             return ctr.print({ "success": false, "message": 'WRONG AUTHORIZATION' });
         if (!ctr.reqBody.user)
             return;
@@ -54,9 +54,7 @@ module.exports = {
         ;
         ctr.bot.votes.add(ctr.reqBody.user + '-A', 1);
         ctr.bot.votes.set(ctr.reqBody.user + '-T', Date.now());
-        return ctr.print({
-            "success": true
-        });
+        return ctr.print({ "success": true, "message": 'VOTE RECIEVED' });
     }
 };
 //# sourceMappingURL=topggvote.js.map

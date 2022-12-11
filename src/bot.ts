@@ -370,11 +370,22 @@ export const start = () => {
 
 	// Top.gg Stats
 	if (config.web.stats) {
-		const { AutoPoster } = require('topgg-autoposter')
-		const aP = AutoPoster(config.web.keys.apikey, client)
+		cron.schedule('0 */2 * * *', async() => {
+			const axios = (await import('axios')).default
+			const req = await axios({
+				method: 'POST',
+				url: `https://top.gg/bots/${config.client.id}/stats`,
+				validateStatus: false,
+				headers: {
+					"Authorization": config.web.keys.topgg.apikey
+				}, data: {
+					"server_count": client.guilds.cache.size,
+					"shard_count": 1
+				}
+			} as any)
 
-		aP.on('posted', () => {
-			console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] TOP.GG STATS POSTED')
+			if (req.status !== 200) console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] FAILED TO POST TOPGG STATS`)
+			else console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] POSTED TOPGG STATS`)
 		})
 	}
 

@@ -68,7 +68,7 @@ exports.default = {
             await (0, promises_1.setTimeout)(20000);
             const req = await axios.get('https://top.gg/api/bots/1001944224545128588', {
                 headers: {
-                    Authorization: _config_1.default.web.keys.apikey
+                    Authorization: _config_1.default.web.keys.topgg.apikey
                 }
             });
             const res = req.data;

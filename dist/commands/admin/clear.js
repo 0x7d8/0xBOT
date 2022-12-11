@@ -25,7 +25,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 const v10_1 = require("discord-api-types/v10");
-const bot = __importStar(require("../../functions/bot.js"));
+const bot = __importStar(require("@functions/bot.js"));
 exports.default = {
     data: new discord_js_1.SlashCommandBuilder()
         .setName('clear')

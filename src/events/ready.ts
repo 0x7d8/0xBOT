@@ -53,7 +53,7 @@ export default {
 
 			const req = await axios.get('https://top.gg/api/bots/1001944224545128588', {
 				headers: {
-					Authorization: config.web.keys.apikey
+					Authorization: config.web.keys.topgg.apikey
 				}
 			}); const res = req.data
 
