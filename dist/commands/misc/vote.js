@@ -37,10 +37,10 @@ exports.default = {
     async execute(interaction, client, lang, vote) {
         const row = new discord_js_1.ActionRowBuilder()
             .addComponents(new discord_js_1.ButtonBuilder()
-            .setLabel('TOPGG')
+            .setLabel('TOP.GG')
             .setURL('https://top.gg/bot/1001944224545128588/vote')
             .setStyle(discord_js_1.ButtonStyle.Link), new discord_js_1.ButtonBuilder()
-            .setLabel('DBL EU')
+            .setLabel('DBL.EU')
             .setURL('https://discord-botlist.eu/vote/1001944224545128588')
             .setStyle(discord_js_1.ButtonStyle.Link));
         let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)

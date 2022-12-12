@@ -7,9 +7,8 @@ exports.default = {
         "name": migna
     },
     async migrate(db) {
-        let status;
         try {
-            status = await db.query(`select * from migrations where id = ${migid};`);
+            await db.query(`select * from migrations where id = ${migid};`);
         }
         catch (e) {
             await db.query(`create table migrations (id int, name text)`);

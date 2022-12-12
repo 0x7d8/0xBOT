@@ -5,7 +5,7 @@ import { EmbedBuilder } from "discord.js"
 
 module.exports = {
 	type: webserver.types.post,
-	path: '/webhook/topggvote',
+	path: '/webhook/topgg',
 
 	async code(ctr: webserverInterface) {
 		// Check Authorization

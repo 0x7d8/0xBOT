@@ -357,26 +357,6 @@ const start = () => {
         login(client, (0, getAllFiles_js_1.getAllFilesFilter)('./commands', '.js'));
     else
         didload = true;
-    if (_config_1.default.web.stats) {
-        cron.schedule('0 */1 * * *', async () => {
-            const axios = (await import('axios')).default;
-            const req = await axios({
-                method: 'POST',
-                url: `https://top.gg/api/bots/${_config_1.default.client.id}/stats`,
-                validateStatus: false,
-                headers: {
-                    "Authorization": _config_1.default.web.keys.topgg.apikey
-                }, data: {
-                    "server_count": client.guilds.cache.size,
-                    "shard_count": 1
-                }
-            });
-            if (req.status !== 200)
-                console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] [${req.status}] FAILED TO POST TOPGG STATS`);
-            else
-                console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] [${req.status}] POSTED TOPGG STATS`);
-        });
-    }
     client.stocks = {
         green: 0,
         blue: 0,

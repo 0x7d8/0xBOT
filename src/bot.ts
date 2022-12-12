@@ -368,27 +368,6 @@ export const start = () => {
 	if (!config.client.quickload) login(client, getAllFilesFilter('./commands', '.js'))
 	else didload = true
 
-	// Top.gg Stats
-	if (config.web.stats) {
-		cron.schedule('0 */1 * * *', async() => {
-			const axios = (await import('axios')).default
-			const req = await axios({
-				method: 'POST',
-				url: `https://top.gg/api/bots/${config.client.id}/stats`,
-				validateStatus: false,
-				headers: {
-					"Authorization": config.web.keys.topgg.apikey
-				}, data: {
-					"server_count": client.guilds.cache.size,
-					"shard_count": 1
-				}
-			} as any)
-
-			if (req.status !== 200) console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] [${req.status}] FAILED TO POST TOPGG STATS`)
-			else console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] [${req.status}] POSTED TOPGG STATS`)
-		})
-	}
-
 	/// Cronjobs
 	// Stock Prices
 	client.stocks = {

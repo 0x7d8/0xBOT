@@ -5,6 +5,7 @@ moduleAlias.addAlias('@functions', __dirname+'/functions')
 moduleAlias.addAlias('@utils', __dirname+'/utils')
 moduleAlias.addAlias('@config', __dirname+'/config.json')
 
+import * as cron from "node-cron"
 import { start } from "./bot.js"
 import { default as pg } from "pg"
 import { getAllFilesFilter } from "@utils/getAllFiles.js"
@@ -176,6 +177,46 @@ stdin.addListener("data", async(input) => {
 			}
 		}).then((res: any) => {
 			console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [STA] $$$$$ STARTED API ON PORT ${res.port}`)
+		})
+	}
+
+	// Bot Stats
+	if (config.web.stats) {
+		cron.schedule('0 */1 * * *', async() => {
+			const axios = (await import('axios')).default
+
+			{ // TOP.GG
+				const req = await axios({
+					method: 'POST',
+					url: `https://top.gg/api/bots/${config.client.id}/stats`,
+					validateStatus: false,
+					headers: {
+						"Authorization": config.web.keys.topgg.apikey
+					}, data: {
+						"server_count": client.guilds.cache.size,
+						"shard_count": 1
+					}
+				} as any)
+
+				if (req.status !== 200) console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] [${req.status}] FAILED TO POST TOPGG STATS`)
+				else console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] [${req.status}] POSTED TOPGG STATS`)
+			}
+
+			{ // DBL.COM
+				const req = await axios({
+					method: 'POST',
+					url: `https://discordbotlist.com/api/v1/bots/${config.client.id}/stats`,
+					validateStatus: false,
+					headers: {
+						"Authorization": config.web.keys.dbl.apikey
+					}, data: {
+						"guilds": client.guilds.cache.size
+					}
+				} as any)
+
+				if (req.status !== 200) console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] [${req.status}] FAILED TO POST DBL STATS`)
+				else console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] [${req.status}] POSTED DBL STATS`)
+			}
 		})
 	}
 

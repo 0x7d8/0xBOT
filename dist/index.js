@@ -31,6 +31,7 @@ module_alias_1.default.addAlias('@interfaces', __dirname + '/interfaces');
 module_alias_1.default.addAlias('@functions', __dirname + '/functions');
 module_alias_1.default.addAlias('@utils', __dirname + '/utils');
 module_alias_1.default.addAlias('@config', __dirname + '/config.json');
+const cron = __importStar(require("node-cron"));
 const bot_js_1 = require("./bot.js");
 const pg_1 = __importDefault(require("pg"));
 const getAllFiles_js_1 = require("@utils/getAllFiles.js");
@@ -184,6 +185,44 @@ stdin.addListener("data", async (input) => {
                 }
             }).then((res) => {
                 console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [STA] $$$$$ STARTED API ON PORT ${res.port}`);
+            });
+        }
+        if (_config_1.default.web.stats) {
+            cron.schedule('0 */1 * * *', async () => {
+                const axios = (await import('axios')).default;
+                {
+                    const req = await axios({
+                        method: 'POST',
+                        url: `https://top.gg/api/bots/${_config_1.default.client.id}/stats`,
+                        validateStatus: false,
+                        headers: {
+                            "Authorization": _config_1.default.web.keys.topgg.apikey
+                        }, data: {
+                            "server_count": client.guilds.cache.size,
+                            "shard_count": 1
+                        }
+                    });
+                    if (req.status !== 200)
+                        console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] [${req.status}] FAILED TO POST TOPGG STATS`);
+                    else
+                        console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] [${req.status}] POSTED TOPGG STATS`);
+                }
+                {
+                    const req = await axios({
+                        method: 'POST',
+                        url: `https://discordbotlist.com/api/v1/bots/${_config_1.default.client.id}/stats`,
+                        validateStatus: false,
+                        headers: {
+                            "Authorization": _config_1.default.web.keys.dbl.apikey
+                        }, data: {
+                            "guilds": client.guilds.cache.size
+                        }
+                    });
+                    if (req.status !== 200)
+                        console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] [${req.status}] FAILED TO POST DBL STATS`);
+                    else
+                        console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] [${req.status}] POSTED DBL STATS`);
+                }
             });
         }
         console.log(' ');

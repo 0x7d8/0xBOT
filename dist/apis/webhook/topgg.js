@@ -7,7 +7,7 @@ const rjweb_server_1 = __importDefault(require("rjweb-server"));
 const discord_js_1 = require("discord.js");
 module.exports = {
     type: rjweb_server_1.default.types.post,
-    path: '/webhook/topggvote',
+    path: '/webhook/topgg',
     async code(ctr) {
         if (ctr.header.get('authorization') !== ctr.config.web.keys.topgg.webkey)
             return ctr.print({ "success": false, "message": 'WRONG AUTHORIZATION' });
@@ -57,4 +57,4 @@ module.exports = {
         return ctr.print({ "success": true, "message": 'VOTE RECIEVED' });
     }
 };
-//# sourceMappingURL=topggvote.js.map
+//# sourceMappingURL=topgg.js.map

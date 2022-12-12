@@ -18,12 +18,12 @@ export default {
 		const row = new ActionRowBuilder()
 			.addComponents(
 				new ButtonBuilder()
-					.setLabel('TOPGG')
+					.setLabel('TOP.GG')
 					.setURL('https://top.gg/bot/1001944224545128588/vote')
 					.setStyle(ButtonStyle.Link),
 
 				new ButtonBuilder()
-					.setLabel('DBL EU')
+					.setLabel('DBL.EU')
 					.setURL('https://discord-botlist.eu/vote/1001944224545128588')
 					.setStyle(ButtonStyle.Link),
 			)
