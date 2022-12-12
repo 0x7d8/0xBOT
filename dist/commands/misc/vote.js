@@ -40,8 +40,8 @@ exports.default = {
             .setLabel('TOP.GG')
             .setURL('https://top.gg/bot/1001944224545128588/vote')
             .setStyle(discord_js_1.ButtonStyle.Link), new discord_js_1.ButtonBuilder()
-            .setLabel('DBL.EU')
-            .setURL('https://discord-botlist.eu/vote/1001944224545128588')
+            .setLabel('DBL.COM')
+            .setURL('https://discordbotlist.com/bots/0xbot/upvote')
             .setStyle(discord_js_1.ButtonStyle.Link));
         let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
             .setTitle('<:GLOBE:1024403680503529583> » VOTE')

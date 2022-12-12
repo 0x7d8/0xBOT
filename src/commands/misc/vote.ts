@@ -23,8 +23,8 @@ export default {
 					.setStyle(ButtonStyle.Link),
 
 				new ButtonBuilder()
-					.setLabel('DBL.EU')
-					.setURL('https://discord-botlist.eu/vote/1001944224545128588')
+					.setLabel('DBL.COM')
+					.setURL('https://discordbotlist.com/bots/0xbot/upvote')
 					.setStyle(ButtonStyle.Link),
 			)
 		
