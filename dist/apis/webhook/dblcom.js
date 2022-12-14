@@ -7,7 +7,7 @@ const rjweb_server_1 = __importDefault(require("rjweb-server"));
 const discord_js_1 = require("discord.js");
 module.exports = {
     type: rjweb_server_1.default.types.post,
-    path: '/webhook/dbl',
+    path: '/webhook/dblcom',
     async code(ctr) {
         if (ctr.header.get('authorization') !== ctr.config.web.keys.dbl.webkey)
             return ctr.print({ "success": false, "message": 'WRONG AUTHORIZATION' });
@@ -45,7 +45,7 @@ module.exports = {
                 .setFooter({ text: '» ' + ctr.config.version });
         }
         await ctr.bot.money.add(false, ctr.reqBody.id, random);
-        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] VOTED : ' + ctr.reqBody.id + ' : ' + random + '€');
+        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] VOTED : ' + ctr.reqBody.id + ' : ' + random + '€ : DBLCOM');
         ctr.client.users.send(ctr.reqBody.id, { embeds: [message] });
         if ((await ctr.bot.votes.get(ctr.reqBody.id + '-A') + 1) % 10 === 0) {
             ctr.bot.money.add(false, ctr.reqBody.id, extra);
@@ -57,4 +57,4 @@ module.exports = {
         return ctr.print({ "success": true, "message": 'VOTE RECIEVED' });
     }
 };
-//# sourceMappingURL=dbl.js.map
+//# sourceMappingURL=dblcom.js.map
