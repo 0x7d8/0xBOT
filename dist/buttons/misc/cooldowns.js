@@ -4,32 +4,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
-const discord_js_2 = require("discord.js");
 const ms_1 = __importDefault(require("ms"));
 exports.default = {
-    data: new discord_js_2.SlashCommandBuilder()
-        .setName('cooldowns')
-        .setDescription('VIEW COOLDOWNS')
-        .setDescriptionLocalizations({
-        de: 'SCHAUE COOLDOWNS AN'
-    })
-        .setDMPermission(false)
-        .addUserOption((option) => option.setName('user')
-        .setDescription('THE USER')
-        .setDescriptionLocalizations({
-        de: 'DER NUTZER'
-    })
-        .setRequired(false)),
-    async execute(ctx) {
-        const user = ctx.interaction.options.getUser("user");
+    data: {
+        name: 'cooldowns'
+    },
+    async execute(ctx, userId, userName) {
         let userobj;
-        if (!user) {
+        if (userId === ctx.interaction.user.id) {
             userobj = ctx.interaction.user;
-            ctx.log(false, `[CMD] COOLDOWNS`);
+            ctx.log(false, `[BTN] COOLDOWNS`);
         }
         else {
-            userobj = user;
-            ctx.log(false, `[CMD] COOLDOWNS : ${user.id}`);
+            userobj = { id: userId, username: userName };
+            ctx.log(false, `[BTN] COOLDOWNS : ${userId}`);
         }
         let embedDesc = '';
         const rawvalues = await ctx.db.query(`select name, expires from usercooldowns where userid = $1 and expires / 1000 > extract(epoch from now());`, [userobj.id]);
@@ -43,46 +31,32 @@ exports.default = {
                 embedDesc = 'Nichts Gefunden.';
             }
         }
-        let row = new discord_js_1.ActionRowBuilder()
-            .addComponents(new discord_js_1.ButtonBuilder()
-            .setLabel('UPDATE')
-            .setEmoji('1024382926923776020')
-            .setCustomId('COOLDOWNS-' + userobj.id + '-' + userobj.username)
-            .setStyle(discord_js_1.ButtonStyle.Secondary));
-        if (ctx.metadata.language === 'de') {
-            row = new discord_js_1.ActionRowBuilder()
-                .addComponents(new discord_js_1.ButtonBuilder()
-                .setLabel('AKTUALISIEREN')
-                .setEmoji('1024382926923776020')
-                .setCustomId('COOLDOWNS-' + userobj.id + '-' + userobj.username)
-                .setStyle(discord_js_1.ButtonStyle.Secondary));
-        }
         let message;
-        if (!user) {
-            message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
+        if (userId === ctx.interaction.user.id) {
+            message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:CLOCK:1054137880345329714> » YOUR COOLDOWNS')
                 .setDescription(embedDesc)
                 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
             if (ctx.metadata.language === 'de') {
-                message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
+                message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:CLOCK:1054137880345329714> » DEINE COOLDOWNS')
                     .setDescription(embedDesc)
                     .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
             }
         }
         else {
-            message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
+            message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:CLOCK:1054137880345329714> » COOLDOWNS OF ' + userobj.username.toUpperCase())
                 .setDescription(embedDesc)
                 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
             if (ctx.metadata.language === 'de') {
-                message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
+                message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:CLOCK:1054137880345329714> » COOLDOWNS VON ' + userobj.username.toUpperCase())
                     .setDescription(embedDesc)
                     .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
             }
         }
-        return ctx.interaction.reply({ embeds: [message], components: [row] });
+        return ctx.interaction.update({ embeds: [message] });
     }
 };
 //# sourceMappingURL=cooldowns.js.map

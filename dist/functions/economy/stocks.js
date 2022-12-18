@@ -15,7 +15,7 @@ const db = new pg_1.default.Pool({
     ssl: true
 });
 const get = async (userId, stock, type) => {
-    const data = await db.query(`select * from userstocks where userid = $1 and stock = $2 and type = $3;`, [
+    const data = await db.query(`select value from userstocks where userid = $1 and stock = $2 and type = $3;`, [
         userId,
         stock,
         type
@@ -28,7 +28,7 @@ const get = async (userId, stock, type) => {
 };
 exports.get = get;
 const set = async (userId, stock, type, value) => {
-    const data = await db.query(`select * from userstocks where userid = $1 and stock = $2 and type = $3;`, [
+    const data = await db.query(`select null from userstocks where userid = $1 and stock = $2 and type = $3;`, [
         userId,
         stock,
         type
@@ -52,7 +52,7 @@ const set = async (userId, stock, type, value) => {
 };
 exports.set = set;
 const add = async (userId, stock, type, value) => {
-    const data = await db.query(`select * from userstocks where userid = $1 and stock = $2 and type = $3;`, [
+    const data = await db.query(`select null from userstocks where userid = $1 and stock = $2 and type = $3;`, [
         userId,
         stock,
         type
@@ -83,7 +83,7 @@ const add = async (userId, stock, type, value) => {
 };
 exports.add = add;
 const rem = async (userId, stock, type, value) => {
-    const data = await db.query(`select * from userstocks where userid = $1 and stock = $2 and type = $3;`, [
+    const data = await db.query(`select null from userstocks where userid = $1 and stock = $2 and type = $3;`, [
         userId,
         stock,
         type

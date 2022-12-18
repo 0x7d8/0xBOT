@@ -383,6 +383,12 @@ const start = (db) => {
                     const button = client.buttons.get('poll');
                     await button.execute(ctx, args[1].toLowerCase());
                 }
+                ;
+                if (args[0] === 'COOLDOWNS') {
+                    sc = true;
+                    const button = client.buttons.get('cooldowns');
+                    await button.execute(ctx, args[1], args[2]);
+                }
                 if (!sc) {
                     const button = client.buttons.get(interaction.customId);
                     if (!button)

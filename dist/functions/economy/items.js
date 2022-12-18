@@ -15,7 +15,7 @@ const db = new pg_1.default.Pool({
     ssl: true
 });
 const get = async (userId, type) => {
-    const data = await db.query(`select * from useritems where userid = $1;`, [userId]);
+    const data = await db.query(`select value, amount from useritems where userid = $1;`, [userId]);
     if (data.rowCount !== 1)
         return 0;
     if (type === null)
@@ -27,7 +27,7 @@ const get = async (userId, type) => {
 };
 exports.get = get;
 const set = async (userId, value, amount) => {
-    const data = await db.query(`select * from useritems where userid = $1;`, [userId]);
+    const data = await db.query(`select null from useritems where userid = $1;`, [userId]);
     if (data.rowCount !== 1) {
         await db.query(`insert into useritems values ($1, $2, $3)`, [
             userId,
@@ -53,7 +53,7 @@ const set = async (userId, value, amount) => {
 };
 exports.set = set;
 const add = async (userId, amount) => {
-    const data = await db.query(`select * from useritems where userid = $1;`, [userId]);
+    const data = await db.query(`select null from useritems where userid = $1;`, [userId]);
     if (data.rowCount !== 1) {
         await db.query(`insert into useritems values ($1, 0, $2)`, [
             userId,
@@ -69,7 +69,7 @@ const add = async (userId, amount) => {
 };
 exports.add = add;
 const rem = async (userId, amount) => {
-    const data = await db.query(`select * from useritems where userid = $1;`, [userId]);
+    const data = await db.query(`select null from useritems where userid = $1;`, [userId]);
     if (data.rowCount !== 1) {
         await db.query(`insert into useritems values ($1, 0, 0)`, [
             userId

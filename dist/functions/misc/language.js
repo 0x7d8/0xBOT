@@ -15,14 +15,14 @@ const db = new pg_1.default.Pool({
     ssl: true
 });
 const get = async (name) => {
-    const data = await db.query(`select * from languages where name = $1;`, [name]);
+    const data = await db.query(`select value from languages where name = $1;`, [name]);
     if (data.rowCount !== 1)
         return true;
     return data.rows[0].value;
 };
 exports.get = get;
 const set = async (name, value) => {
-    const data = await db.query(`select * from languages where name = $1;`, [name]);
+    const data = await db.query(`select null from languages where name = $1;`, [name]);
     if (data.rowCount !== 1) {
         await db.query(`insert into languages values ($1, $2)`, [
             name,

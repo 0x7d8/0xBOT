@@ -12,7 +12,7 @@ const db = new pg.Pool({
 
 // Get Function
 export const get = async(guildId: string, setting: string) => {
-	const data = await db.query(`select * from guildsettings where guildid = $1 and setting = $2;`, [guildId, setting])
+	const data = await db.query(`select value from guildsettings where guildid = $1 and setting = $2;`, [guildId, setting])
 	if (data.rowCount !== 1) return true
 
 	return data.rows[0].value
@@ -20,7 +20,7 @@ export const get = async(guildId: string, setting: string) => {
 
 // Set Function
 export const set = async(guildId: string, setting: string, value: boolean) => {
-	const data = await db.query(`select * from guildsettings where guildid = $1 and setting = $2;`, [guildId, setting])
+	const data = await db.query(`select null from guildsettings where guildid = $1 and setting = $2;`, [guildId, setting])
 	if (data.rowCount !== 1) {
 		await db.query(`insert into guildsettings values ($1, $2, $3)`, [
 			guildId,

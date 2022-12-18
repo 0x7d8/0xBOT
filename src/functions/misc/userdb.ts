@@ -66,8 +66,7 @@ interface add {
 
 // Add Function
 export const add = async(json: add) => {
-	const data = await db.query(`select * from userinfos where userid = $1;`, [json.id])
-
+	const data = await db.query(`select null from userinfos where userid = $1;`, [json.id])
 	if (data.rowCount !== 1) {
 		await db.query(`insert into userinfos values ($1, $2, $3, $4)`, [
 			json.id,

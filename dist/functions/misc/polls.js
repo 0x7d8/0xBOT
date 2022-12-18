@@ -15,14 +15,14 @@ const db = new pg_1.default.Pool({
     ssl: true
 });
 const get = async (messageId, userId) => {
-    const data = await db.query(`select * from userpolls where messageid = $1 and userid = $2;`, [messageId, userId]);
+    const data = await db.query(`select vote from userpolls where messageid = $1 and userid = $2;`, [messageId, userId]);
     if (data.rowCount !== 1)
         return '';
     return data.rows[0].vote;
 };
 exports.get = get;
 const set = async (messageId, userId, value) => {
-    const data = await db.query(`select * from userpolls where messageid = $1 and userid = $2;`, [messageId, userId]);
+    const data = await db.query(`select null from userpolls where messageid = $1 and userid = $2;`, [messageId, userId]);
     if (data.rowCount !== 1) {
         await db.query(`insert into userpolls values ($1, $2, $3)`, [
             messageId,

@@ -12,7 +12,7 @@ const db = new pg.Pool({
 
 // Get Function
 export const get = async(userId: string, stock: string, type: string) => {
-	const data = await db.query(`select * from userstocks where userid = $1 and stock = $2 and type = $3;`, [
+	const data = await db.query(`select value from userstocks where userid = $1 and stock = $2 and type = $3;`, [
 		userId,
 		stock,
 		type
@@ -25,7 +25,7 @@ export const get = async(userId: string, stock: string, type: string) => {
 
 // Set Function
 export const set = async(userId: string, stock: string, type: string, value: number) => {
-	const data = await db.query(`select * from userstocks where userid = $1 and stock = $2 and type = $3;`, [
+	const data = await db.query(`select null from userstocks where userid = $1 and stock = $2 and type = $3;`, [
 		userId,
 		stock,
 		type
@@ -49,7 +49,7 @@ export const set = async(userId: string, stock: string, type: string, value: num
 
 // Add Function
 export const add = async(userId: string, stock: string, type: string, value: number) => {
-	const data = await db.query(`select * from userstocks where userid = $1 and stock = $2 and type = $3;`, [
+	const data = await db.query(`select null from userstocks where userid = $1 and stock = $2 and type = $3;`, [
 		userId,
 		stock,
 		type
@@ -80,7 +80,7 @@ export const add = async(userId: string, stock: string, type: string, value: num
 
 // Rem Function
 export const rem = async(userId: string, stock: string, type: string, value: number) => {
-	const data = await db.query(`select * from userstocks where userid = $1 and stock = $2 and type = $3;`, [
+	const data = await db.query(`select null from userstocks where userid = $1 and stock = $2 and type = $3;`, [
 		userId,
 		stock,
 		type

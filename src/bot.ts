@@ -388,6 +388,11 @@ export const start = (db: PoolClient) => {
 
 					const button = client.buttons.get('poll')
 					await button.execute(ctx, args[1].toLowerCase())
+				}; if (args[0] === 'COOLDOWNS') {
+					sc = true
+
+					const button = client.buttons.get('cooldowns')
+					await button.execute(ctx, args[1], args[2])
 				}
 
 

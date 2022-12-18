@@ -1,5 +1,5 @@
-import { SlashCommandBuilder, EmbedBuilder } from "discord.js"
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js"
+import { SlashCommandBuilder, EmbedBuilder } from "discord.js"
 
 import CommandInteraction from "@interfaces/CommandInteraction.js"
 export default {

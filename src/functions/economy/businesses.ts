@@ -12,7 +12,7 @@ const db = new pg.Pool({
 
 // Get Function
 export const get = async(userId: string, type?: boolean) => {
-	const data = await db.query(`select * from userbusinesses where userid = $1;`, [userId])
+	const data = await db.query(`select txtvalue, intvalue from userbusinesses where userid = $1;`, [userId])
 	if (data.rowCount !== 1) return 0
 
 	if (!type) return data.rows[0].txtvalue
@@ -21,7 +21,7 @@ export const get = async(userId: string, type?: boolean) => {
 
 // Set Function
 export const set = async(userId: string, value: string) => {
-	const data = await db.query(`select * from userbusinesses where userid = $1;`, [userId])
+	const data = await db.query(`select null from userbusinesses where userid = $1;`, [userId])
 	if (data.rowCount !== 1) {
 		await db.query(`insert into userbusinesses values ($1, $2, 0)`, [
 			userId,
@@ -37,7 +37,7 @@ export const set = async(userId: string, value: string) => {
 
 // Add Function
 export const add = async(userId: string, value: number) => {
-	const data = await db.query(`select * from userbusinesses where userid = $1;`, [userId])
+	const data = await db.query(`select null from userbusinesses where userid = $1;`, [userId])
 	if (data.rowCount !== 1) {
 		await db.query(`insert into userbusinesses values ($1, 0, $2)`, [
 			userId,
@@ -53,7 +53,7 @@ export const add = async(userId: string, value: number) => {
 
 // Rem Function
 export const rem = async(userId: string, value: number) => {
-	const data = await db.query(`select * from userbusinesses where userid = $1;`, [userId])
+	const data = await db.query(`select null from userbusinesses where userid = $1;`, [userId])
 	if (data.rowCount !== 1) {
 		await db.query(`insert into userbusinesses values ($1, 0, 0)`, [
 			userId

@@ -12,7 +12,7 @@ const db = new pg.Pool({
 
 // Get Function
 export const get = async(name: string, type: string) => {
-	const data = await db.query(`select * from stats where name = $1 and type = $2;`, [name, type])
+	const data = await db.query(`select value from stats where name = $1 and type = $2;`, [name, type])
 	if (data.rowCount !== 1) return 0
 
 	return data.rows[0].value
@@ -20,7 +20,7 @@ export const get = async(name: string, type: string) => {
 
 // Set Function
 export const set = async(name: string, type: string, value: number) => {
-	const data = await db.query(`select * from stats where name = $1 and type = $2;`, [name, type])
+	const data = await db.query(`select null from stats where name = $1 and type = $2;`, [name, type])
 	if (data.rowCount !== 1) {
 		await db.query(`insert into stats values ($1, $2, $3)`, [
 			name,
@@ -38,7 +38,7 @@ export const set = async(name: string, type: string, value: number) => {
 
 // Add Function
 export const add = async(name: string, type: string, value: number) => {
-	const data = await db.query(`select * from stats where name = $1 and type = $2;`, [name, type])
+	const data = await db.query(`select null from stats where name = $1 and type = $2;`, [name, type])
 	if (data.rowCount !== 1) {
 		await db.query(`insert into stats values ($1, $2, $3)`, [
 			name,

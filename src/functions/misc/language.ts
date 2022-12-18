@@ -12,7 +12,7 @@ const db = new pg.Pool({
 
 // Get Function
 export const get = async(name: string) => {
-	const data = await db.query(`select * from languages where name = $1;`, [name])
+	const data = await db.query(`select value from languages where name = $1;`, [name])
 	if (data.rowCount !== 1) return true
 
 	return data.rows[0].value
@@ -20,7 +20,7 @@ export const get = async(name: string) => {
 
 // Set Function
 export const set = async(name: string, value: string) => {
-	const data = await db.query(`select * from languages where name = $1;`, [name])
+	const data = await db.query(`select null from languages where name = $1;`, [name])
 	if (data.rowCount !== 1) {
 		await db.query(`insert into languages values ($1, $2)`, [
 			name,

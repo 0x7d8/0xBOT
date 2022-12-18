@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 const discord_js_2 = require("discord.js");
 exports.default = {
-    data: new discord_js_1.SlashCommandBuilder()
+    data: new discord_js_2.SlashCommandBuilder()
         .setName('stockinfo')
         .setDMPermission(false)
         .setDescription('SEE STOCK PRICES')
@@ -22,12 +22,12 @@ exports.default = {
         .addChoices({ name: '👀 ALLE AKTIEN', value: 'all' }, { name: '🟢 GRÜNE AKTIE', value: 'green' }, { name: '🔵 BLAUE AKTIE', value: 'blue' }, { name: '🟡 GELBE AKTIE', value: 'yellow' }, { name: '🔴 ROTE AKTIE', value: 'red' }, { name: '⚪ WEISSE AKTIE', value: 'white' }, { name: '⚫ SCHWARZE AKTIE', value: 'black' })),
     async execute(ctx) {
         if (!await ctx.bot.settings.get(ctx.interaction.guild.id, 'stocks')) {
-            let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
+            let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» Stocks are disabled on this Server!')
                 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
             if (ctx.metadata.language === 'de') {
-                message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
+                message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
                     .setDescription('» Aktien sind auf diesem Server deaktiviert!')
                     .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
@@ -73,23 +73,23 @@ exports.default = {
             else
                 stockEmojis[stock] = '🧐';
         });
-        let row = new discord_js_2.ActionRowBuilder()
-            .addComponents(new discord_js_2.ButtonBuilder()
+        let row = new discord_js_1.ActionRowBuilder()
+            .addComponents(new discord_js_1.ButtonBuilder()
             .setLabel('UPDATE')
             .setEmoji('1024382926923776020')
             .setCustomId('STOCKNEXT-' + stock)
-            .setStyle(discord_js_2.ButtonStyle.Secondary));
+            .setStyle(discord_js_1.ButtonStyle.Secondary));
         if (ctx.metadata.language === 'de') {
-            row = new discord_js_2.ActionRowBuilder()
-                .addComponents(new discord_js_2.ButtonBuilder()
+            row = new discord_js_1.ActionRowBuilder()
+                .addComponents(new discord_js_1.ButtonBuilder()
                 .setLabel('AKTUALISIEREN')
                 .setEmoji('1024382926923776020')
                 .setCustomId('STOCKNEXT-' + stock)
-                .setStyle(discord_js_2.ButtonStyle.Secondary));
+                .setStyle(discord_js_1.ButtonStyle.Secondary));
         }
         let message;
         if (stock !== 'all') {
-            message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
+            message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:CHART:1024398298204876941> » ' + emoji + ' STOCK INFO')
                 .setDescription(`» NEXT PRICES
 					<t:${ctx.client.stocks.refresh}:R>
@@ -99,7 +99,7 @@ exports.default = {
 				`)
                 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
             if (ctx.metadata.language === 'de') {
-                message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
+                message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:CHART:1024398298204876941> » ' + emoji + ' AKTIEN INFO')
                     .setDescription(`» NÄCHSTEN PREISE
 						<t:${ctx.client.stocks.refresh}:R>
@@ -111,7 +111,7 @@ exports.default = {
             }
         }
         else {
-            message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
+            message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:CHART:1024398298204876941> » FULL STOCK INFO')
                 .setDescription(`» NEXT PRICES
 					<t:${ctx.client.stocks.refresh}:R>
@@ -136,7 +136,7 @@ exports.default = {
 				`)
                 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
             if (ctx.metadata.language === 'de') {
-                message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
+                message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:CHART:1024398298204876941> » VOLLE AKTIEN INFOS')
                     .setDescription(`» NÄCHSTEN PREISE
 						<t:${ctx.client.stocks.refresh}:R>

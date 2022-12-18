@@ -1,34 +1,21 @@
-import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js"
-import { SlashCommandBuilder, EmbedBuilder } from "discord.js"
+import { EmbedBuilder } from "discord.js"
 import ms from "ms"
 
-import CommandInteraction from "@interfaces/CommandInteraction.js"
+import ButtonInteraction from "@interfaces/ButtonInteraction.js"
 export default {
-	data: new SlashCommandBuilder()
-		.setName('cooldowns')
-		.setDescription('VIEW COOLDOWNS')
-		.setDescriptionLocalizations({
-			de: 'SCHAUE COOLDOWNS AN'
-		})
-		.setDMPermission(false)
-		.addUserOption((option: any) =>
-			option.setName('user')
-				.setDescription('THE USER')
-				.setDescriptionLocalizations({
-					de: 'DER NUTZER'
-				})
-				.setRequired(false)),
+	data: {
+		name: 'cooldowns'
+	},
 
-	async execute(ctx: CommandInteraction) {
+	async execute(ctx: ButtonInteraction, userId: string, userName: string) {
 		// Set Variables
-		const user = ctx.interaction.options.getUser("user")
-		let userobj: typeof ctx.interaction.user
-		if (!user) {
+		let userobj: any
+		if (userId === ctx.interaction.user.id) {
 			userobj = ctx.interaction.user
-			ctx.log(false, `[CMD] COOLDOWNS`)
+			ctx.log(false, `[BTN] COOLDOWNS`)
 		} else {
-			userobj = user
-			ctx.log(false, `[CMD] COOLDOWNS : ${user.id}`)
+			userobj = { id: userId, username: userName }
+			ctx.log(false, `[BTN] COOLDOWNS : ${userId}`)
 		}
 
 		// Get Results
@@ -39,29 +26,9 @@ export default {
 			embedDesc += `» ${element.name.toUpperCase()}\n**${ms(Number(element.expires) - Date.now())}**\n`
 		}; if (embedDesc === '') { embedDesc = 'Nothing Found.'; if (ctx.metadata.language === 'de') { embedDesc = 'Nichts Gefunden.' } }
 
-		// Create Button
-		let row = new ActionRowBuilder()
-			.addComponents(
-				new ButtonBuilder()
-					.setLabel('UPDATE')
-					.setEmoji('1024382926923776020')
-					.setCustomId('COOLDOWNS-' + userobj.id + '-' + userobj.username)
-					.setStyle(ButtonStyle.Secondary),
-			)
-		if (ctx.metadata.language === 'de') {
-			row = new ActionRowBuilder()
-				.addComponents(
-					new ButtonBuilder()
-						.setLabel('AKTUALISIEREN')
-						.setEmoji('1024382926923776020')
-						.setCustomId('COOLDOWNS-' + userobj.id + '-' + userobj.username)
-						.setStyle(ButtonStyle.Secondary),
-				)
-		}
-		
 		// Create Embeds
 		let message: any
-		if (!user) {
+		if (userId === ctx.interaction.user.id) {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:CLOCK:1054137880345329714> » YOUR COOLDOWNS')
 				.setDescription(embedDesc)
@@ -88,6 +55,6 @@ export default {
 		}
 
 		// Send Message
-		return ctx.interaction.reply({ embeds: [message], components: [row as any] })
+		return ctx.interaction.update({ embeds: [message] })
 	}
 }

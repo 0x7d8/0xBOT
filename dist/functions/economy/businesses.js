@@ -15,7 +15,7 @@ const db = new pg_1.default.Pool({
     ssl: true
 });
 const get = async (userId, type) => {
-    const data = await db.query(`select * from userbusinesses where userid = $1;`, [userId]);
+    const data = await db.query(`select txtvalue, intvalue from userbusinesses where userid = $1;`, [userId]);
     if (data.rowCount !== 1)
         return 0;
     if (!type)
@@ -25,7 +25,7 @@ const get = async (userId, type) => {
 };
 exports.get = get;
 const set = async (userId, value) => {
-    const data = await db.query(`select * from userbusinesses where userid = $1;`, [userId]);
+    const data = await db.query(`select null from userbusinesses where userid = $1;`, [userId]);
     if (data.rowCount !== 1) {
         await db.query(`insert into userbusinesses values ($1, $2, 0)`, [
             userId,
@@ -41,7 +41,7 @@ const set = async (userId, value) => {
 };
 exports.set = set;
 const add = async (userId, value) => {
-    const data = await db.query(`select * from userbusinesses where userid = $1;`, [userId]);
+    const data = await db.query(`select null from userbusinesses where userid = $1;`, [userId]);
     if (data.rowCount !== 1) {
         await db.query(`insert into userbusinesses values ($1, 0, $2)`, [
             userId,
@@ -57,7 +57,7 @@ const add = async (userId, value) => {
 };
 exports.add = add;
 const rem = async (userId, value) => {
-    const data = await db.query(`select * from userbusinesses where userid = $1;`, [userId]);
+    const data = await db.query(`select null from userbusinesses where userid = $1;`, [userId]);
     if (data.rowCount !== 1) {
         await db.query(`insert into userbusinesses values ($1, 0, 0)`, [
             userId

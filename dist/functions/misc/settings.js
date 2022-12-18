@@ -15,14 +15,14 @@ const db = new pg_1.default.Pool({
     ssl: true
 });
 const get = async (guildId, setting) => {
-    const data = await db.query(`select * from guildsettings where guildid = $1 and setting = $2;`, [guildId, setting]);
+    const data = await db.query(`select value from guildsettings where guildid = $1 and setting = $2;`, [guildId, setting]);
     if (data.rowCount !== 1)
         return true;
     return data.rows[0].value;
 };
 exports.get = get;
 const set = async (guildId, setting, value) => {
-    const data = await db.query(`select * from guildsettings where guildid = $1 and setting = $2;`, [guildId, setting]);
+    const data = await db.query(`select null from guildsettings where guildid = $1 and setting = $2;`, [guildId, setting]);
     if (data.rowCount !== 1) {
         await db.query(`insert into guildsettings values ($1, $2, $3)`, [
             guildId,

@@ -15,14 +15,14 @@ const db = new pg_1.default.Pool({
     ssl: true
 });
 const get = async (name, type) => {
-    const data = await db.query(`select * from stats where name = $1 and type = $2;`, [name, type]);
+    const data = await db.query(`select value from stats where name = $1 and type = $2;`, [name, type]);
     if (data.rowCount !== 1)
         return 0;
     return data.rows[0].value;
 };
 exports.get = get;
 const set = async (name, type, value) => {
-    const data = await db.query(`select * from stats where name = $1 and type = $2;`, [name, type]);
+    const data = await db.query(`select null from stats where name = $1 and type = $2;`, [name, type]);
     if (data.rowCount !== 1) {
         await db.query(`insert into stats values ($1, $2, $3)`, [
             name,
@@ -40,7 +40,7 @@ const set = async (name, type, value) => {
 };
 exports.set = set;
 const add = async (name, type, value) => {
-    const data = await db.query(`select * from stats where name = $1 and type = $2;`, [name, type]);
+    const data = await db.query(`select null from stats where name = $1 and type = $2;`, [name, type]);
     if (data.rowCount !== 1) {
         await db.query(`insert into stats values ($1, $2, $3)`, [
             name,

@@ -12,7 +12,7 @@ const db = new pg.Pool({
 
 // Get Function
 export const get = async(userId: string) => {
-	const data = await db.query(`select * from uservotes where userid = $1;`, [userId])
+	const data = await db.query(`select votes from uservotes where userid = $1;`, [userId])
 	if (data.rowCount !== 1) return 0
 
 	return Number(data.rows[0].votes)
@@ -20,7 +20,7 @@ export const get = async(userId: string) => {
 
 // Set Function
 export const set = async(userId: string, value: number) => {
-	const data = await db.query(`select * from uservotes where userid = $1;`, [userId])
+	const data = await db.query(`select null from uservotes where userid = $1;`, [userId])
 	if (data.rowCount !== 1) {
 		await db.query(`insert into uservotes values ($1, $2)`, [
 			userId,
@@ -36,7 +36,7 @@ export const set = async(userId: string, value: number) => {
 
 // Add Function
 export const add = async(userId: string, value: number) => {
-	const data = await db.query(`select * from uservotes where userid = $1;`, [userId])
+	const data = await db.query(`select null from uservotes where userid = $1;`, [userId])
 	if (data.rowCount !== 1) {
 		await db.query(`insert into uservotes values ($1, $2)`, [
 			userId,
@@ -52,7 +52,7 @@ export const add = async(userId: string, value: number) => {
 
 // Rem Function
 export const rem = async(userId: string, value: number) => {
-	const data = await db.query(`select * from uservotes where userid = $1;`, [userId])
+	const data = await db.query(`select null from uservotes where userid = $1;`, [userId])
 	if (data.rowCount !== 1) {
 		await db.query(`insert into uservotes values ($1, 0)`, [
 			userId

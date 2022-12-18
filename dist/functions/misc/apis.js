@@ -15,14 +15,14 @@ const db = new pg_1.default.Pool({
     ssl: true
 });
 const get = async (userId) => {
-    const data = await db.query(`select * from userapis where userid = $1;`, [userId]);
+    const data = await db.query(`select apis from userapis where userid = $1;`, [userId]);
     if (data.rowCount !== 1)
         return 0;
     return Number(data.rows[0].apis);
 };
 exports.get = get;
 const set = async (userId, value) => {
-    const data = await db.query(`select * from userapis where userid = $1;`, [userId]);
+    const data = await db.query(`select null from userapis where userid = $1;`, [userId]);
     if (data.rowCount !== 1) {
         await db.query(`insert into userapis values ($1, $2)`, [
             userId,
@@ -38,7 +38,7 @@ const set = async (userId, value) => {
 };
 exports.set = set;
 const add = async (userId, value) => {
-    const data = await db.query(`select * from userapis where userid = $1;`, [userId]);
+    const data = await db.query(`select null from userapis where userid = $1;`, [userId]);
     if (data.rowCount !== 1) {
         await db.query(`insert into userapis values ($1, $2)`, [
             userId,
@@ -54,7 +54,7 @@ const add = async (userId, value) => {
 };
 exports.add = add;
 const rem = async (userId, value) => {
-    const data = await db.query(`select * from userapis where userid = $1;`, [userId]);
+    const data = await db.query(`select null from userapis where userid = $1;`, [userId]);
     if (data.rowCount !== 1) {
         await db.query(`insert into userapis values ($1, 0)`, [
             userId

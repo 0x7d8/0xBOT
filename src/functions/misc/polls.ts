@@ -12,7 +12,7 @@ const db = new pg.Pool({
 
 // Get Function
 export const get = async(messageId: string, userId: string) => {
-	const data = await db.query(`select * from userpolls where messageid = $1 and userid = $2;`, [messageId, userId])
+	const data = await db.query(`select vote from userpolls where messageid = $1 and userid = $2;`, [messageId, userId])
 	if (data.rowCount !== 1) return ''
 
 	return data.rows[0].vote
@@ -20,7 +20,7 @@ export const get = async(messageId: string, userId: string) => {
 
 // Set Function
 export const set = async(messageId: string, userId: string, value: boolean) => {
-	const data = await db.query(`select * from userpolls where messageid = $1 and userid = $2;`, [messageId, userId])
+	const data = await db.query(`select null from userpolls where messageid = $1 and userid = $2;`, [messageId, userId])
 	if (data.rowCount !== 1) {
 		await db.query(`insert into userpolls values ($1, $2, $3)`, [
 			messageId,
