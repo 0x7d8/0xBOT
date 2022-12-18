@@ -26,7 +26,7 @@ exports.default = {
             userobj = ctx.interaction.user;
         else
             userobj = user;
-        const rawvalues = await ctx.db.query(`select name, expires from usercooldowns where userid = $1;`, [userobj.id]);
+        const rawvalues = await ctx.db.query(`select name, expires from usercooldowns where userid = $1 and expires / 1000 > extract(epoch from now();`, [userobj.id]);
         for (const element of rawvalues.rows) {
             embedDesc += `» ${element.name.toUpperCase()}\n**${(0, ms_1.default)(Number(element.expires) - Date.now())}**\n`;
         }
