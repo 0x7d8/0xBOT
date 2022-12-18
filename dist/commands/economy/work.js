@@ -1,6 +1,10 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
+const ms_1 = __importDefault(require("ms"));
 exports.default = {
     data: new discord_js_1.SlashCommandBuilder()
         .setName('work')
@@ -26,25 +30,18 @@ exports.default = {
         }
         const random = ctx.bot.random(1, 4);
         if ((await ctx.bot.cooldown.get(ctx.interaction.user.id, 'work')).onCooldown) {
-            let use, cdown;
             const timeLeft = (await ctx.bot.cooldown.get(ctx.interaction.user.id, 'work')).remaining;
-            use = 's';
-            cdown = timeLeft / 1000;
-            if (cdown > 60) {
-                cdown = timeLeft / 1000 / 60;
-                use = 'm';
-            }
             let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-                .setDescription('» You still have a Cooldown of **' + cdown.toFixed(0) + use + '**!')
+                .setDescription('» You still have a Cooldown of **' + (0, ms_1.default)(timeLeft) + '**!')
                 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
             if (ctx.metadata.language === 'de') {
                 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-                    .setDescription('» Du hast leider noch einen Cooldown von **' + cdown.toFixed(0) + use + '**!')
+                    .setDescription('» Du hast leider noch einen Cooldown von **' + (0, ms_1.default)(timeLeft) + '**!')
                     .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
             }
-            ctx.log(false, `[CMD] WORK : ONCOOLDOWN : ${cdown.toFixed(0) + use}`);
+            ctx.log(false, `[CMD] WORK : ONCOOLDOWN : ${(0, ms_1.default)(timeLeft)}`);
             return ctx.interaction.reply({ embeds: [message], ephemeral: true });
         }
         else {

@@ -1,6 +1,10 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
+const ms_1 = __importDefault(require("ms"));
 exports.default = {
     data: new discord_js_1.SlashCommandBuilder()
         .setName('rob')
@@ -49,18 +53,17 @@ exports.default = {
         const moneytar = await ctx.bot.money.get(user.id);
         if ((await ctx.bot.cooldown.get(ctx.interaction.user.id, 'rob')).onCooldown) {
             const timeLeft = (await ctx.bot.cooldown.get(ctx.interaction.user.id, 'rob')).remaining;
-            const cdown = timeLeft / 1000;
             let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-                .setDescription('» You still have a Cooldown of **' + cdown.toFixed(0) + 's**!')
+                .setDescription('» You still have a Cooldown of **' + (0, ms_1.default)(timeLeft) + '**!')
                 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
             if (ctx.metadata.language === 'de') {
                 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-                    .setDescription('» Du hast leider noch einen Cooldown von **' + cdown.toFixed(0) + 's**!')
+                    .setDescription('» Du hast leider noch einen Cooldown von **' + (0, ms_1.default)(timeLeft) + '**!')
                     .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
             }
-            ctx.log(false, `[CMD] ROB : ONCOOLDOWN : ${cdown.toFixed(0)}s`);
+            ctx.log(false, `[CMD] ROB : ONCOOLDOWN : ${(0, ms_1.default)(timeLeft)}`);
             return ctx.interaction.reply({ embeds: [message], ephemeral: true });
         }
         if (ctx.interaction.user.id === user.id) {

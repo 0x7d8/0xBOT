@@ -1,4 +1,5 @@
 import { SlashCommandBuilder, EmbedBuilder } from "discord.js"
+import ms from "ms"
 
 import CommandInteraction from "@interfaces/CommandInteraction.js"
 export default {
@@ -65,24 +66,23 @@ export default {
 
 		// Cooldown
 		if ((await ctx.bot.cooldown.get(ctx.interaction.user.id, 'rob')).onCooldown) {
-			// Translate Vars
+			// Set Variables
 			const timeLeft = (await ctx.bot.cooldown.get(ctx.interaction.user.id, 'rob')).remaining
-			const cdown = timeLeft / 1000
 			
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-  			.setDescription('» You still have a Cooldown of **' + cdown.toFixed(0) + 's**!')
+  			.setDescription('» You still have a Cooldown of **' + ms(timeLeft) + '**!')
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-  				.setDescription('» Du hast leider noch einen Cooldown von **' + cdown.toFixed(0) + 's**!')
+  				.setDescription('» Du hast leider noch einen Cooldown von **' + ms(timeLeft) + '**!')
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 			}
 			
-			ctx.log(false, `[CMD] ROB : ONCOOLDOWN : ${cdown.toFixed(0)}s`)
+			ctx.log(false, `[CMD] ROB : ONCOOLDOWN : ${ms(timeLeft)}`)
 			return ctx.interaction.reply({ embeds: [message], ephemeral: true })
 		}
 		
