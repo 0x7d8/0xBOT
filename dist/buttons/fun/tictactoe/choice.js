@@ -1,27 +1,4 @@
 "use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 const promises_1 = require("timers/promises");
@@ -47,172 +24,171 @@ const rowGet = (button) => {
     output[1] = row;
     return output;
 };
-const bot = __importStar(require("@functions/bot.js"));
 exports.default = {
     data: {
         name: 'ttt-choice'
     },
-    async execute(interaction, client, lang, vote, bet, sel) {
-        const cache = interaction.message.embeds;
+    async execute(ctx, bet, sel) {
+        const cache = ctx.interaction.message.embeds;
         const description = cache[0].description.toString().replace(/[^\d@!]/g, '').split('!')[0].substring(1).split("@");
         const [sender, reciever] = description;
-        if (sender !== interaction.user.id && reciever !== interaction.user.id) {
+        if (sender !== ctx.interaction.user.id && reciever !== ctx.interaction.user.id) {
             let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» You arent playing!')
-                .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
-            if (lang === 'de') {
+                .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+            if (ctx.metadata.language === 'de') {
                 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
                     .setDescription('» Du spielst garnicht mit!')
-                    .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
+                    .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
             }
-            bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] TICTACTOE : NOTPLAYING');
-            return interaction.reply({ embeds: [message], ephemeral: true });
+            ctx.log(false, `[BTN] TICTACTOE : NOTPLAYING`);
+            return ctx.interaction.reply({ embeds: [message], ephemeral: true });
         }
-        const turn = bot.ttt.get('TURN-' + sender);
-        if (interaction.user.id !== turn) {
+        const turn = ctx.bot.ttt.get('TURN-' + sender);
+        if (ctx.interaction.user.id !== turn) {
             let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» Its not your turn!')
-                .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
-            if (lang === 'de') {
+                .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+            if (ctx.metadata.language === 'de') {
                 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
                     .setDescription('» Es ist nicht dein Zug!')
-                    .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
+                    .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
             }
-            bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] TICTACTOE : NOTTURN');
-            return interaction.reply({ embeds: [message], ephemeral: true });
+            ctx.log(false, `[BTN] TICTACTOE : NOTTURN`);
+            return ctx.interaction.reply({ embeds: [message], ephemeral: true });
         }
-        await interaction.deferUpdate();
+        await ctx.interaction.deferUpdate();
         let turnemoji;
         if (turn === sender)
             turnemoji = '🔵';
         if (turn === reciever)
             turnemoji = '🔴';
         if (turn === sender) {
-            bot.ttt.set('TURN-' + sender, reciever);
+            ctx.bot.ttt.set('TURN-' + sender, reciever);
             turnemoji = '🔴';
         }
         ;
         if (turn === reciever) {
-            bot.ttt.set('TURN-' + sender, sender);
+            ctx.bot.ttt.set('TURN-' + sender, sender);
             turnemoji = '🔵';
         }
         const comp = rowGet(sel);
-        if (interaction.user.id === sender) {
-            bot.ttt.set('FIELD-' + sel + '-' + sender, sender);
-            bot.ttt.get('FIELDS-' + sender).push(sel);
-            interaction.message.components[comp[1]].components[comp[0]].data.disabled = true;
-            interaction.message.components[comp[1]].components[comp[0]].data.emoji = { id: '1020411088245903451', name: 'TICTACTOE' };
-            interaction.message.components[comp[1]].components[comp[0]].data.style = 1;
+        if (ctx.interaction.user.id === sender) {
+            ctx.bot.ttt.set('FIELD-' + sel + '-' + sender, sender);
+            ctx.bot.ttt.get('FIELDS-' + sender).push(sel);
+            ctx.interaction.message.components[comp[1]].components[comp[0]].data.disabled = true;
+            ctx.interaction.message.components[comp[1]].components[comp[0]].data.emoji = { id: '1020411088245903451', name: 'TICTACTOE' };
+            ctx.interaction.message.components[comp[1]].components[comp[0]].data.style = 1;
         }
         ;
-        if (interaction.user.id === reciever) {
-            bot.ttt.set('FIELD-' + sel + '-' + sender, reciever);
-            bot.ttt.get('FIELDS-' + reciever).push(sel);
-            interaction.message.components[comp[1]].components[comp[0]].data.disabled = true;
-            interaction.message.components[comp[1]].components[comp[0]].data.emoji = { id: '1020411023414542447', name: 'TICTACTOE' };
-            interaction.message.components[comp[1]].components[comp[0]].data.style = 4;
+        if (ctx.interaction.user.id === reciever) {
+            ctx.bot.ttt.set('FIELD-' + sel + '-' + sender, reciever);
+            ctx.bot.ttt.get('FIELDS-' + reciever).push(sel);
+            ctx.interaction.message.components[comp[1]].components[comp[0]].data.disabled = true;
+            ctx.interaction.message.components[comp[1]].components[comp[0]].data.emoji = { id: '1020411023414542447', name: 'TICTACTOE' };
+            ctx.interaction.message.components[comp[1]].components[comp[0]].data.style = 4;
         }
         let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
             .setTitle('<:GAMEPAD:1024395990679167066> » TICTACTOE')
             .setDescription('» <@' + sender + '> is playing Tic Tac Toe with <@' + reciever + '>!\nThe Bet is **$' + bet + '**\n\n🔵 » <@' + sender + '>\n🔴 » <@' + reciever + '>')
-            .setFooter({ text: '» ' + client.config.version + ' » CURRENT TURN: ' + turnemoji });
-        if (lang === 'de') {
+            .setFooter({ text: '» ' + ctx.client.config.version + ' » CURRENT TURN: ' + turnemoji });
+        if (ctx.metadata.language === 'de') {
             message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:GAMEPAD:1024395990679167066> » TICTACTOE')
                 .setDescription('» <@' + sender + '> spielt mit <@' + reciever + '> Tic Tac Toe!\nDie Wette ist **' + bet + '€**\n\n🔵 » <@' + sender + '>\n🔴 » <@' + reciever + '>')
-                .setFooter({ text: '» ' + client.config.version + ' » AM ZUG: ' + turnemoji });
+                .setFooter({ text: '» ' + ctx.client.config.version + ' » AM ZUG: ' + turnemoji });
         }
-        bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] TICTACTOE : ' + sel);
-        interaction.editReply({ embeds: [message], components: interaction.message.components, ephemeral: true });
+        ctx.log(false, `[BTN] TICTACTOE : ${sel}`);
+        ctx.interaction.editReply({ embeds: [message], components: ctx.interaction.message.components, ephemeral: true });
         await (0, promises_1.setTimeout)(500);
         const fields = [];
         let won = false;
-        if (bot.ttt.get('FIELD-1-' + sender) === bot.ttt.get('FIELD-2-' + sender) &&
-            bot.ttt.get('FIELD-1-' + sender) === bot.ttt.get('FIELD-3-' + sender) &&
-            bot.ttt.get('FIELD-1-' + sender) !== null &&
-            bot.ttt.get('FIELD-2-' + sender) !== null &&
-            bot.ttt.get('FIELD-3-' + sender) !== null) {
+        if (ctx.bot.ttt.get('FIELD-1-' + sender) === ctx.bot.ttt.get('FIELD-2-' + sender) &&
+            ctx.bot.ttt.get('FIELD-1-' + sender) === ctx.bot.ttt.get('FIELD-3-' + sender) &&
+            ctx.bot.ttt.get('FIELD-1-' + sender) !== null &&
+            ctx.bot.ttt.get('FIELD-2-' + sender) !== null &&
+            ctx.bot.ttt.get('FIELD-3-' + sender) !== null) {
             won = true;
             fields.push(1, 2, 3);
         }
-        if (bot.ttt.get('FIELD-4-' + sender) === bot.ttt.get('FIELD-5-' + sender) &&
-            bot.ttt.get('FIELD-4-' + sender) === bot.ttt.get('FIELD-6-' + sender) &&
-            bot.ttt.get('FIELD-3-' + sender) !== null &&
-            bot.ttt.get('FIELD-4-' + sender) !== null &&
-            bot.ttt.get('FIELD-5-' + sender) !== null) {
+        if (ctx.bot.ttt.get('FIELD-4-' + sender) === ctx.bot.ttt.get('FIELD-5-' + sender) &&
+            ctx.bot.ttt.get('FIELD-4-' + sender) === ctx.bot.ttt.get('FIELD-6-' + sender) &&
+            ctx.bot.ttt.get('FIELD-3-' + sender) !== null &&
+            ctx.bot.ttt.get('FIELD-4-' + sender) !== null &&
+            ctx.bot.ttt.get('FIELD-5-' + sender) !== null) {
             won = true;
             fields.push(3, 4, 5);
         }
-        if (bot.ttt.get('FIELD-7-' + sender) === bot.ttt.get('FIELD-8-' + sender) &&
-            bot.ttt.get('FIELD-7-' + sender) === bot.ttt.get('FIELD-9-' + sender) &&
-            bot.ttt.get('FIELD-7-' + sender) !== null &&
-            bot.ttt.get('FIELD-8-' + sender) !== null &&
-            bot.ttt.get('FIELD-9-' + sender) !== null) {
+        if (ctx.bot.ttt.get('FIELD-7-' + sender) === ctx.bot.ttt.get('FIELD-8-' + sender) &&
+            ctx.bot.ttt.get('FIELD-7-' + sender) === ctx.bot.ttt.get('FIELD-9-' + sender) &&
+            ctx.bot.ttt.get('FIELD-7-' + sender) !== null &&
+            ctx.bot.ttt.get('FIELD-8-' + sender) !== null &&
+            ctx.bot.ttt.get('FIELD-9-' + sender) !== null) {
             won = true;
             fields.push(7, 8, 9);
         }
-        if (bot.ttt.get('FIELD-1-' + sender) === bot.ttt.get('FIELD-4-' + sender) &&
-            bot.ttt.get('FIELD-1-' + sender) === bot.ttt.get('FIELD-7-' + sender) &&
-            bot.ttt.get('FIELD-1-' + sender) !== null &&
-            bot.ttt.get('FIELD-4-' + sender) !== null &&
-            bot.ttt.get('FIELD-7-' + sender) !== null) {
+        if (ctx.bot.ttt.get('FIELD-1-' + sender) === ctx.bot.ttt.get('FIELD-4-' + sender) &&
+            ctx.bot.ttt.get('FIELD-1-' + sender) === ctx.bot.ttt.get('FIELD-7-' + sender) &&
+            ctx.bot.ttt.get('FIELD-1-' + sender) !== null &&
+            ctx.bot.ttt.get('FIELD-4-' + sender) !== null &&
+            ctx.bot.ttt.get('FIELD-7-' + sender) !== null) {
             won = true;
             fields.push(1, 4, 7);
         }
-        if (bot.ttt.get('FIELD-2-' + sender) === bot.ttt.get('FIELD-5-' + sender) &&
-            bot.ttt.get('FIELD-2-' + sender) === bot.ttt.get('FIELD-8-' + sender) &&
-            bot.ttt.get('FIELD-2-' + sender) !== null &&
-            bot.ttt.get('FIELD-5-' + sender) !== null &&
-            bot.ttt.get('FIELD-8-' + sender) !== null) {
+        if (ctx.bot.ttt.get('FIELD-2-' + sender) === ctx.bot.ttt.get('FIELD-5-' + sender) &&
+            ctx.bot.ttt.get('FIELD-2-' + sender) === ctx.bot.ttt.get('FIELD-8-' + sender) &&
+            ctx.bot.ttt.get('FIELD-2-' + sender) !== null &&
+            ctx.bot.ttt.get('FIELD-5-' + sender) !== null &&
+            ctx.bot.ttt.get('FIELD-8-' + sender) !== null) {
             won = true;
             fields.push(2, 5, 8);
         }
-        if (bot.ttt.get('FIELD-3-' + sender) === bot.ttt.get('FIELD-6-' + sender) &&
-            bot.ttt.get('FIELD-3-' + sender) === bot.ttt.get('FIELD-9-' + sender) &&
-            bot.ttt.get('FIELD-3-' + sender) !== null &&
-            bot.ttt.get('FIELD-6-' + sender) !== null &&
-            bot.ttt.get('FIELD-9-' + sender) !== null) {
+        if (ctx.bot.ttt.get('FIELD-3-' + sender) === ctx.bot.ttt.get('FIELD-6-' + sender) &&
+            ctx.bot.ttt.get('FIELD-3-' + sender) === ctx.bot.ttt.get('FIELD-9-' + sender) &&
+            ctx.bot.ttt.get('FIELD-3-' + sender) !== null &&
+            ctx.bot.ttt.get('FIELD-6-' + sender) !== null &&
+            ctx.bot.ttt.get('FIELD-9-' + sender) !== null) {
             won = true;
             fields.push(3, 6, 9);
         }
-        if (bot.ttt.get('FIELD-1-' + sender) === bot.ttt.get('FIELD-5-' + sender) &&
-            bot.ttt.get('FIELD-1-' + sender) === bot.ttt.get('FIELD-9-' + sender) &&
-            bot.ttt.get('FIELD-1-' + sender) !== null &&
-            bot.ttt.get('FIELD-5-' + sender) !== null &&
-            bot.ttt.get('FIELD-9-' + sender) !== null) {
+        if (ctx.bot.ttt.get('FIELD-1-' + sender) === ctx.bot.ttt.get('FIELD-5-' + sender) &&
+            ctx.bot.ttt.get('FIELD-1-' + sender) === ctx.bot.ttt.get('FIELD-9-' + sender) &&
+            ctx.bot.ttt.get('FIELD-1-' + sender) !== null &&
+            ctx.bot.ttt.get('FIELD-5-' + sender) !== null &&
+            ctx.bot.ttt.get('FIELD-9-' + sender) !== null) {
             won = true;
             fields.push(1, 5, 9);
         }
-        if (bot.ttt.get('FIELD-3-' + sender) === bot.ttt.get('FIELD-5-' + sender) &&
-            bot.ttt.get('FIELD-3-' + sender) === bot.ttt.get('FIELD-7-' + sender) &&
-            bot.ttt.get('FIELD-3-' + sender) !== null &&
-            bot.ttt.get('FIELD-5-' + sender) !== null &&
-            bot.ttt.get('FIELD-7-' + sender) !== null) {
+        if (ctx.bot.ttt.get('FIELD-3-' + sender) === ctx.bot.ttt.get('FIELD-5-' + sender) &&
+            ctx.bot.ttt.get('FIELD-3-' + sender) === ctx.bot.ttt.get('FIELD-7-' + sender) &&
+            ctx.bot.ttt.get('FIELD-3-' + sender) !== null &&
+            ctx.bot.ttt.get('FIELD-5-' + sender) !== null &&
+            ctx.bot.ttt.get('FIELD-7-' + sender) !== null) {
             won = true;
             fields.push(3, 5, 7);
         }
-        if (won || (bot.ttt.get('FIELDS-' + sender).length + bot.ttt.get('FIELDS-' + reciever).length) === 9) {
+        if (won || (ctx.bot.ttt.get('FIELDS-' + sender).length + ctx.bot.ttt.get('FIELDS-' + reciever).length) === 9) {
             let winner = '**Noone**', rawWinner;
-            if (lang === 'de')
+            if (ctx.metadata.language === 'de')
                 winner = '**Niemand**';
             if (won) {
-                rawWinner = bot.ttt.get('FIELD-' + fields[0] + '-' + sender);
-                winner = '<@' + bot.ttt.get('FIELD-' + fields[0] + '-' + sender) + '>';
+                rawWinner = ctx.bot.ttt.get('FIELD-' + fields[0] + '-' + sender);
+                winner = '<@' + ctx.bot.ttt.get('FIELD-' + fields[0] + '-' + sender) + '>';
             }
             fields.forEach((field) => {
                 const comp = rowGet(field);
-                interaction.message.components[comp[1]].components[comp[0]].data.style = 3;
+                ctx.interaction.message.components[comp[1]].components[comp[0]].data.style = 3;
             });
             const betwon = bet * 2;
             let transaction;
             if (rawWinner) {
-                bot.money.add(interaction.guild.id, rawWinner, betwon);
+                ctx.bot.money.add(ctx.interaction.guild.id, rawWinner, betwon);
                 if (betwon > 0)
-                    transaction = await bot.transactions.log({
+                    transaction = await ctx.bot.transactions.log({
                         success: true,
                         sender: {
                             id: (rawWinner === sender ? reciever : sender),
@@ -226,39 +202,39 @@ exports.default = {
                     });
             }
             else {
-                bot.money.add(interaction.guild.id, sender, bet);
-                bot.money.add(interaction.guild.id, reciever, bet);
+                ctx.bot.money.add(ctx.interaction.guild.id, sender, bet);
+                ctx.bot.money.add(ctx.interaction.guild.id, reciever, bet);
             }
             message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:GAMEPAD:1024395990679167066> » TICTACTOE')
                 .setDescription('» <@' + sender + '> is playing Tic Tac Toe with <@' + reciever + '>!\nThe Bet is **$' + bet + '**\n\n🔵 » <@' + sender + '>\n🔴 » <@' + reciever + '>\n\n<:AWARD:1024385473524793445> ' + winner + ' has won **$' + betwon + '**.' + ((typeof transaction === 'object') ? `\nID: ${transaction.id}` : ''))
-                .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
-            if (lang === 'de') {
+                .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+            if (ctx.metadata.language === 'de') {
                 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:GAMEPAD:1024395990679167066> » TICTACTOE')
                     .setDescription('» <@' + sender + '> spielt mit <@' + reciever + '> Tic Tac Toe!\nDie Wette ist **' + bet + '€**\n\n🔵 » <@' + sender + '>\n🔴 » <@' + reciever + '>\n\n<:AWARD:1024385473524793445> ' + winner + ' hat **' + betwon + '€** gewonnen.' + ((typeof transaction === 'object') ? `\nID: ${transaction.id}` : ''))
-                    .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
+                    .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
             }
             for (let i = 0; i <= 9; i++) {
                 const comp = rowGet(i);
-                interaction.message.components[comp[1]].components[comp[0]].data.disabled = true;
+                ctx.interaction.message.components[comp[1]].components[comp[0]].data.disabled = true;
             }
-            bot.game.delete('PLAYING-' + sender);
-            bot.game.delete('PLAYING-' + reciever);
-            bot.ttt.delete('TURN-' + sender);
-            bot.ttt.delete('TURN-' + reciever);
-            bot.ttt.delete('FIELDS-' + sender);
-            bot.ttt.delete('FIELDS-' + reciever);
-            bot.ttt.delete('FIELD-1-' + sender);
-            bot.ttt.delete('FIELD-2-' + sender);
-            bot.ttt.delete('FIELD-3-' + sender);
-            bot.ttt.delete('FIELD-4-' + sender);
-            bot.ttt.delete('FIELD-5-' + sender);
-            bot.ttt.delete('FIELD-6-' + sender);
-            bot.ttt.delete('FIELD-7-' + sender);
-            bot.ttt.delete('FIELD-8-' + sender);
-            bot.ttt.delete('FIELD-9-' + sender);
-            return interaction.message.edit({ embeds: [message], components: interaction.message.components, ephemeral: true });
+            ctx.bot.game.delete('PLAYING-' + sender);
+            ctx.bot.game.delete('PLAYING-' + reciever);
+            ctx.bot.ttt.delete('TURN-' + sender);
+            ctx.bot.ttt.delete('TURN-' + reciever);
+            ctx.bot.ttt.delete('FIELDS-' + sender);
+            ctx.bot.ttt.delete('FIELDS-' + reciever);
+            ctx.bot.ttt.delete('FIELD-1-' + sender);
+            ctx.bot.ttt.delete('FIELD-2-' + sender);
+            ctx.bot.ttt.delete('FIELD-3-' + sender);
+            ctx.bot.ttt.delete('FIELD-4-' + sender);
+            ctx.bot.ttt.delete('FIELD-5-' + sender);
+            ctx.bot.ttt.delete('FIELD-6-' + sender);
+            ctx.bot.ttt.delete('FIELD-7-' + sender);
+            ctx.bot.ttt.delete('FIELD-8-' + sender);
+            ctx.bot.ttt.delete('FIELD-9-' + sender);
+            return ctx.interaction.message.edit({ embeds: [message], components: ctx.interaction.message.components, ephemeral: true });
         }
     }
 };

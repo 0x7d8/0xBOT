@@ -45,7 +45,7 @@ module.exports = {
             }
             
             // Send Message
-            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] APICREATE : ' + name + ' : NOTFOUND')
+            ctx.log(false, '[CMD] APICREATE : ' + name + ' : NOTFOUND')
             return interaction.reply({ embeds: [message], ephemeral: true })
   		}
         
@@ -65,7 +65,7 @@ module.exports = {
             }
             
             // Send Message
-            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] APICREATE : ' + name + ' : MAXSLOTS')
+            ctx.log(false, '[CMD] APICREATE : ' + name + ' : MAXSLOTS')
             return interaction.reply({ embeds: [message], ephemeral: true })
         }
 

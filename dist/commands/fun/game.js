@@ -1,31 +1,7 @@
 "use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 const discord_js_2 = require("discord.js");
-const bot = __importStar(require("@functions/bot.js"));
 exports.default = {
     data: new discord_js_2.SlashCommandBuilder()
         .setName('game')
@@ -44,8 +20,8 @@ exports.default = {
     })
         .setRequired(true)
         .addChoices({ name: '🗺️ STADT LAND FLUSS', value: 'stadtlandfluss' }, { name: '🤔 SCRIBBL.IO', value: 'scribblio' }, { name: '⭐ GARTIC PHONE', value: 'garticphone' }, { name: '🧠 JKLM', value: 'jklm' })),
-    async execute(interaction, client, lang, vote) {
-        const spiel = bot.getOption(interaction, 'game');
+    async execute(ctx) {
+        const spiel = ctx.getOption('game');
         const slfB = new discord_js_1.ActionRowBuilder()
             .addComponents(new discord_js_1.ButtonBuilder()
             .setLabel('LOBBY ERSTELLEN')
@@ -69,34 +45,34 @@ exports.default = {
         const slf = new discord_js_2.EmbedBuilder().setColor(0x37009B)
             .setTitle('<:GAMEPAD:1024395990679167066> » STADT LAND FLUSS REGELN')
             .setDescription('**»» PERSONEN**\n» 100000+ ABONNENTEN\n» DEUTSCHE PERSON\n\n**»» STÄDTE**\n» 5000+ BEWOHNER\n» DEUTSCHE STADTNAMEN\n\n**»» SÄTZE**\n» KONTEXT WICHTIG\n» NUR DEUTSCH')
-            .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
+            .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
         const sio = new discord_js_2.EmbedBuilder().setColor(0x37009B)
             .setTitle('<:GAMEPAD:1024395990679167066> » SCRIBBL.IO REGELN')
             .setDescription('**»» MALEN**\n» KEINEN TEXT\n\n**»» WÖRTER**\n» WÖRTER DIE JEDER KENNT\n\n**»» CHAT**\n» KEIN SPAMMING')
-            .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
+            .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
         const gtf = new discord_js_2.EmbedBuilder().setColor(0x37009B)
             .setTitle('<:GAMEPAD:1024395990679167066> » GARTICPHONE REGELN')
             .setDescription('**»» MALEN**\n» KEINEN TEXT\n» MUSS ZUM SATZ PASSEN\n\n**»» SÄTZE**\n» SÄTZE DIE JEDER VERSTEHT')
-            .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
+            .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
         const jkl = new discord_js_2.EmbedBuilder().setColor(0x37009B)
             .setTitle('<:GAMEPAD:1024395990679167066> » JKLM.FUN REGELN')
             .setDescription('**»» GENERELL**\n» KEINE REGELN')
-            .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
-        bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] GAME : ' + spiel.toUpperCase());
+            .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+        ctx.log(false, '[CMD] GAME : ' + spiel.toUpperCase());
         if (spiel == 'stadtlandfluss') {
-            await interaction.reply({ embeds: [slf.toJSON()], components: [slfB] });
+            await ctx.interaction.reply({ embeds: [slf.toJSON()], components: [slfB] });
         }
         ;
         if (spiel == 'scribblio') {
-            await interaction.reply({ embeds: [sio.toJSON()], components: [sioB] });
+            await ctx.interaction.reply({ embeds: [sio.toJSON()], components: [sioB] });
         }
         ;
         if (spiel == 'garticphone') {
-            await interaction.reply({ embeds: [gtf.toJSON()], components: [gtfB] });
+            await ctx.interaction.reply({ embeds: [gtf.toJSON()], components: [gtfB] });
         }
         ;
         if (spiel == 'jklm') {
-            await interaction.reply({ embeds: [jkl.toJSON()], components: [jklB] });
+            await ctx.interaction.reply({ embeds: [jkl.toJSON()], components: [jklB] });
         }
     }
 };

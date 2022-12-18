@@ -1,36 +1,34 @@
 import { EmbedBuilder } from "discord.js"
 
-import * as bot from "@functions/bot.js"
-import Client from "@interfaces/Client.js"
-import { ButtonInteraction } from "discord.js"
+import ButtonInteraction from "@interfaces/ButtonInteraction.js"
 export default {
 	data: {
 		name: 'stockupgrade-yes'
 	},
 
-	async execute(interaction: ButtonInteraction, client: Client, lang: string, vote: string, stock: string, userid: string, amount: number) {
+	async execute(ctx: ButtonInteraction, stock: string, userid: string, amount: number) {
 		// Check if User is Authorized
-		if (interaction.user.id !== userid) {
+		if (ctx.interaction.user.id !== userid) {
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-  				.setDescription('» This choice is up to <@' + userid + '>!')
-				.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+  			.setDescription('» This choice is up to <@' + userid + '>!')
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
-			if (lang === 'de') {
+			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-  					.setDescription('» Diese Frage ist für <@' + userid + '>!')
-					.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+  				.setDescription('» Diese Frage ist für <@' + userid + '>!')
+					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 			
 			// Send Message
-			bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] STOCKUPGRADE : NOTSENDER')
-			return interaction.reply({ embeds: [message], ephemeral: true })
+			ctx.log(false, `[BTN] STOCKUPGRADE : NOTSENDER`)
+			return ctx.interaction.reply({ embeds: [message], ephemeral: true })
 		}
 
 		// Set Variables
-		const balance = await bot.money.get(interaction.user.id)
+		const balance = await ctx.bot.money.get(ctx.interaction.user.id)
 
 		// Calculate Cost
 		let baseCost: number
@@ -52,19 +50,19 @@ export default {
 				// Create Embed
 				let message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-  					.setDescription('» You dont have enough Money for that, you are missing **$' + missing + '**!')
-					.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+  				.setDescription('» You dont have enough Money for that, you are missing **$' + missing + '**!')
+					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
-				if (lang === 'de') {
+				if (ctx.metadata.language === 'de') {
 					message = new EmbedBuilder().setColor(0x37009B)
 						.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-  						.setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
-						.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+  					.setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
+						.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 				}
 			
 				// Send Message
-				bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] STOCKUPGRADE : ' + stock.toUpperCase() + ' : NOTENOUGHMONEY : ' + cost + '€')
-				return interaction.reply({ embeds: [message], ephemeral: true })
+				ctx.log(false, `[BTN] STOCKUPGRADE : ${stock.toUpperCase()} : NOTENOUGHMONEY : ${cost}€`)
+				return ctx.interaction.reply({ embeds: [message], ephemeral: true })
 			}
 
 			// Set Emoji
@@ -78,33 +76,33 @@ export default {
 
 			// Edit Buttons
 			{
-				(interaction.message.components[0].components[0].data.disabled as boolean) = true;
-				(interaction.message.components[0].components[1].data.disabled as boolean) = true;
-				(interaction.message.components[0].components[1] as any).data.style = 2;
+				(ctx.interaction.message.components[0].components[0].data.disabled as boolean) = true;
+				(ctx.interaction.message.components[0].components[1].data.disabled as boolean) = true;
+				(ctx.interaction.message.components[0].components[1] as any).data.style = 2;
 			}
 
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:BOXCHECK:1024401101589590156> » BUY STOCK SLOTS')
 				.setDescription('» You successfully bought **' + amount + 'x** ' + emoji + ' Slots for **$' + cost + '**!')
-				.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
-			if (lang == 'de') {
+			if (ctx.metadata.language == 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:BOXCHECK:1024401101589590156> » AKTIEN SLOTS KAUFEN')
 					.setDescription('» Du hast erfolgreich **' + amount + 'x** ' + emoji + ' Slots für **' + cost + '€** gekauft!')
-					.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 
 			// Remove Money
-			bot.money.rem(interaction.guild.id, interaction.user.id, cost)
+			ctx.bot.money.rem(ctx.interaction.guild.id, ctx.interaction.user.id, cost)
 
 			// Own Slots
-			bot.stocks.add(interaction.user.id, stock, 'max', amount)
+			ctx.bot.stocks.add(ctx.interaction.user.id, stock, 'max', amount)
 
 			// Send Message
-			bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] STOCKUPGRADE : ' + amount + 'x : ' + stock.toUpperCase() + ' : CONFIRM')
-			return interaction.update({ embeds: [message], components: interaction.message.components })
+			ctx.log(false, `[BTN] STOCKUPGRADE : ${amount}x : ${stock.toUpperCase()} : CONFIRM`)
+			return ctx.interaction.update({ embeds: [message], components: ctx.interaction.message.components })
 		}
 	}
 }

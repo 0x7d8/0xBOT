@@ -227,5 +227,5 @@ stdin.addListener("data", async(input) => {
 	console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [STA] $$$$$ LOADING COMMANDS AND EVENTS`)
 	console.log(' ')
 
-	start()
+	start(db as any)
 }) ()}

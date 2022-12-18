@@ -1,8 +1,6 @@
 import { SlashCommandBuilder, EmbedBuilder } from "discord.js"
 
-import * as bot from "@functions/bot.js"
-import Client from "@interfaces/Client.js"
-import { CommandInteraction } from "discord.js"
+import CommandInteraction from "@interfaces/CommandInteraction.js"
 export default {
 	data: new SlashCommandBuilder()
 		.setName('guess')
@@ -47,36 +45,37 @@ export default {
 					de: 'DIE NUMMER'
 				})
 				.setRequired(true)),
-	async execute(interaction: CommandInteraction, client: Client, lang: string, vote: string) {
+
+	async execute(ctx: CommandInteraction) {
 		// Check if RNG Games are Enabled in Server
-		if (!await bot.settings.get(interaction.guild.id, 'luckgames')) {
+		if (!await ctx.bot.settings.get(ctx.interaction.guild.id, 'luckgames')) {
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
 				.setDescription('» Luck Games are disabled on this Server!')
-				.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
-			if (lang === 'de') {
+			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
 					.setDescription('» Glücksspiele sind auf diesem Server deaktiviert!')
-					.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 			
 			// Send Message
-			bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROULETTE : DISABLED')
-			return interaction.reply({ embeds: [message], ephemeral: true })
+			ctx.log(false, `[CMD] GUESS : DISABLED`)
+			return ctx.interaction.reply({ embeds: [message], ephemeral: true })
 		}
 		
 		// Set Variables
-		const bet = bot.getOption(interaction, 'bet') as number
-		const range = bot.getOption(interaction, 'range') as string
-		const guess = bot.getOption(interaction, 'number') as number
-		const money = await bot.money.get(interaction.user.id)
+		const bet = ctx.getOption('bet') as number
+		const range = ctx.getOption('range') as string
+		const guess = ctx.getOption('number') as number
+		const money = await ctx.bot.money.get(ctx.interaction.user.id)
 
-		const random10 = bot.random(1, 10)
-		const random100 = bot.random(1, 100)
-		const random1000 = bot.random(1, 1000)
+		const random10 = ctx.bot.random(1, 10)
+		const random100 = ctx.bot.random(1, 100)
+		const random1000 = ctx.bot.random(1, 1000)
 
 		// Check if Balance is Minus
 		if (bet < 0) {
@@ -84,18 +83,18 @@ export default {
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
 				.setDescription('» You cant play with negative Money!')
-				.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
-			if (lang === 'de') {
+			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
 					.setDescription('» Du kannst keine negativen Einsätze spielen!')
-					.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 			
 			// Send Message
-			bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] GUESS : NEGATIVEMONEY : ' + bet + '€')
-			return interaction.reply({ embeds: [message], ephemeral: true })
+			ctx.log(false, '[CMD] GUESS : NEGATIVEMONEY : ' + bet + '€')
+			return ctx.interaction.reply({ embeds: [message], ephemeral: true })
 		}
 		
 	   	// Check for enough Money
@@ -107,18 +106,18 @@ export default {
 				let message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   					.setDescription('» You cant bet that much! **$15000** is the Maximum.')
-					.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
-				if (lang === 'de') {
+				if (ctx.metadata.language === 'de') {
 					message = new EmbedBuilder().setColor(0x37009B)
 						.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   						.setDescription('» Du kannst nicht soviel Wetten! **15000€** ist das Maximum.')
-						.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+						.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 				}
 				
 				// Send Message
-				bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] GUESS : TOOMUCHMONEY : ' + bet + '€')
-				return interaction.reply({ embeds: [message], ephemeral: true })
+				ctx.log(false, `[CMD] GUESS : TOOMUCHMONEY : ${bet}€`)
+				return ctx.interaction.reply({ embeds: [message], ephemeral: true })
 			}
 			
 			// Calculate Winnings
@@ -129,7 +128,7 @@ export default {
 			if (range === '1000') { if (guess === random1000) { status = 'WON'; result = bet * 6 } else { 
 				status = 'LOST'; result = bet } }
 
-			if (lang === 'de') {
+			if (ctx.metadata.language === 'de') {
 				if (range === '10') { if (guess === random10) { status = 'GEWONNEN'; result = bet * 2 } else { 
 					status = 'VERLOREN'; result = bet } }
 				if (range === '100') { if (guess === random100) { status = 'GEWONNEN'; result = bet * 4 } else { 
@@ -143,46 +142,46 @@ export default {
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-  				.setDescription('» You dont have enough Money for that, you are missing **$' + missing + '**!')
-				.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+  			.setDescription('» You dont have enough Money for that, you are missing **$' + missing + '**!')
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
-			if (lang === 'de') {
+			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-  					.setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
-					.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+  				.setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
+					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 
 			// Send Message
-			bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] GUESS : NOTENOUGHMONEY : ' + missing + '€')
-			return interaction.reply({ embeds: [message], ephemeral: true })
+			ctx.log(false, `[CMD] GUESS : NOTENOUGHMONEY : ${missing}€`)
+			return ctx.interaction.reply({ embeds: [message], ephemeral: true })
 		}
 
 		// Set Money
 		let transaction: any
-		bot.money.rem(interaction.guild.id, interaction.user.id, result)
+		ctx.bot.money.rem(ctx.interaction.guild.id, ctx.interaction.user.id, result)
 		if (status === 'GEWONNEN' || status === 'WON') {
-			bot.money.add(interaction.guild.id, interaction.user.id, result)
+			ctx.bot.money.add(ctx.interaction.guild.id, ctx.interaction.user.id, result)
 
 			// Log Transaction
-			transaction = await bot.transactions.log({
+			transaction = await ctx.bot.transactions.log({
 				success: true,
 				sender: {
 					id: 'CASINO',
 					amount: bet,
 					type: 'negative'
 				}, reciever: {
-					id: interaction.user.id,
+					id: ctx.interaction.user.id,
 					amount: bet,
 					type: 'positive'
 				}
 			})
 		} else {
 			// Log Transaction
-			transaction = await bot.transactions.log({
+			transaction = await ctx.bot.transactions.log({
 				success: true,
 				sender: {
-					id: interaction.user.id,
+					id: ctx.interaction.user.id,
 					amount: bet,
 					type: 'negative'
 				}, reciever: {
@@ -196,18 +195,18 @@ export default {
 		// Create Embed
 	  	let message = new EmbedBuilder().setColor(0x37009B)
 			.setTitle('<:CLOVER:1024388649418235925> » GUESS')
-  			.setDescription('» You set **$' + bet + '** on **' + guess + '** and **' + status + '** **$' + result + '**!\n\nID: ' + transaction.id)
-			.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+  		.setDescription('» You set **$' + bet + '** on **' + guess + '** and **' + status + '** **$' + result + '**!\n\nID: ' + transaction.id)
+			.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
-		if (lang === 'de') {
+		if (ctx.metadata.language === 'de') {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:CLOVER:1024388649418235925> » RATEN')
-  				.setDescription('» Du hast **' + bet + '€** auf **' + guess + '** gesetzt und **' + result + '€** **' + status + '**!\n\nID: ' + transaction.id)
-				.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+  			.setDescription('» Du hast **' + bet + '€** auf **' + guess + '** gesetzt und **' + result + '€** **' + status + '**!\n\nID: ' + transaction.id)
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 		}
 
 		// Send Message
-	   	bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] GUESS : ' + guess + ' : ' + status + ' : ' + result + '€')
-		return interaction.reply({ embeds: [message] })
+	  ctx.log(false, `[CMD] GUESS : ${guess} : ${status} : ${result}€`)
+		return ctx.interaction.reply({ embeds: [message] })
 	}
 }

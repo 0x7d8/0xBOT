@@ -1,8 +1,6 @@
 import { SlashCommandBuilder, EmbedBuilder } from "discord.js"
 
-import * as bot from "@functions/bot.js"
-import Client from "@interfaces/Client.js"
-import { CommandInteraction } from "discord.js"
+import CommandInteraction from "@interfaces/CommandInteraction.js"
 export default {
 	data: new SlashCommandBuilder()
 		.setName('ping')
@@ -12,25 +10,25 @@ export default {
 			de: 'DER BOT PING'
 		}),
 
-	async execute(interaction: CommandInteraction, client: Client, lang: string, vote: string) {
+	async execute(ctx: CommandInteraction) {
 		// Set Variables
-		const ping = client.ws.ping
+		const ping = ctx.client.ws.ping
 
 		// Create Embed
 		let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:GLOBE:1024403680503529583> » BOT PING')
 				.setDescription('» The Bot Ping is **' + ping + 'ms**!')
-				.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
-		if (lang === 'de') {
+		if (ctx.metadata.language === 'de') {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:GLOBE:1024403680503529583> » BOT PING')
 				.setDescription('» Der Ping vom Bot ist **' + ping + 'ms**!')
-				.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 		}
 
 		// Send Correct Response
-		bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] PING : ' + ping + 'ms')
-		return interaction.reply({ embeds: [message], ephemeral: true })
+		ctx.log(false, `[CMD] PING : ${ping}ms`)
+		return ctx.interaction.reply({ embeds: [message], ephemeral: true })
 	}
 }

@@ -1,8 +1,6 @@
 import { SlashCommandBuilder, EmbedBuilder } from "discord.js"
 
-import * as bot from "@functions/bot.js"
-import Client from "@interfaces/Client.js"
-import { CommandInteraction } from "discord.js"
+import CommandInteraction from "@interfaces/CommandInteraction.js"
 export default {
 	data: new SlashCommandBuilder()
 		.setName('number')
@@ -26,27 +24,27 @@ export default {
 				})
 				.setRequired(true)),
 
-	async execute(interaction: CommandInteraction, client: Client, lang: string, vote: string) {
+	async execute(ctx: CommandInteraction) {
 		// Set Variables
-		const min = bot.getOption(interaction, 'min') as number
-		const max = bot.getOption(interaction, 'max') as number
-		const res = bot.random(min, max)
+		const min = ctx.getOption('min') as number
+		const max = ctx.getOption('max') as number
+		const res = ctx.bot.random(min, max)
 
 		// Create Embed
 		let message = new EmbedBuilder().setColor(0x37009B)
 			.setTitle('<:GEAR:1024404241701417011> » RANDOM NUMBER')
-  			.setDescription('» Between **' + min + '** and **' + max + '** I choose **' + res + '**!')
-			.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+  		.setDescription('» Between **' + min + '** and **' + max + '** I choose **' + res + '**!')
+			.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
-		if (lang === 'de') {
+		if (ctx.metadata.language === 'de') {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:GEAR:1024404241701417011> » ZUFÄLLIGE NUMMER')
-  				.setDescription('» Zwischen **' + min + '** und **' + max + '** wähle ich **' + res + '**!')
-				.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+  			.setDescription('» Zwischen **' + min + '** und **' + max + '** wähle ich **' + res + '**!')
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 		}
 
 		// Send Message
-		bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] NUMBER : ' + min + ' : ' + max + ' : ' + res)
-		return interaction.reply({ embeds: [message] })
+		ctx.log(false, `[CMD] NUMBER : ${min} : ${max} : ${res}`)
+		return ctx.interaction.reply({ embeds: [message] })
 	}
 }

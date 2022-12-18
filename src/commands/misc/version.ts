@@ -1,8 +1,6 @@
 import { SlashCommandBuilder, EmbedBuilder } from "discord.js"
 
-import * as bot from "@functions/bot.js"
-import Client from "@interfaces/Client.js"
-import { CommandInteraction } from "discord.js"
+import CommandInteraction from "@interfaces/CommandInteraction.js"
 export default {
 	data: new SlashCommandBuilder()
 		.setName('version')
@@ -12,22 +10,22 @@ export default {
 			de: 'DIE BOT VERSION'
 		}),
 
-	async execute(interaction: CommandInteraction, client: Client, lang: string, vote: string) {
+	async execute(ctx: CommandInteraction) {
 		// Create Embed
 		let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:GEAR:1024404241701417011> » BOT VERSION')
-				.setDescription('» VERSION\n`' + client.config.version + ' (V3)`\n\n» FRAMEWORK\n`discord.js v14 (14.7.1)`\n\n» AUTHOR\n`0x4096#7678`')
-				.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+				.setDescription('» VERSION\n`' + ctx.client.config.version + ' (V3)`\n\n» FRAMEWORK\n`discord.js v14 (14.7.1)`\n\n» AUTHOR\n`0x4096#7678`')
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
-		if (lang === 'de') {
+		if (ctx.metadata.language === 'de') {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:GEAR:1024404241701417011> » BOT VERSION')
-				.setDescription('» VERSION\n`' + client.config.version + ' (V3)`\n\n» FRAMEWORK\n`discord.js v14 (14.7.1)`\n\n» AUTOR\n`0x4096#7678`')
-				.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+				.setDescription('» VERSION\n`' + ctx.client.config.version + ' (V3)`\n\n» FRAMEWORK\n`discord.js v14 (14.7.1)`\n\n» AUTOR\n`0x4096#7678`')
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 		}
 
 		// Send Correct Response
-		bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] VERSION')
-		return interaction.reply({ embeds: [message], ephemeral: true })
+		ctx.log(false, `[CMD] VERSION`)
+		return ctx.interaction.reply({ embeds: [message], ephemeral: true })
 	}
 }

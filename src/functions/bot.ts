@@ -17,6 +17,7 @@ export * as polls from "./misc/polls.js"
 export * as userdb from "./misc/userdb.js"
 export * as settings from "./misc/settings.js"
 export * as language from "./misc/language.js"
+export * as cooldown from "./misc/cooldown.js"
 
 // Economy
 export * as items from "./economy/items.js"

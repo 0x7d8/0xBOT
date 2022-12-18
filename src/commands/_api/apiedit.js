@@ -62,7 +62,7 @@ module.exports = {
             }
             
             // Send Message
-            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] APIEDIT : ' + name + ' : NOTFOUND')
+            ctx.log(false, '[CMD] APIEDIT : ' + name + ' : NOTFOUND')
             return interaction.reply({ embeds: [message], ephemeral: true })
         }
     }

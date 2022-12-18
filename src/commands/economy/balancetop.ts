@@ -1,20 +1,6 @@
 import { SlashCommandBuilder, EmbedBuilder } from "discord.js"
 
-// Connect to Database
-import config from "@config"
-import { default as pg } from "pg"
-const db = new pg.Pool({
-	host: config.database.oxbot.host,
-	database: config.database.oxbot.database,
-	user: config.database.oxbot.username,
-	password: config.database.oxbot.password,
-	port: 5432,
-	ssl: true
-})
-
-import * as bot from "@functions/bot.js"
-import Client from "@interfaces/Client.js"
-import { CommandInteraction } from "discord.js"
+import CommandInteraction from "@interfaces/CommandInteraction.js"
 export default {
 	data: new SlashCommandBuilder()
 		.setName('balancetop')
@@ -39,56 +25,56 @@ export default {
 					{ name: '🏘️ SERVER', value: 'server' },
 				)),
 
-	async execute(interaction: CommandInteraction, client: Client, lang: string, vote: string) {
+	async execute(ctx: CommandInteraction) {
 		// Set Variables
-		const listtype = bot.getOption(interaction, 'list') as string
+		const listtype = ctx.getOption('list') as string
 
 		// Defer Reply
-		await interaction.deferReply()
+		await ctx.interaction.deferReply()
 
 		// Get Top Money
 		let embedDesc = ''; let count = 0
 		if (listtype === 'global') {
-			const rawvalues = await db.query(`select * from usermoney order by money DESC`)
+			const rawvalues = await ctx.db.query(`select * from usermoney order by money DESC`)
 			for (const element of rawvalues.rows) {
 				if (count >= 10) break
 
 				let skip = false
-				const userinfo = await bot.userdb.get(element.userid)
+				const userinfo = await ctx.bot.userdb.get(element.userid)
 				if (!skip) {
 					count++
 					let formattedcount = count.toString()
 					if (count < 10) formattedcount = '0' + count
-					if (element.userid !== interaction.user.id) embedDesc += `\`${formattedcount}.\` » ${userinfo.username}#${userinfo.usertag} (**${element.money}€**)\n`
+					if (element.userid !== ctx.interaction.user.id) embedDesc += `\`${formattedcount}.\` » ${userinfo.username}#${userinfo.usertag} (**${element.money}€**)\n`
 					else embedDesc += `**\`${formattedcount}.\`** » ${userinfo.username}#${userinfo.usertag} (**${element.money}€**)\n`
 				}
 			}
 		} else {
-			const rawvalues = await db.query(`select * from usermoney where $1 = any(guilds) order by money DESC limit 10`, [interaction.guild.id])
+			const rawvalues = await ctx.db.query(`select * from usermoney where $1 = any(guilds) order by money DESC limit 10`, [ctx.interaction.guild.id])
 			for (const element of rawvalues.rows) {
 				count++
 				let formattedcount = count.toString()
 				if (count < 10) formattedcount = '0' + count
-				if (element.userid !== interaction.user.id) embedDesc += `\`${formattedcount}.\` » <@${element.userid}> (**${element.money}€**)\n`
+				if (element.userid !== ctx.interaction.user.id) embedDesc += `\`${formattedcount}.\` » <@${element.userid}> (**${element.money}€**)\n`
 				else embedDesc += `**\`${formattedcount}.\`** » <@${element.userid}> (**${element.money}€**)\n`
 			}
-		}; if (embedDesc === '') { embedDesc = 'Nothing to Display.'; if (lang === 'de') { embedDesc = 'Nichts zum Anzeigen.' } }
+		}; if (embedDesc === '') { embedDesc = 'Nothing to Display.'; if (ctx.metadata.language === 'de') { embedDesc = 'Nichts zum Anzeigen.' } }
 		
 		// Create Embed
 		let message = new EmbedBuilder().setColor(0x37009B)
 			.setTitle('<:WALLET:1024387370793050273> » TOP BALANCES [' + listtype.toUpperCase() + ']')
-  			.setDescription(embedDesc)
-			.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+  		.setDescription(embedDesc)
+			.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
-		if (lang === 'de') {
+		if (ctx.metadata.language === 'de') {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:WALLET:1024387370793050273> » TOP KONTOSTÄNDE [' + listtype.toUpperCase() + ']')
-  				.setDescription(embedDesc)
-				.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+  			.setDescription(embedDesc)
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 		}
 
 		// Send Message
-		bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] BALANCETOP : ' + listtype.toString().toUpperCase());
-		return interaction.editReply({ embeds: [message] }).catch(() => {})
+		ctx.log(false, `[CMD] BALANCETOP : ${listtype.toString().toUpperCase()}`)
+		return ctx.interaction.editReply({ embeds: [message] }).catch(() => {})
 	}
 }

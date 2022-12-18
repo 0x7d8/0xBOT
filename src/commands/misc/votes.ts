@@ -1,8 +1,6 @@
 import { SlashCommandBuilder, EmbedBuilder } from "discord.js"
 
-import * as bot from "@functions/bot.js"
-import Client from "@interfaces/Client.js"
-import { CommandInteraction } from "discord.js"
+import CommandInteraction from "@interfaces/CommandInteraction.js"
 export default {
 	data: new SlashCommandBuilder()
 		.setName('votes')
@@ -22,18 +20,18 @@ export default {
 				})
 				.setRequired(false)),
 
-	async execute(interaction: CommandInteraction, client: Client, lang: string, vote: string) {
+	async execute(ctx: CommandInteraction) {
 		// Set Variables
-		const user = interaction.options.getUser("user")
+		const user = ctx.interaction.options.getUser("user")
 		
 		// Set User ID
 		let votes: number
 		if (!user) {
-			votes = await bot.votes.get(interaction.user.id + '-A');
-			bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] VOTES : ' + votes)
+			votes = await ctx.bot.votes.get(ctx.interaction.user.id + '-A');
+			ctx.log(false, `[CMD] VOTES : ${votes}`)
 		} else {
-			votes = await bot.votes.get(user.id + '-A');
-			bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] VOTES : ' + user.id + ' : ' + votes)
+			votes = await ctx.bot.votes.get(user.id + '-A');
+			ctx.log(false, `[CMD] VOTES : ${user.id} : ${votes}`)
 		}
 		
 		// Check if Plural or not
@@ -46,30 +44,30 @@ export default {
 		if (!user) {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:GLOBE:1024403680503529583> » YOUR VOTES')
-  				.setDescription('» You have **' + votes + '** ' + word + '!')
-				.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+  			.setDescription('» You have **' + votes + '** ' + word + '!')
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
-			if (lang === 'de') {
+			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:GLOBE:1024403680503529583> » DEINE VOTES')
-  					.setDescription('» Du hast **' + votes + '** ' + word + '!')
-					.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+  				.setDescription('» Du hast **' + votes + '** ' + word + '!')
+					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 		} else {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:GLOBE:1024403680503529583> » THE VOTES OF ' + user.username.toUpperCase())
-  				.setDescription('» <@' + user.id + '> has **' + votes + '** ' + word + '!')
-				.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+  			.setDescription('» <@' + user.id + '> has **' + votes + '** ' + word + '!')
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
-			if (lang === 'de') {
+			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:GLOBE:1024403680503529583> » DIE VOTES VON ' + user.username.toUpperCase())
-  					.setDescription('» <@' + user.id + '> hat **' + votes + '** ' + word + '!')
-					.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+  				.setDescription('» <@' + user.id + '> hat **' + votes + '** ' + word + '!')
+					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 		}
 
 		// Send Message
-		return interaction.reply({ embeds: [message] })
+		return ctx.interaction.reply({ embeds: [message] })
 	}
 }

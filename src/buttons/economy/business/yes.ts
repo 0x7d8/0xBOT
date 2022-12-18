@@ -1,16 +1,14 @@
 import { EmbedBuilder } from "discord.js"
 
-import * as bot from "@functions/bot.js"
-import Client from "@interfaces/Client.js"
-import { ButtonInteraction } from "discord.js"
+import ButtonInteraction from "@interfaces/ButtonInteraction.js"
 export default {
 	data: {
 		name: 'business-yes'
 	},
 
-	async execute(interaction: ButtonInteraction, client: Client, lang: string, vote: string, business: string, userid: string, type: string) {
+	async execute(ctx: ButtonInteraction, business: string, userid: string, type: string) {
 		// Set Variables
-		const balance = await bot.money.get(interaction.user.id)
+		const balance = await ctx.bot.money.get(ctx.interaction.user.id)
 
 		// Translate to Business ID
 		let businessid: string
@@ -29,30 +27,30 @@ export default {
 		if (business === 'market') name = 'MARKET'
 		if (business === 'parking garage') name = 'PARKING GARAGE'
 		if (business === 'car dealership') name = 'CAR DEALERSHIP'
-		if (lang == 'de') {
+		if (ctx.metadata.language == 'de') {
 			if (business === 'market') name = 'SUPERMARKT'
 			if (business === 'parking garage') name = 'PARKHAUS'
 			if (business === 'car dealership') name = 'AUTOHAUS'
 		}
 
 		// Check if User is Authorized
-		if (interaction.user.id !== userid) {
+		if (ctx.interaction.user.id !== userid) {
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-  				.setDescription('» This choice is up to <@' + userid + '>!')
-				.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+  			.setDescription('» This choice is up to <@' + userid + '>!')
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
-			if (lang === 'de') {
+			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-  					.setDescription('» Diese Frage ist für <@' + userid + '>!')
-					.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+  				.setDescription('» Diese Frage ist für <@' + userid + '>!')
+					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 			
 			// Send Message
-			bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] BUSINESSBUY : NOTSENDER')
-			return interaction.reply({ embeds: [message], ephemeral: true })
+			ctx.log(false, `[BTN] BUSINESSBUY : NOTSENDER`)
+			return ctx.interaction.reply({ embeds: [message], ephemeral: true })
 		}
 
 		// Split Button with type
@@ -64,31 +62,31 @@ export default {
 				// Create Embed
 				let message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-  					.setDescription('» You dont have enough Money for that, you are missing **$' + missing + '**!')
-					.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+  				.setDescription('» You dont have enough Money for that, you are missing **$' + missing + '**!')
+					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
-				if (lang === 'de') {
+				if (ctx.metadata.language === 'de') {
 					message = new EmbedBuilder().setColor(0x37009B)
 						.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-  						.setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
-						.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+  					.setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
+						.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 				}
 			
 				// Send Message
-				bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] BUSINESSBUY : ' + name.toUpperCase() + ' : NOTENOUGHMONEY : ' + cost + '€')
-				return interaction.reply({ embeds: [message], ephemeral: true })
+				ctx.log(false, `[BTN] BUSINESSBUY : ${name.toUpperCase()} : NOTENOUGHMONEY : ${cost}€`)
+				return ctx.interaction.reply({ embeds: [message], ephemeral: true })
 			}
 
 			// Check if User already has Business
-			if (await bot.businesses.get('u-' + interaction.user.id + '-' + interaction.guild.id + '-BUSINESS') !== 0) {
-				const userbusiness = await bot.businesses.get('u-' + interaction.user.id + '-' + interaction.guild.id + '-BUSINESS')
+			if (await ctx.bot.businesses.get('u-' + ctx.interaction.user.id + '-' + ctx.interaction.guild.id + '-BUSINESS') !== 0) {
+				const userbusiness = await ctx.bot.businesses.get('u-' + ctx.interaction.user.id + '-' + ctx.interaction.guild.id + '-BUSINESS')
 
 				// Translate to Business Names
 				let name: string
 				if (userbusiness === 'market') name = 'MARKET'
 				if (userbusiness === 'parking garage') name = 'PARKING GARAGE'
 				if (userbusiness === 'car dealership') name = 'CAR DEALERSHIP'
-				if (lang == 'de') {
+				if (ctx.metadata.language == 'de') {
 					if (userbusiness === 'market') name = 'SUPERMARKT'
 					if (userbusiness === 'parking garage') name = 'PARKHAUS'
 					if (userbusiness === 'car dealership') name = 'AUTOHAUS'
@@ -98,32 +96,32 @@ export default {
 				let message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
 					.setDescription('» You already own a **' + name + '**!')
-					.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
-				if (lang == 'de') {
+				if (ctx.metadata.language == 'de') {
 					message = new EmbedBuilder().setColor(0x37009B)
 						.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
 						.setDescription('» Du besitzt schon ein **' + name + '**!')
-						.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+						.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 				}
 
 				// Send Message
-				bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] BUSINESSBUY : ALREADYBUSINESS')
-				return interaction.reply({ embeds: [message], ephemeral: true })
+				ctx.log(false, `[BTN] BUSINESSBUY : ALREADYBUSINESS`)
+				return ctx.interaction.reply({ embeds: [message], ephemeral: true })
 			}
 
 			// Edit Buttons
 			{
-				(interaction.message.components[0].components[0].data.disabled as boolean) = true;
-				(interaction.message.components[0].components[1].data.disabled as boolean) = true;
-				(interaction.message.components[0].components[1] as any).data.style = 2;
+				(ctx.interaction.message.components[0].components[0].data.disabled as boolean) = true;
+				(ctx.interaction.message.components[0].components[1].data.disabled as boolean) = true;
+				(ctx.interaction.message.components[0].components[1] as any).data.style = 2;
 			}
 
 			// Log Transaction
-			const transaction = await bot.transactions.log({
+			const transaction = await ctx.bot.transactions.log({
 				success: true,
 				sender: {
-					id: interaction.user.id,
+					id: ctx.interaction.user.id,
 					amount: cost,
 					type: 'negative'
 				}, reciever: {
@@ -134,43 +132,43 @@ export default {
 			})
 
 			// Remove Money
-			bot.money.rem(interaction.guild.id, interaction.user.id, cost)
+			ctx.bot.money.rem(ctx.interaction.guild.id, ctx.interaction.user.id, cost)
 
 			// Own Business
-			bot.businesses.set('g-' + interaction.guild.id + '-' + businessid + '-OWNER', interaction.user.id)
-			bot.businesses.set('u-' + interaction.user.id + '-' + interaction.guild.id + '-BUSINESS', business)
+			ctx.bot.businesses.set('g-' + ctx.interaction.guild.id + '-' + businessid + '-OWNER', ctx.interaction.user.id)
+			ctx.bot.businesses.set('u-' + ctx.interaction.user.id + '-' + ctx.interaction.guild.id + '-BUSINESS', business)
 			if (business === 'market') {
-				bot.businesses.set('g-' + interaction.guild.id + '-1-PRICE-NBOMB', '500')
-				bot.businesses.set('g-' + interaction.guild.id + '-1-PRICE-MBOMB', '1500')
-				bot.businesses.set('g-' + interaction.guild.id + '-1-PRICE-HBOMB', '5000')
-				bot.businesses.set('g-' + interaction.guild.id + '-1-PRICE-CBOMB', '15000')
+				ctx.bot.businesses.set('g-' + ctx.interaction.guild.id + '-1-PRICE-NBOMB', '500')
+				ctx.bot.businesses.set('g-' + ctx.interaction.guild.id + '-1-PRICE-MBOMB', '1500')
+				ctx.bot.businesses.set('g-' + ctx.interaction.guild.id + '-1-PRICE-HBOMB', '5000')
+				ctx.bot.businesses.set('g-' + ctx.interaction.guild.id + '-1-PRICE-CBOMB', '15000')
 			}
 			if (business === 'car dealership') {
-				bot.businesses.set('g-' + interaction.guild.id + '-3-PRICE-JEEP', '10000')
-				bot.businesses.set('g-' + interaction.guild.id + '-3-PRICE-KIA', '75000')
-				bot.businesses.set('g-' + interaction.guild.id + '-3-PRICE-AUDI', '180000')
-				bot.businesses.set('g-' + interaction.guild.id + '-3-PRICE-TESLA', '250000')
-				bot.businesses.set('g-' + interaction.guild.id + '-3-PRICE-PORSCHE', '520000')
+				ctx.bot.businesses.set('g-' + ctx.interaction.guild.id + '-3-PRICE-JEEP', '10000')
+				ctx.bot.businesses.set('g-' + ctx.interaction.guild.id + '-3-PRICE-KIA', '75000')
+				ctx.bot.businesses.set('g-' + ctx.interaction.guild.id + '-3-PRICE-AUDI', '180000')
+				ctx.bot.businesses.set('g-' + ctx.interaction.guild.id + '-3-PRICE-TESLA', '250000')
+				ctx.bot.businesses.set('g-' + ctx.interaction.guild.id + '-3-PRICE-PORSCHE', '520000')
 			}
 
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:BOXCHECK:1024401101589590156> » BUY BUSINESS')
 				.setDescription('» You successfully bought a **' + name + '** for **$' + cost + '**!\n\nID: ' + transaction.id)
-				.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
-			if (lang == 'de') {
+			if (ctx.metadata.language == 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:BOXCHECK:1024401101589590156> » GESCHÄFT KAUFEN')
 					.setDescription('» Du hast erfolgreich ein **' + name + '** für **' + cost + '€** gekauft!\n\nID: ' + transaction.id)
-					.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 
 			// Send Message
-			bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] BUSINESSBUY : ' + name + ' : CONFIRM')
-			return interaction.update({ embeds: [message], components: interaction.message.components })
+			ctx.log(false, `[BTN] BUSINESSBUY : ${name} : CONFIRM`)
+			return ctx.interaction.update({ embeds: [message], components: ctx.interaction.message.components })
 		} else if (type === 'sell') {
-			const business = await bot.businesses.get('u-' + interaction.user.id + '-' + interaction.guild.id + '-BUSINESS')
+			const business = await ctx.bot.businesses.get('u-' + ctx.interaction.user.id + '-' + ctx.interaction.guild.id + '-BUSINESS')
 
 			// Translate to Business ID
 			let businessid: string
@@ -185,68 +183,68 @@ export default {
 			if (business === 'car dealership') cost = 520000
 
 			// Check if User has a Business
-			if (await bot.businesses.get('u-' + interaction.user.id + '-' + interaction.guild.id + '-BUSINESS', false) === 0) {
+			if (await ctx.bot.businesses.get('u-' + ctx.interaction.user.id + '-' + ctx.interaction.guild.id + '-BUSINESS', false) === 0) {
 				// Create Embed
 				let message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-  					.setDescription('» You dont own a Business!')
-					.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+  				.setDescription('» You dont own a Business!')
+					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
-				if (lang === 'de') {
+				if (ctx.metadata.language === 'de') {
 					message = new EmbedBuilder().setColor(0x37009B)
 						.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-  						.setDescription('» Du besitzt kein Geschäft!')
-						.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+  					.setDescription('» Du besitzt kein Geschäft!')
+						.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 				}
 
 				// Send Message
-				bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] BUSINESSSELL : DONTOWNBUSINESS')
-				return interaction.reply({ embeds: [message], ephemeral: true })
+				ctx.log(false, `[CMD] BUSINESSSELL : DONTOWNBUSINESS`)
+				return ctx.interaction.reply({ embeds: [message], ephemeral: true })
 			}
 
 			// Edit Buttons
 			{
-				(interaction.message.components[0].components[0].data.disabled as boolean) = true;
-				(interaction.message.components[0].components[1].data.disabled as boolean) = true;
-				(interaction.message.components[0].components[1] as any).data.style = 2;
+				(ctx.interaction.message.components[0].components[0].data.disabled as boolean) = true;
+				(ctx.interaction.message.components[0].components[1].data.disabled as boolean) = true;
+				(ctx.interaction.message.components[0].components[1] as any).data.style = 2;
 			}
 
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:BOXCHECK:1024401101589590156> » SELL BUSINESS')
 				.setDescription('» You successfully sold your **' + name + '** for **$' + (cost/2) + '**!')
-				.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
-			if (lang == 'de') {
+			if (ctx.metadata.language == 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:BOXCHECK:1024401101589590156> » GESCHÄFT VERKAUFEN')
 					.setDescription('» Du hast erfolgreich dein **' + name + '** für **' + (cost/2) + '€** verkauft!')
-					.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 
 			// Add Money
-			bot.money.add(interaction.guild.id, interaction.user.id, (cost/2))
+			ctx.bot.money.add(ctx.interaction.guild.id, ctx.interaction.user.id, (cost/2))
 
 			// unOwn Business
-			bot.businesses.del('u-' + interaction.user.id + '-' + interaction.guild.id + '-BUSINESS')
-			bot.businesses.del('g-' + interaction.guild.id + '-' + businessid + '-OWNER')
+			ctx.bot.businesses.del('u-' + ctx.interaction.user.id + '-' + ctx.interaction.guild.id + '-BUSINESS')
+			ctx.bot.businesses.del('g-' + ctx.interaction.guild.id + '-' + businessid + '-OWNER')
 			if (business === 'market') {
-				bot.businesses.del('g-' + interaction.guild.id + '-1-PRICE-NBOMB')
-				bot.businesses.del('g-' + interaction.guild.id + '-1-PRICE-MBOMB')
-				bot.businesses.del('g-' + interaction.guild.id + '-1-PRICE-HBOMB')
-				bot.businesses.del('g-' + interaction.guild.id + '-1-PRICE-CBOMB')
+				ctx.bot.businesses.del('g-' + ctx.interaction.guild.id + '-1-PRICE-NBOMB')
+				ctx.bot.businesses.del('g-' + ctx.interaction.guild.id + '-1-PRICE-MBOMB')
+				ctx.bot.businesses.del('g-' + ctx.interaction.guild.id + '-1-PRICE-HBOMB')
+				ctx.bot.businesses.del('g-' + ctx.interaction.guild.id + '-1-PRICE-CBOMB')
 			}
 			if (business === 'car dealership') {
-				bot.businesses.del('g-' + interaction.guild.id + '-3-PRICE-JEEP')
-				bot.businesses.del('g-' + interaction.guild.id + '-3-PRICE-KIA')
-				bot.businesses.del('g-' + interaction.guild.id + '-3-PRICE-AUDI')
-				bot.businesses.del('g-' + interaction.guild.id + '-3-PRICE-TESLA')
-				bot.businesses.del('g-' + interaction.guild.id + '-3-PRICE-PORSCHE')
+				ctx.bot.businesses.del('g-' + ctx.interaction.guild.id + '-3-PRICE-JEEP')
+				ctx.bot.businesses.del('g-' + ctx.interaction.guild.id + '-3-PRICE-KIA')
+				ctx.bot.businesses.del('g-' + ctx.interaction.guild.id + '-3-PRICE-AUDI')
+				ctx.bot.businesses.del('g-' + ctx.interaction.guild.id + '-3-PRICE-TESLA')
+				ctx.bot.businesses.del('g-' + ctx.interaction.guild.id + '-3-PRICE-PORSCHE')
 			}
 
 			// Send Message
-			bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] BUSINESSSELL : ' + name + ' : CONFIRM')
-			return interaction.update({ embeds: [message], components: interaction.message.components })
+			ctx.log(false, `[BTN] BUSINESSSELL : ${name} : CONFIRM`)
+			return ctx.interaction.update({ embeds: [message], components: ctx.interaction.message.components })
 		}
 	}
 }

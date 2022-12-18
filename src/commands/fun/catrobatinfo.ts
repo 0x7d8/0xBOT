@@ -1,8 +1,6 @@
 import { SlashCommandBuilder, EmbedBuilder } from "discord.js"
 
-import * as bot from "@functions/bot.js"
-import Client from "@interfaces/Client.js"
-import { CommandInteraction } from "discord.js"
+import CommandInteraction from "@interfaces/CommandInteraction.js"
 export default {
 	data: new SlashCommandBuilder()
 		.setName('catrobatinfo')
@@ -19,14 +17,14 @@ export default {
 				})
 				.setRequired(true)),
 
-	async execute(interaction: CommandInteraction, client: Client, lang: string, vote: string) {
+	async execute(ctx: CommandInteraction) {
 		const axios = (await import('axios')).default
 
 		// Defer Reply
-		await interaction.deferReply()
+		await ctx.interaction.deferReply()
 
 		// Set Variables
-		const id = bot.getOption(interaction, 'id') as string
+		const id = ctx.getOption('id') as string
 		const req = await axios({
 			method: 'GET',
 			url: `https://share.catrob.at/api/project/${id}`,
@@ -40,18 +38,18 @@ export default {
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:CUBE:1024404832452350032> » CATROBAT PROJECT INFO')
 				.setDescription(`» Couldnt reach the Catrobat Servers! (Status ${req.status})`)
-				.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
-			if (lang === 'de') {
+			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:CUBE:1024404832452350032> » CATROBAT PROJEKT INFO')
 					.setDescription(`» Konnte die Catrobat Server nicht erreichen! (Status ${req.status})`)
-					.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 
 			// Send Message
-			bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] CATROBATINFO : ' + id.toUpperCase() + ' : SERVERSDOWN')
-			return interaction.editReply({ embeds: [message] })
+			ctx.log(false, `[CMD] CATROBATINFO : ${id.toUpperCase()} : SERVERSDOWN`)
+			return ctx.interaction.editReply({ embeds: [message] })
 		}
 
 		// Check if Project exists
@@ -60,37 +58,37 @@ export default {
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:CUBE:1024404832452350032> » CATROBAT PROJECT INFO')
 				.setDescription(`» The Project **${id}** was not found!`)
-				.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
-			if (lang === 'de') {
+			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:CUBE:1024404832452350032> » CATROBAT PROJEKT INFO')
 					.setDescription(`» Das Projekt **${id}** wurde nicht gefunden!`)
-					.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 
 			// Send Message
-			bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] CATROBATINFO : ' + id.toUpperCase() + ' : NOTEXIST')
-			return interaction.editReply({ embeds: [message] })
+			ctx.log(false, `[CMD] CATROBATINFO : ${id.toUpperCase()} : NOTEXIST`)
+			return ctx.interaction.editReply({ embeds: [message] })
 		}
 
 		// Create Embed
 		let message = new EmbedBuilder().setColor(0x37009B)
 			.setTitle('<:CUBE:1024404832452350032> » CATROBAT PROJECT INFO')
 			.setThumbnail(info.screenshot_small)
-  			.setDescription(`[${info.name}](https://share.catrob.at/project/${id})\n\n» Description\n\`${info.description.replace('`', '"')}\`\n\n» Size\n\`${Number(info.filesize).toFixed(2)}MB\``)
-			.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+  		.setDescription(`[${info.name}](https://share.catrob.at/project/${id})\n\n» Description\n\`${info.description.replace('`', '"')}\`\n\n» Size\n\`${Number(info.filesize).toFixed(2)}MB\``)
+			.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
-		if (lang === 'de') {
+		if (ctx.metadata.language === 'de') {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:CUBE:1024404832452350032> » CATOBAT PROJEKT INFO')
 				.setThumbnail(info.screenshot_small)
 				.setDescription(`[${info.name}](https://share.catrob.at/project/${id})\n\n» Beschreibung\n\`${info.description.replace('`', '"')}\`\n\n» Größe\n\`${Number(info.filesize).toFixed(2)}MB\``)
-				.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 		}
 
 		// Send Message
-		bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] CATROBATINFO : ' + id.toUpperCase())
-		return interaction.editReply({ embeds: [message] })
+		ctx.log(false, `[CMD] CATROBATINFO : ${id.toUpperCase()}`)
+		return ctx.interaction.editReply({ embeds: [message] })
 	}
 }

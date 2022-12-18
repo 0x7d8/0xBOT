@@ -2,8 +2,7 @@ import { ActionRowBuilder, ModalBuilder, TextInputBuilder, TextInputStyle } from
 import { PermissionFlagsBits } from "discord-api-types/v10"
 import { SlashCommandBuilder } from "discord.js"
 
-import Client from "@interfaces/Client.js"
-import { CommandInteraction } from "discord.js"
+import CommandInteraction from "@interfaces/CommandInteraction.js"
 export default {
 	data: new SlashCommandBuilder()
 		.setName('say')
@@ -14,7 +13,7 @@ export default {
 		.setDMPermission(false)
 		.setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
 
-	async execute(interaction: CommandInteraction, client: Client, lang: string, vote: string) {
+	async execute(ctx: CommandInteraction) {
 		// Create Modal
 		const modal = new ModalBuilder()
 			.setCustomId('say')
@@ -33,7 +32,7 @@ export default {
 			.setMaxLength(1000)
 			.setStyle(TextInputStyle.Paragraph)
 
-		if (lang === 'de') {
+		if (ctx.metadata.language === 'de') {
 			titleInput = new TextInputBuilder()
 				.setCustomId('say-title')
 				.setLabel('Bitte geb den Titel der Embed an.')
@@ -53,6 +52,6 @@ export default {
 		modal.addComponents(title as any, content as any)
 
 		// Send Modal
-		return interaction.showModal(modal)
+		return ctx.interaction.showModal(modal)
 	}
 }

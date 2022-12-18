@@ -1,31 +1,6 @@
 "use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
-const cooldown = new discord_js_1.Collection();
-const bot = __importStar(require("@functions/bot.js"));
 exports.default = {
     data: new discord_js_1.SlashCommandBuilder()
         .setName('rob')
@@ -53,68 +28,68 @@ exports.default = {
     })
         .setRequired(true)
         .addChoices({ name: '💸 [35%] 10€ - 20€', value: '35' }, { name: '🤑 [20%] 30€ - 50€', value: '20' }, { name: '💰 [05%] 60€ - 100€', value: '5' })),
-    async execute(interaction, client, lang, vote) {
-        if (!await bot.settings.get(interaction.guild.id, 'rob')) {
+    async execute(ctx) {
+        if (!await ctx.bot.settings.get(ctx.interaction.guild.id, 'rob')) {
             let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» The **`/rob`** Command is disabled on this Server!')
-                .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
-            if (lang === 'de') {
+                .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+            if (ctx.metadata.language === 'de') {
                 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
                     .setDescription('» Der **`/rob`** Befehl ist auf diesem Server deaktiviert!')
-                    .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
+                    .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
             }
-            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : DISABLED');
-            return interaction.reply({ embeds: [message], ephemeral: true });
+            ctx.log(false, `[CMD] ROB : DISABLED`);
+            return ctx.interaction.reply({ embeds: [message], ephemeral: true });
         }
-        const user = interaction.options.getUser("user");
-        const money = bot.getOption(interaction, 'money');
-        const moneysnd = await bot.money.get(interaction.user.id);
-        const moneytar = await bot.money.get(user.id);
-        if (cooldown.get(interaction.user.id) - Date.now() > 0) {
-            const timeLeft = cooldown.get(interaction.user.id) - Date.now();
+        const user = ctx.interaction.options.getUser("user");
+        const money = ctx.getOption('money');
+        const moneysnd = await ctx.bot.money.get(ctx.interaction.user.id);
+        const moneytar = await ctx.bot.money.get(user.id);
+        if ((await ctx.bot.cooldown.get(ctx.interaction.user.id, 'rob')).onCooldown) {
+            const timeLeft = (await ctx.bot.cooldown.get(ctx.interaction.user.id, 'rob')).remaining;
             const cdown = timeLeft / 1000;
             let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» You still have a Cooldown of **' + cdown.toFixed(0) + 's**!')
-                .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
-            if (lang === 'de') {
+                .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+            if (ctx.metadata.language === 'de') {
                 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
                     .setDescription('» Du hast leider noch einen Cooldown von **' + cdown.toFixed(0) + 's**!')
-                    .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
+                    .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
             }
-            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : ONCOOLDOWN : ' + cdown.toFixed(0) + 's');
-            return interaction.reply({ embeds: [message], ephemeral: true });
+            ctx.log(false, `[CMD] ROB : ONCOOLDOWN : ${cdown.toFixed(0)}s`);
+            return ctx.interaction.reply({ embeds: [message], ephemeral: true });
         }
-        if (interaction.user.id === user.id) {
+        if (ctx.interaction.user.id === user.id) {
             let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» You cant rob yourself?!')
-                .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
-            if (lang === 'de') {
+                .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+            if (ctx.metadata.language === 'de') {
                 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
                     .setDescription('» Du kannst dich nicht selber ausrauben?!')
-                    .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
+                    .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
             }
-            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : ' + user.id + ' : ' + money + '€ : SAMEPERSON');
-            return interaction.reply({ embeds: [message], ephemeral: true });
+            ctx.log(false, `[CMD] ROB : ${user.id} : ${money}€ : SAMEPERSON`);
+            return ctx.interaction.reply({ embeds: [message], ephemeral: true });
         }
         if (user.bot) {
             let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» You cant rob a Bot!')
-                .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
-            if (lang === 'de') {
+                .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+            if (ctx.metadata.language === 'de') {
                 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
                     .setDescription('» Du kannst einem Bot kein Geld klauen!')
-                    .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
+                    .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
             }
-            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : ' + user + ' : BOT');
-            return interaction.reply({ embeds: [message], ephemeral: true });
+            ctx.log(false, `[CMD] ROB : ${user} : BOT`);
+            return ctx.interaction.reply({ embeds: [message], ephemeral: true });
         }
         let need;
         if (money === '35')
@@ -126,84 +101,83 @@ exports.default = {
         let notenoughmoney1 = new discord_js_1.EmbedBuilder().setColor(0x37009B)
             .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
             .setDescription('» You dont have enough Money for that, you need atleast **$' + need + '**! BRUH.')
-            .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
-        if (lang === 'de') {
+            .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+        if (ctx.metadata.language === 'de') {
             notenoughmoney1 = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
                 .setDescription('» Du hast nicht genug Geld dafür, du brauchst mindestens **' + need + '€**! BRUH.')
-                .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
+                .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
         }
         if (money === '35' && moneysnd < 20) {
-            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : ' + user.id + ' : NOTENOUGHMONEY');
-            return interaction.reply({ embeds: [notenoughmoney1.toJSON()], ephemeral: true });
+            ctx.log(false, '[CMD] ROB : ' + user.id + ' : NOTENOUGHMONEY');
+            return ctx.interaction.reply({ embeds: [notenoughmoney1.toJSON()], ephemeral: true });
         }
         ;
         if (money === '20' && moneysnd < 50) {
-            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : ' + user.id + ' : NOTENOUGHMONEY');
-            return interaction.reply({ embeds: [notenoughmoney1.toJSON()], ephemeral: true });
+            ctx.log(false, '[CMD] ROB : ' + user.id + ' : NOTENOUGHMONEY');
+            return ctx.interaction.reply({ embeds: [notenoughmoney1.toJSON()], ephemeral: true });
         }
         ;
         if (money === '5' && moneysnd < 100) {
-            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : ' + user.id + ' : NOTENOUGHMONEY');
-            return interaction.reply({ embeds: [notenoughmoney1.toJSON()], ephemeral: true });
+            ctx.log(false, '[CMD] ROB : ' + user.id + ' : NOTENOUGHMONEY');
+            return ctx.interaction.reply({ embeds: [notenoughmoney1.toJSON()], ephemeral: true });
         }
-        ;
         let notenoughmoney2 = new discord_js_1.EmbedBuilder().setColor(0x37009B)
             .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
             .setDescription('» <@' + user + '> doesnt have enough Money for that, he needs atleast **$' + need + '**! LOL.')
-            .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
-        if (lang === 'de') {
+            .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+        if (ctx.metadata.language === 'de') {
             notenoughmoney2 = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
                 .setDescription('» <@' + user + '> hat nicht genug Geld dafür, er braucht mindestens **' + need + '€**! LOL.')
-                .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
+                .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
         }
         if (money === '35' && moneytar < 20) {
-            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : ' + user.id + ' : NOTENOUGHMONEY');
-            return interaction.reply({ embeds: [notenoughmoney2.toJSON()], ephemeral: true });
+            ctx.log(false, '[CMD] ROB : ' + user.id + ' : NOTENOUGHMONEY');
+            return ctx.interaction.reply({ embeds: [notenoughmoney2.toJSON()], ephemeral: true });
         }
         ;
         if (money === '20' && moneytar < 50) {
-            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : ' + user.id + ' : NOTENOUGHMONEY');
-            return interaction.reply({ embeds: [notenoughmoney2.toJSON()], ephemeral: true });
+            ctx.log(false, '[CMD] ROB : ' + user.id + ' : NOTENOUGHMONEY');
+            return ctx.interaction.reply({ embeds: [notenoughmoney2.toJSON()], ephemeral: true });
         }
         ;
         if (money === '5' && moneytar < 100) {
-            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : ' + user.id + ' : NOTENOUGHMONEY');
-            return interaction.reply({ embeds: [notenoughmoney2.toJSON()], ephemeral: true });
+            ctx.log(false, '[CMD] ROB : ' + user.id + ' : NOTENOUGHMONEY');
+            return ctx.interaction.reply({ embeds: [notenoughmoney2.toJSON()], ephemeral: true });
         }
-        const random35 = bot.random(1, 3);
-        const random20 = bot.random(1, 5);
-        const random05 = bot.random(1, 20);
+        const random35 = ctx.bot.random(1, 3);
+        const random20 = ctx.bot.random(1, 5);
+        const random05 = ctx.bot.random(1, 20);
         let status, amount;
         if (money === '35') {
             if (random35 == 1) {
                 status = true;
-                amount = bot.random(10, 20);
+                amount = ctx.bot.random(10, 20);
             }
             else {
                 status = false;
-                amount = bot.random(10, 20);
+                amount = ctx.bot.random(10, 20);
             }
         }
         else if (money === '20') {
             if (random20 == 1) {
                 status = true;
-                amount = bot.random(30, 50);
+                amount = ctx.bot.random(30, 50);
             }
             else {
                 status = false;
-                amount = bot.random(30, 50);
+                amount = ctx.bot.random(30, 50);
             }
         }
         else {
             if (random05 == 1) {
                 status = true;
-                amount = bot.random(50, 100);
+                amount = ctx.bot.random(50, 100);
             }
             else {
                 status = false;
-                amount = bot.random(50, 100);
+                amount = ctx.bot.random(50, 100);
             }
         }
         let punishment;
@@ -222,7 +196,7 @@ exports.default = {
             extra = 'LOL.';
         if (amount >= 80)
             extra = 'A PRO??!!';
-        if (lang === 'de') {
+        if (ctx.metadata.language === 'de') {
             if (amount < 20)
                 extra = 'NAJA.';
             if (amount >= 20)
@@ -237,34 +211,32 @@ exports.default = {
         let success = new discord_js_1.EmbedBuilder().setColor(0x37009B)
             .setTitle('<:BAG:1024389219558367292> » AUSRAUBEN')
             .setDescription('» You stole <@' + user.id + '> **$' + amount + '**! ' + extra)
-            .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
+            .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
         let failure = new discord_js_1.EmbedBuilder().setColor(0x37009B)
             .setTitle('<:BAG:1024389219558367292> » AUSRAUBEN')
             .setDescription('» You wanted to steal <@' + user.id + '> **$' + amount + '**, but the Police caught you! You had to pay **$' + punishment + '**! KEKW.')
-            .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
-        if (lang === 'de') {
+            .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+        if (ctx.metadata.language === 'de') {
             success = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:BAG:1024389219558367292> » AUSRAUBEN')
                 .setDescription('» Du hast <@' + user.id + '> **' + amount + '€** geklaut! ' + extra)
-                .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
+                .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
             failure = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:BAG:1024389219558367292> » AUSRAUBEN')
                 .setDescription('» Du wolltest <@' + user.id + '> **' + amount + '€** klauen, aber die Polizei hat dich erwischt! Du musstest **' + punishment + '€** Strafgeld bezahlen! KEKW.')
-                .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
+                .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
         }
-        if (status == false) {
-            cooldown.set(interaction.user.id, Date.now() + 30000);
-            setTimeout(() => cooldown.delete(interaction.user.id), 30000);
-            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : ' + user.id + ' : ' + amount + '€ : FAILURE : ' + punishment + '€');
-            bot.money.rem(interaction.guild.id, interaction.user.id, punishment);
-            return interaction.reply({ embeds: [failure] });
+        if (!status) {
+            ctx.bot.cooldown.set(ctx.interaction.user.id, 'rob', 1 * 60 * 1000);
+            ctx.log(false, `[CMD] ROB : ${user.id} : ${amount}€ : FAILURE : ${punishment}€`);
+            ctx.bot.money.rem(ctx.interaction.guild.id, ctx.interaction.user.id, punishment);
+            return ctx.interaction.reply({ embeds: [failure] });
         }
-        cooldown.set(interaction.user.id, Date.now() + 30000);
-        setTimeout(() => cooldown.delete(interaction.user.id), 30000);
-        bot.money.rem(interaction.guild.id, user.id, amount);
-        bot.money.add(interaction.guild.id, interaction.user.id, amount);
-        bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : ' + user.id + ' : ' + amount + '€ : SUCCESS');
-        return interaction.reply({ embeds: [success] });
+        ctx.bot.cooldown.set(ctx.interaction.user.id, 'rob', 1 * 60 * 1000);
+        ctx.bot.money.rem(ctx.interaction.guild.id, user.id, amount);
+        ctx.bot.money.add(ctx.interaction.guild.id, ctx.interaction.user.id, amount);
+        ctx.log(false, `[CMD] ROB : ${user.id} : ${amount}€ : SUCCESS`);
+        return ctx.interaction.reply({ embeds: [success] });
     }
 };
 //# sourceMappingURL=rob.js.map

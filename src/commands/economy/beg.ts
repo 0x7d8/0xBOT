@@ -1,9 +1,7 @@
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js"
 import { SlashCommandBuilder, EmbedBuilder } from "discord.js"
 
-import * as bot from "@functions/bot.js"
-import Client from "@interfaces/Client.js"
-import { CommandInteraction } from "discord.js"
+import CommandInteraction from "@interfaces/CommandInteraction.js"
 export default {
 	data: new SlashCommandBuilder()
 		.setName('beg')
@@ -32,10 +30,11 @@ export default {
 					de: 'DER GRUND'
 				})
 				.setRequired(false)),
-	async execute(interaction: CommandInteraction, client: Client, lang: string, vote: string) {
+
+	async execute(ctx: CommandInteraction) {
 		// Set Variables
-		const amount = bot.getOption(interaction, 'amount') as number
-		const reason = bot.getOption(interaction, 'reason') as string
+		const amount = ctx.getOption('amount') as number
+		const reason = ctx.getOption('reason') as string
 
 		// Check if Balance is Minus
 		if (amount < 0) {
@@ -43,18 +42,18 @@ export default {
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
 				.setDescription('» You cant ask for negative Money!')
-				.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
-			if (lang === 'de') {
+			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
 					.setDescription('» Du kannst nicht nach negativem Geld fragen!')
-					.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 			
 			// Send Message
-			bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] BEG : NEGATIVEMONEY : ' + amount + '€')
-			return interaction.reply({ embeds: [message], ephemeral: true })
+			ctx.log(false, `[CMD] BEG : NEGATIVEMONEY : ${amount}€`)
+			return ctx.interaction.reply({ embeds: [message], ephemeral: true })
 		}
 
 		// Check for Max Amount
@@ -63,44 +62,44 @@ export default {
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('» BEGGING')
 				.setDescription('» You cant beg that much! **$10000** is the Maximum.')
-				.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
-			if (lang === 'de') {
+			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('» BETTELN')
 					.setDescription('» Du kannst nicht soviel erbetteln! **10000€** ist das Maximum.')
-					.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 			
 			// Send Message
-			bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] BEG : TOOMUCHMONEY : ' + amount + '€')
-			return interaction.reply({ embeds: [message], ephemeral: true })
+			ctx.log(false, `[CMD] BEG : TOOMUCHMONEY : ${amount}€`)
+			return ctx.interaction.reply({ embeds: [message], ephemeral: true })
 		}
 
 		// Set Reason Type
 		let reasontype: string
-		if (reason === null) { reasontype = 'NONE' }
+		if (!reason) reasontype = 'NONE'
 		else { reasontype = 'SET' }
 		let reasonres = reason
-		if (reason === null) { reasonres = 'NULL' }
+		if (!reason) reasonres = 'NULL'
 
 		// Create Button
 		let row = new ActionRowBuilder()
 			.addComponents(
 				new ButtonBuilder()
-					.setLabel('GIVE ' + interaction.user.username.toUpperCase() + ' $' + amount)
+					.setLabel('GIVE ' + ctx.interaction.user.username.toUpperCase() + ' $' + amount)
 					.setEmoji('1024382935618572299')
-					.setCustomId('BEG-' + interaction.user.id + '-' + amount + '-' + reasontype + '-' + reasonres.toString())
+					.setCustomId('BEG-' + ctx.interaction.user.id + '-' + amount + '-' + reasontype + '-' + reasonres.toString())
 					.setStyle(ButtonStyle.Secondary),
 			)
 
-		if (lang === 'de') {
+		if (ctx.metadata.language === 'de') {
 			row = new ActionRowBuilder()
 				.addComponents(
 					new ButtonBuilder()
-						.setLabel('GEBE ' + interaction.user.username.toUpperCase() + ' ' + amount + '€')
+						.setLabel('GEBE ' + ctx.interaction.user.username.toUpperCase() + ' ' + amount + '€')
 						.setEmoji('1024382935618572299')
-						.setCustomId('BEG-' + interaction.user.id + '-' + amount + '-' + reasontype + '-' + reasonres.toString())
+						.setCustomId('BEG-' + ctx.interaction.user.id + '-' + amount + '-' + reasontype + '-' + reasonres.toString())
 						.setStyle(ButtonStyle.Secondary),
 				)
 		}
@@ -110,31 +109,31 @@ export default {
 		if (!reason) {
 	  		message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:DONATE:1024397357988720711> » BEGGING')
-  				.setDescription('» <@' + interaction.user.id + '> needs Money!\nTotal Earnings: **$0**')
-				.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+  			.setDescription('» <@' + ctx.interaction.user.id + '> needs Money!\nTotal Earnings: **$0**')
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
-			if (lang === 'de') {
+			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:DONATE:1024397357988720711> » BETTELN')
-  					.setDescription('» <@' + interaction.user.id + '> braucht Geld!\nInsgesamte Einnahmen: **0€**')
-					.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+  				.setDescription('» <@' + ctx.interaction.user.id + '> braucht Geld!\nInsgesamte Einnahmen: **0€**')
+					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 		} else {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:DONATE:1024397357988720711> » BEGGING')
-  				.setDescription('» <@' + interaction.user.id + '> needs Money!\nTotal Earnings: **$0**\n*"' + reason.toString() + '"*')
-				.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+  			.setDescription('» <@' + ctx.interaction.user.id + '> needs Money!\nTotal Earnings: **$0**\n*"' + reason.toString() + '"*')
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
-			if (lang === 'de') {
+			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:DONATE:1024397357988720711> » BETTELN')
-  					.setDescription('» <@' + interaction.user.id + '> braucht Geld!\nInsgesamte Einnahmen: **0€**\n*"' + reason.toString() + '"*')
-					.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+  				.setDescription('» <@' + ctx.interaction.user.id + '> braucht Geld!\nInsgesamte Einnahmen: **0€**\n*"' + reason.toString() + '"*')
+					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 		}
 
 		// Send Message
-		bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] BEG : ' + amount + '€')
-		return interaction.reply({ embeds: [message], components: [row as any] })
+		ctx.log(false, `[CMD] BEG : ${amount}€`)
+		return ctx.interaction.reply({ embeds: [message], components: [row as any] })
 	}
 }

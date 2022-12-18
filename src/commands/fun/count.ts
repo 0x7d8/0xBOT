@@ -1,9 +1,7 @@
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js"
 import { SlashCommandBuilder, EmbedBuilder } from "discord.js"
 
-import * as bot from "@functions/bot.js"
-import Client from "@interfaces/Client.js"
-import { CommandInteraction } from "discord.js"
+import CommandInteraction from "@interfaces/CommandInteraction.js"
 export default {
 	data: new SlashCommandBuilder()
 		.setName('count')
@@ -28,9 +26,9 @@ export default {
 					{ name: '🟡 PLUS & MINUS', value: 'minus' },
 				)),
 
-	async execute(interaction: CommandInteraction, client: Client, lang: string, vote: string) {
+	async execute(ctx: CommandInteraction) {
 		// Set Variables
-		const mode = bot.getOption(interaction, 'mode') as string
+		const mode = ctx.getOption('mode') as string
 
 		// Create Button
 		let row: any
@@ -61,18 +59,18 @@ export default {
 		// Create Embed
 	  	let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:INFINITE:1024406060380979300> » COUNTING')
-  				.setDescription('» Lets Count! Current Number: **0**')
-				.setFooter({ text: '» ' + client.config.version })
+  			.setDescription('» Lets Count! Current Number: **0**')
+				.setFooter({ text: '» ' + ctx.client.config.version })
 
-		if (lang === 'de') {
+		if (ctx.metadata.language === 'de') {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:INFINITE:1024406060380979300> » ZÄHLEN')
-  				.setDescription('» Komm Zählen! Aktuelle Nummer: **0**')
-				.setFooter({ text: '» ' + client.config.version })
+  			.setDescription('» Komm Zählen! Aktuelle Nummer: **0**')
+				.setFooter({ text: '» ' + ctx.client.config.version })
 		}
 
 		// Send Message
-		bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] COUNT : ' + mode.toUpperCase())
-		return interaction.reply({ embeds: [message], components: [row as any] })
+		ctx.log(false, `[CMD] COUNT : ${mode.toUpperCase()}`)
+		return ctx.interaction.reply({ embeds: [message], components: [row as any] })
 	}
 }

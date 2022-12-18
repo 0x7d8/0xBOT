@@ -1,9 +1,6 @@
-import { SlashCommandBuilder, EmbedBuilder, Collection } from "discord.js"
-const cooldown = new Collection()
+import { SlashCommandBuilder, EmbedBuilder } from "discord.js"
 
-import * as bot from "@functions/bot.js"
-import Client from "@interfaces/Client.js"
-import { CommandInteraction } from "discord.js"
+import CommandInteraction from "@interfaces/CommandInteraction.js"
 export default {
 	data: new SlashCommandBuilder()
 		.setName('quote')
@@ -33,95 +30,94 @@ export default {
 				})
 				.setRequired(false)),
 
-	async execute(interaction: CommandInteraction, client: Client, lang: string, vote: string) {
+	async execute(ctx: CommandInteraction) {
 		// Check if Quotes are Enabled in Server
-		if (!await bot.settings.get(interaction.guild.id, 'quotes')) {
+		if (!await ctx.bot.settings.get(ctx.interaction.guild.id, 'quotes')) {
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
 				.setDescription('» Quotes are disabled on this Server!')
-				.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
-			if (lang === 'de') {
+			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
 					.setDescription('» Zitate sind auf diesem Server deaktiviert!')
-					.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 			
 			// Send Message
-			bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] QUOTE : DISABLED')
-			return interaction.reply({ embeds: [message], ephemeral: true })
+			ctx.log(false, `[CMD] QUOTE : DISABLED`)
+			return ctx.interaction.reply({ embeds: [message], ephemeral: true })
 		}
 
 		// Set Variables
-		const quote = bot.getOption(interaction, 'quote') as string
-		const author = interaction.options.getUser("author")
+		const quote = ctx.getOption('quote') as string
+		const author = ctx.interaction.options.getUser("author")
 	 
 		// Cooldown
-		if (cooldown.get(interaction.user.id) as number - Date.now() > 0) {
+		if ((await ctx.bot.cooldown.get(ctx.interaction.user.id, 'quote')).onCooldown) {
 			// Translate Vars
-			const timeLeft = cooldown.get(interaction.user.id) as number - Date.now()
+			const timeLeft = (await ctx.bot.cooldown.get(ctx.interaction.user.id, 'quote')).remaining
 			const cdown = timeLeft / 1000
 			
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-  				.setDescription('» You still have a Cooldown of **' + cdown.toFixed(0) + 's**!')
-				.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+  			.setDescription('» You still have a Cooldown of **' + cdown.toFixed(0) + 's**!')
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
-			if (lang === 'de') {
+			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-  					.setDescription('» Du hast leider noch einen Cooldown von **' + cdown.toFixed(0) + 's**!')
-					.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+  				.setDescription('» Du hast leider noch einen Cooldown von **' + cdown.toFixed(0) + 's**!')
+					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 			
 			// Send Message
-			bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] QUOTE : ONCOOLDOWN : ' + cdown.toFixed(0) + 's')
-			return interaction.reply({ embeds: [message], ephemeral: true })
+			ctx.log(false, `[CMD] QUOTE : ONCOOLDOWN : ${cdown.toFixed(0)}s`)
+			return ctx.interaction.reply({ embeds: [message], ephemeral: true })
 		}
 		
 		// Check if there is a author specified
 		let message: any
-		if (!author || interaction.user.id === author.id) {
-			const amount = await bot.quotes.get(interaction.user.id) + 1
+		if (!author || ctx.interaction.user.id === author.id) {
+			const amount = await ctx.bot.quotes.get(ctx.interaction.user.id) + 1
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:QUOTES:1024406448127623228> » A WISE QUOTE')
-  				.setDescription('» "' + quote + '" ~<@' + interaction.user.id + '>')
-				.setFooter({ text: '» ' + client.config.version + ' » QUOTES: ' + amount})
+  			.setDescription('» "' + quote + '" ~<@' + ctx.interaction.user.id + '>')
+				.setFooter({ text: '» ' + ctx.client.config.version + ' » QUOTES: ' + amount})
 
-			if (lang === 'de') {
+			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:QUOTES:1024406448127623228> » EIN WEISES ZITAT')
-  					.setDescription('» "' + quote + '" ~<@' + interaction.user.id + '>')
-					.setFooter({ text: '» ' + client.config.version + ' » ZITATE: ' + amount})
+  				.setDescription('» "' + quote + '" ~<@' + ctx.interaction.user.id + '>')
+					.setFooter({ text: '» ' + ctx.client.config.version + ' » ZITATE: ' + amount})
 			}
 			
-			bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] QUOTE : ' + quote.toUpperCase())
+			ctx.log(false, `[CMD] QUOTE : ${quote.toUpperCase()}`)
 		} else {
-			const amount = await bot.quotes.get(author.toString().replace(/\D/g, '')) + 1
+			const amount = await ctx.bot.quotes.get(author.toString().replace(/\D/g, '')) + 1
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:QUOTES:1024406448127623228> » A QUOTE')
-  				.setDescription('» "' + quote + '" ~<@' + author + '>')
-				.setFooter({ text: '» ' + client.config.version + ' » QUOTES: ' + amount})
+  			.setDescription('» "' + quote + '" ~<@' + author + '>')
+				.setFooter({ text: '» ' + ctx.client.config.version + ' » QUOTES: ' + amount})
 
-			if (lang === 'de') {
+			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
-					.setTitle('<:QUOTES:1024406448127623228> » EIN quote')
-  					.setDescription('» "' + quote + '" ~<@' + author + '>')
-					.setFooter({ text: '» ' + client.config.version + ' » ZITATE: ' + amount})
+					.setTitle('<:QUOTES:1024406448127623228> » EIN ZITAT')
+  				.setDescription('» "' + quote + '" ~<@' + author + '>')
+					.setFooter({ text: '» ' + ctx.client.config.version + ' » ZITATE: ' + amount})
 			}
 			
-			bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] QUOTE : ' + quote.toUpperCase() + ' : ~' + author)
-			bot.quotes.add(author.toString().replace(/\D/g, ''), 1)
+			ctx.log(false, `[CMD] QUOTE : ${quote.toUpperCase()} : ${author.id}`)
+			ctx.bot.quotes.add(author.toString().replace(/\D/g, ''), 1)
 		}
 		
 		// Set Cooldown
-		cooldown.set(interaction.user.id, Date.now() + 45000)
-		setTimeout(() => cooldown.delete(interaction.user.id), 45000)
+		ctx.bot.cooldown.set(ctx.interaction.user.id, 'quote', 1*60*1000)
 
 		// Send Message
-		return interaction.reply({ embeds: [message] })
+		return ctx.interaction.reply({ embeds: [message] })
 	}
 }

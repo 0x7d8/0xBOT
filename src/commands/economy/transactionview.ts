@@ -1,8 +1,6 @@
 import { SlashCommandBuilder, EmbedBuilder } from "discord.js"
 
-import * as bot from "@functions/bot.js"
-import Client from "@interfaces/Client.js"
-import { CommandInteraction } from "discord.js"
+import CommandInteraction from "@interfaces/CommandInteraction.js"
 export default {
 	data: new SlashCommandBuilder()
 		.setName('transactionview')
@@ -19,10 +17,10 @@ export default {
 				})
 				.setRequired(true)),
 
-	async execute(interaction: CommandInteraction, client: Client, lang: string, vote: string) {
+	async execute(ctx: CommandInteraction) {
 		// Set Variables
-		const transactionId = bot.getOption(interaction, 'id') as string
-		const transaction = await bot.transactions.get(transactionId)
+		const transactionId = ctx.getOption('id') as string
+		const transaction = await ctx.bot.transactions.get(transactionId)
 
 		// Check if Transaction exists
 		if (transaction === 'N-FOUND') {
@@ -30,29 +28,29 @@ export default {
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
 				.setDescription('» This Transaction doesnt exist!')
-				.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
-			if (lang === 'de') {
+			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
 					.setDescription('» Diese Transaktion existiert nicht!')
-					.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 			
 			// Send Message
-			bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] TRANSACTIONVIEW : NOTEXIST : ' + transactionId)
-			return interaction.reply({ embeds: [message], ephemeral: true })
+			ctx.log(false, `[CMD] TRANSACTIONVIEW : NOTEXIST : ${transactionId}`)
+			return ctx.interaction.reply({ embeds: [message], ephemeral: true })
 		}
 
 		// Fetch User Infos
 		let sender: string, reciever: string
 		if (isNaN(transaction.sender.id.slice(-1))) {
-			const senderInfo = await bot.userdb.get(transaction.sender.id)
+			const senderInfo = await ctx.bot.userdb.get(transaction.sender.id)
 			sender = senderInfo.username + '#' + senderInfo.usertag
 		} else {
 			sender = transaction.sender.id
 		}; if (!isNaN(transaction.reciever.id.slice(-1))) {
-			const recieverInfo = await bot.userdb.get(transaction.reciever.id)
+			const recieverInfo = await ctx.bot.userdb.get(transaction.reciever.id)
 			reciever = recieverInfo.username + '#' + recieverInfo.usertag
 		} else {
 			reciever = transaction.reciever.id
@@ -70,9 +68,9 @@ export default {
 				» ${reciever}
 				**${transaction.reciever.type === 'positive' ? '+' : '-'}$${transaction.reciever.amount}**
 			`)
-			.setFooter({ text: '» ' + vote + ' » ' + client.config.version });
+			.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 
-		if (lang === 'de') {
+		if (ctx.metadata.language === 'de') {
 			message = new EmbedBuilder().setColor(0x37009B)
 			.setTitle('<:BAG:1024389219558367292> » TRANSAKTIONS INFOS')
   			.setDescription(`» ID: \`${transactionId}\`
@@ -84,11 +82,11 @@ export default {
 				» ${reciever}
 				**${transaction.reciever.type === 'positive' ? '+' : '-'}${transaction.reciever.amount}€**
 			`)
-			.setFooter({ text: '» ' + vote + ' » ' + client.config.version });
+			.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 		}
 
 		// Send Message
-		bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] TRANSACTIONVIEW : ' + transactionId)
-		return interaction.reply({ embeds: [message] })
+		ctx.log(false, `[CMD] TRANSACTIONVIEW : ${transactionId}`)
+		return ctx.interaction.reply({ embeds: [message] })
 	}
 }

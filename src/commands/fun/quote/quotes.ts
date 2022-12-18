@@ -1,8 +1,6 @@
 import { SlashCommandBuilder, EmbedBuilder } from "discord.js"
 
-import * as bot from "@functions/bot.js"
-import Client from "@interfaces/Client.js"
-import { CommandInteraction } from "discord.js"
+import CommandInteraction from "@interfaces/CommandInteraction.js"
 export default {
 	data: new SlashCommandBuilder()
 		.setName('quotes')
@@ -22,38 +20,38 @@ export default {
 				})
 				.setRequired(false)),
 
-	async execute(interaction: CommandInteraction, client: Client, lang: string, vote: string) {
+	async execute(ctx: CommandInteraction) {
 		// Check if Quotes are Enabled in Server
-		if (!await bot.settings.get(interaction.guild.id, 'quotes')) {
+		if (!await ctx.bot.settings.get(ctx.interaction.guild.id, 'quotes')) {
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
 				.setDescription('» Quotes are disabled on this Server!')
-				.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
-			if (lang === 'de') {
+			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
 					.setDescription('» Zitate sind auf diesem Server deaktiviert!')
-					.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 			
 			// Send Message
-			bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] QUOTES : DISABLED')
-			return interaction.reply({ embeds: [message], ephemeral: true })
+			ctx.log(false, `[CMD] QUOTES : DISABLED`)
+			return ctx.interaction.reply({ embeds: [message], ephemeral: true })
 		}
 
 		// Set Variables
-		const user = interaction.options.getUser("user")
+		const user = ctx.interaction.options.getUser("user")
 		
 		// Set User ID
 		let quotes: number
 		if (user == null) {
-			quotes = await bot.quotes.get(interaction.user.id)
-			bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] QUOTES : ' + quotes)
+			quotes = await ctx.bot.quotes.get(ctx.interaction.user.id)
+			ctx.log(false, `[CMD] QUOTES : ${quotes}`)
 		} else {
-			quotes = await bot.quotes.get(user.id)
-			bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] QUOTES : ' + user + ' : ' + quotes)
+			quotes = await ctx.bot.quotes.get(user.id)
+			ctx.log(false, `[CMD] QUOTES : ${user} : ${quotes}`)
 		}
 		
 		// Check if Plural or not
@@ -61,7 +59,7 @@ export default {
 		if (quotes === 1) word = 'Quote'
 		else word = 'Quotes'
 
-		if (lang === 'de') {
+		if (ctx.metadata.language === 'de') {
 			if (quotes === 1) word = 'Zitat'
 			else word = 'Zitate'
 		}
@@ -71,30 +69,30 @@ export default {
 		if (!user) {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:QUOTES:1024406448127623228> » YOUR QUOTES')
-  				.setDescription('» You have **' + quotes + '** ' + word + '!')
-				.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+  			.setDescription('» You have **' + quotes + '** ' + word + '!')
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
-			if (lang === 'de') {
+			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:QUOTES:1024406448127623228> » DEINE ZITATE')
-  					.setDescription('» Du hast **' + quotes + '** ' + word + '!')
-					.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+  				.setDescription('» Du hast **' + quotes + '** ' + word + '!')
+					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 		} else {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:QUOTES:1024406448127623228> » THE QUOTES OF ' + user.username.toUpperCase())
-  				.setDescription('» <@' + user + '> has **' + quotes + '** ' + word + '!')
-				.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+  			.setDescription('» <@' + user + '> has **' + quotes + '** ' + word + '!')
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
-			if (lang === 'de') {
+			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:QUOTES:1024406448127623228> » DIE ZITATE VON ' + user.username.toUpperCase())
-  					.setDescription('» <@' + user + '> hat **' + quotes + '** ' + word + '!')
-					.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+  				.setDescription('» <@' + user + '> hat **' + quotes + '** ' + word + '!')
+					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 		}
 
 		// Send Message
-		return interaction.reply({ embeds: [message] })
+		return ctx.interaction.reply({ embeds: [message] })
 	}
 }

@@ -1,30 +1,6 @@
 "use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
-const bot = __importStar(require("@functions/bot.js"));
 exports.default = {
     data: new discord_js_1.SlashCommandBuilder()
         .setName('8ball')
@@ -42,9 +18,9 @@ exports.default = {
         de: 'DIE FRAGE'
     })
         .setRequired(true)),
-    async execute(interaction, client, lang, vote) {
-        const question = bot.getOption(interaction, 'question');
-        const random = bot.random(1, 20);
+    async execute(ctx) {
+        const question = ctx.getOption('question');
+        const random = ctx.bot.random(1, 20);
         let result;
         if (random === 1)
             result = 'Certainly.';
@@ -86,7 +62,7 @@ exports.default = {
             result = 'I dont think so!';
         if (random === 20)
             result = 'I doubt it.';
-        if (lang === 'de') {
+        if (ctx.metadata.language === 'de') {
             if (random === 1)
                 result = 'Sicherlich.';
             if (random === 2)
@@ -136,15 +112,15 @@ exports.default = {
         let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
             .setTitle('<:QUESTION:1024402860210921503> » MAGIC BALL')
             .setDescription('» "' + formatted + '" -> ' + result)
-            .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
-        if (lang === 'de') {
+            .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+        if (ctx.metadata.language === 'de') {
             message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:QUESTION:1024402860210921503> » MAGISCHER BALL')
                 .setDescription('» "' + formatted + '" -> ' + result)
-                .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
+                .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
         }
-        bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] 8BALL : ' + formatted.toUpperCase() + ' : ' + result.toUpperCase());
-        return interaction.reply({ embeds: [message] });
+        ctx.log(false, '[CMD] 8BALL : ' + formatted.toUpperCase() + ' : ' + result.toUpperCase());
+        return ctx.interaction.reply({ embeds: [message] });
     }
 };
 //# sourceMappingURL=8ball.js.map

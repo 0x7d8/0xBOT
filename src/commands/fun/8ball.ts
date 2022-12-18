@@ -1,8 +1,6 @@
 import { SlashCommandBuilder, EmbedBuilder } from "discord.js"
 
-import * as bot from "@functions/bot.js"
-import Client from "@interfaces/Client.js"
-import { CommandInteraction } from "discord.js"
+import CommandInteraction from "@interfaces/CommandInteraction.js"
 export default {
 	data: new SlashCommandBuilder()
 		.setName('8ball')
@@ -22,10 +20,10 @@ export default {
 				})
 				.setRequired(true)),
 
-	async execute(interaction: CommandInteraction, client: Client, lang: string, vote: string) {
+	async execute(ctx: CommandInteraction) {
 		// Set Variables
-		const question = bot.getOption(interaction, 'question') as string
-		const random = bot.random(1, 20)
+		const question = ctx.getOption('question') as string
+		const random = ctx.bot.random(1, 20)
 
 		// Translate to Word
 		let result: string
@@ -50,7 +48,7 @@ export default {
 		if (random === 19) result = 'I dont think so!'
 		if (random === 20) result = 'I doubt it.'
 
-		if (lang === 'de') {
+		if (ctx.metadata.language === 'de') {
 			if (random === 1) result = 'Sicherlich.'
 			if (random === 2) result = 'Es ist Garantiert!'
 			if (random === 3) result = 'Ohne question!'
@@ -81,18 +79,18 @@ export default {
 		// Create Embeds
 		let message = new EmbedBuilder().setColor(0x37009B)
 			.setTitle('<:QUESTION:1024402860210921503> » MAGIC BALL')
-  			.setDescription('» "' + formatted + '" -> ' + result)
-			.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+  		.setDescription('» "' + formatted + '" -> ' + result)
+			.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
-		if (lang === 'de') {
+		if (ctx.metadata.language === 'de') {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:QUESTION:1024402860210921503> » MAGISCHER BALL')
-  				.setDescription('» "' + formatted + '" -> ' + result)
-				.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+  			.setDescription('» "' + formatted + '" -> ' + result)
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 		}
 		
 		// Send Message
-		bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] 8BALL : ' + formatted.toUpperCase() + ' : ' + result.toUpperCase())
-		return interaction.reply({ embeds: [message] })
+		ctx.log(false, '[CMD] 8BALL : ' + formatted.toUpperCase() + ' : ' + result.toUpperCase())
+		return ctx.interaction.reply({ embeds: [message] })
 	}
 }

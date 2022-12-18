@@ -25,7 +25,6 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 const utils = __importStar(require("rjutils-collection"));
-const bot = __importStar(require("@functions/bot.js"));
 exports.default = {
     data: new discord_js_1.SlashCommandBuilder()
         .setName('password')
@@ -43,35 +42,35 @@ exports.default = {
         de: 'DIE LÄNGE'
     })
         .setRequired(true)),
-    async execute(interaction, client, lang, vote) {
-        const length = bot.getOption(interaction, 'length');
-        if (length > 256) {
+    async execute(ctx) {
+        const length = ctx.getOption('length');
+        if (length > 512) {
             let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-                .setDescription('» The Maximum Size is **256**!')
-                .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
-            if (lang === 'de') {
+                .setDescription('» The Maximum Size is **512**!')
+                .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+            if (ctx.metadata.language === 'de') {
                 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-                    .setDescription('» Die Maximale Größe ist **128**!')
-                    .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
+                    .setDescription('» Die Maximale Größe ist **512**!')
+                    .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
             }
-            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] PASSWORD : TOOBIG : ' + length);
-            return interaction.reply({ embeds: [message], ephemeral: true });
+            ctx.log(false, `[CMD] PASSWORD : TOOBIG : ${length}`);
+            return ctx.interaction.reply({ embeds: [message], ephemeral: true });
         }
         if (length < 4) {
             let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» The Minimum Size is **4**!')
-                .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
-            if (lang === 'de') {
+                .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+            if (ctx.metadata.language === 'de') {
                 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
                     .setDescription('» Die Minimale Größe ist **4**!')
-                    .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
+                    .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
             }
-            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] PASSWORD : TOOSMALL : ' + length);
-            return interaction.reply({ embeds: [message], ephemeral: true });
+            ctx.log(false, `[CMD] PASSWORD : TOOSMALL : ${length}`);
+            return ctx.interaction.reply({ embeds: [message], ephemeral: true });
         }
         const password = utils.randomStr({
             numbers: true,
@@ -81,16 +80,16 @@ exports.default = {
         });
         let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
             .setTitle('<:KEY:1024392167130664980> » GENERATE PASSWORD')
-            .setDescription('» This is the Password I choose:\n`' + password + '`')
-            .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
-        if (lang === 'de') {
+            .setDescription('» This is the Password I came up with:\n`' + password + '`')
+            .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+        if (ctx.metadata.language === 'de') {
             message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:KEY:1024392167130664980> » PASSWORT GENERIEREN')
                 .setDescription('» Das hier ist mein ausgedachtes Passwort:\n`' + password + '`')
-                .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
+                .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
         }
-        bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] PASSWORD : ' + length + ' : SUCCESS');
-        return interaction.reply({ embeds: [message], ephemeral: true });
+        ctx.log(false, `[CMD] PASSWORD : ${length} : SUCCESS`);
+        return ctx.interaction.reply({ embeds: [message], ephemeral: true });
     }
 };
 //# sourceMappingURL=password.js.map

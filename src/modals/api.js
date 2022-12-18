@@ -27,7 +27,7 @@ module.exports = {
 			}
 
 			// Send Message
-			bot.log(false, interaction.user.id, interaction.guild.id, '[MOD] APIEDIT : ' + name + ' : "' + content.toUpperCase() + '"')
+			ctx.log(false, '[MOD] APIEDIT : ' + name + ' : "' + content.toUpperCase() + '"')
 			return interaction.reply({ embeds: [message], ephemeral: true })
 		} else if (action === 'create') {
 			// Write API
@@ -50,7 +50,7 @@ module.exports = {
 			}
 
 			// Send Message
-			bot.log(false, interaction.user.id, interaction.guild.id, '[MOD] APICREATE : ' + name + ' : "' + content.toUpperCase() + '"')
+			ctx.log(false, '[MOD] APICREATE : ' + name + ' : "' + content.toUpperCase() + '"')
 			return interaction.reply({ embeds: [message], ephemeral: true })
 		}
 	}

@@ -1,30 +1,6 @@
 "use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
-const bot = __importStar(require("@functions/bot.js"));
 exports.default = {
     data: new discord_js_1.SlashCommandBuilder()
         .setName('stocksell')
@@ -52,38 +28,38 @@ exports.default = {
         de: 'DIE ANZAHL'
     })
         .setRequired(true)),
-    async execute(interaction, client, lang, vote) {
-        if (!await bot.settings.get(interaction.guild.id, 'stocks')) {
+    async execute(ctx) {
+        if (!await ctx.bot.settings.get(ctx.interaction.guild.id, 'stocks')) {
             let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» Stocks are disabled on this Server!')
-                .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
-            if (lang === 'de') {
+                .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+            if (ctx.metadata.language === 'de') {
                 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
                     .setDescription('» Aktien sind auf diesem Server deaktiviert!')
-                    .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
+                    .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
             }
-            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] STOCKSELL : DISABLED');
-            return interaction.reply({ embeds: [message], ephemeral: true });
+            ctx.log(false, `[CMD] STOCKSELL : DISABLED`);
+            return ctx.interaction.reply({ embeds: [message], ephemeral: true });
         }
-        const stock = bot.getOption(interaction, 'stock');
-        const amount = bot.getOption(interaction, 'amount');
+        const stock = ctx.getOption('stock');
+        const amount = ctx.getOption('amount');
         if (amount < 0) {
             let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» You cant sell a negative amount of Stocks!')
-                .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
-            if (lang === 'de') {
+                .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+            if (ctx.metadata.language === 'de') {
                 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
                     .setDescription('» Du kannst keine negativen Anzahlen verkaufen!')
-                    .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
+                    .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
             }
-            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] STOCKSELL : NEGATIVESTOCKS : ' + amount + '€');
-            return interaction.reply({ embeds: [message], ephemeral: true });
+            ctx.log(false, `[CMD] STOCKSELL : NEGATIVESTOCKS : ${amount}€`);
+            return ctx.interaction.reply({ embeds: [message], ephemeral: true });
         }
-        const cash = amount * client.stocks[stock];
+        const cash = amount * ctx.client.stocks[stock];
         let emoji;
         if (stock === 'green')
             emoji = '🟢';
@@ -97,47 +73,47 @@ exports.default = {
             emoji = '⚪';
         if (stock === 'black')
             emoji = '⚫';
-        if (await bot.stocks.get(interaction.user.id, stock, 'used') < amount) {
-            const missing = amount - (await bot.stocks.get(interaction.user.id, stock, 'used'));
+        if (await ctx.bot.stocks.get(ctx.interaction.user.id, stock, 'used') < amount) {
+            const missing = amount - (await ctx.bot.stocks.get(ctx.interaction.user.id, stock, 'used'));
             let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» You dont have enough Stocks for that, you are missing **' + missing + '** ' + emoji + ' !')
-                .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
-            if (interaction.guildLocale) {
+                .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+            if (ctx.interaction.guildLocale) {
                 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
                     .setDescription('» Du hast dafür nicht genug Aktien, dir fehlen **' + missing + '** ' + emoji + ' !')
-                    .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
+                    .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
             }
-            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] STOCKSELL : ' + stock.toUpperCase() + ' : ' + amount + ' : ' + cash + '€ : NOTENOUGHSTOCKS');
-            return interaction.reply({ embeds: [message], ephemeral: true });
+            ctx.log(false, `[CMD] STOCKSELL : ${stock.toUpperCase()} : ${amount} : ${cash}€ : NOTENOUGHSTOCKS`);
+            return ctx.interaction.reply({ embeds: [message], ephemeral: true });
         }
-        const transaction = await bot.transactions.log({
+        const transaction = await ctx.bot.transactions.log({
             success: true,
             sender: {
                 id: `${amount} ${stock.toUpperCase()} STOCK`,
                 amount: cash,
                 type: 'negative'
             }, reciever: {
-                id: interaction.user.id,
+                id: ctx.interaction.user.id,
                 amount: cash,
                 type: 'positive'
             }
         });
-        bot.money.add(interaction.guild.id, interaction.user.id, cash);
-        bot.stocks.rem(interaction.user.id, stock, 'used', amount);
+        ctx.bot.money.add(ctx.interaction.guild.id, ctx.interaction.user.id, cash);
+        ctx.bot.stocks.rem(ctx.interaction.user.id, stock, 'used', amount);
         let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
             .setTitle('<:CHART:1024398298204876941> » SELL STOCKS')
-            .setDescription('» You successfully sold **' + amount + '** ' + emoji + ' for **$' + cash + '**! (**$' + client.stocks[stock] + '** per Stock)\n\nID: ' + transaction.id)
-            .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
-        if (lang === 'de') {
+            .setDescription('» You successfully sold **' + amount + '** ' + emoji + ' for **$' + cash + '**! (**$' + ctx.client.stocks[stock] + '** per Stock)\n\nID: ' + transaction.id)
+            .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+        if (ctx.metadata.language === 'de') {
             message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:CHART:1024398298204876941> » AKTIEN VERKAUFEN')
-                .setDescription('» Du hast erfolgreich **' + amount + '** ' + emoji + ' für **' + cash + '€** verkauft! (**' + client.stocks[stock] + '€** pro Aktie)\n\nID: ' + transaction.id)
-                .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
+                .setDescription('» Du hast erfolgreich **' + amount + '** ' + emoji + ' für **' + cash + '€** verkauft! (**' + ctx.client.stocks[stock] + '€** pro Aktie)\n\nID: ' + transaction.id)
+                .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
         }
-        bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] STOCKSELL : ' + stock.toUpperCase() + ' : ' + amount + ' : ' + cash + '€');
-        return interaction.reply({ embeds: [message], ephemeral: true });
+        ctx.log(false, `[CMD] STOCKSELL : ${stock.toUpperCase()} : ${amount} : ${cash}€`);
+        return ctx.interaction.reply({ embeds: [message], ephemeral: true });
     }
 };
 //# sourceMappingURL=stocksell.js.map

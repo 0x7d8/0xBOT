@@ -45,7 +45,7 @@ module.exports = {
                 .setFooter({ text: '» ' + ctr.config.version });
         }
         await ctr.bot.money.add(false, ctr.reqBody.id, random);
-        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] VOTED : ' + ctr.reqBody.id + ' : ' + random + '€ : DBLCOM');
+        console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [WEB] VOTED : ' + ctr.reqBody.id + ' : ' + random + '€ : DBLCOM');
         ctr.client.users.send(ctr.reqBody.id, { embeds: [message] });
         if ((await ctr.bot.votes.get(ctr.reqBody.id + '-A') + 1) % 10 === 0) {
             ctr.bot.money.add(false, ctr.reqBody.id, extra);

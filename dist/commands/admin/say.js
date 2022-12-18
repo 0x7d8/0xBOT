@@ -12,7 +12,7 @@ exports.default = {
     })
         .setDMPermission(false)
         .setDefaultMemberPermissions(v10_1.PermissionFlagsBits.Administrator),
-    async execute(interaction, client, lang, vote) {
+    async execute(ctx) {
         const modal = new discord_js_1.ModalBuilder()
             .setCustomId('say')
             .setTitle('EMBED CONTENT');
@@ -27,7 +27,7 @@ exports.default = {
             .setMinLength(1)
             .setMaxLength(1000)
             .setStyle(discord_js_1.TextInputStyle.Paragraph);
-        if (lang === 'de') {
+        if (ctx.metadata.language === 'de') {
             titleInput = new discord_js_1.TextInputBuilder()
                 .setCustomId('say-title')
                 .setLabel('Bitte geb den Titel der Embed an.')
@@ -43,7 +43,7 @@ exports.default = {
         const title = new discord_js_1.ActionRowBuilder().addComponents(titleInput);
         const content = new discord_js_1.ActionRowBuilder().addComponents(contentInput);
         modal.addComponents(title, content);
-        return interaction.showModal(modal);
+        return ctx.interaction.showModal(modal);
     }
 };
 //# sourceMappingURL=say.js.map

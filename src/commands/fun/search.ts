@@ -1,9 +1,7 @@
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js"
 import { SlashCommandBuilder, EmbedBuilder } from "discord.js"
 
-import * as bot from "@functions/bot.js"
-import Client from "@interfaces/Client.js"
-import { CommandInteraction } from "discord.js"
+import CommandInteraction from "@interfaces/CommandInteraction.js"
 export default {
 	data: new SlashCommandBuilder()
 		.setName('search')
@@ -37,10 +35,10 @@ export default {
 					{ name: '⭐ DUCKDUCKGO', value: 'DuckDuckGo' },
 				)),
 
-	async execute(interaction: CommandInteraction, client: Client, lang: string, vote: string) {
+	async execute(ctx: CommandInteraction) {
 		// Set Variables
-		let query = bot.getOption(interaction, 'query') as string
-		let engine = bot.getOption(interaction, 'engine') as string
+		let query = ctx.getOption('query') as string
+		let engine = ctx.getOption('engine') as string
 		if (!engine) engine = 'Google'
 		
 		// Create Query
@@ -79,26 +77,26 @@ export default {
 		// Create Embed
 	   	let message = new EmbedBuilder().setColor(0x37009B)
 			.setTitle('<:SEARCH:1024389710279348354> » SEARCH')
-  			.setDescription('» Click Below to look up results for **' + decodeURIComponent(query) + '** on **' + engine + '**!')
-			.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+  		.setDescription('» Click Below to look up results for **' + decodeURIComponent(query) + '** on **' + engine + '**!')
+			.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
-		if (lang === 'de') {
+		if (ctx.metadata.language === 'de') {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:SEARCH:1024389710279348354> » SUCHEN')
-  				.setDescription('» Klicke unten um nach Ergebnissen für **' + decodeURIComponent(query) + '** auf **' + engine + '** zu finden!')
-				.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+  			.setDescription('» Klicke unten um nach Ergebnissen für **' + decodeURIComponent(query) + '** auf **' + engine + '** zu finden!')
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 		}
 		
 		// Send Message
-		bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] SEARCH : "' + decodeURIComponent(query).toUpperCase() + '" : ' + engine.toUpperCase())
+		ctx.log(false, '[CMD] SEARCH : "' + decodeURIComponent(query).toUpperCase() + '" : ' + engine.toUpperCase())
 		if (engine === 'Google') {
-			await interaction.reply({ embeds: [message], components: [google as any] })
+			await ctx.interaction.reply({ embeds: [message], components: [google as any] })
 		}; if (engine === 'Bing') {
-			await interaction.reply({ embeds: [message], components: [bing as any] })
+			await ctx.interaction.reply({ embeds: [message], components: [bing as any] })
 		}; if (engine === 'Yahoo') {
-			await interaction.reply({ embeds: [message], components: [yahoo as any] })
+			await ctx.interaction.reply({ embeds: [message], components: [yahoo as any] })
 		}; if (engine === 'DuckDuckGo') {
-			await interaction.reply({ embeds: [message], components: [duck as any] })
+			await ctx.interaction.reply({ embeds: [message], components: [duck as any] })
 		}
 	}
 }

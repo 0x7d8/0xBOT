@@ -48,7 +48,7 @@ module.exports = {
             }
 
         	// Send Message
-        	bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] APIVIEW : ' + name + ' : ' + data.toUpperCase())
+        	ctx.log(false, '[CMD] APIVIEW : ' + name + ' : ' + data.toUpperCase())
         	return interaction.reply({ embeds: [message], ephemeral: true })
         } else {
             // Create Embed
@@ -65,7 +65,7 @@ module.exports = {
             }
             
             // Send Message
-            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] APIVIEW : ' + name + ' : NOTFOUND')
+            ctx.log(false, '[CMD] APIVIEW : ' + name + ' : NOTFOUND')
             return interaction.reply({ embeds: [message], ephemeral: true })
         }
     }

@@ -1,9 +1,7 @@
 import { SlashCommandBuilder, EmbedBuilder } from "discord.js"
 import { PermissionFlagsBits } from "discord-api-types/v10"
 
-import * as bot from "@functions/bot.js"
-import Client from "@interfaces/Client.js"
-import { CommandInteraction } from "discord.js"
+import CommandInteraction from "@interfaces/CommandInteraction.js"
 export default {
 	data: new SlashCommandBuilder()
 		.setName('language')
@@ -29,9 +27,9 @@ export default {
 				))
 		.setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages),
 
-	async execute(interaction: CommandInteraction, client: Client, bin: void, vote: string) {
+	async execute(ctx: CommandInteraction) {
 		// Set Variables
-		const lang = bot.getOption(interaction, 'language') as string
+		const lang = ctx.getOption('language') as string
 
 		// Get String
 		let langString: string
@@ -39,23 +37,23 @@ export default {
 		if (lang === 'en') langString = 'ENGLISH'
 
 		// Set Language
-		bot.language.set(interaction.guild.id, lang)
+		ctx.bot.language.set(ctx.interaction.guild.id, lang)
 
 		// Create Embed
 		let message = new EmbedBuilder().setColor(0x37009B)
 			.setTitle('» LANGUAGE')
 			.setDescription('» Language successfully set to **' + langString + '**!')
-			.setFooter({ text: '» ' + client.config.version })
+			.setFooter({ text: '» ' + ctx.client.config.version })
 
 		if (lang === 'de') {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('» SPRACHE')
 				.setDescription('» Sprache erfolgreich auf **' + langString + '** gesetzt!')
-				.setFooter({ text: '» ' + client.config.version })
+				.setFooter({ text: '» ' + ctx.client.config.version })
 		}
 			
 		// Send Message
-		bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] LANGUAGE : ' + langString)
-		return interaction.reply({ embeds: [message], ephemeral: true })
+		ctx.log(false, `[CMD] LANGUAGE : ${langString}`)
+		return ctx.interaction.reply({ embeds: [message], ephemeral: true })
 	}
 }

@@ -1,8 +1,6 @@
 import { SlashCommandBuilder, EmbedBuilder } from "discord.js"
 
-import * as bot from "@functions/bot.js"
-import Client from "@interfaces/Client.js"
-import { CommandInteraction } from "discord.js"
+import CommandInteraction from "@interfaces/CommandInteraction.js"
 export default {
 	data: new SlashCommandBuilder()
 		.setName('mcsrvinfo')
@@ -22,14 +20,14 @@ export default {
 				})
 				.setRequired(true)),
 
-	async execute(interaction: CommandInteraction, client: Client, lang: string, vote: string) {
+	async execute(ctx: CommandInteraction) {
 		const axios = (await import('axios')).default
 
 		// Defer Reply
-		await interaction.deferReply()
+		await ctx.interaction.deferReply()
 
 		// Set Variables
-		const address = bot.getOption(interaction, 'address') as string
+		const address = ctx.getOption('address') as string
 		const req = await axios({
 			method: 'GET',
 			url: `https://api.mcsrvstat.us/2/${encodeURIComponent(address)}`,
@@ -43,18 +41,18 @@ export default {
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:CUBE:1024404832452350032> » MINECRAFT SERVER INFO')
 				.setDescription(`» The Server **${address}** was not found!`)
-				.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
-			if (lang === 'de') {
+			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:CUBE:1024404832452350032> » MINECRAFT SERVER INFO')
 					.setDescription(`» Der Server **${address}** wurde nicht gefunden!`)
-					.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 
 			// Send Message
-			bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] MCSRVINFO : ' + address.toUpperCase() + ' : NOTEXIST')
-			return interaction.editReply({ embeds: [message] })
+			ctx.log(false, `[CMD] MCSRVINFO : ${address.toUpperCase()} : NOTEXIST`)
+			return ctx.interaction.editReply({ embeds: [message] })
 		}
 
 		// Get Infos
@@ -70,18 +68,18 @@ export default {
 			.setTitle('<:CUBE:1024404832452350032> » MINECRAFT SERVER INFO')
 			.setThumbnail(`https://api.mcsrvstat.us/icon/${encodeURIComponent(address)}`)
   			.setDescription(`${status}\n\n» IP\n\`${info.ip}:${info.port}\`\n\n» Players\n\`${players.online}/${players.slots}\``)
-			.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+			.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
-		if (lang === 'de') {
+		if (ctx.metadata.language === 'de') {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:CUBE:1024404832452350032> » MINECRAFT SERVER INFO')
 				.setThumbnail(`https://api.mcsrvstat.us/icon/${encodeURIComponent(address)}`)
 				.setDescription(`${status}\n\n» IP\n\`${info.ip}:${info.port}\`\n\n» Spieler\n\`${players.online}/${players.slots}\``)
-				.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 		}
 
 		// Send Message
-		bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] MCSRVINFO : ' + address.toUpperCase())
-		return interaction.editReply({ embeds: [message] })
+		ctx.log(false, '[CMD] MCSRVINFO : ' + address.toUpperCase())
+		return ctx.interaction.editReply({ embeds: [message] })
 	}
 }

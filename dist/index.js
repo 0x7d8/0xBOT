@@ -230,7 +230,7 @@ stdin.addListener("data", async (input) => {
         console.log(' ');
         console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [STA] $$$$$ LOADING COMMANDS AND EVENTS`);
         console.log(' ');
-        (0, bot_js_1.start)();
+        (0, bot_js_1.start)(db);
     })();
 }
 //# sourceMappingURL=index.js.map

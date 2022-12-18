@@ -1,31 +1,7 @@
 "use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 const discord_js_2 = require("discord.js");
-const bot = __importStar(require("@functions/bot.js"));
 exports.default = {
     data: new discord_js_2.SlashCommandBuilder()
         .setName('itemuse')
@@ -53,24 +29,24 @@ exports.default = {
     })
         .setRequired(true)
         .addChoices({ name: '💣 NORMALE BOMBE', value: 'nbomb-bomb' }, { name: '💣 MEDIUM BOMBE', value: 'mbomb-bomb' }, { name: '💣 HYPER BOMBE', value: 'hbomb-bomb' }, { name: '💣 CRAZY BOMBE', value: 'cbomb-bomb' })),
-    async execute(interaction, client, lang, vote) {
+    async execute(ctx) {
         const mathjs = await import('mathjs');
-        if (!await bot.settings.get(interaction.guild.id, 'items')) {
+        if (!await ctx.bot.settings.get(ctx.interaction.guild.id, 'items')) {
             let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» Items are disabled on this Server!')
-                .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
-            if (lang === 'de') {
+                .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+            if (ctx.metadata.language === 'de') {
                 message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
                     .setDescription('» Items sind auf diesem Server deaktiviert!')
-                    .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
+                    .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
             }
-            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ITEM : DISABLED');
-            return interaction.reply({ embeds: [message], ephemeral: true });
+            ctx.log(false, `[CMD] ITEM : DISABLED`);
+            return ctx.interaction.reply({ embeds: [message], ephemeral: true });
         }
-        const user = interaction.options.getUser("user");
-        const itemstr = bot.getOption(interaction, 'item');
+        const user = ctx.interaction.options.getUser("user");
+        const itemstr = ctx.getOption('item');
         const cache = itemstr.split('-');
         const [itemid, itemcat] = cache;
         let name;
@@ -82,7 +58,7 @@ exports.default = {
             name = '<:HBOMB:1022102357938536458> HYPER BOMB';
         if (itemid === 'cbomb')
             name = '<:CBOMB:1021783405161091162> CRAZY BOMB';
-        if (lang === 'de') {
+        if (ctx.metadata.language === 'de') {
             if (itemid === 'nbomb')
                 name = '<:NBOMB:1021783222520127508> NORMALE BOMBE';
             if (itemid === 'mbomb')
@@ -96,77 +72,77 @@ exports.default = {
             let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» You cant use Items on Bots!')
-                .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
-            if (lang === 'de') {
+                .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+            if (ctx.metadata.language === 'de') {
                 message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
                     .setDescription('» Du kannst keine Gegenstände auf einem Bot nutzen!')
-                    .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
+                    .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
             }
-            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ITEMUSE : ' + user.id + ' : BOT : ' + itemid.toUpperCase());
-            return interaction.reply({ embeds: [message], ephemeral: true });
+            ctx.log(false, `[CMD] ITEMUSE : ${user.id} : BOT : ${itemid.toUpperCase()}`);
+            return ctx.interaction.reply({ embeds: [message], ephemeral: true });
         }
-        if (await bot.items.get(interaction.user.id + '-' + itemid.toUpperCase() + 'S-' + interaction.guild.id, 'amount') < 1) {
+        if (await ctx.bot.items.get(ctx.interaction.user.id + '-' + itemid.toUpperCase() + 'S-' + ctx.interaction.guild.id, 'amount') < 1) {
             let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» You dont have enough of that Item!')
-                .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
-            if (lang === 'de') {
+                .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+            if (ctx.metadata.language === 'de') {
                 message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
                     .setDescription('» Du hast nicht genug von dem Gegenstand!')
-                    .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
+                    .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
             }
-            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ITEMUSE : ' + user.id + ' : NOTENOUGHITEMS : ' + itemid.toUpperCase());
-            return interaction.reply({ embeds: [message], ephemeral: true });
+            ctx.log(false, `[CMD] ITEMUSE : ${user.id} : NOTENOUGHITEMS : ${itemid.toUpperCase()}`);
+            return ctx.interaction.reply({ embeds: [message], ephemeral: true });
         }
-        if (interaction.user.id === user.id && itemcat === 'bomb') {
+        if (ctx.interaction.user.id === user.id && itemcat === 'bomb') {
             let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» You cant use Bombs on yourself?')
-                .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
-            if (lang === 'de') {
+                .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+            if (ctx.metadata.language === 'de') {
                 message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
                     .setDescription('» Du kannst Bomben nicht auf dir selber nutzen?')
-                    .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
+                    .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
             }
-            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ITEMUSE : ' + user.id + ' : ' + itemid.toUpperCase());
-            return interaction.reply({ embeds: [message], ephemeral: true });
+            ctx.log(false, `[CMD] ITEMUSE : ${user.id} : ${itemid.toUpperCase()}`);
+            return ctx.interaction.reply({ embeds: [message], ephemeral: true });
         }
-        if (bot.bomb.has('TIMEOUT-' + user.id + '-' + interaction.guild.id)) {
+        if (ctx.bot.bomb.has('TIMEOUT-' + user.id + '-' + ctx.interaction.guild.id)) {
             let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» <@' + user.id + '> is already being bombed!')
-                .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
-            if (lang === 'de') {
+                .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+            if (ctx.metadata.language === 'de') {
                 message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
                     .setDescription('» <@' + user.id + '> wird schon bombadiert!')
-                    .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
+                    .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
             }
-            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ITEMUSE : ' + user.id + ' : ' + itemid.toUpperCase());
-            return interaction.reply({ embeds: [message], ephemeral: true });
+            ctx.log(false, `[CMD] ITEMUSE : ${user.id} : ${itemid.toUpperCase()}`);
+            return ctx.interaction.reply({ embeds: [message], ephemeral: true });
         }
-        const channel = interaction.channel;
+        const channel = ctx.interaction.channel;
         const messages = channel.messages.fetch();
-        bot.bomb.set('MESSAGES-' + user.id + '-' + interaction.guild.id, messages);
-        bot.bomb.set('TIMEOUT-' + user.id + '-' + interaction.guild.id, true);
+        ctx.bot.bomb.set('MESSAGES-' + user.id + '-' + ctx.interaction.guild.id, messages);
+        ctx.bot.bomb.set('TIMEOUT-' + user.id + '-' + ctx.interaction.guild.id, true);
         let math;
         if (itemid === 'nbomb')
-            math = bot.random(80, 1000) + ' + ' + bot.random(10, 20) + ' - ' + bot.random(150, 200);
+            math = ctx.bot.random(80, 1000) + ' + ' + ctx.bot.random(10, 20) + ' - ' + ctx.bot.random(150, 200);
         if (itemid === 'mbomb')
-            math = bot.random(10, 20) + ' * ' + bot.random(10, 30) + ' - ' + bot.random(60, 100);
+            math = ctx.bot.random(10, 20) + ' * ' + ctx.bot.random(10, 30) + ' - ' + ctx.bot.random(60, 100);
         if (itemid === 'hbomb')
-            math = bot.random(10, 20) + ' * ' + bot.random(10, 40) + ' * ' + bot.random(60, 100);
+            math = ctx.bot.random(10, 20) + ' * ' + ctx.bot.random(10, 40) + ' * ' + ctx.bot.random(60, 100);
         if (itemid === 'cbomb')
-            math = bot.random(10, 40) + ' * (' + bot.random(100, 4000) + ' + ' + bot.random(600, 2000) + ')';
+            math = ctx.bot.random(10, 40) + ' * (' + ctx.bot.random(100, 4000) + ' + ' + ctx.bot.random(600, 2000) + ')';
         const mathres = await mathjs.evaluate(math);
-        let b1 = (mathres - bot.random(10, 50));
-        let b2 = (mathres + bot.random(10, 50) + bot.random(10, 50));
-        let b3 = (mathres + bot.random(50, 100) + 50);
-        let b4 = (mathres - bot.random(100, 150) + bot.random(5, 25));
-        const sb = bot.random(1, 4);
+        let b1 = (mathres - ctx.bot.random(10, 50));
+        let b2 = (mathres + ctx.bot.random(10, 50) + ctx.bot.random(10, 50));
+        let b3 = (mathres + ctx.bot.random(50, 100) + 50);
+        let b4 = (mathres - ctx.bot.random(100, 150) + ctx.bot.random(5, 25));
+        const sb = ctx.bot.random(1, 4);
         await eval('b' + sb + ' = ' + mathres);
         const row = new discord_js_1.ActionRowBuilder()
             .addComponents(new discord_js_1.ButtonBuilder()
@@ -186,24 +162,24 @@ exports.default = {
         if (itemcat === 'bomb') {
             message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:BOXOPEN:1024395281460101213> » USE ITEM')
-                .setDescription('» Oh <@' + user.id + '>, <@' + interaction.user.id + '> used a **' + name + '** on you!\nIf you solve this Math Equation, it wont do anything.\n\n**```' + math + '```**\nThe Bomb explodes <t:' + (Math.floor(+new Date() / 1000) + 10) + ':R>')
-                .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
-            if (lang === 'de') {
+                .setDescription('» Oh <@' + user.id + '>, <@' + ctx.interaction.user.id + '> used a **' + name + '** on you!\nIf you solve this Math Equation, it wont do anything.\n\n**```' + math + '```**\nThe Bomb explodes <t:' + (Math.floor(+new Date() / 1000) + 10) + ':R>')
+                .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+            if (ctx.metadata.language === 'de') {
                 message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:BOXOPEN:1024395281460101213> » GEGENSTAND NUTZEN')
-                    .setDescription('» Oh <@' + user.id + '>, <@' + interaction.user.id + '> hat eine **' + name + '** an dir benutzt!\nFalls du dieses Mathe Rätsel löst, passiert nichts.\n\n**```' + math + '```**\nDie Bombe explodiert <t:' + (Math.floor(+new Date() / 1000) + 10) + ':R>')
-                    .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
+                    .setDescription('» Oh <@' + user.id + '>, <@' + ctx.interaction.user.id + '> hat eine **' + name + '** an dir benutzt!\nFalls du dieses Mathe Rätsel löst, passiert nichts.\n\n**```' + math + '```**\nDie Bombe explodiert <t:' + (Math.floor(+new Date() / 1000) + 10) + ':R>')
+                    .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
             }
         }
-        bot.items.rem(interaction.user.id + '-' + itemid.toUpperCase() + 'S-' + interaction.guild.id, 1);
-        bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ITEMUSE : ' + user.id + ' : ' + itemid.toUpperCase());
+        ctx.bot.items.rem(ctx.interaction.user.id + '-' + itemid.toUpperCase() + 'S-' + ctx.interaction.guild.id, 1);
+        ctx.log(false, `[CMD] ITEMUSE : ${user.id} : ${itemid.toUpperCase()}`);
         if (itemcat === 'bomb') {
-            let msg = await interaction.reply({ content: '<@' + user.id + '>', embeds: [message], components: [row], fetchReply: true });
+            let msg = await ctx.interaction.reply({ content: '<@' + user.id + '>', embeds: [message], components: [row], fetchReply: true });
             const expiration = async () => {
-                if (!bot.bomb.has('TIMEOUT-' + user.id + '-' + interaction.guild.id))
+                if (!ctx.bot.bomb.has('TIMEOUT-' + user.id + '-' + ctx.interaction.guild.id))
                     return;
-                bot.bomb.delete('TIMEOUT-' + user.id + '-' + interaction.guild.id);
-                bot.bomb.delete('MESSAGES-' + user.id + '-' + interaction.guild.id);
+                ctx.bot.bomb.delete('TIMEOUT-' + user.id + '-' + ctx.interaction.guild.id);
+                ctx.bot.bomb.delete('MESSAGES-' + user.id + '-' + ctx.interaction.guild.id);
                 {
                     msg.components[0].components[0].data.disabled = true;
                     msg.components[0].components[1].data.disabled = true;
@@ -213,18 +189,18 @@ exports.default = {
                 ;
                 msg.components[0].components[Number(sb) - 1].data.style = discord_js_1.ButtonStyle.Success;
                 if (itemid === 'nbomb') {
-                    const member = await interaction.guild.members.fetch(user.id);
-                    member.timeout(15 * 1000, 'BOMB TIMEOUT FROM ' + interaction.user.id).catch(() => { });
+                    const member = await ctx.interaction.guild.members.fetch(user.id);
+                    member.timeout(15 * 1000, 'BOMB TIMEOUT FROM ' + ctx.interaction.user.id).catch(() => { });
                 }
                 ;
                 if (itemid === 'mbomb') {
-                    const member = await interaction.guild.members.fetch(user.id);
-                    member.timeout(30 * 1000, 'BOMB TIMEOUT FROM ' + interaction.user.id).catch(() => { });
+                    const member = await ctx.interaction.guild.members.fetch(user.id);
+                    member.timeout(30 * 1000, 'BOMB TIMEOUT FROM ' + ctx.interaction.user.id).catch(() => { });
                 }
                 ;
                 if (itemid === 'hbomb') {
-                    const member = await interaction.guild.members.fetch(user.id);
-                    member.timeout(45 * 1000, 'BOMB TIMEOUT FROM ' + interaction.user.id).catch(() => { });
+                    const member = await ctx.interaction.guild.members.fetch(user.id);
+                    member.timeout(45 * 1000, 'BOMB TIMEOUT FROM ' + ctx.interaction.user.id).catch(() => { });
                 }
                 ;
                 if (itemid === 'cbomb') {
@@ -243,15 +219,15 @@ exports.default = {
                 message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:BOXOPEN:1024395281460101213> » USE ITEM')
                     .setDescription('» <@' + user.id + '> has failed to diffuse the Bomb! OHNO')
-                    .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
-                if (lang === 'de') {
+                    .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+                if (ctx.metadata.language === 'de') {
                     message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
                         .setTitle('<:BOXOPEN:1024395281460101213> » GEGENSTAND NUTZEN')
                         .setDescription('» <@' + user.id + '> hat es nicht geschafft, die Bombe zu entschärfen! OH')
-                        .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
+                        .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
                 }
-                bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ITEMUSE : ' + user.id + ' : EXPIRED');
-                interaction.editReply({ content: '', embeds: [message], components: msg.components }).catch(() => { });
+                ctx.log(false, `[CMD] ITEMUSE : ${user.id} : EXPIRED`);
+                ctx.interaction.editReply({ content: '', embeds: [message], components: msg.components }).catch(() => { });
             };
             setTimeout(() => expiration(), 10000);
         }

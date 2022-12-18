@@ -1,8 +1,6 @@
 import { SlashCommandBuilder, EmbedBuilder } from "discord.js"
 
-import * as bot from "@functions/bot.js"
-import Client from "@interfaces/Client.js"
-import { CommandInteraction } from "discord.js"
+import CommandInteraction from "@interfaces/CommandInteraction.js"
 export default {
 	data: new SlashCommandBuilder()
 		.setName('donate')
@@ -12,24 +10,24 @@ export default {
 			de: 'SPENDE DEM BOT'
 		}),
 
-	async execute(interaction: CommandInteraction, client: Client, lang: string, vote: string) {
+	async execute(ctx: CommandInteraction) {
 		// Create Embed
 		let message = new EmbedBuilder().setColor(0x37009B)
 			.setTitle('<:DONATE:1024397357988720711> » DONATE')
 			.setDescription('**»» DONATE**\n» LINK\nhttps://donate.rjansen.de\n» QR CODE')
 			.setImage("https://img.rjansen.de/bot/donate.png")
-			.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+			.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
-		if (lang === 'de') {
+		if (ctx.metadata.language === 'de') {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:DONATE:1024397357988720711> » SPENDEN')
 				.setDescription('**»» SPENDEN**\n» LINK\nhttps://donate.rjansen.de\n» QR CODE')
 				.setImage("https://img.rjansen.de/bot/donate.png")
-				.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 		}
 
 		// Send Correct Response
-		bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] DONATE <3')
-		return interaction.reply({ embeds: [message], ephemeral: true })
+		ctx.log(false, `[CMD] DONATE <3`)
+		return ctx.interaction.reply({ embeds: [message], ephemeral: true })
 	}
 }

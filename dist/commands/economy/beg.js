@@ -1,31 +1,7 @@
 "use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 const discord_js_2 = require("discord.js");
-const bot = __importStar(require("@functions/bot.js"));
 exports.default = {
     data: new discord_js_2.SlashCommandBuilder()
         .setName('beg')
@@ -52,89 +28,87 @@ exports.default = {
         de: 'DER GRUND'
     })
         .setRequired(false)),
-    async execute(interaction, client, lang, vote) {
-        const amount = bot.getOption(interaction, 'amount');
-        const reason = bot.getOption(interaction, 'reason');
+    async execute(ctx) {
+        const amount = ctx.getOption('amount');
+        const reason = ctx.getOption('reason');
         if (amount < 0) {
             let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» You cant ask for negative Money!')
-                .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
-            if (lang === 'de') {
+                .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+            if (ctx.metadata.language === 'de') {
                 message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
                     .setDescription('» Du kannst nicht nach negativem Geld fragen!')
-                    .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
+                    .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
             }
-            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] BEG : NEGATIVEMONEY : ' + amount + '€');
-            return interaction.reply({ embeds: [message], ephemeral: true });
+            ctx.log(false, `[CMD] BEG : NEGATIVEMONEY : ${amount}€`);
+            return ctx.interaction.reply({ embeds: [message], ephemeral: true });
         }
         if (amount > 10000) {
             let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
                 .setTitle('» BEGGING')
                 .setDescription('» You cant beg that much! **$10000** is the Maximum.')
-                .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
-            if (lang === 'de') {
+                .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+            if (ctx.metadata.language === 'de') {
                 message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
                     .setTitle('» BETTELN')
                     .setDescription('» Du kannst nicht soviel erbetteln! **10000€** ist das Maximum.')
-                    .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
+                    .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
             }
-            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] BEG : TOOMUCHMONEY : ' + amount + '€');
-            return interaction.reply({ embeds: [message], ephemeral: true });
+            ctx.log(false, `[CMD] BEG : TOOMUCHMONEY : ${amount}€`);
+            return ctx.interaction.reply({ embeds: [message], ephemeral: true });
         }
         let reasontype;
-        if (reason === null) {
+        if (!reason)
             reasontype = 'NONE';
-        }
         else {
             reasontype = 'SET';
         }
         let reasonres = reason;
-        if (reason === null) {
+        if (!reason)
             reasonres = 'NULL';
-        }
         let row = new discord_js_1.ActionRowBuilder()
             .addComponents(new discord_js_1.ButtonBuilder()
-            .setLabel('GIVE ' + interaction.user.username.toUpperCase() + ' $' + amount)
+            .setLabel('GIVE ' + ctx.interaction.user.username.toUpperCase() + ' $' + amount)
             .setEmoji('1024382935618572299')
-            .setCustomId('BEG-' + interaction.user.id + '-' + amount + '-' + reasontype + '-' + reasonres.toString())
+            .setCustomId('BEG-' + ctx.interaction.user.id + '-' + amount + '-' + reasontype + '-' + reasonres.toString())
             .setStyle(discord_js_1.ButtonStyle.Secondary));
-        if (lang === 'de') {
+        if (ctx.metadata.language === 'de') {
             row = new discord_js_1.ActionRowBuilder()
                 .addComponents(new discord_js_1.ButtonBuilder()
-                .setLabel('GEBE ' + interaction.user.username.toUpperCase() + ' ' + amount + '€')
+                .setLabel('GEBE ' + ctx.interaction.user.username.toUpperCase() + ' ' + amount + '€')
                 .setEmoji('1024382935618572299')
-                .setCustomId('BEG-' + interaction.user.id + '-' + amount + '-' + reasontype + '-' + reasonres.toString())
+                .setCustomId('BEG-' + ctx.interaction.user.id + '-' + amount + '-' + reasontype + '-' + reasonres.toString())
                 .setStyle(discord_js_1.ButtonStyle.Secondary));
         }
         let message;
         if (!reason) {
             message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:DONATE:1024397357988720711> » BEGGING')
-                .setDescription('» <@' + interaction.user.id + '> needs Money!\nTotal Earnings: **$0**')
-                .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
-            if (lang === 'de') {
+                .setDescription('» <@' + ctx.interaction.user.id + '> needs Money!\nTotal Earnings: **$0**')
+                .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+            if (ctx.metadata.language === 'de') {
                 message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:DONATE:1024397357988720711> » BETTELN')
-                    .setDescription('» <@' + interaction.user.id + '> braucht Geld!\nInsgesamte Einnahmen: **0€**')
-                    .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
+                    .setDescription('» <@' + ctx.interaction.user.id + '> braucht Geld!\nInsgesamte Einnahmen: **0€**')
+                    .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
             }
         }
         else {
             message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:DONATE:1024397357988720711> » BEGGING')
-                .setDescription('» <@' + interaction.user.id + '> needs Money!\nTotal Earnings: **$0**\n*"' + reason.toString() + '"*')
-                .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
-            if (lang === 'de') {
+                .setDescription('» <@' + ctx.interaction.user.id + '> needs Money!\nTotal Earnings: **$0**\n*"' + reason.toString() + '"*')
+                .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+            if (ctx.metadata.language === 'de') {
                 message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:DONATE:1024397357988720711> » BETTELN')
-                    .setDescription('» <@' + interaction.user.id + '> braucht Geld!\nInsgesamte Einnahmen: **0€**\n*"' + reason.toString() + '"*')
-                    .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
+                    .setDescription('» <@' + ctx.interaction.user.id + '> braucht Geld!\nInsgesamte Einnahmen: **0€**\n*"' + reason.toString() + '"*')
+                    .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
             }
         }
-        bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] BEG : ' + amount + '€');
-        return interaction.reply({ embeds: [message], components: [row] });
+        ctx.log(false, `[CMD] BEG : ${amount}€`);
+        return ctx.interaction.reply({ embeds: [message], components: [row] });
     }
 };
 //# sourceMappingURL=beg.js.map

@@ -1,8 +1,6 @@
 import { SlashCommandBuilder, EmbedBuilder } from "discord.js"
 
-import * as bot from "@functions/bot.js"
-import Client from "@interfaces/Client.js"
-import { CommandInteraction } from "discord.js"
+import CommandInteraction from "@interfaces/CommandInteraction.js"
 export default {
 	data: new SlashCommandBuilder()
 		.setName('balance')
@@ -22,18 +20,18 @@ export default {
 				})
 				.setRequired(false)),
 
-	async execute(interaction: CommandInteraction, client: Client, lang: string, vote: string) {
+	async execute(ctx: CommandInteraction) {
 		// Set Variables
-		const user = interaction.options.getUser("user")
+		const user = ctx.interaction.options.getUser("user")
 
 		// Get Money
 		let money: number
 		if (!user) {
-			money = await bot.money.get(interaction.user.id)
-			bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] BALANCE : ' + money + '€')
+			money = await ctx.bot.money.get(ctx.interaction.user.id)
+			ctx.log(false, `[CMD] BALANCE : ${money}€`)
 		} else {
-			money = await bot.money.get(user.id)
-			bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] BALANCE : ' + user + ' : ' + money + '€')
+			money = await ctx.bot.money.get(user.id)
+			ctx.log(false, `[CMD] BALANCE : ${user} : ${money}€`)
 		}
 		
 		// Create Embed
@@ -41,30 +39,30 @@ export default {
 		if (!user) {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:WALLET:1024387370793050273> » YOUR BALANCE')
-  				.setDescription('» Your Balance is **$' + money + '**!')
-				.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+  			.setDescription('» Your Balance is **$' + money + '**!')
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
-			if (lang === 'de') {
+			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:WALLET:1024387370793050273> » DEIN GELDSTAND')
-  					.setDescription('» Dein Geldstand beträgt **' + money + '€**!')
-					.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+  				.setDescription('» Dein Geldstand beträgt **' + money + '€**!')
+					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 		} else {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:WALLET:1024387370793050273> » THE BALANCE OF ' + user.username.toUpperCase())
-  				.setDescription('» The Balance of <@' + user + '> is **$' + money + '**!')
-				.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+  			.setDescription('» The Balance of <@' + user + '> is **$' + money + '**!')
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
-			if (lang === 'de') {
+			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:WALLET:1024387370793050273> » DER GELDSTAND VON ' + user.username.toUpperCase())
-  					.setDescription('» Der Geldstand von <@' + user + '> beträgt **' + money + '€**!')
-					.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+  				.setDescription('» Der Geldstand von <@' + user + '> beträgt **' + money + '€**!')
+					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 		}
 
 		// Send Message
-		return interaction.reply({ embeds: [message] })
+		return ctx.interaction.reply({ embeds: [message] })
 	}
 }

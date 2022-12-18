@@ -49,7 +49,7 @@ module.exports = {
 
         	// Send Message
         	bot.apis.rem(interaction.user.id, 1)
-        	bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] APIREMOVE : ' + name)
+        	ctx.log(false, '[CMD] APIREMOVE : ' + name)
         	return interaction.reply({ embeds: [message], ephemeral: true })
         } else {
             // Create Embed
@@ -66,7 +66,7 @@ module.exports = {
             }
             
             // Send Message
-            bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] APIREMOVE : ' + name + ' : NOTFOUND')
+            ctx.log(false, '[CMD] APIREMOVE : ' + name + ' : NOTFOUND')
             return interaction.reply({ embeds: [message], ephemeral: true })
         }
     }

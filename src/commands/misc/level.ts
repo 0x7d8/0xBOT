@@ -1,9 +1,7 @@
 import { SlashCommandBuilder, EmbedBuilder } from "discord.js"
 import { AttachmentBuilder } from "discord.js"
 
-import * as bot from "@functions/bot.js"
-import Client from "@interfaces/Client.js"
-import { CommandInteraction } from "discord.js"
+import CommandInteraction from "@interfaces/CommandInteraction.js"
 export default {
 	data: new SlashCommandBuilder()
 		.setName('level')
@@ -23,48 +21,48 @@ export default {
 				})
 				.setRequired(false)),
 
-	async execute(interaction: CommandInteraction, client: Client, lang: string, vote: string) {
+	async execute(ctx: CommandInteraction) {
 		const canvas = (await import('canvacord')).default
 
 		// Check if Levels are Enabled in Server
-		if (!await bot.settings.get(interaction.guild.id, 'levels')) {
+		if (!await ctx.bot.settings.get(ctx.interaction.guild.id, 'levels')) {
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
 				.setDescription('» The Level System is disabled on this Server!')
-				.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
-			if (lang === 'de') {
+			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
 					.setDescription('» Das Level System ist auf diesem Server deaktiviert!')
-					.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 			
 			// Send Message
-			bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] LEVEL : DISABLED')
-			return interaction.reply({ embeds: [message], ephemeral: true })
+			ctx.log(false, `[CMD] LEVEL : DISABLED`)
+			return ctx.interaction.reply({ embeds: [message], ephemeral: true })
 		}
 
 		// Set Variables
-		const user = interaction.options.getUser('user')
+		const user = ctx.interaction.options.getUser('user')
 		let userobj: any
-		if (!user) userobj = interaction.user
+		if (!user) userobj = ctx.interaction.user
 		else userobj = user
 
 		// Defer Reply
-		await interaction.deferReply()
+		await ctx.interaction.deferReply()
 		
 		// Set User ID
 		const counts: number[] = []
 		if (!user) {
-			counts.push(await bot.stat.get('u-' + interaction.user.id + '-' + interaction.guild.id + '-C', 'msg'))
-			counts.push(await bot.stat.get('u-' + interaction.user.id + '-' + interaction.guild.id + '-A', 'msg'))
-			bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] LEVEL : ' + counts[0])
+			counts.push(await ctx.bot.stat.get('u-' + ctx.interaction.user.id + '-' + ctx.interaction.guild.id + '-C', 'msg'))
+			counts.push(await ctx.bot.stat.get('u-' + ctx.interaction.user.id + '-' + ctx.interaction.guild.id + '-A', 'msg'))
+			ctx.log(false, `[CMD] LEVEL : ${counts[0]}`)
 		} else {
-			counts.push(await bot.stat.get('u-' + user.id + '-' + interaction.guild.id + '-C', 'msg'))
-			counts.push(await bot.stat.get('u-' + user.id + '-' + interaction.guild.id + '-A', 'msg'))
-			bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] LEVEL : ' + user.id + ' : ' + counts[0])
+			counts.push(await ctx.bot.stat.get('u-' + user.id + '-' + ctx.interaction.guild.id + '-C', 'msg'))
+			counts.push(await ctx.bot.stat.get('u-' + user.id + '-' + ctx.interaction.guild.id + '-A', 'msg'))
+			ctx.log(false, `[CMD] LEVEL : ${user.id} : ${counts[0]}`)
 		}
 
 		// Calculate Level
@@ -74,9 +72,9 @@ export default {
 			level++; levelXP -= 500
 		}
 
-		// Generate Language Text
+		// Generate ctx.metadata.languageuage Text
 		let totalxp = 'TOTAL XP'
-		if (lang === 'de') totalxp = 'ALLE XP'
+		if (ctx.metadata.language === 'de') totalxp = 'ALLE XP'
 
 		// Generate Rank Image
 		const rankCard = new canvas.Rank()
@@ -106,29 +104,29 @@ export default {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:GLOBE:1024403680503529583> » YOUR LEVEL')
 				.setImage('attachment://rank.png')
-				.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
-			if (lang === 'de') {
+			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:GLOBE:1024403680503529583> » DEIN LEVEL')
 					.setImage('attachment://rank.png')
-					.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 		} else {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:GLOBE:1024403680503529583> » THE LEVEL OF ' + user.username.toUpperCase())
 				.setImage('attachment://rank.png')
-				.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
-			if (lang === 'de') {
+			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:GLOBE:1024403680503529583> » DAS LEVEL VON ' + user.username.toUpperCase())
   					.setImage('attachment://rank.png')
-					.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 		}
 
 		// Send Message
-		return interaction.editReply({ embeds: [message], files: [attachment] })
+		return ctx.interaction.editReply({ embeds: [message], files: [attachment] })
 	}
 }

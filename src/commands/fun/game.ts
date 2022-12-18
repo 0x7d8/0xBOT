@@ -1,9 +1,7 @@
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js"
 import { SlashCommandBuilder, EmbedBuilder } from "discord.js"
 
-import * as bot from "@functions/bot.js"
-import Client from "@interfaces/Client.js"
-import { CommandInteraction } from "discord.js"
+import CommandInteraction from "@interfaces/CommandInteraction.js"
 export default {
 	data: new SlashCommandBuilder()
 		.setName('game')
@@ -30,9 +28,9 @@ export default {
 					{ name: '🧠 JKLM', value: 'jklm' },
 				)),
 
-	async execute(interaction: CommandInteraction, client: Client, lang: string, vote: string) {
+	async execute(ctx: CommandInteraction) {
 		// Set Variables
-		const spiel = bot.getOption(interaction, 'game') as string
+		const spiel = ctx.getOption('game') as string
 
 		// Create Buttons
 		const slfB = new ActionRowBuilder()
@@ -68,30 +66,30 @@ export default {
 		const slf = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:GAMEPAD:1024395990679167066> » STADT LAND FLUSS REGELN')
 				.setDescription('**»» PERSONEN**\n» 100000+ ABONNENTEN\n» DEUTSCHE PERSON\n\n**»» STÄDTE**\n» 5000+ BEWOHNER\n» DEUTSCHE STADTNAMEN\n\n**»» SÄTZE**\n» KONTEXT WICHTIG\n» NUR DEUTSCH')
-				.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 		const sio = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:GAMEPAD:1024395990679167066> » SCRIBBL.IO REGELN')
 				.setDescription('**»» MALEN**\n» KEINEN TEXT\n\n**»» WÖRTER**\n» WÖRTER DIE JEDER KENNT\n\n**»» CHAT**\n» KEIN SPAMMING')
-				.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 		const gtf = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:GAMEPAD:1024395990679167066> » GARTICPHONE REGELN')
 				.setDescription('**»» MALEN**\n» KEINEN TEXT\n» MUSS ZUM SATZ PASSEN\n\n**»» SÄTZE**\n» SÄTZE DIE JEDER VERSTEHT')
-				.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 		const jkl = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:GAMEPAD:1024395990679167066> » JKLM.FUN REGELN')
 				.setDescription('**»» GENERELL**\n» KEINE REGELN')
-				.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 		// Send Message
-		bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] GAME : ' + spiel.toUpperCase())
+		ctx.log(false, '[CMD] GAME : ' + spiel.toUpperCase())
 		if (spiel == 'stadtlandfluss') {
-			await interaction.reply({ embeds: [slf.toJSON()], components: [slfB as any] })
+			await ctx.interaction.reply({ embeds: [slf.toJSON()], components: [slfB as any] })
 		}; if (spiel == 'scribblio') {
-			await interaction.reply({ embeds: [sio.toJSON()], components: [sioB as any] })
+			await ctx.interaction.reply({ embeds: [sio.toJSON()], components: [sioB as any] })
 		}; if (spiel == 'garticphone') {
-			await interaction.reply({ embeds: [gtf.toJSON()], components: [gtfB as any] })
+			await ctx.interaction.reply({ embeds: [gtf.toJSON()], components: [gtfB as any] })
 		}; if (spiel == 'jklm') {
-			await interaction.reply({ embeds: [jkl.toJSON()], components: [jklB as any] })
+			await ctx.interaction.reply({ embeds: [jkl.toJSON()], components: [jklB as any] })
 		}
 	}
 }

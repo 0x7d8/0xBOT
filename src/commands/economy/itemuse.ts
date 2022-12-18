@@ -1,9 +1,7 @@
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js"
 import { SlashCommandBuilder, EmbedBuilder } from "discord.js"
 
-import * as bot from "@functions/bot.js"
-import Client from "@interfaces/Client.js"
-import { CommandInteraction, Message } from "discord.js"
+import CommandInteraction from "@interfaces/CommandInteraction.js"
 export default {
 	data: new SlashCommandBuilder()
 		.setName('itemuse')
@@ -40,34 +38,34 @@ export default {
 					{ name: '💣 CRAZY BOMBE', value: 'cbomb-bomb' },
 				)),
 
-	async execute(interaction: CommandInteraction, client: Client, lang: string, vote: string) {
+	async execute(ctx: CommandInteraction) {
 		const mathjs = await import('mathjs')
 
 		// Check if Items are Enabled in Server
-		if (!await bot.settings.get(interaction.guild.id, 'items')) {
+		if (!await ctx.bot.settings.get(ctx.interaction.guild.id, 'items')) {
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
 				.setDescription('» Items are disabled on this Server!')
-				.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
-			if (lang === 'de') {
+			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
 					.setDescription('» Items sind auf diesem Server deaktiviert!')
-					.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 			
 			// Send Message
-			bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ITEM : DISABLED')
-			return interaction.reply({ embeds: [message], ephemeral: true })
+			ctx.log(false, `[CMD] ITEM : DISABLED`)
+			return ctx.interaction.reply({ embeds: [message], ephemeral: true })
 		}
 		
 		// Set Variables
-		const user = interaction.options.getUser("user")
-		const itemstr = bot.getOption(interaction, 'item') as string
+		const user = ctx.interaction.options.getUser("user")
+		const itemstr = ctx.getOption('item') as string
 		const cache = itemstr.split('-')
-		const [itemid, itemcat] = cache
+		const [ itemid, itemcat ] = cache
 
 		// Translate to Item Names
 		let name: string
@@ -75,7 +73,7 @@ export default {
 		if (itemid === 'mbomb') name = '<:MBOMB:1021783295211601940> MEDIUM BOMB'
 		if (itemid === 'hbomb') name = '<:HBOMB:1022102357938536458> HYPER BOMB'
 		if (itemid === 'cbomb') name = '<:CBOMB:1021783405161091162> CRAZY BOMB'
-		if (lang === 'de') {
+		if (ctx.metadata.language === 'de') {
 			if (itemid === 'nbomb') name = '<:NBOMB:1021783222520127508> NORMALE BOMBE'
 			if (itemid === 'mbomb') name = '<:MBOMB:1021783295211601940> MEDIUM BOMBE'
 			if (itemid === 'hbomb') name = '<:HBOMB:1022102357938536458> HYPER BOMBE'
@@ -88,104 +86,104 @@ export default {
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
 				.setDescription('» You cant use Items on Bots!')
-				.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
-			if (lang === 'de') {
+			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
 					.setDescription('» Du kannst keine Gegenstände auf einem Bot nutzen!')
-					.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 			
 			// Send Message
-			bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ITEMUSE : ' + user.id + ' : BOT : ' + itemid.toUpperCase())
-			return interaction.reply({ embeds: [message], ephemeral: true })
+			ctx.log(false, `[CMD] ITEMUSE : ${user.id} : BOT : ${itemid.toUpperCase()}`)
+			return ctx.interaction.reply({ embeds: [message], ephemeral: true })
 		}
 
 		// Check if User has enough of the Item
-		if (await bot.items.get(interaction.user.id + '-' + itemid.toUpperCase() + 'S-' + interaction.guild.id, 'amount') < 1) {
+		if (await ctx.bot.items.get(ctx.interaction.user.id + '-' + itemid.toUpperCase() + 'S-' + ctx.interaction.guild.id, 'amount') < 1) {
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
 				.setDescription('» You dont have enough of that Item!')
-				.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
-			if (lang === 'de') {
+			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
 					.setDescription('» Du hast nicht genug von dem Gegenstand!')
-					.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 			
 			// Send Message
-			bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ITEMUSE : ' + user.id + ' : NOTENOUGHITEMS : ' + itemid.toUpperCase())
-			return interaction.reply({ embeds: [message], ephemeral: true })
+			ctx.log(false, `[CMD] ITEMUSE : ${user.id} : NOTENOUGHITEMS : ${itemid.toUpperCase()}`)
+			return ctx.interaction.reply({ embeds: [message], ephemeral: true })
 		}
 
 		// Check if User is Author
-		if (interaction.user.id === user.id && itemcat === 'bomb') {
+		if (ctx.interaction.user.id === user.id && itemcat === 'bomb') {
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-  				.setDescription('» You cant use Bombs on yourself?')
-				.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+  			.setDescription('» You cant use Bombs on yourself?')
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
-			if (lang === 'de') {
+			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-  					.setDescription('» Du kannst Bomben nicht auf dir selber nutzen?')
-					.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+  				.setDescription('» Du kannst Bomben nicht auf dir selber nutzen?')
+					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 
 			// Send Message
-			bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ITEMUSE : ' + user.id + ' : ' + itemid.toUpperCase())
-			return interaction.reply({ embeds: [message], ephemeral: true })
+			ctx.log(false, `[CMD] ITEMUSE : ${user.id} : ${itemid.toUpperCase()}`)
+			return ctx.interaction.reply({ embeds: [message], ephemeral: true })
 		}
 
 		// Check if Reciever is already being Bombed
-		if (bot.bomb.has('TIMEOUT-' + user.id + '-' + interaction.guild.id)) {
+		if (ctx.bot.bomb.has('TIMEOUT-' + user.id + '-' + ctx.interaction.guild.id)) {
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-  				.setDescription('» <@' + user.id + '> is already being bombed!')
-				.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+  			.setDescription('» <@' + user.id + '> is already being bombed!')
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
-			if (lang === 'de') {
+			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-  					.setDescription('» <@' + user.id + '> wird schon bombadiert!')
-					.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+  				.setDescription('» <@' + user.id + '> wird schon bombadiert!')
+					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 
 			// Send Message
-			bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ITEMUSE : ' + user.id + ' : ' + itemid.toUpperCase())
-			return interaction.reply({ embeds: [message], ephemeral: true })
+			ctx.log(false, `[CMD] ITEMUSE : ${user.id} : ${itemid.toUpperCase()}`)
+			return ctx.interaction.reply({ embeds: [message], ephemeral: true })
 		}
 
 		// Fetch Channel for Later
-		const channel = interaction.channel
+		const channel = ctx.interaction.channel
 		const messages = channel.messages.fetch()
-		bot.bomb.set('MESSAGES-' + user.id + '-' + interaction.guild.id, messages)
+		ctx.bot.bomb.set('MESSAGES-' + user.id + '-' + ctx.interaction.guild.id, messages)
 
 		// Init Timeout Function
-		bot.bomb.set('TIMEOUT-' + user.id + '-' + interaction.guild.id, true)
+		ctx.bot.bomb.set('TIMEOUT-' + user.id + '-' + ctx.interaction.guild.id, true)
 
 		// Generate Math Questions
 		let math: string
-		if (itemid === 'nbomb') math = bot.random(80, 1000) + ' + ' + bot.random(10, 20) + ' - ' + bot.random(150, 200)
-		if (itemid === 'mbomb') math = bot.random(10, 20) + ' * ' + bot.random(10, 30) + ' - ' + bot.random(60, 100)
-		if (itemid === 'hbomb') math = bot.random(10, 20) + ' * ' + bot.random(10, 40) + ' * ' + bot.random(60, 100)
-		if (itemid === 'cbomb') math = bot.random(10, 40) + ' * (' + bot.random(100, 4000) + ' + ' + bot.random(600, 2000) + ')'
+		if (itemid === 'nbomb') math = ctx.bot.random(80, 1000) + ' + ' + ctx.bot.random(10, 20) + ' - ' + ctx.bot.random(150, 200)
+		if (itemid === 'mbomb') math = ctx.bot.random(10, 20) + ' * ' + ctx.bot.random(10, 30) + ' - ' + ctx.bot.random(60, 100)
+		if (itemid === 'hbomb') math = ctx.bot.random(10, 20) + ' * ' + ctx.bot.random(10, 40) + ' * ' + ctx.bot.random(60, 100)
+		if (itemid === 'cbomb') math = ctx.bot.random(10, 40) + ' * (' + ctx.bot.random(100, 4000) + ' + ' + ctx.bot.random(600, 2000) + ')'
 
 		// Solve the Math Question
 		const mathres = await mathjs.evaluate(math)
 
 		// Generate Button Labels
-		let b1 = (mathres - bot.random(10, 50))
-		let b2 = (mathres + bot.random(10, 50) + bot.random(10, 50))
-		let b3 = (mathres + bot.random(50, 100) + 50)
-		let b4 = (mathres - bot.random(100, 150) + bot.random(5, 25))
-		const sb = bot.random(1, 4)
+		let b1 = (mathres - ctx.bot.random(10, 50))
+		let b2 = (mathres + ctx.bot.random(10, 50) + ctx.bot.random(10, 50))
+		let b3 = (mathres + ctx.bot.random(50, 100) + 50)
+		let b4 = (mathres - ctx.bot.random(100, 150) + ctx.bot.random(5, 25))
+		const sb = ctx.bot.random(1, 4)
 		await eval('b' + sb + ' = ' + mathres)
 
 		// Create Buttons
@@ -210,37 +208,37 @@ export default {
 					.setLabel(b4.toString())
 					.setCustomId('BOMB-' + mathres + '-' + b4 + '-' + sb + '-4-' + itemid + '-' + user.id)
 					.setStyle(ButtonStyle.Secondary),
-			);
+			)
 		
 		// Create Embed
 		let message: any
 		if (itemcat === 'bomb') {
 	  		message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:BOXOPEN:1024395281460101213> » USE ITEM')
-  				.setDescription('» Oh <@' + user.id + '>, <@' + interaction.user.id + '> used a **' + name + '** on you!\nIf you solve this Math Equation, it wont do anything.\n\n**```' + math + '```**\nThe Bomb explodes <t:' + (Math.floor(+new Date() / 1000) + 10) + ':R>')
-				.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+  			.setDescription('» Oh <@' + user.id + '>, <@' + ctx.interaction.user.id + '> used a **' + name + '** on you!\nIf you solve this Math Equation, it wont do anything.\n\n**```' + math + '```**\nThe Bomb explodes <t:' + (Math.floor(+new Date() / 1000) + 10) + ':R>')
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
-			if (lang === 'de') {
+			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:BOXOPEN:1024395281460101213> » GEGENSTAND NUTZEN')
-  					.setDescription('» Oh <@' + user.id + '>, <@' + interaction.user.id + '> hat eine **' + name + '** an dir benutzt!\nFalls du dieses Mathe Rätsel löst, passiert nichts.\n\n**```' + math + '```**\nDie Bombe explodiert <t:' + (Math.floor(+new Date() / 1000) + 10) + ':R>')
-					.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+  				.setDescription('» Oh <@' + user.id + '>, <@' + ctx.interaction.user.id + '> hat eine **' + name + '** an dir benutzt!\nFalls du dieses Mathe Rätsel löst, passiert nichts.\n\n**```' + math + '```**\nDie Bombe explodiert <t:' + (Math.floor(+new Date() / 1000) + 10) + ':R>')
+					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 		}
 
 		// Remove Item
-		bot.items.rem(interaction.user.id + '-' + itemid.toUpperCase() + 'S-' + interaction.guild.id, 1)
+		ctx.bot.items.rem(ctx.interaction.user.id + '-' + itemid.toUpperCase() + 'S-' + ctx.interaction.guild.id, 1)
 
 		// Send Message
-		bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ITEMUSE : ' + user.id + ' : ' + itemid.toUpperCase())
+		ctx.log(false, `[CMD] ITEMUSE : ${user.id} : ${itemid.toUpperCase()}`)
 		if (itemcat === 'bomb') {
-			let msg = await interaction.reply({ content: '<@' + user.id + '>', embeds: [message], components: [row as any], fetchReply: true })
+			let msg = await ctx.interaction.reply({ content: '<@' + user.id + '>', embeds: [message], components: [row as any], fetchReply: true })
 
 			const expiration = async() => {
 				// Check if Message wasnt already answered
-				if (!bot.bomb.has('TIMEOUT-' + user.id + '-' + interaction.guild.id)) return
-				bot.bomb.delete('TIMEOUT-' + user.id + '-' + interaction.guild.id)
-				bot.bomb.delete('MESSAGES-' + user.id + '-' + interaction.guild.id)
+				if (!ctx.bot.bomb.has('TIMEOUT-' + user.id + '-' + ctx.interaction.guild.id)) return
+				ctx.bot.bomb.delete('TIMEOUT-' + user.id + '-' + ctx.interaction.guild.id)
+				ctx.bot.bomb.delete('MESSAGES-' + user.id + '-' + ctx.interaction.guild.id)
 	
 				// Edit Buttons
 				{
@@ -252,19 +250,19 @@ export default {
 
 				// Punish User
 				if (itemid === 'nbomb') {
-					const member = await interaction.guild.members.fetch(user.id)
-					member.timeout(15 * 1000, 'BOMB TIMEOUT FROM ' + interaction.user.id).catch(() => {})
+					const member = await ctx.interaction.guild.members.fetch(user.id)
+					member.timeout(15 * 1000, 'BOMB TIMEOUT FROM ' + ctx.interaction.user.id).catch(() => {})
 				}; if (itemid === 'mbomb') {
-					const member = await interaction.guild.members.fetch(user.id)
-					member.timeout(30 * 1000, 'BOMB TIMEOUT FROM ' + interaction.user.id).catch(() => {})
+					const member = await ctx.interaction.guild.members.fetch(user.id)
+					member.timeout(30 * 1000, 'BOMB TIMEOUT FROM ' + ctx.interaction.user.id).catch(() => {})
 				}; if (itemid === 'hbomb') {
-					const member = await interaction.guild.members.fetch(user.id)
-					member.timeout(45 * 1000, 'BOMB TIMEOUT FROM ' + interaction.user.id).catch(() => {})
+					const member = await ctx.interaction.guild.members.fetch(user.id)
+					member.timeout(45 * 1000, 'BOMB TIMEOUT FROM ' + ctx.interaction.user.id).catch(() => {})
 				}; if (itemid === 'cbomb') {
 					const filtered = []
 					let i = 0
 
-					{(await messages).filter((m: Message) => {
+					{(await messages).filter((m) => {
 						if (m.author.id === user.id && 1 > i) {
 							filtered.push(m)
 							i++
@@ -277,18 +275,18 @@ export default {
 				// Create Embed
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:BOXOPEN:1024395281460101213> » USE ITEM')
-  					.setDescription('» <@' + user.id + '> has failed to diffuse the Bomb! OHNO')
-					.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+  				.setDescription('» <@' + user.id + '> has failed to diffuse the Bomb! OHNO')
+					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
-				if (lang === 'de') {
+				if (ctx.metadata.language === 'de') {
 					message = new EmbedBuilder().setColor(0x37009B)
 						.setTitle('<:BOXOPEN:1024395281460101213> » GEGENSTAND NUTZEN')
-  						.setDescription('» <@' + user.id + '> hat es nicht geschafft, die Bombe zu entschärfen! OH')
-						.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+  					.setDescription('» <@' + user.id + '> hat es nicht geschafft, die Bombe zu entschärfen! OH')
+						.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 				}
 	
-				bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ITEMUSE : ' + user.id + ' : EXPIRED')
-				interaction.editReply({ content: '', embeds: [message], components: msg.components }).catch(() => {})
+				ctx.log(false, `[CMD] ITEMUSE : ${user.id} : EXPIRED`)
+				ctx.interaction.editReply({ content: '', embeds: [message], components: msg.components }).catch(() => {})
 			}
 
 			setTimeout(() => expiration(), 10000)

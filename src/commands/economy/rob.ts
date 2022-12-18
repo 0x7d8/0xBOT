@@ -1,9 +1,6 @@
-import { SlashCommandBuilder, EmbedBuilder, Collection } from "discord.js"
-const cooldown = new Collection()
+import { SlashCommandBuilder, EmbedBuilder } from "discord.js"
 
-import * as bot from "@functions/bot.js"
-import Client from "@interfaces/Client.js"
-import { CommandInteraction } from "discord.js"
+import CommandInteraction from "@interfaces/CommandInteraction.js"
 export default {
 	data: new SlashCommandBuilder()
 		.setName('rob')
@@ -39,74 +36,74 @@ export default {
 					{ name: '💰 [05%] 60€ - 100€', value: '5' },
 				)),
 
-	async execute(interaction: CommandInteraction, client: Client, lang: string, vote: string) {
+	async execute(ctx: CommandInteraction) {
 		// Check if Rob is Enabled in Server
-		if (!await bot.settings.get(interaction.guild.id, 'rob')) {
+		if (!await ctx.bot.settings.get(ctx.interaction.guild.id, 'rob')) {
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
 				.setDescription('» The **`/rob`** Command is disabled on this Server!')
-				.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
-			if (lang === 'de') {
+			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
 					.setDescription('» Der **`/rob`** Befehl ist auf diesem Server deaktiviert!')
-					.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 			
 			// Send Message
-			bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : DISABLED')
-			return interaction.reply({ embeds: [message], ephemeral: true })
+			ctx.log(false, `[CMD] ROB : DISABLED`)
+			return ctx.interaction.reply({ embeds: [message], ephemeral: true })
 		}
 
 		// Set Variables
-		const user = interaction.options.getUser("user")
-		const money = bot.getOption(interaction, 'money') as string
-		const moneysnd = await bot.money.get(interaction.user.id)
-		const moneytar = await bot.money.get(user.id)
+		const user = ctx.interaction.options.getUser("user")
+		const money = ctx.getOption('money') as string
+		const moneysnd = await ctx.bot.money.get(ctx.interaction.user.id)
+		const moneytar = await ctx.bot.money.get(user.id)
 
 		// Cooldown
-		if (cooldown.get(interaction.user.id) as number - Date.now() > 0) {
+		if ((await ctx.bot.cooldown.get(ctx.interaction.user.id, 'rob')).onCooldown) {
 			// Translate Vars
-			const timeLeft = cooldown.get(interaction.user.id) as number - Date.now() 
+			const timeLeft = (await ctx.bot.cooldown.get(ctx.interaction.user.id, 'rob')).remaining
 			const cdown = timeLeft / 1000
 			
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-  				.setDescription('» You still have a Cooldown of **' + cdown.toFixed(0) + 's**!')
-				.setFooter({ text: '» ' + vote + ' » ' + client.config.version });
+  			.setDescription('» You still have a Cooldown of **' + cdown.toFixed(0) + 's**!')
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 
-			if (lang === 'de') {
+			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-  					.setDescription('» Du hast leider noch einen Cooldown von **' + cdown.toFixed(0) + 's**!')
-					.setFooter({ text: '» ' + vote + ' » ' + client.config.version });
+  				.setDescription('» Du hast leider noch einen Cooldown von **' + cdown.toFixed(0) + 's**!')
+					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 			}
 			
-			bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : ONCOOLDOWN : ' + cdown.toFixed(0) + 's')
-			return interaction.reply({ embeds: [message], ephemeral: true })
+			ctx.log(false, `[CMD] ROB : ONCOOLDOWN : ${cdown.toFixed(0)}s`)
+			return ctx.interaction.reply({ embeds: [message], ephemeral: true })
 		}
 		
 		// Check if User is Author
-		if (interaction.user.id === user.id) {
+		if (ctx.interaction.user.id === user.id) {
 			
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-  				.setDescription('» You cant rob yourself?!')
-				.setFooter({ text: '» ' + vote + ' » ' + client.config.version });
+  			.setDescription('» You cant rob yourself?!')
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 
-			if (lang === 'de') {
+			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-  					.setDescription('» Du kannst dich nicht selber ausrauben?!')
-					.setFooter({ text: '» ' + vote + ' » ' + client.config.version });
+  				.setDescription('» Du kannst dich nicht selber ausrauben?!')
+					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 			}
 			
-			bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : ' + user.id + ' : ' + money + '€ : SAMEPERSON')
-			return interaction.reply({ embeds: [message], ephemeral: true })
+			ctx.log(false, `[CMD] ROB : ${user.id} : ${money}€ : SAMEPERSON`)
+			return ctx.interaction.reply({ embeds: [message], ephemeral: true })
 		}
 
 		// Check if Target is Bot
@@ -115,18 +112,18 @@ export default {
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
 				.setDescription('» You cant rob a Bot!')
-				.setFooter({ text: '» ' + vote + ' » ' + client.config.version });
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 
-			if (lang === 'de') {
+			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
 					.setDescription('» Du kannst einem Bot kein Geld klauen!')
-					.setFooter({ text: '» ' + vote + ' » ' + client.config.version });
+					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 			}
 			
 			// Send Message
-			bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : ' + user + ' : BOT')
-			return interaction.reply({ embeds: [message], ephemeral: true })
+			ctx.log(false, `[CMD] ROB : ${user} : BOT`)
+			return ctx.interaction.reply({ embeds: [message], ephemeral: true })
 		}
 		
 		// Set Steal to Need
@@ -139,71 +136,69 @@ export default {
 		// Create Embed
 		let notenoughmoney1 = new EmbedBuilder().setColor(0x37009B)
 			.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-  			.setDescription('» You dont have enough Money for that, you need atleast **$' + need + '**! BRUH.')
-			.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+  		.setDescription('» You dont have enough Money for that, you need atleast **$' + need + '**! BRUH.')
+			.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
-		if (lang === 'de') {
+		if (ctx.metadata.language === 'de') {
 			notenoughmoney1 = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-  				.setDescription('» Du hast nicht genug Geld dafür, du brauchst mindestens **' + need + '€**! BRUH.')
-				.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+  			.setDescription('» Du hast nicht genug Geld dafür, du brauchst mindestens **' + need + '€**! BRUH.')
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 		}
 			
 		// Check Money
 		if (money === '35' && moneysnd < 20) {
-			bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : ' + user.id + ' : NOTENOUGHMONEY')
-			return interaction.reply({ embeds: [notenoughmoney1.toJSON()], ephemeral: true })
-	 	};
-		if (money === '20' && moneysnd < 50) {
-			bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : ' + user.id + ' : NOTENOUGHMONEY')
-			return interaction.reply({ embeds: [notenoughmoney1.toJSON()], ephemeral: true })
-	 	};
-		if (money === '5' && moneysnd < 100) {
-			bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : ' + user.id + ' : NOTENOUGHMONEY')
-			return interaction.reply({ embeds: [notenoughmoney1.toJSON()], ephemeral: true })
-	 	};
+			ctx.log(false, '[CMD] ROB : ' + user.id + ' : NOTENOUGHMONEY')
+			return ctx.interaction.reply({ embeds: [notenoughmoney1.toJSON()], ephemeral: true })
+	 	}; if (money === '20' && moneysnd < 50) {
+			ctx.log(false, '[CMD] ROB : ' + user.id + ' : NOTENOUGHMONEY')
+			return ctx.interaction.reply({ embeds: [notenoughmoney1.toJSON()], ephemeral: true })
+	 	}; if (money === '5' && moneysnd < 100) {
+			ctx.log(false, '[CMD] ROB : ' + user.id + ' : NOTENOUGHMONEY')
+			return ctx.interaction.reply({ embeds: [notenoughmoney1.toJSON()], ephemeral: true })
+	 	}
 			
 		// Check for enough Money #2
 		// Create Embed
 		let notenoughmoney2 = new EmbedBuilder().setColor(0x37009B)
 			.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-  			.setDescription('» <@' + user + '> doesnt have enough Money for that, he needs atleast **$' + need + '**! LOL.')
-			.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+  		.setDescription('» <@' + user + '> doesnt have enough Money for that, he needs atleast **$' + need + '**! LOL.')
+			.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
-		if (lang === 'de') {
+		if (ctx.metadata.language === 'de') {
 			notenoughmoney2 = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-  				.setDescription('» <@' + user + '> hat nicht genug Geld dafür, er braucht mindestens **' + need + '€**! LOL.')
-				.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+  			.setDescription('» <@' + user + '> hat nicht genug Geld dafür, er braucht mindestens **' + need + '€**! LOL.')
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 		}
 			
 		// Check Money
 		if (money === '35' && moneytar < 20) {
-			bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : ' + user.id + ' : NOTENOUGHMONEY')
-			return interaction.reply({ embeds: [notenoughmoney2.toJSON()], ephemeral: true })
+			ctx.log(false, '[CMD] ROB : ' + user.id + ' : NOTENOUGHMONEY')
+			return ctx.interaction.reply({ embeds: [notenoughmoney2.toJSON()], ephemeral: true })
 	 	}; if (money === '20' && moneytar < 50) {
-			bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : ' + user.id + ' : NOTENOUGHMONEY')
-			return interaction.reply({ embeds: [notenoughmoney2.toJSON()], ephemeral: true })
+			ctx.log(false, '[CMD] ROB : ' + user.id + ' : NOTENOUGHMONEY')
+			return ctx.interaction.reply({ embeds: [notenoughmoney2.toJSON()], ephemeral: true })
 	 	}; if (money === '5' && moneytar < 100) {
-			bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : ' + user.id + ' : NOTENOUGHMONEY')
-			return interaction.reply({ embeds: [notenoughmoney2.toJSON()], ephemeral: true })
+			ctx.log(false, '[CMD] ROB : ' + user.id + ' : NOTENOUGHMONEY')
+			return ctx.interaction.reply({ embeds: [notenoughmoney2.toJSON()], ephemeral: true })
 	 	}
 		
 		// Setup Chances
-		const random35 = bot.random(1, 3)
-		const random20 = bot.random(1, 5)
-		const random05 = bot.random(1, 20)
+		const random35 = ctx.bot.random(1, 3)
+		const random20 = ctx.bot.random(1, 5)
+		const random05 = ctx.bot.random(1, 20)
 		
 		let status: boolean, amount: number
 		if (money === '35') {
-			if (random35 == 1) { status = true; amount = bot.random(10, 20) } else { 
-				status = false; amount = bot.random(10, 20) }
+			if (random35 == 1) { status = true; amount = ctx.bot.random(10, 20) } else { 
+				status = false; amount = ctx.bot.random(10, 20) }
 		} else if (money === '20') {
-			if (random20 == 1) { status = true; amount = bot.random(30, 50) } else {
-				status = false; amount = bot.random(30, 50) }
+			if (random20 == 1) { status = true; amount = ctx.bot.random(30, 50) } else {
+				status = false; amount = ctx.bot.random(30, 50) }
 		} else {
-			if (random05 == 1) { status = true; amount = bot.random(50, 100) } else {
-				status = false; amount = bot.random(50, 100) }
+			if (random05 == 1) { status = true; amount = ctx.bot.random(50, 100) } else {
+				status = false; amount = ctx.bot.random(50, 100) }
 		}
 
 		// Set Punishment
@@ -219,7 +214,7 @@ export default {
 		if (amount >= 60) extra = 'LOL.'
 		if (amount >= 80) extra = 'A PRO??!!'
 
-		if (lang === 'de') {
+		if (ctx.metadata.language === 'de') {
 			if (amount < 20) extra = 'NAJA.'
 			if (amount >= 20) extra = 'NICE.' 
 			if (amount >= 40) extra = 'PRIMA.' 
@@ -230,47 +225,45 @@ export default {
 		// Create Embeds
 	  	let success = new EmbedBuilder().setColor(0x37009B)
 			.setTitle('<:BAG:1024389219558367292> » AUSRAUBEN')
-  			.setDescription('» You stole <@' + user.id + '> **$' + amount + '**! ' + extra)
-			.setFooter({ text: '» ' + vote + ' » ' + client.config.version });
+  		.setDescription('» You stole <@' + user.id + '> **$' + amount + '**! ' + extra)
+			.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 
 		let failure = new EmbedBuilder().setColor(0x37009B)
 			.setTitle('<:BAG:1024389219558367292> » AUSRAUBEN')
-  			.setDescription('» You wanted to steal <@' + user.id + '> **$' + amount + '**, but the Police caught you! You had to pay **$' + punishment + '**! KEKW.')
-			.setFooter({ text: '» ' + vote + ' » ' + client.config.version });
+  		.setDescription('» You wanted to steal <@' + user.id + '> **$' + amount + '**, but the Police caught you! You had to pay **$' + punishment + '**! KEKW.')
+			.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 
-		if (lang === 'de') {
+		if (ctx.metadata.language === 'de') {
 			success = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:BAG:1024389219558367292> » AUSRAUBEN')
-  				.setDescription('» Du hast <@' + user.id + '> **' + amount + '€** geklaut! ' + extra)
-				.setFooter({ text: '» ' + vote + ' » ' + client.config.version });
+  			.setDescription('» Du hast <@' + user.id + '> **' + amount + '€** geklaut! ' + extra)
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 			
 			failure = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:BAG:1024389219558367292> » AUSRAUBEN')
 				.setDescription('» Du wolltest <@' + user.id + '> **' + amount + '€** klauen, aber die Polizei hat dich erwischt! Du musstest **' + punishment + '€** Strafgeld bezahlen! KEKW.')
-				.setFooter({ text: '» ' + vote + ' » ' + client.config.version });
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 		}
 		
 		// Set Money
-		if (status == false) {
+		if (!status) {
 			// Set Cooldown
-			cooldown.set(interaction.user.id, Date.now() + 30000)
-			setTimeout(() => cooldown.delete(interaction.user.id), 30000)
+			ctx.bot.cooldown.set(ctx.interaction.user.id, 'rob', 1*60*1000)
 			
-			bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : ' + user.id + ' : ' + amount + '€ : FAILURE : ' + punishment + '€')
-			bot.money.rem(interaction.guild.id, interaction.user.id, punishment)
-			return interaction.reply({ embeds: [failure] })
+			ctx.log(false, `[CMD] ROB : ${user.id} : ${amount}€ : FAILURE : ${punishment}€`)
+			ctx.bot.money.rem(ctx.interaction.guild.id, ctx.interaction.user.id, punishment)
+			return ctx.interaction.reply({ embeds: [failure] })
 		}
 		
 		// Set Cooldown
-		cooldown.set(interaction.user.id, Date.now() + 30000)
-		setTimeout(() => cooldown.delete(interaction.user.id), 30000)
+		ctx.bot.cooldown.set(ctx.interaction.user.id, 'rob', 1*60*1000)
 
 		// Set Money
-		bot.money.rem(interaction.guild.id, user.id, amount)
-		bot.money.add(interaction.guild.id, interaction.user.id, amount)
+		ctx.bot.money.rem(ctx.interaction.guild.id, user.id, amount)
+		ctx.bot.money.add(ctx.interaction.guild.id, ctx.interaction.user.id, amount)
 		
 		// Send Message
-		bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] ROB : ' + user.id + ' : ' + amount + '€ : SUCCESS')
-		return interaction.reply({ embeds: [success] })
+		ctx.log(false, `[CMD] ROB : ${user.id} : ${amount}€ : SUCCESS`)
+		return ctx.interaction.reply({ embeds: [success] })
 	}
 }

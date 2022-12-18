@@ -11,6 +11,7 @@ import * as cron from "node-cron"
 import { Events, Client, Collection, GatewayIntentBits } from "discord.js"
 import { getAllFilesFilter } from "@utils/getAllFiles.js"
 import { Timer } from "@utils/timer.js"
+import { PoolClient } from "pg"
 
 import config from "@config"
 
@@ -76,10 +77,14 @@ const login = (client: Client, commandFiles: string[]) => {
 	})
 }
 
+import CommandInteraction from "@interfaces/CommandInteraction.js"
+import ButtonInteraction from "@interfaces/ButtonInteraction.js"
+import ModalInteraction from "@interfaces/ModalInteraction.js"
+
 // Bot Functions
 import * as bot from "@functions/bot.js"
 client.config = config
-export const start = () => {
+export const start = (db: PoolClient) => {
 	/// Register External Files
 	// Get Files
 	const fileList = [
@@ -150,10 +155,10 @@ export const start = () => {
 		const guildlang = await bot.language.get(interaction.guild.id)
 
 		// Get Vote Status
-		let votet = 'VOTED'
+		let votet = 'VOTED', votev = true
 		const lastVote = await bot.votes.get(interaction.user.id + '-T')
-		if (lastVote < (Date.now() - 24*60*60*1000)) votet = 'NOT VOTED'
-		if (lastVote === 0) votet = 'NOT VOTED -> /VOTE'
+		if (lastVote < (Date.now() - 24*60*60*1000)) { votet = 'NOT VOTED'; votev = false }
+		if (lastVote === 0) { votet = 'NOT VOTED -> /VOTE'; votev = false }
 		if (guildlang === 'de') {
 			votet = 'GEVOTED'
 			if (lastVote < (Date.now() - 24*60*60*1000)) votet = 'NICHT GEVOTET'
@@ -169,13 +174,38 @@ export const start = () => {
 			// Stats
 			bot.stats('cmd', interaction.user.id, interaction.guild.id)
 
-			// Check if Command Exists
 			const command = client.commands.get(interaction.commandName)
 			if (!command) return
 
+			// Generate Context
+			const ctx: CommandInteraction = {
+				"interaction": interaction,
+
+				"db": db,
+				"bot": bot,
+				"client": client,
+				"getOption": (option: string) => {
+					if (!interaction.options.get(option)) return null
+					else return (interaction.options.get(option).value as string | number)
+				}, "log": (type: boolean, text: string) => {
+					if (!type) console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [${interaction.user.id} @ ${interaction.guild.id}] ${text}`)
+					else console.log(`[0xBOT] [!] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [${interaction.user.id} @ ${interaction.guild.id}] ${text}`)
+				},
+
+				"metadata": {
+					"vote": {
+						"text": votet,
+						"time": lastVote,
+						"valid": votev
+					},
+
+					"language": guildlang
+				}
+			}
+
 			// Execute Command
 			try {
-				await command.execute(interaction, client, guildlang, votet)
+				await command.execute(ctx)
 			} catch (e) {
 				try {
 					await bot.error(interaction as any, client, e, 'cmd', guildlang, votet)
@@ -192,23 +222,35 @@ export const start = () => {
 
 				let sc = false
 
-				// Special Button Cases
-				const args = interaction.customId.split('-')
-				if (args[0] === 'API') {
-					let editedinteraction: any = interaction
-					editedinteraction.customId = "api"
-					sc = true
+				// Generate Context
+				const ctx: ModalInteraction = {
+					"interaction": interaction,
 
-					const modal = client.modals.get(editedinteraction.customId)
-					await modal.execute(editedinteraction, client, guildlang, votet, args[1], args[2].toLowerCase())
+					"db": db,
+					"bot": bot,
+					"client": client,
+					"log": (type: boolean, text: string) => {
+						if (!type) console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [${interaction.user.id} @ ${interaction.guild.id}] ${text}`)
+						else console.log(`[0xBOT] [!] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [${interaction.user.id} @ ${interaction.guild.id}] ${text}`)
+					},
+
+					"metadata": {
+						"vote": {
+							"text": votet,
+							"time": lastVote,
+							"valid": votev
+						},
+
+						"language": guildlang
+					}
 				}
 
-				// Other Button Cases
+				// Other Modal Cases
 				if (!sc) {
 					const modal = client.modals.get(interaction.customId)
 					if (!modal) return
 
-					await modal.execute(interaction, client, guildlang, votet)
+					await modal.execute(ctx)
 				}
 
 				return
@@ -224,6 +266,29 @@ export const start = () => {
 			// Stats
 			bot.stats('btn', interaction.user.id, interaction.guild.id)
 
+			// Generate Context
+			const ctx: ButtonInteraction = {
+				"interaction": interaction,
+
+				"db": db,
+				"bot": bot,
+				"client": client,
+				"log": (type: boolean, text: string) => {
+					if (!type) console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [${interaction.user.id} @ ${interaction.guild.id}] ${text}`)
+					else console.log(`[0xBOT] [!] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [${interaction.user.id} @ ${interaction.guild.id}] ${text}`)
+				},
+
+				"metadata": {
+					"vote": {
+						"text": votet,
+						"time": lastVote,
+						"valid": votev
+					},
+
+					"language": guildlang
+				}
+			}
+
 			// Execute Button
 			try {
 				let sc = false
@@ -231,115 +296,98 @@ export const start = () => {
 				// Special Button Cases
 				const args = interaction.customId.split('-')
 				if (args[0] === 'BEG') {
-					let editedinteraction: any = interaction
-					editedinteraction.customId = "beg"
 					sc = true
 
-					const button = client.buttons.get(editedinteraction.customId)
-					await button.execute(editedinteraction, client, guildlang, votet, args[1], Number(args[2]), args[3], args[4])
+					const button = client.buttons.get('beg')
+					await button.execute(ctx, args[1], Number(args[2]), args[3], args[4])
 				}; if (args[0] === 'RPS') {
 					let choice: string
-					let editedinteraction: any = interaction
-					editedinteraction.customId = "rps-choice"
+					let buttonId = "rps-choice"
 
 					if (args[1] === '1') choice = 'ROCK'
 					if (args[1] === '2') choice = 'PAPER'
 					if (args[1] === '3') choice = 'SCISSORS'
 
-					if (args[1] === 'YES') editedinteraction.customId = "rps-yes"
-					if (args[1] === 'NO') editedinteraction.customId = "rps-no"
+					if (args[1] === 'YES') buttonId = "rps-yes"
+					if (args[1] === 'NO') buttonId = "rps-no"
 					sc = true
 
-					const button = client.buttons.get(editedinteraction.customId)
-					await button.execute(editedinteraction, client, guildlang, votet, Number(args[2]), choice)
+					const button = client.buttons.get(buttonId)
+					await button.execute(ctx, Number(args[2]), choice)
 				}; if (args[0] === 'MEMORY') {
-					let editedinteraction: any = interaction
-					editedinteraction.customId = "memory-choice"
+					let buttonId = 'memory-choice'
 
-					if (args[1] === 'YES') editedinteraction.customId = "memory-yes"
-					if (args[1] === 'NO') editedinteraction.customId = "memory-no"
+					if (args[1] === 'YES') buttonId = "memory-yes"
+					if (args[1] === 'NO') buttonId = "memory-no"
 					sc = true
 
-					const button = client.buttons.get(editedinteraction.customId)
-					await button.execute(editedinteraction, client, guildlang, votet, Number(args[2]), Number(args[1]))
+					const button = client.buttons.get(buttonId)
+					await button.execute(ctx, Number(args[2]), Number(args[1]))
 				}; if (args[0] === 'TTT') {
-					let editedinteraction: any = interaction
-					editedinteraction.customId = "ttt-choice"
+					let buttonId = 'ttt-choice'
 
-					if (args[1] === 'YES') editedinteraction.customId = "ttt-yes"
-					if (args[1] === 'NO') editedinteraction.customId = "ttt-no"
+					if (args[1] === 'YES') buttonId = "ttt-yes"
+					if (args[1] === 'NO') buttonId = "ttt-no"
 					sc = true
 
-					const button = client.buttons.get(editedinteraction.customId)
-					await button.execute(editedinteraction, client, guildlang, votet, Number(args[2]), Number(args[1]))
+					const button = client.buttons.get(buttonId)
+					await button.execute(ctx, Number(args[2]), Number(args[1]))
 				}; if (args[0] === 'STOCKNEXT') {
-					let editedinteraction: any = interaction
-
-					editedinteraction.customId = "stocknext"
 					sc = true
 
-					const button = client.buttons.get(editedinteraction.customId)
-					await button.execute(editedinteraction, client, guildlang, votet, args[1])
+					const button = client.buttons.get('stock-next')
+					await button.execute(ctx, args[1])
 				}; if (args[0] === 'BUSINESS') {
-					let editedinteraction: any = interaction
+					let buttonId: string
 
-					if (args[2] === 'YES') editedinteraction.customId = "business-yes"
-					if (args[2] === 'NO') editedinteraction.customId = "business-no"
+					if (args[2] === 'YES') buttonId = "business-yes"
+					if (args[2] === 'NO') buttonId = "business-no"
 					sc = true
 
-					const button = client.buttons.get(editedinteraction.customId)
-					await button.execute(editedinteraction, client, guildlang, votet, args[3], args[4], args[1].toLowerCase())
+					const button = client.buttons.get(buttonId)
+					await button.execute(ctx, args[3], args[4], args[1].toLowerCase())
 				}; if (args[0] === 'CAR') {
-					let editedinteraction: any = interaction
+					let buttonId: string
 
-					if (args[2] === 'YES') editedinteraction.customId = "car-yes"
-					if (args[2] === 'NO') editedinteraction.customId = "car-no"
+					if (args[2] === 'YES') buttonId = "car-yes"
+					if (args[2] === 'NO') buttonId = "car-no"
 					sc = true
 
-					const button = client.buttons.get(editedinteraction.customId)
-					await button.execute(editedinteraction, client, guildlang, votet, args[3], args[4], args[1].toLowerCase())
+					const button = client.buttons.get(buttonId)
+					await button.execute(ctx, args[3], args[4], args[1].toLowerCase())
 				}; if (args[0] === 'ITEM') {
-					let editedinteraction: any = interaction
+					let buttonId: string
 
-					if (args[2] === 'YES') editedinteraction.customId = "item-yes"
-					if (args[2] === 'NO') editedinteraction.customId = "item-no"
+					if (args[2] === 'YES') buttonId = "item-yes"
+					if (args[2] === 'NO') buttonId = "item-no"
 					sc = true
 
-					const button = client.buttons.get(editedinteraction.customId)
-					await button.execute(editedinteraction, client, guildlang, votet, args[3], args[4], args[1].toLowerCase(), Number(args[5]))
+					const button = client.buttons.get(buttonId)
+					await button.execute(ctx, args[3], args[4], args[1].toLowerCase(), Number(args[5]))
 				}; if (args[0] === 'STOCKUPGRADE') {
-					let editedinteraction: any = interaction
+					let buttonId: string
 
-					if (args[2] === 'YES') editedinteraction.customId = "stockupgrade-yes"
-					if (args[2] === 'NO') editedinteraction.customId = "stockupgrade-no"
+					if (args[2] === 'YES') buttonId = "stockupgrade-yes"
+					if (args[2] === 'NO') buttonId = "stockupgrade-no"
 					sc = true
 
-					const button = client.buttons.get(editedinteraction.customId)
-					await button.execute(editedinteraction, client, guildlang, votet, args[3], args[4], Number(args[5]))
+					const button = client.buttons.get(buttonId)
+					await button.execute(ctx, args[3], args[4], Number(args[5]))
 				}; if (args[0] === 'BOMB') {
-					let editedinteraction: any = interaction
-
-					editedinteraction.customId = 'item-bomb'
 					sc = true
 
-					const button = client.buttons.get(editedinteraction.customId)
-					await button.execute(editedinteraction, client, guildlang, votet, args[1], args[2], args[3], args[4], args[5], args[6])
+					const button = client.buttons.get('item-bomb')
+					await button.execute(ctx, args[1], args[2], args[3], args[4], args[5], args[6])
 				}; if (args[0] === 'COUNT') {
-					let editedinteraction: any = interaction
-
-					editedinteraction.customId = 'count'
 					sc = true
 
-					const button = client.buttons.get(editedinteraction.customId)
-					await button.execute(editedinteraction, client, guildlang, votet, args[1].toLowerCase())
+					const button = client.buttons.get('count')
+					await button.execute(ctx, args[1].toLowerCase())
 				}; if (args[0] === 'POLL') {
-					let editedinteraction: any = interaction
-
-					editedinteraction.customId = 'poll'
 					sc = true
 
-					const button = client.buttons.get(editedinteraction.customId)
-					await button.execute(editedinteraction, client, guildlang, votet, args[1].toLowerCase())
+					const button = client.buttons.get('poll')
+					await button.execute(ctx, args[1].toLowerCase())
 				}
 
 
@@ -348,7 +396,7 @@ export const start = () => {
 					const button = client.buttons.get(interaction.customId)
 					if (!button) return
 
-					await button.execute(interaction, client, guildlang, votet)
+					await button.execute(ctx)
 				}
 
 				return
@@ -450,10 +498,15 @@ export const start = () => {
 			+ 200
 		)
 	}; dostocks()
-	cron.schedule('* * * * *', () => {
+	cron.schedule('* * * * *', async() => {
 		dostocks()
 
 		// Unix Time
 		client.stocks.refresh = Math.floor(+new Date() / 1000)+60
+	})
+
+	// Cooldown Removal
+	cron.schedule('*/10 * * * *', async() => {
+		await db.query(`delete from usercooldowns where expires / 1000 < extract(epoch from now());`)
 	})
 }

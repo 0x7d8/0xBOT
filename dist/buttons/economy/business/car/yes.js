@@ -1,36 +1,12 @@
 "use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
-const bot = __importStar(require("@functions/bot.js"));
 exports.default = {
     data: {
         name: 'car-yes'
     },
-    async execute(interaction, client, lang, vote, car, userid, type) {
-        const balance = await bot.money.get(interaction.user.id);
+    async execute(ctx, car, userid, type) {
+        const balance = await ctx.bot.money.get(ctx.interaction.user.id);
         let carvalue;
         if (car === 'jeep')
             carvalue = 25;
@@ -43,7 +19,7 @@ exports.default = {
         if (car === 'porsche')
             carvalue = 200;
         let cost, dopay = false;
-        if (await bot.businesses.get('g-' + interaction.guild.id + '-3-PRICE-' + car.toUpperCase()) === '0' || await bot.businesses.get('g-' + interaction.guild.id + '-3-PRICE-' + car.toUpperCase()) === 0) {
+        if (await ctx.bot.businesses.get('g-' + ctx.interaction.guild.id + '-3-PRICE-' + car.toUpperCase()) === '0' || await ctx.bot.businesses.get('g-' + ctx.interaction.guild.id + '-3-PRICE-' + car.toUpperCase()) === 0) {
             if (car === 'jeep')
                 cost = 15000;
             if (car === 'kia')
@@ -57,7 +33,7 @@ exports.default = {
         }
         else {
             if (type === 'buy') {
-                cost = Number(await bot.businesses.get('g-' + interaction.guild.id + '-3-PRICE-' + car.toUpperCase()));
+                cost = Number(await ctx.bot.businesses.get('g-' + ctx.interaction.guild.id + '-3-PRICE-' + car.toUpperCase()));
                 dopay = true;
             }
             else {
@@ -84,19 +60,19 @@ exports.default = {
             name = 'TESLA MODEL Y';
         if (car === 'porsche')
             name = '2019 PORSCHE 911 GT2RS';
-        if (interaction.user.id !== userid) {
+        if (ctx.interaction.user.id !== userid) {
             let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                 .setDescription('» This choice is up to <@' + userid + '>!')
-                .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
-            if (lang === 'de') {
+                .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+            if (ctx.metadata.language === 'de') {
                 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
                     .setDescription('» Diese Frage ist für <@' + userid + '>!')
-                    .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
+                    .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
             }
-            bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] CARBUY : NOTSENDER');
-            return interaction.reply({ embeds: [message], ephemeral: true });
+            ctx.log(false, `[BTN] CARBUY : NOTSENDER`);
+            return ctx.interaction.reply({ embeds: [message], ephemeral: true });
         }
         if (type === 'buy') {
             if (balance < cost) {
@@ -104,18 +80,18 @@ exports.default = {
                 let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                     .setDescription('» You dont have enough Money for that, you are missing **$' + missing + '**!')
-                    .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
-                if (lang === 'de') {
+                    .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+                if (ctx.metadata.language === 'de') {
                     message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                         .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
                         .setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
-                        .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
+                        .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
                 }
-                bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] CARBUY : ' + name.toUpperCase() + ' : NOTENOUGHMONEY : ' + cost + '€');
-                return interaction.reply({ embeds: [message], ephemeral: true });
+                ctx.log(false, `[BTN] CARBUY : ${name.toUpperCase()} : NOTENOUGHMONEY : ${cost}€`);
+                return ctx.interaction.reply({ embeds: [message], ephemeral: true });
             }
-            if (await bot.items.get(interaction.user.id + '-CAR-' + interaction.guild.id, 'amount') !== 0) {
-                const dbcar = await bot.items.get(interaction.user.id + '-CAR-' + interaction.guild.id, 'value');
+            if (await ctx.bot.items.get(ctx.interaction.user.id + '-CAR-' + ctx.interaction.guild.id, 'amount') !== 0) {
+                const dbcar = await ctx.bot.items.get(ctx.interaction.user.id + '-CAR-' + ctx.interaction.guild.id, 'value');
                 if (dbcar == 'jeep')
                     name = '2016 JEEP PATRIOT SPORT';
                 if (dbcar == 'kia')
@@ -129,25 +105,25 @@ exports.default = {
                 let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                     .setDescription('» You already own a **' + name + '**!')
-                    .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
-                if (lang === 'de') {
+                    .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+                if (ctx.metadata.language === 'de') {
                     message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                         .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
                         .setDescription('» Du besitzt schon einen **' + name + '**!')
-                        .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
+                        .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
                 }
-                bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] CARBUY : ALREADYOWNCAR : ' + name);
-                return interaction.reply({ embeds: [message], ephemeral: true });
+                ctx.log(false, `[BTN] CARBUY : ALREADYOWNCAR : ${name}`);
+                return ctx.interaction.reply({ embeds: [message], ephemeral: true });
             }
             {
-                interaction.message.components[0].components[0].data.disabled = true;
-                interaction.message.components[0].components[1].data.disabled = true;
-                interaction.message.components[0].components[1].data.style = 2;
+                ctx.interaction.message.components[0].components[0].data.disabled = true;
+                ctx.interaction.message.components[0].components[1].data.disabled = true;
+                ctx.interaction.message.components[0].components[1].data.style = 2;
             }
-            const transaction = await bot.transactions.log({
+            const transaction = await ctx.bot.transactions.log({
                 success: true,
                 sender: {
-                    id: interaction.user.id,
+                    id: ctx.interaction.user.id,
                     amount: cost,
                     type: 'negative'
                 }, reciever: {
@@ -159,75 +135,75 @@ exports.default = {
             let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:BOXCHECK:1024401101589590156> » BUY CAR')
                 .setDescription('» You successfully bought a **' + name + '** for **$' + cost + '**!\n\nID: ' + transaction.id)
-                .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
-            if (lang == 'de') {
+                .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+            if (ctx.metadata.language == 'de') {
                 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:BOXCHECK:1024401101589590156> » AUTO KAUFEN')
                     .setDescription('» Du hast erfolgreich einen **' + name + '** für **' + cost + '€** gekauft!\n\nID: ' + transaction.id)
-                    .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
+                    .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
             }
-            bot.money.rem(interaction.guild.id, interaction.user.id, cost);
+            ctx.bot.money.rem(ctx.interaction.guild.id, ctx.interaction.user.id, cost);
             if (dopay) {
-                const businessowner = await bot.businesses.get('g-' + interaction.guild.id + '-3-OWNER');
+                const businessowner = await ctx.bot.businesses.get('g-' + ctx.interaction.guild.id + '-3-OWNER');
                 if (car === 'jeep') {
-                    bot.money.add(interaction.guild.id, businessowner, cost - 5000);
-                    bot.businesses.add('g-' + interaction.guild.id + '-3-EARNING', cost - 5000);
+                    ctx.bot.money.add(ctx.interaction.guild.id, businessowner, cost - 5000);
+                    ctx.bot.businesses.add('g-' + ctx.interaction.guild.id + '-3-EARNING', cost - 5000);
                 }
                 if (car === 'kia') {
-                    bot.money.add(interaction.guild.id, businessowner, cost - 50000);
-                    bot.businesses.add('g-' + interaction.guild.id + '-3-EARNING', cost - 50000);
+                    ctx.bot.money.add(ctx.interaction.guild.id, businessowner, cost - 50000);
+                    ctx.bot.businesses.add('g-' + ctx.interaction.guild.id + '-3-EARNING', cost - 50000);
                 }
                 if (car === 'audi') {
-                    bot.money.add(interaction.guild.id, businessowner, cost - 150000);
-                    bot.businesses.add('g-' + interaction.guild.id + '-3-EARNING', cost - 150000);
+                    ctx.bot.money.add(ctx.interaction.guild.id, businessowner, cost - 150000);
+                    ctx.bot.businesses.add('g-' + ctx.interaction.guild.id + '-3-EARNING', cost - 150000);
                 }
                 if (car === 'tesla') {
-                    bot.money.add(interaction.guild.id, businessowner, cost - 220000);
-                    bot.businesses.add('g-' + interaction.guild.id + '-3-EARNING', cost - 260000);
+                    ctx.bot.money.add(ctx.interaction.guild.id, businessowner, cost - 220000);
+                    ctx.bot.businesses.add('g-' + ctx.interaction.guild.id + '-3-EARNING', cost - 260000);
                 }
                 if (car === 'porsche') {
-                    bot.money.add(interaction.guild.id, businessowner, cost - 400000);
-                    bot.businesses.add('g-' + interaction.guild.id + '-3-EARNING', cost - 500000);
+                    ctx.bot.money.add(ctx.interaction.guild.id, businessowner, cost - 400000);
+                    ctx.bot.businesses.add('g-' + ctx.interaction.guild.id + '-3-EARNING', cost - 500000);
                 }
             }
-            bot.items.set(interaction.user.id + '-CAR-' + interaction.guild.id, car, carvalue);
-            bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] CARBUY : ' + name + ' : CONFIRM');
-            return interaction.update({ embeds: [message], components: interaction.message.components });
+            ctx.bot.items.set(ctx.interaction.user.id + '-CAR-' + ctx.interaction.guild.id, car, carvalue);
+            ctx.log(false, `[BTN] CARBUY : ${name} : CONFIRM`);
+            return ctx.interaction.update({ embeds: [message], components: ctx.interaction.message.components });
         }
         else if (type === 'sell') {
-            if (await bot.items.get(interaction.user.id + '-CAR-' + interaction.guild.id, 'amount') === 0) {
+            if (await ctx.bot.items.get(ctx.interaction.user.id + '-CAR-' + ctx.interaction.guild.id, 'amount') === 0) {
                 let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
                     .setDescription('» You dont own a Car!')
-                    .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
-                if (lang === 'de') {
+                    .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+                if (ctx.metadata.language === 'de') {
                     message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                         .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
                         .setDescription('» Du besitzt kein Auto!')
-                        .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
+                        .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
                 }
-                bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] CARSELL : DONTOWNCAR');
-                return interaction.reply({ embeds: [message], ephemeral: true });
+                ctx.log(false, `[CMD] CARSELL : DONTOWNCAR`);
+                return ctx.interaction.reply({ embeds: [message], ephemeral: true });
             }
             {
-                interaction.message.components[0].components[0].data.disabled = true;
-                interaction.message.components[0].components[1].data.disabled = true;
-                interaction.message.components[0].components[1].data.style = 2;
+                ctx.interaction.message.components[0].components[0].data.disabled = true;
+                ctx.interaction.message.components[0].components[1].data.disabled = true;
+                ctx.interaction.message.components[0].components[1].data.style = 2;
             }
             let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:BOXDOLLAR:1024402261784403999> » SELL CAR')
                 .setDescription('» You successfully sold your **' + name + '** for **$' + (cost / 2) + '**!')
-                .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
-            if (lang === 'de') {
+                .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+            if (ctx.metadata.language === 'de') {
                 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:BOXDOLLAR:1024402261784403999> » AUTO VERKAUFEN')
                     .setDescription('» Du hast erfolgreich deinen **' + name + '** für **' + (cost / 2) + '€** verkauft!')
-                    .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
+                    .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
             }
-            bot.money.add(interaction.guild.id, interaction.user.id, (cost / 2));
-            bot.items.del(interaction.user.id + '-CAR-' + interaction.guild.id);
-            bot.log(false, interaction.user.id, interaction.guild.id, '[BTN] CARSELL : ' + name + ' : CONFIRM');
-            return interaction.update({ embeds: [message], components: interaction.message.components });
+            ctx.bot.money.add(ctx.interaction.guild.id, ctx.interaction.user.id, (cost / 2));
+            ctx.bot.items.del(ctx.interaction.user.id + '-CAR-' + ctx.interaction.guild.id);
+            ctx.log(false, `[BTN] CARSELL : ${name} : CONFIRM`);
+            return ctx.interaction.update({ embeds: [message], components: ctx.interaction.message.components });
         }
     }
 };

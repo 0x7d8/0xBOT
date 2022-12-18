@@ -1,8 +1,6 @@
 import { SlashCommandBuilder, EmbedBuilder } from "discord.js"
 
-import * as bot from "@functions/bot.js"
-import Client from "@interfaces/Client.js"
-import { CommandInteraction } from "discord.js"
+import CommandInteraction from "@interfaces/CommandInteraction.js"
 export default {
 	data: new SlashCommandBuilder()
 		.setName('coinflip')
@@ -22,9 +20,9 @@ export default {
 				})
 				.setRequired(false)),
 
-	async execute(interaction: CommandInteraction, client: Client, lang: string, vote: string) {
+	async execute(ctx: CommandInteraction) {
 		// Set Variables
-		let amount = bot.getOption(interaction, 'amount') as number
+		let amount = ctx.getOption('amount') as number
 		let heads = 0; let tails = 0; let tries = 0
 		if (!amount) amount = 1
 		
@@ -34,18 +32,18 @@ export default {
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
 				.setDescription('» You need to throw atleast **1** Coin!')
-				.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
-			if (lang === 'de') {
+			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
 					.setDescription('» Du musst schon mindestens **1** Münze werfen!')
-					.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 			
 			// Send Message
-			bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] COINFLIP : NOTENOUGHCOINS : ' + amount)
-			return interaction.reply({ embeds: [message], ephemeral: true })
+			ctx.log(false, `[CMD] COINFLIP : NOTENOUGHCOINS : ${amount}`)
+			return ctx.interaction.reply({ embeds: [message], ephemeral: true })
 		}
 
 		// Check if Number is too Big
@@ -54,24 +52,24 @@ export default {
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
 				.setDescription('» You cant throw more than **1000** Coins!')
-				.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
-			if (lang === 'de') {
+			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
 					.setDescription('» Du darfst nicht mehr als **1000** Münzen werfen!')
-					.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 			
 			// Send Message
-			bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] COINFLIP : TOOMANYCOINS : ' + amount)
-			return interaction.reply({ embeds: [message], ephemeral: true })
+			ctx.log(false, `[CMD] COINFLIP : TOOMANYCOINS : ${amount}`)
+			return ctx.interaction.reply({ embeds: [message], ephemeral: true })
 		}
 
 		// Loop
 		let coin: string
 		while (amount !== tries) {
-			const random = bot.random(1, 2)
+			const random = ctx.bot.random(1, 2)
 
 			if (random === 1) { coin = 'HEAD'; heads = heads + 1 }
 			if (random === 2) { coin = 'TAIL'; tails = tails + 1 }
@@ -84,35 +82,35 @@ export default {
 		if (amount === 1) {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:COINS:1024392690776944803> » COINFLIP')
-  				.setDescription('» The Coin Landed on **' + coin + '**!')
-				.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+  			.setDescription('» The Coin Landed on **' + coin + '**!')
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
-			if (lang === 'de') {
+			if (ctx.metadata.language === 'de') {
 				if (coin === "HEAD") coin = "KOPF"
 				if (coin === "TAIL") coin = "ZAHL"
 
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:COINS:1024392690776944803> » COINFLIP')
-  					.setDescription('» Die Münze ist auf **' + coin + '** gelandet!')
-					.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+  				.setDescription('» Die Münze ist auf **' + coin + '** gelandet!')
+					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 		} else {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:COINS:1024392690776944803> » COINFLIP')
-  				.setDescription('» HEADS\n`' + heads + '`\n\n» TAILS\n`' + tails + '`')
-				.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+  			.setDescription('» HEADS\n`' + heads + '`\n\n» TAILS\n`' + tails + '`')
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
-			if (lang === 'de') {
+			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:COINS:1024392690776944803> » COINFLIP')
-  					.setDescription('» KÖPFE\n`' + heads + '`\n\n» ZAHLEN\n`' + tails + '`')
-					.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+  				.setDescription('» KÖPFE\n`' + heads + '`\n\n» ZAHLEN\n`' + tails + '`')
+					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 		}
 
 		
 		// Send Message
-		bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] COINFLIP : H[' + heads + '] : T[' + tails + ']')
-		return interaction.reply({ embeds: [message] })
+		ctx.log(false, `[CMD] COINFLIP : H[${heads}] : T[${tails}]`)
+		return ctx.interaction.reply({ embeds: [message] })
 	}
 }

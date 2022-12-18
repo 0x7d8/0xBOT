@@ -1,8 +1,6 @@
 import { SlashCommandBuilder, EmbedBuilder } from "discord.js"
 
-import * as bot from "@functions/bot.js"
-import Client from "@interfaces/Client.js"
-import { CommandInteraction } from "discord.js"
+import CommandInteraction from "@interfaces/CommandInteraction.js"
 export default {
 	data: new SlashCommandBuilder()
 		.setName('businessinfo')
@@ -28,29 +26,29 @@ export default {
 					{ name: '🟡 AUTOHAUS', value: 'car dealership' },
 				)),
 
-	async execute(interaction: CommandInteraction, client: Client, lang: string, vote: string) {
+	async execute(ctx: CommandInteraction) {
 		// Check if Businesses are Enabled in Server
-		if (!await bot.settings.get(interaction.guild.id, 'businesses')) {
+		if (!await ctx.bot.settings.get(ctx.interaction.guild.id, 'businesses')) {
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
 				.setDescription('» Businesses are disabled on this Server!')
-				.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
-			if (lang === 'de') {
+			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
 					.setDescription('» Geschäfte sind auf diesem Server deaktiviert!')
-					.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 			
 			// Send Message
-			bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] BUSINESS : DISABLED')
-			return interaction.reply({ embeds: [message], ephemeral: true })
+			ctx.log(false, `[CMD] BUSINESS : DISABLED`)
+			return ctx.interaction.reply({ embeds: [message], ephemeral: true })
 		}
 
 		// Set Variables
-		const business = bot.getOption(interaction, 'business') as string
+		const business = ctx.getOption('business') as string
 
 		// Translate to Business ID
 		let businessid: string
@@ -60,32 +58,31 @@ export default {
 
 		// Check if Business is Empty
 		let businessowner: string
-		if (await bot.businesses.get('g-' + interaction.guild.id + '-' + businessid + '-OWNER') != 0) {
+		if (await ctx.bot.businesses.get('g-' + ctx.interaction.guild.id + '-' + businessid + '-OWNER') != 0) {
 			let oldleft = false
-			businessowner = await bot.businesses.get('g-' + interaction.guild.id + '-' + businessid + '-OWNER')
-			const businessearning = await bot.businesses.get('g-' + interaction.guild.id + '-' + businessid + '-EARNING', true)
+			businessowner = await ctx.bot.businesses.get('g-' + ctx.interaction.guild.id + '-' + businessid + '-OWNER')
+			const businessearning = await ctx.bot.businesses.get('g-' + ctx.interaction.guild.id + '-' + businessid + '-EARNING', true)
 			try {
-				await interaction.guild.members.fetch(businessowner)
+				await ctx.interaction.guild.members.fetch(businessowner)
 			} catch (e) { oldleft = true }
 
 			if (!oldleft) {
-
 				// Create Embed
 				let message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:QUESTION:1024402860210921503> » BUSINESS INFO')
 					.setDescription('» Business Infos:\n\nOwner: <@' + businessowner + '>\nEarnings: ' + businessearning + '€')
-					.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
-				if (lang === 'de') {
+				if (ctx.metadata.language === 'de') {
 					message = new EmbedBuilder().setColor(0x37009B)
 						.setTitle('<:QUESTION:1024402860210921503> » GESCHÄFTS INFO')
 						.setDescription('» Geschäfts Infos:\n\nBesitzer: <@' + businessowner + '>\nEinkommen: ' + businessearning + '€')
-						.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+						.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 				}
 				
 				// Send Message
-				bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] BUSINESSINFO : ' + business.toUpperCase())
-				return interaction.reply({ embeds: [message], ephemeral: true })
+				ctx.log(false, `[CMD] BUSINESSINFO : ${business.toUpperCase()}`)
+				return ctx.interaction.reply({ embeds: [message], ephemeral: true })
 			}
 		}
 
@@ -93,17 +90,17 @@ export default {
 		let message = new EmbedBuilder().setColor(0x37009B)
 			.setTitle('<:QUESTION:1024402860210921503> » BUSINESS INFO')
 			.setDescription('» Noone owns this Business, people say its profitable though!\n*mhm, I say that for everything*')
-			.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+			.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
-		if (lang === 'de') {
+		if (ctx.metadata.language === 'de') {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:QUESTION:1024402860210921503> » GESCHÄFTS INFO')
 				.setDescription('» Niemanden gehört dieses Geschäft, es besagt sich es sei aber profitabel!\n*naja, das sag ich bei jedem*')
-				.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 		}
 
 		// Send Message
-		bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] BUSINESSINFO : ' + business.toUpperCase() + ' : NOTOWNED')
-		return interaction.reply({ embeds: [message], ephemeral: true })
+		ctx.log(false, `[CMD] BUSINESSINFO : ${business.toUpperCase()} : NOTOWNED`)
+		return ctx.interaction.reply({ embeds: [message], ephemeral: true })
 	}
 }

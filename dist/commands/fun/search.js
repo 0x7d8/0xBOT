@@ -1,31 +1,7 @@
 "use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 const discord_js_2 = require("discord.js");
-const bot = __importStar(require("@functions/bot.js"));
 exports.default = {
     data: new discord_js_2.SlashCommandBuilder()
         .setName('search')
@@ -50,9 +26,9 @@ exports.default = {
     })
         .setRequired(false)
         .addChoices({ name: '🤔 GOOGLE', value: 'Google' }, { name: '⭐ BING', value: 'Bing' }, { name: '⭐ YAHOO', value: 'Yahoo' }, { name: '⭐ DUCKDUCKGO', value: 'DuckDuckGo' })),
-    async execute(interaction, client, lang, vote) {
-        let query = bot.getOption(interaction, 'query');
-        let engine = bot.getOption(interaction, 'engine');
+    async execute(ctx) {
+        let query = ctx.getOption('query');
+        let engine = ctx.getOption('engine');
         if (!engine)
             engine = 'Google';
         query = encodeURIComponent(query);
@@ -79,28 +55,28 @@ exports.default = {
         let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
             .setTitle('<:SEARCH:1024389710279348354> » SEARCH')
             .setDescription('» Click Below to look up results for **' + decodeURIComponent(query) + '** on **' + engine + '**!')
-            .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
-        if (lang === 'de') {
+            .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+        if (ctx.metadata.language === 'de') {
             message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:SEARCH:1024389710279348354> » SUCHEN')
                 .setDescription('» Klicke unten um nach Ergebnissen für **' + decodeURIComponent(query) + '** auf **' + engine + '** zu finden!')
-                .setFooter({ text: '» ' + vote + ' » ' + client.config.version });
+                .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
         }
-        bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] SEARCH : "' + decodeURIComponent(query).toUpperCase() + '" : ' + engine.toUpperCase());
+        ctx.log(false, '[CMD] SEARCH : "' + decodeURIComponent(query).toUpperCase() + '" : ' + engine.toUpperCase());
         if (engine === 'Google') {
-            await interaction.reply({ embeds: [message], components: [google] });
+            await ctx.interaction.reply({ embeds: [message], components: [google] });
         }
         ;
         if (engine === 'Bing') {
-            await interaction.reply({ embeds: [message], components: [bing] });
+            await ctx.interaction.reply({ embeds: [message], components: [bing] });
         }
         ;
         if (engine === 'Yahoo') {
-            await interaction.reply({ embeds: [message], components: [yahoo] });
+            await ctx.interaction.reply({ embeds: [message], components: [yahoo] });
         }
         ;
         if (engine === 'DuckDuckGo') {
-            await interaction.reply({ embeds: [message], components: [duck] });
+            await ctx.interaction.reply({ embeds: [message], components: [duck] });
         }
     }
 };

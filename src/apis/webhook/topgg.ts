@@ -46,7 +46,7 @@ module.exports = {
 
 		// Add Money
 		await ctr.bot.money.add(false, (ctr.reqBody as { user: string }).user, random)
-		console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] VOTED : ' + (ctr.reqBody as { user: string }).user + ' : ' + random + '€ : TOPGG')
+		console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [WEB] VOTED : ' + (ctr.reqBody as { user: string }).user + ' : ' + random + '€ : TOPGG')
 
 		// Send Message
 		ctr.client.users.send((ctr.reqBody as { user: string }).user, { embeds: [message] })

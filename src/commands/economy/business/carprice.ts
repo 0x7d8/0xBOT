@@ -1,8 +1,6 @@
 import { SlashCommandBuilder, EmbedBuilder } from "discord.js"
 
-import * as bot from "@functions/bot.js"
-import Client from "@interfaces/Client.js"
-import { CommandInteraction } from "discord.js"
+import CommandInteraction from "@interfaces/CommandInteraction.js"
 export default {
 	data: new SlashCommandBuilder()
 		.setName('carprice')
@@ -40,95 +38,95 @@ export default {
 				})
 				.setRequired(true)),
 
-	async execute(interaction: CommandInteraction, client: Client, lang: string, vote: string) {
+	async execute(ctx: CommandInteraction) {
 		// Check if Businesses are Enabled in Server
-		if (!await bot.settings.get(interaction.guild.id, 'businesses')) {
+		if (!await ctx.bot.settings.get(ctx.interaction.guild.id, 'businesses')) {
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
 				.setDescription('» Businesses are disabled on this Server!')
-				.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
-			if (lang === 'de') {
+			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
 					.setDescription('» Geschäfte sind auf diesem Server deaktiviert!')
-					.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 			
 			// Send Message
-			bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] BUSINESS : DISABLED')
-			return interaction.reply({ embeds: [message], ephemeral: true })
+			ctx.log(false, `[CMD] BUSINESS : DISABLED`)
+			return ctx.interaction.reply({ embeds: [message], ephemeral: true })
 		}
 
 		// Set Variables
-		const car = bot.getOption(interaction, 'car') as string
-		const newprice = bot.getOption(interaction, 'price') as number
+		const car = ctx.getOption('car') as string
+		const newprice = ctx.getOption('price') as number
 
 		// Check if User owns Business
-		if (await bot.businesses.get('g-' + interaction.guild.id + '-3-OWNER') !== interaction.user.id) {
+		if (await ctx.bot.businesses.get('g-' + ctx.interaction.guild.id + '-3-OWNER') !== ctx.interaction.user.id) {
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
   				.setDescription('» You dont own this Business!')
-				.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
-			if (lang === 'de') {
+			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
   					.setDescription('» Du besitzt dieses Geschäft nicht!')
-					.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 			
 			// Send Message
-			bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] CARPRICE : NOTOWNER')
-			return interaction.reply({ embeds: [message], ephemeral: true })
+			ctx.log(false, `[CMD] CARPRICE : NOTOWNER`)
+			return ctx.interaction.reply({ embeds: [message], ephemeral: true })
 		}
 
 		// Check if Price is valid
 		let doscream = false
-		if (car === 'jeep' && !bot.inRange(newprice, 5000, 15000)) doscream = true
-		if (car === 'kia' && !bot.inRange(newprice, 50000, 90000)) doscream = true
-		if (car === 'audi' && !bot.inRange(newprice, 140000, 200000)) doscream = true
-		if (car === 'tesla' && !bot.inRange(newprice, 220000, 260000)) doscream = true
-		if (car === 'porsche' && !bot.inRange(newprice, 400000, 500000)) doscream = true
+		if (car === 'jeep' && !ctx.bot.inRange(newprice, 5000, 15000)) doscream = true
+		if (car === 'kia' && !ctx.bot.inRange(newprice, 50000, 90000)) doscream = true
+		if (car === 'audi' && !ctx.bot.inRange(newprice, 140000, 200000)) doscream = true
+		if (car === 'tesla' && !ctx.bot.inRange(newprice, 220000, 260000)) doscream = true
+		if (car === 'porsche' && !ctx.bot.inRange(newprice, 400000, 500000)) doscream = true
 		if (doscream) {
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-  				.setDescription('» Please follow the limits seen in the first step!')
-				.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+  			.setDescription('» Please follow the limits seen in the first step!')
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
-			if (lang === 'de') {
+			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-  					.setDescription('» Bitte folge den Limits zu sehen im ersten Schritt!')
-					.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+  				.setDescription('» Bitte folge den Limits zu sehen im ersten Schritt!')
+					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 			
 			// Send Message
-			bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] CARPRICE : NOTLIMIT')
-			return interaction.reply({ embeds: [message], ephemeral: true })
+			ctx.log(false, `[CMD] CARPRICE : ${newprice} : NOTLIMIT`)
+			return ctx.interaction.reply({ embeds: [message], ephemeral: true })
 		}
 
 		// Adjust Prices
-		bot.businesses.set('g-' + interaction.guild.id + '-3-PRICE-' + car.toUpperCase(), newprice.toString())
+		ctx.bot.businesses.set('g-' + ctx.interaction.guild.id + '-3-PRICE-' + car.toUpperCase(), newprice.toString())
 
 		// Create Embed
 		let message = new EmbedBuilder().setColor(0x37009B)
 			.setTitle('<:PARTITION:1024399126403747970> » CAR PRICES')
 			.setDescription('» Successfully set the price to **$' + newprice + '**.')
-			.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+			.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
-		if (lang === 'de') {
+		if (ctx.metadata.language === 'de') {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:PARTITION:1024399126403747970> » AUTO PREISE')
 				.setDescription('» Erfolgreich den Preis auf **' + newprice + '€** gesetzt.')
-				.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 		}
 
 		// Send Message
-		bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] CARPRICE : ' + car.toUpperCase() + ' : ' + newprice + '€')
-		return interaction.reply({ embeds: [message], ephemeral: true })
+		ctx.log(false, `[CMD] CARPRICE : ${car.toUpperCase()} : ${newprice}€`)
+		return ctx.interaction.reply({ embeds: [message], ephemeral: true })
 	}
 }

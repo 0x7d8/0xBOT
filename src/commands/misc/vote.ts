@@ -1,9 +1,7 @@
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js"
 import { SlashCommandBuilder, EmbedBuilder } from "discord.js"
 
-import * as bot from "@functions/bot.js"
-import Client from "@interfaces/Client.js"
-import { CommandInteraction } from "discord.js"
+import CommandInteraction from "@interfaces/CommandInteraction.js"
 export default {
 	data: new SlashCommandBuilder()
 		.setName('vote')
@@ -13,7 +11,7 @@ export default {
 			de: 'VOTE FÜR DEN BOT'
 		}),
 
-	async execute(interaction: CommandInteraction, client: Client, lang: string, vote: string) {
+	async execute(ctx: CommandInteraction) {
 		// Create Button
 		const row = new ActionRowBuilder()
 			.addComponents(
@@ -31,18 +29,18 @@ export default {
 		// Create Embed
 	   	let message = new EmbedBuilder().setColor(0x37009B)
 			.setTitle('<:GLOBE:1024403680503529583> » VOTE')
-  			.setDescription('» Click below to go to Vote for the Bot!')
-			.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+  		.setDescription('» Click below to go to Vote for the Bot!')
+			.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
-		if (lang === 'de') {
+		if (ctx.metadata.language === 'de') {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:GLOBE:1024403680503529583> » VOTEN')
-  				.setDescription('» Klicke unten um für den Bot zu voten!')
-				.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+  			.setDescription('» Klicke unten um für den Bot zu Voten!')
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 		}
 		
 		// Send Message
-		bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] VOTE')
-		return interaction.reply({ embeds: [message], components: [row as any], ephemeral: true })
+		ctx.log(false, `[CMD] VOTE`)
+		return ctx.interaction.reply({ embeds: [message], components: [row as any], ephemeral: true })
 	}
 }

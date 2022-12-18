@@ -1,9 +1,7 @@
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js"
 import { SlashCommandBuilder, EmbedBuilder } from "discord.js"
 
-import * as bot from "@functions/bot.js"
-import Client from "@interfaces/Client.js"
-import { CommandInteraction } from "discord.js"
+import CommandInteraction from "@interfaces/CommandInteraction.js"
 export default {
 	data: new SlashCommandBuilder()
 		.setName('poll')
@@ -20,9 +18,9 @@ export default {
 				})
 				.setRequired(true)),
 
-	async execute(interaction: CommandInteraction, client: Client, lang: string, vote: string) {
+	async execute(ctx: CommandInteraction) {
 		// Set Variables
-		const question = bot.getOption(interaction, 'text') as string
+		const question = ctx.getOption('text') as string
 
 		// Create Buttons
 		const row = new ActionRowBuilder()
@@ -43,18 +41,18 @@ export default {
 		// Create Embed
 	   	let message = new EmbedBuilder().setColor(0x37009B)
 			.setTitle('<:POLL:1024391847092703365> » POLL')
-  			.setDescription('» ' + question)
-			.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+  		.setDescription('» ' + question)
+			.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
-		if (lang === 'de') {
+		if (ctx.metadata.language === 'de') {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:POLL:1024391847092703365> » ABSTIMMUNG')
-  				.setDescription('» ' + question)
-				.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+  			.setDescription('» ' + question)
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 		}
 		
 		// Send Message
-		bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] POLL : ' + question.toUpperCase())
-		return interaction.reply({ embeds: [message], components: [row as any] })
+		ctx.log(false, `[CMD] POLL : ${question.toUpperCase()}`)
+		return ctx.interaction.reply({ embeds: [message], components: [row as any] })
 	}
 }

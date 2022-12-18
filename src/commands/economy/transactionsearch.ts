@@ -1,20 +1,6 @@
 import { SlashCommandBuilder, EmbedBuilder } from "discord.js"
 
-// Connect to Database
-import config from "@config"
-import { default as pg } from "pg"
-const db = new pg.Pool({
-	host: config.database.oxbot.host,
-	database: config.database.oxbot.database,
-	user: config.database.oxbot.username,
-	password: config.database.oxbot.password,
-	port: 5432,
-	ssl: true
-})
-
-import * as bot from "@functions/bot.js"
-import Client from "@interfaces/Client.js"
-import { CommandInteraction } from "discord.js"
+import CommandInteraction from "@interfaces/CommandInteraction.js"
 export default {
 	data: new SlashCommandBuilder()
 		.setName('transactionsearch')
@@ -41,50 +27,50 @@ export default {
 				})
 				.setRequired(false)),
 
-	async execute(interaction: CommandInteraction, client: Client, lang: string, vote: string) {
+	async execute(ctx: CommandInteraction) {
 		// Set Variables
-		const sender = interaction.options.getUser("sender")
-		const reciever = interaction.options.getUser("reciever")
+		const sender = ctx.interaction.options.getUser("sender")
+		const reciever = ctx.interaction.options.getUser("reciever")
 
 		// Get Results
 		let embedDesc = ''; let rawvalues: any
-		if (sender !== null && reciever !== null) {
-			rawvalues = await db.query(`select * from usertransactions where senderid = $1 and recieverid = $2 order by timestamp desc limit 20;`, [
+		if (sender && reciever) {
+			rawvalues = await ctx.db.query(`select * from usertransactions where senderid = $1 and recieverid = $2 order by timestamp desc limit 20;`, [
 				sender.id,
 				reciever.id
 			])
-		} else if (sender !== null && reciever === null) {
-			rawvalues = await db.query(`select * from usertransactions where senderid = $1 order by timestamp desc limit 20;`, [
+		} else if (sender && !reciever) {
+			rawvalues = await ctx.db.query(`select * from usertransactions where senderid = $1 order by timestamp desc limit 20;`, [
 				sender.id
 			])
-		} else if (sender === null && reciever !== null) {
-			rawvalues = await db.query(`select * from usertransactions where recieverid = $1 order by timestamp desc limit 20;`, [
+		} else if (!sender && reciever) {
+			rawvalues = await ctx.db.query(`select * from usertransactions where recieverid = $1 order by timestamp desc limit 20;`, [
 				reciever.id
 			])
 		} else {
-			rawvalues = await db.query(`select * from usertransactions order by timestamp desc limit 20;`)
+			rawvalues = await ctx.db.query(`select * from usertransactions order by timestamp desc limit 20;`)
 		}
 
 		for (const element of rawvalues.rows) {
-			if (lang === 'de') embedDesc += `» ${(/^\d/.test(element.senderid) ? `<@${element.senderid}>` : element.senderid)} | **${element.senderamount}€** -> ${(/^\d/.test(element.recieverid) ? `<@${element.recieverid}>` : element.recieverid)}\nID: \`${element.id}\`\n`
+			if (ctx.metadata.language === 'de') embedDesc += `» ${(/^\d/.test(element.senderid) ? `<@${element.senderid}>` : element.senderid)} | **${element.senderamount}€** -> ${(/^\d/.test(element.recieverid) ? `<@${element.recieverid}>` : element.recieverid)}\nID: \`${element.id}\`\n`
 			else embedDesc += `» ${(/^\d/.test(element.senderid) ? `<@${element.senderid}>` : element.senderid)} | **$${element.senderamount}** -> ${(/^\d/.test(element.recieverid) ? `<@${element.recieverid}>` : element.recieverid)}\nID: \`${element.id}\`\n`
-		}; if (embedDesc === '') { embedDesc = 'Nothing Found.'; if (lang === 'de') { embedDesc = 'Nichts Gefunden.' } }
+		}; if (embedDesc === '') { embedDesc = 'Nothing Found.'; if (ctx.metadata.language === 'de') { embedDesc = 'Nichts Gefunden.' } }
 		
 		// Create Embeds
 		let message = new EmbedBuilder().setColor(0x37009B)
 			.setTitle('<:BAG:1024389219558367292> » TRANSACTION SEARCH')
   			.setDescription(embedDesc)
-			.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+			.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
-		if (lang === 'de') {
+		if (ctx.metadata.language === 'de') {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:BAG:1024389219558367292> » TRANSAKTIONS SUCHE')
   				.setDescription(embedDesc)
-				.setFooter({ text: '» ' + vote + ' » ' + client.config.version })
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 		}
 
 		// Send Message
-		bot.log(false, interaction.user.id, interaction.guild.id, '[CMD] TRANSACTIONSEARCH : ' + (sender === null ? 'EMPTY' : sender.id) + ' : ' + (reciever === null ? 'EMPTY' : reciever.id))
-		return interaction.reply({ embeds: [message] })
+		ctx.log(false, `[CMD] TRANSACTIONSEARCH : ${sender ? 'EMPTY' : sender.id} : ${reciever ? 'EMPTY' : reciever.id}`)
+		return ctx.interaction.reply({ embeds: [message] })
 	}
 }

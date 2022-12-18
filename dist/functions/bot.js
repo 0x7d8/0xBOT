@@ -23,7 +23,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ttt = exports.rps = exports.memory = exports.game = exports.bomb = exports.error = exports.stats = exports.isNumber = exports.getOption = exports.log = exports.random = exports.perCalc = exports.perAdd = exports.inRange = exports.transactions = exports.businesses = exports.stocks = exports.money = exports.items = exports.language = exports.settings = exports.userdb = exports.polls = exports.quotes = exports.votes = exports.apis = exports.stat = void 0;
+exports.ttt = exports.rps = exports.memory = exports.game = exports.bomb = exports.error = exports.stats = exports.isNumber = exports.getOption = exports.log = exports.random = exports.perCalc = exports.perAdd = exports.inRange = exports.transactions = exports.businesses = exports.stocks = exports.money = exports.items = exports.cooldown = exports.language = exports.settings = exports.userdb = exports.polls = exports.quotes = exports.votes = exports.apis = exports.stat = void 0;
 const discord_js_1 = require("discord.js");
 const stat = __importStar(require("./stats.js"));
 const utils = __importStar(require("rjutils-collection"));
@@ -36,6 +36,7 @@ exports.polls = __importStar(require("./misc/polls.js"));
 exports.userdb = __importStar(require("./misc/userdb.js"));
 exports.settings = __importStar(require("./misc/settings.js"));
 exports.language = __importStar(require("./misc/language.js"));
+exports.cooldown = __importStar(require("./misc/cooldown.js"));
 exports.items = __importStar(require("./economy/items.js"));
 exports.money = __importStar(require("./economy/money.js"));
 exports.stocks = __importStar(require("./economy/stocks.js"));
