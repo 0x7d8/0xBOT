@@ -1,5 +1,4 @@
 import { SlashCommandBuilder, EmbedBuilder } from "discord.js"
-import ms from "ms"
 
 import CommandInteraction from "@interfaces/CommandInteraction.js"
 export default {
@@ -38,6 +37,8 @@ export default {
 				)),
 
 	async execute(ctx: CommandInteraction) {
+		const ms = (await import('pretty-ms')).default
+
 		// Check if Rob is Enabled in Server
 		if (!await ctx.bot.settings.get(ctx.interaction.guild.id, 'rob')) {
 			// Create Embed
@@ -72,17 +73,17 @@ export default {
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-  			.setDescription('» You still have a Cooldown of **' + ms(timeLeft) + '**!')
+  			.setDescription('» You still have a Cooldown of **' + ms(timeLeft, { secondsDecimalDigits: 0 }) + '**!')
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-  				.setDescription('» Du hast leider noch einen Cooldown von **' + ms(timeLeft) + '**!')
+  				.setDescription('» Du hast leider noch einen Cooldown von **' + ms(timeLeft, { secondsDecimalDigits: 0 }) + '**!')
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 			}
 			
-			ctx.log(false, `[CMD] ROB : ONCOOLDOWN : ${ms(timeLeft)}`)
+			ctx.log(false, `[CMD] ROB : ONCOOLDOWN : ${ms(timeLeft, { secondsDecimalDigits: 0 })}`)
 			return ctx.interaction.reply({ embeds: [message], ephemeral: true })
 		}
 		

@@ -1,6 +1,5 @@
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js"
 import { SlashCommandBuilder, EmbedBuilder } from "discord.js"
-import ms from "ms"
 
 import CommandInteraction from "@interfaces/CommandInteraction.js"
 export default {
@@ -20,6 +19,8 @@ export default {
 				.setRequired(false)),
 
 	async execute(ctx: CommandInteraction) {
+		const ms = (await import('pretty-ms')).default
+
 		// Set Variables
 		const user = ctx.interaction.options.getUser("user")
 		let userobj: typeof ctx.interaction.user
@@ -36,7 +37,7 @@ export default {
 		const rawvalues = await ctx.db.query(`select name, expires from usercooldowns where userid = $1 and expires / 1000 > extract(epoch from now());`, [userobj.id])
 
 		for (const element of rawvalues.rows) {
-			embedDesc += `» ${element.name.toUpperCase()}\n**${ms(Number(element.expires) - Date.now())}**\n`
+			embedDesc += `» ${element.name.toUpperCase()}\n**${ms((Number(element.expires) - Date.now()), { secondsDecimalDigits: 0 })}**\n`
 		}; if (embedDesc === '') { embedDesc = 'Nothing Found.'; if (ctx.metadata.language === 'de') { embedDesc = 'Nichts Gefunden.' } }
 
 		// Create Button

@@ -1,10 +1,6 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
-const ms_1 = __importDefault(require("ms"));
 exports.default = {
     data: new discord_js_1.SlashCommandBuilder()
         .setName('work')
@@ -14,6 +10,7 @@ exports.default = {
         de: 'ARBEITE FÜR GELD'
     }),
     async execute(ctx) {
+        const ms = (await import('pretty-ms')).default;
         if (!await ctx.bot.settings.get(ctx.interaction.guild.id, 'work')) {
             let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
@@ -33,15 +30,15 @@ exports.default = {
             const timeLeft = (await ctx.bot.cooldown.get(ctx.interaction.user.id, 'work')).remaining;
             let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-                .setDescription('» You still have a Cooldown of **' + (0, ms_1.default)(timeLeft) + '**!')
+                .setDescription('» You still have a Cooldown of **' + ms(timeLeft, { secondsDecimalDigits: 0 }) + '**!')
                 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
             if (ctx.metadata.language === 'de') {
                 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
                     .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-                    .setDescription('» Du hast leider noch einen Cooldown von **' + (0, ms_1.default)(timeLeft) + '**!')
+                    .setDescription('» Du hast leider noch einen Cooldown von **' + ms(timeLeft, { secondsDecimalDigits: 0 }) + '**!')
                     .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
             }
-            ctx.log(false, `[CMD] WORK : ONCOOLDOWN : ${(0, ms_1.default)(timeLeft)}`);
+            ctx.log(false, `[CMD] WORK : ONCOOLDOWN : ${ms(timeLeft, { secondsDecimalDigits: 0 })}`);
             return ctx.interaction.reply({ embeds: [message], ephemeral: true });
         }
         else {

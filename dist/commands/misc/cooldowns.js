@@ -1,11 +1,7 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 const discord_js_2 = require("discord.js");
-const ms_1 = __importDefault(require("ms"));
 exports.default = {
     data: new discord_js_2.SlashCommandBuilder()
         .setName('cooldowns')
@@ -21,6 +17,7 @@ exports.default = {
     })
         .setRequired(false)),
     async execute(ctx) {
+        const ms = (await import('pretty-ms')).default;
         const user = ctx.interaction.options.getUser("user");
         let userobj;
         if (!user) {
@@ -34,7 +31,7 @@ exports.default = {
         let embedDesc = '';
         const rawvalues = await ctx.db.query(`select name, expires from usercooldowns where userid = $1 and expires / 1000 > extract(epoch from now());`, [userobj.id]);
         for (const element of rawvalues.rows) {
-            embedDesc += `» ${element.name.toUpperCase()}\n**${(0, ms_1.default)(Number(element.expires) - Date.now())}**\n`;
+            embedDesc += `» ${element.name.toUpperCase()}\n**${ms((Number(element.expires) - Date.now()), { secondsDecimalDigits: 0 })}**\n`;
         }
         ;
         if (embedDesc === '') {
