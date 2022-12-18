@@ -40,6 +40,7 @@ module.exports = {
 				"cars": await ctr.bot.settings.get(ctr.query.get('id'), 'cars'),
 				"stocks": await ctr.bot.settings.get(ctr.query.get('id'), 'stocks'),
 				"luckgames": await ctr.bot.settings.get(ctr.query.get('id'), 'luckgames'),
+				"daily": await ctr.bot.settings.get(ctr.query.get('id'), 'daily'),
 				"work": await ctr.bot.settings.get(ctr.query.get('id'), 'work'),
 				"rob": await ctr.bot.settings.get(ctr.query.get('id'), 'rob')
 			}

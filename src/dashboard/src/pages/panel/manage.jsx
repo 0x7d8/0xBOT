@@ -29,6 +29,7 @@ import EconomyStocks from '/src/options/economy/stocks'
 import EconomyItems from '/src/options/economy/items'
 import EconomyCars from '/src/options/economy/cars'
 import EconomyLuckGames from '/src/options/economy/luckgames'
+import EconomyDaily from '/src/options/economy/daily'
 import EconomyWork from '/src/options/economy/work'
 import EconomyRob from '/src/options/economy/rob'
 
@@ -160,6 +161,7 @@ const General = () => {
               </h2>
               <AccordionPanel pb={4}>
                 <EconomyLuckGames />
+                <EconomyDaily />
                 <EconomyWork />
                 <EconomyRob />
               </AccordionPanel>
