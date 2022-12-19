@@ -22,7 +22,7 @@ const get = async (userId) => {
 };
 exports.get = get;
 const set = async (guildId, userId, value) => {
-    const data = await db.query(`select null from usermoney where userid = $1;`, [userId]);
+    const data = await db.query(`select guilds from usermoney where userid = $1;`, [userId]);
     if (data.rowCount !== 1) {
         await db.query(`insert into usermoney values ($1, $2, array[$3]);`, [
             userId,
@@ -43,7 +43,7 @@ const set = async (guildId, userId, value) => {
 };
 exports.set = set;
 const add = async (guildId, userId, value) => {
-    const data = await db.query(`select null from usermoney where userid = $1;`, [userId]);
+    const data = await db.query(`select guilds from usermoney where userid = $1;`, [userId]);
     if (data.rowCount !== 1) {
         await db.query(`insert into usermoney values ($1, $2, array[$3]);`, [
             userId,
@@ -64,7 +64,7 @@ const add = async (guildId, userId, value) => {
 };
 exports.add = add;
 const rem = async (guildId, userId, value) => {
-    const data = await db.query(`select null from usermoney where userid = $1;`, [userId]);
+    const data = await db.query(`select guilds from usermoney where userid = $1;`, [userId]);
     if (data.rowCount !== 1) {
         await db.query(`insert into usermoney values ($1, 0, array[$2]);`, [
             userId,

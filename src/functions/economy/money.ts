@@ -20,7 +20,7 @@ export const get = async(userId: string) => {
 
 // Set Function
 export const set = async(guildId: any, userId: string, value: number) => {
-	const data = await db.query(`select null from usermoney where userid = $1;`, [userId])
+	const data = await db.query(`select guilds from usermoney where userid = $1;`, [userId])
 	if (data.rowCount !== 1) {
 		await db.query(`insert into usermoney values ($1, $2, array[$3]);`, [
 			userId,
@@ -39,7 +39,7 @@ export const set = async(guildId: any, userId: string, value: number) => {
 
 // Add Function
 export const add = async(guildId: any, userId: string, value: number) => {
-	const data = await db.query(`select null from usermoney where userid = $1;`, [userId])
+	const data = await db.query(`select guilds from usermoney where userid = $1;`, [userId])
 	if (data.rowCount !== 1) {
 		await db.query(`insert into usermoney values ($1, $2, array[$3]);`, [
 			userId,
@@ -58,7 +58,7 @@ export const add = async(guildId: any, userId: string, value: number) => {
 
 // Rem Function
 export const rem = async(guildId: any, userId: string, value: number) => {
-	const data = await db.query(`select null from usermoney where userid = $1;`, [userId])
+	const data = await db.query(`select guilds from usermoney where userid = $1;`, [userId])
 	if (data.rowCount !== 1) {
 		await db.query(`insert into usermoney values ($1, 0, array[$2]);`, [
 			userId,
