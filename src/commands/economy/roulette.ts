@@ -167,14 +167,20 @@ export default {
 			// Create Embed
 	  		let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:CLOVER:1024388649418235925> » ROULETTE')
-  			.setDescription('» You bet **$' + wette + '** on **' + colordis.toUpperCase() + '** and **' + status + '** **$' + resultdis + '**!\n\nID: ' + transaction.id)
-				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
+  			.setDescription(`
+					» You bet **$${wette}** on **${colordis.toUpperCase()}** and **${status}** **$${resultdis}**!
+					${status === 'LOST' ? `The Color was **${color.toUpperCase()}**\n` : ''}
+					ID: ${transaction.id}
+				`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:CLOVER:1024388649418235925> » ROULETTE')
-  				.setDescription('» Du hast **' + wette + '€** auf **' + farbe.toUpperCase() + '** gesetzt und **' + resultdis + '€** **' + status + '**!\n\nID: ' + transaction.id)
-					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
+  				.setDescription(`
+						» Du hast **${wette}€** auf **${farbe.toUpperCase()}** gesetzt und **${resultdis}€** **${status}**!
+						${status === 'VERLOREN' ? `Die Farbe war **${color.toUpperCase()}**\n` : ''}
+						ID: ${transaction.id}
+					`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 			
 			// Set Money

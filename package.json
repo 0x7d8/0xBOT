@@ -5,10 +5,9 @@
   "author": "0x4096",
   "license": "MIT",
   "scripts": {
-    "test": "tsc && cp -r ./src/dashboard ./dist && cd dist && node index && cd ..",
-    "build": "rm -r dist && tsc --pretty false --removeComments true && cp -r ./src/dashboard ./dist"
-  },
-  "homepage": "https://0xbot.de",
+    "test": "tsc && cp -r ./src/dashboard ./dist && cd dist && find . -path ./dashboard -prune -o -type f -exec sed -i 's/[\t]\\{1,\\}//g; s/    //g' {} + > /dev/null 2>&1 && node index && cd ..",
+    "build": "rm -r dist && tsc --pretty false --removeComments true && cp -r ./src/dashboard ./dist && cd dist && find . -path ./dashboard -prune -o -type f -exec sed -i 's/[\t]\\{1,\\}//g; s/    //g' {} + > /dev/null 2>&1 && cd .."
+  }, "homepage": "https://0xbot.de",
   "dependencies": {
     "@types/module-alias": "^2.0.1",
     "@types/node": "^18.11.10",

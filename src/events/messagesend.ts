@@ -58,7 +58,7 @@ export default {
 				if (guildlang === 'de') content = `» Gutes schreiben <@${message.author.id}>! Du bist nun Level **${newLevel}**.\nZum anschauen deines Levels mach </level:1030147810194100245>`
 
 				// Send Message
-				return message.channel.send({ content: content, components: [row as any] })
+				return message.reply({ content: content, components: [row as any] })
 			}
 		}
 	}

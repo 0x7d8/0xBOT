@@ -76,15 +76,29 @@ export default {
 		let message = new EmbedBuilder().setColor(0x37009B)
 			.setTitle('<:CUBE:1024404832452350032> » CATROBAT PROJECT INFO')
 			.setThumbnail(info.screenshot_small)
-  		.setDescription(`[${info.name}](https://share.catrob.at/project/${id})\n\n» Description\n\`${info.description.replace('`', '"')}\`\n\n» Size\n\`${Number(info.filesize).toFixed(2)}MB\``)
-			.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
+  		.setDescription(`
+				[${info.name}](https://share.catrob.at/project/${id})
+				
+				» Description
+				\`${info.description.replace('`', '"')}\`
+				
+				» Size
+				\`${Number(info.filesize).toFixed(2)}MB\`
+			`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 		if (ctx.metadata.language === 'de') {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:CUBE:1024404832452350032> » CATOBAT PROJEKT INFO')
 				.setThumbnail(info.screenshot_small)
-				.setDescription(`[${info.name}](https://share.catrob.at/project/${id})\n\n» Beschreibung\n\`${info.description.replace('`', '"')}\`\n\n» Größe\n\`${Number(info.filesize).toFixed(2)}MB\``)
-				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
+				.setDescription(`
+					[${info.name}](https://share.catrob.at/project/${id})
+					
+					» Beschreibung
+					\`${info.description.replace('`', '"')}\`
+					
+					» Größe
+					\`${Number(info.filesize).toFixed(2)}MB\`
+				`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 		}
 
 		// Send Message

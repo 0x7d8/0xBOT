@@ -206,7 +206,7 @@ export default {
 		}
 
 		// Send Message
-		ctx.log(false, `[CMD] ITEMBUY : ${amount}x : ${itemid.toUpperCase()} : ${cost}€`)
+		ctx.log(false, `[CMD] ITEMBUY : ${pamount}x : ${itemid.toUpperCase()} : ${cost}€`)
 		return ctx.interaction.reply({ embeds: [message], components: [row as any] })
 	}
 }
