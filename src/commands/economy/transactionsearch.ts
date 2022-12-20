@@ -59,13 +59,13 @@ export default {
 		// Create Embeds
 		let message = new EmbedBuilder().setColor(0x37009B)
 			.setTitle('<:BAG:1024389219558367292> » TRANSACTION SEARCH')
-  			.setDescription(embedDesc)
+  		.setDescription(embedDesc)
 			.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 		if (ctx.metadata.language === 'de') {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:BAG:1024389219558367292> » TRANSAKTIONS SUCHE')
-  				.setDescription(embedDesc)
+  			.setDescription(embedDesc)
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 		}
 

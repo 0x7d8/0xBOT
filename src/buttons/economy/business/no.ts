@@ -35,13 +35,13 @@ export default {
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-  			.setDescription('» This choice is up to <@' + userid + '>!')
+  			.setDescription(`» This choice is up to <@${userid}>!`)
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-  				.setDescription('» Diese Frage ist für <@' + userid + '>!')
+  				.setDescription(`» Diese Frage ist für <@${userid}>!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 			
@@ -62,13 +62,13 @@ export default {
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:BOXCHECK:1024401101589590156> » BUY BUSINESS')
-				.setDescription('» <@' + ctx.interaction.user.id + '> said **NO** to a **' + name + '**.')
+				.setDescription(`» <@${ctx.interaction.user.id}> said **NO** to a **${name}**.`)
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:BOXCHECK:1024401101589590156> » GESCHÄFT KAUFEN')
-					.setDescription('» <@' + ctx.interaction.user.id + '> hat **NEIN** zu einem **' + name + '** gesagt.')
+					.setDescription(`» <@${ctx.interaction.user.id}> hat **NEIN** zu einem **${name}** gesagt.`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 
@@ -79,13 +79,13 @@ export default {
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:BOXCHECK:1024401101589590156> » SELL BUSINESS')
-				.setDescription('» <@' + ctx.interaction.user.id + '> said **NO** to selling his **' + name + '**.')
+				.setDescription(`» <@${ctx.interaction.user.id}> said **NO** to selling his **${name}**.`)
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:BOXCHECK:1024401101589590156> » GESCHÄFT VERKAUFEN')
-					.setDescription('» <@' + ctx.interaction.user.id + '> hat **NEIN** zum verkaufen von seinem **' + name + '** gesagt.')
+					.setDescription(`» <@${ctx.interaction.user.id}> hat **NEIN** zum verkaufen von seinem **${name}** gesagt.`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 

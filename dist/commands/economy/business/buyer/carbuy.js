@@ -24,12 +24,12 @@ async execute(ctx) {
 if (!await ctx.bot.settings.get(ctx.interaction.guild.id, 'cars')) {
 let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-.setDescription('» Cars are disabled on this Server!')
+.setDescription(`» Cars are disabled on this Server!`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-.setDescription('» Autos sind auf diesem Server deaktiviert!')
+.setDescription(`» Autos sind auf diesem Server deaktiviert!`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
 ctx.log(false, `[CMD] CAR : DISABLED`);
@@ -68,12 +68,12 @@ if (balance < cost) {
 const missing = cost - balance;
 let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-.setDescription('» You dont have enough Money for that, you are missing **$' + missing + '**!')
+.setDescription(`» You dont have enough Money for that, you are missing **$${missing}**!`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-.setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
+.setDescription(`» Du hast dafür nicht genug Geld, dir fehlen **${missing}€**!`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
 ctx.log(false, `[CMD] CARBUY : ${name.toUpperCase()} : NOTENOUGHMONEY : ${cost}€`);
@@ -93,12 +93,12 @@ if (dbcar === 'porsche')
 name = '2019 PORSCHE 911 GT2RS';
 let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-.setDescription('» You already own a **' + name + '**!')
+.setDescription(`» You already own a **${name}**!`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-.setDescription('» Du besitzt schon einen **' + name + '**!')
+.setDescription(`» Du besitzt schon einen **${name}**!`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
 ctx.log(false, `[CMD] CARBUY : ALREADYOWNCAR : ${name}`);
@@ -132,12 +132,12 @@ row = new discord_js_1.ActionRowBuilder()
 }
 let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:BOXCHECK:1024401101589590156> » BUY CAR')
-.setDescription('» Do you want to buy a **' + name + '** for **$' + cost + '**?')
+.setDescription(`» Do you want to buy a **${name}** for **$${cost}**?`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:BOXCHECK:1024401101589590156> » AUTO KAUFEN')
-.setDescription('» Willst du einen **' + name + '** für **' + cost + '€** kaufen?')
+.setDescription(`» Willst du einen **${name}** für **${cost}€** kaufen?`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
 ctx.log(false, `[CMD] CARBUY : ${name.toUpperCase()} : ${cost}€`);

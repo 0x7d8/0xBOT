@@ -35,12 +35,12 @@ const [sender, reciever] = description;
 if (sender !== ctx.interaction.user.id && reciever !== ctx.interaction.user.id) {
 let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-.setDescription('» You arent playing!')
+.setDescription(`» You arent playing!`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-.setDescription('» Du spielst garnicht mit!')
+.setDescription(`» Du spielst garnicht mit!`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
 ctx.log(false, `[BTN] TICTACTOE : NOTPLAYING`);
@@ -50,12 +50,12 @@ const turn = ctx.bot.ttt.get('TURN-' + sender);
 if (ctx.interaction.user.id !== turn) {
 let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-.setDescription('» Its not your turn!')
+.setDescription(`» Its not your turn!`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-.setDescription('» Es ist nicht dein Zug!')
+.setDescription(`» Es ist nicht dein Zug!`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
 ctx.log(false, `[BTN] TICTACTOE : NOTTURN`);
@@ -94,13 +94,21 @@ ctx.interaction.message.components[comp[1]].components[comp[0]].data.style = 4;
 }
 let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:GAMEPAD:1024395990679167066> » TICTACTOE')
-.setDescription('» <@' + sender + '> is playing Tic Tac Toe with <@' + reciever + '>!\nThe Bet is **$' + bet + '**\n\n🔵 » <@' + sender + '>\n🔴 » <@' + reciever + '>')
-.setFooter({ text: '» ' + ctx.client.config.version + ' » CURRENT TURN: ' + turnemoji });
+.setDescription(`
+» <@${sender}> is playing Tic Tac Toe with <@${reciever}>!
+The Bet is **\$${bet}**
+
+🔵 » <@${sender}>\n🔴 » <@${reciever}>
+`).setFooter({ text: '» ' + ctx.client.config.version + ' » CURRENT TURN: ' + turnemoji });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:GAMEPAD:1024395990679167066> » TICTACTOE')
-.setDescription('» <@' + sender + '> spielt mit <@' + reciever + '> Tic Tac Toe!\nDie Wette ist **' + bet + '€**\n\n🔵 » <@' + sender + '>\n🔴 » <@' + reciever + '>')
-.setFooter({ text: '» ' + ctx.client.config.version + ' » AM ZUG: ' + turnemoji });
+.setDescription(`
+» <@${sender}> spielt mit <@${reciever}> Tic Tac Toe!
+Die Wette ist **${bet}€**
+
+🔵 » <@${sender}>\n🔴 » <@${reciever}>
+`).setFooter({ text: '» ' + ctx.client.config.version + ' » AM ZUG: ' + turnemoji });
 }
 ctx.log(false, `[BTN] TICTACTOE : ${sel}`);
 ctx.interaction.editReply({ embeds: [message], components: ctx.interaction.message.components, ephemeral: true });
@@ -207,13 +215,27 @@ ctx.bot.money.add(ctx.interaction.guild.id, reciever, bet);
 }
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:GAMEPAD:1024395990679167066> » TICTACTOE')
-.setDescription('» <@' + sender + '> is playing Tic Tac Toe with <@' + reciever + '>!\nThe Bet is **$' + bet + '**\n\n🔵 » <@' + sender + '>\n🔴 » <@' + reciever + '>\n\n<:AWARD:1024385473524793445> ' + winner + ' has won **$' + betwon + '**.' + ((typeof transaction === 'object') ? `\nID: ${transaction.id}` : ''))
-.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+.setDescription(`
+» <@${sender}> is playing Tic Tac Toe with <@${reciever}>!
+The Bet is **\$${bet}**
+
+🔵 » <@${sender}>
+🔴 » <@${reciever}>
+
+<:AWARD:1024385473524793445> ${winner} has won **\$${betwon}**.${(typeof transaction === 'object') ? `\nID: ${transaction.id}` : ''}
+`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:GAMEPAD:1024395990679167066> » TICTACTOE')
-.setDescription('» <@' + sender + '> spielt mit <@' + reciever + '> Tic Tac Toe!\nDie Wette ist **' + bet + '€**\n\n🔵 » <@' + sender + '>\n🔴 » <@' + reciever + '>\n\n<:AWARD:1024385473524793445> ' + winner + ' hat **' + betwon + '€** gewonnen.' + ((typeof transaction === 'object') ? `\nID: ${transaction.id}` : ''))
-.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+.setDescription(`
+» <@${sender}> spielt mit <@${reciever}> Tic Tac Toe!
+Die Wette ist **${bet}€**
+
+🔵 » <@${sender}>
+🔴 » <@${reciever}>
+
+<:AWARD:1024385473524793445> ${winner} hat **${betwon}€** gewonnen.${(typeof transaction === 'object') ? `\nID: ${transaction.id}` : ''}
+`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
 for (let i = 0; i <= 9; i++) {
 const comp = rowGet(i);

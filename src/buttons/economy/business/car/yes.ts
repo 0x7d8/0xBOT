@@ -52,13 +52,13 @@ export default {
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-  			.setDescription('» This choice is up to <@' + userid + '>!')
+  			.setDescription(`» This choice is up to <@${userid}>!`)
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-  				.setDescription('» Diese Frage ist für <@' + userid + '>!')
+  				.setDescription(`» Diese Frage ist für <@${userid}>!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 			
@@ -76,13 +76,13 @@ export default {
 				// Create Embed
 				let message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-  				.setDescription('» You dont have enough Money for that, you are missing **$' + missing + '**!')
+  				.setDescription(`» You dont have enough Money for that, you are missing **\$${missing}**!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 				if (ctx.metadata.language === 'de') {
 					message = new EmbedBuilder().setColor(0x37009B)
 						.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-  					.setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
+  					.setDescription(`» Du hast dafür nicht genug Geld, dir fehlen **${missing}€**!`)
 						.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 				}
 			
@@ -104,13 +104,13 @@ export default {
 				// Create Embed
 				let message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-  				.setDescription('» You already own a **' + name + '**!')
+  				.setDescription(`» You already own a **${name}**!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 				if (ctx.metadata.language === 'de') {
 					message = new EmbedBuilder().setColor(0x37009B)
 						.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-  					.setDescription('» Du besitzt schon einen **' + name +'**!')
+  					.setDescription(`» Du besitzt schon einen **${name}**!`)
 						.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 				}
 				
@@ -143,14 +143,20 @@ export default {
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:BOXCHECK:1024401101589590156> » BUY CAR')
-				.setDescription('» You successfully bought a **' + name + '** for **$' + cost + '**!\n\nID: ' + transaction.id)
-				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
+				.setDescription(`
+					» You successfully bought a **${name}** for **\$${cost}**!
+					
+					ID: ${transaction.id}
+				`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 			if (ctx.metadata.language == 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:BOXCHECK:1024401101589590156> » AUTO KAUFEN')
-					.setDescription('» Du hast erfolgreich einen **' + name + '** für **' + cost + '€** gekauft!\n\nID: ' + transaction.id)
-					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
+					.setDescription(`
+						» Du hast erfolgreich einen **${name}** für **${cost}€** gekauft!
+						
+						ID: ${transaction.id}
+					`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 
 			// Remove Money
@@ -178,13 +184,13 @@ export default {
 				// Create Embed
 				let message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-  				.setDescription('» You dont own a Car!')
+  				.setDescription(`» You dont own a Car!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 				if (ctx.metadata.language === 'de') {
 					message = new EmbedBuilder().setColor(0x37009B)
 						.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-  					.setDescription('» Du besitzt kein Auto!')
+  					.setDescription(`» Du besitzt kein Auto!`)
 						.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 				}
 
@@ -203,13 +209,13 @@ export default {
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:BOXDOLLAR:1024402261784403999> » SELL CAR')
-				.setDescription('» You successfully sold your **' + name + '** for **$' + (cost/2) + '**!')
+				.setDescription(`» You successfully sold your **${name}** for **\$${cost / 2}**!`)
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:BOXDOLLAR:1024402261784403999> » AUTO VERKAUFEN')
-					.setDescription('» Du hast erfolgreich deinen **' + name + '** für **' + (cost/2) + '€** verkauft!')
+					.setDescription(`» Du hast erfolgreich deinen **${name}** für **${cost / 2}€** verkauft!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 			}
 

@@ -41,16 +41,16 @@ export default {
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-				.setDescription('» You cant ask for negative Money!')
+				.setDescription(`» You cant ask for negative Money!`)
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-					.setDescription('» Du kannst nicht nach negativem Geld fragen!')
+					.setDescription(`» Du kannst nicht nach negativem Geld fragen!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
-			
+
 			// Send Message
 			ctx.log(false, `[CMD] BEG : NEGATIVEMONEY : ${amount}€`)
 			return ctx.interaction.reply({ embeds: [message], ephemeral: true })
@@ -61,16 +61,16 @@ export default {
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('» BEGGING')
-				.setDescription('» You cant beg that much! **$10000** is the Maximum.')
+				.setDescription(`» You cant beg that much! **$10000** is the Maximum.`)
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('» BETTELN')
-					.setDescription('» Du kannst nicht soviel erbetteln! **10000€** ist das Maximum.')
+					.setDescription(`» Du kannst nicht soviel erbetteln! **10000€** ist das Maximum.`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
-			
+
 			// Send Message
 			ctx.log(false, `[CMD] BEG : TOOMUCHMONEY : ${amount}€`)
 			return ctx.interaction.reply({ embeds: [message], ephemeral: true })
@@ -103,32 +103,42 @@ export default {
 						.setStyle(ButtonStyle.Secondary),
 				)
 		}
-		
+
 		// Create Embed
 		let message: any
 		if (!reason) {
-	  		message = new EmbedBuilder().setColor(0x37009B)
+			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:DONATE:1024397357988720711> » BEGGING')
-  			.setDescription('» <@' + ctx.interaction.user.id + '> needs Money!\nTotal Earnings: **$0**')
-				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
+				.setDescription(`
+					» <@${ctx.interaction.user.id}> needs Money!
+					Total Earnings: **$0**
+				`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:DONATE:1024397357988720711> » BETTELN')
-  				.setDescription('» <@' + ctx.interaction.user.id + '> braucht Geld!\nInsgesamte Einnahmen: **0€**')
-					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
+					.setDescription(`
+						» <@${ctx.interaction.user.id}> braucht Geld!
+						Insgesamte Einnahmen: **0€**
+					`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 		} else {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:DONATE:1024397357988720711> » BEGGING')
-  			.setDescription('» <@' + ctx.interaction.user.id + '> needs Money!\nTotal Earnings: **$0**\n*"' + reason.toString() + '"*')
-				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
+				.setDescription(`
+					» <@${ctx.interaction.user.id}> needs Money!
+					Total Earnings: **$0**
+					*"${reason.toString()}"*
+				`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:DONATE:1024397357988720711> » BETTELN')
-  				.setDescription('» <@' + ctx.interaction.user.id + '> braucht Geld!\nInsgesamte Einnahmen: **0€**\n*"' + reason.toString() + '"*')
-					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
+					.setDescription(`
+						» <@${ctx.interaction.user.id}> braucht Geld!
+						Insgesamte Einnahmen: **0€**
+						*"${reason.toString()}"*
+					`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 		}
 

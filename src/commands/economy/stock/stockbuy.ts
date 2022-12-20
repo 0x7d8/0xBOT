@@ -45,13 +45,13 @@ export default {
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-				.setDescription('» Stocks are disabled on this Server!')
+				.setDescription(`» Stocks are disabled on this Server!`)
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-					.setDescription('» Aktien sind auf diesem Server deaktiviert!')
+					.setDescription(`» Aktien sind auf diesem Server deaktiviert!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 			
@@ -71,13 +71,13 @@ export default {
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-				.setDescription('» You cant buy a negative amount of Stocks!')
+				.setDescription(`» You cant buy a negative amount of Stocks!`)
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-					.setDescription('» Du kannst keine negativen Anzahlen kaufen!')
+					.setDescription(`» Du kannst keine negativen Anzahlen kaufen!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 			
@@ -94,13 +94,13 @@ export default {
 			// Create Embed)
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-				.setDescription('» You cant buy more than **' + max + '** of this Stock!')
+				.setDescription(`» You cant buy more than **${max}** of this Stock!`)
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-					.setDescription('» Du kannst nicht mehr als **' + max + '** von dieser Aktie kaufen!')
+					.setDescription(`» Du kannst nicht mehr als **${max}** von dieser Aktie kaufen!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 			
@@ -120,13 +120,13 @@ export default {
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-  			.setDescription('» You dont have enough Money for that, you are missing **$' + missing + '**!')
+  			.setDescription(`» You dont have enough Money for that, you are missing **\$${missing}**!`)
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-  				.setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
+  				.setDescription(`» Du hast dafür nicht genug Geld, dir fehlen **${missing}€**!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 			
@@ -167,14 +167,20 @@ export default {
 		// Create Embed
 		let message = new EmbedBuilder().setColor(0x37009B)
 			.setTitle('<:CHART:1024398298204876941> » BUY STOCKS')
-			.setDescription('» You successfully bought **' + amount + '** ' + emoji + ' for **$' + cost + '**! (**$' + ctx.client.stocks[stock] + '** per Stock)\n\nID: ' + transaction.id)
-			.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
+			.setDescription(`
+				» You successfully bought **${amount}** ${emoji} for **\$${cost}**! (**$${ctx.client.stocks[stock]}** per Stock)
+
+				ID: ${transaction.id}
+			`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 		if (ctx.metadata.language === 'de') {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:CHART:1024398298204876941> » AKTIEN KAUFEN')
-				.setDescription('» Du hast erfolgreich **' + amount + '** ' + emoji + ' für **' + cost + '€** gekauft! (**' + ctx.client.stocks[stock] + '€** pro Aktie)\n\nID: ' + transaction.id)
-				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
+				.setDescription(`
+					» Du hast erfolgreich **${amount}** ${emoji} für **${cost}€** gekauft! (**${ctx.client.stocks[stock]}€** pro Aktie)
+
+					ID: ${transaction.id}
+				`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 		}
 
 		// Send Message

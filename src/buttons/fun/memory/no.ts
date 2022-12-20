@@ -17,13 +17,13 @@ export default {
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-				.setDescription('» <@' + reciever + '> or <@' + sender + '> has to decide this!')
+				.setDescription(`» <@${reciever}> or <@${sender}> has to decide this!`)
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-					.setDescription('» <@' + reciever + '> oder <@' + sender + '> muss das entscheiden!')
+					.setDescription(`» <@${reciever}> oder <@${sender}> muss das entscheiden!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 			
@@ -45,13 +45,13 @@ export default {
 		// Create Embed
 		let message = new EmbedBuilder().setColor(0x37009B)
 			.setTitle('<:GAMEPAD:1024395990679167066> » MEMORY')
-			.setDescription('» <@' + ctx.interaction.user.id + '> said **NO**.')
+			.setDescription(`» <@${ctx.interaction.user.id}> said **NO**.`)
 			.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 		if (ctx.metadata.language === 'de') {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:GAMEPAD:1024395990679167066> » MEMORY')
-				.setDescription('» <@' + ctx.interaction.user.id + '> hat **NEIN** gesagt.')
+				.setDescription(`» <@${ctx.interaction.user.id}> hat **NEIN** gesagt.`)
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 		}
 

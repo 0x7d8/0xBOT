@@ -24,12 +24,12 @@ const canvas = (await import('canvacord')).default;
 if (!await ctx.bot.settings.get(ctx.interaction.guild.id, 'levels')) {
 let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-.setDescription('» The Level System is disabled on this Server!')
+.setDescription(`» The Level System is disabled on this Server!`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-.setDescription('» Das Level System ist auf diesem Server deaktiviert!')
+.setDescription(`» Das Level System ist auf diesem Server deaktiviert!`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
 ctx.log(false, `[CMD] LEVEL : DISABLED`);

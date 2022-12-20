@@ -33,13 +33,13 @@ export default {
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-				.setDescription('» Businesses are disabled on this Server!')
+				.setDescription(`» Businesses are disabled on this Server!`)
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-					.setDescription('» Geschäfte sind auf diesem Server deaktiviert!')
+					.setDescription(`» Geschäfte sind auf diesem Server deaktiviert!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 			
@@ -57,13 +57,13 @@ export default {
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-				.setDescription('» This Business will be included soon!')
+				.setDescription(`» This Business will be included soon!`)
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-					.setDescription('» Dieses Geschäft wird bald hinzugefügt!')
+					.setDescription(`» Dieses Geschäft wird bald hinzugefügt!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 			
@@ -92,25 +92,25 @@ export default {
 				if (ctx.interaction.user.id !== businessowner) {
 					message = new EmbedBuilder().setColor(0x37009B)
 						.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-						.setDescription('» <@' + businessowner + '> already owns this Business!')
+						.setDescription(`» <@${businessowner}> already owns this Business!`)
 						.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 					if (ctx.metadata.language === 'de') {
 						message = new EmbedBuilder().setColor(0x37009B)
 							.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-							.setDescription('» Dieses Geschäft gehört schon <@' + businessowner + '>!')
+							.setDescription(`» Dieses Geschäft gehört schon <@${businessowner}>!`)
 							.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 					}
 				} else {
 					message = new EmbedBuilder().setColor(0x37009B)
 						.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-						.setDescription('» You already own this Business!')
+						.setDescription(`» You already own this Business!`)
 						.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 					if (ctx.metadata.language === 'de') {
 						message = new EmbedBuilder().setColor(0x37009B)
 							.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-							.setDescription('» Dieses Geschäft gehört schon dir!')
+							.setDescription(`» Dieses Geschäft gehört schon dir!`)
 							.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 					}
 				}
@@ -139,13 +139,13 @@ export default {
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-				.setDescription('» You already own a **' + name + '**!')
+				.setDescription(`» You already own a **${name}**!`)
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-					.setDescription('» Du besitzt schon ein **' + name + '**!')
+					.setDescription(`» Du besitzt schon ein **${name}**!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 
@@ -178,13 +178,13 @@ export default {
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-  			.setDescription('» You dont have enough Money for that, you are missing **$' + missing + '**!')
+  			.setDescription(`» You dont have enough Money for that, you are missing **$${missing}**!`)
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-  				.setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
+  				.setDescription(`» Du hast dafür nicht genug Geld, dir fehlen **${missing}€**!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 			
@@ -236,13 +236,13 @@ export default {
 		// Create Embed
 		let message = new EmbedBuilder().setColor(0x37009B)
 			.setTitle('<:BOXCHECK:1024401101589590156> » BUY BUSINESS')
-			.setDescription('» Do you want to buy a **' + name + '** for **$' + cost + '**?')
+			.setDescription(`» Do you want to buy a **${name}** for **$${cost}**?`)
 			.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 		if (ctx.metadata.language === 'de') {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:BOXCHECK:1024401101589590156> » GESCHÄFT KAUFEN')
-				.setDescription('» Willst du ein **' + name + '** für **' + cost + '€** kaufen?')
+				.setDescription(`» Willst du ein **${name}** für **${cost}€** kaufen?`)
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 		}
 

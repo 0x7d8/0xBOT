@@ -32,13 +32,13 @@ export default {
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-				.setDescription('» Businesses are disabled on this Server!')
+				.setDescription(`» Businesses are disabled on this Server!`)
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-					.setDescription('» Geschäfte sind auf diesem Server deaktiviert!')
+					.setDescription(`» Geschäfte sind auf diesem Server deaktiviert!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 			
@@ -70,14 +70,22 @@ export default {
 				// Create Embed
 				let message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:QUESTION:1024402860210921503> » BUSINESS INFO')
-					.setDescription('» Business Infos:\n\nOwner: <@' + businessowner + '>\nEarnings: ' + businessearning + '€')
-					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
+					.setDescription(`
+						» Business Infos:
+						
+						Owner: <@${businessowner}>
+						Earnings: ${businessearning}€
+					`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 				if (ctx.metadata.language === 'de') {
 					message = new EmbedBuilder().setColor(0x37009B)
 						.setTitle('<:QUESTION:1024402860210921503> » GESCHÄFTS INFO')
-						.setDescription('» Geschäfts Infos:\n\nBesitzer: <@' + businessowner + '>\nEinkommen: ' + businessearning + '€')
-						.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
+						.setDescription(`
+							» Geschäfts Infos:
+							
+							Besitzer: <@${businessowner}>
+							Einkommen: ${businessearning}€
+						`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 				}
 				
 				// Send Message
@@ -89,14 +97,18 @@ export default {
 		// Create Embed
 		let message = new EmbedBuilder().setColor(0x37009B)
 			.setTitle('<:QUESTION:1024402860210921503> » BUSINESS INFO')
-			.setDescription('» Noone owns this Business, people say its profitable though!\n*mhm, I say that for everything*')
-			.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
+			.setDescription(`
+				» Noone owns this Business, people say its profitable though!
+				*mhm, I say that for everything*
+			`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 		if (ctx.metadata.language === 'de') {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:QUESTION:1024402860210921503> » GESCHÄFTS INFO')
-				.setDescription('» Niemanden gehört dieses Geschäft, es besagt sich es sei aber profitabel!\n*naja, das sag ich bei jedem*')
-				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
+				.setDescription(`
+					» Niemanden gehört dieses Geschäft, es besagt sich es sei aber profitabel!
+					*naja, das sag ich bei jedem*
+				`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 		}
 
 		// Send Message

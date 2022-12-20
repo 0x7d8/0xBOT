@@ -21,12 +21,12 @@ const transaction = await ctx.bot.transactions.get(transactionId);
 if (transaction === 'N-FOUND') {
 let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-.setDescription('» This Transaction doesnt exist!')
+.setDescription(`» This Transaction doesnt exist!`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-.setDescription('» Diese Transaktion existiert nicht!')
+.setDescription(`» Diese Transaktion existiert nicht!`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
 ctx.log(false, `[CMD] TRANSACTIONVIEW : NOTEXIST : ${transactionId}`);
@@ -58,8 +58,7 @@ let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 
 » ${reciever}
 **${transaction.reciever.type === 'positive' ? '+' : '-'}$${transaction.reciever.amount}**
-`)
-.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:BAG:1024389219558367292> » TRANSAKTIONS INFOS')
@@ -71,8 +70,7 @@ message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 
 » ${reciever}
 **${transaction.reciever.type === 'positive' ? '+' : '-'}${transaction.reciever.amount}€**
-`)
-.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
 ctx.log(false, `[CMD] TRANSACTIONVIEW : ${transactionId}`);
 return ctx.interaction.reply({ embeds: [message] });

@@ -34,13 +34,13 @@ export default {
 		// Create Embed
 	   	let message = new EmbedBuilder().setColor(0x37009B)
 			.setTitle('<:GLOBE:1024403680503529583> » WEBSITE')
-  			.setDescription('» Click below to go to the Website!')
+  		.setDescription(`» Click below to go to the Website!`)
 			.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 		if (ctx.metadata.language === 'de') {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:GLOBE:1024403680503529583> » WEBSITE')
-  				.setDescription('» Klicke unten um zur Webseite zu gehen!')
+  			.setDescription(`» Klicke unten um zur Webseite zu gehen!`)
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 		}
 		

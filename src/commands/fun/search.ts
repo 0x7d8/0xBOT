@@ -77,18 +77,18 @@ export default {
 		// Create Embed
 	   	let message = new EmbedBuilder().setColor(0x37009B)
 			.setTitle('<:SEARCH:1024389710279348354> » SEARCH')
-  		.setDescription('» Click Below to look up results for **' + decodeURIComponent(query) + '** on **' + engine + '**!')
+  		.setDescription(`» Click Below to look up results for **${decodeURIComponent(query)}** on **${engine}**!`)
 			.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 		if (ctx.metadata.language === 'de') {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:SEARCH:1024389710279348354> » SUCHEN')
-  			.setDescription('» Klicke unten um nach Ergebnissen für **' + decodeURIComponent(query) + '** auf **' + engine + '** zu finden!')
+  			.setDescription(`» Klicke unten um nach Ergebnissen für **${decodeURIComponent(query)}** auf **${engine}** zu finden!`)
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 		}
 		
 		// Send Message
-		ctx.log(false, '[CMD] SEARCH : "' + decodeURIComponent(query).toUpperCase() + '" : ' + engine.toUpperCase())
+		ctx.log(false, `[CMD] SEARCH : "${decodeURIComponent(query).toUpperCase()}" : ${engine.toUpperCase()}`)
 		if (engine === 'Google') {
 			await ctx.interaction.reply({ embeds: [message], components: [google as any] })
 		}; if (engine === 'Bing') {

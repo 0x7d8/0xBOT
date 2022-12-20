@@ -32,12 +32,12 @@ async execute(ctx) {
 if (!await ctx.bot.settings.get(ctx.interaction.guild.id, 'luckgames')) {
 let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-.setDescription('» Luck Games are disabled on this Server!')
+.setDescription(`» Luck Games are disabled on this Server!`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-.setDescription('» Glücksspiele sind auf diesem Server deaktiviert!')
+.setDescription(`» Glücksspiele sind auf diesem Server deaktiviert!`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
 ctx.log(false, `[CMD] ROULETTE : DISABLED`);
@@ -50,12 +50,12 @@ const random = ctx.bot.random(1, 21);
 if (wette < 0) {
 let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-.setDescription('» You cant play with negative Money!')
+.setDescription(`» You cant play with negative Money!`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-.setDescription('» Du kannst keine negativen Einsätze spielen!')
+.setDescription(`» Du kannst keine negativen Einsätze spielen!`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
 ctx.log(false, `[CMD] ROULETTE : NEGATIVEMONEY : ${wette}€`);
@@ -110,12 +110,12 @@ if (money >= wette) {
 if (wette > 15000) {
 let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-.setDescription('» You cant bet that much! **$15000** is the Maximum.')
+.setDescription(`» You cant bet that much! **$15000** is the Maximum.`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-.setDescription('» Du kannst nicht soviel Wetten! **15000€** ist das Maximum.')
+.setDescription(`» Du kannst nicht soviel Wetten! **15000€** ist das Maximum.`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
 ctx.log(false, `[CMD] ROULETTE : TOOMUCHMONEY : ${wette}€`);
@@ -169,12 +169,12 @@ else {
 const missing = wette - money;
 let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-.setDescription('» You dont have enough Money for that, you are missing **$' + missing + '**!')
+.setDescription(`» You dont have enough Money for that, you are missing **$${missing}**!`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-.setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
+.setDescription(`» Du hast dafür nicht genug Geld, dir fehlen **${missing}€**!`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
 ctx.log(false, `[CMD] ROULETTE : NOTENOUGHMONEY : ${missing}€`);

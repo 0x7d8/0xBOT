@@ -23,12 +23,12 @@ async execute(ctx) {
 if (!await ctx.bot.settings.get(ctx.interaction.guild.id, 'quotes')) {
 let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-.setDescription('» Quotes are disabled on this Server!')
+.setDescription(`» Quotes are disabled on this Server!`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-.setDescription('» Zitate sind auf diesem Server deaktiviert!')
+.setDescription(`» Zitate sind auf diesem Server deaktiviert!`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
 ctx.log(false, `[CMD] QUOTEREMOVE : DISABLED`);
@@ -41,12 +41,12 @@ const money = await ctx.bot.money.get(ctx.interaction.user.id);
 if (quotes - amount < 0) {
 let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-.setDescription('» You dont have that many Quotes, you only have **' + quotes + '**!')
+.setDescription(`» You dont have that many Quotes, you only have **${quotes}**!`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-.setDescription('» Du hast garnicht so viele Zitate, du hast nur **' + quotes + '**!')
+.setDescription(`» Du hast garnicht so viele Zitate, du hast nur **${quotes}**!`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
 ctx.log(false, `[CMD] QUOTEREMOVE : ${amount} : NOTENOUGHQUOTES`);
@@ -56,12 +56,12 @@ if (money < cost) {
 const missing = cost - money;
 let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-.setDescription('» You dont have enough Money for that, you are Missing **$' + missing + '**!')
+.setDescription(`» You dont have enough Money for that, you are Missing **$${missing}**!`)
 .setFooter({ text: '» ' + ctx.client.config.version + ' » QUOTES: ' + quotes });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-.setDescription('» Du hast nicht genug Geld dafür, dir fehlen **' + missing + '€**!')
+.setDescription(`» Du hast nicht genug Geld dafür, dir fehlen **${missing}€**!`)
 .setFooter({ text: '» ' + ctx.client.config.version + ' » QUOTES: ' + quotes });
 }
 ctx.log(false, `[CMD] QUOTEREMOVE : ${amount} : NOTENOUGHMONEY`);
@@ -81,12 +81,12 @@ word = 'Zitate';
 const newquotes = quotes - 1;
 let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:QUOTES:1024406448127623228> » ZITATE ENTFERNEN')
-.setDescription('» You successfully removed **' + amount + '** ' + word + ' for **$' + cost + '**!')
+.setDescription(`» You successfully removed **${amount}** ${word} for **$${cost}**!`)
 .setFooter({ text: '» ' + ctx.client.config.version + ' » QUOTES: ' + newquotes });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:QUOTES:1024406448127623228> » ZITATE ENTFERNEN')
-.setDescription('» Du hast erfolgreich **' + amount + '** ' + word + ' für **' + cost + '€** entfernt!')
+.setDescription(`» Du hast erfolgreich **${amount}** ${word} für **${cost}€** entfernt!`)
 .setFooter({ text: '» ' + ctx.client.config.version + ' » QUOTES: ' + newquotes });
 }
 ctx.bot.money.rem(ctx.interaction.guild.id, ctx.interaction.user.id, cost);

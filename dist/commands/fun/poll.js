@@ -30,12 +30,12 @@ const row = new discord_js_1.ActionRowBuilder()
 .setStyle(discord_js_1.ButtonStyle.Danger));
 let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:POLL:1024391847092703365> » POLL')
-.setDescription('» ' + question)
+.setDescription(`» ${question}`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:POLL:1024391847092703365> » ABSTIMMUNG')
-.setDescription('» ' + question)
+.setDescription(`» ${question}`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
 ctx.log(false, `[CMD] POLL : ${question.toUpperCase()}`);

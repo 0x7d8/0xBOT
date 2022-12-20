@@ -42,13 +42,13 @@ export default {
 		// Create Embed
 		let message = new EmbedBuilder().setColor(0x37009B)
 			.setTitle('» LANGUAGE')
-			.setDescription('» Language successfully set to **' + langString + '**!')
+			.setDescription(`» Language successfully set to **${langString}**!`)
 			.setFooter({ text: '» ' + ctx.client.config.version })
 
 		if (lang === 'de') {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('» SPRACHE')
-				.setDescription('» Sprache erfolgreich auf **' + langString + '** gesetzt!')
+				.setDescription(`» Sprache erfolgreich auf **${langString}** gesetzt!`)
 				.setFooter({ text: '» ' + ctx.client.config.version })
 		}
 			

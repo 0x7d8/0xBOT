@@ -24,12 +24,12 @@ else
 number--;
 let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:INFINITE:1024406060380979300> » COUNTING')
-.setDescription('» Lets Count! Current Number: **' + number + '**')
+.setDescription(`» Lets Count! Current Number: **${number}**`)
 .setFooter({ text: '» ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:INFINITE:1024406060380979300> » ZÄHLEN')
-.setDescription('» Komm Zählen! Aktuelle Nummer: **' + number + '**')
+.setDescription(`» Komm Zählen! Aktuelle Nummer: **${number}**`)
 .setFooter({ text: '» ' + ctx.client.config.version });
 }
 ctx.log(false, `[BTN] COUNT : ${number}`);

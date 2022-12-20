@@ -17,13 +17,13 @@ export default {
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-				.setDescription('» Businesses are disabled on this Server!')
+				.setDescription(`» Businesses are disabled on this Server!`)
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-					.setDescription('» Geschäfte sind auf diesem Server deaktiviert!')
+					.setDescription(`» Geschäfte sind auf diesem Server deaktiviert!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 			
@@ -57,13 +57,13 @@ export default {
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-  				.setDescription('» You dont own a Business!')
+  			.setDescription(`» You dont own a Business!`)
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-  					.setDescription('» Du besitzt kein Geschäft!')
+  				.setDescription(`» Du besitzt kein Geschäft!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 			
@@ -111,13 +111,13 @@ export default {
 		// Create Embed
 		let message = new EmbedBuilder().setColor(0x37009B)
 			.setTitle('<:BOXDOLLAR:1024402261784403999> » SELL BUSINESS')
-			.setDescription('» Do you want to sell your **' + name + '** for **$' + (cost/2) + '**?')
+			.setDescription(`» Do you want to sell your **${name}** for **$${cost / 2}**?`)
 			.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 		if (ctx.metadata.language === 'de') {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:BOXDOLLAR:1024402261784403999> » GESCHÄFT VERKAUFEN')
-				.setDescription('» Willst du dein **' + name + '** für **' + (cost/2) + '€** verkaufen?')
+				.setDescription(`» Willst du dein **${name}** für **${cost / 2}€** verkaufen?`)
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 		}
 

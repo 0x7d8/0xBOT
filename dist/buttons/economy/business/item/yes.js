@@ -9,12 +9,12 @@ async execute(ctx, itemid, userid, type, amount) {
 if (ctx.interaction.user.id !== userid) {
 let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-.setDescription('» This choice is up to <@' + userid + '>!')
+.setDescription(`» This choice is up to <@${userid}>!`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-.setDescription('» Diese Frage ist für <@' + userid + '>!')
+.setDescription(`» Diese Frage ist für <@${userid}>!`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
 ctx.log(false, `[BTN] ITEMBUY : NOTSENDER`);
@@ -60,12 +60,12 @@ if (balance < cost) {
 const missing = cost - balance;
 let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-.setDescription('» You dont have enough Money for that, you are missing **$' + missing + '**!')
+.setDescription(`» You dont have enough Money for that, you are missing **\$${missing}**!`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-.setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
+.setDescription(`» Du hast dafür nicht genug Geld, dir fehlen **${missing}€**!`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
 ctx.log(false, `[BTN] ITEMBUY : ${itemid.toUpperCase()} : NOTENOUGHMONEY : ${cost}€`);
@@ -75,12 +75,12 @@ const oldamount = await ctx.bot.items.get(ctx.interaction.user.id + '-' + itemid
 if ((amount + oldamount) > 15) {
 let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-.setDescription('» You dont have enough Slots for that!')
+.setDescription(`» You dont have enough Slots for that!`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-.setDescription('» Du hast nicht genug Slots dafür!')
+.setDescription(`» Du hast nicht genug Slots dafür!`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
 ctx.log(false, `[BTN] ITEMBUY : ${itemid.toUpperCase()} : MAXSLOTS`);
@@ -107,25 +107,37 @@ let message;
 if (amount === 1) {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:BOXCHECK:1024401101589590156> » BUY ITEM')
-.setDescription('» You successfully bought a **' + name + '** for **$' + cost + '**!\n\nID: ' + transaction.id)
-.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+.setDescription(`
+» You successfully bought a **${name}** for **\$${cost}**!
+
+ID: ${transaction.id}
+`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language == 'de') {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:BOXCHECK:1024401101589590156> » GEGENSTAND KAUFEN')
-.setDescription('» Du hast erfolgreich eine **' + name + '** für **' + cost + '€** gekauft!\n\nID: ' + transaction.id)
-.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+.setDescription(`
+» Du hast erfolgreich eine **${name}** für **${cost}€** gekauft!
+
+ID: ${transaction.id}
+`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
 }
 else {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:BOXCHECK:1024401101589590156> » BUY ITEMS')
-.setDescription('» You successfully bought **' + amount + 'x** **' + name + '** for **$' + cost + '**!\n\nID: ' + transaction.id)
-.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+.setDescription(`
+» You successfully bought **${amount}x** **${name}** for **\$${cost}**!
+
+ID: ${transaction.id}
+`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language == 'de') {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:BOXCHECK:1024401101589590156> » GEGENSTÄNDE KAUFEN')
-.setDescription('» Du hast erfolgreich **' + amount + 'x** **' + name + '** für **' + cost + '€** gekauft!\n\nID: ' + transaction.id)
-.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+.setDescription(`
+» Du hast erfolgreich **${amount}x** **${name}** für **${cost}€** gekauft!
+
+ID: ${transaction.id}
+`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
 }
 ctx.bot.money.rem(ctx.interaction.guild.id, ctx.interaction.user.id, cost);

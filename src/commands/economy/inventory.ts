@@ -63,26 +63,82 @@ export default {
 		if (!user) {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:BOX:1024394572555624510> » YOUR INVENTORY')
-				.setDescription('» <:NBOMB:1021783222520127508> NORMAL BOMBS\n**`' + nbombs + '/15`**\n\n» <:MBOMB:1021783295211601940> MEDIUM BOMBS\n**`' + mbombs + '/15`**\n\n» <:HBOMB:1022102357938536458> HYPER BOMBS\n**`' + hbombs + '/15`**\n\n» <:CBOMB:1021783405161091162> CRAZY BOMBS\n**`' + cbombs + '/15`**\n\n» <:CAR:1021844412998877294> CAR\n**`' + carname + '`**')
-				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
+				.setDescription(`
+					» <:NBOMB:1021783222520127508> NORMAL BOMBS
+					**\`${nbombs}/15\`**
+					
+					» <:MBOMB:1021783295211601940> MEDIUM BOMBS
+					**\`${mbombs}/15\`**
+					
+					» <:HBOMB:1022102357938536458> HYPER BOMBS
+					**\`${hbombs}/15\`**
+					
+					» <:CBOMB:1021783405161091162> CRAZY BOMBS
+					**\`${cbombs}/15\`**
+					
+					» <:CAR:1021844412998877294> CAR
+					**\`${carname}\`**
+				`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:BOX:1024394572555624510> » DEIN INVENTAR')
-					.setDescription('» <:NBOMB:1021783222520127508> NORMALE BOMBEN\n**`' + nbombs + '/15`**\n\n» <:MBOMB:1021783295211601940> MEDIUM BOMBEN\n**`' + mbombs + '/15`**\n\n» <:HBOMB:1022102357938536458> HYPER BOMBEN\n**`' + hbombs + '/15`**\n\n» <:CBOMB:1021783405161091162> CRAZY BOMBEN\n**`' + cbombs + '/15`**\n\n» <:CAR:1021844412998877294> AUTO\n**`' + carname + '`**')
-					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
+					.setDescription(`
+						» <:NBOMB:1021783222520127508> NORMALE BOMBEN
+						**\`${nbombs}/15\`**
+						
+						» <:MBOMB:1021783295211601940> MEDIUM BOMBEN
+						**\`${mbombs}/15\`**
+						
+						» <:HBOMB:1022102357938536458> HYPER BOMBEN
+						**\`${hbombs}/15\`**
+						
+						» <:CBOMB:1021783405161091162> CRAZY BOMBEN
+						**\`${cbombs}/15\`**
+						
+						» <:CAR:1021844412998877294> AUTO
+						**\`${carname}\`**
+					`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 		} else {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:BOX:1024394572555624510> » THE INVENTORY OF ' + user.username.toUpperCase() + '#' + user.discriminator)
-				.setDescription('» <:NBOMB:1021783222520127508> NORMAL BOMBS\n**`' + nbombs + '/15`**\n\n» <:MBOMB:1021783295211601940> MEDIUM BOMBS\n**`' + mbombs + '/15`**\n\n» <:HBOMB:1022102357938536458> HYPER BOMBS\n**`' + hbombs + '/15`**\n\n» <:CBOMB:1021783405161091162> CRAZY BOMBS\n**`' + cbombs + '/15`**\n\n» <:CAR:1021844412998877294> CAR\n**`' + carname + '`**')
-				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
+				.setDescription(`
+					» <:NBOMB:1021783222520127508> NORMAL BOMBS
+					**\`${nbombs}/15\`**
+
+					» <:MBOMB:1021783295211601940> MEDIUM BOMBS
+					**\`${mbombs}/15\`**
+
+					» <:HBOMB:1022102357938536458> HYPER BOMBS
+					**\`${hbombs}/15\`**
+
+					» <:CBOMB:1021783405161091162> CRAZY BOMBS
+					**\`${cbombs}/15\`**
+
+					» <:CAR:1021844412998877294> CAR
+					**\`${carname}\`**
+				`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:BOX:1024394572555624510> » DAS INVENTAR VON ' + user.username.toUpperCase() + '#' + user.discriminator)
-					.setDescription('» <:NBOMB:1021783222520127508> NORMALE BOMBEN\n**`' + nbombs + '/15`**\n\n» <:MBOMB:1021783295211601940> MEDIUM BOMBEN\n**`' + mbombs + '/15`**\n\n» <:HBOMB:1022102357938536458> HYPER BOMBEN\n**`' + hbombs + '/15`**\n\n» <:CBOMB:1021783405161091162> CRAZY BOMBEN\n**`' + cbombs + '/15`**\n\n» <:CAR:1021844412998877294> AUTO\n**`' + carname + '`**')
-					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
+					.setDescription(`
+						» <:NBOMB:1021783222520127508> NORMALE BOMBEN
+						**\`${nbombs}/15\`**
+
+						» <:MBOMB:1021783295211601940> MEDIUM BOMBEN
+						**\`${mbombs}/15\`**
+
+						» <:HBOMB:1022102357938536458> HYPER BOMBEN
+						**\`${hbombs}/15\`**
+
+						» <:CBOMB:1021783405161091162> CRAZY BOMBEN
+						**\`${cbombs}/15\`**
+
+						» <:CAR:1021844412998877294> AUTO
+						**\`${carname}\`**
+					`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 		}
 

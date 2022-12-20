@@ -14,14 +14,30 @@ export default {
 		// Create Embed
 		let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:GEAR:1024404241701417011> » BOT VERSION')
-				.setDescription('» VERSION\n`' + ctx.client.config.version + ' (V3)`\n\n» FRAMEWORK\n`discord.js v14 (14.7.1)`\n\n» AUTHOR\n`0x4096#7678`')
-				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
+				.setDescription(`
+					» VERSION
+					\`${ctx.client.config.version} (V3)\`
+					
+					» FRAMEWORK
+					\`discord.js v14 (14.7.1)\`
+					
+					» AUTHOR
+					\`0x4096#7678\`
+				`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 		if (ctx.metadata.language === 'de') {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:GEAR:1024404241701417011> » BOT VERSION')
-				.setDescription('» VERSION\n`' + ctx.client.config.version + ' (V3)`\n\n» FRAMEWORK\n`discord.js v14 (14.7.1)`\n\n» AUTOR\n`0x4096#7678`')
-				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
+				.setDescription(`
+					» VERSION
+					\`${ctx.client.config.version} (V3)\`
+					
+					» FRAMEWORK
+					\`discord.js v14 (14.7.1)\`
+					
+					» AUTOR
+					\`0x4096#7678\`
+				`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 		}
 
 		// Send Correct Response

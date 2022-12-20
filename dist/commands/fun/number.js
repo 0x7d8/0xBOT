@@ -27,12 +27,12 @@ const max = ctx.getOption('max');
 const res = ctx.bot.random(min, max);
 let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:GEAR:1024404241701417011> » RANDOM NUMBER')
-.setDescription('» Between **' + min + '** and **' + max + '** I choose **' + res + '**!')
+.setDescription(`» Between **${min}** and **${max}** I choose **${res}**!`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:GEAR:1024404241701417011> » ZUFÄLLIGE NUMMER')
-.setDescription('» Zwischen **' + min + '** und **' + max + '** wähle ich **' + res + '**!')
+.setDescription(`» Zwischen **${min}** und **${max}** wähle ich **${res}**!`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
 ctx.log(false, `[CMD] NUMBER : ${min} : ${max} : ${res}`);

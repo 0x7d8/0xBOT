@@ -29,13 +29,13 @@ export default {
 		// Create Embed
 	   	let message = new EmbedBuilder().setColor(0x37009B)
 			.setTitle('<:GLOBE:1024403680503529583> » VOTE')
-  		.setDescription('» Click below to go to Vote for the Bot!')
+  		.setDescription(`» Click below to go to Vote for the Bot!`)
 			.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 		if (ctx.metadata.language === 'de') {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:GLOBE:1024403680503529583> » VOTEN')
-  			.setDescription('» Klicke unten um für den Bot zu Voten!')
+  			.setDescription(`» Klicke unten um für den Bot zu Voten!`)
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 		}
 		

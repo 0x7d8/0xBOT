@@ -33,12 +33,12 @@ async execute(ctx) {
 if (!ctx.interaction.appPermissions?.has('ManageMessages')) {
 let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-.setDescription('» I dont think I have the **MANAGE MESSAGES** Permission!')
+.setDescription(`» I dont think I have the **MANAGE MESSAGES** Permission!`)
 .setFooter({ text: '» ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-.setDescription('» Ich denke nicht, dass ich die **NACHRICHTEN VERWALTEN** Berechtigung habe!')
+.setDescription(`» Ich denke nicht, dass ich die **NACHRICHTEN VERWALTEN** Berechtigung habe!`)
 .setFooter({ text: '» ' + ctx.client.config.version });
 }
 ctx.log(false, `[CMD] CLEAR : NOPERM`);
@@ -48,12 +48,12 @@ return ctx.interaction.reply({ embeds: [message], ephemeral: true });
 if (!ctx.interaction.appPermissions?.has('ViewChannel')) {
 let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-.setDescription('» I dont think I have the **VIEW CHANNEL** Permission!')
+.setDescription(`» I dont think I have the **VIEW CHANNEL** Permission!`)
 .setFooter({ text: '» ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-.setDescription('» Ich denke nicht, dass ich die **KANÄLE ANSEHEN** Berechtigung habe!')
+.setDescription(`» Ich denke nicht, dass ich die **KANÄLE ANSEHEN** Berechtigung habe!`)
 .setFooter({ text: '» ' + ctx.client.config.version });
 }
 ctx.log(false, `[CMD] CLEAR : NOPERM`);
@@ -65,12 +65,12 @@ const messages = ctx.interaction.channel?.messages.fetch();
 if (amount < 1) {
 let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-.setDescription('» You have to delete atleast **1** Message!')
+.setDescription(`» You have to delete atleast **1** Message!`)
 .setFooter({ text: '» ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-.setDescription('» Du musst mindestens **1** Nachricht löschen!')
+.setDescription(`» Du musst mindestens **1** Nachricht löschen!`)
 .setFooter({ text: '» ' + ctx.client.config.version });
 }
 ctx.log(false, `[CMD] CLEAR : NOTENOUGH : ${amount}`);
@@ -92,24 +92,24 @@ let message;
 if (messages.size == 1) {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('» DELETE MESSAGES')
-.setDescription('» You deleted **' + messages.size + '** Message from <@' + target + '>!')
+.setDescription(`» You deleted **${messages.size}** Message from <@${target}>!`)
 .setFooter({ text: '» ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('» NACHRICHTEN LÖSCHEN')
-.setDescription('» Du hast **' + messages.size + '** Nachricht von <@' + target + '> gelöscht!')
+.setDescription(`» Du hast **${messages.size}** Nachricht von <@${target}> gelöscht!`)
 .setFooter({ text: '» ' + ctx.client.config.version });
 }
 }
 else {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('» DELETE MESSAGES')
-.setDescription('» You deleted **' + messages.size + '** Messages from <@' + target + '>!')
+.setDescription(`» You deleted **${messages.size}** Messages from <@${target}>!`)
 .setFooter({ text: '» ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('» NACHRICHTEN LÖSCHEN')
-.setDescription('» Du hast **' + messages.size + '** Nachrichten von <@' + target + '> gelöscht!')
+.setDescription(`» Du hast **${messages.size}** Nachrichten von <@${target}> gelöscht!`)
 .setFooter({ text: '» ' + ctx.client.config.version });
 }
 }
@@ -123,24 +123,24 @@ let message;
 if (messages.size == 1) {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('» DELETE MESSAGES')
-.setDescription('» You deleted **' + messages.size + '** Message!')
+.setDescription(`» You deleted **${messages.size}** Message!`)
 .setFooter({ text: '» ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('» NACHRICHTEN LÖSCHEN')
-.setDescription('» Du hast **' + messages.size + '** Nachricht gelöscht!')
+.setDescription(`» Du hast **${messages.size}** Nachricht gelöscht!`)
 .setFooter({ text: '» ' + ctx.client.config.version });
 }
 }
 else {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('» DELETE MESSAGES')
-.setDescription('» You deleted **' + messages.size + '** Messages!')
+.setDescription(`» You deleted **${messages.size}** Messages!`)
 .setFooter({ text: '» ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('» NACHRICHTEN LÖSCHEN')
-.setDescription('» Du hast **' + messages.size + '** Nachrichten gelöscht!')
+.setDescription(`» Du hast **${messages.size}** Nachrichten gelöscht!`)
 .setFooter({ text: '» ' + ctx.client.config.version });
 }
 }

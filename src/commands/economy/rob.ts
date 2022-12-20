@@ -44,13 +44,13 @@ export default {
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-				.setDescription('» The **`/rob`** Command is disabled on this Server!')
+				.setDescription(`» The **\`/rob\`** Command is disabled on this Server!`)
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-					.setDescription('» Der **`/rob`** Befehl ist auf diesem Server deaktiviert!')
+					.setDescription(`» Der **\`/rob\`** Befehl ist auf diesem Server deaktiviert!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 			
@@ -73,14 +73,14 @@ export default {
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-  			.setDescription('» You still have a Cooldown of **' + ms(timeLeft, { secondsDecimalDigits: 0 }) + '**!')
-				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+  			.setDescription(`» You still have a Cooldown of **${ms(timeLeft, { secondsDecimalDigits: 0 })}**!`)
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-  				.setDescription('» Du hast leider noch einen Cooldown von **' + ms(timeLeft, { secondsDecimalDigits: 0 }) + '**!')
-					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+  				.setDescription(`» Du hast leider noch einen Cooldown von **${ms(timeLeft, { secondsDecimalDigits: 0 })}**!`)
+					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 			
 			ctx.log(false, `[CMD] ROB : ONCOOLDOWN : ${ms(timeLeft, { secondsDecimalDigits: 0 })}`)
@@ -93,14 +93,14 @@ export default {
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-  			.setDescription('» You cant rob yourself?!')
-				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+  			.setDescription(`» You cant rob yourself?!`)
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-  				.setDescription('» Du kannst dich nicht selber ausrauben?!')
-					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+  				.setDescription(`» Du kannst dich nicht selber ausrauben?!`)
+					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 			
 			ctx.log(false, `[CMD] ROB : ${user.id} : ${money}€ : SAMEPERSON`)
@@ -112,14 +112,14 @@ export default {
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-				.setDescription('» You cant rob a Bot!')
-				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+				.setDescription(`» You cant rob a Bot!`)
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-					.setDescription('» Du kannst einem Bot kein Geld klauen!')
-					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+					.setDescription(`» Du kannst einem Bot kein Geld klauen!`)
+					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 			
 			// Send Message
@@ -137,25 +137,25 @@ export default {
 		// Create Embed
 		let notenoughmoney1 = new EmbedBuilder().setColor(0x37009B)
 			.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-  		.setDescription('» You dont have enough Money for that, you need atleast **$' + need + '**! BRUH.')
+  		.setDescription(`» You dont have enough Money for that, you need atleast **$${need}**! BRUH.`)
 			.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 		if (ctx.metadata.language === 'de') {
 			notenoughmoney1 = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-  			.setDescription('» Du hast nicht genug Geld dafür, du brauchst mindestens **' + need + '€**! BRUH.')
+  			.setDescription(`» Du hast nicht genug Geld dafür, du brauchst mindestens **${need}€**! BRUH.`)
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 		}
 			
 		// Check Money
 		if (money === '35' && moneysnd < 20) {
-			ctx.log(false, '[CMD] ROB : ' + user.id + ' : NOTENOUGHMONEY')
+			ctx.log(false, `[CMD] ROB : ${user.id} : NOTENOUGHMONEY`)
 			return ctx.interaction.reply({ embeds: [notenoughmoney1.toJSON()], ephemeral: true })
 	 	}; if (money === '20' && moneysnd < 50) {
-			ctx.log(false, '[CMD] ROB : ' + user.id + ' : NOTENOUGHMONEY')
+			ctx.log(false, `[CMD] ROB : ${user.id} : NOTENOUGHMONEY`)
 			return ctx.interaction.reply({ embeds: [notenoughmoney1.toJSON()], ephemeral: true })
 	 	}; if (money === '5' && moneysnd < 100) {
-			ctx.log(false, '[CMD] ROB : ' + user.id + ' : NOTENOUGHMONEY')
+			ctx.log(false, `[CMD] ROB : ${user.id} : NOTENOUGHMONEY`)
 			return ctx.interaction.reply({ embeds: [notenoughmoney1.toJSON()], ephemeral: true })
 	 	}
 			
@@ -163,25 +163,25 @@ export default {
 		// Create Embed
 		let notenoughmoney2 = new EmbedBuilder().setColor(0x37009B)
 			.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-  		.setDescription('» <@' + user + '> doesnt have enough Money for that, he needs atleast **$' + need + '**! LOL.')
+  		.setDescription(`» <@${user}> doesnt have enough Money for that, he needs atleast **\$${need}**! LOL.`)
 			.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 		if (ctx.metadata.language === 'de') {
 			notenoughmoney2 = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-  			.setDescription('» <@' + user + '> hat nicht genug Geld dafür, er braucht mindestens **' + need + '€**! LOL.')
+  			.setDescription(`» <@${user}> hat nicht genug Geld dafür, er braucht mindestens **${need}€**! LOL.`)
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 		}
 			
 		// Check Money
 		if (money === '35' && moneytar < 20) {
-			ctx.log(false, '[CMD] ROB : ' + user.id + ' : NOTENOUGHMONEY')
+			ctx.log(false, `[CMD] ROB : ${user.id} : NOTENOUGHMONEY`)
 			return ctx.interaction.reply({ embeds: [notenoughmoney2.toJSON()], ephemeral: true })
 	 	}; if (money === '20' && moneytar < 50) {
-			ctx.log(false, '[CMD] ROB : ' + user.id + ' : NOTENOUGHMONEY')
+			ctx.log(false, `[CMD] ROB : ${user.id} : NOTENOUGHMONEY`)
 			return ctx.interaction.reply({ embeds: [notenoughmoney2.toJSON()], ephemeral: true })
 	 	}; if (money === '5' && moneytar < 100) {
-			ctx.log(false, '[CMD] ROB : ' + user.id + ' : NOTENOUGHMONEY')
+			ctx.log(false, `[CMD] ROB : ${user.id} : NOTENOUGHMONEY`)
 			return ctx.interaction.reply({ embeds: [notenoughmoney2.toJSON()], ephemeral: true })
 	 	}
 		
@@ -226,24 +226,24 @@ export default {
 		// Create Embeds
 	  	let success = new EmbedBuilder().setColor(0x37009B)
 			.setTitle('<:BAG:1024389219558367292> » AUSRAUBEN')
-  		.setDescription('» You stole <@' + user.id + '> **$' + amount + '**! ' + extra)
-			.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+  		.setDescription(`» You stole <@${user.id}> **\$${amount}**! ${extra}`)
+			.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 		let failure = new EmbedBuilder().setColor(0x37009B)
 			.setTitle('<:BAG:1024389219558367292> » AUSRAUBEN')
-  		.setDescription('» You wanted to steal <@' + user.id + '> **$' + amount + '**, but the Police caught you! You had to pay **$' + punishment + '**! KEKW.')
-			.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+  		.setDescription(`» You wanted to steal <@${user.id}> **$${amount}**, but the Police caught you! You had to pay **$${punishment}**! KEKW.`)
+			.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 		if (ctx.metadata.language === 'de') {
 			success = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:BAG:1024389219558367292> » AUSRAUBEN')
-  			.setDescription('» Du hast <@' + user.id + '> **' + amount + '€** geklaut! ' + extra)
-				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+  			.setDescription(`» Du hast <@${user.id}> **${amount}€** geklaut! ${extra}`)
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			
 			failure = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:BAG:1024389219558367292> » AUSRAUBEN')
-				.setDescription('» Du wolltest <@' + user.id + '> **' + amount + '€** klauen, aber die Polizei hat dich erwischt! Du musstest **' + punishment + '€** Strafgeld bezahlen! KEKW.')
-				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+				.setDescription(`» Du wolltest <@${user.id}> **${amount}€** klauen, aber die Polizei hat dich erwischt! Du musstest **${punishment}€** Strafgeld bezahlen! KEKW.`)
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 		}
 		
 		// Set Money

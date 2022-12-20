@@ -17,13 +17,13 @@ export default {
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-				.setDescription('» Cars are disabled on this Server!')
+				.setDescription(`» Cars are disabled on this Server!`)
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-					.setDescription('» Autos sind auf diesem Server deaktiviert!')
+					.setDescription(`» Autos sind auf diesem Server deaktiviert!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 			
@@ -54,13 +54,13 @@ export default {
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-  				.setDescription('» You dont own a Car!')
+  			.setDescription(`» You dont own a Car!`)
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-  					.setDescription('» Du besitzt kein Auto!')
+  				.setDescription(`» Du besitzt kein Auto!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 			
@@ -108,13 +108,13 @@ export default {
 		// Create Embed
 		let message = new EmbedBuilder().setColor(0x37009B)
 			.setTitle('<:BOXDOLLAR:1024402261784403999> » SELL CAR')
-			.setDescription('» Do you want to sell your **' + name + '** for **$' + (cost/2) + '**?')
+			.setDescription(`» Do you want to sell your **${name}** for **$${cost / 2}**?`)
 			.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 		if (ctx.metadata.language === 'de') {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:BOXDOLLAR:1024402261784403999> » AUTO VERKAUFEN')
-				.setDescription('» Willst du deinen **' + name + '** für **' + (cost/2) + '€** verkaufen?')
+				.setDescription(`» Willst du deinen **${name}** für **${cost / 2}€** verkaufen?`)
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 		}
 

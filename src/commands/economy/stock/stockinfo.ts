@@ -37,13 +37,13 @@ export default {
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-				.setDescription('» Stocks are disabled on this Server!')
+				.setDescription(`» Stocks are disabled on this Server!`)
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-					.setDescription('» Aktien sind auf diesem Server deaktiviert!')
+					.setDescription(`» Aktien sind auf diesem Server deaktiviert!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 			
@@ -110,29 +110,30 @@ export default {
 		if (stock !== 'all') {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:CHART:1024398298204876941> » ' + emoji + ' STOCK INFO')
-				.setDescription(`» NEXT PRICES
+				.setDescription(`
+					» NEXT PRICES
 					<t:${ctx.client.stocks.refresh}:R>
 
 					» PRICE
 					**${stockEmojis[stock]} \`$${ctx.client.stocks[stock]}\` (${ctx.bot.perCalc(ctx.client.stocks[stock], ctx.client.stocks['old' + stock])}%)
-				`)
-				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
+				`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:CHART:1024398298204876941> » ' + emoji + ' AKTIEN INFO')
-					.setDescription(`» NÄCHSTEN PREISE
+					.setDescription(`
+						» NÄCHSTEN PREISE
 						<t:${ctx.client.stocks.refresh}:R>
 
 						» PREIS
 						**${stockEmojis[stock]} \`${ctx.client.stocks[stock]}€\` (${ctx.bot.perCalc(ctx.client.stocks[stock], ctx.client.stocks['old' + stock])}%)
-					`)
-					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
+					`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 		} else {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:CHART:1024398298204876941> » FULL STOCK INFO')
-				.setDescription(`» NEXT PRICES
+				.setDescription(`
+					» NEXT PRICES
 					<t:${ctx.client.stocks.refresh}:R>
 
 					» 🟢 GREEN STOCK
@@ -158,7 +159,8 @@ export default {
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:CHART:1024398298204876941> » VOLLE AKTIEN INFOS')
-					.setDescription(`» NÄCHSTEN PREISE
+					.setDescription(`
+						» NÄCHSTEN PREISE
 						<t:${ctx.client.stocks.refresh}:R>
 
 						» 🟢 GRÜNE AKTIE

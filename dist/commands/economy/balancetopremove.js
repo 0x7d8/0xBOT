@@ -24,13 +24,17 @@ async execute(ctx) {
 const user = ctx.interaction.options.getUser("user");
 let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:WALLET:1024387370793050273> » TOP BALANCE REMOVAL')
-.setDescription(`» Successfully removed <@${user.id}> from your Servers Top Balance!\nIf this User interacts with money again he will be on the List again.`)
-.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+.setDescription(`
+» Successfully removed <@${user.id}> from your Servers Top Balance!
+If this User interacts with money again he will be on the List again.
+`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:WALLET:1024387370793050273> » TOP KONTOSTÄNDE ENTFERNUNG')
-.setDescription(`» Erfolgreich <@${user.id}> von der Top Kontostände Liste des Servers entfernt!\nWenn dieser Nutzer wieder mit Geld interagiert, wird er wieder auf der Liste sein.`)
-.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+.setDescription(`
+» Erfolgreich <@${user.id}> von der Top Kontostände Liste des Servers entfernt!
+Wenn dieser Nutzer wieder mit Geld interagiert, wird er wieder auf der Liste sein.
+`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
 await ctx.db.query(`update usermoney set guilds = array_remove(guilds, $1) where userid = $2;`, [ctx.interaction.guild.id, user.id]);
 ctx.log(false, `[CMD] BALANCETOPREMOVE : ${user.id}`);

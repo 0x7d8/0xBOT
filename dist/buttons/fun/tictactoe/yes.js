@@ -15,12 +15,12 @@ const otherbalance = await ctx.bot.money.get(sender);
 if (ctx.interaction.user.id !== reciever) {
 let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-.setDescription('» <@' + reciever + '> has to decide this!')
+.setDescription(`» <@${reciever}> has to decide this!`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-.setDescription('» <@' + reciever + '> muss das entscheiden!')
+.setDescription(`» <@${reciever}> muss das entscheiden!`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
 ctx.log(false, `[BTN] TICTACTOE : YES : NOTALLOWED`);
@@ -29,12 +29,12 @@ return ctx.interaction.reply({ embeds: [message], ephemeral: true });
 if (ctx.bot.game.has('PLAYING-' + reciever)) {
 let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-.setDescription('» You are already in a Lobby!')
+.setDescription(`» You are already in a Lobby!`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-.setDescription('» Du bist schon in einer Lobby!')
+.setDescription(`» Du bist schon in einer Lobby!`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
 ctx.log(false, `[BTN] TICTACTOE : ${reciever} : ALREADYLOBBY`);
@@ -43,12 +43,12 @@ return ctx.interaction.reply({ embeds: [message], ephemeral: true });
 if (ctx.bot.game.has('PLAYING-' + sender)) {
 let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-.setDescription('» <@' + sender + '> is already in a Lobby!')
+.setDescription(`» <@${sender}> is already in a Lobby!`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-.setDescription('» <@' + sender + '> ist schon in einer Lobby!')
+.setDescription(`» <@${sender}> ist schon in einer Lobby!`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
 ctx.log(false, `[BTN] TICTACTOE : ${sender} : ALREADYLOBBY`);
@@ -58,12 +58,12 @@ if (balance < bet) {
 const missing = bet - balance;
 let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-.setDescription('» You dont have enough Money for that, you are missing **$' + missing + '**!')
+.setDescription(`» You dont have enough Money for that, you are missing **\$${missing}**!`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-.setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
+.setDescription(`» Du hast dafür nicht genug Geld, dir fehlen **${missing}€**!`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
 ctx.log(false, `[BTN] TICTACTOE : ${reciever} : ${bet}€ : NOTENOUGHMONEY`);
@@ -73,12 +73,12 @@ if (otherbalance < bet) {
 const missing = bet - otherbalance;
 let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-.setDescription('» <@' + sender + '> doesnt have enough Money, he is Missing **$' + missing + '**!')
+.setDescription(`» <@${sender}> doesnt have enough Money, he is Missing **\$${missing}**!`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-.setDescription('» <@' + sender + '> hat nicht genug Geld, im fehlen **' + missing + '€**!')
+.setDescription(`» <@${sender}> hat nicht genug Geld, im fehlen **${missing}€**!`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
 ctx.log(false, `[BTN] TICTACTOE : ${reciever} : ${bet}€ : NOTENOUGHMONEY`);
@@ -136,13 +136,21 @@ ctx.bot.money.rem(ctx.interaction.guild.id, sender, bet);
 ctx.bot.money.rem(ctx.interaction.guild.id, reciever, bet);
 let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:GAMEPAD:1024395990679167066> » TICTACTOE')
-.setDescription('» <@' + sender + '> is playing Tic Tac Toe with <@' + reciever + '>!\nThe Bet is **$' + bet + '**\n\n🔵 » <@' + sender + '>\n🔴 » <@' + reciever + '>')
-.setFooter({ text: '» ' + ctx.client.config.version + ' » CURRENT TURN: 🔵' });
+.setDescription(`
+» <@${sender}> is playing Tic Tac Toe with <@${reciever}>!
+The Bet is **\$${bet}**
+
+🔵 » <@${sender}>\n🔴 » <@${reciever}>
+`).setFooter({ text: '» ' + ctx.client.config.version + ' » CURRENT TURN: 🔵' });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:GAMEPAD:1024395990679167066> » TICTACTOE')
-.setDescription('» <@' + sender + '> spielt mit <@' + reciever + '> Tic Tac Toe!\nDie Wette ist **' + bet + '€**\n\n🔵 » <@' + sender + '>\n🔴 » <@' + reciever + '>')
-.setFooter({ text: '» ' + ctx.client.config.version + ' » AM ZUG: 🔵' });
+.setDescription(`
+» <@${sender}> spielt mit <@${reciever}> Tic Tac Toe!
+Die Wette ist **${bet}€**
+
+🔵 » <@${sender}>\n🔴 » <@${reciever}>
+`).setFooter({ text: '» ' + ctx.client.config.version + ' » AM ZUG: 🔵' });
 }
 ctx.log(false, `[BTN] TICTACTOE : ${sender} : ACCEPT`);
 return ctx.interaction.update({ content: '', embeds: [message], components: [row1, row2, row3] });

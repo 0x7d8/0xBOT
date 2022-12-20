@@ -29,12 +29,12 @@ if ((await ctx.bot.cooldown.get(ctx.interaction.user.id, 'daily')).onCooldown) {
 const timeLeft = (await ctx.bot.cooldown.get(ctx.interaction.user.id, 'daily')).remaining;
 let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-.setDescription('» You still have a Cooldown of **' + ms(timeLeft, { secondsDecimalDigits: 0 }) + '**!')
+.setDescription(`» You still have a Cooldown of **${ms(timeLeft, { secondsDecimalDigits: 0 })}**!`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-.setDescription('» Du hast leider noch einen Cooldown von **' + ms(timeLeft, { secondsDecimalDigits: 0 }) + '**!')
+.setDescription(`» Du hast leider noch einen Cooldown von **${ms(timeLeft, { secondsDecimalDigits: 0 })}**!`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
 ctx.log(false, `[CMD] DAILY : ONCOOLDOWN : ${ms(timeLeft, { secondsDecimalDigits: 0 })}`);
@@ -79,13 +79,19 @@ type: 'positive'
 });
 let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:HAMMER:1024388163747184662> » DAILY')
-.setDescription('» You get **$' + result + '** from me Today! ' + extra + '\n\nID: ' + transaction.id)
+.setDescription(`
+» You get **$${result}** from me Today! ${extra}
+
+ID: ${transaction.id}`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:HAMMER:1024388163747184662> » DAILY')
-.setDescription('» Du kriegst heute **' + result + '€** von mir! ' + extra + '\n\nID: ' + transaction.id)
-.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+.setDescription(`
+» Du kriegst heute **${result}€** von mir! ${extra}
+
+ID: ${transaction.id}
+`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
 ctx.bot.money.add(ctx.interaction.guild.id, ctx.interaction.user.id, result);
 ctx.log(false, `[CMD] DAILY : ${result}€`);

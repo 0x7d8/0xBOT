@@ -27,13 +27,13 @@ export default {
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-				.setDescription('» This Transaction doesnt exist!')
+				.setDescription(`» This Transaction doesnt exist!`)
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-					.setDescription('» Diese Transaktion existiert nicht!')
+					.setDescription(`» Diese Transaktion existiert nicht!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 			
@@ -59,7 +59,7 @@ export default {
 		// Create Embeds
 		let message = new EmbedBuilder().setColor(0x37009B)
 			.setTitle('<:BAG:1024389219558367292> » TRANSACTION INFOS')
-  			.setDescription(`» ID: \`${transactionId}\`
+  		.setDescription(`» ID: \`${transactionId}\`
 				<t:${transaction.timestamp}>
 
 				» ${sender}
@@ -67,13 +67,12 @@ export default {
 
 				» ${reciever}
 				**${transaction.reciever.type === 'positive' ? '+' : '-'}$${transaction.reciever.amount}**
-			`)
-			.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+			`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 
 		if (ctx.metadata.language === 'de') {
 			message = new EmbedBuilder().setColor(0x37009B)
 			.setTitle('<:BAG:1024389219558367292> » TRANSAKTIONS INFOS')
-  			.setDescription(`» ID: \`${transactionId}\`
+  		.setDescription(`» ID: \`${transactionId}\`
 				<t:${transaction.timestamp}>
 
 				» ${sender}
@@ -81,8 +80,7 @@ export default {
 
 				» ${reciever}
 				**${transaction.reciever.type === 'positive' ? '+' : '-'}${transaction.reciever.amount}€**
-			`)
-			.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+			`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 		}
 
 		// Send Message

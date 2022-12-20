@@ -111,12 +111,12 @@ else
 formatted = question + '?';
 let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:QUESTION:1024402860210921503> » MAGIC BALL')
-.setDescription('» "' + formatted + '" -> ' + result)
+.setDescription(`» "${formatted}" -> ${result}`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:QUESTION:1024402860210921503> » MAGISCHER BALL')
-.setDescription('» "' + formatted + '" -> ' + result)
+.setDescription(`» "${formatted}" -> ${result}`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
 ctx.log(false, '[CMD] 8BALL : ' + formatted.toUpperCase() + ' : ' + result.toUpperCase());

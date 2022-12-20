@@ -43,13 +43,13 @@ export default {
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-				.setDescription('» Businesses are disabled on this Server!')
+				.setDescription(`» Businesses are disabled on this Server!`)
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-					.setDescription('» Geschäfte sind auf diesem Server deaktiviert!')
+					.setDescription(`» Geschäfte sind auf diesem Server deaktiviert!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 			
@@ -67,13 +67,13 @@ export default {
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-  			.setDescription('» You dont own this Business!')
+  			.setDescription(`» You dont own this Business!`)
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-  				.setDescription('» Du besitzt dieses Geschäft nicht!')
+  				.setDescription(`» Du besitzt dieses Geschäft nicht!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 			
@@ -84,21 +84,21 @@ export default {
 
 		// Check if Price is valid
 		let doscream = false
-		if (itemid == 'nbomb' && !ctx.bot.inRange(newprice, 250, 1500)) doscream = true
-		if (itemid == 'mbomb' && !ctx.bot.inRange(newprice, 750, 5000)) doscream = true
-		if (itemid == 'hbomb' && !ctx.bot.inRange(newprice, 2500, 15000)) doscream = true
-		if (itemid == 'cbomb' && !ctx.bot.inRange(newprice, 7500, 20000)) doscream = true
+		if (itemid === 'nbomb' && !ctx.bot.inRange(newprice, 250, 1500)) doscream = true
+		if (itemid === 'mbomb' && !ctx.bot.inRange(newprice, 750, 5000)) doscream = true
+		if (itemid === 'hbomb' && !ctx.bot.inRange(newprice, 2500, 15000)) doscream = true
+		if (itemid === 'cbomb' && !ctx.bot.inRange(newprice, 7500, 20000)) doscream = true
 		if (doscream) {
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-  			.setDescription('» Please follow the limits seen in the first step!')
+  			.setDescription(`» Please follow the limits seen in the first step!`)
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-  				.setDescription('» Bitte folge den Limits zu sehen im ersten Schritt!')
+  				.setDescription(`» Bitte folge den Limits zu sehen im ersten Schritt!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 			
@@ -113,13 +113,13 @@ export default {
 		// Create Embed
 		let message = new EmbedBuilder().setColor(0x37009B)
 			.setTitle('<:PARTITION:1024399126403747970> » ITEM PRICES')
-			.setDescription('» Successfully set the price to **$' + newprice + '**.')
+			.setDescription(`» Successfully set the price to **$${newprice}**.`)
 			.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 		if (ctx.metadata.language == 'de') {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:PARTITION:1024399126403747970> » ITEM PREISE')
-				.setDescription('» Erfolgreich den Preis auf **' + newprice + '€** gesetzt.')
+				.setDescription(`» Erfolgreich den Preis auf **${newprice}€** gesetzt.`)
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 		}
 

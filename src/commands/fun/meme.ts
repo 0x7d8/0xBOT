@@ -1,3 +1,4 @@
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js"
 import { SlashCommandBuilder, EmbedBuilder } from "discord.js"
 
 import CommandInteraction from "@interfaces/CommandInteraction.js"
@@ -18,13 +19,13 @@ export default {
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-				.setDescription('» The **`/meme`** Command is disabled on this Server!')
+				.setDescription(`» The **\`/meme\`** Command is disabled on this Server!`)
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-					.setDescription('» Der **`/meme`** Befehl ist auf diesem Server deaktiviert!')
+					.setDescription(`» Der **\`/meme\`** Befehl ist auf diesem Server deaktiviert!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 			
@@ -56,24 +57,46 @@ export default {
 		// 187 Easter Egg
 		if (upvotes === 187) upvotes = upvotes + ' 🐊'
 		if (comments === 187) comments = comments + ' 🐊'
+
+		// Create Buttons
+		const row = new ActionRowBuilder()
+				.addComponents(
+					new ButtonBuilder()
+						.setEmoji('1044959793317691513')
+						.setLabel(String(upvotes))
+						.setCustomId('BIN-1')
+						.setStyle(ButtonStyle.Secondary)
+						.setDisabled(true),
+
+					new ButtonBuilder()
+						.setEmoji('1054857046916341861')
+						.setLabel(String(comments))
+						.setCustomId('BIN-2')
+						.setStyle(ButtonStyle.Secondary)
+						.setDisabled(true),
+				)
 		
 		// Create Embed
 		let message = new EmbedBuilder().setColor(0x37009B)
 			.setTitle(`<:IMAGE:1024405297579696179> » ${random[0].data.children[0].data.title.toUpperCase()}`)
-			.setDescription('» SUBREDDIT:\n`r/' + subreddit + '`\n\n» UPVOTES:\n`' + upvotes + '`\n\n» COMMENTS:\n`' + comments + '`')
-			.setImage(random[0].data.children[0].data.url)
+			.setDescription(`
+				» SUBREDDIT:
+				\`r/${subreddit}\`
+			`).setImage(random[0].data.children[0].data.url)
 			.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 		if (ctx.metadata.language === 'de') {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle(`<:IMAGE:1024405297579696179> » ${random[0].data.children[0].data.title.toUpperCase()}`)
-				.setDescription('» SUBREDDIT:\n`r/' + subreddit + '`\n\n» UPVOTES:\n`' + upvotes + '`\n\n» KOMMENTARE:\n`' + comments + '`')
-				.setImage(random[0].data.children[0].data.url)
+				.setDescription(`
+					» SUBREDDIT:
+					\`r/${subreddit}\`
+				`).setImage(random[0].data.children[0].data.url)
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 		}
 		
 		// Send Message
 		ctx.log(false, `[CMD] MEME : ${subreddit.toUpperCase()} : ${upvotes}^ : ${comments}`)
-		return ctx.interaction.editReply({ embeds: [message] })
+		return ctx.interaction.editReply({ embeds: [message], components: [row as any] })
 	}
 }

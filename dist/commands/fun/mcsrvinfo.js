@@ -54,16 +54,30 @@ players = { online: info.players.online.toString(), slots: info.players.max.toSt
 let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:CUBE:1024404832452350032> » MINECRAFT SERVER INFO')
 .setThumbnail(`https://api.mcsrvstat.us/icon/${encodeURIComponent(address)}`)
-.setDescription(`${status}\n\n» IP\n\`${info.ip}:${info.port}\`\n\n» Players\n\`${players.online}/${players.slots}\``)
-.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+.setDescription(`
+${status}
+
+» IP
+\`${info.ip}:${info.port}\`
+
+» Players
+\`${players.online}/${players.slots}\`
+`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:CUBE:1024404832452350032> » MINECRAFT SERVER INFO')
 .setThumbnail(`https://api.mcsrvstat.us/icon/${encodeURIComponent(address)}`)
-.setDescription(`${status}\n\n» IP\n\`${info.ip}:${info.port}\`\n\n» Spieler\n\`${players.online}/${players.slots}\``)
-.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+.setDescription(`
+${status}
+
+» IP
+\`${info.ip}:${info.port}\`
+
+» Spieler
+\`${players.online}/${players.slots}\`
+`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
-ctx.log(false, '[CMD] MCSRVINFO : ' + address.toUpperCase());
+ctx.log(false, `[CMD] MCSRVINFO : ${address.toUpperCase()}`);
 return ctx.interaction.editReply({ embeds: [message] });
 }
 };

@@ -59,13 +59,13 @@ export default {
 		// Create Embed
 	  	let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:INFINITE:1024406060380979300> » COUNTING')
-  			.setDescription('» Lets Count! Current Number: **0**')
+  			.setDescription(`» Lets Count! Current Number: **0**`)
 				.setFooter({ text: '» ' + ctx.client.config.version })
 
 		if (ctx.metadata.language === 'de') {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:INFINITE:1024406060380979300> » ZÄHLEN')
-  			.setDescription('» Komm Zählen! Aktuelle Nummer: **0**')
+  			.setDescription(`» Komm Zählen! Aktuelle Nummer: **0**`)
 				.setFooter({ text: '» ' + ctx.client.config.version })
 		}
 

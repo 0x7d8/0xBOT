@@ -33,24 +33,24 @@ let message;
 if (!user) {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:WALLET:1024387370793050273> » YOUR BALANCE')
-.setDescription('» Your Balance is **$' + money + '**!')
+.setDescription(`» Your Balance is **$${money}**!`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:WALLET:1024387370793050273> » DEIN GELDSTAND')
-.setDescription('» Dein Geldstand beträgt **' + money + '€**!')
+.setDescription(`» Dein Geldstand beträgt **${money}€**!`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
 }
 else {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:WALLET:1024387370793050273> » THE BALANCE OF ' + user.username.toUpperCase())
-.setDescription('» The Balance of <@' + user + '> is **$' + money + '**!')
+.setDescription(`» The Balance of <@${user.id}> is **$${money}**!`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:WALLET:1024387370793050273> » DER GELDSTAND VON ' + user.username.toUpperCase())
-.setDescription('» Der Geldstand von <@' + user + '> beträgt **' + money + '€**!')
+.setDescription(`» Der Geldstand von <@${user.id}> beträgt **${money}€**!`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
 }

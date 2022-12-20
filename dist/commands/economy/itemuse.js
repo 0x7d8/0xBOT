@@ -34,12 +34,12 @@ const mathjs = await import('mathjs');
 if (!await ctx.bot.settings.get(ctx.interaction.guild.id, 'items')) {
 let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-.setDescription('» Items are disabled on this Server!')
+.setDescription(`» Items are disabled on this Server!`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-.setDescription('» Items sind auf diesem Server deaktiviert!')
+.setDescription(`» Items sind auf diesem Server deaktiviert!`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
 ctx.log(false, `[CMD] ITEM : DISABLED`);
@@ -71,12 +71,12 @@ name = '<:CBOMB:1021783405161091162> CRAZY BOMBE';
 if (user.bot) {
 let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-.setDescription('» You cant use Items on Bots!')
+.setDescription(`» You cant use Items on Bots!`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-.setDescription('» Du kannst keine Gegenstände auf einem Bot nutzen!')
+.setDescription(`» Du kannst keine Gegenstände auf einem Bot nutzen!`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
 ctx.log(false, `[CMD] ITEMUSE : ${user.id} : BOT : ${itemid.toUpperCase()}`);
@@ -85,12 +85,12 @@ return ctx.interaction.reply({ embeds: [message], ephemeral: true });
 if (await ctx.bot.items.get(ctx.interaction.user.id + '-' + itemid.toUpperCase() + 'S-' + ctx.interaction.guild.id, 'amount') < 1) {
 let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-.setDescription('» You dont have enough of that Item!')
+.setDescription(`» You dont have enough of that Item!`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-.setDescription('» Du hast nicht genug von dem Gegenstand!')
+.setDescription(`» Du hast nicht genug von dem Gegenstand!`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
 ctx.log(false, `[CMD] ITEMUSE : ${user.id} : NOTENOUGHITEMS : ${itemid.toUpperCase()}`);
@@ -99,12 +99,12 @@ return ctx.interaction.reply({ embeds: [message], ephemeral: true });
 if (ctx.interaction.user.id === user.id && itemcat === 'bomb') {
 let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-.setDescription('» You cant use Bombs on yourself?')
+.setDescription(`» You cant use Bombs on yourself?`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-.setDescription('» Du kannst Bomben nicht auf dir selber nutzen?')
+.setDescription(`» Du kannst Bomben nicht auf dir selber nutzen?`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
 ctx.log(false, `[CMD] ITEMUSE : ${user.id} : ${itemid.toUpperCase()}`);
@@ -113,12 +113,12 @@ return ctx.interaction.reply({ embeds: [message], ephemeral: true });
 if (ctx.bot.bomb.has('TIMEOUT-' + user.id + '-' + ctx.interaction.guild.id)) {
 let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-.setDescription('» <@' + user.id + '> is already being bombed!')
+.setDescription(`» <@${user.id}> is already being bombed!`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-.setDescription('» <@' + user.id + '> wird schon bombadiert!')
+.setDescription(`» <@${user.id}> wird schon bombadiert!`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
 ctx.log(false, `[CMD] ITEMUSE : ${user.id} : ${itemid.toUpperCase()}`);
@@ -162,13 +162,23 @@ let message;
 if (itemcat === 'bomb') {
 message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:BOXOPEN:1024395281460101213> » USE ITEM')
-.setDescription('» Oh <@' + user.id + '>, <@' + ctx.interaction.user.id + '> used a **' + name + '** on you!\nIf you solve this Math Equation, it wont do anything.\n\n**```' + math + '```**\nThe Bomb explodes <t:' + (Math.floor(+new Date() / 1000) + 10) + ':R>')
-.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+.setDescription(`
+» Oh <@${user.id}>, <@${ctx.interaction.user.id}> used a **${name}** on you!
+If you solve this Math Equation, it wont do anything.
+
+**\`\`\`${math}\`\`\`**
+The Bomb explodes <t:${Math.floor(+new Date() / 1000) + 10}:R>
+`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:BOXOPEN:1024395281460101213> » GEGENSTAND NUTZEN')
-.setDescription('» Oh <@' + user.id + '>, <@' + ctx.interaction.user.id + '> hat eine **' + name + '** an dir benutzt!\nFalls du dieses Mathe Rätsel löst, passiert nichts.\n\n**```' + math + '```**\nDie Bombe explodiert <t:' + (Math.floor(+new Date() / 1000) + 10) + ':R>')
-.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+.setDescription(`
+» Oh <@${user.id}>, <@${ctx.interaction.user.id}> hat eine **${name}** an dir benutzt!
+Falls du dieses Mathe Rätsel löst, passiert nichts.
+
+**\`\`\`${math}\`\`\`**
+Die Bombe explodiert <t:${Math.floor(+new Date() / 1000) + 10}:R>
+`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
 }
 ctx.bot.items.rem(ctx.interaction.user.id + '-' + itemid.toUpperCase() + 'S-' + ctx.interaction.guild.id, 1);
@@ -218,12 +228,12 @@ await channel.bulkDelete(filtered, true);
 }
 message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:BOXOPEN:1024395281460101213> » USE ITEM')
-.setDescription('» <@' + user.id + '> has failed to diffuse the Bomb! OHNO')
+.setDescription(`» <@${user.id}> has failed to diffuse the Bomb! OHNO`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:BOXOPEN:1024395281460101213> » GEGENSTAND NUTZEN')
-.setDescription('» <@' + user.id + '> hat es nicht geschafft, die Bombe zu entschärfen! OH')
+.setDescription(`» <@${user.id}> hat es nicht geschafft, die Bombe zu entschärfen! OH`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
 ctx.log(false, `[CMD] ITEMUSE : ${user.id} : EXPIRED`);

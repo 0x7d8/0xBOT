@@ -12,12 +12,12 @@ const [sender, reciever] = description;
 if (ctx.interaction.user.id !== reciever && ctx.interaction.user.id !== sender) {
 let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-.setDescription('» <@' + reciever + '> or <@' + sender + '> has to decide this!')
+.setDescription(`» <@${reciever}> or <@${sender}> has to decide this!`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-.setDescription('» <@' + reciever + '> oder <@' + sender + '> muss das entscheiden!')
+.setDescription(`» <@${reciever}> oder <@${sender}> muss das entscheiden!`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
 ctx.log(false, `[BTN] MEMORY : NO : NOTALLOWED`);
@@ -31,12 +31,12 @@ ctx.interaction.message.components[0].components[0].data.style = 2;
 }
 let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:GAMEPAD:1024395990679167066> » MEMORY')
-.setDescription('» <@' + ctx.interaction.user.id + '> said **NO**.')
+.setDescription(`» <@${ctx.interaction.user.id}> said **NO**.`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:GAMEPAD:1024395990679167066> » MEMORY')
-.setDescription('» <@' + ctx.interaction.user.id + '> hat **NEIN** gesagt.')
+.setDescription(`» <@${ctx.interaction.user.id}> hat **NEIN** gesagt.`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
 ctx.log(false, `[BTN] MEMORY : ${sender} : DENY`);

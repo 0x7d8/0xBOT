@@ -38,24 +38,24 @@ let message;
 if (!user) {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:GLOBE:1024403680503529583> » YOUR VOTES')
-.setDescription('» You have **' + votes + '** ' + word + '!')
+.setDescription(`» You have **${votes}** ${word}!`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:GLOBE:1024403680503529583> » DEINE VOTES')
-.setDescription('» Du hast **' + votes + '** ' + word + '!')
+.setDescription(`» Du hast **${votes}** ${word}!`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
 }
 else {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:GLOBE:1024403680503529583> » THE VOTES OF ' + user.username.toUpperCase())
-.setDescription('» <@' + user.id + '> has **' + votes + '** ' + word + '!')
+.setDescription(`» <@${user.id}> has **${votes}** ${word}!`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:GLOBE:1024403680503529583> » DIE VOTES VON ' + user.username.toUpperCase())
-.setDescription('» <@' + user.id + '> hat **' + votes + '** ' + word + '!')
+.setDescription(`» <@${user.id}> hat **${votes}** ${word}!`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
 }

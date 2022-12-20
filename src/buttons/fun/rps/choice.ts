@@ -17,13 +17,13 @@ export default {
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-				.setDescription('» You arent playing!')
+				.setDescription(`» You arent playing!`)
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-					.setDescription('» Du spielst garnicht mit!')
+					.setDescription(`» Du spielst garnicht mit!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 			
@@ -40,7 +40,7 @@ export default {
 
 		let message = new EmbedBuilder().setColor(0x37009B)
 			.setTitle('<:GAMEPAD:1024395990679167066> » ROCK PAPER SCISSORS')
-			.setDescription('» You selected **' + choiceen + '**!')
+			.setDescription(`» You selected **${choiceen}**!`)
 			.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 		if (ctx.metadata.language === 'de') {
@@ -51,7 +51,7 @@ export default {
 
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:GAMEPAD:1024395990679167066> » SCHERE STEIN PAPIER')
-				.setDescription('» Du hast **' + choicede + '** ausgewählt!')
+				.setDescription(`» Du hast **${choicede}** ausgewählt!`)
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 		}
 
@@ -116,8 +116,12 @@ export default {
 
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:GAMEPAD:1024395990679167066> » ROCK PAPER SCISSORS')
-				.setDescription('» <@' + sender + '> selected **' + ctx.bot.rps.get('CHOICE-' + sender) + '**\n» <@' + reciever + '> selected **' + ctx.bot.rps.get('CHOICE-' + reciever) + '**\n\n<:AWARD:1024385473524793445> ' + winner + ' won **$' + betwon + '**.' + ((typeof transaction === 'object') ? `\nID: ${transaction.id}` : ''))
-				.setFooter({ text: '» ' + ctx.client.config.version })
+				.setDescription(`
+					» <@${sender}> selected **${ctx.bot.rps.get('CHOICE-' + sender)}**
+					» <@${reciever}> selected **${ctx.bot.rps.get('CHOICE-' + reciever)}**
+					
+					<:AWARD:1024385473524793445> ${winner} won **\$${betwon}**.${(typeof transaction === 'object') ? `\nID: ${transaction.id}` : ''}
+				`).setFooter({ text: '» ' + ctx.client.config.version })
 
 			if (ctx.metadata.language === 'de') {
 				if (psc === 'SCISSORS') send = '✂️ SCHERE'
@@ -129,8 +133,12 @@ export default {
 
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:GAMEPAD:1024395990679167066> » SCHERE STEIN PAPIER')
-					.setDescription('» <@' + sender + '> wählte **' + send + '**\n» <@' + reciever + '> wählte **' + reci + '**\n\n<:AWARD:1024385473524793445> ' + winner + ' hat **' + betwon + '€** gewonnen.' + ((typeof transaction === 'object') ? `\nID: ${transaction.id}` : ''))
-					.setFooter({ text: '» ' + ctx.client.config.version })
+					.setDescription(`
+						» <@${sender}> wählte **${send}**
+						» <@${reciever}> wählte **${reci}**
+						
+						<:AWARD:1024385473524793445> ${winner} hat **${betwon}€** gewonnen.${(typeof transaction === 'object') ? `\nID: ${transaction.id}` : ''}
+					`).setFooter({ text: '» ' + ctx.client.config.version })
 			}
 
 			// Delete Variables

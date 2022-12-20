@@ -24,7 +24,7 @@ import axios from 'axios'
 /* ---------------- *
  * Version          *
  * ---------------- */
-const version = '3.6.3'
+const version = '3.6.4'
 
 function getWindowDimensions() {
   const { innerWidth: width, innerHeight: height } = window;

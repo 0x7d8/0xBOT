@@ -14,15 +14,23 @@ export default {
 		// Create Embed
 		let message = new EmbedBuilder().setColor(0x37009B)
 			.setTitle('<:DONATE:1024397357988720711> » DONATE')
-			.setDescription('**»» DONATE**\n» LINK\nhttps://donate.rjansen.de\n» QR CODE')
-			.setImage("https://img.rjansen.de/bot/donate.png")
+			.setDescription(`
+				» LINK
+				https://donate.rjansen.de
+
+				» QR CODE
+			`).setImage('https://img.rjansen.de/bot/donate.png')
 			.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 		if (ctx.metadata.language === 'de') {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:DONATE:1024397357988720711> » SPENDEN')
-				.setDescription('**»» SPENDEN**\n» LINK\nhttps://donate.rjansen.de\n» QR CODE')
-				.setImage("https://img.rjansen.de/bot/donate.png")
+				.setDescription(`
+					» LINK
+					https://donate.rjansen.de
+
+					» QR CODE
+				`).setImage('https://img.rjansen.de/bot/donate.png')
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 		}
 

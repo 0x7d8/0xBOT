@@ -26,13 +26,13 @@ export default {
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-				.setDescription('» Quotes are disabled on this Server!')
+				.setDescription(`» Quotes are disabled on this Server!`)
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-					.setDescription('» Zitate sind auf diesem Server deaktiviert!')
+					.setDescription(`» Zitate sind auf diesem Server deaktiviert!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 			
@@ -69,25 +69,25 @@ export default {
 		if (!user) {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:QUOTES:1024406448127623228> » YOUR QUOTES')
-  			.setDescription('» You have **' + quotes + '** ' + word + '!')
+  			.setDescription(`» You have **${quotes}** ${word}!`)
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:QUOTES:1024406448127623228> » DEINE ZITATE')
-  				.setDescription('» Du hast **' + quotes + '** ' + word + '!')
+  				.setDescription(`» Du hast **${quotes}** ${word}!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 		} else {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:QUOTES:1024406448127623228> » THE QUOTES OF ' + user.username.toUpperCase())
-  			.setDescription('» <@' + user + '> has **' + quotes + '** ' + word + '!')
+  			.setDescription(`» <@${user.id}> has **${quotes}** ${word}!`)
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:QUOTES:1024406448127623228> » DIE ZITATE VON ' + user.username.toUpperCase())
-  				.setDescription('» <@' + user + '> hat **' + quotes + '** ' + word + '!')
+  				.setDescription(`» <@${user.id}> hat **${quotes}** ${word}!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 		}

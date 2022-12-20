@@ -22,13 +22,13 @@ export default {
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-				.setDescription('» <@' + reciever + '> has to decide this!')
+				.setDescription(`» <@${reciever}> has to decide this!`)
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-					.setDescription('» <@' + reciever + '> muss das entscheiden!')
+					.setDescription(`» <@${reciever}> muss das entscheiden!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 			
@@ -42,13 +42,13 @@ export default {
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-				.setDescription('» You are already in a Lobby!')
+				.setDescription(`» You are already in a Lobby!`)
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-					.setDescription('» Du bist schon in einer Lobby!')
+					.setDescription(`» Du bist schon in einer Lobby!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 			
@@ -62,18 +62,18 @@ export default {
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-				.setDescription('» <@' + sender + '> is already in a Lobby!')
+				.setDescription(`» <@${sender}> is already in a Lobby!`)
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-					.setDescription('» <@' + sender + '> ist schon in einer Lobby!')
+					.setDescription(`» <@${sender}> ist schon in einer Lobby!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 			
 			// Send Message
-			ctx.log(false, `[BTN] RPS : ' + sender + ' : ALREADYLOBBY`)
+			ctx.log(false, `[BTN] RPS : ${sender} : ALREADYLOBBY`)
 			return ctx.interaction.reply({ embeds: [message], ephemeral: true })
 		}
 
@@ -84,13 +84,13 @@ export default {
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-  			.setDescription('» You dont have enough Money for that, you are missing **$' + missing + '**!')
+  			.setDescription(`» You dont have enough Money for that, you are missing **\$${missing}**!`)
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-  				.setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
+  				.setDescription(`» Du hast dafür nicht genug Geld, dir fehlen **${missing}€**!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 			
@@ -104,16 +104,16 @@ export default {
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-  			.setDescription('» <@' + sender + '> doesnt have enough Money, he is Missing **$' + missing + '**!')
+  			.setDescription(`» <@${sender}> doesnt have enough Money, he is Missing **\$${missing}**!`)
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-  				.setDescription('» <@' + sender + '> hat nicht genug Geld, im fehlen **' + missing + '€**!')
+  				.setDescription(`» <@${sender}> hat nicht genug Geld, im fehlen **${missing}€**!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
-			
+
 			// Send Message
 			ctx.log(false, `[BTN] RPS : ${reciever} : ${bet}€ : NOTENOUGHMONEY`)
 			return ctx.interaction.reply({ embeds: [message], ephemeral: true })
@@ -168,14 +168,18 @@ export default {
 		// Create Embed
 		let message = new EmbedBuilder().setColor(0x37009B)
 			.setTitle('<:GAMEPAD:1024395990679167066> » ROCK PAPER SCISSORS')
-			.setDescription('» <@' + sender + '> is playing Rock Paper Scissors with <@' + reciever + '>!\nThe Bet is **$' + bet + '**')
-			.setFooter({ text: '» ' + ctx.client.config.version })
+			.setDescription(`
+				» <@${sender}> is playing Rock Paper Scissors with <@${reciever}>!
+				The Bet is **\$${bet}**
+			`).setFooter({ text: '» ' + ctx.client.config.version })
 
 		if (ctx.metadata.language === 'de') {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:GAMEPAD:1024395990679167066> » SCHERE STEIN PAPIER')
-				.setDescription('» <@' + sender + '> spielt mit <@' + reciever + '> Schere Stein Papier!\nDie Wette ist **' + bet + '€**')
-				.setFooter({ text: '» ' + ctx.client.config.version })
+				.setDescription(`
+					» <@${sender}> spielt mit <@${reciever}> Schere Stein Papier!
+					Die Wette ist **${bet}€**
+				`).setFooter({ text: '» ' + ctx.client.config.version })
 		}
 
 		// Send Message

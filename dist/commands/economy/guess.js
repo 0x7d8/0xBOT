@@ -41,12 +41,12 @@ async execute(ctx) {
 if (!await ctx.bot.settings.get(ctx.interaction.guild.id, 'luckgames')) {
 let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-.setDescription('» Luck Games are disabled on this Server!')
+.setDescription(`» Luck Games are disabled on this Server!`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-.setDescription('» Glücksspiele sind auf diesem Server deaktiviert!')
+.setDescription(`» Glücksspiele sind auf diesem Server deaktiviert!`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
 ctx.log(false, `[CMD] GUESS : DISABLED`);
@@ -62,15 +62,15 @@ const random1000 = ctx.bot.random(1, 1000);
 if (bet < 0) {
 let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-.setDescription('» You cant play with negative Money!')
+.setDescription(`» You cant play with negative Money!`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-.setDescription('» Du kannst keine negativen Einsätze spielen!')
+.setDescription(`» Du kannst keine negativen Einsätze spielen!`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
-ctx.log(false, '[CMD] GUESS : NEGATIVEMONEY : ' + bet + '€');
+ctx.log(false, `[CMD] GUESS : NEGATIVEMONEY : ${bet}€`);
 return ctx.interaction.reply({ embeds: [message], ephemeral: true });
 }
 let status, result;
@@ -200,13 +200,19 @@ type: 'positive'
 }
 let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:CLOVER:1024388649418235925> » GUESS')
-.setDescription('» You set **$' + bet + '** on **' + guess + '** and **' + status + '** **$' + result + '**!\n\nID: ' + transaction.id)
-.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+.setDescription(`
+» You set **\$${bet}** on **${guess}** and **${status}** **\$${result}**!
+
+ID: ${transaction.id}
+`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:CLOVER:1024388649418235925> » RATEN')
-.setDescription('» Du hast **' + bet + '€** auf **' + guess + '** gesetzt und **' + result + '€** **' + status + '**!\n\nID: ' + transaction.id)
-.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+.setDescription(`
+» Du hast **${bet}€** auf **${guess}** gesetzt und **${result}€** **${status}**!
+
+ID: ${transaction.id}
+`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
 ctx.log(false, `[CMD] GUESS : ${guess} : ${status} : ${result}€`);
 return ctx.interaction.reply({ embeds: [message] });

@@ -33,13 +33,13 @@ export default {
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-				.setDescription('» You arent playing!')
+				.setDescription(`» You arent playing!`)
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-					.setDescription('» Du spielst garnicht mit!')
+					.setDescription(`» Du spielst garnicht mit!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 			
@@ -54,13 +54,13 @@ export default {
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-				.setDescription('» Its not your turn!')
+				.setDescription(`» Its not your turn!`)
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-					.setDescription('» Es ist nicht dein Zug!')
+					.setDescription(`» Es ist nicht dein Zug!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 			
@@ -107,14 +107,22 @@ export default {
 		// Create Embed
 		let message = new EmbedBuilder().setColor(0x37009B)
 			.setTitle('<:GAMEPAD:1024395990679167066> » TICTACTOE')
-			.setDescription('» <@' + sender + '> is playing Tic Tac Toe with <@' + reciever + '>!\nThe Bet is **$' + bet + '**\n\n🔵 » <@' + sender + '>\n🔴 » <@' + reciever + '>')
-			.setFooter({ text: '» ' + ctx.client.config.version + ' » CURRENT TURN: ' + turnemoji })
+			.setDescription(`
+				» <@${sender}> is playing Tic Tac Toe with <@${reciever}>!
+				The Bet is **\$${bet}**
+				
+				🔵 » <@${sender}>\n🔴 » <@${reciever}>
+			`).setFooter({ text: '» ' + ctx.client.config.version + ' » CURRENT TURN: ' + turnemoji })
 
 		if (ctx.metadata.language === 'de') {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:GAMEPAD:1024395990679167066> » TICTACTOE')
-				.setDescription('» <@' + sender + '> spielt mit <@' + reciever + '> Tic Tac Toe!\nDie Wette ist **' + bet + '€**\n\n🔵 » <@' + sender + '>\n🔴 » <@' + reciever + '>')
-				.setFooter({ text: '» ' + ctx.client.config.version + ' » AM ZUG: ' + turnemoji })
+				.setDescription(`
+					» <@${sender}> spielt mit <@${reciever}> Tic Tac Toe!
+					Die Wette ist **${bet}€**
+					
+					🔵 » <@${sender}>\n🔴 » <@${reciever}>
+				`).setFooter({ text: '» ' + ctx.client.config.version + ' » AM ZUG: ' + turnemoji })
 		}
 
 		// Send Message
@@ -231,14 +239,28 @@ export default {
 			// Create Embed
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:GAMEPAD:1024395990679167066> » TICTACTOE')
-				.setDescription('» <@' + sender + '> is playing Tic Tac Toe with <@' + reciever + '>!\nThe Bet is **$' + bet + '**\n\n🔵 » <@' + sender + '>\n🔴 » <@' + reciever + '>\n\n<:AWARD:1024385473524793445> ' + winner + ' has won **$' + betwon + '**.' + ((typeof transaction === 'object') ? `\nID: ${transaction.id}` : ''))
-				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
+				.setDescription(`
+					» <@${sender}> is playing Tic Tac Toe with <@${reciever}>!
+					The Bet is **\$${bet}**
+					
+					🔵 » <@${sender}>
+					🔴 » <@${reciever}>
+					
+					<:AWARD:1024385473524793445> ${winner} has won **\$${betwon}**.${(typeof transaction === 'object') ? `\nID: ${transaction.id}` : ''}
+				`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:GAMEPAD:1024395990679167066> » TICTACTOE')
-					.setDescription('» <@' + sender + '> spielt mit <@' + reciever + '> Tic Tac Toe!\nDie Wette ist **' + bet + '€**\n\n🔵 » <@' + sender + '>\n🔴 » <@' + reciever + '>\n\n<:AWARD:1024385473524793445> ' + winner + ' hat **' + betwon + '€** gewonnen.' + ((typeof transaction === 'object') ? `\nID: ${transaction.id}` : ''))
-					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
+					.setDescription(`
+						» <@${sender}> spielt mit <@${reciever}> Tic Tac Toe!
+						Die Wette ist **${bet}€**
+						
+						🔵 » <@${sender}>
+						🔴 » <@${reciever}>
+						
+						<:AWARD:1024385473524793445> ${winner} hat **${betwon}€** gewonnen.${(typeof transaction === 'object') ? `\nID: ${transaction.id}` : ''}
+					`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 
 			// Edit Buttons
