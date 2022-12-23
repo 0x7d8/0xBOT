@@ -33,7 +33,7 @@ export default {
 		await ctx.interaction.deferUpdate()
 
 		// Set Variables
-		const random = ctx.bot.random(1, 4)
+		const random = ctx.bot.random(1, 5)
 
 		// Set Subreddit
 		let subreddit: string

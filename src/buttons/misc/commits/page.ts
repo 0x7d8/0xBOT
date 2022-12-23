@@ -28,7 +28,7 @@ export default {
 			return dateA - dateB
 		})
 
-		commits.splice(commitCount); let index = 0
+		commits.splice(0, commitCount); let index = 0
 		commits.reverse().forEach((commit) => {
 			commits[index++] = { ...commit, count: index }
 		})

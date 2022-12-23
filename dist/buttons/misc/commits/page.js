@@ -91,7 +91,7 @@ var dateA = new Date(a.authorDate).getTime();
 var dateB = new Date(b.authorDate).getTime();
 return dateA - dateB;
 });
-commits.splice(commitCount);
+commits.splice(0, commitCount);
 index = 0;
 commits.reverse().forEach(function (commit) {
 commits[index++] = __assign(__assign({}, commit), { count: index });

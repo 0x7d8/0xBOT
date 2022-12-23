@@ -73,7 +73,7 @@ return [2, ctx.interaction.reply({ embeds: [message_1], ephemeral: true })];
 return [4, ctx.interaction.deferReply()];
 case 3:
 _a.sent();
-random = ctx.bot.random(1, 4);
+random = ctx.bot.random(1, 5);
 if (random === 1)
 subreddit = 'memes';
 if (random === 2)
