@@ -128,7 +128,7 @@ else {
 ctx.components.rows[0].components[1].setDisabled(false);
 }
 ;
-if (!ctx.components.rows[0].components[2].data.disabled && pageNumber >= Number((commits.length / 10).toFixed(0))) {
+if (!ctx.components.rows[0].components[2].data.disabled && pageNumber >= Number(Math.floor(commits.length / 10) + 1)) {
 ctx.components.rows[0].components[2].setDisabled(true);
 }
 else {

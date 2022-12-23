@@ -68,7 +68,7 @@ exports.default = {
 data: {
 name: 'commits-refresh'
 },
-execute: function (ctx, commitCount, pageNumber) {
+execute: function (ctx) {
 return __awaiter(this, void 0, void 0, function () {
 var embedDesc, gitInfos, commits, index, startIndex, endIndex, _a, _b, element, count, formattedCount, message;
 var e_1, _c;
@@ -91,7 +91,7 @@ index = 0;
 commits.reverse().forEach(function (commit) {
 commits[index++] = __assign(__assign({}, commit), { count: index });
 });
-startIndex = (Number((commits.length / 10).toFixed(0)) - 1) * 10;
+startIndex = (Number(Math.floor(commits.length / 10) + 1) - 1) * 10;
 endIndex = Math.min(startIndex + 10, commits.length);
 try {
 for (_a = __values(commits.slice(startIndex, endIndex).reverse()), _b = _a.next(); !_b.done; _b = _a.next()) {
@@ -112,22 +112,22 @@ if (_b && !_b.done && (_c = _a.return)) _c.call(_a);
 }
 finally { if (e_1) throw e_1.error; }
 }
-ctx.components.rows[0].components[0].setCustomId("COMMITS-REFRESH-".concat(commitCount, "-").concat((commits.length / 10).toFixed(0)));
-ctx.components.rows[0].components[1].setCustomId("COMMITS-BACK-".concat(commitCount, "-").concat((commits.length / 10).toFixed(0)));
-ctx.components.rows[0].components[2].setCustomId("COMMITS-NEXT-".concat(commitCount, "-").concat((commits.length / 10).toFixed(0)));
+ctx.components.rows[0].components[0].setCustomId("COMMITS-REFRESH-".concat(commits.length, "-").concat(Math.floor(commits.length / 10) + 1));
+ctx.components.rows[0].components[1].setCustomId("COMMITS-BACK-".concat(commits.length, "-").concat(Math.floor(commits.length / 10) + 1));
+ctx.components.rows[0].components[2].setCustomId("COMMITS-NEXT-".concat(commits.length, "-").concat(Math.floor(commits.length / 10) + 1));
 ctx.components.rows[0].components[1].setDisabled(false);
 ctx.components.rows[0].components[2].setDisabled(true);
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:GLOBE:1024403680503529583> » GIT COMMITS')
 .setDescription(embedDesc)
-.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version + ' » PAGE ' + (commits.length / 10).toFixed(0) });
+.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version + ' » PAGE ' + (Math.floor(commits.length / 10) + 1) });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:GLOBE:1024403680503529583> » GIT COMMITS')
 .setDescription(embedDesc)
-.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version + ' » SEITE ' + (commits.length / 10).toFixed(0) });
+.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version + ' » SEITE ' + (Math.floor(commits.length / 10) + 1) });
 }
-ctx.log(false, "[BTN] COMMITS : REFRESH : ".concat(commits.length, " : ").concat((commits.length / 10).toFixed(0)));
+ctx.log(false, "[BTN] COMMITS : REFRESH : ".concat(commits.length, " : ").concat(Math.floor(commits.length / 10) + 1));
 return [2, ctx.interaction.update({ embeds: [message], components: (ctx.components.getAPI()) })];
 }
 });

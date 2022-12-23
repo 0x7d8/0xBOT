@@ -34,7 +34,7 @@ export default {
 		})
 
 		// Get the start and end indices for the current page
-		const startIndex = (Number((commits.length / 10).toFixed(0)) - 1) * 10
+		const startIndex = (Number(Math.floor(commits.length / 10) + 1) - 1) * 10
 		const endIndex = Math.min(startIndex + 10, commits.length)
 
 		// Iterate over the elements on the current page
@@ -57,12 +57,12 @@ export default {
 
 				new ButtonBuilder()
 					.setEmoji('1055825023987888169')
-					.setCustomId(`COMMITS-BACK-${commits.length}-${(commits.length / 10).toFixed(0)}`)
+					.setCustomId(`COMMITS-BACK-${commits.length}-${Math.floor(commits.length / 10) + 1}`)
 					.setStyle(ButtonStyle.Secondary),
 
 				new ButtonBuilder()
 					.setEmoji('1055825050126786590')
-					.setCustomId(`COMMITS-NEXT-${commits.length}-${(commits.length / 10).toFixed(0)}`)
+					.setCustomId(`COMMITS-NEXT-${commits.length}-${Math.floor(commits.length / 10) + 1}`)
 					.setStyle(ButtonStyle.Secondary)
 					.setDisabled(true),
 			)
@@ -77,32 +77,32 @@ export default {
 
 					new ButtonBuilder()
 						.setEmoji('1055825023987888169')
-						.setCustomId(`COMMITS-BACK-${commits.length}-${(commits.length / 10).toFixed(0)}`)
+						.setCustomId(`COMMITS-BACK-${commits.length}-${Math.floor(commits.length / 10) + 1}`)
 						.setStyle(ButtonStyle.Secondary),
 
 					new ButtonBuilder()
 						.setEmoji('1055825050126786590')
-						.setCustomId(`COMMITS-NEXT-${commits.length}-${(commits.length / 10).toFixed(0)}`)
+						.setCustomId(`COMMITS-NEXT-${commits.length}-${Math.floor(commits.length / 10) + 1}`)
 						.setStyle(ButtonStyle.Secondary)
 						.setDisabled(true),
 				)
 		}
-		
+
 		// Create Embed
 		let message = new EmbedBuilder().setColor(0x37009B)
 			.setTitle('<:GLOBE:1024403680503529583> » GIT COMMITS')
-  		.setDescription(embedDesc)
-			.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version + ' » PAGE ' + (commits.length / 10).toFixed(0) })
+			.setDescription(embedDesc)
+			.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version + ' » PAGE ' + (Math.floor(commits.length / 10) + 1) })
 
 		if (ctx.metadata.language === 'de') {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:GLOBE:1024403680503529583> » GIT COMMITS')
-  			.setDescription(embedDesc)
-				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version + ' » SEITE ' + (commits.length / 10).toFixed(0) })
+				.setDescription(embedDesc)
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version + ' » SEITE ' + (Math.floor(commits.length / 10) + 1) })
 		}
 
 		// Send Message
-		ctx.log(false, `[CMD] COMMITS : ${commits.length} : ${(commits.length / 10).toFixed(0)}`)
-		return ctx.interaction.reply({ embeds: [message], components: [row as any] }).catch(() => {})
+		ctx.log(false, `[CMD] COMMITS : ${commits.length} : ${Math.floor(commits.length / 10) + 1}`)
+		return ctx.interaction.reply({ embeds: [message], components: [row as any] }).catch(() => { })
 	}
 }

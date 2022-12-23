@@ -9,7 +9,7 @@ export default {
 		name: 'commits-refresh'
 	},
 
-	async execute(ctx: ButtonInteraction, commitCount: number, pageNumber: number) {
+	async execute(ctx: ButtonInteraction) {
 		// Get all Commits
 		let embedDesc = ''
 		const gitInfos = await git.log({
@@ -29,7 +29,7 @@ export default {
 		})
 
 		// Get the start and end indices for the current page
-		const startIndex = (Number((commits.length / 10).toFixed(0)) - 1) * 10
+		const startIndex = (Number(Math.floor(commits.length / 10) + 1) - 1) * 10
 		const endIndex = Math.min(startIndex + 10, commits.length)
 
 		// Iterate over the elements on the current page
@@ -42,27 +42,27 @@ export default {
 		}
 
 		// Edit Buttons
-		ctx.components.rows[0].components[0].setCustomId(`COMMITS-REFRESH-${commitCount}-${(commits.length / 10).toFixed(0)}`)
-		ctx.components.rows[0].components[1].setCustomId(`COMMITS-BACK-${commitCount}-${(commits.length / 10).toFixed(0)}`)
-		ctx.components.rows[0].components[2].setCustomId(`COMMITS-NEXT-${commitCount}-${(commits.length / 10).toFixed(0)}`)
+		ctx.components.rows[0].components[0].setCustomId(`COMMITS-REFRESH-${commits.length}-${Math.floor(commits.length / 10) + 1}`)
+		ctx.components.rows[0].components[1].setCustomId(`COMMITS-BACK-${commits.length}-${Math.floor(commits.length / 10) + 1}`)
+		ctx.components.rows[0].components[2].setCustomId(`COMMITS-NEXT-${commits.length}-${Math.floor(commits.length / 10) + 1}`)
 		ctx.components.rows[0].components[1].setDisabled(false)
 		ctx.components.rows[0].components[2].setDisabled(true)
-		
+
 		// Create Embed
 		let message = new EmbedBuilder().setColor(0x37009B)
 			.setTitle('<:GLOBE:1024403680503529583> » GIT COMMITS')
-  		.setDescription(embedDesc)
-			.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version + ' » PAGE ' + (commits.length / 10).toFixed(0) })
+			.setDescription(embedDesc)
+			.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version + ' » PAGE ' + (Math.floor(commits.length / 10) + 1) })
 
 		if (ctx.metadata.language === 'de') {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:GLOBE:1024403680503529583> » GIT COMMITS')
-  			.setDescription(embedDesc)
-				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version + ' » SEITE ' + (commits.length / 10).toFixed(0) })
+				.setDescription(embedDesc)
+				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version + ' » SEITE ' + (Math.floor(commits.length / 10) + 1) })
 		}
 
 		// Send Message
-		ctx.log(false, `[BTN] COMMITS : REFRESH : ${commits.length} : ${(commits.length / 10).toFixed(0)}`)
+		ctx.log(false, `[BTN] COMMITS : REFRESH : ${commits.length} : ${Math.floor(commits.length / 10) + 1}`)
 		return ctx.interaction.update({ embeds: [message], components: (ctx.components.getAPI()) })
 	}
 }

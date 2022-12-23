@@ -96,7 +96,7 @@ index = 0;
 commits.reverse().forEach(function (commit) {
 commits[index++] = __assign(__assign({}, commit), { count: index });
 });
-startIndex = (Number((commits.length / 10).toFixed(0)) - 1) * 10;
+startIndex = (Number(Math.floor(commits.length / 10) + 1) - 1) * 10;
 endIndex = Math.min(startIndex + 10, commits.length);
 try {
 for (_a = __values(commits.slice(startIndex, endIndex).reverse()), _b = _a.next(); !_b.done; _b = _a.next()) {
@@ -124,10 +124,10 @@ row = new discord_js_1.ActionRowBuilder()
 .setCustomId("COMMITS-REFRESH-".concat(commits.length))
 .setStyle(discord_js_1.ButtonStyle.Primary), new discord_js_1.ButtonBuilder()
 .setEmoji('1055825023987888169')
-.setCustomId("COMMITS-BACK-".concat(commits.length, "-").concat((commits.length / 10).toFixed(0)))
+.setCustomId("COMMITS-BACK-".concat(commits.length, "-").concat(Math.floor(commits.length / 10) + 1))
 .setStyle(discord_js_1.ButtonStyle.Secondary), new discord_js_1.ButtonBuilder()
 .setEmoji('1055825050126786590')
-.setCustomId("COMMITS-NEXT-".concat(commits.length, "-").concat((commits.length / 10).toFixed(0)))
+.setCustomId("COMMITS-NEXT-".concat(commits.length, "-").concat(Math.floor(commits.length / 10) + 1))
 .setStyle(discord_js_1.ButtonStyle.Secondary)
 .setDisabled(true));
 if (ctx.metadata.language === 'de') {
@@ -138,24 +138,24 @@ row = new discord_js_1.ActionRowBuilder()
 .setCustomId("COMMITS-REFRESH-".concat(commits.length))
 .setStyle(discord_js_1.ButtonStyle.Primary), new discord_js_1.ButtonBuilder()
 .setEmoji('1055825023987888169')
-.setCustomId("COMMITS-BACK-".concat(commits.length, "-").concat((commits.length / 10).toFixed(0)))
+.setCustomId("COMMITS-BACK-".concat(commits.length, "-").concat(Math.floor(commits.length / 10) + 1))
 .setStyle(discord_js_1.ButtonStyle.Secondary), new discord_js_1.ButtonBuilder()
 .setEmoji('1055825050126786590')
-.setCustomId("COMMITS-NEXT-".concat(commits.length, "-").concat((commits.length / 10).toFixed(0)))
+.setCustomId("COMMITS-NEXT-".concat(commits.length, "-").concat(Math.floor(commits.length / 10) + 1))
 .setStyle(discord_js_1.ButtonStyle.Secondary)
 .setDisabled(true));
 }
 message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:GLOBE:1024403680503529583> » GIT COMMITS')
 .setDescription(embedDesc)
-.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version + ' » PAGE ' + (commits.length / 10).toFixed(0) });
+.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version + ' » PAGE ' + (Math.floor(commits.length / 10) + 1) });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:GLOBE:1024403680503529583> » GIT COMMITS')
 .setDescription(embedDesc)
-.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version + ' » SEITE ' + (commits.length / 10).toFixed(0) });
+.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version + ' » SEITE ' + (Math.floor(commits.length / 10) + 1) });
 }
-ctx.log(false, "[CMD] COMMITS : ".concat(commits.length, " : ").concat((commits.length / 10).toFixed(0)));
+ctx.log(false, "[CMD] COMMITS : ".concat(commits.length, " : ").concat(Math.floor(commits.length / 10) + 1));
 return [2, ctx.interaction.reply({ embeds: [message], components: [row] }).catch(function () { })];
 }
 });

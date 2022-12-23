@@ -54,22 +54,22 @@ export default {
 			ctx.components.rows[0].components[1].setDisabled(true)
 		} else {
 			ctx.components.rows[0].components[1].setDisabled(false)
-		}; if (!ctx.components.rows[0].components[2].data.disabled && pageNumber >= Number((commits.length / 10).toFixed(0))) {
+		}; if (!ctx.components.rows[0].components[2].data.disabled && pageNumber >= Number(Math.floor(commits.length / 10) + 1)) {
 			ctx.components.rows[0].components[2].setDisabled(true)
 		} else {
 			ctx.components.rows[0].components[2].setDisabled(false)
 		}
-		
+
 		// Create Embed
 		let message = new EmbedBuilder().setColor(0x37009B)
 			.setTitle('<:GLOBE:1024403680503529583> » GIT COMMITS')
-  		.setDescription(embedDesc)
+			.setDescription(embedDesc)
 			.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version + ' » PAGE ' + pageNumber })
 
 		if (ctx.metadata.language === 'de') {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:GLOBE:1024403680503529583> » GIT COMMITS')
-  			.setDescription(embedDesc)
+				.setDescription(embedDesc)
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version + ' » SEITE ' + pageNumber })
 		}
 
