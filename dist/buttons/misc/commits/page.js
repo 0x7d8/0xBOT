@@ -91,11 +91,11 @@ var dateA = new Date(a.authorDate).getTime();
 var dateB = new Date(b.authorDate).getTime();
 return dateA - dateB;
 });
-commits.splice(0, commitCount);
 index = 0;
 commits.reverse().forEach(function (commit) {
 commits[index++] = __assign(__assign({}, commit), { count: index });
 });
+commits.splice(commitCount, commits.length - commitCount);
 startIndex = (pageNumber - 1) * 10;
 endIndex = Math.min(startIndex + 10, commits.length);
 try {
