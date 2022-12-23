@@ -119,14 +119,14 @@ stockEmojis[stock] = '🧐';
 row = new discord_js_1.ActionRowBuilder()
 .addComponents(new discord_js_1.ButtonBuilder()
 .setLabel('UPDATE')
-.setEmoji('1024382926923776020')
+.setEmoji('1055826473442873385')
 .setCustomId('STOCKNEXT-' + stock)
 .setStyle(discord_js_1.ButtonStyle.Secondary));
 if (ctx.metadata.language === 'de') {
 row = new discord_js_1.ActionRowBuilder()
 .addComponents(new discord_js_1.ButtonBuilder()
 .setLabel('AKTUALISIEREN')
-.setEmoji('1024382926923776020')
+.setEmoji('1055826473442873385')
 .setCustomId('STOCKNEXT-' + stock)
 .setStyle(discord_js_1.ButtonStyle.Secondary));
 }

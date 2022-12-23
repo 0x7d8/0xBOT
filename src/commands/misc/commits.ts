@@ -47,12 +47,13 @@ export default {
 		}
 
 		// Create Buttons
-		const row = new ActionRowBuilder()
+		let row = new ActionRowBuilder()
 			.addComponents(
 				new ButtonBuilder()
 					.setEmoji('1055826473442873385')
+					.setLabel('UPDATE')
 					.setCustomId(`COMMITS-REFRESH-${commits.length}`)
-					.setStyle(ButtonStyle.Secondary),
+					.setStyle(ButtonStyle.Primary),
 
 				new ButtonBuilder()
 					.setEmoji('1055825023987888169')
@@ -65,6 +66,27 @@ export default {
 					.setStyle(ButtonStyle.Secondary)
 					.setDisabled(true),
 			)
+		if (ctx.metadata.language === 'de') {
+			row = new ActionRowBuilder()
+				.addComponents(
+					new ButtonBuilder()
+						.setEmoji('1055826473442873385')
+						.setLabel('AKTUALISIEREN')
+						.setCustomId(`COMMITS-REFRESH-${commits.length}`)
+						.setStyle(ButtonStyle.Primary),
+
+					new ButtonBuilder()
+						.setEmoji('1055825023987888169')
+						.setCustomId(`COMMITS-BACK-${commits.length}-${(commits.length / 10).toFixed(0)}`)
+						.setStyle(ButtonStyle.Secondary),
+
+					new ButtonBuilder()
+						.setEmoji('1055825050126786590')
+						.setCustomId(`COMMITS-NEXT-${commits.length}-${(commits.length / 10).toFixed(0)}`)
+						.setStyle(ButtonStyle.Secondary)
+						.setDisabled(true),
+				)
+		}
 		
 		// Create Embed
 		let message = new EmbedBuilder().setColor(0x37009B)

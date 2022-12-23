@@ -22,28 +22,28 @@ export default {
 
 		// Create Embed
 		let message = new EmbedBuilder().setColor(0x37009B)
-				.setTitle('<:GEAR:1024404241701417011> » BOT STATISTICS')
-				.setDescription(`
-					**»» COMMAND STATS**
-					» GLOBAL
-					\`${totalcmd}\`
-					
-					» THIS SERVER
-					\`${guildcmd}\`
-					
-					» YOU IN TOTAL
-					\`${usercmd}\`
-					
-					**»» BUTTON STATS**
-					» GLOBAL
-					\`${totalbtn}\`
-					
-					» THIS SERVER
-					\`${guildbtn}\`
-					
-					» YOU IN TOTAL
-					\`${userbtn}\`
-				`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
+			.setTitle('<:GEAR:1024404241701417011> » BOT STATISTICS')
+			.setDescription(`
+				**»» COMMAND STATS**
+				» GLOBAL
+				\`${totalcmd}\`
+				
+				» THIS SERVER
+				\`${guildcmd}\`
+				
+				» YOU IN TOTAL
+				\`${usercmd}\`
+				
+				**»» BUTTON STATS**
+				» GLOBAL
+				\`${totalbtn}\`
+				
+				» THIS SERVER
+				\`${guildbtn}\`
+				
+				» YOU IN TOTAL
+				\`${userbtn}\`
+			`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 		if (ctx.metadata.language === 'de') {
 			message = new EmbedBuilder().setColor(0x37009B)

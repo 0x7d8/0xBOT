@@ -1,17 +1,12 @@
-import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js"
-import { SlashCommandBuilder, EmbedBuilder } from "discord.js"
+import { EmbedBuilder } from "discord.js"
 
-import CommandInteraction from "@interfaces/CommandInteraction.js"
+import ButtonInteraction from "@interfaces/ButtonInteraction.js"
 export default {
-	data: new SlashCommandBuilder()
-		.setName('meme')
-		.setDMPermission(false)
-		.setDescription('GET A MEME')
-		.setDescriptionLocalizations({
-			de: 'BEKOMME EIN MEME'
-		}),
+	data: {
+		name: 'meme'
+	},
 
-	async execute(ctx: CommandInteraction) {
+	async execute(ctx: ButtonInteraction, type: string) {
 		const axios = (await import('axios')).default
 
 		// Check if Meme is Enabled in Server
@@ -30,12 +25,12 @@ export default {
 			}
 			
 			// Send Message
-			ctx.log(false, `[CMD] MEME : DISABLED`)
+			ctx.log(false, `[BTN] MEME : DISABLED`)
 			return ctx.interaction.reply({ embeds: [message], ephemeral: true })
 		}
 
 		// Defer Reply
-		await ctx.interaction.deferReply()
+		await ctx.interaction.deferUpdate()
 
 		// Set Variables
 		const random = ctx.bot.random(1, 4)
@@ -59,54 +54,10 @@ export default {
 		if (upvotes === 187) upvotes = upvotes + ' 🐊'
 		if (comments === 187) comments = comments + ' 🐊'
 
-		// Create Buttons
-		let row = new ActionRowBuilder()
-			.addComponents(
-				new ButtonBuilder()
-					.setLabel('NEW')
-					.setEmoji('1055826473442873385')
-					.setCustomId('meme')
-					.setStyle(ButtonStyle.Primary),
-
-				new ButtonBuilder()
-					.setEmoji('1044959793317691513')
-					.setLabel(String(upvotes))
-					.setCustomId('BIN-1')
-					.setStyle(ButtonStyle.Secondary)
-					.setDisabled(true),
-
-				new ButtonBuilder()
-					.setEmoji('1054857046916341861')
-					.setLabel(String(comments))
-					.setCustomId('BIN-2')
-					.setStyle(ButtonStyle.Secondary)
-					.setDisabled(true),
-			)
-		if (ctx.metadata.language === 'de') {
-			row = new ActionRowBuilder()
-				.addComponents(
-					new ButtonBuilder()
-						.setLabel('NEU')
-						.setEmoji('1055826473442873385')
-						.setCustomId('meme')
-						.setStyle(ButtonStyle.Primary),
-
-					new ButtonBuilder()
-						.setEmoji('1044959793317691513')
-						.setLabel(String(upvotes))
-						.setCustomId('BIN-1')
-						.setStyle(ButtonStyle.Secondary)
-						.setDisabled(true),
-
-					new ButtonBuilder()
-						.setEmoji('1054857046916341861')
-						.setLabel(String(comments))
-						.setCustomId('BIN-2')
-						.setStyle(ButtonStyle.Secondary)
-						.setDisabled(true),
-				)
-		}
-
+		// Edit Buttons
+		ctx.components.rows[0].components[1].setLabel(String(upvotes))
+		ctx.components.rows[0].components[2].setLabel(String(comments))
+		
 		// Create Embed
 		let message = new EmbedBuilder().setColor(0x37009B)
 			.setTitle(`<:IMAGE:1024405297579696179> » ${res[0].data.children[0].data.title.toUpperCase()}`)
@@ -125,9 +76,9 @@ export default {
 				`).setImage(res[0].data.children[0].data.url)
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 		}
-
+		
 		// Send Message
-		ctx.log(false, `[CMD] MEME : ${subreddit.toUpperCase()} : ${upvotes}^ : ${comments}`)
-		return ctx.interaction.editReply({ embeds: [message], components: [row as any] })
+		ctx.log(false, `[BTN] MEME : ${subreddit.toUpperCase()} : ${upvotes}^ : ${comments}`)
+		return ctx.interaction.editReply({ embeds: [message], components: (ctx.components.getAPI()) })
 	}
 }

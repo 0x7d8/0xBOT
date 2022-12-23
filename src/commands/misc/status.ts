@@ -20,7 +20,6 @@ export default {
 					.setURL('https://status.0xbot.de')
 					.setStyle(ButtonStyle.Link),
 			)
-
 		if (ctx.metadata.language === 'de') {
 			row = new ActionRowBuilder()
 				.addComponents(
@@ -32,7 +31,7 @@ export default {
 		}
 		
 		// Create Embed
-	   	let message = new EmbedBuilder().setColor(0x37009B)
+	  let message = new EmbedBuilder().setColor(0x37009B)
 			.setTitle('<:GLOBE:1024403680503529583> » STATUS')
   		.setDescription(`» Click below to go to the Status Page!`)
 			.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
@@ -40,7 +39,7 @@ export default {
 		if (ctx.metadata.language === 'de') {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:GLOBE:1024403680503529583> » STATUS')
-  				.setDescription(`» Klicke unten um zur Status Seite zu gectx.metadata.languageen!`)
+  			.setDescription(`» Klicke unten um zur Status Seite zu gectx.metadata.languageen!`)
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 		}
 		

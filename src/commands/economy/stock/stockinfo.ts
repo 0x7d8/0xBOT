@@ -90,7 +90,7 @@ export default {
 			.addComponents(
 				new ButtonBuilder()
 					.setLabel('UPDATE')
-					.setEmoji('1024382926923776020')
+					.setEmoji('1055826473442873385')
 					.setCustomId('STOCKNEXT-' + stock)
 					.setStyle(ButtonStyle.Secondary),
 			)
@@ -99,7 +99,7 @@ export default {
 				.addComponents(
 					new ButtonBuilder()
 						.setLabel('AKTUALISIEREN')
-						.setEmoji('1024382926923776020')
+						.setEmoji('1055826473442873385')
 						.setCustomId('STOCKNEXT-' + stock)
 						.setStyle(ButtonStyle.Secondary),
 				)

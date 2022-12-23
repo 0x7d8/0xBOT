@@ -70,7 +70,7 @@ case 6:
 userbtn = _a.sent();
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:GEAR:1024404241701417011> » BOT STATISTICS')
-.setDescription("\n\t\t\t\t\t**\u00BB\u00BB COMMAND STATS**\n\t\t\t\t\t\u00BB GLOBAL\n\t\t\t\t\t`".concat(totalcmd, "`\n\t\t\t\t\t\n\t\t\t\t\t\u00BB THIS SERVER\n\t\t\t\t\t`").concat(guildcmd, "`\n\t\t\t\t\t\n\t\t\t\t\t\u00BB YOU IN TOTAL\n\t\t\t\t\t`").concat(usercmd, "`\n\t\t\t\t\t\n\t\t\t\t\t**\u00BB\u00BB BUTTON STATS**\n\t\t\t\t\t\u00BB GLOBAL\n\t\t\t\t\t`").concat(totalbtn, "`\n\t\t\t\t\t\n\t\t\t\t\t\u00BB THIS SERVER\n\t\t\t\t\t`").concat(guildbtn, "`\n\t\t\t\t\t\n\t\t\t\t\t\u00BB YOU IN TOTAL\n\t\t\t\t\t`").concat(userbtn, "`\n\t\t\t\t")).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+.setDescription("\n\t\t\t\t**\u00BB\u00BB COMMAND STATS**\n\t\t\t\t\u00BB GLOBAL\n\t\t\t\t`".concat(totalcmd, "`\n\t\t\t\t\n\t\t\t\t\u00BB THIS SERVER\n\t\t\t\t`").concat(guildcmd, "`\n\t\t\t\t\n\t\t\t\t\u00BB YOU IN TOTAL\n\t\t\t\t`").concat(usercmd, "`\n\t\t\t\t\n\t\t\t\t**\u00BB\u00BB BUTTON STATS**\n\t\t\t\t\u00BB GLOBAL\n\t\t\t\t`").concat(totalbtn, "`\n\t\t\t\t\n\t\t\t\t\u00BB THIS SERVER\n\t\t\t\t`").concat(guildbtn, "`\n\t\t\t\t\n\t\t\t\t\u00BB YOU IN TOTAL\n\t\t\t\t`").concat(userbtn, "`\n\t\t\t")).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:GEAR:1024404241701417011> » BOT STATISTIKEN')

@@ -37,18 +37,13 @@ if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var discord_js_1 = require("discord.js");
-var discord_js_2 = require("discord.js");
 exports.default = {
-data: new discord_js_2.SlashCommandBuilder()
-.setName('meme')
-.setDMPermission(false)
-.setDescription('GET A MEME')
-.setDescriptionLocalizations({
-de: 'BEKOMME EIN MEME'
-}),
-execute: function (ctx) {
+data: {
+name: 'meme'
+},
+execute: function (ctx, type) {
 return __awaiter(this, void 0, void 0, function () {
-var axios, message_1, random, subreddit, req, res, upvotes, comments, row, message;
+var axios, message_1, random, subreddit, req, res, upvotes, comments, message;
 return __generator(this, function (_a) {
 switch (_a.label) {
 case 0: return [4, import('axios')];
@@ -57,20 +52,20 @@ axios = (_a.sent()).default;
 return [4, ctx.bot.settings.get(ctx.interaction.guild.id, 'meme')];
 case 2:
 if (!(_a.sent())) {
-message_1 = new discord_js_2.EmbedBuilder().setColor(0x37009B)
+message_1 = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
 .setDescription("\u00BB The **`/meme`** Command is disabled on this Server!")
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
-message_1 = new discord_js_2.EmbedBuilder().setColor(0x37009B)
+message_1 = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
 .setDescription("\u00BB Der **`/meme`** Befehl ist auf diesem Server deaktiviert!")
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
-ctx.log(false, "[CMD] MEME : DISABLED");
+ctx.log(false, "[BTN] MEME : DISABLED");
 return [2, ctx.interaction.reply({ embeds: [message_1], ephemeral: true })];
 }
-return [4, ctx.interaction.deferReply()];
+return [4, ctx.interaction.deferUpdate()];
 case 3:
 _a.sent();
 random = ctx.bot.random(1, 4);
@@ -94,52 +89,20 @@ if (upvotes === 187)
 upvotes = upvotes + ' 🐊';
 if (comments === 187)
 comments = comments + ' 🐊';
-row = new discord_js_1.ActionRowBuilder()
-.addComponents(new discord_js_1.ButtonBuilder()
-.setLabel('NEW')
-.setEmoji('1055826473442873385')
-.setCustomId('meme')
-.setStyle(discord_js_1.ButtonStyle.Primary), new discord_js_1.ButtonBuilder()
-.setEmoji('1044959793317691513')
-.setLabel(String(upvotes))
-.setCustomId('BIN-1')
-.setStyle(discord_js_1.ButtonStyle.Secondary)
-.setDisabled(true), new discord_js_1.ButtonBuilder()
-.setEmoji('1054857046916341861')
-.setLabel(String(comments))
-.setCustomId('BIN-2')
-.setStyle(discord_js_1.ButtonStyle.Secondary)
-.setDisabled(true));
-if (ctx.metadata.language === 'de') {
-row = new discord_js_1.ActionRowBuilder()
-.addComponents(new discord_js_1.ButtonBuilder()
-.setLabel('NEU')
-.setEmoji('1055826473442873385')
-.setCustomId('meme')
-.setStyle(discord_js_1.ButtonStyle.Primary), new discord_js_1.ButtonBuilder()
-.setEmoji('1044959793317691513')
-.setLabel(String(upvotes))
-.setCustomId('BIN-1')
-.setStyle(discord_js_1.ButtonStyle.Secondary)
-.setDisabled(true), new discord_js_1.ButtonBuilder()
-.setEmoji('1054857046916341861')
-.setLabel(String(comments))
-.setCustomId('BIN-2')
-.setStyle(discord_js_1.ButtonStyle.Secondary)
-.setDisabled(true));
-}
-message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
+ctx.components.rows[0].components[1].setLabel(String(upvotes));
+ctx.components.rows[0].components[2].setLabel(String(comments));
+message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle("<:IMAGE:1024405297579696179> \u00BB ".concat(res[0].data.children[0].data.title.toUpperCase()))
 .setDescription("\n\t\t\t\t\u00BB SUBREDDIT:\n\t\t\t\t`r/".concat(subreddit, "`\n\t\t\t")).setImage(res[0].data.children[0].data.url)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
-message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
+message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle("<:IMAGE:1024405297579696179> \u00BB ".concat(res[0].data.children[0].data.title.toUpperCase()))
 .setDescription("\n\t\t\t\t\t\u00BB SUBREDDIT:\n\t\t\t\t\t`r/".concat(subreddit, "`\n\t\t\t\t")).setImage(res[0].data.children[0].data.url)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
-ctx.log(false, "[CMD] MEME : ".concat(subreddit.toUpperCase(), " : ").concat(upvotes, "^ : ").concat(comments));
-return [2, ctx.interaction.editReply({ embeds: [message], components: [row] })];
+ctx.log(false, "[BTN] MEME : ".concat(subreddit.toUpperCase(), " : ").concat(upvotes, "^ : ").concat(comments));
+return [2, ctx.interaction.editReply({ embeds: [message], components: (ctx.components.getAPI()) })];
 }
 });
 });

@@ -51,7 +51,7 @@ var message;
 return __generator(this, function (_a) {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:GEAR:1024404241701417011> » BOT VERSION')
-.setDescription("\n\t\t\t\t\t\u00BB VERSION\n\t\t\t\t\t`".concat(ctx.client.config.version, " (V3)`\n\t\t\t\t\t\n\t\t\t\t\t\u00BB FRAMEWORK\n\t\t\t\t\t`discord.js v14 (14.7.1)`\n\t\t\t\t\t\n\t\t\t\t\t\u00BB AUTHOR\n\t\t\t\t\t`0x4096#7678`\n\t\t\t\t")).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+.setDescription("\n\t\t\t\t\u00BB VERSION\n\t\t\t\t`".concat(ctx.client.config.version, " (V3)`\n\t\t\t\t\n\t\t\t\t\u00BB FRAMEWORK\n\t\t\t\t`discord.js v14 (14.7.1)`\n\t\t\t\t\n\t\t\t\t\u00BB AUTHOR\n\t\t\t\t`0x4096#7678`\n\t\t\t")).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:GEAR:1024404241701417011> » BOT VERSION')
