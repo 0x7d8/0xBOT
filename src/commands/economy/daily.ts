@@ -87,7 +87,7 @@ export default {
 			})
 		
 			// Create Embed
-	  		let message = new EmbedBuilder().setColor(0x37009B)
+	  	let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:HAMMER:1024388163747184662> » DAILY')
   			.setDescription(`
 					» You get **$${result}** from me Today! ${extra}

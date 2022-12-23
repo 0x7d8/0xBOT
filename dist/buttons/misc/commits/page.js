@@ -95,6 +95,7 @@ index = 0;
 commits.reverse().forEach(function (commit) {
 commits[index++] = __assign(__assign({}, commit), { count: index });
 });
+if (commits.length - commitCount > 0)
 commits.splice(commitCount, commits.length - commitCount);
 startIndex = (pageNumber - 1) * 10;
 endIndex = Math.min(startIndex + 10, commits.length);

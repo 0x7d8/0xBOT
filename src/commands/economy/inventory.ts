@@ -23,7 +23,6 @@ export default {
 	async execute(ctx: CommandInteraction) {
 		// Set Variables
 		const user = ctx.interaction.options.getUser("user")
-		
 		let nbombs: number, mbombs: number, hbombs: number, cbombs: number, carname: string
 
 		if (!user) {

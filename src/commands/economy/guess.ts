@@ -105,13 +105,13 @@ export default {
 				// Create Embed
 				let message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-  				.setDescription('» You cant bet that much! **$15000** is the Maximum.')
+  				.setDescription(`» You cant bet that much! **$15000** is the Maximum.`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 				if (ctx.metadata.language === 'de') {
 					message = new EmbedBuilder().setColor(0x37009B)
 						.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-  					.setDescription('» Du kannst nicht soviel Wetten! **15000€** ist das Maximum.')
+  					.setDescription(`» Du kannst nicht soviel Wetten! **15000€** ist das Maximum.`)
 						.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 				}
 				
@@ -142,13 +142,13 @@ export default {
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-  			.setDescription('» You dont have enough Money for that, you are missing **$' + missing + '**!')
+  			.setDescription(`» You dont have enough Money for that, you are missing **\$${missing}**!`)
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-  				.setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
+  				.setDescription(`» Du hast dafür nicht genug Geld, dir fehlen **${missing}€**!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 

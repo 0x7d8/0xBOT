@@ -31,7 +31,7 @@ export default {
 		let index = 0
 		commits.reverse().forEach((commit) => {
 			commits[index++] = { ...commit, count: index }
-		}); commits.splice(commitCount, commits.length - commitCount)
+		}); if (commits.length - commitCount > 0) commits.splice(commitCount, commits.length - commitCount)
 
 		// Get the start and end indices for the current page
 		const startIndex = (pageNumber - 1) * 10

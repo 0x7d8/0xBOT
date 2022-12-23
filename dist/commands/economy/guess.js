@@ -127,12 +127,12 @@ if (money >= bet) {
 if (bet > 15000) {
 message_3 = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-.setDescription('» You cant bet that much! **$15000** is the Maximum.')
+.setDescription("\u00BB You cant bet that much! **$15000** is the Maximum.")
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
 message_3 = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-.setDescription('» Du kannst nicht soviel Wetten! **15000€** ist das Maximum.')
+.setDescription("\u00BB Du kannst nicht soviel Wetten! **15000\u20AC** ist das Maximum.")
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
 ctx.log(false, "[CMD] GUESS : TOOMUCHMONEY : ".concat(bet, "\u20AC"));
@@ -205,12 +205,12 @@ else {
 missing = bet - money;
 message_4 = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-.setDescription('» You dont have enough Money for that, you are missing **$' + missing + '**!')
+.setDescription("\u00BB You dont have enough Money for that, you are missing **$".concat(missing, "**!"))
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
 message_4 = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-.setDescription('» Du hast dafür nicht genug Geld, dir fehlen **' + missing + '€**!')
+.setDescription("\u00BB Du hast daf\u00FCr nicht genug Geld, dir fehlen **".concat(missing, "\u20AC**!"))
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
 ctx.log(false, "[CMD] GUESS : NOTENOUGHMONEY : ".concat(missing, "\u20AC"));

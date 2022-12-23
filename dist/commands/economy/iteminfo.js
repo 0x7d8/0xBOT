@@ -66,13 +66,11 @@ ctx.log(false, "[CMD] ITEMINFO : ".concat(item.toUpperCase()));
 if (item === 'nbomb') {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:QUESTION:1024402860210921503> » ITEM INFO')
-.setDescription('» The **<:NBOMB:1021783222520127508> NORMAL BOMB** is used to temporarily mute people, yes, mute people.\nTo not get muted the reciever has to solve a small problem.')
-.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+.setDescription("\n\t\t\t\t\t\u00BB The **<:NBOMB:1021783222520127508> NORMAL BOMB** is used to temporarily mute people, yes, mute people.\n\t\t\t\t\tTo not get muted the reciever has to solve a small problem.\n\t\t\t\t").setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:QUESTION:1024402860210921503> » ITEM INFO')
-.setDescription('» Die **<:NBOMB:1021783222520127508> NORMALE BOMBE** ist genutzt um Leute temporär zu muten, ja, muten.\nUm nicht gemuted zu werden, muss der empfänger eine kleines Problem lösen.')
-.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+.setDescription("\n\t\t\t\t\t\t\u00BB Die **<:NBOMB:1021783222520127508> NORMALE BOMBE** ist genutzt um Leute tempor\u00E4r zu muten, ja, muten.\n\t\t\t\t\t\tUm nicht gemuted zu werden, muss der empf\u00E4nger eine kleines Problem l\u00F6sen.\n\t\t\t\t\t").setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
 return [2, ctx.interaction.reply({ embeds: [message], ephemeral: true })];
 }
@@ -80,13 +78,11 @@ return [2, ctx.interaction.reply({ embeds: [message], ephemeral: true })];
 if (item === 'mbomb') {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:QUESTION:1024402860210921503> » ITEM INFO')
-.setDescription('» The **<:MBOMB:1021783295211601940> MEDIUM BOMB** is used to temporarily mute people, yes, mute people.\nIts slightly harder and has a longer mute time than the **<:NBOMB:1021783222520127508> NORMAL BOMB**.')
-.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+.setDescription("\n\t\t\t\t\t\u00BB The **<:MBOMB:1021783295211601940> MEDIUM BOMB** is used to temporarily mute people, yes, mute people.\n\t\t\t\t\tIts slightly harder and has a longer mute time than the **<:NBOMB:1021783222520127508> NORMAL BOMB**.\n\t\t\t\t").setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:QUESTION:1024402860210921503> » ITEM INFO')
-.setDescription('» Die **<:MBOMB:1021783295211601940> MEDIUM BOMBE** ist genutzt um Leute temporär zu muten, ja, muten.\nSie ist bisschen schwieriger und hat eine längere Mute Zeit als die **<:NBOMB:1021783222520127508> NORMALE BOMBE**.')
-.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+.setDescription("\n\t\t\t\t\t\t\u00BB Die **<:MBOMB:1021783295211601940> MEDIUM BOMBE** ist genutzt um Leute tempor\u00E4r zu muten, ja, muten.\n\t\t\t\t\t\tSie ist bisschen schwieriger und hat eine l\u00E4ngere Mute Zeit als die **<:NBOMB:1021783222520127508> NORMALE BOMBE**.\n\t\t\t\t\t").setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
 return [2, ctx.interaction.reply({ embeds: [message], ephemeral: true })];
 }
@@ -94,13 +90,11 @@ return [2, ctx.interaction.reply({ embeds: [message], ephemeral: true })];
 if (item === 'hbomb') {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:QUESTION:1024402860210921503> » ITEM INFO')
-.setDescription('» The **<:HBOMB:1022102357938536458> HYPER BOMB** is used to temporarily mute people, yes, mute people.\nIts alot harder and has a longer mute time than the **<:NBOMB:1021783222520127508> NORMAL BOMB** and the **<:MBOMB:1021783295211601940> MEDIUM BOMB**.')
-.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+.setDescription("\n\t\t\t\t\t\u00BB The **<:HBOMB:1022102357938536458> HYPER BOMB** is used to temporarily mute people, yes, mute people.\n\t\t\t\t\tIts alot harder and has a longer mute time than the **<:NBOMB:1021783222520127508> NORMAL BOMB** and the **<:MBOMB:1021783295211601940> MEDIUM BOMB**.\n\t\t\t\t").setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:QUESTION:1024402860210921503> » ITEM INFO')
-.setDescription('» Die **<:HBOMB:1022102357938536458> HYPER BOMBE** ist genutzt um Leute temporär zu muten, ja, muten.\nSie ist deutlich schwieriger und hat eine längere Mute Zeit als die **<:NBOMB:1021783222520127508> NORMALE BOMBE** und die **<:MBOMB:1021783295211601940> MEDIUM BOMBE**.')
-.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+.setDescription("\n\t\t\t\t\t\t\u00BB Die **<:HBOMB:1022102357938536458> HYPER BOMBE** ist genutzt um Leute tempor\u00E4r zu muten, ja, muten.\n\t\t\t\t\t\tSie ist deutlich schwieriger und hat eine l\u00E4ngere Mute Zeit als die **<:NBOMB:1021783222520127508> NORMALE BOMBE** und die **<:MBOMB:1021783295211601940> MEDIUM BOMBE**.\n\t\t\t\t\t").setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
 return [2, ctx.interaction.reply({ embeds: [message], ephemeral: true })];
 }
@@ -108,13 +102,11 @@ return [2, ctx.interaction.reply({ embeds: [message], ephemeral: true })];
 if (item === 'cbomb') {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:QUESTION:1024402860210921503> » ITEM INFO')
-.setDescription('» The **<:CBOMB:1021783405161091162> CRAZY BOMB** is used to delete the last Message from someone in the Channel.\nTo not get the last message deleted, the reciever has to solve a small problem.')
-.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+.setDescription("\n\t\t\t\t\t\u00BB The **<:CBOMB:1021783405161091162> CRAZY BOMB** is used to delete the last Message from someone in the Channel.\n\t\t\t\t\tTo not get the last message deleted, the reciever has to solve a small problem.\n\t\t\t\t").setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:QUESTION:1024402860210921503> » ITEM INFO')
-.setDescription('» Die **<:CBOMB:1021783405161091162> CRAZY BOMBE** ist genutzt um die Letzte Nachricht von jemanden im Kanal zu löschen.\nUm nicht die letzte Nachricht gelöscht bekommen zu müssen, muss der Empfänger ein kleines Problem lösen.')
-.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+.setDescription("\n\t\t\t\t\t\t\u00BB Die **<:CBOMB:1021783405161091162> CRAZY BOMBE** ist genutzt um die Letzte Nachricht von jemanden im Kanal zu l\u00F6schen.\n\t\t\t\t\t\tUm nicht die letzte Nachricht gel\u00F6scht bekommen zu m\u00FCssen, muss der Empf\u00E4nger ein kleines Problem l\u00F6sen.\n\t\t\t\t\t").setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
 return [2, ctx.interaction.reply({ embeds: [message], ephemeral: true })];
 }
