@@ -37,11 +37,9 @@ export default {
 		if (stock === 'black') emoji = '⚫'
 
 		// Edit Buttons
-		{
-			(ctx.interaction.message.components[0].components[0].data.disabled as boolean) = true;
-			(ctx.interaction.message.components[0].components[1].data.disabled as boolean) = true;
-			(ctx.interaction.message.components[0].components[0] as any).data.style = 2;
-		}
+		ctx.components.rows[0].components[0].setDisabled(true)
+		ctx.components.rows[0].components[1].setDisabled(true)
+		ctx.components.rows[0].components[0].setStyle(2)
 
 		// Split Button with type
 		const type = 'buy'
@@ -61,7 +59,7 @@ export default {
 
 			// Send Message
 			ctx.log(false, `[BTN] STOCKUPGRADE : ${amount}x : ${stock.toUpperCase()} : DENY`)
-			return ctx.interaction.update({ embeds: [message], components: ctx.interaction.message.components })
+			return ctx.interaction.update({ embeds: [message], components: (ctx.components.getAPI()) })
 		}
 	}
 }

@@ -1,4 +1,4 @@
-import { EmbedBuilder, ButtonStyle } from "discord.js"
+import { EmbedBuilder } from "discord.js"
 import { setTimeout as wait } from "timers/promises"
 
 // Function for Button Row Grabber
@@ -82,10 +82,9 @@ export default {
 		// Select Field
 		ctx.bot.memory.set('D_EMOJI-' + sel + '-' + sender, { id: ctx.bot.memory.get('I_EMOJI-' + sel + '-' + sender), name: 'MEMORY' })
 		ctx.bot.memory.set('DISABLED-' + sel + '-' + sender, true)
-		const comp = rowGet(sel); {
-			(ctx.interaction.message.components[comp[1]].components[comp[0]].data.disabled as boolean) = true;
-			(ctx.interaction.message.components[comp[1]].components[comp[0]] as any).data.emoji = ctx.bot.memory.get('D_EMOJI-' + sel + '-' + sender);
-		}
+		const comp = rowGet(sel)
+		ctx.components.rows[comp[1]].components[comp[0]].setDisabled(true)
+		ctx.components.rows[comp[1]].components[comp[0]].setEmoji(ctx.bot.memory.get('D_EMOJI-' + sel + '-' + sender))
 
 		// Add Field Values to Cache
 		ctx.bot.memory.get('C_PLAYERSELECT-' + ctx.interaction.user.id).push(ctx.bot.memory.get('I_EMOJI-' + sel + '-' + sender))
@@ -106,17 +105,16 @@ export default {
 				const comp2 = rowGet(ctx.bot.memory.get('B_PLAYERSELECT-' + ctx.interaction.user.id)[1])
 
 				// Color the Fields
-				if (ctx.interaction.user.id == sender) {
-					ctx.bot.memory.set('STYLE-' + ctx.bot.memory.get('B_PLAYERSELECT-' + ctx.interaction.user.id)[0] + '-' + sender, ButtonStyle.Primary);
-					(ctx.interaction.message.components[comp1[1]].components[comp1[0]] as any).data.style = ButtonStyle.Primary
-					ctx.bot.memory.set('STYLE-' + ctx.bot.memory.get('B_PLAYERSELECT-' + ctx.interaction.user.id)[1] + '-' + sender, ButtonStyle.Primary);
-					(ctx.interaction.message.components[comp2[1]].components[comp2[0]] as any).data.style = ButtonStyle.Primary
-				}
-				if (ctx.interaction.user.id == reciever) {
-					ctx.bot.memory.set('STYLE-' + ctx.bot.memory.get('B_PLAYERSELECT-' + ctx.interaction.user.id)[0] + '-' + sender, ButtonStyle.Danger);
-					(ctx.interaction.message.components[comp1[1]].components[comp1[0]] as any).data.style = ButtonStyle.Danger
-					ctx.bot.memory.set('STYLE-' + ctx.bot.memory.get('B_PLAYERSELECT-' + ctx.interaction.user.id)[1] + '-' + sender, ButtonStyle.Danger);
-					(ctx.interaction.message.components[comp2[1]].components[comp2[0]] as any).data.style = ButtonStyle.Danger
+				if (ctx.interaction.user.id === sender) {
+					ctx.bot.memory.set('STYLE-' + ctx.bot.memory.get('B_PLAYERSELECT-' + ctx.interaction.user.id)[0] + '-' + sender, 1)
+					ctx.components.rows[comp[1]].components[comp[0]].setStyle(1)
+					ctx.bot.memory.set('STYLE-' + ctx.bot.memory.get('B_PLAYERSELECT-' + ctx.interaction.user.id)[1] + '-' + sender, 1)
+					ctx.components.rows[comp2[1]].components[comp2[0]].setStyle(1)
+				}; if (ctx.interaction.user.id === reciever) {
+					ctx.bot.memory.set('STYLE-' + ctx.bot.memory.get('B_PLAYERSELECT-' + ctx.interaction.user.id)[0] + '-' + sender, 4)
+					ctx.components.rows[comp1[1]].components[comp1[0]].setStyle(4)
+					ctx.bot.memory.set('STYLE-' + ctx.bot.memory.get('B_PLAYERSELECT-' + ctx.interaction.user.id)[1] + '-' + sender, 4)
+					ctx.components.rows[comp2[1]].components[comp2[0]].setStyle(4)
 				}
 
 				// Clear Cache Arrays
@@ -129,12 +127,10 @@ export default {
 				const comp2 = rowGet(ctx.bot.memory.get('B_PLAYERSELECT-' + ctx.interaction.user.id)[1])
 
 				// Clear the Fields
-				{
-					(ctx.interaction.message.components[comp1[1]].components[comp1[0]].data.disabled as boolean) = false;
-					(ctx.interaction.message.components[comp1[1]].components[comp1[0]] as any).data.emoji = { id: '1020411843644243998', name: 'MEMORY' };
-					(ctx.interaction.message.components[comp2[1]].components[comp2[0]].data.disabled as boolean) = false;
-					(ctx.interaction.message.components[comp2[1]].components[comp2[0]] as any).data.emoji = { id: '1020411843644243998', name: 'MEMORY' };
-				}
+				ctx.components.rows[comp1[1]].components[comp1[0]].setDisabled(false)
+				ctx.components.rows[comp1[1]].components[comp1[0]].setEmoji('1020411843644243998')
+				ctx.components.rows[comp2[1]].components[comp2[0]].setDisabled(false)
+				ctx.components.rows[comp2[1]].components[comp2[0]].setEmoji('1020411843644243998')
 
 				ctx.bot.memory.set('DISABLED-' + ctx.bot.memory.get('B_PLAYERSELECT-' + ctx.interaction.user.id)[0] + '-' + sender, false)
 				ctx.bot.memory.set('DISABLED-' + ctx.bot.memory.get('B_PLAYERSELECT-' + ctx.interaction.user.id)[1] + '-' + sender, false)
@@ -157,12 +153,11 @@ export default {
 		if (doflush) {
 			for (let i = 0; i < 20; i++) {
 				const row = Math.floor(i / 5)
-				const button = ctx.interaction.message.components[row].components[i % 5];
-			  
-				(button as any).data.label = null;
-				(button as any).data.emoji = ctx.bot.memory.get('D_EMOJI-' + (i+1) + '-' + sender);
-				(button as any).data.style = ctx.bot.memory.get('STYLE-' + (i+1) + '-' + sender);
-				(button.data.disabled as boolean) = true;
+
+				ctx.components.rows[row].components[i % 5].setLabel(null)
+				ctx.components.rows[row].components[i % 5].setDisabled(true)
+				ctx.components.rows[row].components[i % 5].setEmoji(ctx.bot.memory.get('D_EMOJI-' + (i+1) + '-' + sender))
+				ctx.components.rows[row].components[i % 5].setStyle(ctx.bot.memory.get('STYLE-' + (i+1) + '-' + sender))
 			}
 		}
 
@@ -191,7 +186,7 @@ export default {
 
 		// Send Message
 		ctx.log(false, `[BTN] MEMORY : ${sel} : ${ctx.bot.memory.get('I_EMOJI-' + sel + '-' + sender)}`)
-		ctx.interaction.editReply({ embeds: [message], components: ctx.interaction.message.components, ephemeral: true } as any)
+		ctx.interaction.editReply({ embeds: [message], components: (ctx.components.getAPI()), ephemeral: true } as any)
 
 		// Check for Special Conditions
 		if (!doflush) return
@@ -211,12 +206,11 @@ export default {
 		// Edit Buttons
 		for (let i = 0; i < 20; i++) {
 			const row = Math.floor(i / 5)
-			const button = ctx.interaction.message.components[row].components[i % 5];
 
-			(button as any).data.label = null;
-			(button as any).data.emoji = ctx.bot.memory.get('D_EMOJI-' + (i+1) + '-' + sender);
-			(button as any).data.style = ctx.bot.memory.get('STYLE-' + (i+1) + '-' + sender);
-			(button.data.disabled as boolean) = ctx.bot.memory.get('DISABLED-' + (i+1) + '-' + sender);
+			ctx.components.rows[row].components[i % 5].setLabel(null)
+			ctx.components.rows[row].components[i % 5].setDisabled(true)
+			ctx.components.rows[row].components[i % 5].setEmoji(ctx.bot.memory.get('D_EMOJI-' + (i+1) + '-' + sender))
+			ctx.components.rows[row].components[i % 5].setStyle(ctx.bot.memory.get('STYLE-' + (i+1) + '-' + sender))
 		}
 
 		// Check if Round has ended
@@ -298,10 +292,10 @@ export default {
 			ctx.bot.memory.delete('C_PLAYERSELECT-' + sender)
 
 			// Update Message
-			return ctx.interaction.message.edit({ embeds: [message], components: ctx.interaction.message.components, ephemeral: true } as any)
+			return ctx.interaction.message.edit({ embeds: [message], components: (ctx.components.getAPI()), ephemeral: true } as any)
 		}
 
 		// Update Message
-		return ctx.interaction.message.edit({ embeds: [message], components: ctx.interaction.message.components, ephemeral: true } as any)
+		return ctx.interaction.message.edit({ embeds: [message], components: (ctx.components.getAPI()), ephemeral: true } as any)
 	}
 }

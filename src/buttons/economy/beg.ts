@@ -10,7 +10,7 @@ export default {
 		// Set Variables
 		const balance = await ctx.bot.money.get(ctx.interaction.user.id)
 		const args = ctx.interaction.message.embeds[0].description.split('**')
-		const total = Number(args[1].match(/\d+/g) as any)+amount
+		const total = Number(args[1].match(/\d+/g) as any) + amount
 
 		// Check for enough Money
 		if (balance < amount) {

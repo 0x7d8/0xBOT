@@ -1,4 +1,4 @@
-import { ButtonInteraction } from "discord.js"
+import { ButtonInteraction, ButtonBuilder, ActionRowData } from "discord.js"
 import Client from "@interfaces/Client.js"
 import * as bot from "@functions/bot.js"
 import { PoolClient } from "pg"
@@ -19,5 +19,12 @@ export default interface Interface {
 		}
 
 		language: 'de' | 'en'
+	}
+
+	components: {
+		rows: {
+			components: ButtonBuilder[]
+		}[]
+		getAPI: () => ActionRowData<any>[]
 	}
 }

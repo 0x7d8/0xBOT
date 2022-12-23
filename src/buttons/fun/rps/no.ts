@@ -36,11 +36,9 @@ export default {
 		ctx.bot.rps.delete('TIMEOUT-' + sender + '-' + ctx.interaction.message.id)
 
 		// Edit Buttons
-		{
-			(ctx.interaction.message.components[0].components[0].data.disabled as boolean) = true;
-			(ctx.interaction.message.components[0].components[1].data.disabled as boolean) = true;
-			(ctx.interaction.message.components[0].components[0] as any).data.style = 2;
-		}
+		ctx.components.rows[0].components[0].setDisabled(true)
+		ctx.components.rows[0].components[1].setDisabled(true)
+		ctx.components.rows[0].components[0].setStyle(2)
 
 		// Create Embed
 		let message = new EmbedBuilder().setColor(0x37009B)
@@ -57,6 +55,6 @@ export default {
 
 		// Send Message
 		ctx.log(false, `[BTN] RPS : ${sender} : DENY`)
-		return ctx.interaction.update({ content: '', embeds: [message], components: ctx.interaction.message.components })
+		return ctx.interaction.update({ content: '', embeds: [message], components: (ctx.components.getAPI()) })
 	}
 }

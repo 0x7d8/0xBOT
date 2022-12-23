@@ -75,11 +75,9 @@ export default {
 			if (stock === 'black') emoji = '⚫'
 
 			// Edit Buttons
-			{
-				(ctx.interaction.message.components[0].components[0].data.disabled as boolean) = true;
-				(ctx.interaction.message.components[0].components[1].data.disabled as boolean) = true;
-				(ctx.interaction.message.components[0].components[1] as any).data.style = 2;
-			}
+			ctx.components.rows[0].components[0].setDisabled(true)
+			ctx.components.rows[0].components[1].setDisabled(true)
+			ctx.components.rows[0].components[1].setStyle(2)
 
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
@@ -102,7 +100,7 @@ export default {
 
 			// Send Message
 			ctx.log(false, `[BTN] STOCKUPGRADE : ${amount}x : ${stock.toUpperCase()} : CONFIRM`)
-			return ctx.interaction.update({ embeds: [message], components: ctx.interaction.message.components })
+			return ctx.interaction.update({ embeds: [message], components: (ctx.components.getAPI()) })
 		}
 	}
 }

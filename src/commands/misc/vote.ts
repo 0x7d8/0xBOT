@@ -12,7 +12,7 @@ export default {
 		}),
 
 	async execute(ctx: CommandInteraction) {
-		// Create Button
+		// Create Buttons
 		const row = new ActionRowBuilder()
 			.addComponents(
 				new ButtonBuilder()

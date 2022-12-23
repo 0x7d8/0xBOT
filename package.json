@@ -7,7 +7,8 @@
   "scripts": {
     "test": "tsc && cp -r ./src/dashboard ./dist && cd dist && find . -path ./dashboard -prune -o -type f -exec sed -i 's/[\t]\\{1,\\}//g; s/    //g' {} + > /dev/null 2>&1 && node index && cd ..",
     "build": "rm -r dist && tsc --pretty false --removeComments true && cp -r ./src/dashboard ./dist && cd dist && find . -path ./dashboard -prune -o -type f -exec sed -i 's/[\t]\\{1,\\}//g; s/    //g' {} + > /dev/null 2>&1 && cd .."
-  }, "homepage": "https://0xbot.de",
+  },
+  "homepage": "https://0xbot.de",
   "dependencies": {
     "@types/module-alias": "^2.0.1",
     "@types/node": "^18.11.10",
@@ -25,6 +26,7 @@
     "pg": "^8.8.0",
     "pretty-ms": "^8.0.0",
     "rjutils-collection": "^1.0.2",
-    "rjweb-server": "*"
+    "rjweb-server": "*",
+    "simple-git": "^3.15.1"
   }
 }

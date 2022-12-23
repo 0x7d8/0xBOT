@@ -31,14 +31,12 @@ export default {
 		ctx.bot.bomb.delete('TIMEOUT-' + reciever + '-' + ctx.interaction.guild.id)
 
 		// Edit Buttons
-		{
-			(ctx.interaction.message.components[0].components[0].data.disabled as boolean) = true;
-			(ctx.interaction.message.components[0].components[1].data.disabled as boolean) = true;
-			(ctx.interaction.message.components[0].components[2].data.disabled as boolean) = true;
-			(ctx.interaction.message.components[0].components[3].data.disabled as boolean) = true;
-			(ctx.interaction.message.components[0].components[Number(button)-1] as any).data.style = ButtonStyle.Danger;
-			(ctx.interaction.message.components[0].components[Number(solbutton)-1] as any).data.style = ButtonStyle.Success;
-		}
+		ctx.components.rows[0].components[0].setDisabled(true)
+		ctx.components.rows[0].components[1].setDisabled(true)
+		ctx.components.rows[0].components[2].setDisabled(true)
+		ctx.components.rows[0].components[3].setDisabled(true)
+		ctx.components.rows[0].components[Number(button)-1].setStyle(4)
+		ctx.components.rows[0].components[Number(solbutton)-1].setStyle(3)
 
 		// Create Embed
 		let message: any
@@ -74,13 +72,13 @@ export default {
 		if (solution !== choice) {
 			if (itemid === 'nbomb') {
 				const member = await ctx.interaction.guild.members.fetch(ctx.interaction.user.id)
-				member.timeout(15 * 1000, 'BOMB TIMEOUT FROM ' + ctx.interaction.user.id).catch(() => {})
+				member.timeout(15 * 1000, `BOMB TIMEOUT FROM ${ctx.interaction.user.id}`).catch(() => {})
 			}; if (itemid === 'mbomb') {
 				const member = await ctx.interaction.guild.members.fetch(ctx.interaction.user.id)
-				member.timeout(30 * 1000, 'BOMB TIMEOUT FROM ' + ctx.interaction.user.id).catch(() => {})
+				member.timeout(30 * 1000, `BOMB TIMEOUT FROM ${ctx.interaction.user.id}`).catch(() => {})
 			}; if (itemid === 'hbomb') {
 				const member = await ctx.interaction.guild.members.fetch(ctx.interaction.user.id)
-				member.timeout(45 * 1000, 'BOMB TIMEOUT FROM ' + ctx.interaction.user.id).catch(() => {})
+				member.timeout(45 * 1000, `BOMB TIMEOUT FROM ${ctx.interaction.user.id}`).catch(() => {})
 			}; if (itemid === 'cbomb') {
 				const filtered = []
 				let i = 0
@@ -98,6 +96,6 @@ export default {
 
 		// Send Message
 		ctx.log(false, `[BTN] ITEMUSE : BOMB : ${choice} : ${solution}`)
-		return ctx.interaction.update({ content: '', embeds: [message], components: ctx.interaction.message.components })
+		return ctx.interaction.update({ content: '', embeds: [message], components: (ctx.components.getAPI()) })
 	}
 }

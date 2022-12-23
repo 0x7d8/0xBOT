@@ -8,7 +8,7 @@ moduleAlias.addAlias('@config', __dirname+'/config.json')
 const sleep = (milliseconds: number) => Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, milliseconds)
 
 import * as cron from "node-cron"
-import { Events, Client, Collection, GatewayIntentBits } from "discord.js"
+import { Events, Client, Collection, GatewayIntentBits, ButtonBuilder, ActionRowBuilder } from "discord.js"
 import { getAllFilesFilter } from "@utils/getAllFiles.js"
 import { Timer } from "@utils/timer.js"
 import { PoolClient } from "pg"
@@ -266,6 +266,17 @@ export const start = (db: PoolClient) => {
 			// Stats
 			bot.stats('btn', interaction.user.id, interaction.guild.id)
 
+			// Generate Button Rows
+			const componentRows = []
+			let rowIndex = 0
+			interaction.message.components.forEach((row) => {
+				componentRows[rowIndex] = { "components": [] }
+				let componentIndex = 0
+				row.components.forEach((component) => {
+					componentRows[rowIndex].components[componentIndex++] = ButtonBuilder.from(component.data as any)
+				}); rowIndex++
+			})
+
 			// Generate Context
 			const ctx: ButtonInteraction = {
 				"interaction": interaction,
@@ -286,6 +297,18 @@ export const start = (db: PoolClient) => {
 					},
 
 					"language": guildlang
+				},
+
+				"components": {
+					"rows": componentRows,
+					"getAPI": () => {
+						const output = []
+						let rowIndex = 0
+						componentRows.forEach((row: { components: ButtonBuilder[] }) => {
+							output[rowIndex++] = new ActionRowBuilder()
+								.addComponents(...row.components)
+						}); return output
+					}
 				}
 			}
 
@@ -393,6 +416,13 @@ export const start = (db: PoolClient) => {
 
 					const button = client.buttons.get('cooldowns')
 					await button.execute(ctx, args[1], args[2])
+				}; if (args[0] === 'COMMITS') {
+					sc = true
+
+					let button: any
+					if (args[1] === 'REFRESH') button = client.buttons.get('commits-refresh')
+					else button = client.buttons.get('commits-page')
+					await button.execute(ctx, Number(args[2]), Number(args[3]), args[1].toLowerCase())
 				}
 
 

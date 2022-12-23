@@ -120,11 +120,9 @@ export default {
 			}
 
 			// Edit Buttons
-			{
-				(ctx.interaction.message.components[0].components[0].data.disabled as boolean) = true;
-				(ctx.interaction.message.components[0].components[1].data.disabled as boolean) = true;
-				(ctx.interaction.message.components[0].components[1] as any).data.style = 2;
-			}
+			ctx.components.rows[0].components[0].setDisabled(true)
+			ctx.components.rows[0].components[1].setDisabled(true)
+			ctx.components.rows[0].components[1].setStyle(2)
 
 			// Log Transaction
 			const transaction = await ctx.bot.transactions.log({
@@ -177,7 +175,7 @@ export default {
 
 			// Send Message
 			ctx.log(false, `[BTN] CARBUY : ${name} : CONFIRM`)
-			return ctx.interaction.update({ embeds: [message], components: ctx.interaction.message.components })
+			return ctx.interaction.update({ embeds: [message], components: (ctx.components.getAPI()) })
 		} else if (type === 'sell') {
 			// Check if User has a Car
 			if (await ctx.bot.items.get(ctx.interaction.user.id + '-CAR-' + ctx.interaction.guild.id, 'amount') === 0) {
@@ -200,11 +198,9 @@ export default {
 			}
 
 			// Edit Buttons
-			{
-				(ctx.interaction.message.components[0].components[0].data.disabled as boolean) = true;
-				(ctx.interaction.message.components[0].components[1].data.disabled as boolean) = true;
-				(ctx.interaction.message.components[0].components[1] as any).data.style = 2;
-			}
+			ctx.components.rows[0].components[0].setDisabled(true)
+			ctx.components.rows[0].components[1].setDisabled(true)
+			ctx.components.rows[0].components[1].setStyle(2)
 
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
@@ -227,7 +223,7 @@ export default {
 
 			// Send Message
 			ctx.log(false, `[BTN] CARSELL : ${name} : CONFIRM`)
-			return ctx.interaction.update({ embeds: [message], components: ctx.interaction.message.components })
+			return ctx.interaction.update({ embeds: [message], components: (ctx.components.getAPI()) })
 		}
 	}
 }

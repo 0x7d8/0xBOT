@@ -24,24 +24,24 @@ return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getAllFilesFilter = exports.getAllFiles = void 0;
-const fs = __importStar(require("fs"));
-const getAllFiles = (dirPath, arrayOfFiles) => {
-const files = fs.readdirSync(dirPath);
+var fs = __importStar(require("fs"));
+var getAllFiles = function (dirPath, arrayOfFiles) {
+var files = fs.readdirSync(dirPath);
 arrayOfFiles = arrayOfFiles || [];
-files.forEach((file) => {
+files.forEach(function (file) {
 if (fs.statSync(dirPath + "/" + file).isDirectory()) {
 arrayOfFiles = (0, exports.getAllFiles)(dirPath + "/" + file, arrayOfFiles);
 }
 else {
-let filePath = dirPath + "/" + file;
-arrayOfFiles?.push(filePath);
+var filePath = dirPath + "/" + file;
+arrayOfFiles === null || arrayOfFiles === void 0 ? void 0 : arrayOfFiles.push(filePath);
 }
 });
 return arrayOfFiles;
 };
 exports.getAllFiles = getAllFiles;
-const getAllFilesFilter = (dirPath, suffix, arrayOfFiles) => {
-arrayOfFiles = (0, exports.getAllFiles)(dirPath, arrayOfFiles).filter(file => file.endsWith(suffix));
+var getAllFilesFilter = function (dirPath, suffix, arrayOfFiles) {
+arrayOfFiles = (0, exports.getAllFiles)(dirPath, arrayOfFiles).filter(function (file) { return file.endsWith(suffix); });
 return arrayOfFiles;
 };
 exports.getAllFilesFilter = getAllFilesFilter;

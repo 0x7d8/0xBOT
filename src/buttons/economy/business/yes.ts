@@ -111,11 +111,9 @@ export default {
 			}
 
 			// Edit Buttons
-			{
-				(ctx.interaction.message.components[0].components[0].data.disabled as boolean) = true;
-				(ctx.interaction.message.components[0].components[1].data.disabled as boolean) = true;
-				(ctx.interaction.message.components[0].components[1] as any).data.style = 2;
-			}
+			ctx.components.rows[0].components[0].setDisabled(true)
+			ctx.components.rows[0].components[1].setDisabled(true)
+			ctx.components.rows[0].components[1].setStyle(2)
 
 			// Log Transaction
 			const transaction = await ctx.bot.transactions.log({
@@ -166,7 +164,7 @@ export default {
 
 			// Send Message
 			ctx.log(false, `[BTN] BUSINESSBUY : ${name} : CONFIRM`)
-			return ctx.interaction.update({ embeds: [message], components: ctx.interaction.message.components })
+			return ctx.interaction.update({ embeds: [message], components: (ctx.components.getAPI()) })
 		} else if (type === 'sell') {
 			const business = await ctx.bot.businesses.get('u-' + ctx.interaction.user.id + '-' + ctx.interaction.guild.id + '-BUSINESS')
 
@@ -203,11 +201,9 @@ export default {
 			}
 
 			// Edit Buttons
-			{
-				(ctx.interaction.message.components[0].components[0].data.disabled as boolean) = true;
-				(ctx.interaction.message.components[0].components[1].data.disabled as boolean) = true;
-				(ctx.interaction.message.components[0].components[1] as any).data.style = 2;
-			}
+			ctx.components.rows[0].components[0].setDisabled(true)
+			ctx.components.rows[0].components[1].setDisabled(true)
+			ctx.components.rows[0].components[1].setStyle(2)
 
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
@@ -244,7 +240,7 @@ export default {
 
 			// Send Message
 			ctx.log(false, `[BTN] BUSINESSSELL : ${name} : CONFIRM`)
-			return ctx.interaction.update({ embeds: [message], components: ctx.interaction.message.components })
+			return ctx.interaction.update({ embeds: [message], components: (ctx.components.getAPI()) })
 		}
 	}
 }

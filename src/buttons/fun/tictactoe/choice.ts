@@ -92,16 +92,16 @@ export default {
 			ctx.bot.ttt.set('FIELD-' + sel + '-' + sender, sender)
 			ctx.bot.ttt.get('FIELDS-' + sender).push(sel);
 
-			(ctx.interaction.message.components[comp[1]].components[comp[0]].data.disabled as boolean) = true;
-			(ctx.interaction.message.components[comp[1]].components[comp[0]] as any).data.emoji = { id: '1020411088245903451', name: 'TICTACTOE' };
-			(ctx.interaction.message.components[comp[1]].components[comp[0]] as any).data.style = 1;
+			ctx.components.rows[comp[1]].components[comp[0]].setDisabled(true)
+			ctx.components.rows[comp[1]].components[comp[0]].setEmoji('1020411088245903451')
+			ctx.components.rows[comp[1]].components[comp[0]].setStyle(1)
 		}; if (ctx.interaction.user.id === reciever) {
 			ctx.bot.ttt.set('FIELD-' + sel + '-' + sender, reciever)
 			ctx.bot.ttt.get('FIELDS-' + reciever).push(sel);
 
-			(ctx.interaction.message.components[comp[1]].components[comp[0]].data.disabled as boolean) = true;
-			(ctx.interaction.message.components[comp[1]].components[comp[0]] as any).data.emoji = { id: '1020411023414542447', name: 'TICTACTOE' };
-			(ctx.interaction.message.components[comp[1]].components[comp[0]] as any).data.style = 4;
+			ctx.components.rows[comp[1]].components[comp[0]].setDisabled(true)
+			ctx.components.rows[comp[1]].components[comp[0]].setEmoji('1020411023414542447')
+			ctx.components.rows[comp[1]].components[comp[0]].setStyle(4)
 		}
 
 		// Create Embed
@@ -208,9 +208,8 @@ export default {
 			}
 
 			fields.forEach((field: number) => {
-				const comp = rowGet(field);
-
-				(ctx.interaction.message.components[comp[1]].components[comp[0]] as any).data.style = 3
+				const comp = rowGet(field)
+				ctx.components.rows[comp[1]].components[comp[0]].setStyle(3)
 			})
 
 			// Transfer Money
@@ -265,9 +264,8 @@ export default {
 
 			// Edit Buttons
 			for (let i = 0; i <= 9; i++) {
-				const comp = rowGet(i);
-
-				(ctx.interaction.message.components[comp[1]].components[comp[0]].data.disabled as boolean) = true
+				const comp = rowGet(i)
+				ctx.components.rows[comp[1]].components[comp[0]].setDisabled(true)
 			}
 
 			// Delete Variables
@@ -291,7 +289,7 @@ export default {
 			ctx.bot.ttt.delete('FIELD-9-' + sender)
 
 			// Update Message
-			return ctx.interaction.message.edit({ embeds: [message], components: ctx.interaction.message.components, ephemeral: true } as any)
+			return ctx.interaction.message.edit({ embeds: [message], components: (ctx.components.getAPI()), ephemeral: true } as any)
 		}
 	}
 }

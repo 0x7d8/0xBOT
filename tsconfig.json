@@ -4,10 +4,11 @@
     "skipLibCheck": true,
     "moduleResolution": "NodeNext",
     "resolveJsonModule": true,
-    "target": "ES2022",
+    "target": "ES5",
     "sourceMap": true,
     "outDir": "dist",
     "baseUrl": "src",
+    "downlevelIteration": true,
     "paths": {
       "@interfaces/*": ["interfaces/*"],
       "@functions/*": ["functions/*"],

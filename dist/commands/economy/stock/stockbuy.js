@@ -1,6 +1,42 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+return new (P || (P = Promise))(function (resolve, reject) {
+function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+step((generator = generator.apply(thisArg, _arguments || [])).next());
+});
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+function verb(n) { return function (v) { return step([n, v]); }; }
+function step(op) {
+if (f) throw new TypeError("Generator is already executing.");
+while (g && (g = 0, op[0] && (_ = 0)), _) try {
+if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+if (y = 0, t) op = [op[0] & 2, t.value];
+switch (op[0]) {
+case 0: case 1: t = op; break;
+case 4: _.label++; return { value: op[1], done: false };
+case 5: _.label++; y = op[1]; op = [0]; continue;
+case 7: op = _.ops.pop(); _.trys.pop(); continue;
+default:
+if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+if (t[2]) _.ops.pop();
+_.trys.pop(); continue;
+}
+op = body.call(thisArg, _);
+} catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+}
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const discord_js_1 = require("discord.js");
+var discord_js_1 = require("discord.js");
 exports.default = {
 data: new discord_js_1.SlashCommandBuilder()
 .setName('stockbuy')
@@ -9,7 +45,8 @@ data: new discord_js_1.SlashCommandBuilder()
 .setDescriptionLocalizations({
 de: 'KAUFE AKTIEN'
 })
-.addStringOption((option) => option.setName('stock')
+.addStringOption(function (option) {
+return option.setName('stock')
 .setNameLocalizations({
 de: 'aktie'
 })
@@ -18,8 +55,10 @@ de: 'aktie'
 de: 'DIE AKTIE'
 })
 .setRequired(true)
-.addChoices({ name: '🟢 GRÜNE AKTIE', value: 'green' }, { name: '🔵 BLAUE AKTIE', value: 'blue' }, { name: '🟡 GELBE AKTIE', value: 'yellow' }, { name: '🔴 ROTE AKTIE', value: 'red' }, { name: '⚪ WEISSE AKTIE', value: 'white' }, { name: '⚫ SCHWARZE AKTIE', value: 'black' }))
-.addIntegerOption((option) => option.setName('amount')
+.addChoices({ name: '🟢 GRÜNE AKTIE', value: 'green' }, { name: '🔵 BLAUE AKTIE', value: 'blue' }, { name: '🟡 GELBE AKTIE', value: 'yellow' }, { name: '🔴 ROTE AKTIE', value: 'red' }, { name: '⚪ WEISSE AKTIE', value: 'white' }, { name: '⚫ SCHWARZE AKTIE', value: 'black' });
+})
+.addIntegerOption(function (option) {
+return option.setName('amount')
 .setNameLocalizations({
 de: 'anzahl'
 })
@@ -27,72 +66,84 @@ de: 'anzahl'
 .setDescriptionLocalizations({
 de: 'DIE ANZAHL'
 })
-.setRequired(true)),
-async execute(ctx) {
-if (!await ctx.bot.settings.get(ctx.interaction.guild.id, 'stocks')) {
-let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
+.setRequired(true);
+}),
+execute: function (ctx) {
+return __awaiter(this, void 0, void 0, function () {
+var message_1, stock, amount, balance, message_2, used, max, message_3, cost, missing, message_4, emoji, transaction, message;
+return __generator(this, function (_a) {
+switch (_a.label) {
+case 0: return [4, ctx.bot.settings.get(ctx.interaction.guild.id, 'stocks')];
+case 1:
+if (!(_a.sent())) {
+message_1 = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-.setDescription(`» Stocks are disabled on this Server!`)
+.setDescription("\u00BB Stocks are disabled on this Server!")
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
-message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
+message_1 = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-.setDescription(`» Aktien sind auf diesem Server deaktiviert!`)
+.setDescription("\u00BB Aktien sind auf diesem Server deaktiviert!")
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
-ctx.log(false, `[CMD] STOCKBUY : DISABLED`);
-return ctx.interaction.reply({ embeds: [message], ephemeral: true });
+ctx.log(false, "[CMD] STOCKBUY : DISABLED");
+return [2, ctx.interaction.reply({ embeds: [message_1], ephemeral: true })];
 }
-const stock = ctx.getOption('stock');
-const amount = ctx.getOption('amount');
-const balance = await ctx.bot.money.get(ctx.interaction.user.id);
+stock = ctx.getOption('stock');
+amount = ctx.getOption('amount');
+return [4, ctx.bot.money.get(ctx.interaction.user.id)];
+case 2:
+balance = _a.sent();
 if (amount < 0) {
-let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
+message_2 = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-.setDescription(`» You cant buy a negative amount of Stocks!`)
+.setDescription("\u00BB You cant buy a negative amount of Stocks!")
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
-message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
+message_2 = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-.setDescription(`» Du kannst keine negativen Anzahlen kaufen!`)
+.setDescription("\u00BB Du kannst keine negativen Anzahlen kaufen!")
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
-ctx.log(false, `[CMD] STOCKBUY : NEGATIVESTOCKS : ${amount}€`);
-return ctx.interaction.reply({ embeds: [message], ephemeral: true });
+ctx.log(false, "[CMD] STOCKBUY : NEGATIVESTOCKS : ".concat(amount, "\u20AC"));
+return [2, ctx.interaction.reply({ embeds: [message_2], ephemeral: true })];
 }
-const used = await ctx.bot.stocks.get(ctx.interaction.user.id, stock, 'used');
-const max = await ctx.bot.stocks.get(ctx.interaction.user.id, stock, 'max');
+return [4, ctx.bot.stocks.get(ctx.interaction.user.id, stock, 'used')];
+case 3:
+used = _a.sent();
+return [4, ctx.bot.stocks.get(ctx.interaction.user.id, stock, 'max')];
+case 4:
+max = _a.sent();
 if (max < (used + amount)) {
-let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
+message_3 = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-.setDescription(`» You cant buy more than **${max}** of this Stock!`)
+.setDescription("\u00BB You cant buy more than **".concat(max, "** of this Stock!"))
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
-message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
+message_3 = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-.setDescription(`» Du kannst nicht mehr als **${max}** von dieser Aktie kaufen!`)
+.setDescription("\u00BB Du kannst nicht mehr als **".concat(max, "** von dieser Aktie kaufen!"))
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
-ctx.log(false, `[CMD] STOCKBUY : MAX : ${stock.toUpperCase()} : ${amount}`);
-return ctx.interaction.reply({ embeds: [message], ephemeral: true });
+ctx.log(false, "[CMD] STOCKBUY : MAX : ".concat(stock.toUpperCase(), " : ").concat(amount));
+return [2, ctx.interaction.reply({ embeds: [message_3], ephemeral: true })];
 }
-const cost = amount * ctx.client.stocks[stock];
+cost = amount * ctx.client.stocks[stock];
 if (balance < cost) {
-const missing = cost - balance;
-let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
+missing = cost - balance;
+message_4 = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-.setDescription(`» You dont have enough Money for that, you are missing **\$${missing}**!`)
+.setDescription("\u00BB You dont have enough Money for that, you are missing **$".concat(missing, "**!"))
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
-message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
+message_4 = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-.setDescription(`» Du hast dafür nicht genug Geld, dir fehlen **${missing}€**!`)
+.setDescription("\u00BB Du hast daf\u00FCr nicht genug Geld, dir fehlen **".concat(missing, "\u20AC**!"))
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
-ctx.log(false, `[CMD] STOCKBUY : ${stock.toUpperCase()} : ${amount} : ${cost}€ : NOTENOUGHMONEY`);
-return ctx.interaction.reply({ embeds: [message], ephemeral: true });
+ctx.log(false, "[CMD] STOCKBUY : ".concat(stock.toUpperCase(), " : ").concat(amount, " : ").concat(cost, "\u20AC : NOTENOUGHMONEY"));
+return [2, ctx.interaction.reply({ embeds: [message_4], ephemeral: true })];
 }
-let emoji;
 if (stock === 'green')
 emoji = '🟢';
 if (stock === 'blue')
@@ -105,38 +156,35 @@ if (stock === 'white')
 emoji = '⚪';
 if (stock === 'black')
 emoji = '⚫';
-const transaction = await ctx.bot.transactions.log({
+return [4, ctx.bot.transactions.log({
 success: true,
 sender: {
 id: ctx.interaction.user.id,
 amount: cost,
 type: 'negative'
 }, reciever: {
-id: `${amount}x ${stock.toUpperCase()} STOCK`,
+id: "".concat(amount, "x ").concat(stock.toUpperCase(), " STOCK"),
 amount: cost,
 type: 'positive'
 }
-});
+})];
+case 5:
+transaction = _a.sent();
 ctx.bot.stocks.add(ctx.interaction.user.id, stock, 'used', amount);
 ctx.bot.money.rem(ctx.interaction.guild.id, ctx.interaction.user.id, cost);
-let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
+message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:CHART:1024398298204876941> » BUY STOCKS')
-.setDescription(`
-» You successfully bought **${amount}** ${emoji} for **\$${cost}**! (**$${ctx.client.stocks[stock]}** per Stock)
-
-ID: ${transaction.id}
-`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+.setDescription("\n\t\t\t\t\u00BB You successfully bought **".concat(amount, "** ").concat(emoji, " for **$").concat(cost, "**! (**$").concat(ctx.client.stocks[stock], "** per Stock)\n\n\t\t\t\tID: ").concat(transaction.id, "\n\t\t\t")).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:CHART:1024398298204876941> » AKTIEN KAUFEN')
-.setDescription(`
-» Du hast erfolgreich **${amount}** ${emoji} für **${cost}€** gekauft! (**${ctx.client.stocks[stock]}€** pro Aktie)
-
-ID: ${transaction.id}
-`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
+.setDescription("\n\t\t\t\t\t\u00BB Du hast erfolgreich **".concat(amount, "** ").concat(emoji, " f\u00FCr **").concat(cost, "\u20AC** gekauft! (**").concat(ctx.client.stocks[stock], "\u20AC** pro Aktie)\n\n\t\t\t\t\tID: ").concat(transaction.id, "\n\t\t\t\t")).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
-ctx.log(false, `[CMD] STOCKBUY : ${stock.toUpperCase()} : ${amount} : ${cost}€`);
-return ctx.interaction.reply({ embeds: [message], ephemeral: true });
+ctx.log(false, "[CMD] STOCKBUY : ".concat(stock.toUpperCase(), " : ").concat(amount, " : ").concat(cost, "\u20AC"));
+return [2, ctx.interaction.reply({ embeds: [message], ephemeral: true })];
+}
+});
+});
 }
 };
 //# sourceMappingURL=stockbuy.js.map

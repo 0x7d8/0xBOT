@@ -12,18 +12,18 @@ module.exports = {
 		if (action === 'edit') {
 			// Edit API
 			uapi.set(interaction.user.id + '-' + name, content)
-			
+
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:CODE:1024400109741551686> » PAPER API EDIT')
-  				.setDescription('You edited the API **' + name + '**!')
-				.setFooter({ text: '» ' + config.version + ' » SLOTS ' + amount + '/5'});
+				.setDescription('You edited the API **' + name + '**!')
+				.setFooter({ text: '» ' + config.version + ' » SLOTS ' + amount + '/5' });
 
 			if (lang === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:CODE:1024400109741551686> » PAPER API EDIT')
-  					.setDescription('Du hast die API **' + name + '** editiert!')
-					.setFooter({ text: '» ' + config.version + ' » SLOTS ' + amount + '/5'});
+					.setDescription('Du hast die API **' + name + '** editiert!')
+					.setFooter({ text: '» ' + config.version + ' » SLOTS ' + amount + '/5' });
 			}
 
 			// Send Message
@@ -39,14 +39,14 @@ module.exports = {
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:CODE:1024400109741551686> » PAPER API CREATE')
-				.setDescription('You have created a new API!\nIts available here:\n**`https://api.paperstudios.de/user/' + interaction.user.id + '/' + name + '`**!')
-				.setFooter({ text: '» ' + config.version + ' » SLOTS ' + (amount+1) + '/5'});
+				.setDescription('You have created a new API!\nIts available here:\n**`https://api.paperstudios.dev/user/' + interaction.user.id + '/' + name + '`**!')
+				.setFooter({ text: '» ' + config.version + ' » SLOTS ' + (amount + 1) + '/5' });
 
 			if (lang === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:CODE:1024400109741551686> » PAPER API CREATE')
-					.setDescription('Du hast eine neue API erstellt!\nSie ist hier verfügbar:\n**`https://api.paperstudios.de/user/' + interaction.user.id + '/' + name + '`**!')
-					.setFooter({ text: '» ' + config.version + ' » SLOTS ' + (amount+1) + '/5'});
+					.setDescription('Du hast eine neue API erstellt!\nSie ist hier verfügbar:\n**`https://api.paperstudios.dev/user/' + interaction.user.id + '/' + name + '`**!')
+					.setFooter({ text: '» ' + config.version + ' » SLOTS ' + (amount + 1) + '/5' });
 			}
 
 			// Send Message

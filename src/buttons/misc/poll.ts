@@ -36,15 +36,15 @@ export default {
 
 		// Edit Buttons
 		if (yes + no === 0) {
-			(ctx.interaction.message.components[0].components[0] as any).data.label = `0 [0%]`;
-			(ctx.interaction.message.components[0].components[1] as any).data.label = `0 [0%]`;
+			ctx.components.rows[0].components[0].setLabel(`0 [0%]`)
+			ctx.components.rows[0].components[1].setLabel(`0 [0%]`)
 		} else {
-			(ctx.interaction.message.components[0].components[0] as any).data.label = `${yes} [${Math.round(100 * yes / (yes + no))}%]`;
-			(ctx.interaction.message.components[0].components[1] as any).data.label = `${no} [${Math.round(100 * no / (yes + no))}%]`;
+			ctx.components.rows[0].components[0].setLabel(`${yes} [${Math.round(100 * yes / (yes + no))}%]`)
+			ctx.components.rows[0].components[1].setLabel(`${no} [${Math.round(100 * no / (yes + no))}%]`)
 		}
 
 		// Send Message
 		ctx.log(false, `[BTN] POLL : ${choice.toUpperCase()}`)
-		return ctx.interaction.update({ components: ctx.interaction.message.components })
+		return ctx.interaction.update({ components: (ctx.components.getAPI()) })
 	}
 }

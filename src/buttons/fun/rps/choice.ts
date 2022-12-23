@@ -146,15 +146,13 @@ export default {
 			ctx.bot.rps.delete('CHOICE-' + reciever)
 
 			// Edit Buttons
-			{
-				(ctx.interaction.message.components[0].components[0].data.disabled as boolean) = true;
-				(ctx.interaction.message.components[0].components[1].data.disabled as boolean) = true;
-				(ctx.interaction.message.components[0].components[2].data.disabled as boolean) = true;
-			}
+			ctx.components.rows[0].components[0].setDisabled(true)
+			ctx.components.rows[0].components[1].setDisabled(true)
+			ctx.components.rows[0].components[2].setDisabled(true)
 
 			// Send Message
 			ctx.log(false, `[BTN] RPS : DONE`)
-			return ctx.interaction.message.edit({ embeds: [message], components: ctx.interaction.message.components, ephemeral: true } as any)
+			return ctx.interaction.message.edit({ embeds: [message], components: (ctx.components.getAPI()), ephemeral: true } as any)
 		}
 	}
 }
