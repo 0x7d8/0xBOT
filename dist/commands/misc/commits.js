@@ -30,7 +30,7 @@ let index = 0;
 commits.reverse().forEach((commit) => {
 commits[index++] = { ...commit, count: index };
 });
-const startIndex = (Number(Math.floor(commits.length / 10) + 1) - 1) * 10;
+const startIndex = (Math.ceil(commits.length / 10) - 1) * 10;
 const endIndex = Math.min(startIndex + 10, commits.length);
 for (const element of commits.slice(startIndex, endIndex).reverse()) {
 const count = element.count;
@@ -48,10 +48,10 @@ let row = new discord_js_1.ActionRowBuilder()
 .setCustomId(`COMMITS-REFRESH-${commits.length}`)
 .setStyle(discord_js_1.ButtonStyle.Primary), new discord_js_1.ButtonBuilder()
 .setEmoji('1055825023987888169')
-.setCustomId(`COMMITS-BACK-${commits.length}-${Math.floor(commits.length / 10) + 1}`)
+.setCustomId(`COMMITS-BACK-${commits.length}-${Math.ceil(commits.length / 10)}`)
 .setStyle(discord_js_1.ButtonStyle.Secondary), new discord_js_1.ButtonBuilder()
 .setEmoji('1055825050126786590')
-.setCustomId(`COMMITS-NEXT-${commits.length}-${Math.floor(commits.length / 10) + 1}`)
+.setCustomId(`COMMITS-NEXT-${commits.length}-${Math.ceil(commits.length / 10)}`)
 .setStyle(discord_js_1.ButtonStyle.Secondary)
 .setDisabled(true));
 if (ctx.metadata.language === 'de') {
@@ -62,24 +62,24 @@ row = new discord_js_1.ActionRowBuilder()
 .setCustomId(`COMMITS-REFRESH-${commits.length}`)
 .setStyle(discord_js_1.ButtonStyle.Primary), new discord_js_1.ButtonBuilder()
 .setEmoji('1055825023987888169')
-.setCustomId(`COMMITS-BACK-${commits.length}-${Math.floor(commits.length / 10) + 1}`)
+.setCustomId(`COMMITS-BACK-${commits.length}-${Math.ceil(commits.length / 10)}`)
 .setStyle(discord_js_1.ButtonStyle.Secondary), new discord_js_1.ButtonBuilder()
 .setEmoji('1055825050126786590')
-.setCustomId(`COMMITS-NEXT-${commits.length}-${Math.floor(commits.length / 10) + 1}`)
+.setCustomId(`COMMITS-NEXT-${commits.length}-${Math.ceil(commits.length / 10)}`)
 .setStyle(discord_js_1.ButtonStyle.Secondary)
 .setDisabled(true));
 }
 let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:GLOBE:1024403680503529583> » GIT COMMITS')
 .setDescription(embedDesc)
-.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version + ' » PAGE ' + (Math.floor(commits.length / 10) + 1) });
+.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version + ' » PAGE ' + (Math.ceil(commits.length / 10)) });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:GLOBE:1024403680503529583> » GIT COMMITS')
 .setDescription(embedDesc)
-.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version + ' » SEITE ' + (Math.floor(commits.length / 10) + 1) });
+.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version + ' » SEITE ' + (Math.ceil(commits.length / 10)) });
 }
-ctx.log(false, `[CMD] COMMITS : ${commits.length} : ${Math.floor(commits.length / 10) + 1}`);
+ctx.log(false, `[CMD] COMMITS : ${commits.length} : ${Math.ceil(commits.length / 10)}`);
 return ctx.interaction.reply({ embeds: [message], components: [row] }).catch(() => { });
 }
 };

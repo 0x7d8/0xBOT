@@ -49,7 +49,7 @@ if (!ctx.components.rows[0].components[1].data.disabled && pageNumber <= 1)
 ctx.components.rows[0].components[1].setDisabled(true);
 else
 ctx.components.rows[0].components[1].setDisabled(false);
-if (!ctx.components.rows[0].components[2].data.disabled && pageNumber >= Number(Math.floor(commits.length / 10) + 1))
+if (!ctx.components.rows[0].components[2].data.disabled && pageNumber >= Math.ceil(commits.length / 10))
 ctx.components.rows[0].components[2].setDisabled(true);
 else
 ctx.components.rows[0].components[2].setDisabled(false);
