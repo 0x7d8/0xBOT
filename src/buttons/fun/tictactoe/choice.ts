@@ -127,7 +127,7 @@ export default {
 
 		// Send Message
 		ctx.log(false, `[BTN] TICTACTOE : ${sel}`)
-		ctx.interaction.editReply({ embeds: [message], components: ctx.interaction.message.components, ephemeral: true } as any)
+		ctx.interaction.editReply({ embeds: [message], components: (ctx.components.getAPI()), ephemeral: true } as any)
 		await wait(500)
 
 		/// Check if Anyone Won
@@ -235,8 +235,15 @@ export default {
 				ctx.bot.money.add(ctx.interaction.guild.id, reciever, bet)
 			}
 
+			// Edit Buttons
+			for (let i = 0; i < 10; i++) {
+				const row = Math.floor(i / 3)
+
+				ctx.components.rows[row].components[i % 3].setDisabled(true)
+			}
+
 			// Create Embed
-			message = new EmbedBuilder().setColor(0x37009B)
+			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:GAMEPAD:1024395990679167066> » TICTACTOE')
 				.setDescription(`
 					» <@${sender}> is playing Tic Tac Toe with <@${reciever}>!
@@ -260,12 +267,6 @@ export default {
 						
 						<:AWARD:1024385473524793445> ${winner} hat **${betwon}€** gewonnen.${(typeof transaction === 'object') ? `\nID: ${transaction.id}` : ''}
 					`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
-			}
-
-			// Edit Buttons
-			for (let i = 0; i <= 9; i++) {
-				const comp = rowGet(i)
-				ctx.components.rows[comp[1]].components[comp[0]].setDisabled(true)
 			}
 
 			// Delete Variables

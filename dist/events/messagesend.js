@@ -22,116 +22,52 @@ if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasO
 __setModuleDefault(result, mod);
 return result;
 };
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-return new (P || (P = Promise))(function (resolve, reject) {
-function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-step((generator = generator.apply(thisArg, _arguments || [])).next());
-});
-};
-var __generator = (this && this.__generator) || function (thisArg, body) {
-var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
-function verb(n) { return function (v) { return step([n, v]); }; }
-function step(op) {
-if (f) throw new TypeError("Generator is already executing.");
-while (g && (g = 0, op[0] && (_ = 0)), _) try {
-if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-if (y = 0, t) op = [op[0] & 2, t.value];
-switch (op[0]) {
-case 0: case 1: t = op; break;
-case 4: _.label++; return { value: op[1], done: false };
-case 5: _.label++; y = op[1]; op = [0]; continue;
-case 7: op = _.ops.pop(); _.trys.pop(); continue;
-default:
-if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-if (t[2]) _.ops.pop();
-_.trys.pop(); continue;
-}
-op = body.call(thisArg, _);
-} catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
-}
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-var discord_js_1 = require("discord.js");
-var discord_js_2 = require("discord.js");
-var bot = __importStar(require("@functions/bot.js"));
+const discord_js_1 = require("discord.js");
+const discord_js_2 = require("discord.js");
+const bot = __importStar(require("@functions/bot.js"));
 exports.default = {
 name: 'MESSAGE SEND',
 event: discord_js_2.Events.MessageCreate,
 once: false,
-execute: function (message, client) {
-return __awaiter(this, void 0, void 0, function () {
-var _a, oldCache, oldXP, oldLevel, oldLevelXP, newCache, newXP, newLevel, newLevelXP, guildlang, glang, row, content;
-return __generator(this, function (_b) {
-switch (_b.label) {
-case 0:
+async execute(message, client) {
 if (!message.guildId)
-return [2];
-_a = !message.author.bot && Number(message.guildId) > 1000;
-if (!_a) return [3, 2];
-return [4, bot.settings.get(message.guildId, 'level')];
-case 1:
-_a = (_b.sent());
-_b.label = 2;
-case 2:
-if (!_a) return [3, 10];
-return [4, bot.stat.get('u-' + message.author.id + '-' + message.guildId + '-C', 'msg')];
-case 3:
-oldCache = _b.sent();
-oldXP = Math.round(oldCache / 5);
-oldLevel = 0, oldLevelXP = oldXP;
+return;
+if (!message.author.bot && Number(message.guildId) > 1000 && (await bot.settings.get(message.guildId, 'level'))) {
+const oldCache = await bot.stat.get('u-' + message.author.id + '-' + message.guildId + '-C', 'msg');
+const oldXP = Math.round(oldCache / 5);
+let oldLevel = 0, oldLevelXP = oldXP;
 while (oldLevelXP >= 500) {
 oldLevel++;
 oldLevelXP -= 500;
 }
-return [4, bot.stat.add('u-' + message.author.id + '-TOTAL-A', 'msg', 1)];
-case 4:
-_b.sent();
-return [4, bot.stat.add('u-' + message.author.id + '-' + message.guildId + '-A', 'msg', 1)];
-case 5:
-_b.sent();
-return [4, bot.stat.add('u-' + message.author.id + '-TOTAL-C', 'msg', ((message.content.length > 1000) ? 100 : message.content.length))];
-case 6:
-_b.sent();
-return [4, bot.stat.add('u-' + message.author.id + '-' + message.guildId + '-C', 'msg', ((message.content.length > 1000) ? 100 : message.content.length))];
-case 7:
-_b.sent();
-return [4, bot.stat.get('u-' + message.author.id + '-' + message.guildId + '-C', 'msg')];
-case 8:
-newCache = _b.sent();
-newXP = Math.round(newCache / 5);
-newLevel = 0, newLevelXP = newXP;
+await bot.stat.add('u-' + message.author.id + '-TOTAL-A', 'msg', 1);
+await bot.stat.add('u-' + message.author.id + '-' + message.guildId + '-A', 'msg', 1);
+await bot.stat.add('u-' + message.author.id + '-TOTAL-C', 'msg', ((message.content.length > 1000) ? 100 : message.content.length));
+await bot.stat.add('u-' + message.author.id + '-' + message.guildId + '-C', 'msg', ((message.content.length > 1000) ? 100 : message.content.length));
+const newCache = await bot.stat.get('u-' + message.author.id + '-' + message.guildId + '-C', 'msg');
+const newXP = Math.round(newCache / 5);
+let newLevel = 0, newLevelXP = newXP;
 while (newLevelXP >= 500) {
 newLevel++;
 newLevelXP -= 500;
 }
-if (!(oldLevel < newLevel)) return [3, 10];
-guildlang = 'en';
-return [4, bot.language.get(message.guildId)];
-case 9:
-glang = _b.sent();
+if (oldLevel < newLevel) {
+let guildlang = 'en';
+const glang = await bot.language.get(message.guildId);
 if (Number(glang) === 1)
 guildlang = 'de';
-row = new discord_js_1.ActionRowBuilder()
+const row = new discord_js_1.ActionRowBuilder()
 .addComponents(new discord_js_1.ButtonBuilder()
 .setEmoji('1030476921777180672')
 .setCustomId('rem-levelmsg')
 .setStyle(discord_js_1.ButtonStyle.Danger));
-content = "\u00BB Good Writing <@".concat(message.author.id, ">! You are now Level **").concat(newLevel, "**.\nTo view your level do </level:1030147810194100245>");
+let content = `» Good Writing <@${message.author.id}>! You are now Level **${newLevel}**.\nTo view your level do </level:1030147810194100245>`;
 if (guildlang === 'de')
-content = "\u00BB Gutes schreiben <@".concat(message.author.id, ">! Du bist nun Level **").concat(newLevel, "**.\nZum anschauen deines Levels mach </level:1030147810194100245>");
-return [2, message.reply({ content: content, components: [row] })];
-case 10: return [2];
+content = `» Gutes schreiben <@${message.author.id}>! Du bist nun Level **${newLevel}**.\nZum anschauen deines Levels mach </level:1030147810194100245>`;
+return message.reply({ content: content, components: [row] });
 }
-});
-});
+}
 }
 };
 //# sourceMappingURL=messagesend.js.map

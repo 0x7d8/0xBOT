@@ -127,53 +127,71 @@ export default {
 			.addComponents(
 				new ButtonBuilder()
 					.setEmoji('1020411843644243998')
-					.setCustomId('TTT-1-' + bet)
+					.setCustomId(`TTT-1-${bet}`)
 					.setStyle(ButtonStyle.Secondary),
 
 				new ButtonBuilder()
 					.setEmoji('1020411843644243998')
-					.setCustomId('TTT-2-' + bet)
+					.setCustomId(`TTT-2-${bet}`)
 					.setStyle(ButtonStyle.Secondary),
 
 				new ButtonBuilder()
 					.setEmoji('1020411843644243998')
-					.setCustomId('TTT-3-' + bet)
+					.setCustomId(`TTT-3-${bet}`)
 					.setStyle(ButtonStyle.Secondary),
 			)
 		let row2 = new ActionRowBuilder()
 			.addComponents(
 				new ButtonBuilder()
 					.setEmoji('1020411843644243998')
-					.setCustomId('TTT-4-' + bet)
+					.setCustomId(`TTT-4-${bet}`)
 					.setStyle(ButtonStyle.Secondary),
 
 				new ButtonBuilder()
 					.setEmoji('1020411843644243998')
-					.setCustomId('TTT-5-' + bet)
+					.setCustomId(`TTT-5-${bet}`)
 					.setStyle(ButtonStyle.Secondary),
 
 				new ButtonBuilder()
 					.setEmoji('1020411843644243998')
-					.setCustomId('TTT-6-' + bet)
+					.setCustomId(`TTT-6-${bet}`)
 					.setStyle(ButtonStyle.Secondary),
 			)
 		let row3 = new ActionRowBuilder()
 			.addComponents(
 				new ButtonBuilder()
 					.setEmoji('1020411843644243998')
-					.setCustomId('TTT-7-' + bet)
+					.setCustomId(`TTT-7-${bet}`)
 					.setStyle(ButtonStyle.Secondary),
 
 				new ButtonBuilder()
 					.setEmoji('1020411843644243998')
-					.setCustomId('TTT-8-' + bet)
+					.setCustomId(`TTT-8-${bet}`)
 					.setStyle(ButtonStyle.Secondary),
 
 				new ButtonBuilder()
 					.setEmoji('1020411843644243998')
-					.setCustomId('TTT-9-' + bet)
+					.setCustomId(`TTT-9-${bet}`)
 					.setStyle(ButtonStyle.Secondary),
 			)
+		let row4 = new ActionRowBuilder()
+			.addComponents(
+				new ButtonBuilder()
+					.setEmoji('1024382939020152982')
+					.setLabel('CANCEL')
+					.setCustomId(`TTT-CANCEL-${bet}`)
+					.setStyle(ButtonStyle.Danger),
+			)
+		if (ctx.metadata.language === 'de') {
+			row4 = new ActionRowBuilder()
+				.addComponents(
+					new ButtonBuilder()
+						.setEmoji('1024382939020152982')
+						.setLabel('ABBRECHEN')
+						.setCustomId(`TTT-CANCEL-${bet}`)
+						.setStyle(ButtonStyle.Danger),
+				)
+		}
 
 		// Set Variables
 		ctx.bot.game.set('PLAYING-' + sender, 'TICTACTOE')
@@ -221,6 +239,6 @@ export default {
 
 		// Send Message
 		ctx.log(false, `[BTN] TICTACTOE : ${sender} : ACCEPT`)
-		return ctx.interaction.update({ content: '', embeds: [message], components: [row1 as any, row2 as any, row3 as any] })
+		return ctx.interaction.update({ content: '', embeds: [message], components: [row1 as any, row2 as any, row3 as any, row4 as any] })
 	}
 }

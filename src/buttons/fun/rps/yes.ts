@@ -123,7 +123,7 @@ export default {
 		ctx.bot.rps.delete('TIMEOUT-' + sender + '-' + ctx.interaction.message.id)
 
 		// Create Buttons
-		let row = new ActionRowBuilder()
+		let row1 = new ActionRowBuilder()
 			.addComponents(
 				new ButtonBuilder()
 					.setLabel('🪨 ROCK')
@@ -140,9 +140,16 @@ export default {
 					.setCustomId('RPS-3-' + bet)
 					.setStyle(ButtonStyle.Secondary),
 			)
-
+		let row2 = new ActionRowBuilder()
+			.addComponents(
+				new ButtonBuilder()
+					.setEmoji('1024382939020152982')
+					.setLabel('CANCEL')
+					.setCustomId(`RPS-CANCEL-${bet}`)
+					.setStyle(ButtonStyle.Danger),
+			)
 		if (ctx.metadata.language === 'de') {
-			row = new ActionRowBuilder()
+			row1 = new ActionRowBuilder()
 				.addComponents(
 					new ButtonBuilder()
 						.setLabel('✂️ SCHERE')
@@ -158,7 +165,15 @@ export default {
 						.setLabel('📝 PAPIER')
 						.setCustomId('RPS-2-' + bet)
 						.setStyle(ButtonStyle.Secondary),
-			)
+				)
+			row2 = new ActionRowBuilder()
+				.addComponents(
+					new ButtonBuilder()
+						.setEmoji('1024382939020152982')
+						.setLabel('ABBRECHEN')
+						.setCustomId(`RPS-CANCEL-${bet}`)
+						.setStyle(ButtonStyle.Danger),
+				)
 		}
 
 		// Transfer Money
@@ -184,6 +199,6 @@ export default {
 
 		// Send Message
 		ctx.log(false, `[BTN] RPS : ${sender} : ACCEPT`)
-		return ctx.interaction.update({ content: '', embeds: [message], components: [row as any] })
+		return ctx.interaction.update({ content: '', embeds: [message], components: [row1 as any, row2 as any] })
 	}
 }

@@ -327,10 +327,11 @@ export const start = (db: PoolClient) => {
 					let choice: string
 					let buttonId = "rps-choice"
 
-					if (args[1] === '1') choice = 'ROCK'
-					if (args[1] === '2') choice = 'PAPER'
-					if (args[1] === '3') choice = 'SCISSORS'
+					if (args[1] === '1') choice = "ROCK"
+					if (args[1] === '2') choice = "PAPER"
+					if (args[1] === '3') choice = "SCISSORS"
 
+					if (args[1] === 'CANCEL') buttonId = "rps-cancel"
 					if (args[1] === 'YES') buttonId = "rps-yes"
 					if (args[1] === 'NO') buttonId = "rps-no"
 					sc = true
@@ -338,8 +339,9 @@ export const start = (db: PoolClient) => {
 					const button = client.buttons.get(buttonId)
 					await button.execute(ctx, Number(args[2]), choice)
 				}; if (args[0] === 'MEMORY') {
-					let buttonId = 'memory-choice'
+					let buttonId = "memory-choice"
 
+					if (args[1] === 'CANCEL') buttonId = "memory-cancel"
 					if (args[1] === 'YES') buttonId = "memory-yes"
 					if (args[1] === 'NO') buttonId = "memory-no"
 					sc = true
@@ -347,8 +349,9 @@ export const start = (db: PoolClient) => {
 					const button = client.buttons.get(buttonId)
 					await button.execute(ctx, Number(args[2]), Number(args[1]))
 				}; if (args[0] === 'TTT') {
-					let buttonId = 'ttt-choice'
+					let buttonId = "ttt-choice"
 
+					if (args[1] === 'CANCEL') buttonId = "ttt-cancel"
 					if (args[1] === 'YES') buttonId = "ttt-yes"
 					if (args[1] === 'NO') buttonId = "ttt-no"
 					sc = true

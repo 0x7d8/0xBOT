@@ -154,7 +154,6 @@ export default {
 			for (let i = 0; i < 20; i++) {
 				const row = Math.floor(i / 5)
 
-				ctx.components.rows[row].components[i % 5].setLabel(null)
 				ctx.components.rows[row].components[i % 5].setDisabled(true)
 				ctx.components.rows[row].components[i % 5].setEmoji(ctx.bot.memory.get('D_EMOJI-' + (i+1) + '-' + sender))
 				ctx.components.rows[row].components[i % 5].setStyle(ctx.bot.memory.get('STYLE-' + (i+1) + '-' + sender))
@@ -207,14 +206,13 @@ export default {
 		for (let i = 0; i < 20; i++) {
 			const row = Math.floor(i / 5)
 
-			ctx.components.rows[row].components[i % 5].setLabel(null)
-			ctx.components.rows[row].components[i % 5].setDisabled(true)
+			ctx.components.rows[row].components[i % 5].setDisabled(ctx.bot.memory.get('DISABLED-' + (i+1) + '-' + sender))
 			ctx.components.rows[row].components[i % 5].setEmoji(ctx.bot.memory.get('D_EMOJI-' + (i+1) + '-' + sender))
 			ctx.components.rows[row].components[i % 5].setStyle(ctx.bot.memory.get('STYLE-' + (i+1) + '-' + sender))
 		}
 
 		// Check if Round has ended
-		if((ctx.bot.memory.get('POINTS-' + sender) + ctx.bot.memory.get('POINTS-' + reciever)) == 10) {
+		if((ctx.bot.memory.get('POINTS-' + sender) + ctx.bot.memory.get('POINTS-' + reciever)) === 10) {
 			// Check Who Won
 			const senderpoints = ctx.bot.memory.get('POINTS-' + sender)
 			const recieverpoints = ctx.bot.memory.get('POINTS-' + reciever)
@@ -247,8 +245,11 @@ export default {
 				ctx.bot.money.add(ctx.interaction.guild.id, reciever, bet)
 			}
 
+			// Edit Button
+			ctx.components.rows[4].components[0].setDisabled(true)
+
 			// Create Embed
-			message = new EmbedBuilder().setColor(0x37009B)
+			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:GAMEPAD:1024395990679167066> » MEMORY')
 				.setDescription(`
 					» <@${sender}> is playing Memory with <@${reciever}>!

@@ -105,6 +105,13 @@ export default {
 				ctx.bot.money.add(ctx.interaction.guild.id, reciever, bet)
 			}
 
+			// Edit Buttons
+			for (let i = 0; i < 4; i++) {
+				const row = Math.floor(i / 3)
+
+				ctx.components.rows[row].components[i % 3].setDisabled(true)
+			}
+
 			// Create Embed
 			let send: string, reci: string
 			if (psc === 'SCISSORS') send = '✂️ SCISSORS'
@@ -114,7 +121,7 @@ export default {
 			if (prc === 'PAPER') reci = '📝 PAPER'
 			if (prc === 'SCISSORS') reci = '✂️ SCISSORS'
 
-			message = new EmbedBuilder().setColor(0x37009B)
+			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:GAMEPAD:1024395990679167066> » ROCK PAPER SCISSORS')
 				.setDescription(`
 					» <@${sender}> selected **${ctx.bot.rps.get('CHOICE-' + sender)}**
@@ -144,11 +151,6 @@ export default {
 			// Delete Variables
 			ctx.bot.rps.delete('CHOICE-' + sender)
 			ctx.bot.rps.delete('CHOICE-' + reciever)
-
-			// Edit Buttons
-			ctx.components.rows[0].components[0].setDisabled(true)
-			ctx.components.rows[0].components[1].setDisabled(true)
-			ctx.components.rows[0].components[2].setDisabled(true)
 
 			// Send Message
 			ctx.log(false, `[BTN] RPS : DONE`)

@@ -131,110 +131,128 @@ export default {
 			.addComponents(
 				new ButtonBuilder()
 					.setEmoji('1020411843644243998')
-					.setCustomId('MEMORY-1-' + bet)
+					.setCustomId(`MEMORY-1-${bet}`)
 					.setStyle(ButtonStyle.Secondary),
 
 				new ButtonBuilder()
 					.setEmoji('1020411843644243998')
-					.setCustomId('MEMORY-2-' + bet)
+					.setCustomId(`MEMORY-2-${bet}`)
 					.setStyle(ButtonStyle.Secondary),
 
 				new ButtonBuilder()
 					.setEmoji('1020411843644243998')
-					.setCustomId('MEMORY-3-' + bet)
+					.setCustomId(`MEMORY-3-${bet}`)
 					.setStyle(ButtonStyle.Secondary),
 				
 				new ButtonBuilder()
 					.setEmoji('1020411843644243998')
-					.setCustomId('MEMORY-4-' + bet)
+					.setCustomId(`MEMORY-4-${bet}`)
 					.setStyle(ButtonStyle.Secondary),
 
 				new ButtonBuilder()
 					.setEmoji('1020411843644243998')
-					.setCustomId('MEMORY-5-' + bet)
+					.setCustomId(`MEMORY-5-${bet}`)
 					.setStyle(ButtonStyle.Secondary),
 			)
 		let row2 = new ActionRowBuilder()
 			.addComponents(
 				new ButtonBuilder()
 					.setEmoji('1020411843644243998')
-					.setCustomId('MEMORY-6-' + bet)
+					.setCustomId(`MEMORY-6-${bet}`)
 					.setStyle(ButtonStyle.Secondary),
 
 				new ButtonBuilder()
 					.setEmoji('1020411843644243998')
-					.setCustomId('MEMORY-7-' + bet)
+					.setCustomId(`MEMORY-7-${bet}`)
 					.setStyle(ButtonStyle.Secondary),
 
 				new ButtonBuilder()
 					.setEmoji('1020411843644243998')
-					.setCustomId('MEMORY-8-' + bet)
+					.setCustomId(`MEMORY-8-${bet}`)
 					.setStyle(ButtonStyle.Secondary),
 				
 				new ButtonBuilder()
 					.setEmoji('1020411843644243998')
-					.setCustomId('MEMORY-9-' + bet)
+					.setCustomId(`MEMORY-9-${bet}`)
 					.setStyle(ButtonStyle.Secondary),
 
 				new ButtonBuilder()
 					.setEmoji('1020411843644243998')
-					.setCustomId('MEMORY-10-' + bet)
+					.setCustomId(`MEMORY-10-${bet}`)
 					.setStyle(ButtonStyle.Secondary),
 			)
 		let row3 = new ActionRowBuilder()
 			.addComponents(
 				new ButtonBuilder()
 					.setEmoji('1020411843644243998')
-					.setCustomId('MEMORY-11-' + bet)
+					.setCustomId(`MEMORY-11-${bet}`)
 					.setStyle(ButtonStyle.Secondary),
 
 				new ButtonBuilder()
 					.setEmoji('1020411843644243998')
-					.setCustomId('MEMORY-12-' + bet)
+					.setCustomId(`MEMORY-12-${bet}`)
 					.setStyle(ButtonStyle.Secondary),
 
 				new ButtonBuilder()
 					.setEmoji('1020411843644243998')
-					.setCustomId('MEMORY-13-' + bet)
+					.setCustomId(`MEMORY-13-${bet}`)
 					.setStyle(ButtonStyle.Secondary),
 				
 				new ButtonBuilder()
 					.setEmoji('1020411843644243998')
-					.setCustomId('MEMORY-14-' + bet)
+					.setCustomId(`MEMORY-14-${bet}`)
 					.setStyle(ButtonStyle.Secondary),
 
 				new ButtonBuilder()
 					.setEmoji('1020411843644243998')
-					.setCustomId('MEMORY-15-' + bet)
+					.setCustomId(`MEMORY-15-${bet}`)
 					.setStyle(ButtonStyle.Secondary),
 			)
 		let row4 = new ActionRowBuilder()
 			.addComponents(
 				new ButtonBuilder()
 					.setEmoji('1020411843644243998')
-					.setCustomId('MEMORY-16-' + bet)
+					.setCustomId(`MEMORY-16-${bet}`)
 					.setStyle(ButtonStyle.Secondary),
 
 				new ButtonBuilder()
 					.setEmoji('1020411843644243998')
-					.setCustomId('MEMORY-17-' + bet)
+					.setCustomId(`MEMORY-17-${bet}`)
 					.setStyle(ButtonStyle.Secondary),
 
 				new ButtonBuilder()
 					.setEmoji('1020411843644243998')
-					.setCustomId('MEMORY-18-' + bet)
+					.setCustomId(`MEMORY-18-${bet}`)
 					.setStyle(ButtonStyle.Secondary),
 				
 				new ButtonBuilder()
 					.setEmoji('1020411843644243998')
-					.setCustomId('MEMORY-19-' + bet)
+					.setCustomId(`MEMORY-19-${bet}`)
 					.setStyle(ButtonStyle.Secondary),
 
 				new ButtonBuilder()
 					.setEmoji('1020411843644243998')
-					.setCustomId('MEMORY-20-' + bet)
+					.setCustomId(`MEMORY-20-${bet}`)
 					.setStyle(ButtonStyle.Secondary),
 			)
+		let row5 = new ActionRowBuilder()
+			.addComponents(
+				new ButtonBuilder()
+					.setEmoji('1024382939020152982')
+					.setLabel('CANCEL')
+					.setCustomId(`MEMORY-CANCEL-${bet}`)
+					.setStyle(ButtonStyle.Danger),
+			)
+		if (ctx.metadata.language === 'de') {
+			row5 = new ActionRowBuilder()
+				.addComponents(
+					new ButtonBuilder()
+						.setEmoji('1024382939020152982')
+						.setLabel('ABBRECHEN')
+						.setCustomId(`MEMORY-CANCEL-${bet}`)
+						.setStyle(ButtonStyle.Danger),
+				)
+		}
 
 		// Set Variables
 		ctx.bot.game.set('PLAYING-' + sender, 'MEMORY')
@@ -379,6 +397,6 @@ export default {
 
 		// Send Message
 		ctx.log(false, `[BTN] MEMORY : ${sender} : ACCEPT`)
-		return ctx.interaction.editReply({ content: '', embeds: [message], components: [row1 as any, row2 as any, row3 as any, row4 as any] })
+		return ctx.interaction.editReply({ content: '', embeds: [message], components: [row1 as any, row2 as any, row3 as any, row4 as any, row5 as any] })
 	}
 }
