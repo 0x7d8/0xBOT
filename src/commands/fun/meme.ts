@@ -109,8 +109,10 @@ export default {
 
 		// Create Embed
 		let message = new EmbedBuilder().setColor(0x37009B)
-			.setTitle(`<:IMAGE:1024405297579696179> » ${res[0].data.children[0].data.title.toUpperCase()}`)
+			.setTitle('<:IMAGE:1024405297579696179> » MEME')
 			.setDescription(`
+				» Title
+				\`\`\`${res[0].data.children[0].data.title}\`\`\`
 				» Subreddit
 				\`\`\`r/${subreddit}\`\`\`
 			`).setImage(res[0].data.children[0].data.url)
@@ -118,8 +120,10 @@ export default {
 
 		if (ctx.metadata.language === 'de') {
 			message = new EmbedBuilder().setColor(0x37009B)
-				.setTitle(`<:IMAGE:1024405297579696179> » ${res[0].data.children[0].data.title.toUpperCase()}`)
+				.setTitle('<:IMAGE:1024405297579696179> » MEME')
 				.setDescription(`
+					» Titel
+					\`\`\`${res[0].data.children[0].data.title}\`\`\`
 					» Subreddit
 					\`\`\`r/${subreddit}\`\`\`
 				`).setImage(res[0].data.children[0].data.url)

@@ -45,16 +45,20 @@ comments += ' 🐊';
 ctx.components.rows[0].components[1].setLabel(String(upvotes));
 ctx.components.rows[0].components[2].setLabel(String(comments));
 let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
-.setTitle(`<:IMAGE:1024405297579696179> » ${res[0].data.children[0].data.title.toUpperCase()}`)
+.setTitle('<:IMAGE:1024405297579696179> » MEME')
 .setDescription(`
+» Title
+\`\`\`${res[0].data.children[0].data.title}\`\`\`
 » Subreddit
 \`\`\`r/${subreddit}\`\`\`
 `).setImage(res[0].data.children[0].data.url)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
-.setTitle(`<:IMAGE:1024405297579696179> » ${res[0].data.children[0].data.title.toUpperCase()}`)
+.setTitle('<:IMAGE:1024405297579696179> » MEME')
 .setDescription(`
+» Titel
+\`\`\`${res[0].data.children[0].data.title}\`\`\`
 » Subreddit
 \`\`\`r/${subreddit}\`\`\`
 `).setImage(res[0].data.children[0].data.url)
