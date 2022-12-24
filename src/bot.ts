@@ -426,6 +426,13 @@ export const start = (db: PoolClient) => {
 					if (args[1] === 'REFRESH') button = client.buttons.get('commits-refresh')
 					else button = client.buttons.get('commits-page')
 					await button.execute(ctx, Number(args[2]), Number(args[3]), args[1].toLowerCase())
+				}; if (args[0] === 'STATS') {
+					sc = true
+
+					let button: any
+					if (args[1] === 'REFRESH') button = client.buttons.get('stats-refresh')
+					else button = client.buttons.get('stats-page')
+					await button.execute(ctx, args[2], Number(args[3]), (args[4] === 'TRUE'), args[1].toLowerCase())
 				}
 
 

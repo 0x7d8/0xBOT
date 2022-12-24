@@ -45,19 +45,14 @@ embedDesc += `**\`${formattedCount}.\`** » ${element.message}\n`;
 ctx.components.rows[0].components[0].setCustomId(`COMMITS-REFRESH-${commitCount}-${pageNumber}`);
 ctx.components.rows[0].components[1].setCustomId(`COMMITS-BACK-${commitCount}-${pageNumber}`);
 ctx.components.rows[0].components[2].setCustomId(`COMMITS-NEXT-${commitCount}-${pageNumber}`);
-if (!ctx.components.rows[0].components[1].data.disabled && pageNumber <= 1) {
+if (!ctx.components.rows[0].components[1].data.disabled && pageNumber <= 1)
 ctx.components.rows[0].components[1].setDisabled(true);
-}
-else {
+else
 ctx.components.rows[0].components[1].setDisabled(false);
-}
-;
-if (!ctx.components.rows[0].components[2].data.disabled && pageNumber >= Number(Math.floor(commits.length / 10) + 1)) {
+if (!ctx.components.rows[0].components[2].data.disabled && pageNumber >= Number(Math.floor(commits.length / 10) + 1))
 ctx.components.rows[0].components[2].setDisabled(true);
-}
-else {
+else
 ctx.components.rows[0].components[2].setDisabled(false);
-}
 let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:GLOBE:1024403680503529583> » GIT COMMITS')
 .setDescription(embedDesc)

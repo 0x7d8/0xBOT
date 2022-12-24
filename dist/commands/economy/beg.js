@@ -70,14 +70,14 @@ if (!reason)
 reasonres = 'NULL';
 let row = new discord_js_1.ActionRowBuilder()
 .addComponents(new discord_js_1.ButtonBuilder()
-.setLabel('GIVE ' + ctx.interaction.user.username.toUpperCase() + ' $' + amount)
+.setLabel(`GIVE ${ctx.interaction.user.username.toUpperCase()} \$${amount}`)
 .setEmoji('1024382935618572299')
 .setCustomId(`BEG-${ctx.interaction.user.id}-${amount}-${reasontype}-${reasonres.toString()}`)
 .setStyle(discord_js_1.ButtonStyle.Primary));
 if (ctx.metadata.language === 'de') {
 row = new discord_js_1.ActionRowBuilder()
 .addComponents(new discord_js_1.ButtonBuilder()
-.setLabel('GEBE ' + ctx.interaction.user.username.toUpperCase() + ' ' + amount + '€')
+.setLabel(`GEBE ${ctx.interaction.user.username.toUpperCase()} ${amount}€`)
 .setEmoji('1024382935618572299')
 .setCustomId(`BEG-${ctx.interaction.user.id}-${amount}-${reasontype}-${reasonres.toString()}`)
 .setStyle(discord_js_1.ButtonStyle.Primary));

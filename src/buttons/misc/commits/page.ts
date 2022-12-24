@@ -1,4 +1,3 @@
-import { ActionRowBuilder } from "discord.js"
 import { EmbedBuilder } from "discord.js"
 import simpleGit from "simple-git"
 
@@ -50,15 +49,10 @@ export default {
 		ctx.components.rows[0].components[0].setCustomId(`COMMITS-REFRESH-${commitCount}-${pageNumber}`)
 		ctx.components.rows[0].components[1].setCustomId(`COMMITS-BACK-${commitCount}-${pageNumber}`)
 		ctx.components.rows[0].components[2].setCustomId(`COMMITS-NEXT-${commitCount}-${pageNumber}`)
-		if (!ctx.components.rows[0].components[1].data.disabled && pageNumber <= 1) {
-			ctx.components.rows[0].components[1].setDisabled(true)
-		} else {
-			ctx.components.rows[0].components[1].setDisabled(false)
-		}; if (!ctx.components.rows[0].components[2].data.disabled && pageNumber >= Number(Math.floor(commits.length / 10) + 1)) {
-			ctx.components.rows[0].components[2].setDisabled(true)
-		} else {
-			ctx.components.rows[0].components[2].setDisabled(false)
-		}
+		if (!ctx.components.rows[0].components[1].data.disabled && pageNumber <= 1) ctx.components.rows[0].components[1].setDisabled(true)
+		else ctx.components.rows[0].components[1].setDisabled(false)
+		if (!ctx.components.rows[0].components[2].data.disabled && pageNumber >= Number(Math.floor(commits.length / 10) + 1)) ctx.components.rows[0].components[2].setDisabled(true)
+		else ctx.components.rows[0].components[2].setDisabled(false)
 
 		// Create Embed
 		let message = new EmbedBuilder().setColor(0x37009B)

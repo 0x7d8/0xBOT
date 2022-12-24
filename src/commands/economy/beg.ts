@@ -87,7 +87,7 @@ export default {
 		let row = new ActionRowBuilder()
 			.addComponents(
 				new ButtonBuilder()
-					.setLabel('GIVE ' + ctx.interaction.user.username.toUpperCase() + ' $' + amount)
+					.setLabel(`GIVE ${ctx.interaction.user.username.toUpperCase()} \$${amount}`)
 					.setEmoji('1024382935618572299')
 					.setCustomId(`BEG-${ctx.interaction.user.id}-${amount}-${reasontype}-${reasonres.toString()}`)
 					.setStyle(ButtonStyle.Primary),
@@ -97,7 +97,7 @@ export default {
 			row = new ActionRowBuilder()
 				.addComponents(
 					new ButtonBuilder()
-						.setLabel('GEBE ' + ctx.interaction.user.username.toUpperCase() + ' ' + amount + '€')
+						.setLabel(`GEBE ${ctx.interaction.user.username.toUpperCase()} ${amount}€`)
 						.setEmoji('1024382935618572299')
 						.setCustomId(`BEG-${ctx.interaction.user.id}-${amount}-${reasontype}-${reasonres.toString()}`)
 						.setStyle(ButtonStyle.Primary),
