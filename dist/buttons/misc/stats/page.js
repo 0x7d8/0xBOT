@@ -33,7 +33,7 @@ if (!selfCmd) {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:GEAR:1024404241701417011> » YOUR INTERACTION STATISTICS')
 .setDescription(`
-🤖 Commands
+${statsType === 'cmd' ? '🤖 Commands' : (statsType === 'btn' ? '🖱️ Buttons' : '💻 Modals')}
 
 » Globally Executed
 \`\`\`${totalStats}\`\`\`
@@ -46,7 +46,7 @@ if (ctx.metadata.language === 'de') {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:GEAR:1024404241701417011> » DEINE INTERAKTIONS STATISTIKEN')
 .setDescription(`
-🤖 Befehle
+${statsType === 'cmd' ? '🤖 Befehle' : (statsType === 'btn' ? '🖱️ Buttons' : '💻 Modale')}
 
 » Global Ausgeführt
 \`\`\`${totalStats}\`\`\`
@@ -61,7 +61,7 @@ else {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:GEAR:1024404241701417011> » INTERACTION STATISTICS OF ' + userobj.username.toUpperCase())
 .setDescription(`
-🤖 Commands
+${statsType === 'cmd' ? '🤖 Commands' : (statsType === 'btn' ? '🖱️ Buttons' : '💻 Modals')}
 
 » Globally Executed
 \`\`\`${totalStats}\`\`\`
@@ -74,7 +74,7 @@ if (ctx.metadata.language === 'de') {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:GEAR:1024404241701417011> » INTERAKTIONS STATISTIKEN VON ' + userobj.username.toUpperCase())
 .setDescription(`
-🤖 Befehle
+${statsType === 'cmd' ? '🤖 Befehle' : (statsType === 'btn' ? '🖱️ Buttons' : '💻 Modale')}
 
 » Global Ausgeführt
 \`\`\`${totalStats}\`\`\`
