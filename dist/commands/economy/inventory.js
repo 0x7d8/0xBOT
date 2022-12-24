@@ -67,78 +67,62 @@ message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:BOX:1024394572555624510> » YOUR INVENTORY')
 .setDescription(`
 » <:NBOMB:1021783222520127508> NORMAL BOMBS
-**\`${nbombs}/15\`**
-
+\`\`\`${nbombs}/15\`\`\`
 » <:MBOMB:1021783295211601940> MEDIUM BOMBS
-**\`${mbombs}/15\`**
-
+\`\`\`${mbombs}/15\`\`\`
 » <:HBOMB:1022102357938536458> HYPER BOMBS
-**\`${hbombs}/15\`**
-
+\`\`\`${hbombs}/15\`\`\`
 » <:CBOMB:1021783405161091162> CRAZY BOMBS
-**\`${cbombs}/15\`**
-
+\`\`\`${cbombs}/15\`\`\`
 » <:CAR:1021844412998877294> CAR
-**\`${carname}\`**
+\`\`\`${carname}\`\`\`
 `).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:BOX:1024394572555624510> » DEIN INVENTAR')
 .setDescription(`
 » <:NBOMB:1021783222520127508> NORMALE BOMBEN
-**\`${nbombs}/15\`**
-
+\`\`\`${nbombs}/15\`\`\`
 » <:MBOMB:1021783295211601940> MEDIUM BOMBEN
-**\`${mbombs}/15\`**
-
+\`\`\`${mbombs}/15\`\`\`
 » <:HBOMB:1022102357938536458> HYPER BOMBEN
-**\`${hbombs}/15\`**
-
+\`\`\`${hbombs}/15\`\`\`
 » <:CBOMB:1021783405161091162> CRAZY BOMBEN
-**\`${cbombs}/15\`**
-
+\`\`\`${cbombs}/15\`\`\`
 » <:CAR:1021844412998877294> AUTO
-**\`${carname}\`**
+\`\`\`${carname}\`\`\`
 `).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
 }
 else {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
-.setTitle('<:BOX:1024394572555624510> » THE INVENTORY OF ' + user.username.toUpperCase() + '#' + user.discriminator)
+.setTitle('<:BOX:1024394572555624510> » THE INVENTORY OF ' + user.username.toUpperCase())
 .setDescription(`
 » <:NBOMB:1021783222520127508> NORMAL BOMBS
-**\`${nbombs}/15\`**
-
+\`\`\`${nbombs}/15\`\`\`
 » <:MBOMB:1021783295211601940> MEDIUM BOMBS
-**\`${mbombs}/15\`**
-
+\`\`\`${mbombs}/15\`\`\`
 » <:HBOMB:1022102357938536458> HYPER BOMBS
-**\`${hbombs}/15\`**
-
+\`\`\`${hbombs}/15\`\`\`
 » <:CBOMB:1021783405161091162> CRAZY BOMBS
-**\`${cbombs}/15\`**
-
+\`\`\`${cbombs}/15\`\`\`
 » <:CAR:1021844412998877294> CAR
-**\`${carname}\`**
+\`\`\`${carname}\`\`\`
 `).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
-.setTitle('<:BOX:1024394572555624510> » DAS INVENTAR VON ' + user.username.toUpperCase() + '#' + user.discriminator)
+.setTitle('<:BOX:1024394572555624510> » DAS INVENTAR VON ' + user.username.toUpperCase())
 .setDescription(`
 » <:NBOMB:1021783222520127508> NORMALE BOMBEN
-**\`${nbombs}/15\`**
-
+\`\`\`${nbombs}/15\`\`\`
 » <:MBOMB:1021783295211601940> MEDIUM BOMBEN
-**\`${mbombs}/15\`**
-
+\`\`\`${mbombs}/15\`\`\`
 » <:HBOMB:1022102357938536458> HYPER BOMBEN
-**\`${hbombs}/15\`**
-
+\`\`\`${hbombs}/15\`\`\`
 » <:CBOMB:1021783405161091162> CRAZY BOMBEN
-**\`${cbombs}/15\`**
-
+\`\`\`${cbombs}/15\`\`\`
 » <:CAR:1021844412998877294> AUTO
-**\`${carname}\`**
+\`\`\`${carname}\`\`\`
 `).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
 }
