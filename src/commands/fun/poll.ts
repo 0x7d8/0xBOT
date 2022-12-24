@@ -39,16 +39,20 @@ export default {
 			)
 
 		// Create Embed
-	   	let message = new EmbedBuilder().setColor(0x37009B)
+	  let message = new EmbedBuilder().setColor(0x37009B)
 			.setTitle('<:POLL:1024391847092703365> » POLL')
-  		.setDescription(`» ${question}`)
-			.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
+  		.setDescription(`
+				» Question
+				\`\`\`${question}\`\`\`
+			`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 		if (ctx.metadata.language === 'de') {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:POLL:1024391847092703365> » ABSTIMMUNG')
-  			.setDescription(`» ${question}`)
-				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
+  			.setDescription(`
+					» Frage
+					\`\`\`${question}\`\`\`
+				`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 		}
 		
 		// Send Message

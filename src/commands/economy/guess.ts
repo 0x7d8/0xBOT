@@ -61,12 +61,12 @@ export default {
 					.setDescription(`» Glücksspiele sind auf diesem Server deaktiviert!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
-			
+
 			// Send Message
 			ctx.log(false, `[CMD] GUESS : DISABLED`)
 			return ctx.interaction.reply({ embeds: [message], ephemeral: true })
 		}
-		
+
 		// Set Variables
 		const bet = ctx.getOption('bet') as number
 		const range = ctx.getOption('range') as string
@@ -91,13 +91,13 @@ export default {
 					.setDescription(`» Du kannst keine negativen Einsätze spielen!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
-			
+
 			// Send Message
 			ctx.log(false, `[CMD] GUESS : NEGATIVEMONEY : ${bet}€`)
 			return ctx.interaction.reply({ embeds: [message], ephemeral: true })
 		}
-		
-	   	// Check for enough Money
+
+		// Check for enough Money
 		let status: string, result: number
 		if (money >= bet) {
 			// Check for Max Amount
@@ -105,36 +105,54 @@ export default {
 				// Create Embed
 				let message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-  				.setDescription(`» You cant bet that much! **$15000** is the Maximum.`)
+					.setDescription(`» You cant bet that much! **$15000** is the Maximum.`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 				if (ctx.metadata.language === 'de') {
 					message = new EmbedBuilder().setColor(0x37009B)
 						.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-  					.setDescription(`» Du kannst nicht soviel Wetten! **15000€** ist das Maximum.`)
+						.setDescription(`» Du kannst nicht soviel Wetten! **15000€** ist das Maximum.`)
 						.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 				}
-				
+
 				// Send Message
 				ctx.log(false, `[CMD] GUESS : TOOMUCHMONEY : ${bet}€`)
 				return ctx.interaction.reply({ embeds: [message], ephemeral: true })
 			}
-			
+
 			// Calculate Winnings
-			if (range === '10') { if (guess === random10) { status = 'WON'; result = bet * 2 } else { 
-				status = 'LOST'; result = bet } }
-			if (range === '100') { if (guess === random100) { status = 'WON'; result = bet * 4 } else { 
-				status = 'LOST'; result = bet } }
-			if (range === '1000') { if (guess === random1000) { status = 'WON'; result = bet * 6 } else { 
-				status = 'LOST'; result = bet } }
+			if (range === '10') {
+				if (guess === random10) { status = 'WON'; result = bet * 2 } else {
+					status = 'LOST'; result = bet
+				}
+			}
+			if (range === '100') {
+				if (guess === random100) { status = 'WON'; result = bet * 4 } else {
+					status = 'LOST'; result = bet
+				}
+			}
+			if (range === '1000') {
+				if (guess === random1000) { status = 'WON'; result = bet * 6 } else {
+					status = 'LOST'; result = bet
+				}
+			}
 
 			if (ctx.metadata.language === 'de') {
-				if (range === '10') { if (guess === random10) { status = 'GEWONNEN'; result = bet * 2 } else { 
-					status = 'VERLOREN'; result = bet } }
-				if (range === '100') { if (guess === random100) { status = 'GEWONNEN'; result = bet * 4 } else { 
-					status = 'VERLOREN'; result = bet } }
-				if (range === '1000') { if (guess === random1000) { status = 'GEWONNEN'; result = bet * 6 } else { 
-					status = 'VERLOREN'; result = bet } }
+				if (range === '10') {
+					if (guess === random10) { status = 'GEWONNEN'; result = bet * 2 } else {
+						status = 'VERLOREN'; result = bet
+					}
+				}
+				if (range === '100') {
+					if (guess === random100) { status = 'GEWONNEN'; result = bet * 4 } else {
+						status = 'VERLOREN'; result = bet
+					}
+				}
+				if (range === '1000') {
+					if (guess === random1000) { status = 'GEWONNEN'; result = bet * 6 } else {
+						status = 'VERLOREN'; result = bet
+					}
+				}
 			}
 		} else {
 			const missing = bet - money
@@ -142,13 +160,13 @@ export default {
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-  			.setDescription(`» You dont have enough Money for that, you are missing **\$${missing}**!`)
+				.setDescription(`» You dont have enough Money for that, you are missing **\$${missing}**!`)
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-  				.setDescription(`» Du hast dafür nicht genug Geld, dir fehlen **${missing}€**!`)
+					.setDescription(`» Du hast nicht genug Geld dafür, dir fehlen **${missing}€**!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 
@@ -191,11 +209,11 @@ export default {
 				}
 			})
 		}
-		
+
 		// Create Embed
-	  	let message = new EmbedBuilder().setColor(0x37009B)
+		let message = new EmbedBuilder().setColor(0x37009B)
 			.setTitle('<:CLOVER:1024388649418235925> » GUESS')
-  		.setDescription(`
+			.setDescription(`
 				» You set **\$${bet}** on **${guess}** and **${status}** **\$${result}**!
 
 				ID: ${transaction.id}
@@ -204,7 +222,7 @@ export default {
 		if (ctx.metadata.language === 'de') {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:CLOVER:1024388649418235925> » RATEN')
-  			.setDescription(`
+				.setDescription(`
 					» Du hast **${bet}€** auf **${guess}** gesetzt und **${result}€** **${status}**!
 
 					ID: ${transaction.id}
@@ -212,7 +230,7 @@ export default {
 		}
 
 		// Send Message
-	  ctx.log(false, `[CMD] GUESS : ${guess} : ${status} : ${result}€`)
+		ctx.log(false, `[CMD] GUESS : ${guess} : ${status} : ${result}€`)
 		return ctx.interaction.reply({ embeds: [message] })
 	}
 }

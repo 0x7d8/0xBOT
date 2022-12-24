@@ -52,16 +52,16 @@ export default {
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-  			.setDescription(`» This choice is up to <@${userid}>!`)
+				.setDescription(`» This choice is up to <@${userid}>!`)
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-  				.setDescription(`» Diese Frage ist für <@${userid}>!`)
+					.setDescription(`» Diese Frage ist für <@${userid}>!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
-			
+
 			// Send Message
 			ctx.log(false, `[BTN] CARBUY : NOTSENDER`)
 			return ctx.interaction.reply({ embeds: [message], ephemeral: true })
@@ -72,20 +72,20 @@ export default {
 			// Check if User has enough Money
 			if (balance < cost) {
 				const missing = cost - balance
-				
+
 				// Create Embed
 				let message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-  				.setDescription(`» You dont have enough Money for that, you are missing **\$${missing}**!`)
+					.setDescription(`» You dont have enough Money for that, you are missing **\$${missing}**!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 				if (ctx.metadata.language === 'de') {
 					message = new EmbedBuilder().setColor(0x37009B)
 						.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-  					.setDescription(`» Du hast dafür nicht genug Geld, dir fehlen **${missing}€**!`)
+						.setDescription(`» Du hast nicht genug Geld dafür, dir fehlen **${missing}€**!`)
 						.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 				}
-			
+
 				// Send Message
 				ctx.log(false, `[BTN] CARBUY : ${name.toUpperCase()} : NOTENOUGHMONEY : ${cost}€`)
 				return ctx.interaction.reply({ embeds: [message], ephemeral: true })
@@ -104,16 +104,16 @@ export default {
 				// Create Embed
 				let message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-  				.setDescription(`» You already own a **${name}**!`)
+					.setDescription(`» You already own a **${name}**!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 				if (ctx.metadata.language === 'de') {
 					message = new EmbedBuilder().setColor(0x37009B)
 						.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-  					.setDescription(`» Du besitzt schon einen **${name}**!`)
+						.setDescription(`» Du besitzt schon einen **${name}**!`)
 						.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 				}
-				
+
 				// Send Message
 				ctx.log(false, `[BTN] CARBUY : ALREADYOWNCAR : ${name}`)
 				return ctx.interaction.reply({ embeds: [message], ephemeral: true })
@@ -163,11 +163,11 @@ export default {
 			// Transfer Money if Business is owned
 			if (dopay) {
 				const businessowner = await ctx.bot.businesses.get('g-' + ctx.interaction.guild.id + '-3-OWNER')
-				if (car === 'jeep') { ctx.bot.money.add(ctx.interaction.guild.id, businessowner, cost-5000); ctx.bot.businesses.add('g-' + ctx.interaction.guild.id + '-3-EARNING', cost-5000) }
-				if (car === 'kia') { ctx.bot.money.add(ctx.interaction.guild.id, businessowner, cost-50000); ctx.bot.businesses.add('g-' + ctx.interaction.guild.id + '-3-EARNING', cost-50000) }
-				if (car === 'audi') { ctx.bot.money.add(ctx.interaction.guild.id, businessowner, cost-150000); ctx.bot.businesses.add('g-' + ctx.interaction.guild.id + '-3-EARNING', cost-150000) }
-				if (car === 'tesla') { ctx.bot.money.add(ctx.interaction.guild.id, businessowner, cost-220000); ctx.bot.businesses.add('g-' + ctx.interaction.guild.id + '-3-EARNING', cost-260000) }
-				if (car === 'porsche') { ctx.bot.money.add(ctx.interaction.guild.id, businessowner, cost-400000); ctx.bot.businesses.add('g-' + ctx.interaction.guild.id + '-3-EARNING', cost-500000) }
+				if (car === 'jeep') { ctx.bot.money.add(ctx.interaction.guild.id, businessowner, cost - 5000); ctx.bot.businesses.add('g-' + ctx.interaction.guild.id + '-3-EARNING', cost - 5000) }
+				if (car === 'kia') { ctx.bot.money.add(ctx.interaction.guild.id, businessowner, cost - 50000); ctx.bot.businesses.add('g-' + ctx.interaction.guild.id + '-3-EARNING', cost - 50000) }
+				if (car === 'audi') { ctx.bot.money.add(ctx.interaction.guild.id, businessowner, cost - 150000); ctx.bot.businesses.add('g-' + ctx.interaction.guild.id + '-3-EARNING', cost - 150000) }
+				if (car === 'tesla') { ctx.bot.money.add(ctx.interaction.guild.id, businessowner, cost - 220000); ctx.bot.businesses.add('g-' + ctx.interaction.guild.id + '-3-EARNING', cost - 260000) }
+				if (car === 'porsche') { ctx.bot.money.add(ctx.interaction.guild.id, businessowner, cost - 400000); ctx.bot.businesses.add('g-' + ctx.interaction.guild.id + '-3-EARNING', cost - 500000) }
 			}
 
 			// Own Car
@@ -182,13 +182,13 @@ export default {
 				// Create Embed
 				let message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-  				.setDescription(`» You dont own a Car!`)
+					.setDescription(`» You dont own a Car!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 				if (ctx.metadata.language === 'de') {
 					message = new EmbedBuilder().setColor(0x37009B)
 						.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-  					.setDescription(`» Du besitzt kein Auto!`)
+						.setDescription(`» Du besitzt kein Auto!`)
 						.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 				}
 
@@ -216,7 +216,7 @@ export default {
 			}
 
 			// Add Money
-			ctx.bot.money.add(ctx.interaction.guild.id, ctx.interaction.user.id, (cost/2))
+			ctx.bot.money.add(ctx.interaction.guild.id, ctx.interaction.user.id, (cost / 2))
 
 			// unOwn Car
 			ctx.bot.items.del(ctx.interaction.user.id + '-CAR-' + ctx.interaction.guild.id)

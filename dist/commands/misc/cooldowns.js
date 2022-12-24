@@ -43,38 +43,38 @@ embedDesc = 'Nichts Gefunden.';
 let row = new discord_js_1.ActionRowBuilder()
 .addComponents(new discord_js_1.ButtonBuilder()
 .setLabel('UPDATE')
-.setEmoji('1024382926923776020')
-.setCustomId('COOLDOWNS-' + userobj.id + '-' + userobj.username)
-.setStyle(discord_js_1.ButtonStyle.Secondary));
+.setEmoji('1055826473442873385')
+.setCustomId(`COOLDOWNS-${userobj.id}-${userobj.username}`)
+.setStyle(discord_js_1.ButtonStyle.Primary));
 if (ctx.metadata.language === 'de') {
 row = new discord_js_1.ActionRowBuilder()
 .addComponents(new discord_js_1.ButtonBuilder()
 .setLabel('AKTUALISIEREN')
-.setEmoji('1024382926923776020')
-.setCustomId('COOLDOWNS-' + userobj.id + '-' + userobj.username)
-.setStyle(discord_js_1.ButtonStyle.Secondary));
+.setEmoji('1055826473442873385')
+.setCustomId(`COOLDOWNS-${userobj.id}-${userobj.username}`)
+.setStyle(discord_js_1.ButtonStyle.Primary));
 }
 let message;
 if (!user) {
 message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
-.setTitle('<:CLOCK:1054137880345329714> » YOUR COOLDOWNS')
+.setTitle('<:CLOCK:1054137880345329714> » YOUR ACTIVE COOLDOWNS')
 .setDescription(embedDesc)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
-.setTitle('<:CLOCK:1054137880345329714> » DEINE COOLDOWNS')
+.setTitle('<:CLOCK:1054137880345329714> » DEINE ATIVEN COOLDOWNS')
 .setDescription(embedDesc)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
 }
 else {
 message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
-.setTitle('<:CLOCK:1054137880345329714> » COOLDOWNS OF ' + userobj.username.toUpperCase())
+.setTitle('<:CLOCK:1054137880345329714> » ACTIVE COOLDOWNS OF ' + userobj.username.toUpperCase())
 .setDescription(embedDesc)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
-.setTitle('<:CLOCK:1054137880345329714> » COOLDOWNS VON ' + userobj.username.toUpperCase())
+.setTitle('<:CLOCK:1054137880345329714> » AKTIVE COOLDOWNS VON ' + userobj.username.toUpperCase())
 .setDescription(embedDesc)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }

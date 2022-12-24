@@ -161,7 +161,7 @@ let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 if (ctx.metadata.language === 'de') {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-.setDescription(`» Du hast dafür nicht genug Geld, dir fehlen **${missing}€**!`)
+.setDescription(`» Du hast nicht genug Geld dafür, dir fehlen **${missing}€**!`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
 ctx.log(false, `[CMD] GUESS : NOTENOUGHMONEY : ${missing}€`);

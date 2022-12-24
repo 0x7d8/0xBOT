@@ -30,7 +30,7 @@ let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
 if (ctx.metadata.language === 'de') {
 message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:GLOBE:1024403680503529583> » STATUS')
-.setDescription(`» Klicke unten um zur Status Seite zu gectx.metadata.languageen!`)
+.setDescription(`» Klicke unten um zur Status Seite zu gehen!`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
 ctx.log(false, `[CMD] STATUS`);

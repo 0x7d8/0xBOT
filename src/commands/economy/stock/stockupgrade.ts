@@ -55,7 +55,7 @@ export default {
 					.setDescription(`» Aktien sind auf diesem Server deaktiviert!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
-			
+
 			// Send Message
 			ctx.log(false, `[CMD] STOCKUPGRADE : DISABLED`)
 			return ctx.interaction.reply({ embeds: [message], ephemeral: true })
@@ -88,20 +88,20 @@ export default {
 		// Check for enough Money
 		if (balance < cost) {
 			const missing = cost - balance
-			
+
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-  			.setDescription(`» You dont have enough Money for that, you are missing **\$${missing}**!`)
+				.setDescription(`» You dont have enough Money for that, you are missing **\$${missing}**!`)
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-  				.setDescription(`» Du hast dafür nicht genug Geld, dir fehlen **${missing}€**!`)
+					.setDescription(`» Du hast nicht genug Geld dafür, dir fehlen **${missing}€**!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
-			
+
 			// Send Message
 			ctx.log(false, `[CMD] STOCKUPGRADE : ${stock.toUpperCase()} : ${amount}x : ${cost}€ : NOTENOUGHMONEY`)
 			return ctx.interaction.reply({ embeds: [message], ephemeral: true })

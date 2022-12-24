@@ -33,7 +33,7 @@ message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
 .setDescription(`» Klicke unten um zur Webseite zu gehen!`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
-ctx.log(false, `[CMD] DASHBOARD`);
+ctx.log(false, `[CMD] WEBSITE`);
 await ctx.interaction.reply({ embeds: [message], components: [row], ephemeral: true });
 }
 };

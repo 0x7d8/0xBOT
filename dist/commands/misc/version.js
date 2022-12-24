@@ -13,27 +13,23 @@ async execute(ctx) {
 let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:GEAR:1024404241701417011> » BOT VERSION')
 .setDescription(`
-» VERSION
-\`${ctx.client.config.version} (V3)\`
-
-» FRAMEWORK
-\`discord.js v14 (14.7.1)\`
-
-» AUTHOR
-\`0x4096#7678\`
+» Bot Version
+\`\`\`${ctx.client.config.version} (V3)\`\`\`
+» Framework
+\`\`\`discord.js v14 (14.7.1)\`\`\`
+» Author
+\`\`\`0x4096#7678\`\`\`
 `).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:GEAR:1024404241701417011> » BOT VERSION')
 .setDescription(`
-» VERSION
-\`${ctx.client.config.version} (V3)\`
-
-» FRAMEWORK
-\`discord.js v14 (14.7.1)\`
-
-» AUTOR
-\`0x4096#7678\`
+» Bot Version
+\`\`\`${ctx.client.config.version} (V3)\`\`\`
+» Framework
+\`\`\`discord.js v14 (14.7.1)\`\`\`
+» Autor
+\`\`\`0x4096#7678\`\`\`
 `).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
 ctx.log(false, `[CMD] VERSION`);

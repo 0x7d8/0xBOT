@@ -67,32 +67,32 @@ export default {
 		}
 
 		// Generate Password
-		const password = utils.randomStr({
-			numbers: true,
-			uppercase: true,
-			symbols: false,
-			length
+		const password: string = utils.randomStr({
+			"numbers": true,
+			"uppercase": true,
+			"symbols": true,
+			"length": length
 		})
-		
+
 		// Create Embed
 		let message = new EmbedBuilder().setColor(0x37009B)
 			.setTitle('<:KEY:1024392167130664980> » GENERATE PASSWORD')
   		.setDescription(`
-				» This is the Password I came up with:
-				\`${password}\`
+				» Password
+				\`\`\`${password.replace('```', '``"')}\`
 			`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 		if (ctx.metadata.language === 'de') {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:KEY:1024392167130664980> » PASSWORT GENERIEREN')
   			.setDescription(`
-					» Das hier ist mein ausgedachtes Passwort:
-					\`${password}\`
+					» Passwort
+					\`\`\`${password.replace('```', '``"')}\`\`\`
 				`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 		}
 
 		// Send Message
-		ctx.log(false, `[CMD] PASSWORD : ${length} : SUCCESS`)
+		ctx.log(false, `[CMD] PASSWORD : ${length}`)
 		return ctx.interaction.reply({ embeds: [message], ephemeral: true })
 	}
 }

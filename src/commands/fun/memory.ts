@@ -53,7 +53,7 @@ export default {
 					.setDescription(`» Du kannst Memory nicht mit einem Bot spielen!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
-			
+
 			// Send Message
 			ctx.log(false, `[CMD] MEMORY : ${user.id} : BOT`)
 			return ctx.interaction.reply({ embeds: [message], ephemeral: true })
@@ -73,7 +73,7 @@ export default {
 					.setDescription(`» Du bist schon in einer Lobby!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
-			
+
 			// Send Message
 			ctx.log(false, `[CMD] MEMORY : ${user.id} : ALREADYLOBBY`)
 			return ctx.interaction.reply({ embeds: [message], ephemeral: true })
@@ -93,7 +93,7 @@ export default {
 					.setDescription(`» <@${user.id}> ist schon in einer Lobby!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
-			
+
 			// Send Message
 			ctx.log(false, `[CMD] MEMORY : ${user.id} : ALREADYLOBBY`)
 			return ctx.interaction.reply({ embeds: [message], ephemeral: true })
@@ -113,7 +113,7 @@ export default {
 					.setDescription(`» Du kannst kein negatives Geld wetten!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
-			
+
 			// Send Message
 			ctx.log(false, `[CMD] MEMORY : ${user.id} : NEGATIVEMONEY : ${bet}€`)
 			return ctx.interaction.reply({ embeds: [message], ephemeral: true })
@@ -124,13 +124,13 @@ export default {
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-  			.setDescription(`» You cant play Memory with yourself?`)
+				.setDescription(`» You cant play Memory with yourself?`)
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-  				.setDescription(`» Du kannst Memory nicht mit dir selber spielen?`)
+					.setDescription(`» Du kannst Memory nicht mit dir selber spielen?`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 
@@ -142,40 +142,40 @@ export default {
 		// Check for Enough Money
 		if (money < bet && bet !== null) {
 			const missing = bet - money
-			
+
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-  			.setDescription(`» You dont have enough Money for that, you are missing **\$${missing}**!`)
+				.setDescription(`» You dont have enough Money for that, you are missing **\$${missing}**!`)
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-  				.setDescription(`» Du hast dafür nicht genug Geld, dir fehlen **${missing}€**!`)
+					.setDescription(`» Du hast nicht genug Geld dafür, dir fehlen **${missing}€**!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
-			
+
 			// Send Message
 			ctx.log(false, `[CMD] MEMORY : ${user.id} : NOTENOUGHMONEY`)
 			return ctx.interaction.reply({ embeds: [message], ephemeral: true })
 		}
 		if (othermoney < bet && bet !== null) {
 			const missing = bet - othermoney
-			
+
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-  			.setDescription(`» <@${user.id}> doesnt have enough Money for that, he is Missing **\$${missing}**!`)
+				.setDescription(`» <@${user.id}> doesnt have enough Money for that, he is Missing **\$${missing}**!`)
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-  				.setDescription(`» <@${user.id}> hat dafür nicht genug Geld, im fehlen **${missing}€**!`)
+					.setDescription(`» <@${user.id}> hat dafür nicht genug Geld, im fehlen **${missing}€**!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
-			
+
 			// Send Message
 			ctx.log(false, `[CMD] MEMORY : ${user.id} : NOTENOUGHMONEY`)
 			return ctx.interaction.reply({ embeds: [message], ephemeral: true })
@@ -213,11 +213,11 @@ export default {
 						.setStyle(ButtonStyle.Danger),
 				)
 		}
-		
+
 		// Create Embed
 		let message = new EmbedBuilder().setColor(0x37009B)
 			.setTitle('<:GAMEPAD:1024395990679167066> » MEMORY')
-  		.setDescription(`
+			.setDescription(`
 				» <@${ctx.interaction.user.id}> challenges you, <@${user.id}> to a battle of Memory! The Bet is **$${bet}**.
 				Do you accept?
 				
@@ -227,7 +227,7 @@ export default {
 		if (ctx.metadata.language === 'de') {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:GAMEPAD:1024395990679167066> » MEMORY')
-  			.setDescription(`
+				.setDescription(`
 					» <@${ctx.interaction.user.id}> fordert dich, <@${user.id}> zu einem Spiel von Memory heraus! Die Wette ist **${bet}€**.
 					Akzeptierst du?
 					
@@ -242,7 +242,7 @@ export default {
 		// Init Timeout Function
 		ctx.bot.memory.set('TIMEOUT-' + ctx.interaction.user.id + '-' + msg.id, true)
 
-		const expiration = async() => {
+		const expiration = async () => {
 			// Check if Message wasnt already answered
 			if (!ctx.bot.memory.has('TIMEOUT-' + ctx.interaction.user.id + '-' + msg.id)) return
 			ctx.bot.memory.delete('TIMEOUT-' + ctx.interaction.user.id + '-' + msg.id)
@@ -268,7 +268,7 @@ export default {
 			}
 
 			ctx.log(false, `[CMD] MEMORY : ${user.id} : EXPIRED`)
-			ctx.interaction.editReply({ content: '', embeds: [message], components: msg.components }).catch(() => {})
+			ctx.interaction.editReply({ content: '', embeds: [message], components: msg.components }).catch(() => { })
 		}
 
 		setTimeout(() => expiration(), 27000)

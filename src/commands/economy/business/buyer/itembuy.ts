@@ -53,12 +53,12 @@ export default {
 					.setDescription(`» Items sind auf diesem Server deaktiviert!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
-			
+
 			// Send Message
 			ctx.log(false, '[CMD] ITEM : DISABLED')
 			return ctx.interaction.reply({ embeds: [message], ephemeral: true })
 		}
-		
+
 		// Set Variables
 		const itemid = ctx.getOption('item') as string
 		const amount = ctx.getOption('amount') as number
@@ -72,12 +72,12 @@ export default {
 		// Calculate Cost
 		let cost: number
 		if (await ctx.bot.businesses.get('g-' + ctx.interaction.guild.id + '-1-PRICE-' + itemid.toUpperCase()) === '0' || await ctx.bot.businesses.get('g-' + ctx.interaction.guild.id + '-1-PRICE-' + itemid.toUpperCase()) === 0) {
-			if (itemid === 'nbomb') cost = 500*costmul
-			if (itemid === 'mbomb') cost = 1000*costmul
-			if (itemid === 'hbomb') cost = 5000*costmul
-			if (itemid === 'cbomb') cost = 15000*costmul
+			if (itemid === 'nbomb') cost = 500 * costmul
+			if (itemid === 'mbomb') cost = 1000 * costmul
+			if (itemid === 'hbomb') cost = 5000 * costmul
+			if (itemid === 'cbomb') cost = 15000 * costmul
 		} else {
-			cost = Number(await ctx.bot.businesses.get('g-' + ctx.interaction.guild.id + '-1-PRICE-' + itemid.toUpperCase()))*costmul
+			cost = Number(await ctx.bot.businesses.get('g-' + ctx.interaction.guild.id + '-1-PRICE-' + itemid.toUpperCase())) * costmul
 		}
 
 		// Translate to Item Names
@@ -96,20 +96,20 @@ export default {
 		// Check if User has enough Money
 		if (balance < cost) {
 			const missing = cost - balance
-			
+
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-  				.setDescription(`» You dont have enough Money for that, you are missing **$${missing}**!`)
+				.setDescription(`» You dont have enough Money for that, you are missing **$${missing}**!`)
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-  					.setDescription(`» Du hast dafür nicht genug Geld, dir fehlen **${missing}€**!`)
+					.setDescription(`» Du hast nicht genug Geld dafür, dir fehlen **${missing}€**!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
-			
+
 			// Send Message
 			ctx.log(false, `[CMD] ITEMBUY : ${itemid.toUpperCase()} : NOTENOUGHMONEY : ${cost}€`)
 			return ctx.interaction.reply({ embeds: [message], ephemeral: true })
@@ -135,7 +135,7 @@ export default {
 					.setDescription(`» Du hast nicht genug Slots dafür!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
-	
+
 			// Send Message
 			ctx.log(false, `[CMD] ITEMBUY : ${itemid.toUpperCase()} : MAXSLOTS`)
 			return ctx.interaction.reply({ embeds: [message], ephemeral: true })

@@ -45,7 +45,7 @@ export default {
 		}
 		
 		// Send Message
-		ctx.log(false, `[CMD] DASHBOARD`)
+		ctx.log(false, `[CMD] WEBSITE`)
 		await ctx.interaction.reply({ embeds: [message], components: [row as any], ephemeral: true })
 	}
 }

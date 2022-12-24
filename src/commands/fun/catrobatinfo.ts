@@ -78,12 +78,11 @@ export default {
 			.setThumbnail(info.screenshot_small)
   		.setDescription(`
 				[${info.name}](https://share.catrob.at/project/${id})
-				
+
 				» Description
-				\`${info.description.replace('`', '"')}\`
-				
+				\`\`\`${info.description.replace('```', '``')}\`\`\`
 				» Size
-				\`${Number(info.filesize).toFixed(2)}MB\`
+				\`\`\`${Number(info.filesize).toFixed(2)}MB\`\`\`
 			`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 		if (ctx.metadata.language === 'de') {
@@ -92,12 +91,11 @@ export default {
 				.setThumbnail(info.screenshot_small)
 				.setDescription(`
 					[${info.name}](https://share.catrob.at/project/${id})
-					
+
 					» Beschreibung
-					\`${info.description.replace('`', '"')}\`
-					
+					\`\`\`${info.description.replace('```', '``')}\`\`\`
 					» Größe
-					\`${Number(info.filesize).toFixed(2)}MB\`
+					\`\`\`${Number(info.filesize).toFixed(2)}MB\`\`\`
 				`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 		}
 

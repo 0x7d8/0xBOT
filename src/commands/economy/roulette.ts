@@ -51,7 +51,7 @@ export default {
 					.setDescription(`» Glücksspiele sind auf diesem Server deaktiviert!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
-			
+
 			// Send Message
 			ctx.log(false, `[CMD] ROULETTE : DISABLED`)
 			return ctx.interaction.reply({ embeds: [message], ephemeral: true })
@@ -77,21 +77,22 @@ export default {
 					.setDescription(`» Du kannst keine negativen Einsätze spielen!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
-			
+
 			// Send Message
 			ctx.log(false, `[CMD] ROULETTE : NEGATIVEMONEY : ${wette}€`)
 			return ctx.interaction.reply({ embeds: [message], ephemeral: true })
 		}
-		
+
 		// Calculate Color
 		let color: string
 		if (random == 1) color = 'grün'
 		if (random >= 2) color = 'schwarz'
 		if (random >= 11) color = 'rot'
-		
+
 		// Calculate Status
 		let status: string, transaction: any
-		if (color === farbe) { status = 'WON'; // Log Transaction
+		if (color === farbe) {
+			status = 'WON'; // Log Transaction
 			transaction = await ctx.bot.transactions.log({
 				success: true,
 				sender: {
@@ -104,7 +105,8 @@ export default {
 					type: 'positive'
 				}
 			})
-		}; if (color !== farbe) { status = 'LOST'; // Log Transaction
+		}; if (color !== farbe) {
+			status = 'LOST'; // Log Transaction
 			transaction = await ctx.bot.transactions.log({
 				success: true,
 				sender: {
@@ -123,7 +125,7 @@ export default {
 			if (color === farbe) status = 'GEWONNEN'
 			if (color !== farbe) status = 'VERLOREN'
 		}
-		
+
 		// Check for enough Money
 		if (money >= wette) {
 			// Check for Max Amount
@@ -131,21 +133,21 @@ export default {
 				// Create Embed
 				let message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-  				.setDescription(`» You cant bet that much! **$15000** is the Maximum.`)
+					.setDescription(`» You cant bet that much! **$15000** is the Maximum.`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 				if (ctx.metadata.language === 'de') {
 					message = new EmbedBuilder().setColor(0x37009B)
 						.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-  					.setDescription(`» Du kannst nicht soviel Wetten! **15000€** ist das Maximum.`)
+						.setDescription(`» Du kannst nicht soviel Wetten! **15000€** ist das Maximum.`)
 						.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 				}
-				
+
 				// Send Message
 				ctx.log(false, `[CMD] ROULETTE : TOOMUCHMONEY : ${wette}€`)
 				return ctx.interaction.reply({ embeds: [message], ephemeral: true })
 			}
-			
+
 			// Set Money
 			let resultmul: number
 			if (color === farbe && color === 'grün') resultmul = 4
@@ -163,11 +165,11 @@ export default {
 			if (farbe === 'grün') colordis = 'green'
 			if (farbe === 'rot') colordis = 'red'
 			if (farbe === 'schwarz') colordis = 'black'
-		
+
 			// Create Embed
-	  		let message = new EmbedBuilder().setColor(0x37009B)
+			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:CLOVER:1024388649418235925> » ROULETTE')
-  			.setDescription(`
+				.setDescription(`
 					» You bet **$${wette}** on **${colordis.toUpperCase()}** and **${status}** **$${resultdis}**!
 					${status === 'LOST' ? `The Color was **${color.toUpperCase()}**\n` : ''}
 					ID: ${transaction.id}
@@ -176,36 +178,36 @@ export default {
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:CLOVER:1024388649418235925> » ROULETTE')
-  				.setDescription(`
+					.setDescription(`
 						» Du hast **${wette}€** auf **${farbe.toUpperCase()}** gesetzt und **${resultdis}€** **${status}**!
 						${status === 'VERLOREN' ? `Die Farbe war **${color.toUpperCase()}**\n` : ''}
 						ID: ${transaction.id}
 					`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
-			
+
 			// Set Money
 			if (color !== farbe) ctx.bot.money.rem(ctx.interaction.guild.id, ctx.interaction.user.id, wette)
 			if (color === farbe) ctx.bot.money.add(ctx.interaction.guild.id, ctx.interaction.user.id, resultadd)
-			
+
 			// Send Message
 			ctx.log(false, `[CMD] ROULETTE : ${farbe.toUpperCase()} [W:${color.toUpperCase()}] : ${status} : ${resultdis}€`)
 			return ctx.interaction.reply({ embeds: [message] })
 		} else {
 			const missing = wette - money
-			
+
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-  			.setDescription(`» You dont have enough Money for that, you are missing **$${missing}**!`)
+				.setDescription(`» You dont have enough Money for that, you are missing **$${missing}**!`)
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-  				.setDescription(`» Du hast dafür nicht genug Geld, dir fehlen **${missing}€**!`)
+					.setDescription(`» Du hast nicht genug Geld dafür, dir fehlen **${missing}€**!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
-			
+
 			// Send Message
 			ctx.log(false, `[CMD] ROULETTE : NOTENOUGHMONEY : ${missing}€`)
 			return ctx.interaction.reply({ embeds: [message], ephemeral: true })

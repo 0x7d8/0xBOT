@@ -51,8 +51,8 @@ export default {
 		let comments = res[0].data.children[0].data.num_comments
 
 		// 187 Easter Egg
-		if (upvotes === 187) upvotes = upvotes + ' 🐊'
-		if (comments === 187) comments = comments + ' 🐊'
+		if (upvotes === 187) upvotes += ' 🐊'
+		if (comments === 187) comments += ' 🐊'
 
 		// Edit Buttons
 		ctx.components.rows[0].components[1].setLabel(String(upvotes))
@@ -62,8 +62,8 @@ export default {
 		let message = new EmbedBuilder().setColor(0x37009B)
 			.setTitle(`<:IMAGE:1024405297579696179> » ${res[0].data.children[0].data.title.toUpperCase()}`)
 			.setDescription(`
-				» SUBREDDIT:
-				\`r/${subreddit}\`
+				» Subreddit
+				\`\`\`r/${subreddit}\`\`\`
 			`).setImage(res[0].data.children[0].data.url)
 			.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
@@ -71,8 +71,8 @@ export default {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle(`<:IMAGE:1024405297579696179> » ${res[0].data.children[0].data.title.toUpperCase()}`)
 				.setDescription(`
-					» SUBREDDIT:
-					\`r/${subreddit}\`
+					» Subreddit
+					\`\`\`r/${subreddit}\`\`\`
 				`).setImage(res[0].data.children[0].data.url)
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 		}

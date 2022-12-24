@@ -15,20 +15,20 @@ export default {
 		// Check for enough Money
 		if (balance < amount) {
 			const missing = amount - balance
-			
+
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-  			.setDescription(`» You dont have enough Money for that, you are missing **\$${missing}**!`)
+				.setDescription(`» You dont have enough Money for that, you are missing **\$${missing}**!`)
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-  				.setDescription(`» Du hast dafür nicht genug Geld, dir fehlen **${missing}€**!`)
+					.setDescription(`» Du hast nicht genug Geld dafür, dir fehlen **${missing}€**!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
-			
+
 			// Send Message
 			ctx.log(false, `[BTN] BEG : ${reciever} : ${amount}€ : NOTENOUGHMONEY`)
 			return ctx.interaction.reply({ embeds: [message], ephemeral: true })
@@ -39,13 +39,13 @@ export default {
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-  			.setDescription(`» You cant give yourself Money?`)
+				.setDescription(`» You cant give yourself Money?`)
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-  				.setDescription(`» Du kannst dir selber kein Geld geben?`)
+					.setDescription(`» Du kannst dir selber kein Geld geben?`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 
@@ -75,9 +75,9 @@ export default {
 		// Create Embeds
 		let message: any
 		if (reasontype !== 'SET') {
-	  		message = new EmbedBuilder().setColor(0x37009B)
+			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:DONATE:1024397357988720711> » BEGGING')
-  			.setDescription(`
+				.setDescription(`
 					» <@${reciever}> needs Money!
 					Total Earnings: **\$${total}**
 				`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
@@ -85,7 +85,7 @@ export default {
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:DONATE:1024397357988720711> » BETTELN')
-  				.setDescription(`
+					.setDescription(`
 						» <@${reciever}> braucht Geld!
 						Insgesamte Einnahmen: **${total}€**
 					`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
@@ -93,18 +93,20 @@ export default {
 		} else {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:DONATE:1024397357988720711> » BEGGING')
-  			.setDescription(`
+				.setDescription(`
 					» <@${reciever}> needs Money!
 					Total Earnings: **\$${total}**
+
 					*"${reason}"*
 				`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:DONATE:1024397357988720711> » BETTELN')
-  				.setDescription(`
+					.setDescription(`
 						» <@${reciever}> braucht Geld!
 						Insgesamte Einnahmen: **${total}€**
+
 						*"${reason}"*
 					`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
@@ -131,6 +133,6 @@ export default {
 		await ctx.interaction.reply({ embeds: [rmessage] })
 
 		// Edit Original Message
-		return ctx.interaction.message.edit({ embeds: [message] }).catch(() => {})
+		return ctx.interaction.message.edit({ embeds: [message] }).catch(() => { })
 	}
 }

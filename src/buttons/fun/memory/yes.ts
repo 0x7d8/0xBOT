@@ -12,7 +12,7 @@ export default {
 		// Get Users
 		const cache = ctx.interaction.message.embeds
 		const description = cache[0].description.toString().replace(/[^\d@!]/g, '').split('!')[0].substring(1).split("@")
-		const [ sender, reciever ] = description
+		const [sender, reciever] = description
 
 		// Set Variables
 		const balance = await ctx.bot.money.get(reciever)
@@ -32,7 +32,7 @@ export default {
 					.setDescription(`» <@${reciever}> muss das entscheiden!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
-			
+
 			// Send Message
 			ctx.log(false, `[BTN] MEMORY : YES : NOTALLOWED`)
 			return ctx.interaction.reply({ embeds: [message], ephemeral: true })
@@ -52,7 +52,7 @@ export default {
 					.setDescription(`» Du bist schon in einer Lobby!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
-			
+
 			// Send Message
 			ctx.log(false, `[BTN] MEMORY : ${reciever} : ALREADYLOBBY`)
 			return ctx.interaction.reply({ embeds: [message], ephemeral: true })
@@ -72,7 +72,7 @@ export default {
 					.setDescription(`» <@${sender}> ist schon in einer Lobby!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
-			
+
 			// Send Message
 			ctx.log(false, `[BTN] MEMORY : ${sender} : ALREADYLOBBY`)
 			return ctx.interaction.reply({ embeds: [message], ephemeral: true })
@@ -81,40 +81,40 @@ export default {
 		// Check for enough Money
 		if (balance < bet) {
 			const missing = bet - balance
-			
+
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-  			.setDescription(`» You dont have enough Money for that, you are missing **\$${missing}**!`)
+				.setDescription(`» You dont have enough Money for that, you are missing **\$${missing}**!`)
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-  				.setDescription(`» Du hast dafür nicht genug Geld, dir fehlen **${missing}€**!`)
+					.setDescription(`» Du hast nicht genug Geld dafür, dir fehlen **${missing}€**!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
-			
+
 			// Send Message
 			ctx.log(false, `[BTN] MEMORY : ${reciever} : ${bet}€ : NOTENOUGHMONEY`)
 			return ctx.interaction.reply({ embeds: [message], ephemeral: true })
 		}
 		if (otherbalance < bet) {
 			const missing = bet - otherbalance
-			
+
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-  			.setDescription(`» <@${sender}> doesnt have enough Money, he is Missing **\$${missing}**!`)
+				.setDescription(`» <@${sender}> doesnt have enough Money, he is Missing **\$${missing}**!`)
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-  				.setDescription(`» <@${sender}> hat nicht genug Geld, im fehlen **${missing}€**!`)
+					.setDescription(`» <@${sender}> hat nicht genug Geld, im fehlen **${missing}€**!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
-			
+
 			// Send Message
 			ctx.log(false, `[BTN] MEMORY : ${reciever} : ${bet}€ : NOTENOUGHMONEY`)
 			return ctx.interaction.reply({ embeds: [message], ephemeral: true })
@@ -143,7 +143,7 @@ export default {
 					.setEmoji('1020411843644243998')
 					.setCustomId(`MEMORY-3-${bet}`)
 					.setStyle(ButtonStyle.Secondary),
-				
+
 				new ButtonBuilder()
 					.setEmoji('1020411843644243998')
 					.setCustomId(`MEMORY-4-${bet}`)
@@ -170,7 +170,7 @@ export default {
 					.setEmoji('1020411843644243998')
 					.setCustomId(`MEMORY-8-${bet}`)
 					.setStyle(ButtonStyle.Secondary),
-				
+
 				new ButtonBuilder()
 					.setEmoji('1020411843644243998')
 					.setCustomId(`MEMORY-9-${bet}`)
@@ -197,7 +197,7 @@ export default {
 					.setEmoji('1020411843644243998')
 					.setCustomId(`MEMORY-13-${bet}`)
 					.setStyle(ButtonStyle.Secondary),
-				
+
 				new ButtonBuilder()
 					.setEmoji('1020411843644243998')
 					.setCustomId(`MEMORY-14-${bet}`)
@@ -224,7 +224,7 @@ export default {
 					.setEmoji('1020411843644243998')
 					.setCustomId(`MEMORY-18-${bet}`)
 					.setStyle(ButtonStyle.Secondary),
-				
+
 				new ButtonBuilder()
 					.setEmoji('1020411843644243998')
 					.setCustomId(`MEMORY-19-${bet}`)
@@ -327,7 +327,7 @@ export default {
 		}
 
 		let emojistate = false, emojinumber = 1, skipother = false
-		const rdo = async() => {
+		const rdo = async () => {
 			while (emojistate == false) {
 				const emojirandom = ctx.bot.random(1, 10)
 				const emoji = await emojilist[emojirandom - 1]
@@ -390,9 +390,9 @@ export default {
 		// Set Default Button Values
 		ctx.bot.memory.set('TURN-' + sender, sender)
 		for (let i = 0; i < 20; i++) {
-			ctx.bot.memory.set('STYLE-' + (i+1) + '-' + sender, ButtonStyle.Secondary)
-			ctx.bot.memory.set('DISABLED-' + (i+1) + '-' + sender, false)
-			ctx.bot.memory.set('D_EMOJI-' + (i+1) + '-' + sender, { id: '1020411843644243998', name: 'MEMORY' })
+			ctx.bot.memory.set('STYLE-' + (i + 1) + '-' + sender, ButtonStyle.Secondary)
+			ctx.bot.memory.set('DISABLED-' + (i + 1) + '-' + sender, false)
+			ctx.bot.memory.set('D_EMOJI-' + (i + 1) + '-' + sender, { id: '1020411843644243998', name: 'MEMORY' })
 		}
 
 		// Send Message

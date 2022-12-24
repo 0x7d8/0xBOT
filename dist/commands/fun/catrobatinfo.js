@@ -61,10 +61,9 @@ let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 [${info.name}](https://share.catrob.at/project/${id})
 
 » Description
-\`${info.description.replace('`', '"')}\`
-
+\`\`\`${info.description.replace('```', '``')}\`\`\`
 » Size
-\`${Number(info.filesize).toFixed(2)}MB\`
+\`\`\`${Number(info.filesize).toFixed(2)}MB\`\`\`
 `).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
@@ -74,10 +73,9 @@ message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 [${info.name}](https://share.catrob.at/project/${id})
 
 » Beschreibung
-\`${info.description.replace('`', '"')}\`
-
+\`\`\`${info.description.replace('```', '``')}\`\`\`
 » Größe
-\`${Number(info.filesize).toFixed(2)}MB\`
+\`\`\`${Number(info.filesize).toFixed(2)}MB\`\`\`
 `).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
 ctx.log(false, `[CMD] CATROBATINFO : ${id.toUpperCase()}`);

@@ -18,7 +18,7 @@ let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 if (ctx.metadata.language === 'de') {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-.setDescription(`» Du hast dafür nicht genug Geld, dir fehlen **${missing}€**!`)
+.setDescription(`» Du hast nicht genug Geld dafür, dir fehlen **${missing}€**!`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
 ctx.log(false, `[BTN] BEG : ${reciever} : ${amount}€ : NOTENOUGHMONEY`);
@@ -75,6 +75,7 @@ message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setDescription(`
 » <@${reciever}> needs Money!
 Total Earnings: **\$${total}**
+
 *"${reason}"*
 `).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
@@ -83,6 +84,7 @@ message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setDescription(`
 » <@${reciever}> braucht Geld!
 Insgesamte Einnahmen: **${total}€**
+
 *"${reason}"*
 `).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }

@@ -44,9 +44,9 @@ const res = req.data;
 let upvotes = res[0].data.children[0].data.ups;
 let comments = res[0].data.children[0].data.num_comments;
 if (upvotes === 187)
-upvotes = upvotes + ' 🐊';
+upvotes += ' 🐊';
 if (comments === 187)
-comments = comments + ' 🐊';
+comments += ' 🐊';
 let row = new discord_js_1.ActionRowBuilder()
 .addComponents(new discord_js_1.ButtonBuilder()
 .setLabel('NEW')
@@ -84,16 +84,16 @@ row = new discord_js_1.ActionRowBuilder()
 let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
 .setTitle(`<:IMAGE:1024405297579696179> » ${res[0].data.children[0].data.title.toUpperCase()}`)
 .setDescription(`
-» SUBREDDIT:
-\`r/${subreddit}\`
+» Subreddit
+\`\`\`r/${subreddit}\`\`\`
 `).setImage(res[0].data.children[0].data.url)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
 .setTitle(`<:IMAGE:1024405297579696179> » ${res[0].data.children[0].data.title.toUpperCase()}`)
 .setDescription(`
-» SUBREDDIT:
-\`r/${subreddit}\`
+» Subreddit
+\`\`\`r/${subreddit}\`\`\`
 `).setImage(res[0].data.children[0].data.url)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }

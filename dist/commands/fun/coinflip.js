@@ -87,21 +87,19 @@ else {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:COINS:1024392690776944803> » COINFLIP')
 .setDescription(`
-» HEADS
-\`${heads}\`
-
-» TAILS
-\`${tails}\`
+» Heads
+\`\`\`${heads}\`\`\`
+» Tails
+\`\`\`${tails}\`\`\`
 `).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:COINS:1024392690776944803> » COINFLIP')
 .setDescription(`
-» KÖPFE
-\`${heads}\`
-
-» ZAHLEN
-\`${tails}\`
+» Köpfe
+\`\`\`${heads}\`\`\`
+» Zahlen
+\`\`\`${tails}\`\`\`
 `).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
 }

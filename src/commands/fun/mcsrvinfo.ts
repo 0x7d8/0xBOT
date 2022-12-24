@@ -69,12 +69,11 @@ export default {
 			.setThumbnail(`https://api.mcsrvstat.us/icon/${encodeURIComponent(address)}`)
   		.setDescription(`
 				${status}
-				
+
 				» IP
-				\`${info.ip}:${info.port}\`
-				
+				\`\`\`${info.ip}:${info.port}\`\`\`
 				» Players
-				\`${players.online}/${players.slots}\`
+				\`\`\`${players.online}/${players.slots}\`\`\`
 			`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 		if (ctx.metadata.language === 'de') {
@@ -83,12 +82,11 @@ export default {
 				.setThumbnail(`https://api.mcsrvstat.us/icon/${encodeURIComponent(address)}`)
 				.setDescription(`
 					${status}
-					
+
 					» IP
-					\`${info.ip}:${info.port}\`
-					
+					\`\`\`${info.ip}:${info.port}\`\`\`
 					» Spieler
-					\`${players.online}/${players.slots}\`
+					\`\`\`${players.online}/${players.slots}\`\`\`
 				`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 		}
 

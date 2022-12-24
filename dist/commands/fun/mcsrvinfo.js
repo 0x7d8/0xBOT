@@ -58,10 +58,9 @@ let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 ${status}
 
 » IP
-\`${info.ip}:${info.port}\`
-
+\`\`\`${info.ip}:${info.port}\`\`\`
 » Players
-\`${players.online}/${players.slots}\`
+\`\`\`${players.online}/${players.slots}\`\`\`
 `).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
@@ -71,10 +70,9 @@ message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 ${status}
 
 » IP
-\`${info.ip}:${info.port}\`
-
+\`\`\`${info.ip}:${info.port}\`\`\`
 » Spieler
-\`${players.online}/${players.slots}\`
+\`\`\`${players.online}/${players.slots}\`\`\`
 `).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
 ctx.log(false, `[CMD] MCSRVINFO : ${address.toUpperCase()}`);

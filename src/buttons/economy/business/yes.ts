@@ -38,16 +38,16 @@ export default {
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-  			.setDescription(`» This choice is up to <@${userid}>!`)
+				.setDescription(`» This choice is up to <@${userid}>!`)
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-  				.setDescription(`» Diese Frage ist für <@${userid}>!`)
+					.setDescription(`» Diese Frage ist für <@${userid}>!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
-			
+
 			// Send Message
 			ctx.log(false, `[BTN] BUSINESSBUY : NOTSENDER`)
 			return ctx.interaction.reply({ embeds: [message], ephemeral: true })
@@ -58,20 +58,20 @@ export default {
 			// Check if User has enough Money
 			if (balance < cost) {
 				const missing = cost - balance
-				
+
 				// Create Embed
 				let message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-  				.setDescription(`» You dont have enough Money for that, you are missing **\$${missing}**!`)
+					.setDescription(`» You dont have enough Money for that, you are missing **\$${missing}**!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 				if (ctx.metadata.language === 'de') {
 					message = new EmbedBuilder().setColor(0x37009B)
 						.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-  					.setDescription(`» Du hast dafür nicht genug Geld, dir fehlen **${missing}€**!`)
+						.setDescription(`» Du hast nicht genug Geld dafür, dir fehlen **${missing}€**!`)
 						.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 				}
-			
+
 				// Send Message
 				ctx.log(false, `[BTN] BUSINESSBUY : ${name.toUpperCase()} : NOTENOUGHMONEY : ${cost}€`)
 				return ctx.interaction.reply({ embeds: [message], ephemeral: true })
@@ -185,13 +185,13 @@ export default {
 				// Create Embed
 				let message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-  				.setDescription(`» You dont own a Business!`)
+					.setDescription(`» You dont own a Business!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 				if (ctx.metadata.language === 'de') {
 					message = new EmbedBuilder().setColor(0x37009B)
 						.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-  					.setDescription(`» Du besitzt kein Geschäft!`)
+						.setDescription(`» Du besitzt kein Geschäft!`)
 						.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 				}
 
@@ -219,7 +219,7 @@ export default {
 			}
 
 			// Add Money
-			ctx.bot.money.add(ctx.interaction.guild.id, ctx.interaction.user.id, (cost/2))
+			ctx.bot.money.add(ctx.interaction.guild.id, ctx.interaction.user.id, (cost / 2))
 
 			// unOwn Business
 			ctx.bot.businesses.del('u-' + ctx.interaction.user.id + '-' + ctx.interaction.guild.id + '-BUSINESS')

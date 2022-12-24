@@ -12,16 +12,16 @@ export default {
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-  			.setDescription(`» This choice is up to <@${userid}>!`)
+				.setDescription(`» This choice is up to <@${userid}>!`)
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-  				.setDescription(`» Diese Frage ist für <@${userid}>!`)
+					.setDescription(`» Diese Frage ist für <@${userid}>!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
-			
+
 			// Send Message
 			ctx.log(false, `[BTN] ITEMBUY : NOTSENDER`)
 			return ctx.interaction.reply({ embeds: [message], ephemeral: true })
@@ -33,13 +33,13 @@ export default {
 		// Calculate Cost
 		let cost: number, dopay = false
 		if (await ctx.bot.businesses.get('g-' + ctx.interaction.guild.id + '-1-PRICE-' + itemid.toUpperCase()) === '0' || await ctx.bot.businesses.get('g-' + ctx.interaction.guild.id + '-1-PRICE-' + itemid.toUpperCase()) === 0) {
-			if (itemid === 'nbomb') cost = 500*amount
-			if (itemid === 'mbomb') cost = 1000*amount
-			if (itemid === 'hbomb') cost = 5000*amount
-			if (itemid === 'cbomb') cost = 15000*amount
+			if (itemid === 'nbomb') cost = 500 * amount
+			if (itemid === 'mbomb') cost = 1000 * amount
+			if (itemid === 'hbomb') cost = 5000 * amount
+			if (itemid === 'cbomb') cost = 15000 * amount
 		} else {
 			dopay = true
-			cost = Number(await ctx.bot.businesses.get('g-' + ctx.interaction.guild.id + '-1-PRICE-' + itemid.toUpperCase()))*amount
+			cost = Number(await ctx.bot.businesses.get('g-' + ctx.interaction.guild.id + '-1-PRICE-' + itemid.toUpperCase())) * amount
 		}
 
 		// Translate to itemid Names
@@ -60,20 +60,20 @@ export default {
 			// Check if User has enough Money
 			if (balance < cost) {
 				const missing = cost - balance
-				
+
 				// Create Embed
 				let message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-  				.setDescription(`» You dont have enough Money for that, you are missing **\$${missing}**!`)
+					.setDescription(`» You dont have enough Money for that, you are missing **\$${missing}**!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 				if (ctx.metadata.language === 'de') {
 					message = new EmbedBuilder().setColor(0x37009B)
 						.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-  					.setDescription(`» Du hast dafür nicht genug Geld, dir fehlen **${missing}€**!`)
+						.setDescription(`» Du hast nicht genug Geld dafür, dir fehlen **${missing}€**!`)
 						.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 				}
-			
+
 				// Send Message
 				ctx.log(false, `[BTN] ITEMBUY : ${itemid.toUpperCase()} : NOTENOUGHMONEY : ${cost}€`)
 				return ctx.interaction.reply({ embeds: [message], ephemeral: true })
@@ -94,7 +94,7 @@ export default {
 						.setDescription(`» Du hast nicht genug Slots dafür!`)
 						.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 				}
-		
+
 				// Send Message
 				ctx.log(false, `[BTN] ITEMBUY : ${itemid.toUpperCase()} : MAXSLOTS`)
 				return ctx.interaction.reply({ embeds: [message], ephemeral: true })
@@ -165,10 +165,10 @@ export default {
 			// Transfer Money if Business is owned
 			if (dopay) {
 				const businessowner = await ctx.bot.businesses.get('g-' + ctx.interaction.guild.id + '-1-OWNER')
-				if (itemid === 'nbomb') { ctx.bot.money.add(ctx.interaction.guild.id, businessowner, cost-250); ctx.bot.businesses.add('g-' + ctx.interaction.guild.id + '-1-EARNING', cost-250) }
-				if (itemid === 'mbomb') { ctx.bot.money.add(ctx.interaction.guild.id, businessowner, cost-750); ctx.bot.businesses.add('g-' + ctx.interaction.guild.id + '-1-EARNING', cost-750) }
-				if (itemid === 'hbomb') { ctx.bot.money.add(ctx.interaction.guild.id, businessowner, cost-2500); ctx.bot.businesses.add('g-' + ctx.interaction.guild.id + '-1-EARNING', cost-2500) }
-				if (itemid === 'cbomb') { ctx.bot.money.add(ctx.interaction.guild.id, businessowner, cost-7500); ctx.bot.businesses.add('g-' + ctx.interaction.guild.id + '-1-EARNING', cost-7500) }
+				if (itemid === 'nbomb') { ctx.bot.money.add(ctx.interaction.guild.id, businessowner, cost - 250); ctx.bot.businesses.add('g-' + ctx.interaction.guild.id + '-1-EARNING', cost - 250) }
+				if (itemid === 'mbomb') { ctx.bot.money.add(ctx.interaction.guild.id, businessowner, cost - 750); ctx.bot.businesses.add('g-' + ctx.interaction.guild.id + '-1-EARNING', cost - 750) }
+				if (itemid === 'hbomb') { ctx.bot.money.add(ctx.interaction.guild.id, businessowner, cost - 2500); ctx.bot.businesses.add('g-' + ctx.interaction.guild.id + '-1-EARNING', cost - 2500) }
+				if (itemid === 'cbomb') { ctx.bot.money.add(ctx.interaction.guild.id, businessowner, cost - 7500); ctx.bot.businesses.add('g-' + ctx.interaction.guild.id + '-1-EARNING', cost - 7500) }
 			}
 
 			// Own Item(s)

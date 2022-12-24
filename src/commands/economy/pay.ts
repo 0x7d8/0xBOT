@@ -50,7 +50,7 @@ export default {
 					.setDescription(`» Du kannst kein negatives Geld senden!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
-			
+
 			// Send Message
 			ctx.log(false, `[CMD] PAY : NEGATIVEMONEY : ${amount}€`)
 			return ctx.interaction.reply({ embeds: [message], ephemeral: true })
@@ -70,7 +70,7 @@ export default {
 					.setDescription(`» Du kannst einem Bot kein Geld geben!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
-			
+
 			// Send Message
 			ctx.log(false, `[CMD] PAY : ${user.id} : BOT : ${amount}€`)
 			return ctx.interaction.reply({ embeds: [message], ephemeral: true })
@@ -81,13 +81,13 @@ export default {
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-  			.setDescription(`» You cant pay yourself Money?`)
+				.setDescription(`» You cant pay yourself Money?`)
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-  				.setDescription(`» Du kannst dir selber kein Geld überweisen?`)
+					.setDescription(`» Du kannst dir selber kein Geld überweisen?`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 
@@ -99,20 +99,20 @@ export default {
 		// Check for enough Money
 		if (balance < amount) {
 			const missing = amount - balance
-			
+
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-  			.setDescription(`» You dont have enough Money for that, you are missing **$${missing}**!`)
+				.setDescription(`» You dont have enough Money for that, you are missing **$${missing}**!`)
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-  				.setDescription(`» Du hast dafür nicht genug Geld, dir fehlen **${missing}€**!`)
+					.setDescription(`» Du hast nicht genug Geld dafür, dir fehlen **${missing}€**!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
-			
+
 			// Send Message
 			ctx.log(false, `[CMD] PAY : ${user.id} : NOTENOUGHMONEY : ${amount}€`)
 			return ctx.interaction.reply({ embeds: [message], ephemeral: true })
@@ -131,11 +131,11 @@ export default {
 				type: 'positive'
 			}
 		})
-		
+
 		// Create Embeds
-	  	let message = new EmbedBuilder().setColor(0x37009B)
+		let message = new EmbedBuilder().setColor(0x37009B)
 			.setTitle('<:BAG:1024389219558367292> » GIVE MONEY')
-  		.setDescription(`
+			.setDescription(`
 				» You gave <@${user.id}> **$${amount}**!
 
 				ID: ${transaction.id}
@@ -144,13 +144,13 @@ export default {
 		if (ctx.metadata.language === 'de') {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:BAG:1024389219558367292> » GELD GEBEN')
-  			.setDescription(`
+				.setDescription(`
 					» Du hast <@${user.id}> **${amount}€** gegeben!
 
 					ID: ${transaction.id}
 				`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 		}
-		
+
 		// Set Money
 		ctx.bot.money.rem(ctx.interaction.guild.id, ctx.interaction.user.id, amount)
 		ctx.bot.money.add(ctx.interaction.guild.id, user.id, amount)
