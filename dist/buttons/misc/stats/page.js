@@ -85,7 +85,7 @@ message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 `).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version + ' » SEITE ' + pageNumber });
 }
 }
-ctx.log(false, `[BTN] STATS :${selfCmd ? ` ${userId} :` : ''} ${pageNumber}`);
+ctx.log(false, `[BTN] STATS :${ctx.interaction.user.id !== userId ? ` ${userId} :` : ''} ${pageNumber}`);
 return ctx.interaction.update({ embeds: [message], components: (ctx.components.getAPI()) });
 }
 };

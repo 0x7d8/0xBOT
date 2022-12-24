@@ -83,7 +83,7 @@ export default {
 		}
 
 		// Send Message
-		ctx.log(false, `[BTN] STATS :${selfCmd ? ` ${userId} :` : ''} REFRESH : ${pageNumber}`)
+		ctx.log(false, `[BTN] STATS :${ctx.interaction.user.id !== userId ? ` ${userId} :` : ''} REFRESH : ${pageNumber}`)
 		return ctx.interaction.update({ embeds: [message], components: (ctx.components.getAPI()) })
 	}
 }

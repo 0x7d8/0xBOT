@@ -5,19 +5,13 @@ exports.default = {
 data: {
 name: 'cooldowns'
 },
-async execute(ctx, userId, userName) {
+async execute(ctx, userId, selfCmd) {
 const ms = (await import('pretty-ms')).default;
 let userobj;
-if (userId === ctx.interaction.user.id) {
-userobj = ctx.interaction.user;
-ctx.log(false, `[BTN] COOLDOWNS`);
-}
-else {
-userobj = { id: userId, username: userName };
-ctx.log(false, `[BTN] COOLDOWNS : ${userId}`);
-}
+if (selfCmd)
+userobj = await ctx.client.users.fetch(userId);
 let embedDesc = '';
-const rawvalues = await ctx.db.query(`select name, expires from usercooldowns where userid = $1 and expires / 1000 > extract(epoch from now());`, [userobj.id]);
+const rawvalues = await ctx.db.query(`select name, expires from usercooldowns where userid = $1 and expires / 1000 > extract(epoch from now());`, [userId]);
 for (const element of rawvalues.rows) {
 embedDesc += `» ${element.name.toUpperCase()}\n**${ms((Number(element.expires) - Date.now()), { secondsDecimalDigits: 0 })}**\n`;
 }
@@ -29,7 +23,7 @@ embedDesc = 'Nichts Gefunden.';
 }
 }
 let message;
-if (userId === ctx.interaction.user.id) {
+if (!selfCmd) {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:CLOCK:1054137880345329714> » YOUR ACTIVE COOLDOWNS')
 .setDescription(embedDesc)
@@ -53,6 +47,7 @@ message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
 }
+ctx.log(false, `[BTN] COOLDOWNS :${ctx.interaction.user.id !== userId ? ` ${userId} :` : ''} ${rawvalues.rowCount}`);
 return ctx.interaction.update({ embeds: [message] });
 }
 };

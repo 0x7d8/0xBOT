@@ -20,14 +20,10 @@ async execute(ctx) {
 const ms = (await import('pretty-ms')).default;
 const user = ctx.interaction.options.getUser("user");
 let userobj;
-if (!user) {
+if (!user)
 userobj = ctx.interaction.user;
-ctx.log(false, `[CMD] COOLDOWNS`);
-}
-else {
+else
 userobj = user;
-ctx.log(false, `[CMD] COOLDOWNS : ${user.id}`);
-}
 let embedDesc = '';
 const rawvalues = await ctx.db.query(`select name, expires from usercooldowns where userid = $1 and expires / 1000 > extract(epoch from now());`, [userobj.id]);
 for (const element of rawvalues.rows) {
@@ -44,14 +40,14 @@ let row = new discord_js_1.ActionRowBuilder()
 .addComponents(new discord_js_1.ButtonBuilder()
 .setLabel('UPDATE')
 .setEmoji('1055826473442873385')
-.setCustomId(`COOLDOWNS-${userobj.id}-${userobj.username}`)
+.setCustomId(`COOLDOWNS-${userobj.id}-${String(!!user).toUpperCase()}`)
 .setStyle(discord_js_1.ButtonStyle.Primary));
 if (ctx.metadata.language === 'de') {
 row = new discord_js_1.ActionRowBuilder()
 .addComponents(new discord_js_1.ButtonBuilder()
 .setLabel('AKTUALISIEREN')
 .setEmoji('1055826473442873385')
-.setCustomId(`COOLDOWNS-${userobj.id}-${userobj.username}`)
+.setCustomId(`COOLDOWNS-${userobj.id}-${String(!!user).toUpperCase()}`)
 .setStyle(discord_js_1.ButtonStyle.Primary));
 }
 let message;
@@ -79,6 +75,7 @@ message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
 }
+ctx.log(false, `[CMD] COOLDOWNS :${user ? ` ${user.id} :` : ''} ${rawvalues.rowCount}`);
 return ctx.interaction.reply({ embeds: [message], components: [row] });
 }
 };

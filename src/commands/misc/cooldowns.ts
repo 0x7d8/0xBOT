@@ -24,18 +24,12 @@ export default {
 		// Set Variables
 		const user = ctx.interaction.options.getUser("user")
 		let userobj: typeof ctx.interaction.user
-		if (!user) {
-			userobj = ctx.interaction.user
-			ctx.log(false, `[CMD] COOLDOWNS`)
-		} else {
-			userobj = user
-			ctx.log(false, `[CMD] COOLDOWNS : ${user.id}`)
-		}
+		if (!user) userobj = ctx.interaction.user
+		else userobj = user
 
 		// Get Results
 		let embedDesc = ''
 		const rawvalues = await ctx.db.query(`select name, expires from usercooldowns where userid = $1 and expires / 1000 > extract(epoch from now());`, [userobj.id])
-
 		for (const element of rawvalues.rows) {
 			embedDesc += `» ${element.name.toUpperCase()}\n**${ms((Number(element.expires) - Date.now()), { secondsDecimalDigits: 0 })}**\n`
 		}; if (embedDesc === '') { embedDesc = 'Nothing Found.'; if (ctx.metadata.language === 'de') { embedDesc = 'Nichts Gefunden.' } }
@@ -46,7 +40,7 @@ export default {
 				new ButtonBuilder()
 					.setLabel('UPDATE')
 					.setEmoji('1055826473442873385')
-					.setCustomId(`COOLDOWNS-${userobj.id}-${userobj.username}`)
+					.setCustomId(`COOLDOWNS-${userobj.id}-${String(!!user).toUpperCase()}`)
 					.setStyle(ButtonStyle.Primary),
 			)
 		if (ctx.metadata.language === 'de') {
@@ -55,7 +49,7 @@ export default {
 					new ButtonBuilder()
 						.setLabel('AKTUALISIEREN')
 						.setEmoji('1055826473442873385')
-						.setCustomId(`COOLDOWNS-${userobj.id}-${userobj.username}`)
+						.setCustomId(`COOLDOWNS-${userobj.id}-${String(!!user).toUpperCase()}`)
 						.setStyle(ButtonStyle.Primary),
 				)
 		}
@@ -89,6 +83,7 @@ export default {
 		}
 
 		// Send Message
+		ctx.log(false, `[CMD] COOLDOWNS :${user ? ` ${user.id} :` : ''} ${rawvalues.rowCount}`)
 		return ctx.interaction.reply({ embeds: [message], components: [row as any] })
 	}
 }
