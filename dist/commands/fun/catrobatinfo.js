@@ -58,7 +58,7 @@ let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:CUBE:1024404832452350032> » CATROBAT PROJECT INFO')
 .setThumbnail(info.screenshot_small)
 .setDescription(`
-[${info.name}](https://share.catrob.at/project/${id})
+[${info.name}](https://share.catrob.at/app/project/${id})
 
 » Description
 \`\`\`${info.description.replace('```', '``')}\`\`\`
@@ -70,7 +70,7 @@ message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:CUBE:1024404832452350032> » CATOBAT PROJEKT INFO')
 .setThumbnail(info.screenshot_small)
 .setDescription(`
-[${info.name}](https://share.catrob.at/project/${id})
+[${info.name}](https://share.catrob.at/app/project/${id})
 
 » Beschreibung
 \`\`\`${info.description.replace('```', '``')}\`\`\`
