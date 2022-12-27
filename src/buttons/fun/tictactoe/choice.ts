@@ -1,4 +1,4 @@
-import { EmbedBuilder } from "discord.js"
+import { ButtonBuilder, EmbedBuilder } from "discord.js"
 import { setTimeout as wait } from "timers/promises"
 
 // Function for Button Row Grabber

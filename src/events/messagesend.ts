@@ -11,6 +11,15 @@ export default {
 	async execute(message: Message, client: Client) {
 		if (!message.guildId) return
 
+		// Get Guild Language
+		const guildlang = await bot.language.get(message.guildId)
+
+		// Help System
+		if (message.content === (`<@${client.config.client.id}>`)) {
+			if (guildlang === 'de') return message.reply({ content: 'Ich nutze Slash Befehle, schreib `/` und seh!' })
+			else return message.reply({ content: 'I use slash commands, type `/` and see!' })
+		}
+
 		// Level System
 		if (!message.author.bot && Number(message.guildId) > 1000 && (await bot.settings.get(message.guildId, 'level'))) {
 			// Calculate old Level
@@ -39,11 +48,6 @@ export default {
 
 			// Send LevelUp Message if needed
 			if (oldLevel < newLevel) {
-				// Get Guild Language
-				let guildlang = 'en'
-				const glang = await bot.language.get(message.guildId)
-				if (Number(glang) === 1) guildlang = 'de'
-
 				// Create Button
 				const row = new ActionRowBuilder()
 					.addComponents(

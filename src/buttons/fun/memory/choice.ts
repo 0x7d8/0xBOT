@@ -219,8 +219,8 @@ export default {
 
 			let winner = '**Noone**', rawWinner: string
 			if (ctx.metadata.language === 'de') winner = '**Niemand**'
-			if (senderpoints > recieverpoints) winner = '<@' + sender + '>'
-			else if (senderpoints < recieverpoints) winner = '<@' + reciever + '>'
+			if (senderpoints > recieverpoints) { winner = '<@' + sender + '>'; rawWinner = sender }
+			else if (senderpoints < recieverpoints) { winner = '<@' + reciever + '>'; rawWinner = reciever }
 
 			// Transfer Money
 			const betwon = bet * 2; let transaction: any

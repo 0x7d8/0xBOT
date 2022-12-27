@@ -173,10 +173,14 @@ const recieverpoints = ctx.bot.memory.get('POINTS-' + reciever);
 let winner = '**Noone**', rawWinner;
 if (ctx.metadata.language === 'de')
 winner = '**Niemand**';
-if (senderpoints > recieverpoints)
+if (senderpoints > recieverpoints) {
 winner = '<@' + sender + '>';
-else if (senderpoints < recieverpoints)
+rawWinner = sender;
+}
+else if (senderpoints < recieverpoints) {
 winner = '<@' + reciever + '>';
+rawWinner = reciever;
+}
 const betwon = bet * 2;
 let transaction;
 if (winner !== '**Noone**' && winner !== '**Niemand**') {

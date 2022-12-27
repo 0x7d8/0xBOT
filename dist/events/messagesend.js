@@ -33,6 +33,13 @@ once: false,
 async execute(message, client) {
 if (!message.guildId)
 return;
+const guildlang = await bot.language.get(message.guildId);
+if (message.content === (`<@${client.config.client.id}>`)) {
+if (guildlang === 'de')
+return message.reply({ content: 'Ich nutze Slash Befehle, schreib `/` und seh!' });
+else
+return message.reply({ content: 'I use slash commands, type `/` and see!' });
+}
 if (!message.author.bot && Number(message.guildId) > 1000 && (await bot.settings.get(message.guildId, 'level'))) {
 const oldCache = await bot.stat.get('u-' + message.author.id + '-' + message.guildId + '-C', 'msg');
 const oldXP = Math.round(oldCache / 5);
@@ -53,10 +60,6 @@ newLevel++;
 newLevelXP -= 500;
 }
 if (oldLevel < newLevel) {
-let guildlang = 'en';
-const glang = await bot.language.get(message.guildId);
-if (Number(glang) === 1)
-guildlang = 'de';
 const row = new discord_js_1.ActionRowBuilder()
 .addComponents(new discord_js_1.ButtonBuilder()
 .setEmoji('1030476921777180672')
