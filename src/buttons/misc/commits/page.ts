@@ -14,6 +14,9 @@ export default {
 		if (type === 'back') pageNumber--
 		if (type === 'next') pageNumber++
 
+		// Check for Invalid Value
+    if (pageNumber === 0) return
+
 		// Get all Commits
 		let embedDesc = ''
 		const gitInfos = await git.log({

@@ -30,6 +30,7 @@ export default {
 			ctx.log(false, `[CMD] STATS : ${user.id} : 1`)
 		}
 
+		// Get Stats
 		const totalStats = await ctx.bot.stat.get('t-all', 'cmd')
 		const guildStats = await ctx.bot.stat.get('g-' + userobj.id, 'cmd')
 		const userStats = await ctx.bot.stat.get('u-' + userobj.id, 'cmd')

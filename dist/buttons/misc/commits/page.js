@@ -15,6 +15,8 @@ if (type === 'back')
 pageNumber--;
 if (type === 'next')
 pageNumber++;
+if (pageNumber === 0)
+return;
 let embedDesc = '';
 const gitInfos = await git.log({
 '--pretty': 'format:{"hash":"%h","subject":"%s","author":"%aN","authorDate":"%ad"}'

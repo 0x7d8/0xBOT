@@ -437,6 +437,16 @@ else
 button = client.buttons.get('stats-page');
 await button.execute(ctx, args[2], Number(args[3]), (args[4] === 'TRUE'), args[1].toLowerCase());
 }
+;
+if (args[0] === 'STOCKINFO') {
+sc = true;
+let button;
+if (args[1] === 'REFRESH')
+button = client.buttons.get('stockinfo-refresh');
+else
+button = client.buttons.get('stockinfo-page');
+await button.execute(ctx, Number(args[2]), args[1].toLowerCase());
+}
 if (!sc) {
 const button = client.buttons.get(interaction.customId);
 if (!button)

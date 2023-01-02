@@ -9,29 +9,11 @@ export default {
 		.setDescription('SEE STOCK PRICES')
 		.setDescriptionLocalizations({
 			de: 'SEHE AKTIEN PREISE'
-		})
-		.addStringOption((option: any) =>
-			option.setName('stock')
-				.setNameLocalizations({
-					de: 'aktie'
-				})
-				.setDescription('THE STOCK')
-				.setDescriptionLocalizations({
-					de: 'DIE AKTIE'
-				})
-				.setRequired(true)
-				.addChoices(
-					// Setup Choices
-					{ name: '👀 ALLE AKTIEN', value: 'all' },
-					{ name: '🟢 GRÜNE AKTIE', value: 'green' },
-					{ name: '🔵 BLAUE AKTIE', value: 'blue' },
-					{ name: '🟡 GELBE AKTIE', value: 'yellow' },
-					{ name: '🔴 ROTE AKTIE', value: 'red' },
-					{ name: '⚪ WEISSE AKTIE', value: 'white' },
-					{ name: '⚫ SCHWARZE AKTIE', value: 'black' },
-				)),
+		}),
 
 	async execute(ctx: CommandInteraction) {
+		const ms = (await import('pretty-ms')).default
+
 		// Check if Stocks are Enabled in Server
 		if (!await ctx.bot.settings.get(ctx.interaction.guild.id, 'stocks')) {
 			// Create Embed
@@ -51,18 +33,6 @@ export default {
 			ctx.log(false, `[CMD] STOCKINFO : DISABLED`)
 			return ctx.interaction.reply({ embeds: [message], ephemeral: true })
 		}
-
-		// Set Variables
-		const stock = ctx.getOption('stock') as string
-
-		// Set Emoji
-		let emoji: string
-		if (stock === 'green') emoji = '🟢'
-		if (stock === 'blue') emoji = '🔵'
-		if (stock === 'yellow') emoji = '🟡'
-		if (stock === 'red') emoji = '🔴'
-		if (stock === 'white') emoji = '⚪'
-		if (stock === 'black') emoji = '⚫'
 
 		// Calculate Stock Percentage
 		let stockEmojis = {
@@ -85,110 +55,79 @@ export default {
 			else stockEmojis[stock] = '🧐'
 		})
 
-		// Create Button
+		// Create Buttons
 		let row = new ActionRowBuilder()
 			.addComponents(
 				new ButtonBuilder()
-					.setLabel('UPDATE')
 					.setEmoji('1055826473442873385')
-					.setCustomId('STOCKNEXT-' + stock)
+					.setLabel('UPDATE')
+					.setCustomId(`STOCKINFO-REFRESH-1`)
+					.setStyle(ButtonStyle.Primary),
+
+				new ButtonBuilder()
+					.setEmoji('1055825023987888169')
+					.setCustomId(`STOCKINFO-BACK-1`)
+					.setStyle(ButtonStyle.Secondary)
+					.setDisabled(true),
+
+				new ButtonBuilder()
+					.setEmoji('1055825050126786590')
+					.setCustomId(`STOCKINFO-NEXT-1`)
 					.setStyle(ButtonStyle.Secondary),
 			)
 		if (ctx.metadata.language === 'de') {
 			row = new ActionRowBuilder()
 				.addComponents(
 					new ButtonBuilder()
-						.setLabel('AKTUALISIEREN')
 						.setEmoji('1055826473442873385')
-						.setCustomId('STOCKNEXT-' + stock)
+						.setLabel('AKTUALISIEREN')
+						.setCustomId(`STOCKINFO-REFRESH-1`)
+						.setStyle(ButtonStyle.Primary),
+
+					new ButtonBuilder()
+						.setEmoji('1055825023987888169')
+						.setCustomId(`STOCKINFO-BACK-1`)
+						.setStyle(ButtonStyle.Secondary)
+						.setDisabled(true),
+
+					new ButtonBuilder()
+						.setEmoji('1055825050126786590')
+						.setCustomId(`STOCKINFO-NEXT-1`)
 						.setStyle(ButtonStyle.Secondary),
 				)
 		}
 
 		// Create Embed
-		let message: any
-		if (stock !== 'all') {
+		let message = new EmbedBuilder().setColor(0x37009B)
+			.setTitle('<:CHART:1024398298204876941> » THE CURRENT STOCK PRICES')
+			.setDescription(`
+				⏲️ New Prices in **${ms((ctx.client.stocks.refresh - Math.floor(+new Date() / 1000)) * 1000, { secondsDecimalDigits: 0 })}**
+
+				» ${stockEmojis['green']} Green Stock
+				\`\`\`$${ctx.client.stocks.green} (${ctx.bot.perCalc(ctx.client.stocks.green, ctx.client.stocks.oldgreen)}%)\`\`\`
+				» ${stockEmojis['blue']} Blue Stock
+				\`\`\`$${ctx.client.stocks.blue} (${ctx.bot.perCalc(ctx.client.stocks.blue, ctx.client.stocks.oldblue)}%)\`\`\`
+				» ${stockEmojis['yellow']} Yellow Stock
+				\`\`\`$${ctx.client.stocks.yellow} (${ctx.bot.perCalc(ctx.client.stocks.yellow, ctx.client.stocks.oldyellow)}%)\`\`\`
+			`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version + ' » PAGE 1' })
+
+		if (ctx.metadata.language === 'de') {
 			message = new EmbedBuilder().setColor(0x37009B)
-				.setTitle('<:CHART:1024398298204876941> » ' + emoji + ' STOCK INFO')
+				.setTitle('<:CHART:1024398298204876941> » DIE AKTUELLSTEN AKTIEN PREISE')
 				.setDescription(`
-					» NEXT PRICES
-					<t:${ctx.client.stocks.refresh}:R>
+					⏲️ Neue Preise in **${ms((ctx.client.stocks.refresh - Math.floor(+new Date() / 1000)) * 1000, { secondsDecimalDigits: 0 })}**
 
-					» PRICE
-					**${stockEmojis[stock]} \`$${ctx.client.stocks[stock]}\` (${ctx.bot.perCalc(ctx.client.stocks[stock], ctx.client.stocks['old' + stock])}%)
-				`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
-
-			if (ctx.metadata.language === 'de') {
-				message = new EmbedBuilder().setColor(0x37009B)
-					.setTitle('<:CHART:1024398298204876941> » ' + emoji + ' AKTIEN INFO')
-					.setDescription(`
-						» NÄCHSTEN PREISE
-						<t:${ctx.client.stocks.refresh}:R>
-
-						» PREIS
-						**${stockEmojis[stock]} \`${ctx.client.stocks[stock]}€\` (${ctx.bot.perCalc(ctx.client.stocks[stock], ctx.client.stocks['old' + stock])}%)
-					`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
-			}
-		} else {
-			message = new EmbedBuilder().setColor(0x37009B)
-				.setTitle('<:CHART:1024398298204876941> » FULL STOCK INFO')
-				.setDescription(`
-					» NEXT PRICES
-					<t:${ctx.client.stocks.refresh}:R>
-
-					» 🟢 GREEN STOCK
-					**${stockEmojis.green} \`$${ctx.client.stocks.green}\` (${ctx.bot.perCalc(ctx.client.stocks.green, ctx.client.stocks.oldgreen)}%)**
-
-					» 🔵 BLUE STOCK
-					**${stockEmojis.blue} \`$${ctx.client.stocks.blue}\` (${ctx.bot.perCalc(ctx.client.stocks.blue, ctx.client.stocks.oldblue)}%)**
-
-					» 🟡 YELLOW STOCK
-					**${stockEmojis.yellow} \`$${ctx.client.stocks.yellow}\` (${ctx.bot.perCalc(ctx.client.stocks.yellow, ctx.client.stocks.oldyellow)}%)**
-
-					» 🔴 RED STOCK
-					**${stockEmojis.red} \`$${ctx.client.stocks.red}\` (${ctx.bot.perCalc(ctx.client.stocks.red, ctx.client.stocks.oldred)}%)**
-
-					» ⚪ WHITE STOCK
-					**${stockEmojis.white} \`$${ctx.client.stocks.white}\` (${ctx.bot.perCalc(ctx.client.stocks.white, ctx.client.stocks.oldwhite)}%)**
-
-					» ⚫ BLACK STOCK
-					**${stockEmojis.black} \`$${ctx.client.stocks.black}\` (${ctx.bot.perCalc(ctx.client.stocks.black, ctx.client.stocks.oldblack)}%)**
-				`)
-				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
-			
-			if (ctx.metadata.language === 'de') {
-				message = new EmbedBuilder().setColor(0x37009B)
-					.setTitle('<:CHART:1024398298204876941> » VOLLE AKTIEN INFOS')
-					.setDescription(`
-						» NÄCHSTEN PREISE
-						<t:${ctx.client.stocks.refresh}:R>
-
-						» 🟢 GRÜNE AKTIE
-						**${stockEmojis.green} \`${ctx.client.stocks.green}€\` (${ctx.bot.perCalc(ctx.client.stocks.green, ctx.client.stocks.oldgreen)}%)**
-
-						» 🔵 BLAUE AKTIE
-						**${stockEmojis.blue} \`${ctx.client.stocks.blue}€\` (${ctx.bot.perCalc(ctx.client.stocks.blue, ctx.client.stocks.oldblue)}%)**
-
-						» 🟡 GELBE AKTIE
-						**${stockEmojis.yellow} \`${ctx.client.stocks.yellow}€\` (${ctx.bot.perCalc(ctx.client.stocks.yellow, ctx.client.stocks.oldyellow)}%)**
-
-						» 🔴 ROTE AKTIE
-						**${stockEmojis.red} \`${ctx.client.stocks.red}€\` (${ctx.bot.perCalc(ctx.client.stocks.red, ctx.client.stocks.oldred)}%)**
-
-						» ⚪ WEIßE AKTIE
-						**${stockEmojis.white} \`${ctx.client.stocks.white}€\` (${ctx.bot.perCalc(ctx.client.stocks.white, ctx.client.stocks.oldwhite)}%)**
-
-						» ⚫ SCHWARZE AKTIE
-						**${stockEmojis.black} \`${ctx.client.stocks.black}€\` (${ctx.bot.perCalc(ctx.client.stocks.black, ctx.client.stocks.oldblack)}%)**
-					`)
-					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
-			}
+					» ${stockEmojis['green']}€ Grüne Aktie
+					\`\`\`${ctx.client.stocks.green} (${ctx.bot.perCalc(ctx.client.stocks.green, ctx.client.stocks.oldgreen)}%)\`\`\`
+					» ${stockEmojis['blue']} Blaue Aktie
+					\`\`\`${ctx.client.stocks.blue}€ (${ctx.bot.perCalc(ctx.client.stocks.blue, ctx.client.stocks.oldblue)}%)\`\`\`
+					» ${stockEmojis['yellow']} Gelbe Aktie
+					\`\`\`${ctx.client.stocks.yellow}€ (${ctx.bot.perCalc(ctx.client.stocks.yellow, ctx.client.stocks.oldyellow)}%)\`\`\`
+				`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version + ' » SEITE 1' })
 		}
 
 		// Send Message
-		if (stock !== 'all') ctx.log(false, `[CMD] STOCKINFO : ${stock.toUpperCase()} : ${ctx.client.stocks[stock]}€`)
-		else ctx.log(false, `[CMD] STOCKINFO : ALL : ${ctx.client.stocks.green}€ : ${ctx.client.stocks.blue}€ : ${ctx.client.stocks.yellow}€ : ${ctx.client.stocks.red}€ : ${ctx.client.stocks.white}€ : ${ctx.client.stocks.black}€`)
-
+		ctx.log(false, `[CMD] STOCKINFO : 1 : ${ctx.client.stocks.green}€ : ${ctx.client.stocks.blue}€ : ${ctx.client.stocks.yellow}€ : ${ctx.client.stocks.red}€ : ${ctx.client.stocks.white}€ : ${ctx.client.stocks.black}€`)
 		return ctx.interaction.reply({ embeds: [message], components: [row as any] })
 	}
 }

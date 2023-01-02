@@ -10,6 +10,12 @@ export default {
 		// Set Variables
 		if (type === 'back') pageNumber--
 		if (type === 'next') pageNumber++
+
+		// Check for Invalid Value
+    if (pageNumber === 0) return
+    if (pageNumber === 4) return
+
+		// Get Stats
 		const statsType = ['cmd', 'btn', 'mod'][pageNumber - 1]
 		const totalStats = await ctx.bot.stat.get('t-all', statsType)
 		const guildStats = await ctx.bot.stat.get('g-' + ctx.interaction.guild.id, statsType)

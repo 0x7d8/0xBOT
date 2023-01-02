@@ -10,6 +10,10 @@ if (type === 'back')
 pageNumber--;
 if (type === 'next')
 pageNumber++;
+if (pageNumber === 0)
+return;
+if (pageNumber === 4)
+return;
 const statsType = ['cmd', 'btn', 'mod'][pageNumber - 1];
 const totalStats = await ctx.bot.stat.get('t-all', statsType);
 const guildStats = await ctx.bot.stat.get('g-' + ctx.interaction.guild.id, statsType);

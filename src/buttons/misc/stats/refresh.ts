@@ -7,7 +7,7 @@ export default {
 	},
 
 	async execute(ctx: ButtonInteraction, userId: string, pageNumber: number, selfCmd: boolean) {
-		// Set Variables
+		// Get Stats
 		const statsType = ['cmd', 'btn', 'mod'][pageNumber - 1]
 		const totalStats = await ctx.bot.stat.get('t-all', statsType)
 		const guildStats = await ctx.bot.stat.get('g-' + ctx.interaction.guild.id, statsType)
