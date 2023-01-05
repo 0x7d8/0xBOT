@@ -32,7 +32,9 @@ blue: '',
 yellow: '',
 red: '',
 white: '',
-black: ''
+black: '',
+brown: '',
+purple: ''
 };
 let stockList = [
 'green',
@@ -40,7 +42,9 @@ let stockList = [
 'yellow',
 'red',
 'white',
-'black'
+'black',
+'brown',
+'purple'
 ];
 stockList.forEach((stock) => {
 if (ctx.client.stocks[stock] > ctx.client.stocks['old' + stock])
@@ -89,6 +93,8 @@ let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
 \`\`\`$${ctx.client.stocks.blue} (${ctx.bot.perCalc(ctx.client.stocks.blue, ctx.client.stocks.oldblue)}%)\`\`\`
 » ${stockEmojis['yellow']} Yellow Stock
 \`\`\`$${ctx.client.stocks.yellow} (${ctx.bot.perCalc(ctx.client.stocks.yellow, ctx.client.stocks.oldyellow)}%)\`\`\`
+» ${stockEmojis['red']} Red Stock
+\`\`\`$${ctx.client.stocks.red} (${ctx.bot.perCalc(ctx.client.stocks.red, ctx.client.stocks.oldred)}%)\`\`\`
 `).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version + ' » PAGE 1' });
 if (ctx.metadata.language === 'de') {
 message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
@@ -102,6 +108,8 @@ message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
 \`\`\`${ctx.client.stocks.blue}€ (${ctx.bot.perCalc(ctx.client.stocks.blue, ctx.client.stocks.oldblue)}%)\`\`\`
 » ${stockEmojis['yellow']} Gelbe Aktie
 \`\`\`${ctx.client.stocks.yellow}€ (${ctx.bot.perCalc(ctx.client.stocks.yellow, ctx.client.stocks.oldyellow)}%)\`\`\`
+» ${stockEmojis['red']} Rote Aktie
+\`\`\`${ctx.client.stocks.red}€ (${ctx.bot.perCalc(ctx.client.stocks.red, ctx.client.stocks.oldred)}%)\`\`\`
 `).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version + ' » SEITE 1' });
 }
 ctx.log(false, `[CMD] STOCKINFO : 1 : ${ctx.client.stocks.green}€ : ${ctx.client.stocks.blue}€ : ${ctx.client.stocks.yellow}€ : ${ctx.client.stocks.red}€ : ${ctx.client.stocks.white}€ : ${ctx.client.stocks.black}€`);

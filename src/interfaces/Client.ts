@@ -27,5 +27,11 @@ export default interface Interface extends Client {
 
 		black: number
 		oldblack?: number
+
+		brown: number
+		oldbrown?: number
+
+		purple: number
+		oldpurple?: number
 	}
 }

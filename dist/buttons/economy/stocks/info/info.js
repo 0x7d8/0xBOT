@@ -16,7 +16,9 @@ blue: '',
 yellow: '',
 red: '',
 white: '',
-black: ''
+black: '',
+brown: '',
+purple: ''
 };
 let stockList = [
 'green',
@@ -24,7 +26,9 @@ let stockList = [
 'yellow',
 'red',
 'white',
-'black'
+'black',
+'brown',
+'purple'
 ];
 stockList.forEach((stock) => {
 if (ctx.client.stocks[stock] > ctx.client.stocks['old' + stock])
@@ -45,14 +49,18 @@ ${pageNumber === 1
 » ${stockEmojis['blue']} Blue Stock
 \`\`\`$${ctx.client.stocks.blue} (${ctx.bot.perCalc(ctx.client.stocks.blue, ctx.client.stocks.oldblue)}%)\`\`\`
 » ${stockEmojis['yellow']} Yellow Stock
-\`\`\`$${ctx.client.stocks.yellow} (${ctx.bot.perCalc(ctx.client.stocks.yellow, ctx.client.stocks.oldyellow)}%)\`\`\``
+\`\`\`$${ctx.client.stocks.yellow} (${ctx.bot.perCalc(ctx.client.stocks.yellow, ctx.client.stocks.oldyellow)}%)\`\`\`
+» ${stockEmojis['red']} Red Stock
+\`\`\`$${ctx.client.stocks.red} (${ctx.bot.perCalc(ctx.client.stocks.red, ctx.client.stocks.oldred)}%)\`\`\``
 : pageNumber === 2
-? `» ${stockEmojis['red']} Red Stock
-\`\`\`$${ctx.client.stocks.red} (${ctx.bot.perCalc(ctx.client.stocks.red, ctx.client.stocks.oldred)}%)\`\`\`
-» ${stockEmojis['white']} White Stock
+? `» ${stockEmojis['white']} White Stock
 \`\`\`$${ctx.client.stocks.white} (${ctx.bot.perCalc(ctx.client.stocks.white, ctx.client.stocks.oldwhite)}%)\`\`\`
 » ${stockEmojis['black']} Black Stock
-\`\`\`$${ctx.client.stocks.black} (${ctx.bot.perCalc(ctx.client.stocks.black, ctx.client.stocks.oldblack)}%)\`\`\``
+\`\`\`$${ctx.client.stocks.black} (${ctx.bot.perCalc(ctx.client.stocks.black, ctx.client.stocks.oldblack)}%)\`\`\`
+» ${stockEmojis['brown']} Brown Stock
+\`\`\`$${ctx.client.stocks.brown} (${ctx.bot.perCalc(ctx.client.stocks.brown, ctx.client.stocks.oldbrown)}%)\`\`\`
+» ${stockEmojis['purple']} Purple Stock
+\`\`\`$${ctx.client.stocks.purple} (${ctx.bot.perCalc(ctx.client.stocks.purple, ctx.client.stocks.oldpurple)}%)\`\`\``
 : ''}
 `).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version + ' » PAGE ' + pageNumber });
 if (ctx.metadata.language === 'de') {
@@ -67,14 +75,18 @@ ${pageNumber === 1
   » ${stockEmojis['blue']} Blaue Aktie
   \`\`\`${ctx.client.stocks.blue}€ (${ctx.bot.perCalc(ctx.client.stocks.blue, ctx.client.stocks.oldblue)}%)\`\`\`
   » ${stockEmojis['yellow']}€ Gelbe Aktie
-  \`\`\`${ctx.client.stocks.yellow} (${ctx.bot.perCalc(ctx.client.stocks.yellow, ctx.client.stocks.oldyellow)}%)\`\`\``
+  \`\`\`${ctx.client.stocks.yellow} (${ctx.bot.perCalc(ctx.client.stocks.yellow, ctx.client.stocks.oldyellow)}%)\`\`\`
+» ${stockEmojis['red']} Rote Aktie
+  \`\`\`${ctx.client.stocks.red}€ (${ctx.bot.perCalc(ctx.client.stocks.red, ctx.client.stocks.oldred)}%)\`\`\``
 : pageNumber === 2
-? `» ${stockEmojis['red']} Rote Aktie
-  \`\`\`${ctx.client.stocks.red}€ (${ctx.bot.perCalc(ctx.client.stocks.red, ctx.client.stocks.oldred)}%)\`\`\`
-  » ${stockEmojis['white']} Weiße Aktie
+? `» ${stockEmojis['white']} Weiße Aktie
   \`\`\`${ctx.client.stocks.white}€ (${ctx.bot.perCalc(ctx.client.stocks.white, ctx.client.stocks.oldwhite)}%)\`\`\`
   » ${stockEmojis['black']} Schwarze Aktie
-  \`\`\`${ctx.client.stocks.black}€ (${ctx.bot.perCalc(ctx.client.stocks.black, ctx.client.stocks.oldblack)}%)\`\`\``
+  \`\`\`${ctx.client.stocks.black}€ (${ctx.bot.perCalc(ctx.client.stocks.black, ctx.client.stocks.oldblack)}%)\`\`\`
+» ${stockEmojis['brown']} Braune Aktie
+  \`\`\`${ctx.client.stocks.brown}€ (${ctx.bot.perCalc(ctx.client.stocks.brown, ctx.client.stocks.oldbrown)}%)\`\`\`
+» ${stockEmojis['purple']} Lila Aktie
+  \`\`\`${ctx.client.stocks.purple}€ (${ctx.bot.perCalc(ctx.client.stocks.purple, ctx.client.stocks.oldpurple)}%)\`\`\``
 : ''}
 `).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version + ' » SEITE ' + pageNumber });
 }

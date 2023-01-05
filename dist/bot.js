@@ -475,7 +475,9 @@ blue: 0,
 yellow: 0,
 red: 0,
 black: 0,
-white: 0
+white: 0,
+brown: 0,
+purple: 0
 };
 const dostocks = () => {
 client.stocks.oldgreen = client.stocks.green;
@@ -525,6 +527,22 @@ client.stocks.black = (Math.floor(Math.random()
 * (170 - 150 + 1)) + 150)
 + (Math.floor(Math.random()
 * (800 - 200 + 1))
++ 200);
+client.stocks.oldbrown = client.stocks.brown;
+client.stocks.brown = (Math.floor(Math.random()
+* (270 - 200 + 1)) + 300)
+* (Math.floor(Math.random()
+* (200 - 150 + 1)) + 250)
++ (Math.floor(Math.random()
+* (1000 - 200 + 1))
++ 200);
+client.stocks.oldpurple = client.stocks.purple;
+client.stocks.purple = (Math.floor(Math.random()
+* (290 - 200 + 1)) + 350)
+* (Math.floor(Math.random()
+* (220 - 150 + 1)) + 300)
++ (Math.floor(Math.random()
+* (1200 - 200 + 1))
 + 200);
 };
 dostocks();

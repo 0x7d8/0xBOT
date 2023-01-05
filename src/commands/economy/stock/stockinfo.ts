@@ -41,14 +41,18 @@ export default {
 			yellow: '',
 			red: '',
 			white: '',
-			black: ''
+			black: '',
+			brown: '',
+			purple: ''
 		}; let stockList = [
 			'green',
 			'blue',
 			'yellow',
 			'red',
 			'white',
-			'black'
+			'black',
+			'brown',
+			'purple'
 		]; stockList.forEach((stock) => {
 			if (ctx.client.stocks[stock] > ctx.client.stocks['old' + stock]) stockEmojis[stock] = '<:UP:1009502422990860350>'
 			else if (ctx.client.stocks[stock] < ctx.client.stocks['old' + stock]) stockEmojis[stock] = '<:DOWN:1009502386320056330>'
@@ -109,6 +113,8 @@ export default {
 				\`\`\`$${ctx.client.stocks.blue} (${ctx.bot.perCalc(ctx.client.stocks.blue, ctx.client.stocks.oldblue)}%)\`\`\`
 				» ${stockEmojis['yellow']} Yellow Stock
 				\`\`\`$${ctx.client.stocks.yellow} (${ctx.bot.perCalc(ctx.client.stocks.yellow, ctx.client.stocks.oldyellow)}%)\`\`\`
+				» ${stockEmojis['red']} Red Stock
+				\`\`\`$${ctx.client.stocks.red} (${ctx.bot.perCalc(ctx.client.stocks.red, ctx.client.stocks.oldred)}%)\`\`\`
 			`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version + ' » PAGE 1' })
 
 		if (ctx.metadata.language === 'de') {
@@ -123,6 +129,8 @@ export default {
 					\`\`\`${ctx.client.stocks.blue}€ (${ctx.bot.perCalc(ctx.client.stocks.blue, ctx.client.stocks.oldblue)}%)\`\`\`
 					» ${stockEmojis['yellow']} Gelbe Aktie
 					\`\`\`${ctx.client.stocks.yellow}€ (${ctx.bot.perCalc(ctx.client.stocks.yellow, ctx.client.stocks.oldyellow)}%)\`\`\`
+					» ${stockEmojis['red']} Rote Aktie
+					\`\`\`${ctx.client.stocks.red}€ (${ctx.bot.perCalc(ctx.client.stocks.red, ctx.client.stocks.oldred)}%)\`\`\`
 				`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version + ' » SEITE 1' })
 		}
 
