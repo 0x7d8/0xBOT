@@ -124,7 +124,7 @@ export default {
 					⏲️ Neue Preise in **${ms((ctx.client.stocks.refresh - Math.floor(+new Date() / 1000)) * 1000, { secondsDecimalDigits: 0 })}**
 
 					» ${stockEmojis['green']} Grüne Aktie
-					\`\`\`${ctx.client.stocks.green} (${ctx.bot.perCalc(ctx.client.stocks.green, ctx.client.stocks.oldgreen)}%)\`\`\`
+					\`\`\`${ctx.client.stocks.green}€ (${ctx.bot.perCalc(ctx.client.stocks.green, ctx.client.stocks.oldgreen)}%)\`\`\`
 					» ${stockEmojis['blue']} Blaue Aktie
 					\`\`\`${ctx.client.stocks.blue}€ (${ctx.bot.perCalc(ctx.client.stocks.blue, ctx.client.stocks.oldblue)}%)\`\`\`
 					» ${stockEmojis['yellow']} Gelbe Aktie

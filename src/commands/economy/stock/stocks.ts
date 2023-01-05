@@ -1,3 +1,4 @@
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js"
 import { SlashCommandBuilder, EmbedBuilder } from "discord.js"
 
 import CommandInteraction from "@interfaces/CommandInteraction.js"
@@ -45,124 +46,134 @@ export default {
 		const user = ctx.interaction.options.getUser("user")
 		
 		// Set User Object
-		let userobj: any
+		let userobj: typeof ctx.interaction.user
 		if (!user) userobj = ctx.interaction.user
 		else userobj = user
 
-		// Fetch Stocks
-		const green = await ctx.bot.stocks.get(userobj.id, 'green', 'used')
-		const greenMax = await ctx.bot.stocks.get(userobj.id, 'green', 'max')
-		const blue = await ctx.bot.stocks.get(userobj.id, 'blue', 'used')
-		const blueMax = await ctx.bot.stocks.get(userobj.id, 'blue', 'max')
-		const yellow = await ctx.bot.stocks.get(userobj.id, 'yellow', 'used')
-		const yellowMax = await ctx.bot.stocks.get(userobj.id, 'yellow', 'max')
-		const red = await ctx.bot.stocks.get(userobj.id, 'red', 'used')
-		const redMax = await ctx.bot.stocks.get(userobj.id, 'red', 'max')
-		const white = await ctx.bot.stocks.get(userobj.id, 'white', 'used')
-		const whiteMax = await ctx.bot.stocks.get(userobj.id, 'white', 'max')
-		const black = await ctx.bot.stocks.get(userobj.id, 'black', 'used')
-		const blackMax = await ctx.bot.stocks.get(userobj.id, 'black', 'max')
+		// Get Stocks
+		const stocks = {
+			"green": (await ctx.bot.stocks.get(userobj.id, 'green', 'used')),
+			"greenMax": (await ctx.bot.stocks.get(userobj.id, 'green', 'max')),
+			"blue": (await ctx.bot.stocks.get(userobj.id, 'blue', 'used')),
+			"blueMax": (await ctx.bot.stocks.get(userobj.id, 'blue', 'max')),
+			"yellow": (await ctx.bot.stocks.get(userobj.id, 'yellow', 'used')),
+			"yellowMax": (await ctx.bot.stocks.get(userobj.id, 'yellow', 'max')),
+			"red": (await ctx.bot.stocks.get(userobj.id, 'red', 'used')),
+			"redMax": (await ctx.bot.stocks.get(userobj.id, 'red', 'max')),
+			"white": (await ctx.bot.stocks.get(userobj.id, 'white', 'used')),
+			"whiteMax": (await ctx.bot.stocks.get(userobj.id, 'white', 'max')),
+			"black": (await ctx.bot.stocks.get(userobj.id, 'black', 'used')),
+			"blackMax": (await ctx.bot.stocks.get(userobj.id, 'black', 'max')),
+			"brown": (await ctx.bot.stocks.get(userobj.id, 'brown', 'used')),
+			"brownMax": (await ctx.bot.stocks.get(userobj.id, 'brown', 'max')),
+			"purple": (await ctx.bot.stocks.get(userobj.id, 'purple', 'used')),
+			"purpleMax": (await ctx.bot.stocks.get(userobj.id, 'purple', 'max')),
+		}
+
+		// Create Buttons
+		let row = new ActionRowBuilder()
+			.addComponents(
+				new ButtonBuilder()
+					.setEmoji('1055826473442873385')
+					.setLabel('UPDATE')
+					.setCustomId(`STOCKS-REFRESH-${userobj.id}-1-${String(!!user).toUpperCase()}`)
+					.setStyle(ButtonStyle.Primary),
+
+				new ButtonBuilder()
+					.setEmoji('1055825023987888169')
+					.setCustomId(`STOCKS-BACK-${userobj.id}-1-${String(!!user).toUpperCase()}`)
+					.setStyle(ButtonStyle.Secondary)
+					.setDisabled(true),
+
+				new ButtonBuilder()
+					.setEmoji('1055825050126786590')
+					.setCustomId(`STOCKS-NEXT-${userobj.id}-1-${String(!!user).toUpperCase()}`)
+					.setStyle(ButtonStyle.Secondary),
+			)
+		if (ctx.metadata.language === 'de') {
+			row = new ActionRowBuilder()
+				.addComponents(
+					new ButtonBuilder()
+						.setEmoji('1055826473442873385')
+						.setLabel('AKTUALISIEREN')
+						.setCustomId(`STOCKS-REFRESH-${userobj.id}-1-${String(!!user).toUpperCase()}`)
+						.setStyle(ButtonStyle.Primary),
+
+					new ButtonBuilder()
+						.setEmoji('1055825023987888169')
+						.setCustomId(`STOCKS-BACK-${userobj.id}-1-${String(!!user).toUpperCase()}`)
+						.setStyle(ButtonStyle.Secondary)
+						.setDisabled(true),
+
+					new ButtonBuilder()
+						.setEmoji('1055825050126786590')
+						.setCustomId(`STOCKS-NEXT-${userobj.id}-1-${String(!!user).toUpperCase()}`)
+						.setStyle(ButtonStyle.Secondary),
+				)
+		}
 
 		// Create Embed
 		let message: any
-		if (!user) {
+		if (ctx.interaction.user.id === '69') {
 			message = new EmbedBuilder().setColor(0x37009B)
-				.setTitle('<:CHART:1024398298204876941> » YOUR STOCKS')
+				.setTitle('<:CHART:1024398298204876941> » YOUR BOUGHT STOCKS')
 				.setDescription(`
-					» 🟢 GREEN STOCKS
-					\`${green}/${greenMax}\`
-					
-					» 🔵 BLUE STOCKS
-					\`${blue}/${blueMax}\`
-					
-					» 🟡 YELLOW STOCKS
-					\`${yellow}/${yellowMax}\`
-					
-					» 🔴 RED STOCKS
-					\`${red}/${redMax}\`
-					
-					» ⚪ WHITE STOCKS
-					\`${white}/${whiteMax}\`
-					
-					» ⚫ BLACK STOCKS
-					\`${black}/${blackMax}\`
-				`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
+					» 🟢 Green Stock
+					\`\`\`${stocks.green} / ${stocks.greenMax}\`\`\`
+					» 🔵 Blue Stock
+					\`\`\`${stocks.blue} / ${stocks.blueMax}\`\`\`
+					» 🟡 Yellow Stock
+					\`\`\`${stocks.yellow} / ${stocks.yellowMax}\`\`\`
+					» 🔴 Red Stock
+					\`\`\`${stocks.red} / ${stocks.redMax}\`\`\`
+				`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version + ' » PAGE 1' })
 
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
-					.setTitle('<:CHART:1024398298204876941> » DEINE AKTIEN')
+					.setTitle('<:CHART:1024398298204876941> » DEINE LISTE VON AKTIEN IM BESITZ')
 					.setDescription(`
-						» 🟢 GRÜNE AKTIEN
-						\`${green}/${greenMax}\`
-						
-						» 🔵 BLAUE AKTIEN
-						\`${blue}/${blueMax}\`
-						
-						» 🟡 GELBE AKTIEN
-						\`${yellow}/${yellowMax}\`
-						
-						» 🔴 ROTE AKTIEN
-						\`${red}/${redMax}\`
-						
-						» ⚪ WEISSE AKTIEN
-						\`${white}/${whiteMax}\`
-						
-						» ⚫ SCHWARZE AKTIEN
-						\`${black}/${blackMax}\`
-					`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
+						» 🟢 Grüne Aktie
+						\`\`\`${stocks.green} / ${stocks.greenMax}\`\`\`
+						» 🔵 Blaue Aktie
+						\`\`\`${stocks.blue} / ${stocks.blueMax}\`\`\`
+						» 🟡 Gelbe Aktie
+						\`\`\`${stocks.yellow} / ${stocks.yellowMax}\`\`\`
+						» 🔴 Rote Aktie
+						\`\`\`${stocks.red} / ${stocks.redMax}\`\`\`
+					`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version + ' » SEITE 1' })
 			}
 		} else {
 			message = new EmbedBuilder().setColor(0x37009B)
-				.setTitle('<:CHART:1024398298204876941> » THE STOCKS OF ' + user.username.toUpperCase())
+				.setTitle('<:CHART:1024398298204876941> » THE BOUGHT STOCKS OF ' + userobj.username.toUpperCase())
 				.setDescription(`
-					» 🟢 GREEN STOCKS
-					\`${green}/${greenMax}\`
-					
-					» 🔵 BLUE STOCKS
-					\`${blue}/${blueMax}\`
-					
-					» 🟡 YELLOW STOCKS
-					\`${yellow}/${yellowMax}\`
-					
-					» 🔴 RED STOCKS
-					\`${red}/${redMax}\`
-					
-					» ⚪ WHITE STOCKS
-					\`${white}/${whiteMax}\`
-					
-					» ⚫ BLACK STOCKS
-					\`${black}/${blackMax}\`
-				`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
-				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
+					» 🟢 Green Stock
+					\`\`\`${stocks.green} / ${stocks.greenMax}\`\`\`
+					» 🔵 Blue Stock
+					\`\`\`${stocks.blue} / ${stocks.blueMax}\`\`\`
+					» 🟡 Yellow Stock
+					\`\`\`${stocks.yellow} / ${stocks.yellowMax}\`\`\`
+					» 🔴 Red Stock
+					\`\`\`${stocks.red} / ${stocks.redMax}\`\`\`
+				`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version + ' » PAGE 1' })
 
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
-					.setTitle('<:CHART:1024398298204876941> » DIE AKTIEN VON ' + user.username.toUpperCase())
+					.setTitle('<:CHART:1024398298204876941> » DIE LISTE VON AKTIEN IM BESITZ VON ' + userobj.username.toUpperCase())
 					.setDescription(`
-						» 🟢 GRÜNE AKTIEN
-						\`${green}/${greenMax}\`
-						
-						» 🔵 BLAUE AKTIEN
-						\`${blue}/${blueMax}\`
-						
-						» 🟡 GELBE AKTIEN
-						\`${yellow}/${yellowMax}\`
-						
-						» 🔴 ROTE AKTIEN
-						\`${red}/${redMax}\`
-						
-						» ⚪ WEISSE AKTIEN
-						\`${white}/${whiteMax}\`
-						
-						» ⚫ SCHWARZE AKTIEN
-						\`${black}/${blackMax}\`
-					`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
-					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
+						» 🟢 Grüne Aktie
+						\`\`\`${stocks.green} / ${stocks.greenMax}\`\`\`
+						» 🔵 Blaue Aktie
+						\`\`\`${stocks.blue} / ${stocks.blueMax}\`\`\`
+						» 🟡 Gelbe Aktie
+						\`\`\`${stocks.yellow} / ${stocks.yellowMax}\`\`\`
+						» 🔴 Rote Aktie
+						\`\`\`${stocks.red} / ${stocks.redMax}\`\`\`
+					`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version + ' » SEITE 1' })
 			}
 		}
 
 		// Send Message
-		ctx.log(false, `[CMD] STOCKS : ${green} : ${blue} : ${yellow} : ${red} : ${white} : ${black}`)
-		return ctx.interaction.reply({ embeds: [message] })
+		ctx.log(false, `[CMD] STOCKS :${!user ? '' : ` ${user.id} :`} ${stocks.green} : ${stocks.blue} : ${stocks.yellow} : ${stocks.red} : ${stocks.white} : ${stocks.black} : ${stocks.brown} : ${stocks.purple}`)
+		return ctx.interaction.reply({ embeds: [message], components: [row as any] })
 	}
 }

@@ -344,12 +344,6 @@ const button = client.buttons.get(buttonId);
 await button.execute(ctx, Number(args[2]), Number(args[1]));
 }
 ;
-if (args[0] === 'STOCKNEXT') {
-sc = true;
-const button = client.buttons.get('stock-next');
-await button.execute(ctx, args[1]);
-}
-;
 if (args[0] === 'BUSINESS') {
 let buttonId;
 if (args[2] === 'YES')
@@ -435,6 +429,16 @@ if (args[1] === 'REFRESH')
 button = client.buttons.get('stats-refresh');
 else
 button = client.buttons.get('stats-page');
+await button.execute(ctx, args[2], Number(args[3]), (args[4] === 'TRUE'), args[1].toLowerCase());
+}
+;
+if (args[0] === 'STOCKS') {
+sc = true;
+let button;
+if (args[1] === 'REFRESH')
+button = client.buttons.get('stocks-refresh');
+else
+button = client.buttons.get('stocks-page');
 await button.execute(ctx, args[2], Number(args[3]), (args[4] === 'TRUE'), args[1].toLowerCase());
 }
 ;

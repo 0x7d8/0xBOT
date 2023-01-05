@@ -91,7 +91,7 @@ export default {
               » ${stockEmojis['blue']} Blaue Aktie
               \`\`\`${ctx.client.stocks.blue}€ (${ctx.bot.perCalc(ctx.client.stocks.blue, ctx.client.stocks.oldblue)}%)\`\`\`
               » ${stockEmojis['yellow']} Gelbe Aktie
-              \`\`\`${ctx.client.stocks.yellow} (${ctx.bot.perCalc(ctx.client.stocks.yellow, ctx.client.stocks.oldyellow)}%)\`\`\`
+              \`\`\`${ctx.client.stocks.yellow}€ (${ctx.bot.perCalc(ctx.client.stocks.yellow, ctx.client.stocks.oldyellow)}%)\`\`\`
 							» ${stockEmojis['red']} Rote Aktie
               \`\`\`${ctx.client.stocks.red}€ (${ctx.bot.perCalc(ctx.client.stocks.red, ctx.client.stocks.oldred)}%)\`\`\``
             : pageNumber === 2
@@ -109,7 +109,7 @@ export default {
 		}
 
 		// Send Message
-		ctx.log(false, `[BTN] STOCKINFO : ${pageNumber} : ${ctx.client.stocks.green}€ : ${ctx.client.stocks.blue}€ : ${ctx.client.stocks.yellow}€ : ${ctx.client.stocks.red}€ : ${ctx.client.stocks.white}€ : ${ctx.client.stocks.black}€`)
+		ctx.log(false, `[BTN] STOCKINFO : ${type.toUpperCase()} : ${pageNumber} : ${ctx.client.stocks.green}€ : ${ctx.client.stocks.blue}€ : ${ctx.client.stocks.yellow}€ : ${ctx.client.stocks.red}€ : ${ctx.client.stocks.white}€ : ${ctx.client.stocks.black}€`)
 		return ctx.interaction.update({ embeds: [message], components: (ctx.components.getAPI()) })
 	}
 }

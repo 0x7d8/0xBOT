@@ -65,7 +65,7 @@ message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setDescription(embedDesc)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version + ' » SEITE ' + pageNumber });
 }
-ctx.log(false, `[BTN] COMMITS : ${type.toUpperCase()} : ${commits.length} : ${pageNumber}`);
+ctx.log(false, `[BTN] COMMITS : ${type.toUpperCase()} : ${type.toUpperCase()} : ${commits.length} : ${pageNumber}`);
 return ctx.interaction.update({ embeds: [message], components: (ctx.components.getAPI()) });
 }
 };

@@ -71,7 +71,7 @@ export default {
 		}
 
 		// Send Message
-		ctx.log(false, `[BTN] COMMITS : ${type.toUpperCase()} : ${commits.length} : ${pageNumber}`)
+		ctx.log(false, `[BTN] COMMITS : ${type.toUpperCase()} : ${type.toUpperCase()} : ${commits.length} : ${pageNumber}`)
 		return ctx.interaction.update({ embeds: [message], components: (ctx.components.getAPI()) })
 	}
 }
