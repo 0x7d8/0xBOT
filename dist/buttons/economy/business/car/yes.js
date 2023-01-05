@@ -71,7 +71,7 @@ message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setDescription(`» Diese Frage ist für <@${userid}>!`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
-ctx.log(false, `[BTN] CARBUY : NOTSENDER`);
+ctx.log(false, `[BTN] CAR : NOTSENDER`);
 return ctx.interaction.reply({ embeds: [message], ephemeral: true });
 }
 if (type === 'buy') {

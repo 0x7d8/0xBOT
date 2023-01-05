@@ -63,7 +63,7 @@ export default {
 			}
 
 			// Send Message
-			ctx.log(false, `[BTN] CARBUY : NOTSENDER`)
+			ctx.log(false, `[BTN] CAR : NOTSENDER`)
 			return ctx.interaction.reply({ embeds: [message], ephemeral: true })
 		}
 

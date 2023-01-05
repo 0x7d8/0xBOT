@@ -90,7 +90,7 @@ ${pageNumber === 1
   \`\`\`${ctx.client.stocks.green}€ (${ctx.bot.perCalc(ctx.client.stocks.green, ctx.client.stocks.oldgreen)}%)\`\`\`
   » ${stockEmojis['blue']} Blaue Aktie
   \`\`\`${ctx.client.stocks.blue}€ (${ctx.bot.perCalc(ctx.client.stocks.blue, ctx.client.stocks.oldblue)}%)\`\`\`
-  » ${stockEmojis['yellow']}€ Gelbe Aktie
+  » ${stockEmojis['yellow']} Gelbe Aktie
   \`\`\`${ctx.client.stocks.yellow} (${ctx.bot.perCalc(ctx.client.stocks.yellow, ctx.client.stocks.oldyellow)}%)\`\`\`
 » ${stockEmojis['red']} Rote Aktie
   \`\`\`${ctx.client.stocks.red}€ (${ctx.bot.perCalc(ctx.client.stocks.red, ctx.client.stocks.oldred)}%)\`\`\``

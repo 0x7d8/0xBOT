@@ -447,6 +447,19 @@ else
 button = client.buttons.get('stockinfo-page');
 await button.execute(ctx, Number(args[2]), args[1].toLowerCase());
 }
+;
+if (args[0] === 'STOCK') {
+let buttonId;
+if (args[2] === 'REFRESH')
+buttonId = "stock-refresh";
+if (args[2] === 'YES')
+buttonId = "stock-yes";
+if (args[2] === 'NO')
+buttonId = "stock-no";
+sc = true;
+const button = client.buttons.get(buttonId);
+await button.execute(ctx, args[3], args[4], args[1].toLowerCase(), Number(args[5]));
+}
 if (!sc) {
 const button = client.buttons.get(interaction.customId);
 if (!button)
