@@ -87,20 +87,26 @@ export default {
 		} else if (type === 'sell') {
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
-				.setTitle('<:BOXDOLLAR:1024402261784403999> » SELL STOCKS')
-				.setDescription(`» <@${ctx.interaction.user.id}> said **NO** to selling **${amount}x **${name}** Stock.`)
-				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
+				.setTitle('<:BOXCHECK:1024401101589590156> » SELL STOCKS')
+				.setDescription(`
+					⏲️ New Prices in **${ms((ctx.client.stocks.refresh - Math.floor(+new Date() / 1000)) * 1000, { secondsDecimalDigits: 0 })}**
+
+					» Do you want to sell **${amount}x** **${name}** Stock for **$${cost}**?
+				`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 			if (ctx.metadata.language === 'de') {
 				message = new EmbedBuilder().setColor(0x37009B)
-					.setTitle('<:BOXDOLLAR:1024402261784403999> » AKTIEN VERKAUFEN')
-					.setDescription(`» <@${ctx.interaction.user.id}> hat **NEIN** zum verkaufen von **${amount}x** **${name}** Aktie gesagt.`)
-					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
+					.setTitle('<:BOXCHECK:1024401101589590156> » AKTIEN VERKAUFEN')
+					.setDescription(`
+						⏲️ Neue Preise in **${ms((ctx.client.stocks.refresh - Math.floor(+new Date() / 1000)) * 1000, { secondsDecimalDigits: 0 })}**
+
+						» Willst du **${amount}x** **${name}** Aktie für **${cost}€** verkaufen?
+					`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 
 			// Send Message
-			ctx.log(false, `[BTN] STOCKSELL : ${stock.toUpperCase()} : DENY`)
-			return ctx.interaction.update({ embeds: [message], components: (ctx.components.getAPI()) })
+			ctx.log(false, `[CMD] STOCKSELL : REFRESH : ${stock.toUpperCase()} : ${amount} : ${cost}€`)
+			return ctx.interaction.update({ embeds: [message] })
 		}
 	}
 }

@@ -135,18 +135,18 @@ export default {
 				// Create Embed
 				let message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-					.setDescription(`» You dont have enough Stocks for that, you are missing **${missing}** **${name} Stock${missing > 1 ? 's' : ''}**!`)
+					.setDescription(`» You dont have enough Stocks for that, you are missing **${missing}** **${name}** Stock!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 				if (ctx.interaction.guildLocale) {
 					message = new EmbedBuilder().setColor(0x37009B)
 						.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-						.setDescription(`» Du hast dafür nicht genug Aktien, dir fehlen **${missing}** **${name} Aktie${missing > 1 ? 'n' : ''}**!`)
+						.setDescription(`» Du hast dafür nicht genug Aktien, dir fehlen **${missing}** **${name}** Aktie!`)
 						.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 				}
 				
 				// Send Message
-				ctx.log(false, `[BTN] STOCKSELL : ${stock.toUpperCase()} : ${amount} : ${balance}€ : NOTENOUGHSTOCKS`)
+				ctx.log(false, `[BTN] STOCKSELL : ${stock.toUpperCase()} : ${amount} : ${cost}€ : NOTENOUGHSTOCKS`)
 				return ctx.interaction.reply({ embeds: [message], ephemeral: true })
 			}
 

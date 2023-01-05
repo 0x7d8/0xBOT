@@ -135,7 +135,6 @@ export default {
 			return ctx.interaction.reply({ embeds: [message], ephemeral: true })
 		}
 
-
 		// Calculate Cost
 		const cost = amount * ctx.client.stocks[stock]
 

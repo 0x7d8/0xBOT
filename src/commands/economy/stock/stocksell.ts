@@ -1,3 +1,4 @@
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js"
 import { SlashCommandBuilder, EmbedBuilder } from "discord.js"
 
 import CommandInteraction from "@interfaces/CommandInteraction.js"
@@ -27,6 +28,8 @@ export default {
 					{ name: '🔴 ROTE AKTIE', value: 'red' },
 					{ name: '⚪ WEISSE AKTIE', value: 'white' },
 					{ name: '⚫ SCHWARZE AKTIE', value: 'black' },
+					{ name: '🟤 BRAUNE AKTIE', value: 'brown' },
+					{ name: '🟣 LILA AKTIE', value: 'purple' }
 				))
 		.addIntegerOption((option: any) =>
 			option.setName('amount')
@@ -40,6 +43,8 @@ export default {
 				.setRequired(true)),
 
 	async execute(ctx: CommandInteraction) {
+		const ms = (await import('pretty-ms')).default
+
 		// Check if Stocks are Enabled in Server
 		if (!await ctx.bot.settings.get(ctx.interaction.guild.id, 'stocks')) {
 			// Create Embed
@@ -64,6 +69,27 @@ export default {
 		const stock = ctx.getOption('stock') as string
 		const amount = ctx.getOption('amount') as number
 
+		// Translate to Stock Names
+		let name: string
+		if (stock === 'green') name = '🟢 GREEN'
+		if (stock === 'blue') name = '🔵 BLUE'
+		if (stock === 'yellow') name = '🟡 YELLOW'
+		if (stock === 'red') name = '🔴 RED'
+		if (stock === 'white') name = '⚪ WHITE'
+		if (stock === 'black') name = '⚫ BLACK'
+		if (stock === 'brown') name = '🟤 BROWN'
+		if (stock === 'purple') name = '🟣 PURPLE'
+		if (ctx.metadata.language === 'de') {
+			if (stock === 'green') name = '🟢 GRÜNE'
+			if (stock === 'blue') name = '🔵 BLAUE'
+			if (stock === 'yellow') name = '🟡 GELBE'
+			if (stock === 'red') name = '🔴 ROTE'
+			if (stock === 'white') name = '⚪ WEIßE'
+			if (stock === 'black') name = '⚫ SCHWARZE'
+			if (stock === 'brown') name = '🟤 BRAUNE'
+			if (stock === 'purple') name = '🟣 LILA'
+		}
+
 		// Check if Amount is Negative
 		if (amount < 0) {
 			// Create Embed
@@ -85,16 +111,7 @@ export default {
 		}
 
 		// Calculate Cost
-		const cash = amount * ctx.client.stocks[stock]
-
-		// Set Emoji
-		let emoji: string
-		if (stock === 'green') emoji = '🟢'
-		if (stock === 'blue') emoji = '🔵'
-		if (stock === 'yellow') emoji = '🟡'
-		if (stock === 'red') emoji = '🔴'
-		if (stock === 'white') emoji = '⚪'
-		if (stock === 'black') emoji = '⚫'
+		const cost = amount * ctx.client.stocks[stock]
 
 		// Check for enough Stocks
 		if (await ctx.bot.stocks.get(ctx.interaction.user.id, stock, 'used') < amount) {
@@ -103,62 +120,92 @@ export default {
 			// Create Embed
 			let message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-  			.setDescription(`» You dont have enough Stocks for that, you are missing **${missing}** ${emoji} !`)
+  			.setDescription(`» You dont have enough Stocks for that, you are missing **${missing}** **${name}** Stock!`)
 				.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 			if (ctx.interaction.guildLocale) {
 				message = new EmbedBuilder().setColor(0x37009B)
 					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-  				.setDescription(`» Du hast dafür nicht genug Aktien, dir fehlen **${missing}** ${emoji} !`)
+  				.setDescription(`» Du hast dafür nicht genug Aktien, dir fehlen **${missing}** **${name}** Aktie!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
 			
 			// Send Message
-			ctx.log(false, `[CMD] STOCKSELL : ${stock.toUpperCase()} : ${amount} : ${cash}€ : NOTENOUGHSTOCKS`)
+			ctx.log(false, `[CMD] STOCKSELL : ${stock.toUpperCase()} : ${amount} : ${cost}€ : NOTENOUGHSTOCKS`)
 			return ctx.interaction.reply({ embeds: [message], ephemeral: true })
 		}
 
-		// Log Transaction
-		const transaction = await ctx.bot.transactions.log({
-			success: true,
-			sender: {
-				id: `${amount} ${stock.toUpperCase()} STOCK`,
-				amount: cash,
-				type: 'negative'
-			}, reciever: {
-				id: ctx.interaction.user.id,
-				amount: cash,
-				type: 'positive'
-			}
-		})
+		// Create Buttons
+		let row = new ActionRowBuilder()
+			.addComponents(
+				new ButtonBuilder()
+					.setLabel('UPDATE')
+					.setCustomId(`STOCK-SELL-REFRESH-${stock}-${ctx.interaction.user.id}-${amount}`)
+					.setEmoji('1055826473442873385')
+					.setStyle(ButtonStyle.Primary)
+					.setDisabled(false),
 
-		// Add Money
-		ctx.bot.money.add(ctx.interaction.guild.id, ctx.interaction.user.id, cash)
+				new ButtonBuilder()
+					.setLabel('YES')
+					.setCustomId(`STOCK-SELL-YES-${stock}-${ctx.interaction.user.id}-${amount}`)
+					.setEmoji('1024382935618572299')
+					.setStyle(ButtonStyle.Success)
+					.setDisabled(false),
 
-		// Remove Stock Amount
-		ctx.bot.stocks.rem(ctx.interaction.user.id, stock, 'used', amount)
+				new ButtonBuilder()
+					.setLabel('NO')
+					.setCustomId(`STOCK-SELL-NO-${stock}-${ctx.interaction.user.id}-${amount}`)
+					.setEmoji('1024382939020152982')
+					.setStyle(ButtonStyle.Danger)
+					.setDisabled(false),
+			)
+		if (ctx.metadata.language === 'de') {
+			row = new ActionRowBuilder()
+				.addComponents(
+					new ButtonBuilder()
+						.setLabel('AKTUALISIEREN')
+						.setCustomId(`STOCK-SELL-REFRESH-${stock}-${ctx.interaction.user.id}-${amount}`)
+						.setEmoji('1055826473442873385')
+						.setStyle(ButtonStyle.Primary)
+						.setDisabled(false),
+
+					new ButtonBuilder()
+						.setLabel('JA')
+						.setCustomId(`STOCK-SELL-YES-${stock}-${ctx.interaction.user.id}-${amount}`)
+						.setEmoji('1024382935618572299')
+						.setStyle(ButtonStyle.Success)
+						.setDisabled(false),
+
+					new ButtonBuilder()
+						.setLabel('NEIN')
+						.setCustomId(`STOCK-SELL-NO-${stock}-${ctx.interaction.user.id}-${amount}`)
+						.setEmoji('1024382939020152982')
+						.setStyle(ButtonStyle.Danger)
+						.setDisabled(false),
+				)
+		}
 
 		// Create Embed
 		let message = new EmbedBuilder().setColor(0x37009B)
-			.setTitle('<:CHART:1024398298204876941> » SELL STOCKS')
+			.setTitle('<:BOXCHECK:1024401101589590156> » SELL STOCKS')
 			.setDescription(`
-				» You successfully sold **${amount}** ${emoji} for **$${cash}**! (**$${ctx.client.stocks[stock]}** per Stock)
+				⏲️ New Prices in **${ms((ctx.client.stocks.refresh - Math.floor(+new Date() / 1000)) * 1000, { secondsDecimalDigits: 0 })}**
 
-				ID: ${transaction.id}
+				» Do you want to sell **${amount}x** **${name}** Stock for **$${cost}**?
 			`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 
 		if (ctx.metadata.language === 'de') {
 			message = new EmbedBuilder().setColor(0x37009B)
-				.setTitle('<:CHART:1024398298204876941> » AKTIEN VERKAUFEN')
+				.setTitle('<:BOXCHECK:1024401101589590156> » AKTIEN VERKAUFEN')
 				.setDescription(`
-					» Du hast erfolgreich **${amount}** ${emoji} für **${cash}€** verkauft! (**${ctx.client.stocks[stock]}€** pro Aktie)
+					⏲️ Neue Preise in **${ms((ctx.client.stocks.refresh - Math.floor(+new Date() / 1000)) * 1000, { secondsDecimalDigits: 0 })}**
 
-					ID: ${transaction.id}
+					» Willst du **${amount}x** **${name}** Aktie für **${cost}€** verkaufen?
 				`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 		}
 
 		// Send Message
-		ctx.log(false, `[CMD] STOCKSELL : ${stock.toUpperCase()} : ${amount} : ${cash}€`)
-		return ctx.interaction.reply({ embeds: [message], ephemeral: true })
+		ctx.log(false, `[CMD] STOCKSELL : ${stock.toUpperCase()} : ${amount} : ${cost}€`)
+		return ctx.interaction.reply({ embeds: [message], components: [row as any] })
 	}
 }

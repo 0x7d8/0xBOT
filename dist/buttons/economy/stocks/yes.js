@@ -116,15 +116,15 @@ if (await ctx.bot.stocks.get(ctx.interaction.user.id, stock, 'used') < amount) {
 const missing = amount - (await ctx.bot.stocks.get(ctx.interaction.user.id, stock, 'used'));
 let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-.setDescription(`» You dont have enough Stocks for that, you are missing **${missing}** **${name} Stock${missing > 1 ? 's' : ''}**!`)
+.setDescription(`» You dont have enough Stocks for that, you are missing **${missing}** **${name}** Stock!`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.interaction.guildLocale) {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-.setDescription(`» Du hast dafür nicht genug Aktien, dir fehlen **${missing}** **${name} Aktie${missing > 1 ? 'n' : ''}**!`)
+.setDescription(`» Du hast dafür nicht genug Aktien, dir fehlen **${missing}** **${name}** Aktie!`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
-ctx.log(false, `[BTN] STOCKSELL : ${stock.toUpperCase()} : ${amount} : ${balance}€ : NOTENOUGHSTOCKS`);
+ctx.log(false, `[BTN] STOCKSELL : ${stock.toUpperCase()} : ${amount} : ${cost}€ : NOTENOUGHSTOCKS`);
 return ctx.interaction.reply({ embeds: [message], ephemeral: true });
 }
 ctx.components.rows[0].components[0].setDisabled(true);
