@@ -619,7 +619,7 @@ regenerator-runtime@^0.13.11:
   resolved "https://registry.npmjs.org/regenerator-runtime/-/regenerator-runtime-0.13.11.tgz"
   integrity sha512-kY1AZVr2Ra+t+piVaJ4gxaFaReZVH40AKNo7UCX6W+dEwBo/2oZJzqfuN1qLq1oL45o56cPaTXELwrTh8Fpggg==
 
-rjutils-collection@^1.1.0:
+rjutils-collection@^1.0.6:
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/rjutils-collection/-/rjutils-collection-1.0.6.tgz#85d80774c3985d8e73a7e98fa77f2ec6477664d0"
   integrity sha512-iD5dhoMVfasRDy66+UgoJ617UXiDPywyQ5GhTFS8mjGQYy2oBYmgCi5K1Jjx2nZZ7C59LAm30WaHtK2G2TDnNA==

@@ -26,7 +26,7 @@
     "node-cron": "^3.0.2",
     "pg": "^8.8.0",
     "pretty-ms": "^8.0.0",
-    "rjutils-collection": "^1.1.0",
+    "rjutils-collection": "^1.0.6",
     "rjweb-server": "*",
     "simple-git": "^3.15.1"
   }
