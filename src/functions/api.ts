@@ -60,23 +60,110 @@ export const checkSession = async(accessToken: string, tokenType: string, userid
 	}
 }
 
-const mailcache = new Map()
-export const checkEmail = async(accessToken: string, tokenType: string, userid: string, email: string) => {
-	const axios = (await import('axios')).default
+interface Set {
+	user: {
+		id: string
+		name: string
+		tag: string
+		email: string
+		avatar: string | null
+	}
 
-	const dbuser = mailcache.get(userid+email)
-	if (typeof dbuser === 'undefined') {
+	tokens: {
+		access: string
+		refresh: string
+	}
+
+	auth: string
+}
+
+export const users = {
+	set: async(json: Set) => {
+		const data = await db.query(`select * from userlogins where id = $1;`, [json.user.id])
+
+		if (data.rowCount !== 1) {
+			await db.query(`insert into userlogins values ($1, $2, $3, $4, $5, $6, $7, $8)`, [
+				json.user.id,
+				json.user.name,
+				json.user.tag,
+				json.user.email,
+				json.user.avatar,
+				json.auth,
+				json.tokens.access,
+				json.tokens.refresh
+			])
+		} else {
+			await db.query(`update userlogins set name = $2, tag = $3, email = $4, avatar = $5, authtoken = $6, accesstoken = $7, refreshtoken = $8 where id = $1;`, [
+				json.user.id,
+				json.user.name,
+				json.user.tag,
+				json.user.email,
+				json.user.avatar,
+				json.auth,
+				json.tokens.access,
+				json.tokens.refresh
+			])
+		}
+	},
+
+	get: async(authToken: string) => {
+		const data = await db.query(`select * from userlogins where authtoken = $1;`, [authToken])
+		if (data.rowCount !== 1) return 'N-FOUND'
+
+		return {
+			id: data.rows[0].id,
+			name: data.rows[0].name,
+			tag: data.rows[0].tag,
+			avatar: data.rows[0].avatar,
+			email: data.rows[0].email,
+			tokens: {
+				access: data.rows[0].accesstoken,
+				refresh: data.rows[0].refreshtoken
+			}
+		}
+	},
+
+	rem: async(userId: string) => {
+		await db.query(`delete from userlogins where id = $1;`, [userId])
+	}
+}
+
+export const checkAuth = async(authToken: string, guildId: string) => {
+	// Get Infos
+	const userInfos = await users.get(authToken)
+	if (userInfos === 'N-FOUND') return false
+
+	// Check for Session
+	const dbuser = await db.query(`select * from usersessions where userid = $1 and token = $2 and tokentype = $3;`, [
+		userInfos.id,
+		userInfos.tokens.access,
+		'Bearer'
+	]); if (dbuser.rowCount === 0 || dbuser.rows[0].expires < Math.floor(+new Date() / 1000)) {
+		// Clear Rows
+		if (dbuser.rowCount > 0 && dbuser.rows[0].expires < Math.floor(+new Date() / 1000)) {
+			await db.query(`delete from usersessions where userid = $1 and token = $2;`, [
+				userInfos.id,
+				userInfos.tokens.access
+			])
+		}
+
 		try {
-			const req = await axios.get('https://discord.com/api/users/@me', {
-				headers: {
-					authorization: `${tokenType} ${accessToken}`
-				}
-			}); const res = req.data
-			if (res.id !== userid) return false
-			if (res.email !== email) return false
-
-			mailcache.set(userid+email, true)
-			return true
+			const guild = await client.guilds.fetch(guildId)
+			const user = await guild.members.fetch(userInfos.id)
+			if (user.permissions.has(PermissionsBitField.Flags.Administrator)) {
+				await db.query(`insert into usersessions values ($1, $2, $3, $4);`, [
+					userInfos.id,
+					userInfos.tokens.access,
+					'Bearer',
+					(Math.floor(+new Date() / 1000))+150
+				]); return true
+			} else return false
 		} catch(e) { return false }
-	} else return true
+	} else {
+		try {
+			const guild = await client.guilds.fetch(guildId)
+			const user = await guild.members.fetch(userInfos.id)
+			if (user.permissions.has(PermissionsBitField.Flags.Administrator)) { return true }
+		} catch(e) { return false }
+	}
 }

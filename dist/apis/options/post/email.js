@@ -8,28 +8,29 @@ module.exports = {
 type: rjweb_server_1.default.types.post,
 path: '/options/email',
 async code(ctr) {
-if (!ctr.query.has('email'))
-return ctr.print({ "success": false, "message": 'NO EMAIL' });
 if (!('option' in ctr.reqBody))
 return ctr.print({ "success": false, "message": 'NO HEADERS' });
-if (!await ctr.api.checkEmail(ctr.header.get('accesstoken'), ctr.header.get('tokentype'), ctr.header.get('userid'), ctr.query.get('email')))
-return ctr.print({ "success": false, "message": 'PERMISSION DENIED' });
+if (!ctr.header.has('authtoken'))
+return ctr.print({ "success": false, "message": 'NO AUTH TOKEN' });
+const userInfos = await ctr.api.users.get(ctr.header.get('authtoken'));
+if (userInfos === 'N-FOUND')
+return ctr.print({ "success": false, "message": 'USER NOT FOUND' });
 const dbemail = await ctr.db.query(`select * from useremails where userid = $1 and email = $2;`, [
-ctr.header.get('userid'),
-ctr.query.get('email')
+userInfos.id,
+userInfos.email
 ]);
 if (ctr.reqBody.option) {
 if (dbemail.rowCount === 0) {
 await ctr.db.query(`insert into useremails values ($1, $2)`, [
-ctr.header.get('userid'),
-ctr.query.get('email')
+userInfos.id,
+userInfos.email
 ]);
 }
 }
 else {
 await ctr.db.query(`delete from useremails where userid = $1 and email = $2;`, [
-ctr.header.get('userid'),
-ctr.query.get('email')
+userInfos.id,
+userInfos.email
 ]);
 }
 return ctr.print({ "success": true, "message": 'OPTION UPDATED' });

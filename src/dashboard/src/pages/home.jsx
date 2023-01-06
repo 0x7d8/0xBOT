@@ -24,7 +24,7 @@ import axios from 'axios'
 /* ---------------- *
  * Version          *
  * ---------------- */
-const version = '3.8.0'
+const version = '3.9.0'
 
 function getWindowDimensions() {
   const { innerWidth: width, innerHeight: height } = window;
@@ -50,6 +50,7 @@ function getWindowDimensions() {
 function Bot() {
   const width = useWindowDimensions().width
   const SwitchImage = useColorModeValue(LogoLight, LogoDark)
+  const navigate = useNavigate()
 
   let size = '30rem'
   if (width < 1000) { size = '50%' }
@@ -83,7 +84,10 @@ function Bot() {
           variant="outline"
           colorScheme="gray"
           leftIcon={<TbRocket size={24} />}
-          onClick={() => document.location.replace('https://discord.com/api/oauth2/authorize?client_id=1001944224545128588&redirect_uri=https%3A%2F%2F0xbot.de%2F&response_type=token&scope=identify%20email%20guilds')}
+          onClick={() => {
+            if (window.authenticated) navigate('/panel')
+            else window.location.replace('https://discord.com/api/oauth2/authorize?client_id=1001944224545128588&redirect_uri=https%3A%2F%2F0xbot.de%2Fauth%2Fdiscord&response_type=code&scope=identify%20guilds%20email')
+          }}
         >
           GET STARTED
         </Button>

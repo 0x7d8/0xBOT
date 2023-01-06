@@ -7,34 +7,32 @@ module.exports = {
 
 	async code(ctr: webserverInterface) {
 		// Check for Queries
-		if (!ctr.query.has('email')) return ctr.print({ "success": false, "message": 'NO EMAIL' })
 		if (!('option' in (ctr.reqBody as any))) return ctr.print({ "success": false, "message": 'NO HEADERS' })
 		
-		// Check Permissions
-		if (!await ctr.api.checkEmail(
-			ctr.header.get('accesstoken'),
-			ctr.header.get('tokentype'),
-			ctr.header.get('userid'),
-			ctr.query.get('email')
-		)) return ctr.print({ "success": false, "message": 'PERMISSION DENIED' })
+		// Check for Headers
+		if (!ctr.header.has('authtoken')) return ctr.print({ "success": false, "message": 'NO AUTH TOKEN' })
+
+		// Get Infos
+		const userInfos = await ctr.api.users.get(ctr.header.get('authtoken'))
+		if (userInfos === 'N-FOUND') return ctr.print({ "success": false, "message": 'USER NOT FOUND' })
 
 		// Set Email
 		const dbemail = await ctr.db.query(`select * from useremails where userid = $1 and email = $2;`, [
-			ctr.header.get('userid'),
-			ctr.query.get('email')
+			userInfos.id,
+			userInfos.email
 		])
 
 		if ((ctr.reqBody as any).option) {
 			if (dbemail.rowCount === 0) {
 				await ctr.db.query(`insert into useremails values ($1, $2)`, [
-					ctr.header.get('userid'),
-					ctr.query.get('email')
+					userInfos.id,
+					userInfos.email
 				])
 			}
 		} else {
 			await ctr.db.query(`delete from useremails where userid = $1 and email = $2;`, [
-				ctr.header.get('userid'),
-				ctr.query.get('email')
+				userInfos.id,
+				userInfos.email
 			])
 		}
 

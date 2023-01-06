@@ -1,0 +1,72 @@
+"use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+if (k2 === undefined) k2 = k;
+var desc = Object.getOwnPropertyDescriptor(m, k);
+if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+  desc = { enumerable: true, get: function() { return m[k]; } };
+}
+Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+if (k2 === undefined) k2 = k;
+o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+if (mod && mod.__esModule) return mod;
+var result = {};
+if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+__setModuleDefault(result, mod);
+return result;
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const rjweb_server_1 = __importDefault(require("rjweb-server"));
+const utils = __importStar(require("rjutils-collection"));
+const discord_oauth2_1 = __importDefault(require("discord-oauth2"));
+const oAuth = new discord_oauth2_1.default();
+module.exports = {
+type: rjweb_server_1.default.types.post,
+path: '/auth/login',
+async code(ctr) {
+if (!ctr.header.has('code'))
+return ctr.print({ "success": false, "message": 'NO CODE' });
+const token = await oAuth.tokenRequest({
+clientId: ctr.config.client.id,
+clientSecret: ctr.config.client.secret,
+grantType: 'authorization_code',
+scope: ['identify', 'guilds', 'email'],
+redirectUri: 'http://5.252.100.89:3000/auth/discord',
+code: ctr.header.get('code')
+}).catch((e) => { });
+if (!token)
+return ctr.print({ "success": false, "message": 'INVALID TOKEN' });
+const userInfos = await oAuth.getUser(token.access_token);
+const base = `${userInfos.id} ${token.access_token}`;
+const authToken = utils.hashString({ text: base, algorithm: 'sha256', digest: 'hex' });
+ctr.api.users.set({
+auth: authToken,
+user: {
+id: userInfos.id,
+name: userInfos.username,
+tag: userInfos.discriminator,
+email: userInfos.email,
+avatar: userInfos.avatar
+}, tokens: {
+access: token.access_token,
+refresh: token.refresh_token
+}
+});
+return ctr.print({
+"success": true,
+"authToken": authToken,
+"infos": userInfos
+});
+}
+};
+//# sourceMappingURL=login.js.map

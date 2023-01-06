@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.checkEmail = exports.checkSession = void 0;
+exports.checkAuth = exports.users = exports.checkSession = void 0;
 const _config_1 = __importDefault(require("@config"));
 const pg_1 = __importDefault(require("pg"));
 const db = new pg_1.default.Pool({
@@ -75,31 +75,101 @@ return false;
 }
 };
 exports.checkSession = checkSession;
-const mailcache = new Map();
-const checkEmail = async (accessToken, tokenType, userid, email) => {
-const axios = (await import('axios')).default;
-const dbuser = mailcache.get(userid + email);
-if (typeof dbuser === 'undefined') {
-try {
-const req = await axios.get('https://discord.com/api/users/@me', {
-headers: {
-authorization: `${tokenType} ${accessToken}`
+exports.users = {
+set: async (json) => {
+const data = await db.query(`select * from userlogins where id = $1;`, [json.user.id]);
+if (data.rowCount !== 1) {
+await db.query(`insert into userlogins values ($1, $2, $3, $4, $5, $6, $7, $8)`, [
+json.user.id,
+json.user.name,
+json.user.tag,
+json.user.email,
+json.user.avatar,
+json.auth,
+json.tokens.access,
+json.tokens.refresh
+]);
 }
-});
-const res = req.data;
-if (res.id !== userid)
+else {
+await db.query(`update userlogins set name = $2, tag = $3, email = $4, avatar = $5, authtoken = $6, accesstoken = $7, refreshtoken = $8 where id = $1;`, [
+json.user.id,
+json.user.name,
+json.user.tag,
+json.user.email,
+json.user.avatar,
+json.auth,
+json.tokens.access,
+json.tokens.refresh
+]);
+}
+},
+get: async (authToken) => {
+const data = await db.query(`select * from userlogins where authtoken = $1;`, [authToken]);
+if (data.rowCount !== 1)
+return 'N-FOUND';
+return {
+id: data.rows[0].id,
+name: data.rows[0].name,
+tag: data.rows[0].tag,
+avatar: data.rows[0].avatar,
+email: data.rows[0].email,
+tokens: {
+access: data.rows[0].accesstoken,
+refresh: data.rows[0].refreshtoken
+}
+};
+},
+rem: async (userId) => {
+await db.query(`delete from userlogins where id = $1;`, [userId]);
+}
+};
+const checkAuth = async (authToken, guildId) => {
+const userInfos = await exports.users.get(authToken);
+if (userInfos === 'N-FOUND')
 return false;
-if (res.email !== email)
-return false;
-mailcache.set(userid + email, true);
+const dbuser = await db.query(`select * from usersessions where userid = $1 and token = $2 and tokentype = $3;`, [
+userInfos.id,
+userInfos.tokens.access,
+'Bearer'
+]);
+if (dbuser.rowCount === 0 || dbuser.rows[0].expires < Math.floor(+new Date() / 1000)) {
+if (dbuser.rowCount > 0 && dbuser.rows[0].expires < Math.floor(+new Date() / 1000)) {
+await db.query(`delete from usersessions where userid = $1 and token = $2;`, [
+userInfos.id,
+userInfos.tokens.access
+]);
+}
+try {
+const guild = await client.guilds.fetch(guildId);
+const user = await guild.members.fetch(userInfos.id);
+if (user.permissions.has(discord_js_1.PermissionsBitField.Flags.Administrator)) {
+await db.query(`insert into usersessions values ($1, $2, $3, $4);`, [
+userInfos.id,
+userInfos.tokens.access,
+'Bearer',
+(Math.floor(+new Date() / 1000)) + 150
+]);
 return true;
+}
+else
+return false;
 }
 catch (e) {
 return false;
 }
 }
-else
+else {
+try {
+const guild = await client.guilds.fetch(guildId);
+const user = await guild.members.fetch(userInfos.id);
+if (user.permissions.has(discord_js_1.PermissionsBitField.Flags.Administrator)) {
 return true;
+}
+}
+catch (e) {
+return false;
+}
+}
 };
-exports.checkEmail = checkEmail;
+exports.checkAuth = checkAuth;
 //# sourceMappingURL=api.js.map

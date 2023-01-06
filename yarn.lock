@@ -271,6 +271,11 @@ discord-api-types@^0.37.14, discord-api-types@^0.37.20:
   resolved "https://registry.npmjs.org/discord-api-types/-/discord-api-types-0.37.20.tgz"
   integrity sha512-uAO+55E11rMkYR36/paE1vKN8c2bZa1mgrIaiQIBgIZRKZTDIGOZB+8I5eMRPFJcGxrg16riUu+0aTu2JQEPew==
 
+discord-oauth2@^2.11.0:
+  version "2.11.0"
+  resolved "https://registry.yarnpkg.com/discord-oauth2/-/discord-oauth2-2.11.0.tgz#799acc6777a216f8fbbf72d5ea29086eb4303f85"
+  integrity sha512-pIbgXm498f7vqNd8/7JwoLd36YMFOFASSJdqyCGdwQpaG7ULHu9nLyifpVXI1b88xvNLqQwqugS8jxkn8Ypd1Q==
+
 discord.js@^14.7.1:
   version "14.7.1"
   resolved "https://registry.npmjs.org/discord.js/-/discord.js-14.7.1.tgz"
@@ -614,10 +619,10 @@ regenerator-runtime@^0.13.11:
   resolved "https://registry.npmjs.org/regenerator-runtime/-/regenerator-runtime-0.13.11.tgz"
   integrity sha512-kY1AZVr2Ra+t+piVaJ4gxaFaReZVH40AKNo7UCX6W+dEwBo/2oZJzqfuN1qLq1oL45o56cPaTXELwrTh8Fpggg==
 
-rjutils-collection@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.npmjs.org/rjutils-collection/-/rjutils-collection-1.0.2.tgz"
-  integrity sha512-FETC56vLzpabLr7uzEdmnSWGCNLTbtQBH57STT8c/94pxgBVPh7UsIuN0ucqGHU3kaHnefoqDj1SyZw+D3WRpw==
+rjutils-collection@^1.1.0:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/rjutils-collection/-/rjutils-collection-1.0.6.tgz#85d80774c3985d8e73a7e98fa77f2ec6477664d0"
+  integrity sha512-iD5dhoMVfasRDy66+UgoJ617UXiDPywyQ5GhTFS8mjGQYy2oBYmgCi5K1Jjx2nZZ7C59LAm30WaHtK2G2TDnNA==
 
 rjweb-server@*:
   version "0.8.2"

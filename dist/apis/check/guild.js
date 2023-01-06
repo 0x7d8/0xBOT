@@ -10,7 +10,9 @@ path: '/check/guild',
 async code(ctr) {
 if (!ctr.query.has('id'))
 return ctr.print({ "success": false, "message": 'NO ID' });
-if (!await ctr.api.checkSession(ctr.header.get('accesstoken'), ctr.header.get('tokentype'), ctr.header.get('userid'), ctr.query.get('id')))
+if (!ctr.header.has('authtoken'))
+return ctr.print({ "success": false, "message": 'NO AUTH TOKEN' });
+if (!await ctr.api.checkAuth(ctr.header.get('authtoken'), ctr.query.get('id')))
 return ctr.print({ "success": false, "message": 'PERMISSION DENIED' });
 let status = true;
 await ctr.client.guilds.fetch(ctr.query.get('id')).catch(() => { status = false; });

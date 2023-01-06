@@ -4,20 +4,22 @@ import {
   Grid,
   Flex,
   Button,
+  Spinner,
   Center,
+  VStack,
   useColorModeValue,
   Text,
   Image,
   useToast
 } from '@chakra-ui/react'
 
+import { useCookies } from 'react-cookie'
 import { useNavigate } from 'react-router-dom'
 import ImageSlash from '/src/static/ImageSlash.svg'
 import axios from 'axios'
 
 import Animated from '/src/Animated'
 
-import * as cookie from '/src/scripts/cookies'
 function getWindowDimensions() {
   const { innerWidth: width, innerHeight: height } = window;
   return {
@@ -40,6 +42,7 @@ function getWindowDimensions() {
 }
 
 function ServerBox(props) {
+  const [ cookies ] = useCookies()
   const navigate = useNavigate()
   const width = useWindowDimensions().width
   const toast = useToast()
@@ -49,30 +52,32 @@ function ServerBox(props) {
   let useWidth = 100
   if (width < 1150 && width > 750) { useWidth = 75 }
 
-  window.goserver = (id) => {
+  const goServer = (id) => {
     axios
       .get(`https://api.0xbot.de/check/guild?id=${id}`, {
         headers: {
-          accesstoken: cookie.get('accessToken'),
-          tokentype: cookie.get('tokenType'),
-          userid: cookie.get('userid')
+          authToken: cookies.authToken
         }
       })
       .then((res) => {
         if (res.data.success) return navigate(`/panel/manage?server=${id}`)
         toast({
           title: <Center>ERROR</Center>,
-          description: <Center>Please Invite the Bot to that Server first.<br />
-            <Button
-              mt="1rem"
-              colorScheme="gray"
-              variant="outline"
-              onClick={() => { window.location.replace('https://top.gg/bot/1001944224545128588/invite') }}
-            >
-              INVITE
-            </Button>
-          </Center>,
-
+          description: (
+            <Center>
+              <VStack>
+                <Text>Please Invite the Bot to that Server first.</Text>
+                <Button
+                  mt="1rem"
+                  colorScheme="gray"
+                  variant="outline"
+                  onClick={() => window.location.replace('https://top.gg/bot/1001944224545128588/invite') }
+                >
+                  INVITE
+                </Button>
+              </VStack>
+            </Center>
+          ),
           status: "error",
           duration: 6000,
           isClosable: true,
@@ -116,7 +121,7 @@ function ServerBox(props) {
             colorScheme="gray"
             marginTop="1rem"
             alignSelf="center"
-            onClick={() => { window.goserver(props.serverid) }}
+            onClick={() => goServer(props.serverid) }
           >
             MANAGE
           </Button>
@@ -128,39 +133,78 @@ function ServerBox(props) {
           color={SwitchIconColor}
           as="b"
           fontSize="3xl"
-        >{props.servername}</Text>
+        >
+          {props.servername}
+        </Text>
       </Flex>
     </Flex>
   )
-}; const ServerContainer = () => {
+}; const ServerContainer = ({ setHidden }) => {
+  const [ cookies ] = useCookies()
   const width = useWindowDimensions().width
   let useWidth = 1
   if (width > 1150) { useWidth = 2 }
 
-  const [cards, setCards] = useState([])
+  const [servers, setServers] = useState([])
 
   useEffect(() => {
-    axios
-      .get(`https://discord.com/api/users/@me/guilds`, {
+    (async() => {
+      if (!cookies) return
+      let tokens = (await axios({
+        method: 'GET',
+        url: 'https://api.0xbot.de/auth/tokens',
+        validateStatus: () => true,
         headers: {
-          authorization: `${cookie.get('tokenType')} ${cookie.get('accessToken')}`
+          authToken: cookies.authToken
         }
-      })
-      .then((res) => {
-        const ereformdata = []
-        const dreformdata = []
-        for (let guild of res.data) {
-          if (guild.permissions === 8 || guild.permissions === 2147483647) {
-            guild.enabled = true 
-            ereformdata.push(guild)
-          } else {
-            guild.enabled = false 
-            dreformdata.push(guild)
-          }
-        }
+      })).data
+      if (!tokens.success) return console.error(tokens)
+      tokens = tokens.tokens
+      let guilds
 
-        setCards(ereformdata.concat(dreformdata))
-      })
+      try {
+        guilds = await axios({
+          method: 'GET',
+          url: 'https://discord.com/api/users/@me/guilds',
+          headers: {
+            authorization: `Bearer ${tokens.access}`
+          }
+        })
+      } catch (e) {
+        let newTokens = (await axios({
+          method: 'GET',
+          url: 'https://api.0xbot.de/auth/refresh',
+          headers: {
+            authToken: cookies.authToken
+          }
+        })).data
+        if (!newTokens.success) return console.error(newTokens)
+        newTokens = newTokens.tokens
+
+        await new Promise(resolve => setTimeout(resolve, 1000))
+        guilds = await axios({
+          method: 'GET',
+          url: 'https://discord.com/api/users/@me/guilds',
+          headers: {
+            authorization: `Bearer ${newTokens.access}`
+          }
+        })
+      }; setHidden(true)
+
+      const ereformdata = []
+      const dreformdata = []
+      for (let guild of guilds.data) {
+        if (guild.permissions === 8 || guild.permissions === 2147483647) {
+          guild.enabled = true 
+          ereformdata.push(guild)
+        } else {
+          guild.enabled = false 
+          dreformdata.push(guild)
+        }
+      }
+
+      setServers(ereformdata.concat(dreformdata))
+    }) ()
   }, [])
 
   return (
@@ -169,7 +213,7 @@ function ServerBox(props) {
         templateColumns={`repeat(${useWidth}, 1fr)`}
         gap="1rem"
       >
-        {cards?.map(server => (
+        {servers?.map((server) => (
           <ServerBox key={server.id} servername={server.name} serverid={server.id} serverimage={server.icon} enabled={server.enabled} />
         ))}
       </Grid>
@@ -177,11 +221,23 @@ function ServerBox(props) {
   )
 }
 function Panel() {
+  const [ hidden, setHidden ] = useState(false)
+
   return (
     <Animated>
       <Box textAlign="center" fontSize="xl" mt="6.2rem">
+        <Flex
+          flexDirection="column"
+          alignContent="center"
+          justifyContent="center"
+          p={12}
+          borderRadius="2rem"
+          hidden={hidden}
+        >
+          <Spinner size="xl" justifySelf="center" alignSelf="center" />
+        </Flex>
         <Grid minH="0%" p={3}>
-          <ServerContainer />
+          <ServerContainer setHidden={setHidden} />
         </Grid>
       </Box>
     </Animated>

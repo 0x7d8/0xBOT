@@ -4,8 +4,9 @@ import * as ReactDOM from 'react-dom/client'
 import { NavBar } from '/src/NavBar'
 
 // Pages
-import AutoLogin from '/src/pages/autologin'
 import Home from '/src/pages/home'
+
+import AuthDiscord from '/src/pages/auth/discord'
 
 import Transactions from '/src/pages/transactions'
 
@@ -32,8 +33,9 @@ root.render(
         <NavBar />
 
         <Routes>
-          <Route path="/" element={<AutoLogin />} status={200} />
-          <Route path="/home" element={<Home />} status={200} />
+          <Route path="/" element={<Home />} status={200} />
+
+          <Route path="/auth/discord" element={<AuthDiscord />} status={200} />
 
           <Route path="/transactions" element={<Transactions />} status={200} />
 

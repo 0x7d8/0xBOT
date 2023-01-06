@@ -12,7 +12,9 @@ if (!ctr.query.has('id'))
 return ctr.print({ "success": false, "message": 'NO ID' });
 if (!('option' in ctr.reqBody) || !('value' in ctr.reqBody))
 return ctr.print({ "success": false, "message": 'NO HEADERS' });
-if (!await ctr.api.checkSession(ctr.header.get('accesstoken'), ctr.header.get('tokentype'), ctr.header.get('userid'), ctr.query.get('id')))
+if (!ctr.header.has('authtoken'))
+return ctr.print({ "success": false, "message": 'NO AUTH TOKEN' });
+if (!await ctr.api.checkAuth(ctr.header.get('authtoken'), ctr.query.get('id')))
 return ctr.print({ "success": false, "message": 'PERMISSION DENIED' });
 let response = { "success": false, "message": 'NOT FOUND' };
 if (ctr.reqBody.option === 'LANGUAGE') {

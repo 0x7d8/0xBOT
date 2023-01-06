@@ -16,6 +16,7 @@ import {
   Switch
 } from '@chakra-ui/react'
 
+import { useCookies } from 'react-cookie'
 import { useNavigate } from 'react-router-dom'
 import { TbServer, TbHandClick } from 'react-icons/all'
 import axios from 'axios'
@@ -25,22 +26,21 @@ import Animated from '/src/Animated'
 import * as cookie from '/src/scripts/cookies'
 function ProfileBox() {
   const toast = useToast()
+  const [ cookies, setCookie, removeCookie ] = useCookies()
   const [ onlineValue, setOnlineValue ] = useState(false)
   const [ stats, setStats ] = useState(0)
 
   useEffect(() => {
     axios
-      .get(`https://api.0xbot.de/stats/user?id=${cookie.get('userid')}`)
+      .get(`https://api.0xbot.de/stats/user?id=${cookies.userId}`)
       .then((res) => {
         setStats(res.data)
       })
 
     axios
-      .get(`https://api.0xbot.de/options/email?email=${cookie.get('useremail')}`, {
+      .get(`https://api.0xbot.de/options/email`, {
         headers: {
-          accesstoken: cookie.get('accessToken'),
-          tokentype: cookie.get('tokenType'),
-          userid: cookie.get('userid')
+          authToken: cookies.authToken
         }
       })
       .then((res) => {
@@ -54,11 +54,9 @@ function ProfileBox() {
   const emailSwitch = (data) => {
     const value = (data.target._valueTracker.getValue() === 'true')
     axios
-      .get(`https://api.0xbot.de/options/email?email=${cookie.get('useremail')}`, {
+      .get(`https://api.0xbot.de/options/email`, {
         headers: {
-          accesstoken: cookie.get('accessToken'),
-          tokentype: cookie.get('tokenType'),
-          userid: cookie.get('userid')
+          authToken: cookies.authToken
         }
       })
       .then((res) => {
@@ -66,13 +64,11 @@ function ProfileBox() {
       })
 
     axios
-      .post(`https://api.0xbot.de/options/email?email=${cookie.get('useremail')}`, {
+      .post(`https://api.0xbot.de/options/email`, {
         option: value
       }, {
         headers: {
-          accesstoken: cookie.get('accessToken'),
-          tokentype: cookie.get('tokenType'),
-          userid: cookie.get('userid')
+          authToken: cookies.authToken
         }
       })
       .then((res) => {
@@ -115,13 +111,13 @@ function ProfileBox() {
           mt='-2rem'
           mb={6}
         >
-          Welcome, {cookie.get('username')}
+          Welcome, {cookies.userName}
         </Heading>
 
         <Avatar
           alignSelf='center'
           size="2xl"
-          src={`https://cdn.discordapp.com/avatars/${cookie.get('userid')}/${cookie.get('avatar')}.png`}
+          src={`https://cdn.discordapp.com/avatars/${cookies.userId}/${cookies.userAvatar}.png`}
           alt='Profile Picture'
         />
 
@@ -232,7 +228,7 @@ function ProfileBox() {
         </Button>
         <Text
           mt="2rem"
-          hidden={(cookie.get('useremail') === '')}
+          hidden={!cookies.userEmail}
           color={SwitchIconColor}
         >
           Emails
@@ -241,7 +237,7 @@ function ProfileBox() {
           mt="0.5rem"
           size="lg"
           isChecked={onlineValue}
-          hidden={(cookie.get('useremail') === '')}
+          hidden={!cookies.userEmail}
           onChange={emailSwitch}
         />
       </Flex>

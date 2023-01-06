@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import {
   Text,
   Button,
@@ -14,31 +14,9 @@ import {
 import { TbCaretDown } from 'react-icons/all'
 import axios from 'axios'
 
-import * as cookie from '/src/scripts/cookies'
-function Option() {
+function Option({ settings, cookies }) {
   const params = new URLSearchParams(window.location.search)
   const toast = useToast()
-
-  const [ settings, setSettings ] = useState({})
-
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search)
-
-    {(async() => {
-      const req = await axios({
-        method: 'get',
-        url: `https://api.0xbot.de/options/guild?id=${params.get('server')}&page=GENERAL`,
-        validateStatus: false,
-        headers: {
-          accesstoken: cookie.get('accessToken'),
-          tokentype: cookie.get('tokenType'),
-          userid: cookie.get('userid')
-        }
-      }); const res = req.data
-      
-      setSettings(res)
-    }) ()}
-  }, [])
 
   const setOption = (opt) => {
     axios
@@ -47,9 +25,7 @@ function Option() {
         value: opt
       }, {
         headers: {
-          accesstoken: cookie.get('accessToken'),
-          tokentype: cookie.get('tokenType'),
-          userid: cookie.get('userid')
+          authToken: cookies.authToken
         }
       })
       .then((res) => {
@@ -86,7 +62,7 @@ function Option() {
             w="92.5%"
             textAlign="center"
             justifyContent="center"
-            onClick={() => setOption('ENGLISH') }
+            onClick={() => setOption('ENGLISH')}
           >
             ENGLISH
           </MenuItem>
@@ -97,7 +73,7 @@ function Option() {
             w="92.5%"
             textAlign="center"
             justifyContent="center"
-            onClick={() => setOption('GERMAN') }
+            onClick={() => setOption('GERMAN')}
           >
             GERMAN
           </MenuItem>

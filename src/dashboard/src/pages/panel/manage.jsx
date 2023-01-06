@@ -17,6 +17,7 @@ import {
   Image
 } from '@chakra-ui/react'
 
+import { useCookies } from 'react-cookie'
 import { TbCaretDown, TbHandClick } from 'react-icons/all'
 import ImageSlash from '/src/static/ImageSlash.svg'
 import axios from 'axios'
@@ -40,9 +41,7 @@ import FunMeme from '/src/options/fun/meme'
 
 import Animated from '/src/Animated'
 import { useNavigate } from 'react-router-dom'
-
-import * as cookie from '/src/scripts/cookies'
-const General = () => {
+const General = ({ settings, cookies }) => {
   return (
     <Accordion
       allowMultiple
@@ -69,12 +68,12 @@ const General = () => {
           </AccordionButton>
         </h2>
         <AccordionPanel pb={4}>
-          <GeneralLanguage />
+          <GeneralLanguage settings={settings} cookies={cookies} />
         </AccordionPanel>
       </AccordionItem>
     </Accordion>
   )
-}; const Economy = () => {
+}; const Economy = ({ settings, cookies }) => {
   return (
     <Accordion
       mt="2rem"
@@ -127,10 +126,10 @@ const General = () => {
                 </AccordionButton>
               </h2>
               <AccordionPanel pb={4}>
-                <EconomyBusinesses />
-                <EconomyStocks />
-                <EconomyItems />
-                <EconomyCars />
+                <EconomyBusinesses settings={settings} cookies={cookies} />
+                <EconomyStocks settings={settings} cookies={cookies} />
+                <EconomyItems settings={settings} cookies={cookies} />
+                <EconomyCars settings={settings} cookies={cookies} />
               </AccordionPanel>
             </AccordionItem>
           </Accordion>
@@ -160,10 +159,10 @@ const General = () => {
                 </AccordionButton>
               </h2>
               <AccordionPanel pb={4}>
-                <EconomyLuckGames />
-                <EconomyDaily />
-                <EconomyWork />
-                <EconomyRob />
+                <EconomyLuckGames settings={settings} cookies={cookies} />
+                <EconomyDaily settings={settings} cookies={cookies} />
+                <EconomyWork settings={settings} cookies={cookies} />
+                <EconomyRob settings={settings} cookies={cookies} />
               </AccordionPanel>
             </AccordionItem>
           </Accordion>
@@ -171,7 +170,7 @@ const General = () => {
       </AccordionItem>
     </Accordion>
   )
-}; const Fun = () => {
+}; const Fun = ({ settings, cookies }) => {
   return (
     <Accordion
       mt="2rem"
@@ -224,8 +223,8 @@ const General = () => {
                 </AccordionButton>
               </h2>
               <AccordionPanel pb={4}>
-                <FunLevels />
-                <FunQuotes />
+                <FunLevels settings={settings} cookies={cookies} />
+                <FunQuotes settings={settings} cookies={cookies} />
               </AccordionPanel>
             </AccordionItem>
           </Accordion>
@@ -255,7 +254,7 @@ const General = () => {
                 </AccordionButton>
               </h2>
               <AccordionPanel pb={4}>
-                <FunMeme />
+                <FunMeme settings={settings} cookies={cookies} />
               </AccordionPanel>
             </AccordionItem>
           </Accordion>
@@ -265,6 +264,7 @@ const General = () => {
   )
 }
 const ServerInfo = () => {
+  const [ cookies ] = useCookies()
   const navigate = useNavigate()
 
   const [ info, setInfo ] = useState(0)
@@ -276,9 +276,7 @@ const ServerInfo = () => {
     axios
       .get(`https://api.0xbot.de/fetch/guild?id=${params.get('server')}`, {
         headers: {
-          accesstoken: cookie.get('accessToken'),
-          tokentype: cookie.get('tokenType'),
-          userid: cookie.get('userid')
+          authToken: cookies.authToken
         }
       })
       .then((res) => {
@@ -291,9 +289,7 @@ const ServerInfo = () => {
     axios
       .get(`https://api.0xbot.de/stats/guild?id=${params.get('server')}`, {
         headers: {
-          accesstoken: cookie.get('accessToken'),
-          tokentype: cookie.get('tokenType'),
-          userid: cookie.get('userid')
+          authToken: cookies.authToken
         }
       })
       .then((res) => {
@@ -420,7 +416,27 @@ const ServerInfo = () => {
     </Flex>
   )
 }; const SettingContainer = () => {
+  const [ settings, setSettings ] = useState({})
+  const [ cookies ] = useCookies()
+  const navigate = useNavigate()
+
   const SwitchIconColor = useColorModeValue('#21005D', '#37009B')
+
+  useEffect(() => {
+    (async() => {
+      const params = new URLSearchParams(window.location.search)
+
+      const req = await axios({
+        method: 'GET',
+        url: `https://api.0xbot.de/options/guild?id=${params.get('server')}`,
+        headers: {
+          authToken: cookies.authToken
+        }
+      }); const res = req.data
+      if (res.success) setSettings(res)
+      else navigate('/panel/servers')
+    }) ()
+  }, [])
 
   return (
     <Flex alignItems="center" marginTop="2rem" justifyContent="center">
@@ -443,9 +459,9 @@ const ServerInfo = () => {
           CHANGE SETTINGS
         </Heading>
 
-        <General />
-        <Economy />
-        <Fun />
+        <General settings={settings} cookies={cookies} />
+        <Economy settings={settings} cookies={cookies} />
+        <Fun settings={settings} cookies={cookies} />
       </Flex>
     </Flex>
   )

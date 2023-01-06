@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {
   Box,
   Flex,
@@ -20,19 +20,20 @@ import {
   Text,
   VStack
 } from '@chakra-ui/react'
+import { useCookies } from 'react-cookie'
 import { FiMoon, FiSun } from 'react-icons/all'
 import { HiOutlineLogin, HiOutlineLogout, FiList } from 'react-icons/all'
 import { useNavigate } from 'react-router-dom'
 import LogoLight from '/src/static/LogoLight.svg'
 import LogoDark from '/src/static/LogoDark.svg'
 
-import * as cookie from '/src/scripts/cookies'
+import axios from 'axios'
 const MenuItems = () => {
-  let loggedIn = false
-  if (cookie.get('username') !== '') loggedIn = true
+  const [ cookies, setCookie, removeCookie ] = useCookies()
+  const toast = useToast()
   const navigate = useNavigate()
 
-  if (loggedIn) {
+  if (window.authenticated) {
     return (
       <VStack w="100%">
         <MenuItem
@@ -57,15 +58,38 @@ const MenuItems = () => {
           justifyContent="center"
           icon={<HiOutlineLogout size={24} />}
           iconSpacing={0}
-          onClick={() => {
-            cookie.set('accessToken', '', 1)
-            cookie.set('tokenType', '', 1)
-            cookie.set('userid', '', 1)
-            cookie.set('username', '', 1)
-            cookie.set('usertag', '', 1)
-            cookie.set('avatar', '', 1)
+          onClick={async() => {
+            const req = await axios({
+              method: 'POST',
+              url: 'https://api.0xbot.de/auth/logout',
+              validateStatus: () => true,
+              headers: {
+                authToken: cookies.authToken
+              }
+            }); const res = req.data
+            if (!res.success) return console.error(res)
 
-            navigate('/home')
+            toast({
+              title: <Center>SUCCESS</Center>,
+              description: <Center>You have logged out successfully!</Center>,
+              status: "success",
+              duration: 1500,
+              isClosable: true,
+              variant: "subtle",
+              position: "top-right",
+              containerStyle: {
+                transform: "translateY(4.5rem)"
+              }
+            })
+
+            window.authenticated = false
+            removeCookie('authToken', { path: '/' })
+            removeCookie('userId', { path: '/' })
+            removeCookie('userName', { path: '/' })
+            removeCookie('userTag', { path: '/' })
+            removeCookie('userAvatar', { path: '/' })
+            removeCookie('userEmail', { path: '/' })
+            navigate('/')
           }}
         >
           Log Out
@@ -84,7 +108,7 @@ const MenuItems = () => {
           justifyContent="center"
           icon={<HiOutlineLogin size={24} />}
           iconSpacing={0}
-          onClick={() => window.location.replace('https://discord.com/api/oauth2/authorize?client_id=1001944224545128588&redirect_uri=https%3A%2F%2F0xbot.de%2F&response_type=token&scope=identify%20email%20guilds')}
+          onClick={() => window.location.replace('https://discord.com/api/oauth2/authorize?client_id=1001944224545128588&redirect_uri=https%3A%2F%2F0xbot.de%2Fauth%2Fdiscord&response_type=code&scope=identify%20guilds%20email')}
         >
           Log In
         </MenuItem>
@@ -94,6 +118,7 @@ const MenuItems = () => {
 }
 
 export function NavBar() {
+  const [ cookies, setCookie, removeCookie ] = useCookies()
   const { isOpen, onOpen, onClose } = useDisclosure()
   const toast = useToast()
   const navigate = useNavigate()
@@ -101,6 +126,39 @@ export function NavBar() {
   const { toggleColorMode } = useColorMode()
   const SwitchColorText = useColorModeValue('🌙 Dark', '☀️ Light')
   const SwitchIcon = useColorModeValue(FiMoon, FiSun)
+
+  useEffect(() => {
+    (async() => {
+      const req = await axios({
+        methid: 'GET',
+        url: 'https://api.0xbot.de/auth/check',
+        validateStatus: () => true,
+        headers: {
+          authToken: cookies.authToken
+        }
+      }); const res = req.data
+      if (res.success) return window.authenticated = true
+      window.authenticated = false
+      if (window.location.href.includes('/panel')) navigate('/')
+
+      // Old Cookies
+      if (cookies.accessToken) removeCookie('accessToken', { path: '/' })
+      if (cookies.tokenType) removeCookie('tokenType', { path: '/' })
+      if (cookies.avatar) removeCookie('avatar', { path: '/' })
+      if (cookies.userid) removeCookie('userid', { path: '/' })
+      if (cookies.username) removeCookie('username', { path: '/' })
+      if (cookies.usertag) removeCookie('usertag', { path: '/' })
+      if (cookies.useremail) removeCookie('useremail', { path: '/' })
+
+      // New Cookies
+      if (cookies.authToken) removeCookie('authToken', { path: '/' })
+      if (cookies.userAvatar) removeCookie('userAvatar', { path: '/' })
+      if (cookies.userId) removeCookie('userId', { path: '/' })
+      if (cookies.userName) removeCookie('userName', { path: '/' })
+      if (cookies.userTag) removeCookie('userTag', { path: '/' })
+      if (cookies.userEmail) removeCookie('userEmail', { path: '/' })
+    }) ()
+  }, [])
 
   return (
     <>
@@ -132,7 +190,7 @@ export function NavBar() {
             fontSize="xl"
             color={useColorModeValue('#21005D', '#37009B')}
             leftIcon={<Image src={useColorModeValue(LogoLight, LogoDark)} style={{ height: 48, width: 48 }} />}
-            onClick={() => navigate('/home') }
+            onClick={() => navigate('/') }
           >
             0xBOT
           </Button>
@@ -168,7 +226,7 @@ export function NavBar() {
               >
                 <MenuButton
                   as={Avatar}
-                  src={`https://cdn.discordapp.com/avatars/${cookie.get('userid')}/${cookie.get('avatar')}.png`}
+                  src={`https://cdn.discordapp.com/avatars/${cookies.userId}/${cookies.userAvatar}.png`}
                   _hover={{ cursor: "pointer", opacity: "80%" }}
                   onClick={onOpen}
                 />
@@ -180,20 +238,15 @@ export function NavBar() {
                     <Avatar
                       mt="1rem"
                       size="2xl"
-                      src={`https://cdn.discordapp.com/avatars/${cookie.get('userid')}/${cookie.get('avatar')}.png`}
+                      src={`https://cdn.discordapp.com/avatars/${cookies.userId}/${cookies.userAvatar}.png`}
                       _hover={{ cursor: "pointer", opacity: "80%" }}
                       onClick={() => {
-                        if (
-                          cookie.get('username') !== '' &&
-                          cookie.get('usertag') !== '' &&
-                          cookie.get('accessToken') !== '' &&
-                          cookie.get('tokenType') !== ''
-                        ) navigate('/panel')
+                        if (window?.authenticated) navigate('/panel')
                       }}
                     />
                   </Center>
                   <Center>
-                    <Text mt="0.5rem" mb="0.5rem">{cookie.get('username') || 'Unknown'}</Text>
+                    <Text mt="0.5rem" mb="0.5rem">{cookies.userName || 'Unknown'}</Text>
                   </Center>
                   <VStack w="100%">
                     <MenuDivider w="90%" justifySelf="center" />

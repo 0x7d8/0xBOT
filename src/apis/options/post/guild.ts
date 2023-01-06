@@ -11,12 +11,10 @@ module.exports = {
 		if (!('option' in (ctr.reqBody as any)) || !('value' in (ctr.reqBody as any))) return ctr.print({ "success": false, "message": 'NO HEADERS' })
 		
 		// Check Permissions
-		if (!await ctr.api.checkSession(
-			ctr.header.get('accesstoken'),
-			ctr.header.get('tokentype'),
-			ctr.header.get('userid'),
-			ctr.query.get('id')
-		)) return ctr.print({ "success": false, "message": 'PERMISSION DENIED' })
+		if (!ctr.header.has('authtoken')) return ctr.print({ "success": false, "message": 'NO AUTH TOKEN' })
+		if (!await ctr.api.checkAuth(ctr.header.get('authtoken'), ctr.query.get('id'))) return ctr.print({ "success": false, "message": 'PERMISSION DENIED' })
+
+		// Prepare Response
 		let response: any = { "success": false, "message": 'NOT FOUND' }
 
 		// Custom
