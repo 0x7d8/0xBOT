@@ -36,7 +36,7 @@ const bot_js_1 = require("./bot.js");
 const pg_1 = __importDefault(require("pg"));
 const getAllFiles_js_1 = require("@utils/getAllFiles.js");
 const _config_1 = __importDefault(require("@config"));
-const rjweb_server_1 = __importDefault(require("rjweb-server"));
+const webserver = __importStar(require("rjweb-server"));
 const discord_js_1 = require("discord.js");
 const client = new discord_js_1.Client({ intents: [
 discord_js_1.GatewayIntentBits.Guilds
@@ -126,13 +126,13 @@ port: 5432
 });
 const domigrate = async () => { await migrator(db); };
 await domigrate();
-const website = new rjweb_server_1.default.routeList();
+const website = new webserver.routeList();
 website.static('/', './dashboard/dist', {
 preload: true,
 remHTML: true
 });
 if (_config_1.default.web.dashboard) {
-await rjweb_server_1.default.start({
+await webserver.start({
 bind: '0.0.0.0',
 urls: website,
 pages: {
@@ -152,10 +152,11 @@ ctr.setHeader('Content-Type', 'text/css');
 console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [STA] $$$$$ STARTED DASHBOARD ON PORT ${res.port}`);
 });
 }
-const api = new rjweb_server_1.default.routeList();
+const rateLimits = new Map();
+const api = new webserver.routeList();
 api.load('./apis');
 if (_config_1.default.web.api) {
-await rjweb_server_1.default.start({
+await webserver.start({
 bind: '0.0.0.0',
 cors: true,
 urls: api,
@@ -182,6 +183,22 @@ ctr.config = _config_1.default;
 ctr.client = client;
 ctr.db = db;
 }
+}, rateLimits: {
+enabled: true,
+message: { "success": false, "message": 'RATE LIMITED' },
+functions: rateLimits,
+list: [
+{
+path: '/auth',
+times: 10,
+timeout: 10000
+},
+{
+path: '/fetch',
+times: 5,
+timeout: 10000
+}
+]
 }
 }).then((res) => {
 console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [STA] $$$$$ STARTED API ON PORT ${res.port}`);

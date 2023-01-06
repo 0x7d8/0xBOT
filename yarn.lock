@@ -162,6 +162,11 @@
   resolved "https://registry.npmjs.org/@types/node/-/node-18.11.10.tgz"
   integrity sha512-juG3RWMBOqcOuXC643OAdSA525V44cVgGV6dUDuiFtss+8Fk5x1hI93Rsld43VeJVIeqlP9I7Fn9/qaVqoEAuQ==
 
+"@types/node@^18.11.18":
+  version "18.11.18"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.11.18.tgz#8dfb97f0da23c2293e554c5a50d61ef134d7697f"
+  integrity sha512-DHQpWGjyQKSHj3ebjFI/wRKcqQcdR+MoFBygntYOZytCqNfkd2ZC4ARDJ2DQqhjH5p85Nnd3jhUJIXrszFX/JA==
+
 "@types/pg@^8.6.5":
   version "8.6.5"
   resolved "https://registry.npmjs.org/@types/pg/-/pg-8.6.5.tgz"
@@ -624,10 +629,12 @@ rjutils-collection@^1.0.6:
   resolved "https://registry.yarnpkg.com/rjutils-collection/-/rjutils-collection-1.0.6.tgz#85d80774c3985d8e73a7e98fa77f2ec6477664d0"
   integrity sha512-iD5dhoMVfasRDy66+UgoJ617UXiDPywyQ5GhTFS8mjGQYy2oBYmgCi5K1Jjx2nZZ7C59LAm30WaHtK2G2TDnNA==
 
-rjweb-server@*:
-  version "0.8.2"
-  resolved "https://registry.yarnpkg.com/rjweb-server/-/rjweb-server-0.8.2.tgz#c9151071c70a4406e3791940e8e6d3aeaaae050f"
-  integrity sha512-RN6FUK1zkL+MFYo5N5uhrZf7D+eJ/uUWZyovi03me2UIxqYXNOY6Xk6r9vLX3snTcZbgXVPCcdoynU3kZ7yAkg==
+rjweb-server@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/rjweb-server/-/rjweb-server-1.0.1.tgz#d9f4bfa65fbf533e8190bfcbefbfeb5d1c2e0e3c"
+  integrity sha512-BoTnc0YSUlDmRU9xWk7lTZNR6I5AC9qBbGT7HZ4kiCzTH7wyadeuGZPbFG71dVv0QdtKq2Wo9ZE8/rafzVNkIg==
+  dependencies:
+    "@types/node" "^18.11.18"
 
 safe-buffer@~5.2.0:
   version "5.2.1"

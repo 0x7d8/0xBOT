@@ -12,7 +12,7 @@ import { getAllFilesFilter } from "@utils/getAllFiles.js"
 import config from "@config"
 
 import WebserverInterface from "@interfaces/Webserver.js"
-import { default as webserver } from "rjweb-server"
+import * as webserver from "rjweb-server"
 
 // Create Client
 import { Client, GatewayIntentBits } from "discord.js"
@@ -136,12 +136,13 @@ stdin.addListener("data", async(input) => {
 					if (ctr.reqUrl.href.endsWith('.css')) ctr.setHeader('Content-Type', 'text/css')
 				}
 			}
-		}).then((res: any) => {
+		}).then((res) => {
 			console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [STA] $$$$$ STARTED DASHBOARD ON PORT ${res.port}`)
 		})
 	}
 
 	// API
+	const rateLimits = new Map()
 	const api = new webserver.routeList()
 
 	api.load('./apis')
@@ -174,8 +175,24 @@ stdin.addListener("data", async(input) => {
 					ctr.client = client
 					ctr.db = db
 				}
+			}, rateLimits: {
+				enabled: true,
+				message: { "success": false, "message": 'RATE LIMITED' },
+				functions: rateLimits as any,
+				list: [
+					{
+						path: '/auth',
+						times: 10,
+						timeout: 10000
+					},
+					{
+						path: '/fetch',
+						times: 5,
+						timeout: 10000
+					}
+				]
 			}
-		}).then((res: any) => {
+		}).then((res) => {
 			console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [STA] $$$$$ STARTED API ON PORT ${res.port}`)
 		})
 	}
