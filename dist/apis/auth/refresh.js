@@ -20,7 +20,7 @@ clientId: ctr.config.client.id,
 clientSecret: ctr.config.client.secret,
 grantType: 'refresh_token',
 scope: ['identify', 'guilds', 'email'],
-redirectUri: 'http://5.252.100.89:3000/auth/discord',
+redirectUri: 'https://0xbot.de/auth/discord',
 refreshToken: userInfos.tokens.refresh
 });
 ctr.api.users.set({

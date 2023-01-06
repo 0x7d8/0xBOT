@@ -19,7 +19,7 @@ module.exports = {
 			clientSecret: ctr.config.client.secret,
 			grantType: 'authorization_code',
 			scope: ['identify', 'guilds', 'email'],
-			redirectUri: 'http://5.252.100.89:3000/auth/discord',
+			redirectUri: 'https://0xbot.de/auth/discord',
 			code: ctr.header.get('code')
 		}).catch((e) => { })
 		if (!token) return ctr.print({ "success": false, "message": 'INVALID TOKEN' })
