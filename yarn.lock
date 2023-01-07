@@ -618,9 +618,9 @@ rjutils-collection@^1.0.6:
   integrity sha512-iD5dhoMVfasRDy66+UgoJ617UXiDPywyQ5GhTFS8mjGQYy2oBYmgCi5K1Jjx2nZZ7C59LAm30WaHtK2G2TDnNA==
 
 rjweb-server@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/rjweb-server/-/rjweb-server-1.1.0.tgz#987a8872f2c4d5bc3a96f56b63c4d16b9944a395"
-  integrity sha512-fubbQkpxTk5z/rcg8WAXuB2RSyjdJhGq49V7dMCrOpm0dYPirFUAG7wlcKU7vyuMk3pl3D0BcHraG8Au0YeKcA==
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/rjweb-server/-/rjweb-server-1.1.1.tgz#f1dd073e33364a394f1453f4cab349311b7905c9"
+  integrity sha512-nahKRMh6BWj5zZX1+Y3gjBE8dCP2HCUiIEe15RKbTWTzeQqSyq9nSWLxm9K5YFVC+bjlN6bAREi9LBXE0eH0vA==
   dependencies:
     "@types/node" "^18.11.18"
 

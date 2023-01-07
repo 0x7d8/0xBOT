@@ -183,6 +183,11 @@ stdin.addListener("data", async(input) => {
 						path: '/fetch',
 						times: 5,
 						timeout: 10000
+					},
+					{
+						path: '/check',
+						times: 5,
+						timeout: 10000
 					}
 				]
 			}

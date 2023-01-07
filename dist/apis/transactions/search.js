@@ -27,7 +27,9 @@ module.exports = {
 type: webserver.types.get,
 path: '/transactions/search',
 async code(ctr) {
-if (!ctr.header.get('senderid') || !ctr.header.get('recieverid') || !ctr.header.get('maxresults'))
+if (!ctr.header.get('senderid') ||
+!ctr.header.get('recieverid') ||
+!ctr.header.get('maxresults'))
 return ctr.print({ "success": false, "message": 'NO HEADERS' });
 let rawvalues;
 if (ctr.header.get('senderid') !== 'empty' && ctr.header.get('recieverid') !== 'empty') {
@@ -51,14 +53,14 @@ rawvalues = await ctr.db.query(`select * from usertransactions order by timestam
 }
 const transactions = [];
 let count = 0;
-await Promise.all(rawvalues.rows.map(async (transaction) => {
+for (const transaction of rawvalues.rows) {
 if (++count > Number(ctr.header.get('maxresults')))
-return;
+break;
 const senderInfo = await ctr.bot.userdb.get(transaction.senderid);
 const recieverInfo = await ctr.bot.userdb.get(transaction.recieverid);
 transactions.push({
 "id": transaction.id,
-"timestamp": transaction.timestamp,
+"timestamp": Number(transaction.timestamp),
 "sender": {
 "id": transaction.senderid,
 "username": senderInfo.username,
@@ -75,7 +77,7 @@ transactions.push({
 "type": transaction.recievertype
 }
 });
-}));
+}
 return ctr.print({
 "success": true,
 "results": transactions
