@@ -15,7 +15,7 @@ import { TbCaretDown } from 'react-icons/tb'
 import axios from 'axios'
 
 function Option({ settings, cookies }) {
-  const [text, setText] = useState('DISABLED')
+  const [ text, setText ] = useState('DISABLED')
   const params = new URLSearchParams(window.location.search)
   const toast = useToast()
 
