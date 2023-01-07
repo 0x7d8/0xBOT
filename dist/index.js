@@ -124,8 +124,7 @@ password: _config_1.default.database.oxbot.password,
 ssl: true,
 port: 5432
 });
-const domigrate = async () => { await migrator(db); };
-await domigrate();
+await migrator(db);
 const website = new webserver.routeList();
 website.static('/', './dashboard/dist', {
 preload: true,

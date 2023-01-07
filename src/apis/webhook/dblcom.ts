@@ -1,9 +1,9 @@
-import { default as webserver } from "rjweb-server"
+import * as webserver from "rjweb-server"
 import webserverInterface from "@interfaces/Webserver.js"
 
 import { EmbedBuilder } from "discord.js"
 
-module.exports = {
+export = {
 	type: webserver.types.post,
 	path: '/webhook/dblcom',
 

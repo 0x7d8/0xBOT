@@ -109,8 +109,7 @@ stdin.addListener("data", async(input) => {
 		password: config.database.oxbot.password,
 		ssl: true,
 		port: 5432
-	}); const domigrate = async() => { await migrator(db) }
-	await domigrate()
+	}); await migrator(db)
 
 	/// Dashboard
 	// Website

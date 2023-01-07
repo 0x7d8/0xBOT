@@ -25,13 +25,12 @@ return result;
 var __importDefault = (this && this.__importDefault) || function (mod) {
 return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-const rjweb_server_1 = __importDefault(require("rjweb-server"));
+const webserver = __importStar(require("rjweb-server"));
 const utils = __importStar(require("rjutils-collection"));
 const discord_oauth2_1 = __importDefault(require("discord-oauth2"));
 const oAuth = new discord_oauth2_1.default();
 module.exports = {
-type: rjweb_server_1.default.types.post,
+type: webserver.types.post,
 path: '/auth/login',
 async code(ctr) {
 if (!ctr.header.has('code'))

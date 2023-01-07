@@ -1,7 +1,7 @@
-import { default as webserver } from "rjweb-server"
+import * as webserver from "rjweb-server"
 import webserverInterface from "@interfaces/Webserver.js"
 
-module.exports = {
+export = {
 	type: webserver.types.post,
 	path: '/options/guild',
 

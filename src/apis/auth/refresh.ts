@@ -1,10 +1,10 @@
-import { default as webserver } from "rjweb-server"
+import * as webserver from "rjweb-server"
 import webserverInterface from "@interfaces/Webserver.js"
 
 import { default as DiscordOauth2 } from "discord-oauth2"
 const oAuth = new DiscordOauth2()
 
-module.exports = {
+export = {
 	type: webserver.types.get,
 	path: '/auth/refresh',
 
