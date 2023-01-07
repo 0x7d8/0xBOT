@@ -128,7 +128,8 @@ await migrator(db);
 const website = new webserver.routeList();
 website.static('/', './dashboard/dist', {
 preload: true,
-remHTML: true
+remHTML: true,
+addTypes: true
 });
 if (_config_1.default.web.dashboard) {
 await webserver.start({
@@ -138,15 +139,7 @@ pages: {
 async notFound(ctr) {
 return ctr.printFile('./dashboard/dist/index.html');
 }
-}, port: _config_1.default.web.ports.dashboard,
-events: {
-async request(ctr) {
-if (ctr.reqUrl.href.endsWith('.js'))
-ctr.setHeader('Content-Type', 'text/javascript');
-if (ctr.reqUrl.href.endsWith('.css'))
-ctr.setHeader('Content-Type', 'text/css');
-}
-}
+}, port: _config_1.default.web.ports.dashboard
 }).then((res) => {
 console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [STA] $$$$$ STARTED DASHBOARD ON PORT ${res.port}`);
 });

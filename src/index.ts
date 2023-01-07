@@ -117,7 +117,8 @@ stdin.addListener("data", async(input) => {
 
 	website.static('/', './dashboard/dist', {
 		preload: true,
-		remHTML: true
+		remHTML: true,
+		addTypes: true
 	})
 
 	if (config.web.dashboard) {
@@ -128,13 +129,7 @@ stdin.addListener("data", async(input) => {
 				async notFound(ctr: WebserverInterface) {
 					return ctr.printFile('./dashboard/dist/index.html')
 				}
-			}, port: config.web.ports.dashboard,
-			events: {
-				async request(ctr: WebserverInterface) {
-					if (ctr.reqUrl.href.endsWith('.js')) ctr.setHeader('Content-Type', 'text/javascript')
-					if (ctr.reqUrl.href.endsWith('.css')) ctr.setHeader('Content-Type', 'text/css')
-				}
-			}
+			}, port: config.web.ports.dashboard
 		}).then((res) => {
 			console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [STA] $$$$$ STARTED DASHBOARD ON PORT ${res.port}`)
 		})
