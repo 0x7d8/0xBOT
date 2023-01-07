@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Text,
   Button,
@@ -11,10 +11,11 @@ import {
   MenuList,
   MenuItem
 } from '@chakra-ui/react'
-import { TbCaretDown } from 'react-icons/all'
+import { TbCaretDown } from 'react-icons/tb'
 import axios from 'axios'
 
 function Option({ settings, cookies }) {
+  const [text, setText] = useState('DISABLED')
   const params = new URLSearchParams(window.location.search)
   const toast = useToast()
 
@@ -44,20 +45,20 @@ function Option({ settings, cookies }) {
               transform: "translateY(4.5rem)"
             }
           })
-          updateoption()
+          setText(calcopt.toUpperCase())
         }
       })
   }
 
-  // Translate Boolean to String
-  let reformedluckgames = 'DISABLED'
-  if (settings.luckgames) { reformedluckgames = 'ENABLED' }
+  useEffect(() => {
+    if (settings.luckgames) setText('ENABLED')
+  }, [settings])
 
   return (
     <Menu>
       <Text fontSize="2xl">LUCK GAMES</Text>
       <MenuButton as={Button} colorScheme="gray" leftIcon={<TbCaretDown />}>
-        {reformedluckgames}
+        {text}
       </MenuButton>
       <MenuList bg={useColorModeValue('gray.100', 'gray.900')}>
         <VStack>
