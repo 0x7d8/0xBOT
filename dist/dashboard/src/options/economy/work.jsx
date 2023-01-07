@@ -20,7 +20,7 @@ function Option({ settings, cookies }) {
 
   const setOption = (opt) => {
     axios
-      .post(`https://api.0xbot.de/options/guild/?id=${params.get('server')}`, {
+      .post(`https://api.0xbot.de/options/guild?id=${params.get('server')}`, {
         option: 'WORK',
         value: opt
       }, {

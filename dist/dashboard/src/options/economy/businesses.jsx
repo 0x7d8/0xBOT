@@ -20,7 +20,7 @@ function Option({ settings, cookies }) {
 
   const setOption = (opt) => {
     axios
-      .post(`https://api.0xbot.de/options/guild/?id=${params.get('server')}`, {
+      .post(`https://api.0xbot.de/options/guild?id=${params.get('server')}`, {
         option: 'BUSINESSES',
         value: opt
       }, {
@@ -68,7 +68,7 @@ function Option({ settings, cookies }) {
             w="92.5%"
             textAlign="center"
             justifyContent="center"
-            onClick={() => setOption(true) }
+            onClick={() => setOption(true)}
           >
             ENABLE
           </MenuItem>
@@ -79,7 +79,7 @@ function Option({ settings, cookies }) {
             w="92.5%"
             textAlign="center"
             justifyContent="center"
-            onClick={() => setOption(false) }
+            onClick={() => setOption(false)}
           >
             DISABLE
           </MenuItem>
