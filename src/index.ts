@@ -145,6 +145,7 @@ stdin.addListener("data", async(input) => {
 		await webserver.start({
 			bind: '0.0.0.0',
 			cors: true,
+			proxy: true,
 			urls: api,
 			pages: {
 				async notFound(ctr: WebserverInterface) {

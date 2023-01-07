@@ -68,7 +68,7 @@ let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 if (ctx.metadata.language === 'de') {
 message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:BOXCHECK:1024401101589590156> » AKTIEN KAUFEN')
-.setDescription(`» <@${ctx.interaction.user.id}> hat **NEIN** zu **${amount}x** **${name}** Aktie.`)
+.setDescription(`» <@${ctx.interaction.user.id}> hat **NEIN** zu **${amount}x** **${name}** Aktie gesagt.`)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
 ctx.log(false, `[BTN] STOCKBUY : ${stock.toUpperCase()} : DENY`);
