@@ -27,52 +27,52 @@ const stdin = process.openStdin()
 stdin.addListener("data", async(input) => {
 	// Get Arguments
 	const args = input.toString().trim().split(' ')
-	console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] RECIEVED COMMAND [' + input.toString().trim().toUpperCase() + ']')
+	console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] RECIEVED COMMAND [${input.toString().trim().toUpperCase()}]`)
 
 	// ADDBAL
 	if (args[0].toUpperCase() === 'ADDBAL') {
 		if (typeof args[1] !== 'undefined' && typeof args[2] !== 'undefined') {
-			console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] ADDED ' + args[2] + '€ TO ' + args[1])
+			console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] ADDED ${args[2]}€ TO ${args[1]}`)
 			bot.money.add(false, args[1].toString(), Number(args[2]))
 		} else {
-			console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] USAGE: ADDBAL [USERID] [AMOUNT]')
+			console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] USAGE: ADDBAL [USERID] [AMOUNT]`)
 		}
 	}
 
 	// REMBAL
 	if (args[0].toUpperCase() === 'REMBAL') {
 		if (typeof args[1] !== 'undefined' && typeof args[2] !== 'undefined') {
-			console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] REMOVED ' + args[2] + '€ FROM ' + args[1])
+			console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] REMOVED ${args[2]}€ FROM ${args[1]}`)
 			bot.money.rem(false, args[1].toString(), Number(args[2]))
 		} else {
-			console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] USAGE: REMBAL [USERID] [AMOUNT]')
+			console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] USAGE: REMBAL [USERID] [AMOUNT]`)
 		}
 	}
 
 	// SETBAL
 	if (args[0].toUpperCase() === 'SETBAL') {
 		if (typeof args[1] !== 'undefined' && typeof args[2] !== 'undefined') {
-			console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] SET BALANCE OF ' + args[1] + ' TO ' + args[2] + '€')
+			console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] SET BALANCE OF ${args[1]} TO ${args[2]}€`)
 			bot.money.set(false, args[1].toString(), Number(args[2]))
 		} else {
-			console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] USAGE: SETBAL [USERID] [AMOUNT]')
+			console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] USAGE: SETBAL [USERID] [AMOUNT]`)
 		}
 	}
 
 	// EVAL
 	if (args[0].toUpperCase() === 'EVAL') {
 		if (typeof args[1] !== 'undefined') {
-			console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] RESULT OF EVAL:')
+			console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] RESULT OF EVAL:`)
 			args.shift()
 
 			try {
 				console.log(await eval(args.join(' ')))
 			} catch(e) {
 				console.log(e)
-				console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] EVAL RETURNED AN ERROR')
+				console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] EVAL RETURNED AN ERROR`)
 			}
 		} else {
-			console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] USAGE: EVAL [COMMAND]')
+			console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] USAGE: EVAL [COMMAND]`)
 		}
 	}
 })
@@ -93,7 +93,7 @@ stdin.addListener("data", async(input) => {
 	console.log(' ')
 
 	// Database Migrations
-	const migrator = async(conn: any) => {
+	const migrator = async(conn: pg.Pool) => {
 		const migrations = getAllFilesFilter('./migrations', '.js')
 		for (const file of migrations) {
 			const migration = (await import(file)).default.default
@@ -152,14 +152,13 @@ stdin.addListener("data", async(input) => {
 					return ctr.print({
 						"success": false,
 						"message": 'NOT FOUND'
-					})
+					}).status(404)
 				}, async reqError(ctr: WebserverInterface) {
 					console.log(ctr.error.stack)
-					ctr.status(500)
 					return ctr.print({
 						"success": false,
 						"message": 'SERVER ERROR'
-					})
+					}).status(500)
 				}
 			}, port: config.web.ports.api,
 			events: {
@@ -168,12 +167,12 @@ stdin.addListener("data", async(input) => {
 					ctr.bot = (await import('./functions/bot.js')).default
 					ctr.config = config
 					ctr.client = client
-					ctr.db = db
+					ctr.db = db as any
 				}
 			}, rateLimits: {
 				enabled: true,
 				message: { "success": false, "message": 'RATE LIMITED' },
-				functions: rateLimits as any,
+				functions: rateLimits,
 				list: [
 					{
 						path: '/auth',
@@ -206,14 +205,13 @@ stdin.addListener("data", async(input) => {
 				const req = await axios({
 					method: 'POST',
 					url: `https://top.gg/api/bots/${config.client.id}/stats`,
-					validateStatus: false,
+					validateStatus: () => true,
 					headers: {
-						"Authorization": config.web.keys.topgg.apikey
+						Authorization: config.web.keys.topgg.apikey
 					}, data: {
-						"server_count": client.guilds.cache.size,
-						"shard_count": 1
+						server_count: client.guilds.cache.size
 					}
-				} as any)
+				})
 
 				if (req.status !== 200) console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] [${req.status}] FAILED TO POST TOPGG STATS`)
 				else console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] [${req.status}] POSTED TOPGG STATS`)
@@ -223,13 +221,13 @@ stdin.addListener("data", async(input) => {
 				const req = await axios({
 					method: 'POST',
 					url: `https://discordbotlist.com/api/v1/bots/${config.client.id}/stats`,
-					validateStatus: false,
+					validateStatus: () => true,
 					headers: {
-						"Authorization": config.web.keys.dbl.apikey
+						Authorization: config.web.keys.dbl.apikey
 					}, data: {
-						"guilds": client.guilds.cache.size
+						guilds: client.guilds.cache.size
 					}
-				} as any)
+				})
 
 				if (req.status !== 200) console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] [${req.status}] FAILED TO POST DBL STATS`)
 				else console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] [${req.status}] POSTED DBL STATS`)
@@ -244,5 +242,5 @@ stdin.addListener("data", async(input) => {
 	console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [STA] $$$$$ LOADING COMMANDS AND EVENTS`)
 	console.log(' ')
 
-	start(db as any)
+	start(await db.connect())
 }) ()}

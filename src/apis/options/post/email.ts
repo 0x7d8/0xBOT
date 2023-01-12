@@ -7,7 +7,7 @@ export = {
 
 	async code(ctr: webserverInterface) {
 		// Check for Queries
-		if (!('option' in (ctr.reqBody as any))) return ctr.print({ "success": false, "message": 'NO HEADERS' })
+		if (!('option' in ctr.reqBody)) return ctr.print({ "success": false, "message": 'NO HEADERS' })
 		
 		// Check for Headers
 		if (!ctr.header.has('authtoken')) return ctr.print({ "success": false, "message": 'NO AUTH TOKEN' })
@@ -22,7 +22,7 @@ export = {
 			userInfos.email
 		])
 
-		if ((ctr.reqBody as any).option) {
+		if (ctr.reqBody.option) {
 			if (dbemail.rowCount === 0) {
 				await ctr.db.query(`insert into useremails values ($1, $2)`, [
 					userInfos.id,

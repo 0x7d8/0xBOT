@@ -25,7 +25,7 @@ const client: iClient = new Client({
 		GatewayIntentBits.MessageContent,
 		GatewayIntentBits.GuildVoiceStates
 	]
-})
+}) as any
 
 // Login Function
 const timer = new Timer()
@@ -48,7 +48,7 @@ const login = (client: Client, commandFiles: string[]) => {
 				commands.push(command.data.toJSON())
 			}))
 
-			const clientCommands = commands as unknown as ApplicationCommandDataResolvable[]
+			const clientCommands = commands as ApplicationCommandDataResolvable[]
 			client.application?.commands.set(clientCommands)
 
 			// Execute Event
@@ -67,7 +67,7 @@ const login = (client: Client, commandFiles: string[]) => {
 				commands.push(command.data.toJSON())
 			}))
 
-			const clientCommands = commands as unknown as ApplicationCommandDataResolvable[]
+			const clientCommands = commands as ApplicationCommandDataResolvable[]
 			client.application?.commands.set(clientCommands)
 
 			// Execute Event
@@ -108,7 +108,7 @@ export const start = (db: PoolClient) => {
 			"events": false,
 			"files": getAllFilesFilter('./modals', '.js')
 		}
-	]
+	] as { name: string, events: boolean, files: string[] }[]
 
 	// Login Quickload
 	if (config.client.quickload) login(client, getAllFilesFilter('./commands', '.js'))

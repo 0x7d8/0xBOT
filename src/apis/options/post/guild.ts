@@ -8,7 +8,7 @@ export = {
 	async code(ctr: webserverInterface) {
 		// Check for Queries
 		if (!ctr.query.has('id')) return ctr.print({ "success": false, "message": 'NO ID' })
-		if (!('option' in (ctr.reqBody as any)) || !('value' in (ctr.reqBody as any))) return ctr.print({ "success": false, "message": 'NO HEADERS' })
+		if (!('option' in ctr.reqBody) || !('value' in ctr.reqBody)) return ctr.print({ "success": false, "message": 'NO HEADERS' })
 		
 		// Check Permissions
 		if (!ctr.header.has('authtoken')) return ctr.print({ "success": false, "message": 'NO AUTH TOKEN' })
@@ -18,17 +18,17 @@ export = {
 		let response: any = { "success": false, "message": 'NOT FOUND' }
 
 		// Custom
-		if ((ctr.reqBody as any).option === 'LANGUAGE') {
-			if ((ctr.reqBody as any).value !== 'GERMAN' && (ctr.reqBody as any).value !== 'ENGLISH') return ctr.print({ "success": false, "message": 'INVALID VALUE' })
-			let set = 'en'; if ((ctr.reqBody as any).value === 'GERMAN') { set = 'de' }
+		if (ctr.reqBody.option === 'LANGUAGE') {
+			if (ctr.reqBody.value !== 'GERMAN' && ctr.reqBody.value !== 'ENGLISH') return ctr.print({ "success": false, "message": 'INVALID VALUE' })
+			let set = 'en'; if (ctr.reqBody.value === 'GERMAN') { set = 'de' }
 			ctr.bot.language.set(ctr.query.get('id'), set)
 			response = { "success": true, "message": 'OPTION UPDATED' }
 		}
 
 		// Boolean
-		if ((ctr.reqBody as any).option !== 'LANGUAGE') {
-			if ((ctr.reqBody as any).value !== true && (ctr.reqBody as any).value !== false) return ctr.print({ "success": false, "message": 'INVALID VALUE' })
-			ctr.bot.settings.set(ctr.query.get('id'), (ctr.reqBody as any).option.toLowerCase(), (ctr.reqBody as any).value)
+		if (ctr.reqBody.option !== 'LANGUAGE') {
+			if (ctr.reqBody.value !== true && ctr.reqBody.value !== false) return ctr.print({ "success": false, "message": 'INVALID VALUE' })
+			ctr.bot.settings.set(ctr.query.get('id'), ctr.reqBody.option.toLowerCase(), ctr.reqBody.value)
 			response = { "success": true, "message": 'OPTION UPDATED' }
 		}
 

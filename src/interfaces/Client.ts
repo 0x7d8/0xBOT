@@ -1,12 +1,12 @@
-import { Client } from "discord.js"
+import { Client, LimitedCollection } from "discord.js"
 import config from "@config"
 
 export default interface Interface extends Client {
-	commands?: any
-	buttons?: any
-	modals?: any
+	commands: LimitedCollection<any, any>
+	buttons: LimitedCollection<any, any>
+	modals: LimitedCollection<any, any>
 
-	config?: typeof config
+	config: typeof config
 	stocks?: {
 		refresh?: number
 

@@ -46,48 +46,48 @@ const bot = __importStar(require("@functions/bot.js"));
 const stdin = process.openStdin();
 stdin.addListener("data", async (input) => {
 const args = input.toString().trim().split(' ');
-console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] RECIEVED COMMAND [' + input.toString().trim().toUpperCase() + ']');
+console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] RECIEVED COMMAND [${input.toString().trim().toUpperCase()}]`);
 if (args[0].toUpperCase() === 'ADDBAL') {
 if (typeof args[1] !== 'undefined' && typeof args[2] !== 'undefined') {
-console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] ADDED ' + args[2] + '€ TO ' + args[1]);
+console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] ADDED ${args[2]}€ TO ${args[1]}`);
 bot.money.add(false, args[1].toString(), Number(args[2]));
 }
 else {
-console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] USAGE: ADDBAL [USERID] [AMOUNT]');
+console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] USAGE: ADDBAL [USERID] [AMOUNT]`);
 }
 }
 if (args[0].toUpperCase() === 'REMBAL') {
 if (typeof args[1] !== 'undefined' && typeof args[2] !== 'undefined') {
-console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] REMOVED ' + args[2] + '€ FROM ' + args[1]);
+console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] REMOVED ${args[2]}€ FROM ${args[1]}`);
 bot.money.rem(false, args[1].toString(), Number(args[2]));
 }
 else {
-console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] USAGE: REMBAL [USERID] [AMOUNT]');
+console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] USAGE: REMBAL [USERID] [AMOUNT]`);
 }
 }
 if (args[0].toUpperCase() === 'SETBAL') {
 if (typeof args[1] !== 'undefined' && typeof args[2] !== 'undefined') {
-console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] SET BALANCE OF ' + args[1] + ' TO ' + args[2] + '€');
+console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] SET BALANCE OF ${args[1]} TO ${args[2]}€`);
 bot.money.set(false, args[1].toString(), Number(args[2]));
 }
 else {
-console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] USAGE: SETBAL [USERID] [AMOUNT]');
+console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] USAGE: SETBAL [USERID] [AMOUNT]`);
 }
 }
 if (args[0].toUpperCase() === 'EVAL') {
 if (typeof args[1] !== 'undefined') {
-console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] RESULT OF EVAL:');
+console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] RESULT OF EVAL:`);
 args.shift();
 try {
 console.log(await eval(args.join(' ')));
 }
 catch (e) {
 console.log(e);
-console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] EVAL RETURNED AN ERROR');
+console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] EVAL RETURNED AN ERROR`);
 }
 }
 else {
-console.log('[0xBOT] [i] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [INF] USAGE: EVAL [COMMAND]');
+console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] USAGE: EVAL [COMMAND]`);
 }
 }
 });
@@ -158,14 +158,13 @@ async notFound(ctr) {
 return ctr.print({
 "success": false,
 "message": 'NOT FOUND'
-});
+}).status(404);
 }, async reqError(ctr) {
 console.log(ctr.error.stack);
-ctr.status(500);
 return ctr.print({
 "success": false,
 "message": 'SERVER ERROR'
-});
+}).status(500);
 }
 }, port: _config_1.default.web.ports.api,
 events: {
@@ -209,12 +208,11 @@ const axios = (await import('axios')).default;
 const req = await axios({
 method: 'POST',
 url: `https://top.gg/api/bots/${_config_1.default.client.id}/stats`,
-validateStatus: false,
+validateStatus: () => true,
 headers: {
-"Authorization": _config_1.default.web.keys.topgg.apikey
+Authorization: _config_1.default.web.keys.topgg.apikey
 }, data: {
-"server_count": client.guilds.cache.size,
-"shard_count": 1
+server_count: client.guilds.cache.size
 }
 });
 if (req.status !== 200)
@@ -226,11 +224,11 @@ console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: fal
 const req = await axios({
 method: 'POST',
 url: `https://discordbotlist.com/api/v1/bots/${_config_1.default.client.id}/stats`,
-validateStatus: false,
+validateStatus: () => true,
 headers: {
-"Authorization": _config_1.default.web.keys.dbl.apikey
+Authorization: _config_1.default.web.keys.dbl.apikey
 }, data: {
-"guilds": client.guilds.cache.size
+guilds: client.guilds.cache.size
 }
 });
 if (req.status !== 200)
@@ -245,7 +243,7 @@ console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: fal
 console.log(' ');
 console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [STA] $$$$$ LOADING COMMANDS AND EVENTS`);
 console.log(' ');
-(0, bot_js_1.start)(db);
+(0, bot_js_1.start)(await db.connect());
 })();
 }
 //# sourceMappingURL=index.js.map
