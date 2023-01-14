@@ -255,6 +255,7 @@ const General = ({ settings, cookies }) => {
                 </AccordionButton>
               </h2>
               <AccordionPanel pb={4}>
+                <FunShowerThought settings={settings} cookies={cookies} />
                 <FunMeme settings={settings} cookies={cookies} />
               </AccordionPanel>
             </AccordionItem>
