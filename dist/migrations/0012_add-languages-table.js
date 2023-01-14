@@ -17,4 +17,3 @@ return true;
 return false;
 }
 };
-//# sourceMappingURL=0012_add-languages-table.js.map

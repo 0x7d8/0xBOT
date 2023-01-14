@@ -35,4 +35,3 @@ return ctr.print({
 });
 }
 };
-//# sourceMappingURL=global.js.map

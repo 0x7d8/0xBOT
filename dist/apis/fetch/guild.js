@@ -43,4 +43,3 @@ if (cont)
 return ctr.print(guild);
 }
 };
-//# sourceMappingURL=guild.js.map

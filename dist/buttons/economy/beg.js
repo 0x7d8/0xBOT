@@ -111,4 +111,3 @@ await ctx.interaction.reply({ embeds: [rmessage] });
 return ctx.interaction.message.edit({ embeds: [message] }).catch(() => { });
 }
 };
-//# sourceMappingURL=beg.js.map

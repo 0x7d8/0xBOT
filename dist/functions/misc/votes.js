@@ -68,4 +68,3 @@ userId
 }
 };
 exports.rem = rem;
-//# sourceMappingURL=votes.js.map

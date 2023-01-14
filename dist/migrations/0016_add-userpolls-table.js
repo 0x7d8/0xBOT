@@ -18,4 +18,3 @@ return true;
 return false;
 }
 };
-//# sourceMappingURL=0016_add-userpolls-table.js.map

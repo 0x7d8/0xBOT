@@ -41,4 +41,3 @@ ctx.log(false, `[BTN] TICTACTOE : ${sender} : DENY`);
 return ctx.interaction.update({ content: '', embeds: [message], components: (ctx.components.getAPI()) });
 }
 };
-//# sourceMappingURL=no.js.map

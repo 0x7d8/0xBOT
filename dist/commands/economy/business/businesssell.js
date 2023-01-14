@@ -102,4 +102,3 @@ ctx.log(false, `[CMD] BUSINESSSELL : ${name} : ${cost}€`);
 return ctx.interaction.reply({ embeds: [message], components: [row] });
 }
 };
-//# sourceMappingURL=businesssell.js.map

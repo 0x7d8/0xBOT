@@ -113,4 +113,3 @@ type
 }
 };
 exports.rem = rem;
-//# sourceMappingURL=stocks.js.map

@@ -55,4 +55,3 @@ ctx.log(false, `[BTN] COMMITS : REFRESH : ${commits.length} : ${Math.ceil(commit
 return ctx.interaction.update({ embeds: [message], components: (ctx.components.getAPI()) });
 }
 };
-//# sourceMappingURL=refresh.js.map

@@ -147,4 +147,3 @@ ctx.log(false, `[CMD] STOCKS :${!user ? '' : ` ${user.id} :`} ${stocks.green} : 
 return ctx.interaction.reply({ embeds: [message], components: [row] });
 }
 };
-//# sourceMappingURL=stocks.js.map

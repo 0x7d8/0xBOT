@@ -76,4 +76,3 @@ ctx.log(false, `[CMD] TRANSACTIONVIEW : ${transactionId}`);
 return ctx.interaction.reply({ embeds: [message] });
 }
 };
-//# sourceMappingURL=transactionview.js.map

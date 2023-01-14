@@ -129,4 +129,3 @@ ctx.log(false, `[CMD] STOCKUPGRADE : ${amount}x : ${stock.toUpperCase()} : ${cos
 return ctx.interaction.reply({ embeds: [message], components: [row] });
 }
 };
-//# sourceMappingURL=stockupgrade.js.map

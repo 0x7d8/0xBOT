@@ -94,4 +94,3 @@ ctx.log(false, `[BTN] STOCKINFO : REFRESH : ${pageNumber}`);
 return ctx.interaction.update({ embeds: [message], components: (ctx.components.getAPI()) });
 }
 };
-//# sourceMappingURL=refresh.js.map

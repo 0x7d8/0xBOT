@@ -73,4 +73,3 @@ return message.reply({ content: content, components: [row] });
 }
 }
 };
-//# sourceMappingURL=messagesend.js.map

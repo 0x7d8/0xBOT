@@ -37,4 +37,3 @@ return ctr.print({
 });
 }
 };
-//# sourceMappingURL=check.js.map

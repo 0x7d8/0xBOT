@@ -100,4 +100,3 @@ return ctx.interaction.reply({ embeds: [message] });
 }
 }
 };
-//# sourceMappingURL=daily.js.map

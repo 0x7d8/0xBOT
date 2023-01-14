@@ -153,4 +153,3 @@ return ctx.interaction.message.edit({ embeds: [message], components: (ctx.compon
 }
 }
 };
-//# sourceMappingURL=choice.js.map

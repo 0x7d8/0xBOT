@@ -39,4 +39,3 @@ setting
 }
 };
 exports.set = set;
-//# sourceMappingURL=settings.js.map

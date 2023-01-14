@@ -17,4 +17,3 @@ return true;
 return false;
 }
 };
-//# sourceMappingURL=0004_add-uservotes-table.js.map

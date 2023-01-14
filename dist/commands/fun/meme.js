@@ -105,4 +105,3 @@ ctx.log(false, `[CMD] MEME : ${subreddit.toUpperCase()} : ${upvotes}^ : ${commen
 return ctx.interaction.editReply({ embeds: [message], components: [row] });
 }
 };
-//# sourceMappingURL=meme.js.map

@@ -83,4 +83,3 @@ userId
 }
 };
 exports.rem = rem;
-//# sourceMappingURL=money.js.map

@@ -41,4 +41,3 @@ return ctr.print({
 });
 }
 };
-//# sourceMappingURL=guild.js.map

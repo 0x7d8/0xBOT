@@ -93,4 +93,3 @@ ctx.log(false, `[BTN] STATS : ${type.toUpperCase()} :${ctx.interaction.user.id !
 return ctx.interaction.update({ embeds: [message], components: (ctx.components.getAPI()) });
 }
 };
-//# sourceMappingURL=page.js.map

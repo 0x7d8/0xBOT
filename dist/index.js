@@ -247,4 +247,3 @@ console.log(' ');
 (0, bot_js_1.start)(await db.connect());
 })();
 }
-//# sourceMappingURL=index.js.map

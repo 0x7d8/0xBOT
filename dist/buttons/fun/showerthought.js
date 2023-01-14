@@ -51,8 +51,7 @@ message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 \`\`\`${germanThought.translations[0].text}\`\`\`
 `).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
-ctx.log(false, `[BTN] SHOWERTHOUGHT : : ${upvotes}^`);
+ctx.log(false, `[BTN] SHOWERTHOUGHT : ${upvotes}^`);
 return ctx.interaction.editReply({ embeds: [message], components: (ctx.components.getAPI()) });
 }
 };
-//# sourceMappingURL=showerthought.js.map

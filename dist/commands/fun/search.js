@@ -80,4 +80,3 @@ await ctx.interaction.reply({ embeds: [message], components: [duck] });
 }
 }
 };
-//# sourceMappingURL=search.js.map

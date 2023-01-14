@@ -185,4 +185,3 @@ ctx.log(false, `[CMD] STOCKBUY : ${stock.toUpperCase()} : ${amount} : ${cost}€
 return ctx.interaction.reply({ embeds: [message], components: [row] });
 }
 };
-//# sourceMappingURL=stockbuy.js.map

@@ -172,4 +172,3 @@ return false;
 }
 };
 exports.checkAuth = checkAuth;
-//# sourceMappingURL=api.js.map

@@ -69,4 +69,3 @@ ctx.log(false, `[BTN] COMMITS : ${type.toUpperCase()} : ${type.toUpperCase()} : 
 return ctx.interaction.update({ embeds: [message], components: (ctx.components.getAPI()) });
 }
 };
-//# sourceMappingURL=page.js.map

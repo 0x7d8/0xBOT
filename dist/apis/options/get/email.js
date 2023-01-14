@@ -42,4 +42,3 @@ else
 return ctr.print({ "success": true, "email": false });
 }
 };
-//# sourceMappingURL=email.js.map

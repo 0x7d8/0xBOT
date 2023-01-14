@@ -46,4 +46,3 @@ return this.overallTime;
 }
 }
 exports.Timer = Timer;
-//# sourceMappingURL=timer.js.map

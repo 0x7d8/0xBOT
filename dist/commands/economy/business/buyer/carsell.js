@@ -98,4 +98,3 @@ ctx.log(false, `[CMD] CARSELL : ${name} : ${cost}€`);
 return ctx.interaction.reply({ embeds: [message], components: [row] });
 }
 };
-//# sourceMappingURL=carsell.js.map

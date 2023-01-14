@@ -36,4 +36,3 @@ ctx.log(false, `[CMD] VERSION`);
 return ctx.interaction.reply({ embeds: [message], ephemeral: true });
 }
 };
-//# sourceMappingURL=version.js.map

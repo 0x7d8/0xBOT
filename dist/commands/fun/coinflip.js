@@ -107,4 +107,3 @@ ctx.log(false, `[CMD] COINFLIP : H[${heads}] : T[${tails}]`);
 return ctx.interaction.reply({ embeds: [message] });
 }
 };
-//# sourceMappingURL=coinflip.js.map

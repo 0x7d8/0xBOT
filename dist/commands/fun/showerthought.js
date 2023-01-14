@@ -79,8 +79,7 @@ message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
 \`\`\`${germanThought.translations[0].text}\`\`\`
 `).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
-ctx.log(false, `[CMD] SHOWERTHOUGHT : : ${upvotes}^`);
+ctx.log(false, `[CMD] SHOWERTHOUGHT : ${upvotes}^`);
 return ctx.interaction.editReply({ embeds: [message], components: [row] });
 }
 };
-//# sourceMappingURL=showerthought.js.map

@@ -31,4 +31,3 @@ ctx.log(false, `[MOD] SAY : ${title.toUpperCase()} : ${content.toUpperCase()}`);
 return ctx.interaction.reply({ embeds: [message] });
 }
 };
-//# sourceMappingURL=say.js.map

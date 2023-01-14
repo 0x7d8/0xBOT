@@ -130,4 +130,3 @@ ctx.log(false, `[CMD] INVENTORY`);
 return ctx.interaction.reply({ embeds: [message] });
 }
 };
-//# sourceMappingURL=inventory.js.map

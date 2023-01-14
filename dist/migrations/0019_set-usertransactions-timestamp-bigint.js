@@ -17,4 +17,3 @@ return true;
 return false;
 }
 };
-//# sourceMappingURL=0019_set-usertransactions-timestamp-bigint.js.map

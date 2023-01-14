@@ -43,4 +43,3 @@ ctx.log(false, `[CMD] LANGUAGE : ${langString}`);
 return ctx.interaction.reply({ embeds: [message], ephemeral: true });
 }
 };
-//# sourceMappingURL=language.js.map

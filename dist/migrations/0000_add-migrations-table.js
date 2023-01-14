@@ -19,4 +19,3 @@ return true;
 return false;
 }
 };
-//# sourceMappingURL=0000_add-migrations-table.js.map

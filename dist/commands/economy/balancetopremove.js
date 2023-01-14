@@ -41,4 +41,3 @@ ctx.log(false, `[CMD] BALANCETOPREMOVE : ${user.id}`);
 return ctx.interaction.reply({ embeds: [message], ephemeral: true }).catch(() => { });
 }
 };
-//# sourceMappingURL=balancetopremove.js.map

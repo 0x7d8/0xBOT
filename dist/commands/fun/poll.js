@@ -46,4 +46,3 @@ ctx.log(false, `[CMD] POLL : ${question.toUpperCase()}`);
 return ctx.interaction.reply({ embeds: [message], components: [row] });
 }
 };
-//# sourceMappingURL=poll.js.map

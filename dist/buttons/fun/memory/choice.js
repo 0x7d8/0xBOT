@@ -246,4 +246,3 @@ return ctx.interaction.message.edit({ embeds: [message], components: (ctx.compon
 return ctx.interaction.message.edit({ embeds: [message], components: (ctx.components.getAPI()), ephemeral: true });
 }
 };
-//# sourceMappingURL=choice.js.map

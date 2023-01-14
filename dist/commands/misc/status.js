@@ -37,4 +37,3 @@ ctx.log(false, `[CMD] STATUS`);
 await ctx.interaction.reply({ embeds: [message], components: [row], ephemeral: true });
 }
 };
-//# sourceMappingURL=status.js.map

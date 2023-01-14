@@ -151,4 +151,3 @@ ctx.log(false, `[BTN] STOCKS : ${type.toUpperCase()} :${ctx.interaction.user.id 
 return ctx.interaction.update({ embeds: [message], components: (ctx.components.getAPI()) });
 }
 };
-//# sourceMappingURL=page.js.map

@@ -204,4 +204,3 @@ ctx.interaction.editReply({ content: '', embeds: [message], components: msg.comp
 setTimeout(() => expiration(), 27000);
 }
 };
-//# sourceMappingURL=tictactoe.js.map

@@ -17,4 +17,3 @@ return true;
 return false;
 }
 };
-//# sourceMappingURL=0013_add-transactions-table.js.map

@@ -25,4 +25,3 @@ ctx.log(false, `[CMD] PING : ${ping}ms`);
 return ctx.interaction.reply({ embeds: [message], ephemeral: true });
 }
 };
-//# sourceMappingURL=ping.js.map

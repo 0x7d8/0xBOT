@@ -52,4 +52,3 @@ ctx.log(false, `[CMD] LEVELTOP`);
 return ctx.interaction.editReply({ embeds: [message] }).catch(() => { });
 }
 };
-//# sourceMappingURL=leveltop.js.map

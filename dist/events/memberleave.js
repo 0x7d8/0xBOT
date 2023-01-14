@@ -27,4 +27,3 @@ interaction.user.id
 ]);
 }
 };
-//# sourceMappingURL=memberleave.js.map

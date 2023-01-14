@@ -46,4 +46,3 @@ modal.addComponents(title, content);
 return ctx.interaction.showModal(modal);
 }
 };
-//# sourceMappingURL=say.js.map

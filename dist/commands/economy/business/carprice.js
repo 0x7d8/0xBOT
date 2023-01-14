@@ -99,4 +99,3 @@ ctx.log(false, `[CMD] CARPRICE : ${car.toUpperCase()} : ${newprice}€`);
 return ctx.interaction.reply({ embeds: [message], ephemeral: true });
 }
 };
-//# sourceMappingURL=carprice.js.map

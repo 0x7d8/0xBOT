@@ -144,4 +144,3 @@ ctx.log(false, `[CMD] CARBUY : ${name.toUpperCase()} : ${cost}€`);
 return ctx.interaction.reply({ embeds: [message], components: [row] });
 }
 };
-//# sourceMappingURL=carbuy.js.map

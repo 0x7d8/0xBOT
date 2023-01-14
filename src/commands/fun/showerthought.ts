@@ -107,7 +107,7 @@ export default {
 		}
 
 		// Send Message
-		ctx.log(false, `[CMD] SHOWERTHOUGHT : : ${upvotes}^`)
+		ctx.log(false, `[CMD] SHOWERTHOUGHT : ${upvotes}^`)
 		return ctx.interaction.editReply({ embeds: [message], components: [row as any] })
 	}
 }

@@ -40,4 +40,3 @@ ctx.log(false, `[BTN] COUNT : ${number}`);
 return ctx.interaction.update({ embeds: [message], components: (ctx.components.getAPI()) });
 }
 };
-//# sourceMappingURL=count.js.map

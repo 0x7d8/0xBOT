@@ -118,4 +118,3 @@ message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
 return ctx.interaction.reply({ embeds: [message], components: [row] });
 }
 };
-//# sourceMappingURL=stats.js.map

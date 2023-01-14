@@ -48,4 +48,3 @@ ctx.log(false, `[BTN] POLL : ${choice.toUpperCase()}`);
 return ctx.interaction.update({ components: (ctx.components.getAPI()) });
 }
 };
-//# sourceMappingURL=poll.js.map

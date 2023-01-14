@@ -37,4 +37,3 @@ name
 }
 };
 exports.set = set;
-//# sourceMappingURL=language.js.map

@@ -110,4 +110,3 @@ ctx.log(false, `[BTN] STOCKINFO : ${type.toUpperCase()} : ${pageNumber} : ${ctx.
 return ctx.interaction.update({ embeds: [message], components: (ctx.components.getAPI()) });
 }
 };
-//# sourceMappingURL=page.js.map

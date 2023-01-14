@@ -123,4 +123,3 @@ ctx.log(false, `[CMD] BEG : ${amount}€`);
 return ctx.interaction.reply({ embeds: [message], components: [row] });
 }
 };
-//# sourceMappingURL=beg.js.map

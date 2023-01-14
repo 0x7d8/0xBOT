@@ -141,4 +141,3 @@ ctx.log(false, `[BTN] RPS : ${sender} : ACCEPT`);
 return ctx.interaction.update({ content: '', embeds: [message], components: [row1, row2] });
 }
 };
-//# sourceMappingURL=yes.js.map

@@ -94,4 +94,3 @@ ctx.log(false, `[CMD] BUSINESSINFO : ${business.toUpperCase()} : NOTOWNED`);
 return ctx.interaction.reply({ embeds: [message], ephemeral: true });
 }
 };
-//# sourceMappingURL=businessinfo.js.map

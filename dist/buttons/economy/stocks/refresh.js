@@ -104,4 +104,3 @@ return ctx.interaction.update({ embeds: [message] });
 }
 }
 };
-//# sourceMappingURL=refresh.js.map

@@ -295,4 +295,3 @@ ctx.log(false, `[BTN] MEMORY : ${sender} : ACCEPT`);
 return ctx.interaction.editReply({ content: '', embeds: [message], components: [row1, row2, row3, row4, row5] });
 }
 };
-//# sourceMappingURL=yes.js.map

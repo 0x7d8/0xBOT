@@ -161,4 +161,3 @@ return ctx.interaction.reply({ embeds: [message] });
 }
 }
 };
-//# sourceMappingURL=work.js.map

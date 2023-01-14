@@ -116,4 +116,3 @@ ctx.log(false, `[CMD] STOCKINFO : 1 : ${ctx.client.stocks.green}€ : ${ctx.clie
 return ctx.interaction.reply({ embeds: [message], components: [row] });
 }
 };
-//# sourceMappingURL=stockinfo.js.map

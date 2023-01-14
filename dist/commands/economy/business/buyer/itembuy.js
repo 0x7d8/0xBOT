@@ -175,4 +175,3 @@ ctx.log(false, `[CMD] ITEMBUY : ${pamount}x : ${itemid.toUpperCase()} : ${cost}â
 return ctx.interaction.reply({ embeds: [message], components: [row] });
 }
 };
-//# sourceMappingURL=itembuy.js.map
