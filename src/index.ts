@@ -2,6 +2,7 @@
 import moduleAlias from "module-alias"
 moduleAlias.addAlias('@interfaces', __dirname+'/interfaces')
 moduleAlias.addAlias('@functions', __dirname+'/functions')
+moduleAlias.addAlias('@assets', __dirname+'/assets')
 moduleAlias.addAlias('@utils', __dirname+'/utils')
 moduleAlias.addAlias('@config', __dirname+'/config.json')
 

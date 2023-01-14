@@ -49,6 +49,7 @@ return ctr.print({
 "rob": await ctr.bot.settings.get(ctr.query.get('id'), 'rob'),
 "levels": await ctr.bot.settings.get(ctr.query.get('id'), 'levels'),
 "quotes": await ctr.bot.settings.get(ctr.query.get('id'), 'quotes'),
+"showerthought": await ctr.bot.settings.get(ctr.query.get('id'), 'showerthought'),
 "meme": await ctr.bot.settings.get(ctr.query.get('id'), 'meme')
 });
 }

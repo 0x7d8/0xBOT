@@ -1,6 +1,8 @@
 import { SlashCommandBuilder, EmbedBuilder } from "discord.js"
 import { AttachmentBuilder } from "discord.js"
 
+import * as canvas from "canvacord"
+
 import CommandInteraction from "@interfaces/CommandInteraction.js"
 export default {
 	data: new SlashCommandBuilder()
@@ -22,8 +24,6 @@ export default {
 				.setRequired(false)),
 
 	async execute(ctx: CommandInteraction) {
-		const canvas = (await import('canvacord')).default
-
 		// Check if Levels are Enabled in Server
 		if (!await ctx.bot.settings.get(ctx.interaction.guild.id, 'levels')) {
 			// Create Embed

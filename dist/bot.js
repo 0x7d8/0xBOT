@@ -30,6 +30,7 @@ exports.start = void 0;
 const module_alias_1 = __importDefault(require("module-alias"));
 module_alias_1.default.addAlias('@interfaces', __dirname + '/interfaces');
 module_alias_1.default.addAlias('@functions', __dirname + '/functions');
+module_alias_1.default.addAlias('@assets', __dirname + '/assets');
 module_alias_1.default.addAlias('@utils', __dirname + '/utils');
 module_alias_1.default.addAlias('@config', __dirname + '/config.json');
 const sleep = (milliseconds) => Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, milliseconds);

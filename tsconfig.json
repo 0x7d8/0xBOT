@@ -12,6 +12,7 @@
     "paths": {
       "@interfaces/*": ["interfaces/*"],
       "@functions/*": ["functions/*"],
+      "@assets/*": ["assets/*"],
       "@utils/*": ["utils/*"],
       "@config": ["config.json"]
     },
