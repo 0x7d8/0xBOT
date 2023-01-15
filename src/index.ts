@@ -134,7 +134,7 @@ stdin.addListener("data", async(input) => {
 				}
 			}, events: {
 				async request(ctr: WebserverInterface) {
-					console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [WEB] [${ctr.reqUrl.method.toUpperCase()}] ${ctr.reqUrl.pathname}`)
+					if (!ctr.header.get('user-agent').startsWith('Uptime-Kuma')) console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [WEB] [${ctr.reqUrl.method.toUpperCase()}] ${ctr.reqUrl.pathname}`)
 				}
 			}, port: config.web.ports.dashboard
 		}).then((res) => {
@@ -174,9 +174,9 @@ stdin.addListener("data", async(input) => {
 					ctr.setCustom('bot', botFunctions)
 					ctr.setCustom('config', config)
 					ctr.setCustom('client', client)
-					ctr.setCustom('db', db)
+					ctr.setCustom('db', db as any)
 
-					console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [API] [${ctr.reqUrl.method.toUpperCase()}] ${ctr.reqUrl.pathname}`)
+					if (!ctr.header.get('user-agent').startsWith('Uptime-Kuma')) console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [API] [${ctr.reqUrl.method.toUpperCase()}] ${ctr.reqUrl.pathname}`)
 				}
 			}, rateLimits: {
 				enabled: true,

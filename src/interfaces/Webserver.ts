@@ -14,5 +14,5 @@ interface Custom {
 }
 
 export default interface Webserver extends WebserverInterface<Custom> {
-	error: Error
+	error?: Error
 }

@@ -144,6 +144,7 @@ return ctr.printFile('./dashboard/dist/index.html');
 }
 }, events: {
 async request(ctr) {
+if (!ctr.header.get('user-agent').startsWith('Uptime-Kuma'))
 console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [WEB] [${ctr.reqUrl.method.toUpperCase()}] ${ctr.reqUrl.pathname}`);
 }
 }, port: _config_1.default.web.ports.dashboard
@@ -181,6 +182,7 @@ ctr.setCustom('bot', botFunctions);
 ctr.setCustom('config', _config_1.default);
 ctr.setCustom('client', client);
 ctr.setCustom('db', db);
+if (!ctr.header.get('user-agent').startsWith('Uptime-Kuma'))
 console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [API] [${ctr.reqUrl.method.toUpperCase()}] ${ctr.reqUrl.pathname}`);
 }
 }, rateLimits: {
