@@ -37,6 +37,7 @@ import EconomyRob from '/src/options/economy/rob'
 import FunLevels from '/src/options/fun/levels'
 import FunQuotes from '/src/options/fun/quotes'
 import FunShowerThought from '/src/options/fun/showerthought'
+import FunCursedImage from '/src/options/fun/cursedimage'
 import FunMeme from '/src/options/fun/meme'
 
 

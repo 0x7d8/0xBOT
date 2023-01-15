@@ -50,6 +50,7 @@ return ctr.print({
 "levels": await ctr['@'].bot.settings.get(ctr.query.get('id'), 'levels'),
 "quotes": await ctr['@'].bot.settings.get(ctr.query.get('id'), 'quotes'),
 "showerthought": await ctr['@'].bot.settings.get(ctr.query.get('id'), 'showerthought'),
+"cursedimage": await ctr['@'].bot.settings.get(ctr.query.get('id'), 'cursedimage'),
 "meme": await ctr['@'].bot.settings.get(ctr.query.get('id'), 'meme')
 });
 }
