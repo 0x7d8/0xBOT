@@ -28,7 +28,7 @@ userobj = user;
 ctx.log(false, `[CMD] STATS : ${user.id} : 1`);
 }
 const totalStats = await ctx.bot.stat.get('t-all', 'cmd');
-const guildStats = await ctx.bot.stat.get('g-' + userobj.id, 'cmd');
+const guildStats = await ctx.bot.stat.get('g-' + ctx.interaction.guild.id, 'cmd');
 const userStats = await ctx.bot.stat.get('u-' + userobj.id, 'cmd');
 let row = new discord_js_1.ActionRowBuilder()
 .addComponents(new discord_js_1.ButtonBuilder()
@@ -48,7 +48,7 @@ row = new discord_js_1.ActionRowBuilder()
 .addComponents(new discord_js_1.ButtonBuilder()
 .setEmoji('1055826473442873385')
 .setLabel('AKTUALISIEREN')
-.setCustomId(`STATS-REFRESH-${userobj.id}-${String(!!user).toUpperCase()}`)
+.setCustomId(`STATS-REFRESH-${userobj.id}-1-${String(!!user).toUpperCase()}`)
 .setStyle(discord_js_1.ButtonStyle.Primary), new discord_js_1.ButtonBuilder()
 .setEmoji('1055825023987888169')
 .setCustomId(`STATS-BACK-${userobj.id}-1-${String(!!user).toUpperCase()}`)

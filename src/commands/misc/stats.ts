@@ -32,7 +32,7 @@ export default {
 
 		// Get Stats
 		const totalStats = await ctx.bot.stat.get('t-all', 'cmd')
-		const guildStats = await ctx.bot.stat.get('g-' + userobj.id, 'cmd')
+		const guildStats = await ctx.bot.stat.get('g-' + ctx.interaction.guild.id, 'cmd')
 		const userStats = await ctx.bot.stat.get('u-' + userobj.id, 'cmd')
 
 		// Create Buttons
@@ -61,7 +61,7 @@ export default {
 					new ButtonBuilder()
 						.setEmoji('1055826473442873385')
 						.setLabel('AKTUALISIEREN')
-						.setCustomId(`STATS-REFRESH-${userobj.id}-${String(!!user).toUpperCase()}`)
+						.setCustomId(`STATS-REFRESH-${userobj.id}-1-${String(!!user).toUpperCase()}`)
 						.setStyle(ButtonStyle.Primary),
 
 					new ButtonBuilder()
