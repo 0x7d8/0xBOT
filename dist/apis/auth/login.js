@@ -36,8 +36,8 @@ async code(ctr) {
 if (!ctr.header.has('code'))
 return ctr.print({ "success": false, "message": 'NO CODE' });
 const token = await oAuth.tokenRequest({
-clientId: ctr.config.client.id,
-clientSecret: ctr.config.client.secret,
+clientId: ctr['@'].config.client.id,
+clientSecret: ctr['@'].config.client.secret,
 grantType: 'authorization_code',
 scope: ['identify', 'guilds', 'email'],
 redirectUri: 'https://0xbot.de/auth/discord',
@@ -48,7 +48,7 @@ return ctr.print({ "success": false, "message": 'INVALID TOKEN' });
 const userInfos = await oAuth.getUser(token.access_token);
 const base = `${userInfos.id} ${token.access_token}`;
 const authToken = utils.hashStr({ text: base, algorithm: 'sha256', output: 'hex' });
-ctr.api.users.set({
+ctr['@'].api.users.set({
 auth: authToken,
 user: {
 id: userInfos.id,

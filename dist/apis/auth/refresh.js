@@ -34,18 +34,18 @@ path: '/auth/refresh',
 async code(ctr) {
 if (!ctr.header.has('authtoken'))
 return ctr.print({ "success": false, "message": 'NO AUTH TOKEN' });
-const userInfos = await ctr.api.users.get(ctr.header.get('authtoken'));
+const userInfos = await ctr['@'].api.users.get(ctr.header.get('authtoken'));
 if (userInfos === 'N-FOUND')
 return ctr.print({ "success": false, "message": 'USER NOT FOUND' });
 const token = await oAuth.tokenRequest({
-clientId: ctr.config.client.id,
-clientSecret: ctr.config.client.secret,
+clientId: ctr['@'].config.client.id,
+clientSecret: ctr['@'].config.client.secret,
 grantType: 'refresh_token',
 scope: ['identify', 'guilds', 'email'],
 redirectUri: 'https://0xbot.de/auth/discord',
 refreshToken: userInfos.tokens.refresh
 });
-ctr.api.users.set({
+ctr['@'].api.users.set({
 auth: ctr.header.get('authtoken'),
 user: {
 id: userInfos.id,

@@ -29,7 +29,7 @@ path: '/auth/check',
 async code(ctr) {
 if (!ctr.header.has('authtoken'))
 return ctr.print({ "success": false, "message": 'NO AUTH TOKEN' });
-const userInfos = await ctr.api.users.get(ctr.header.get('authtoken'));
+const userInfos = await ctr['@'].api.users.get(ctr.header.get('authtoken'));
 if (userInfos === 'N-FOUND')
 return ctr.print({ "success": false, "message": 'USER NOT FOUND' });
 return ctr.print({

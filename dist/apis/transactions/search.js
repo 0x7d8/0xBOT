@@ -33,31 +33,31 @@ if (!ctr.header.get('senderid') ||
 return ctr.print({ "success": false, "message": 'NO HEADERS' });
 let rawvalues;
 if (ctr.header.get('senderid') !== 'empty' && ctr.header.get('recieverid') !== 'empty') {
-rawvalues = await ctr.db.query(`select * from usertransactions where senderid = $1 and recieverid = $2 order by timestamp desc;`, [
+rawvalues = await ctr['@'].db.query(`select * from usertransactions where senderid = $1 and recieverid = $2 order by timestamp desc;`, [
 ctr.header.get('senderid'),
 ctr.header.get('recieverid')
 ]);
 }
 else if (ctr.header.get('senderid') !== 'empty' && ctr.header.get('recieverid') === 'empty') {
-rawvalues = await ctr.db.query(`select * from usertransactions where senderid = $1 order by timestamp desc;`, [
+rawvalues = await ctr['@'].db.query(`select * from usertransactions where senderid = $1 order by timestamp desc;`, [
 ctr.header.get('senderid')
 ]);
 }
 else if (ctr.header.get('senderid') === 'empty' && ctr.header.get('recieverid') !== 'empty') {
-rawvalues = await ctr.db.query(`select * from usertransactions where recieverid = $1 order by timestamp desc;`, [
+rawvalues = await ctr['@'].db.query(`select * from usertransactions where recieverid = $1 order by timestamp desc;`, [
 ctr.header.get('recieverid')
 ]);
 }
 else {
-rawvalues = await ctr.db.query(`select * from usertransactions order by timestamp desc;`);
+rawvalues = await ctr['@'].db.query(`select * from usertransactions order by timestamp desc;`);
 }
 const transactions = [];
 let count = 0;
 for (const transaction of rawvalues.rows) {
 if (++count > Number(ctr.header.get('maxresults')))
 break;
-const senderInfo = await ctr.bot.userdb.get(transaction.senderid);
-const recieverInfo = await ctr.bot.userdb.get(transaction.recieverid);
+const senderInfo = await ctr['@'].bot.userdb.get(transaction.senderid);
+const recieverInfo = await ctr['@'].bot.userdb.get(transaction.recieverid);
 transactions.push({
 "id": transaction.id,
 "timestamp": Number(transaction.timestamp),

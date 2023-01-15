@@ -11,12 +11,12 @@ export = {
 
 		// Check Permissions
 		if (!ctr.header.has('authtoken')) return ctr.print({ "success": false, "message": 'NO AUTH TOKEN' })
-		if (!await ctr.api.checkAuth(ctr.header.get('authtoken'), ctr.query.get('id'))) return ctr.print({ "success": false, "message": 'PERMISSION DENIED' })
+		if (!await ctr['@'].api.checkAuth(ctr.header.get('authtoken'), ctr.query.get('id'))) return ctr.print({ "success": false, "message": 'PERMISSION DENIED' })
 
 		let cont = true
 
 		// Fetch Guild
-		let guild = await ctr.client.guilds.fetch(ctr.query.get('id')).catch(() => {
+		let guild = await ctr['@'].client.guilds.fetch(ctr.query.get('id')).catch(() => {
 			cont = false
 			return ctr.print({ "success": false, "message": 'INVALID GUILD' })
 		}); (guild as any).success = true

@@ -13,16 +13,16 @@ export = {
 		if (!ctr.header.has('authtoken')) return ctr.print({ "success": false, "message": 'NO AUTH TOKEN' })
 
 		// Get Infos
-		const userInfos = await ctr.api.users.get(ctr.header.get('authtoken'))
+		const userInfos = await ctr['@'].api.users.get(ctr.header.get('authtoken'))
 		if (userInfos === 'N-FOUND') return ctr.print({ "success": false, "message": 'USER NOT FOUND' })
 
 		// Remove From Database
-		ctr.api.users.rem(userInfos.id)
+		ctr['@'].api.users.rem(userInfos.id)
 
 		// Remove from Discord
 		await oAuth.revokeToken(
 			userInfos.tokens.access,
-			Buffer.from(`${ctr.config.client.id}:${ctr.config.client.secret}`).toString("base64")
+			Buffer.from(`${ctr['@'].config.client.id}:${ctr['@'].config.client.secret}`).toString("base64")
 		)
 
 		// Return Result

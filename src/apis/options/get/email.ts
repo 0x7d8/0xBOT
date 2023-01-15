@@ -10,11 +10,11 @@ export = {
 		if (!ctr.header.has('authtoken')) return ctr.print({ "success": false, "message": 'NO AUTH TOKEN' })
 
 		// Get Infos
-		const userInfos = await ctr.api.users.get(ctr.header.get('authtoken'))
+		const userInfos = await ctr['@'].api.users.get(ctr.header.get('authtoken'))
 		if (userInfos === 'N-FOUND') return ctr.print({ "success": false, "message": 'USER NOT FOUND' })
 
 		// Get Email
-		const email = await ctr.db.query(`select * from useremails where userid = $1 and email = $2;`, [
+		const email = await ctr['@'].db.query(`select * from useremails where userid = $1 and email = $2;`, [
 			userInfos.id,
 			userInfos.email
 		])

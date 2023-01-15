@@ -34,11 +34,11 @@ path: '/auth/logout',
 async code(ctr) {
 if (!ctr.header.has('authtoken'))
 return ctr.print({ "success": false, "message": 'NO AUTH TOKEN' });
-const userInfos = await ctr.api.users.get(ctr.header.get('authtoken'));
+const userInfos = await ctr['@'].api.users.get(ctr.header.get('authtoken'));
 if (userInfos === 'N-FOUND')
 return ctr.print({ "success": false, "message": 'USER NOT FOUND' });
-ctr.api.users.rem(userInfos.id);
-await oAuth.revokeToken(userInfos.tokens.access, Buffer.from(`${ctr.config.client.id}:${ctr.config.client.secret}`).toString("base64"));
+ctr['@'].api.users.rem(userInfos.id);
+await oAuth.revokeToken(userInfos.tokens.access, Buffer.from(`${ctr['@'].config.client.id}:${ctr['@'].config.client.secret}`).toString("base64"));
 return ctr.print({
 "success": true
 });

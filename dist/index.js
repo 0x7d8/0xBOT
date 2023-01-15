@@ -43,6 +43,8 @@ const client = new discord_js_1.Client({ intents: [
 discord_js_1.GatewayIntentBits.Guilds
 ] });
 client.login(_config_1.default.client.token);
+const apiFunctions = __importStar(require("@functions/api.js"));
+const botFunctions = __importStar(require("@functions/bot.js"));
 const bot = __importStar(require("@functions/bot.js"));
 const stdin = process.openStdin();
 stdin.addListener("data", async (input) => {
@@ -140,6 +142,10 @@ pages: {
 async notFound(ctr) {
 return ctr.printFile('./dashboard/dist/index.html');
 }
+}, events: {
+async request(ctr) {
+console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [WEB] [${ctr.reqUrl.method.toUpperCase()}] ${ctr.reqUrl.pathname}`);
+}
 }, port: _config_1.default.web.ports.dashboard
 }).then((res) => {
 console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [STA] $$$$$ STARTED DASHBOARD ON PORT ${res.port}`);
@@ -170,11 +176,12 @@ return ctr.print({
 }, port: _config_1.default.web.ports.api,
 events: {
 async request(ctr) {
-ctr.api = (await import('./functions/api.js')).default;
-ctr.bot = (await import('./functions/bot.js')).default;
-ctr.config = _config_1.default;
-ctr.client = client;
-ctr.db = db;
+ctr.setCustom('api', apiFunctions);
+ctr.setCustom('bot', botFunctions);
+ctr.setCustom('config', _config_1.default);
+ctr.setCustom('client', client);
+ctr.setCustom('db', db);
+console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [API] [${ctr.reqUrl.method.toUpperCase()}] ${ctr.reqUrl.pathname}`);
 }
 }, rateLimits: {
 enabled: true,

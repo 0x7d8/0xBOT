@@ -12,9 +12,9 @@ export = {
 		// Return Result
 		return ctr.print({
 			"success": true,
-			"commands": await ctr.bot.stat.get(`u-${ctr.query.get('id')}`, 'cmd'),
-			"buttons": await ctr.bot.stat.get(`u-${ctr.query.get('id')}`, 'btn'),
-			"modals": await ctr.bot.stat.get(`u-${ctr.query.get('id')}`, 'mod')
+			"commands": await ctr['@'].bot.stat.get(`u-${ctr.query.get('id')}`, 'cmd'),
+			"buttons": await ctr['@'].bot.stat.get(`u-${ctr.query.get('id')}`, 'btn'),
+			"modals": await ctr['@'].bot.stat.get(`u-${ctr.query.get('id')}`, 'mod')
 		})
 	}
 }

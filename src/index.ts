@@ -21,6 +21,8 @@ const client = new Client({ intents: [
 	GatewayIntentBits.Guilds
 ] }); client.login(config.client.token)
 
+import * as apiFunctions from "@functions/api.js"
+import * as botFunctions from "@functions/bot.js"
 import * as bot from "@functions/bot.js"
 
 // CLI Commands
@@ -130,6 +132,10 @@ stdin.addListener("data", async(input) => {
 				async notFound(ctr: WebserverInterface) {
 					return ctr.printFile('./dashboard/dist/index.html')
 				}
+			}, events: {
+				async request(ctr: WebserverInterface) {
+					console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [WEB] [${ctr.reqUrl.method.toUpperCase()}] ${ctr.reqUrl.pathname}`)
+				}
 			}, port: config.web.ports.dashboard
 		}).then((res) => {
 			console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [STA] $$$$$ STARTED DASHBOARD ON PORT ${res.port}`)
@@ -164,11 +170,13 @@ stdin.addListener("data", async(input) => {
 			}, port: config.web.ports.api,
 			events: {
 				async request(ctr: WebserverInterface) {
-					ctr.api = (await import('./functions/api.js')).default
-					ctr.bot = (await import('./functions/bot.js')).default
-					ctr.config = config
-					ctr.client = client
-					ctr.db = db as any
+					ctr.setCustom('api', apiFunctions)
+					ctr.setCustom('bot', botFunctions)
+					ctr.setCustom('config', config)
+					ctr.setCustom('client', client)
+					ctr.setCustom('db', db)
+
+					console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [API] [${ctr.reqUrl.method.toUpperCase()}] ${ctr.reqUrl.pathname}`)
 				}
 			}, rateLimits: {
 				enabled: true,
