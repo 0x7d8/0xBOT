@@ -47,7 +47,7 @@ if (!token)
 return ctr.print({ "success": false, "message": 'INVALID TOKEN' });
 const userInfos = await oAuth.getUser(token.access_token);
 const base = `${userInfos.id} ${token.access_token}`;
-const authToken = utils.hashString({ text: base, algorithm: 'sha256', digest: 'hex' });
+const authToken = utils.hashStr({ text: base, algorithm: 'sha256', output: 'hex' });
 ctr.api.users.set({
 auth: authToken,
 user: {

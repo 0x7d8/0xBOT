@@ -2,22 +2,22 @@ lockfileVersion: 5.4
 
 specifiers:
   '@types/module-alias': ^2.0.1
-  '@types/node': ^18.11.10
-  '@types/node-cron': ^3.0.6
-  '@types/pg': ^8.6.5
+  '@types/node': ^18.11.18
+  '@types/node-cron': ^3.0.7
+  '@types/pg': ^8.6.6
   axios: 1.1.3
   canvacord: ^5.4.8
-  discord-api-types: ^0.37.14
+  discord-api-types: ^0.37.28
   discord-oauth2: ^2.11.0
   discord.js: ^14.7.1
   git-commit-count: ^1.1.3
-  mathjs: ^11.3.2
+  mathjs: ^11.5.0
   module-alias: ^2.2.2
   node-cron: ^3.0.2
   pg: ^8.8.0
   pretty-ms: ^8.0.0
-  rjutils-collection: ^1.0.6
-  rjweb-server: ^1.1.0
+  rjutils-collection: ^1.1.1
+  rjweb-server: ^1.2.0
   simple-git: ^3.15.1
 
 dependencies:
@@ -32,8 +32,8 @@ dependencies:
   node-cron: registry.npmjs.org/node-cron/3.0.2
   pg: registry.npmjs.org/pg/8.8.0
   pretty-ms: registry.npmjs.org/pretty-ms/8.0.0
-  rjutils-collection: registry.npmjs.org/rjutils-collection/1.0.6
-  rjweb-server: registry.npmjs.org/rjweb-server/1.1.8
+  rjutils-collection: registry.npmjs.org/rjutils-collection/1.1.1
+  rjweb-server: registry.npmjs.org/rjweb-server/1.2.0
   simple-git: registry.npmjs.org/simple-git/3.15.1
 
 devDependencies:
@@ -85,7 +85,7 @@ packages:
       '@sapphire/async-queue': registry.npmjs.org/@sapphire/async-queue/1.5.0
       '@sapphire/snowflake': registry.npmjs.org/@sapphire/snowflake/3.4.0
       discord-api-types: registry.npmjs.org/discord-api-types/0.37.28
-      file-type: registry.npmjs.org/file-type/18.1.0
+      file-type: registry.npmjs.org/file-type/18.2.0
       tslib: registry.npmjs.org/tslib/2.4.1
       undici: registry.npmjs.org/undici/5.15.0
     dev: false
@@ -475,10 +475,10 @@ packages:
     version: 3.1.3
     dev: false
 
-  registry.npmjs.org/file-type/18.1.0:
-    resolution: {integrity: sha512-FqjmVvHjX5C/EnibCENAsCMIg7HgUYO0vDypt5V8RmtKDk7eUa+/6mEWSrY4PStFhUt0K3CoE8stjLJCcMsJFQ==, registry: https://registry.npmjs.cf/, tarball: https://registry.npmjs.org/file-type/-/file-type-18.1.0.tgz}
+  registry.npmjs.org/file-type/18.2.0:
+    resolution: {integrity: sha512-M3RQMWY3F2ykyWZ+IHwNCjpnUmukYhtdkGGC1ZVEUb0ve5REGF7NNJ4Q9ehCUabtQKtSVFOMbFTXgJlFb0DQIg==, registry: https://registry.npmjs.cf/, tarball: https://registry.npmjs.org/file-type/-/file-type-18.2.0.tgz}
     name: file-type
-    version: 18.1.0
+    version: 18.2.0
     engines: {node: '>=14.16'}
     dependencies:
       readable-web-to-node-stream: registry.npmjs.org/readable-web-to-node-stream/3.0.2
@@ -865,16 +865,16 @@ packages:
     version: 0.13.11
     dev: false
 
-  registry.npmjs.org/rjutils-collection/1.0.6:
-    resolution: {integrity: sha512-iD5dhoMVfasRDy66+UgoJ617UXiDPywyQ5GhTFS8mjGQYy2oBYmgCi5K1Jjx2nZZ7C59LAm30WaHtK2G2TDnNA==, registry: https://registry.npmjs.cf/, tarball: https://registry.npmjs.org/rjutils-collection/-/rjutils-collection-1.0.6.tgz}
+  registry.npmjs.org/rjutils-collection/1.1.1:
+    resolution: {integrity: sha512-03kpPqpZ8zkxemsC4N9rpaEGKsY6q3Fe2kOfxg2AxcZskOhj5/ust8TnzSuQxdhL4HTmlKkmkBK6L4AkEbA6/w==, registry: https://registry.npmjs.cf/, tarball: https://registry.npmjs.org/rjutils-collection/-/rjutils-collection-1.1.1.tgz}
     name: rjutils-collection
-    version: 1.0.6
+    version: 1.1.1
     dev: false
 
-  registry.npmjs.org/rjweb-server/1.1.8:
-    resolution: {integrity: sha512-a7MSOj08Lu/7EwfWBcuhOIY5KHIE4j3DZTUZt5dDRo5C6CMN0xXf0wNXy2tJ7gXn7Nss9edKn01MoU/rgfr0Sg==, registry: https://registry.npmjs.cf/, tarball: https://registry.npmjs.org/rjweb-server/-/rjweb-server-1.1.8.tgz}
+  registry.npmjs.org/rjweb-server/1.2.0:
+    resolution: {integrity: sha512-wFjVckcnOM00b1wo1FVtm2EjLhO/dUn+j+Y6Qng/tRBexzyqQEVMZL9REt9zk6mptqi0H2WQrD5usiFYAeZXkg==, registry: https://registry.npmjs.cf/, tarball: https://registry.npmjs.org/rjweb-server/-/rjweb-server-1.2.0.tgz}
     name: rjweb-server
-    version: 1.1.8
+    version: 1.2.0
     dev: false
 
   registry.npmjs.org/safe-buffer/5.2.1:
