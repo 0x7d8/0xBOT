@@ -78,3 +78,4 @@ ctx.log(false, `[BTN] TICTACTOE : ${sender} : CANCEL`);
 return ctx.interaction.update({ content: '', embeds: [message], components: (ctx.components.getAPI()) });
 }
 };
+//# sourceMappingURL=cancel.js.map

@@ -37,3 +37,4 @@ ctx.log(false, `[CMD] WEBSITE`);
 await ctx.interaction.reply({ embeds: [message], components: [row], ephemeral: true });
 }
 };
+//# sourceMappingURL=website.js.map

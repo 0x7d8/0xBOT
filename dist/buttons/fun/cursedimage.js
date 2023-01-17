@@ -48,3 +48,4 @@ ctx.log(false, `[BTN] CURSEDIMAGE : ${upvotes}^`);
 return ctx.interaction.editReply({ embeds: [message], components: (ctx.components.getAPI()) });
 }
 };
+//# sourceMappingURL=cursedimage.js.map

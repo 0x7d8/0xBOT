@@ -39,3 +39,4 @@ ctx.log(false, `[CMD] NUMBER : ${min} : ${max} : ${res}`);
 return ctx.interaction.reply({ embeds: [message] });
 }
 };
+//# sourceMappingURL=number.js.map

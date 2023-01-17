@@ -55,3 +55,4 @@ userInfos.email
 return ctr.print({ "success": true, "message": 'OPTION UPDATED' });
 }
 };
+//# sourceMappingURL=email.js.map

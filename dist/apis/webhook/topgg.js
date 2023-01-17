@@ -76,3 +76,4 @@ ctr['@'].bot.votes.set(ctr.reqBody.user + '-T', Date.now());
 return ctr.print({ "success": true, "message": 'VOTE RECIEVED' });
 }
 };
+//# sourceMappingURL=topgg.js.map

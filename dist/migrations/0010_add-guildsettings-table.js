@@ -17,3 +17,4 @@ return true;
 return false;
 }
 };
+//# sourceMappingURL=0010_add-guildsettings-table.js.map

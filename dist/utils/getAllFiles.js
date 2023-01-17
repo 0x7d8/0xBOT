@@ -45,3 +45,4 @@ arrayOfFiles = (0, exports.getAllFiles)(dirPath, arrayOfFiles).filter(file => fi
 return arrayOfFiles;
 };
 exports.getAllFilesFilter = getAllFilesFilter;
+//# sourceMappingURL=getAllFiles.js.map

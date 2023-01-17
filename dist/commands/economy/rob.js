@@ -239,3 +239,4 @@ ctx.log(false, `[CMD] ROB : ${user.id} : ${amount}€ : SUCCESS`);
 return ctx.interaction.reply({ embeds: [success] });
 }
 };
+//# sourceMappingURL=rob.js.map

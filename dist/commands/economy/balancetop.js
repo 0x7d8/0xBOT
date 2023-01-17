@@ -77,3 +77,4 @@ ctx.log(false, `[CMD] BALANCETOP : ${listtype.toString().toUpperCase()}`);
 return ctx.interaction.editReply({ embeds: [message] }).catch(() => { });
 }
 };
+//# sourceMappingURL=balancetop.js.map

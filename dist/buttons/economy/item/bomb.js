@@ -88,3 +88,4 @@ ctx.log(false, `[BTN] ITEMUSE : BOMB : ${choice} : ${solution}`);
 return ctx.interaction.update({ content: '', embeds: [message], components: (ctx.components.getAPI()) });
 }
 };
+//# sourceMappingURL=bomb.js.map

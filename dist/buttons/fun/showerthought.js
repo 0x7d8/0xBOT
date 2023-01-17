@@ -55,3 +55,4 @@ ctx.log(false, `[BTN] SHOWERTHOUGHT : ${upvotes}^`);
 return ctx.interaction.editReply({ embeds: [message], components: (ctx.components.getAPI()) });
 }
 };
+//# sourceMappingURL=showerthought.js.map

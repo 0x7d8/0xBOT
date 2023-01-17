@@ -170,3 +170,4 @@ ctx.log(false, `[BTN] TICTACTOE : ${sender} : ACCEPT`);
 return ctx.interaction.update({ content: '', embeds: [message], components: [row1, row2, row3, row4] });
 }
 };
+//# sourceMappingURL=yes.js.map

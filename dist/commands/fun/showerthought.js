@@ -83,3 +83,4 @@ ctx.log(false, `[CMD] SHOWERTHOUGHT : ${upvotes}^`);
 return ctx.interaction.editReply({ embeds: [message], components: [row] });
 }
 };
+//# sourceMappingURL=showerthought.js.map

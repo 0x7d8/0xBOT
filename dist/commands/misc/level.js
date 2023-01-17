@@ -134,3 +134,4 @@ message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 return ctx.interaction.editReply({ embeds: [message], files: [attachment] });
 }
 };
+//# sourceMappingURL=level.js.map

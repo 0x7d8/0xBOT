@@ -218,3 +218,4 @@ ctx.log(false, `[CMD] GUESS : ${guess} : ${status} : ${result}€`);
 return ctx.interaction.reply({ embeds: [message] });
 }
 };
+//# sourceMappingURL=guess.js.map

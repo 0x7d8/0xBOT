@@ -76,3 +76,4 @@ ctx.log(false, `[CMD] CURSEDIMAGE : ${upvotes}^`);
 return ctx.interaction.editReply({ embeds: [message], components: [row] });
 }
 };
+//# sourceMappingURL=cursedimage.js.map

@@ -33,3 +33,4 @@ ctx.log(false, `[CMD] VOTE`);
 return ctx.interaction.reply({ embeds: [message], components: [row], ephemeral: true });
 }
 };
+//# sourceMappingURL=vote.js.map

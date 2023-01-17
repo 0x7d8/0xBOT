@@ -17,3 +17,4 @@ return true;
 return false;
 }
 };
+//# sourceMappingURL=0008_add-guilds-to-usermoney.js.map

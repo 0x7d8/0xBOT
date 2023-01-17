@@ -122,3 +122,4 @@ ctx.log(false, `[CMD] PAY : ${user.id} : ${amount}€`);
 return ctx.interaction.reply({ embeds: [message] });
 }
 };
+//# sourceMappingURL=pay.js.map

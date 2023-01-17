@@ -143,3 +143,4 @@ return ctx.interaction.reply({ embeds: [message] });
 }
 }
 };
+//# sourceMappingURL=action.js.map

@@ -77,3 +77,4 @@ ctx.log(false, `[BTN] STATS :${ctx.interaction.user.id !== userId ? ` ${userId} 
 return ctx.interaction.update({ embeds: [message], components: (ctx.components.getAPI()) });
 }
 };
+//# sourceMappingURL=refresh.js.map

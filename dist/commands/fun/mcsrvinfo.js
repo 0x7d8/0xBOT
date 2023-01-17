@@ -79,3 +79,4 @@ ctx.log(false, `[CMD] MCSRVINFO : ${address.toUpperCase()}`);
 return ctx.interaction.editReply({ embeds: [message] });
 }
 };
+//# sourceMappingURL=mcsrvinfo.js.map

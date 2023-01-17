@@ -82,3 +82,4 @@ ctx.log(false, `[CMD] CATROBATINFO : ${id.toUpperCase()}`);
 return ctx.interaction.editReply({ embeds: [message] });
 }
 };
+//# sourceMappingURL=catrobatinfo.js.map

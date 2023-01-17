@@ -150,3 +150,4 @@ return ctx.interaction.reply({ embeds: [message], ephemeral: true });
 }
 }
 };
+//# sourceMappingURL=clear.js.map

@@ -167,3 +167,4 @@ return ctx.interaction.update({ embeds: [message], components: (ctx.components.g
 }
 }
 };
+//# sourceMappingURL=yes.js.map

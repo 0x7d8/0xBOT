@@ -25,3 +25,4 @@ ctx.log(false, `[CMD] MCVER : 1.${result}`);
 return ctx.interaction.reply({ embeds: [message] });
 }
 };
+//# sourceMappingURL=mcver.js.map

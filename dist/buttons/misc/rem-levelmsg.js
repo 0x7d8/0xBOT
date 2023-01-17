@@ -24,3 +24,4 @@ return ctx.interaction.reply({ embeds: [message], ephemeral: true });
 return ctx.interaction.message.delete();
 }
 };
+//# sourceMappingURL=rem-levelmsg.js.map

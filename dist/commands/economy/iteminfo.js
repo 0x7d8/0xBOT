@@ -96,3 +96,4 @@ return ctx.interaction.reply({ embeds: [message], ephemeral: true });
 }
 }
 };
+//# sourceMappingURL=iteminfo.js.map

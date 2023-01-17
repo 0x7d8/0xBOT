@@ -43,3 +43,4 @@ expires
 ]);
 };
 exports.set = set;
+//# sourceMappingURL=cooldown.js.map

@@ -13,6 +13,4 @@ interface Custom {
 	db: PoolClient
 }
 
-export default interface Webserver extends WebserverInterface<Custom> {
-	error?: Error
-}
+export default interface Webserver<HasError = false> extends WebserverInterface<Custom, HasError> {}

@@ -160,7 +160,7 @@ stdin.addListener("data", async(input) => {
 						"success": false,
 						"message": 'NOT FOUND'
 					}).status(404)
-				}, async reqError(ctr: WebserverInterface) {
+				}, async reqError(ctr: WebserverInterface<true>) {
 					console.log(ctr.error.stack)
 					return ctr.print({
 						"success": false,

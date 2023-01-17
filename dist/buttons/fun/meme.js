@@ -68,3 +68,4 @@ ctx.log(false, `[BTN] MEME : ${subreddit.toUpperCase()} : ${upvotes}^ : ${commen
 return ctx.interaction.editReply({ embeds: [message], components: (ctx.components.getAPI()) });
 }
 };
+//# sourceMappingURL=meme.js.map

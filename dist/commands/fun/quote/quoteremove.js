@@ -95,3 +95,4 @@ ctx.log(false, `[CMD] QUOTEREMOVE : ${amount} : ${cost}€`);
 return ctx.interaction.reply({ embeds: [message] });
 }
 };
+//# sourceMappingURL=quoteremove.js.map

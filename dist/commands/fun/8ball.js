@@ -123,3 +123,4 @@ ctx.log(false, '[CMD] 8BALL : ' + formatted.toUpperCase() + ' : ' + result.toUpp
 return ctx.interaction.reply({ embeds: [message] });
 }
 };
+//# sourceMappingURL=8ball.js.map

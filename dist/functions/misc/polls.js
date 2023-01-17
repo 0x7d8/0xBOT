@@ -43,3 +43,4 @@ const del = async (messageId, userId) => {
 await db.query(`delete from userpolls where messageid = $1 and userid = $2;`, [messageId, userId]);
 };
 exports.del = del;
+//# sourceMappingURL=polls.js.map

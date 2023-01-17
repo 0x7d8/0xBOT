@@ -94,3 +94,4 @@ ctx.bot.cooldown.set(ctx.interaction.user.id, 'quote', 1 * 60 * 1000);
 return ctx.interaction.reply({ embeds: [message] });
 }
 };
+//# sourceMappingURL=quote.js.map

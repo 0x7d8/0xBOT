@@ -182,3 +182,4 @@ return ctx.interaction.reply({ embeds: [message], ephemeral: true });
 }
 }
 };
+//# sourceMappingURL=roulette.js.map

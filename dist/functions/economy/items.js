@@ -87,3 +87,4 @@ const del = async (userId) => {
 await db.query(`delete from useritems where userId = $1;`, [userId]);
 };
 exports.del = del;
+//# sourceMappingURL=items.js.map

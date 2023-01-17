@@ -57,3 +57,4 @@ message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 return ctx.interaction.reply({ embeds: [message] });
 }
 };
+//# sourceMappingURL=balance.js.map

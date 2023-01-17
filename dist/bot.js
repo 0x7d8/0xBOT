@@ -573,3 +573,4 @@ await db.query(`delete from usercooldowns where expires / 1000 < extract(epoch f
 });
 };
 exports.start = start;
+//# sourceMappingURL=bot.js.map

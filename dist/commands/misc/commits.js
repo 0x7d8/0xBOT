@@ -83,3 +83,4 @@ ctx.log(false, `[CMD] COMMITS : ${commits.length} : ${Math.ceil(commits.length /
 return ctx.interaction.reply({ embeds: [message], components: [row] }).catch(() => { });
 }
 };
+//# sourceMappingURL=commits.js.map

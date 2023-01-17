@@ -34,3 +34,4 @@ ctx.log(false, `[CMD] DONATE <3`);
 return ctx.interaction.reply({ embeds: [message], ephemeral: true });
 }
 };
+//# sourceMappingURL=donate.js.map

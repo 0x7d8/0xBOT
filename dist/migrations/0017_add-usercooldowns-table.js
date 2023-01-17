@@ -17,3 +17,4 @@ return true;
 return false;
 }
 };
+//# sourceMappingURL=0017_add-usercooldowns-table.js.map

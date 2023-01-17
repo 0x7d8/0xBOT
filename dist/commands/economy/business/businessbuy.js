@@ -204,3 +204,4 @@ ctx.log(false, `[CMD] BUSINESSBUY : ${name.toUpperCase()} : ${cost}€`);
 return ctx.interaction.reply({ embeds: [message], components: [row] });
 }
 };
+//# sourceMappingURL=businessbuy.js.map

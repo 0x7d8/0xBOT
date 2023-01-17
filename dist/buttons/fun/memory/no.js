@@ -41,3 +41,4 @@ ctx.log(false, `[BTN] MEMORY : ${sender} : DENY`);
 return ctx.interaction.update({ content: '', embeds: [message], components: (ctx.components.getAPI()) });
 }
 };
+//# sourceMappingURL=no.js.map

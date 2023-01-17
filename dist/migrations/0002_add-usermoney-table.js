@@ -17,3 +17,4 @@ return true;
 return false;
 }
 };
+//# sourceMappingURL=0002_add-usermoney-table.js.map

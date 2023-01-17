@@ -59,3 +59,4 @@ ctx.log(false, `[CMD] COUNT : ${mode.toUpperCase()}`);
 return ctx.interaction.reply({ embeds: [message], components: [row] });
 }
 };
+//# sourceMappingURL=count.js.map

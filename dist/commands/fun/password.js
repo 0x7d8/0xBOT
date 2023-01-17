@@ -96,3 +96,4 @@ ctx.log(false, `[CMD] PASSWORD : ${length}`);
 return ctx.interaction.reply({ embeds: [message], ephemeral: true });
 }
 };
+//# sourceMappingURL=password.js.map

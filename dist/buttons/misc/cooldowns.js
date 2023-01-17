@@ -51,3 +51,4 @@ ctx.log(false, `[BTN] COOLDOWNS :${ctx.interaction.user.id !== userId ? ` ${user
 return ctx.interaction.update({ embeds: [message] });
 }
 };
+//# sourceMappingURL=cooldowns.js.map

@@ -64,3 +64,4 @@ return ctx.interaction.update({ embeds: [message], components: (ctx.components.g
 }
 }
 };
+//# sourceMappingURL=no.js.map

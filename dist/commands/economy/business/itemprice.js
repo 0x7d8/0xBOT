@@ -97,3 +97,4 @@ ctx.log(false, `[CMD] ITEMPRICE : ${itemid.toUpperCase()} : ${newprice}€`);
 return ctx.interaction.reply({ embeds: [message], ephemeral: true });
 }
 };
+//# sourceMappingURL=itemprice.js.map

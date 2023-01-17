@@ -168,3 +168,4 @@ ctx.log(false, `[CMD] STOCKSELL : ${stock.toUpperCase()} : ${amount} : ${cost}â‚
 return ctx.interaction.reply({ embeds: [message], components: [row] });
 }
 };
+//# sourceMappingURL=stocksell.js.map

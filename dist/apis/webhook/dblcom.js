@@ -76,3 +76,4 @@ ctr['@'].bot.votes.set(ctr.reqBody.id + '-T', Date.now());
 return ctr.print({ "success": true, "message": 'VOTE RECIEVED' });
 }
 };
+//# sourceMappingURL=dblcom.js.map

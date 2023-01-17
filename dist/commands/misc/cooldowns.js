@@ -79,3 +79,4 @@ ctx.log(false, `[CMD] COOLDOWNS :${user ? ` ${user.id} :` : ''} ${rawvalues.rowC
 return ctx.interaction.reply({ embeds: [message], components: [row] });
 }
 };
+//# sourceMappingURL=cooldowns.js.map

@@ -55,3 +55,4 @@ response = { "success": true, "message": 'OPTION UPDATED' };
 return ctr.print(response);
 }
 };
+//# sourceMappingURL=guild.js.map

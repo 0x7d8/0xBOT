@@ -17,3 +17,4 @@ return true;
 return false;
 }
 };
+//# sourceMappingURL=0011_add-userstocks-table.js.map

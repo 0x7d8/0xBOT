@@ -17,7 +17,7 @@ specifiers:
   pg: ^8.8.0
   pretty-ms: ^8.0.0
   rjutils-collection: ^1.1.1
-  rjweb-server: ^1.2.3
+  rjweb-server: ^1.2.7
   simple-git: ^3.15.1
 
 dependencies:
@@ -33,7 +33,7 @@ dependencies:
   pg: registry.npmjs.org/pg/8.8.0
   pretty-ms: registry.npmjs.org/pretty-ms/8.0.0
   rjutils-collection: registry.npmjs.org/rjutils-collection/1.1.1
-  rjweb-server: registry.npmjs.org/rjweb-server/1.2.3
+  rjweb-server: registry.npmjs.org/rjweb-server/1.2.7
   simple-git: registry.npmjs.org/simple-git/3.15.1
 
 devDependencies:
@@ -871,10 +871,10 @@ packages:
     version: 1.1.1
     dev: false
 
-  registry.npmjs.org/rjweb-server/1.2.3:
-    resolution: {integrity: sha512-pHWu2NvGNj4Po3yrsEWFc5TKLvvjBuu23HOzx5clx29DRqHM0Dm/irVZhc+xQJoBUOTMjbpINs0NmZhAw8PXyw==, registry: https://registry.npmjs.cf/, tarball: https://registry.npmjs.org/rjweb-server/-/rjweb-server-1.2.3.tgz}
+  registry.npmjs.org/rjweb-server/1.2.7:
+    resolution: {integrity: sha512-D2TYO23Of4/b4X52adF9dWK8WNN8+nEEhzBLBU53gNnjbbZ91ZT4Lf6QhSZtHJt5AGPi3XkNXp/ig7zPuN9mPg==, registry: https://registry.npmjs.cf/, tarball: https://registry.npmjs.org/rjweb-server/-/rjweb-server-1.2.7.tgz}
     name: rjweb-server
-    version: 1.2.3
+    version: 1.2.7
     dev: false
 
   registry.npmjs.org/safe-buffer/5.2.1:
