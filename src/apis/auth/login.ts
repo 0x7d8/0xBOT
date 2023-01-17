@@ -29,7 +29,7 @@ export = {
 
 		// Generate Auth Token
 		const base = `${userInfos.id} ${token.access_token}`
-		const authToken = utils.hashStr({ text: base, algorithm: 'sha256', output: 'hex' })
+		const authToken = utils.hashStr({ text: base, algorithm: 'sha256', output: 'hex' }) as string
 
 		// Add To Database
 		ctr['@'].api.users.set({
