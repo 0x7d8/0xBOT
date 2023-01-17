@@ -1,1 +1,1 @@
-{"version":3,"file":"Client.js","sourceRoot":"","sources":["../../src/interfaces/Client.ts"],"names":[],"mappings":""}
+{"version":3,"file":"Client.js","sourceRoot":"src/","sources":["interfaces/Client.ts"],"names":[],"mappings":""}

@@ -1,1 +1,1 @@
-{"version":3,"file":"ButtonInteraction.js","sourceRoot":"","sources":["../../src/interfaces/ButtonInteraction.ts"],"names":[],"mappings":""}
+{"version":3,"file":"ButtonInteraction.js","sourceRoot":"src/","sources":["interfaces/ButtonInteraction.ts"],"names":[],"mappings":""}
