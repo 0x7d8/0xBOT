@@ -24,28 +24,28 @@ return result;
 };
 const webserver = __importStar(require("rjweb-server"));
 module.exports = {
-type: webserver.types.get,
+method: webserver.types.get,
 path: '/transactions/search',
 async code(ctr) {
-if (!ctr.header.get('senderid') ||
-!ctr.header.get('recieverid') ||
-!ctr.header.get('maxresults'))
-return ctr.print({ "success": false, "message": 'NO HEADERS' });
+if (!ctr.headers.get('senderid') ||
+!ctr.headers.get('recieverid') ||
+!ctr.headers.get('maxresults'))
+return ctr.print({ "success": false, "message": 'NO HEADERsS' });
 let rawvalues;
-if (ctr.header.get('senderid') !== 'empty' && ctr.header.get('recieverid') !== 'empty') {
+if (ctr.headers.get('senderid') !== 'empty' && ctr.headers.get('recieverid') !== 'empty') {
 rawvalues = await ctr['@'].db.query(`select * from usertransactions where senderid = $1 and recieverid = $2 order by timestamp desc;`, [
-ctr.header.get('senderid'),
-ctr.header.get('recieverid')
+ctr.headers.get('senderid'),
+ctr.headers.get('recieverid')
 ]);
 }
-else if (ctr.header.get('senderid') !== 'empty' && ctr.header.get('recieverid') === 'empty') {
+else if (ctr.headers.get('senderid') !== 'empty' && ctr.headers.get('recieverid') === 'empty') {
 rawvalues = await ctr['@'].db.query(`select * from usertransactions where senderid = $1 order by timestamp desc;`, [
-ctr.header.get('senderid')
+ctr.headers.get('senderid')
 ]);
 }
-else if (ctr.header.get('senderid') === 'empty' && ctr.header.get('recieverid') !== 'empty') {
+else if (ctr.headers.get('senderid') === 'empty' && ctr.headers.get('recieverid') !== 'empty') {
 rawvalues = await ctr['@'].db.query(`select * from usertransactions where recieverid = $1 order by timestamp desc;`, [
-ctr.header.get('recieverid')
+ctr.headers.get('recieverid')
 ]);
 }
 else {
@@ -54,7 +54,7 @@ rawvalues = await ctr['@'].db.query(`select * from usertransactions order by tim
 const transactions = [];
 let count = 0;
 for (const transaction of rawvalues.rows) {
-if (++count > Number(ctr.header.get('maxresults')))
+if (++count > Number(ctr.headers.get('maxresults')))
 break;
 const senderInfo = await ctr['@'].bot.userdb.get(transaction.senderid);
 const recieverInfo = await ctr['@'].bot.userdb.get(transaction.recieverid);

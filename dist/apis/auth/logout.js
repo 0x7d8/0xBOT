@@ -29,12 +29,12 @@ const webserver = __importStar(require("rjweb-server"));
 const discord_oauth2_1 = __importDefault(require("discord-oauth2"));
 const oAuth = new discord_oauth2_1.default();
 module.exports = {
-type: webserver.types.post,
+method: webserver.types.post,
 path: '/auth/logout',
 async code(ctr) {
-if (!ctr.header.has('authtoken'))
+if (!ctr.headers.has('authtoken'))
 return ctr.print({ "success": false, "message": 'NO AUTH TOKEN' });
-const userInfos = await ctr['@'].api.users.get(ctr.header.get('authtoken'));
+const userInfos = await ctr['@'].api.users.get(ctr.headers.get('authtoken'));
 if (userInfos === 'N-FOUND')
 return ctr.print({ "success": false, "message": 'USER NOT FOUND' });
 ctr['@'].api.users.rem(userInfos.id);

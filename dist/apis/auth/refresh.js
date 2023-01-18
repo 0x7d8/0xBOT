@@ -29,12 +29,12 @@ const webserver = __importStar(require("rjweb-server"));
 const discord_oauth2_1 = __importDefault(require("discord-oauth2"));
 const oAuth = new discord_oauth2_1.default();
 module.exports = {
-type: webserver.types.get,
+method: webserver.types.get,
 path: '/auth/refresh',
 async code(ctr) {
-if (!ctr.header.has('authtoken'))
+if (!ctr.headers.has('authtoken'))
 return ctr.print({ "success": false, "message": 'NO AUTH TOKEN' });
-const userInfos = await ctr['@'].api.users.get(ctr.header.get('authtoken'));
+const userInfos = await ctr['@'].api.users.get(ctr.headers.get('authtoken'));
 if (userInfos === 'N-FOUND')
 return ctr.print({ "success": false, "message": 'USER NOT FOUND' });
 const token = await oAuth.tokenRequest({
@@ -46,7 +46,7 @@ redirectUri: 'https://0xbot.de/auth/discord',
 refreshToken: userInfos.tokens.refresh
 });
 ctr['@'].api.users.set({
-auth: ctr.header.get('authtoken'),
+auth: ctr.headers.get('authtoken'),
 user: {
 id: userInfos.id,
 name: userInfos.name,

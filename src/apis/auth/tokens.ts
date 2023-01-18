@@ -1,16 +1,18 @@
 import * as webserver from "rjweb-server"
-import webserverInterface from "@interfaces/Webserver.js"
+import { ctrFile } from "@interfaces/Webserver.js"
+
+interface Body {}
 
 export = {
-	type: webserver.types.get,
+	method: webserver.types.get,
 	path: '/auth/tokens',
 
-	async code(ctr: webserverInterface) {
+	async code(ctr) {
 		// Check for Headers
-		if (!ctr.header.has('authtoken')) return ctr.print({ "success": false, "message": 'NO AUTH TOKEN' })
+		if (!ctr.headers.has('authtoken')) return ctr.print({ "success": false, "message": 'NO AUTH TOKEN' })
 
 		// Get Infos
-		const userInfos = await ctr['@'].api.users.get(ctr.header.get('authtoken'))
+		const userInfos = await ctr['@'].api.users.get(ctr.headers.get('authtoken'))
 		if (userInfos === 'N-FOUND') return ctr.print({ "success": false, "message": 'USER NOT FOUND' })
 
 		// Return Result
@@ -22,4 +24,4 @@ export = {
 			}
 		})
 	}
-}
+} as ctrFile<Body>

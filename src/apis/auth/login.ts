@@ -1,17 +1,19 @@
 import * as webserver from "rjweb-server"
-import webserverInterface from "@interfaces/Webserver.js"
+import { ctrFile } from "@interfaces/Webserver.js"
+
+interface Body {}
 
 import * as utils from "rjutils-collection"
 import { default as DiscordOauth2 } from "discord-oauth2"
 const oAuth = new DiscordOauth2()
 
 export = {
-	type: webserver.types.post,
+	method: webserver.types.post,
 	path: '/auth/login',
 
-	async code(ctr: webserverInterface) {
+	async code(ctr) {
 		// Check for Headers
-		if (!ctr.header.has('code')) return ctr.print({ "success": false, "message": 'NO CODE' })
+		if (!ctr.headers.has('code')) return ctr.print({ "success": false, "message": 'NO CODE' })
 
 		// Get Token
 		const token = await oAuth.tokenRequest({
@@ -20,7 +22,7 @@ export = {
 			grantType: 'authorization_code',
 			scope: ['identify', 'guilds', 'email'],
 			redirectUri: 'https://0xbot.de/auth/discord',
-			code: ctr.header.get('code')
+			code: ctr.headers.get('code')
 		}).catch((e) => { })
 		if (!token) return ctr.print({ "success": false, "message": 'INVALID TOKEN' })
 
@@ -53,4 +55,4 @@ export = {
 			"infos": userInfos
 		})
 	}
-}
+} as ctrFile<Body>

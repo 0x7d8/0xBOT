@@ -1,19 +1,21 @@
 import * as webserver from "rjweb-server"
-import webserverInterface from "@interfaces/Webserver.js"
+import { ctrFile } from "@interfaces/Webserver.js"
+
+interface Body {}
 
 import { default as DiscordOauth2 } from "discord-oauth2"
 const oAuth = new DiscordOauth2()
 
 export = {
-	type: webserver.types.get,
+	method: webserver.types.get,
 	path: '/auth/refresh',
 
-	async code(ctr: webserverInterface) {
+	async code(ctr) {
 		// Check for Headers
-		if (!ctr.header.has('authtoken')) return ctr.print({ "success": false, "message": 'NO AUTH TOKEN' })
+		if (!ctr.headers.has('authtoken')) return ctr.print({ "success": false, "message": 'NO AUTH TOKEN' })
 
 		// Get Infos
-		const userInfos = await ctr['@'].api.users.get(ctr.header.get('authtoken'))
+		const userInfos = await ctr['@'].api.users.get(ctr.headers.get('authtoken'))
 		if (userInfos === 'N-FOUND') return ctr.print({ "success": false, "message": 'USER NOT FOUND' })
 
 		// Refresh Token
@@ -28,7 +30,7 @@ export = {
 
 		// Update The Database
 		ctr['@'].api.users.set({
-			auth: ctr.header.get('authtoken'),
+			auth: ctr.headers.get('authtoken'),
 			user: {
 				id: userInfos.id,
 				name: userInfos.name,
@@ -50,4 +52,4 @@ export = {
 			}
 		})
 	}
-}
+} as ctrFile<Body>

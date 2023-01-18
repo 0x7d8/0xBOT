@@ -1,29 +1,33 @@
 import * as webserver from "rjweb-server"
-import webserverInterface from "@interfaces/Webserver.js"
+import { ctrFile } from "@interfaces/Webserver.js"
+
+interface Body {
+	user?: string
+}
 
 import { EmbedBuilder } from "discord.js"
 
 export = {
-	type: webserver.types.post,
+	method: webserver.types.post,
 	path: '/webhook/topgg',
 
-	async code(ctr: webserverInterface) {
+	async code(ctr) {
 		// Check Authorization
-		if (ctr.header.get('authorization') !== ctr['@'].config.web.keys.topgg.webkey) return ctr.print({ "success": false, "message": 'WRONG AUTHORIZATION' })
-		if (!ctr.reqBody.user) return
+		if (ctr.headers.get('authorization') !== ctr['@'].config.web.keys.topgg.webkey) return ctr.print({ "success": false, "message": 'WRONG AUTHORIZATION' })
+		if (!ctr.body.user) return
 
 		const random = ctr['@'].bot.random(7500, 15000)
 
 		// Calculate Extra
 		let extra: number
-		if ((await ctr['@'].bot.votes.get(ctr.reqBody.user + '-A')+1) % 10 === 0) extra = ((await ctr['@'].bot.votes.get(ctr.reqBody.user + '-A')+1) * 10000)/2
+		if ((await ctr['@'].bot.votes.get(ctr.body.user + '-A')+1) % 10 === 0) extra = ((await ctr['@'].bot.votes.get(ctr.body.user + '-A')+1) * 10000)/2
 
 		// Create Embeds
 		let message = new EmbedBuilder().setColor(0x37009B)
 			.setTitle('» VOTING')
 			.setDescription(`» Thanks for Voting! You got **\$${random}** from me :)\n» Danke fürs Voten! Du hast **${random}€** von mir erhalten :)`)
 			.setFooter({ text: '» ' + ctr['@'].config.version })
-		if (await ctr['@'].bot.language.get(ctr.reqBody.user) === 'de') {
+		if (await ctr['@'].bot.language.get(ctr.body.user) === 'de') {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('» VOTING')
 				.setDescription(`» Danke fürs Voten! Du hast **${random}€** von mir erhalten :)`)
@@ -35,30 +39,30 @@ export = {
 				.setFooter({ text: '» ' + ctr['@'].config.version })
 		}; let messageBonus = new EmbedBuilder().setColor(0x37009B)
 			.setTitle('» VOTING')
-			.setDescription(`» Thanks for Voting **${(await ctr['@'].bot.votes.get(ctr.reqBody.user + '-A')) + 1}** times!\nAs A Gift I give you extra **\$${extra}**!`)
+			.setDescription(`» Thanks for Voting **${(await ctr['@'].bot.votes.get(ctr.body.user + '-A')) + 1}** times!\nAs A Gift I give you extra **\$${extra}**!`)
 			.setFooter({ text: '» ' + ctr['@'].config.version })
-		if (await ctr['@'].bot.language.get(ctr.reqBody.user) === 'de') {
+		if (await ctr['@'].bot.language.get(ctr.body.user) === 'de') {
 			messageBonus = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('» VOTING')
-				.setDescription(`» Danke, dass du **${(await ctr['@'].bot.votes.get(ctr.reqBody.user + '-A')) + 1}** mal gevotet hast!\nAls Geschenk gebe ich dir extra **${extra}€**!`)
+				.setDescription(`» Danke, dass du **${(await ctr['@'].bot.votes.get(ctr.body.user + '-A')) + 1}** mal gevotet hast!\nAls Geschenk gebe ich dir extra **${extra}€**!`)
 				.setFooter({ text: '» ' + ctr['@'].config.version })
 		}
 
 		// Add Money
-		await ctr['@'].bot.money.add(false, ctr.reqBody.user, random)
-		console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [WEB] VOTED : ${ctr.reqBody.user} : ${random}€ : TOPGG`)
+		await ctr['@'].bot.money.add(false, ctr.body.user, random)
+		console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [WEB] VOTED : ${ctr.body.user} : ${random}€ : TOPGG`)
 
 		// Send Message
-		ctr['@'].client.users.send(ctr.reqBody.user, { embeds: [message] })
+		ctr['@'].client.users.send(ctr.body.user, { embeds: [message] })
 
 		// Count to Stats
-		if ((await ctr['@'].bot.votes.get(ctr.reqBody.user + '-A')+1) % 10 === 0) {
-			ctr['@'].bot.money.add(false, ctr.reqBody.user, extra)
-			ctr['@'].client.users.send(ctr.reqBody.user, { embeds: [messageBonus] })
-		}; ctr['@'].bot.votes.add(ctr.reqBody.user + '-A', 1)
-		ctr['@'].bot.votes.set(ctr.reqBody.user + '-T', Date.now())
+		if ((await ctr['@'].bot.votes.get(ctr.body.user + '-A')+1) % 10 === 0) {
+			ctr['@'].bot.money.add(false, ctr.body.user, extra)
+			ctr['@'].client.users.send(ctr.body.user, { embeds: [messageBonus] })
+		}; ctr['@'].bot.votes.add(ctr.body.user + '-A', 1)
+		ctr['@'].bot.votes.set(ctr.body.user + '-T', Date.now())
 
 		// Return Result
 		return ctr.print({ "success": true, "message": 'VOTE RECIEVED' })
 	}
-}
+} as ctrFile<Body>

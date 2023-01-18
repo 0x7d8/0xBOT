@@ -24,17 +24,17 @@ return result;
 };
 const webserver = __importStar(require("rjweb-server"));
 module.exports = {
-type: webserver.types.get,
+method: webserver.types.get,
 path: '/check/guild',
 async code(ctr) {
-if (!ctr.query.has('id'))
+if (!ctr.queries.has('id'))
 return ctr.print({ "success": false, "message": 'NO ID' });
-if (!ctr.header.has('authtoken'))
+if (!ctr.headers.has('authtoken'))
 return ctr.print({ "success": false, "message": 'NO AUTH TOKEN' });
-if (!await ctr['@'].api.checkAuth(ctr.header.get('authtoken'), ctr.query.get('id')))
+if (!await ctr['@'].api.checkAuth(ctr.headers.get('authtoken'), ctr.queries.get('id')))
 return ctr.print({ "success": false, "message": 'PERMISSION DENIED' });
 let status = true;
-await ctr['@'].client.guilds.fetch(ctr.query.get('id')).catch(() => { status = false; });
+await ctr['@'].client.guilds.fetch(ctr.queries.get('id')).catch(() => { status = false; });
 return ctr.print({
 "success": status
 });

@@ -128,64 +128,61 @@ ssl: true,
 port: 5432
 });
 await migrator(db);
-const website = new webserver.routeList();
-website.static('/', './dashboard/dist', {
+const websiteRoutes = new webserver.routeList();
+websiteRoutes.static('/', './dashboard/dist', {
 preload: true,
 remHTML: true,
 addTypes: true
 });
+websiteRoutes.event('notfound', async (ctr) => {
+return ctr.printFile('./dashboard/dist/index.html');
+});
+websiteRoutes.event('request', async (ctr) => {
+if (!ctr.headers.get('user-agent').startsWith('Uptime-Kuma'))
+console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [WEB] [${ctr.url.method.toUpperCase()}] ${ctr.url.pathname}`);
+});
 if (_config_1.default.web.dashboard) {
 await webserver.start({
 bind: '0.0.0.0',
-urls: website,
-pages: {
-async notFound(ctr) {
-return ctr.printFile('./dashboard/dist/index.html');
-}
-}, events: {
-async request(ctr) {
-if (!ctr.header.get('user-agent').startsWith('Uptime-Kuma'))
-console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [WEB] [${ctr.reqUrl.method.toUpperCase()}] ${ctr.reqUrl.pathname}`);
-}
-}, port: _config_1.default.web.ports.dashboard
+routes: websiteRoutes,
+port: _config_1.default.web.ports.dashboard
 }).then((res) => {
 console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [STA] $$$$$ STARTED DASHBOARD ON PORT ${res.port}`);
 });
 }
 const rateLimits = new Map();
-const api = new webserver.routeList();
-api.load('./apis');
-if (_config_1.default.web.api) {
-await webserver.start({
-bind: '0.0.0.0',
-cors: true,
-proxy: true,
-urls: api,
-pages: {
-async notFound(ctr) {
-return ctr.print({
+const apiRoutes = new webserver.routeList();
+apiRoutes.load('./apis');
+apiRoutes.event('notfound', async (ctr) => {
+return ctr.status(404).print({
 "success": false,
 "message": 'NOT FOUND'
-}).status(404);
-}, async reqError(ctr) {
-console.log(ctr.error.stack);
-return ctr.print({
-"success": false,
-"message": 'SERVER ERROR'
-}).status(500);
-}
-}, port: _config_1.default.web.ports.api,
-events: {
-async request(ctr) {
+});
+});
+apiRoutes.event('request', async (ctr) => {
 ctr.setCustom('api', apiFunctions);
 ctr.setCustom('bot', botFunctions);
 ctr.setCustom('config', _config_1.default);
 ctr.setCustom('client', client);
 ctr.setCustom('db', db);
-if (!ctr.header.get('user-agent').startsWith('Uptime-Kuma'))
-console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [API] [${ctr.reqUrl.method.toUpperCase()}] ${ctr.reqUrl.pathname}`);
-}
-}, rateLimits: {
+if (!ctr.headers.get('user-agent').startsWith('Uptime-Kuma'))
+console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [API] [${ctr.url.method}] ${ctr.url.pathname}`);
+});
+apiRoutes.event('error', async (ctr) => {
+console.log(ctr.error.stack);
+return ctr.status(500).print({
+"success": false,
+"message": 'SERVER ERROR'
+});
+});
+if (_config_1.default.web.api) {
+await webserver.start({
+bind: '0.0.0.0',
+cors: true,
+proxy: true,
+routes: apiRoutes,
+port: _config_1.default.web.ports.api,
+rateLimits: {
 enabled: true,
 message: { "success": false, "message": 'RATE LIMITED' },
 functions: rateLimits,

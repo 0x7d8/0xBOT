@@ -1,4 +1,4 @@
-import { ctr as WebserverInterface } from "rjweb-server/interfaces"
+import { ctr as WebserverInterface, ctrFile as WebserverFile } from "rjweb-server/interfaces"
 import * as bot from "@functions/bot.js"
 import * as api from "@functions/api.js"
 import config from "@config"
@@ -13,4 +13,5 @@ interface Custom {
 	db: PoolClient
 }
 
-export default interface Webserver<HasError = false> extends WebserverInterface<Custom, HasError> {}
+export default interface Webserver<Body = any, HasError = false> extends WebserverInterface<Custom, HasError, Body> {}
+export interface ctrFile<Body = any> extends WebserverFile<Custom, Body> {}

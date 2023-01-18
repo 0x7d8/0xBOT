@@ -24,21 +24,21 @@ return result;
 };
 const webserver = __importStar(require("rjweb-server"));
 module.exports = {
-type: webserver.types.post,
+method: webserver.types.post,
 path: '/options/email',
 async code(ctr) {
-if (!('option' in ctr.reqBody))
+if (!('option' in ctr.body))
 return ctr.print({ "success": false, "message": 'NO HEADERS' });
-if (!ctr.header.has('authtoken'))
+if (!ctr.headers.has('authtoken'))
 return ctr.print({ "success": false, "message": 'NO AUTH TOKEN' });
-const userInfos = await ctr['@'].api.users.get(ctr.header.get('authtoken'));
+const userInfos = await ctr['@'].api.users.get(ctr.headers.get('authtoken'));
 if (userInfos === 'N-FOUND')
 return ctr.print({ "success": false, "message": 'USER NOT FOUND' });
 const dbemail = await ctr['@'].db.query(`select * from useremails where userid = $1 and email = $2;`, [
 userInfos.id,
 userInfos.email
 ]);
-if (ctr.reqBody.option) {
+if (ctr.body.option) {
 if (dbemail.rowCount === 0) {
 await ctr['@'].db.query(`insert into useremails values ($1, $2)`, [
 userInfos.id,

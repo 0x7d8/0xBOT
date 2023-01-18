@@ -30,10 +30,10 @@ const utils = __importStar(require("rjutils-collection"));
 const discord_oauth2_1 = __importDefault(require("discord-oauth2"));
 const oAuth = new discord_oauth2_1.default();
 module.exports = {
-type: webserver.types.post,
+method: webserver.types.post,
 path: '/auth/login',
 async code(ctr) {
-if (!ctr.header.has('code'))
+if (!ctr.headers.has('code'))
 return ctr.print({ "success": false, "message": 'NO CODE' });
 const token = await oAuth.tokenRequest({
 clientId: ctr['@'].config.client.id,
@@ -41,7 +41,7 @@ clientSecret: ctr['@'].config.client.secret,
 grantType: 'authorization_code',
 scope: ['identify', 'guilds', 'email'],
 redirectUri: 'https://0xbot.de/auth/discord',
-code: ctr.header.get('code')
+code: ctr.headers.get('code')
 }).catch((e) => { });
 if (!token)
 return ctr.print({ "success": false, "message": 'INVALID TOKEN' });

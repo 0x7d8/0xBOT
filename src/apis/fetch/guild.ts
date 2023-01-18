@@ -1,22 +1,24 @@
 import * as webserver from "rjweb-server"
-import webserverInterface from "@interfaces/Webserver.js"
+import { ctrFile } from "@interfaces/Webserver.js"
+
+interface Body {}
 
 export = {
-	type: webserver.types.get,
+	method: webserver.types.get,
 	path: '/fetch/guild',
 
-	async code(ctr: webserverInterface) {
+	async code(ctr) {
 		// Check for Queries
-		if (!ctr.query.has('id')) return ctr.print({ "success": false, "message": 'NO ID' })
+		if (!ctr.queries.has('id')) return ctr.print({ "success": false, "message": 'NO ID' })
 
 		// Check Permissions
-		if (!ctr.header.has('authtoken')) return ctr.print({ "success": false, "message": 'NO AUTH TOKEN' })
-		if (!await ctr['@'].api.checkAuth(ctr.header.get('authtoken'), ctr.query.get('id'))) return ctr.print({ "success": false, "message": 'PERMISSION DENIED' })
+		if (!ctr.headers.has('authtoken')) return ctr.print({ "success": false, "message": 'NO AUTH TOKEN' })
+		if (!await ctr['@'].api.checkAuth(ctr.headers.get('authtoken'), ctr.queries.get('id'))) return ctr.print({ "success": false, "message": 'PERMISSION DENIED' })
 
 		let cont = true
 
 		// Fetch Guild
-		let guild = await ctr['@'].client.guilds.fetch(ctr.query.get('id')).catch(() => {
+		let guild = await ctr['@'].client.guilds.fetch(ctr.queries.get('id')).catch(() => {
 			cont = false
 			return ctr.print({ "success": false, "message": 'INVALID GUILD' })
 		}); (guild as any).success = true
@@ -24,4 +26,4 @@ export = {
 		// Return Result
 		if (cont) return ctr.print(guild)
 	}
-}
+} as ctrFile<Body>

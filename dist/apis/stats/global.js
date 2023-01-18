@@ -24,7 +24,7 @@ return result;
 };
 const webserver = __importStar(require("rjweb-server"));
 module.exports = {
-type: webserver.types.get,
+method: webserver.types.get,
 path: '/stats/global',
 async code(ctr) {
 return ctr.print({

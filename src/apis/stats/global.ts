@@ -1,11 +1,13 @@
 import * as webserver from "rjweb-server"
-import webserverInterface from "@interfaces/Webserver.js"
+import { ctrFile } from "@interfaces/Webserver.js"
+
+interface Body {}
 
 export = {
-	type: webserver.types.get,
+	method: webserver.types.get,
 	path: '/stats/global',
 
-	async code(ctr: webserverInterface) {
+	async code(ctr) {
 		// Return Result
 		return ctr.print({
 			"success": true,
@@ -14,4 +16,4 @@ export = {
 			"modals": await ctr['@'].bot.stat.get(`t-all`, 'mod')
 		})
 	}
-}
+} as ctrFile<Body>
