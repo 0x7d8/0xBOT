@@ -17,7 +17,7 @@ specifiers:
   pg: ^8.8.0
   pretty-ms: ^8.0.0
   rjutils-collection: ^1.2.0
-  rjweb-server: ^2.1.3
+  rjweb-server: ^2.2.5
   simple-git: ^3.16.0
 
 dependencies:
@@ -33,7 +33,7 @@ dependencies:
   pg: registry.npmjs.org/pg/8.8.0
   pretty-ms: registry.npmjs.org/pretty-ms/8.0.0
   rjutils-collection: registry.npmjs.org/rjutils-collection/1.2.0
-  rjweb-server: registry.npmjs.org/rjweb-server/2.1.3
+  rjweb-server: registry.npmjs.org/rjweb-server/2.2.5
   simple-git: registry.npmjs.org/simple-git/3.16.0
 
 devDependencies:
@@ -87,7 +87,7 @@ packages:
       discord-api-types: registry.npmjs.org/discord-api-types/0.37.28
       file-type: registry.npmjs.org/file-type/18.2.0
       tslib: registry.npmjs.org/tslib/2.4.1
-      undici: registry.npmjs.org/undici/5.15.0
+      undici: registry.npmjs.org/undici/5.15.1
     dev: false
 
   registry.npmjs.org/@discordjs/util/0.1.0:
@@ -441,7 +441,7 @@ packages:
       fast-deep-equal: registry.npmjs.org/fast-deep-equal/3.1.3
       lodash.snakecase: registry.npmjs.org/lodash.snakecase/4.1.1
       tslib: registry.npmjs.org/tslib/2.4.1
-      undici: registry.npmjs.org/undici/5.15.0
+      undici: registry.npmjs.org/undici/5.15.1
       ws: registry.npmjs.org/ws/8.12.0
     transitivePeerDependencies:
       - bufferutil
@@ -871,10 +871,10 @@ packages:
     version: 1.2.0
     dev: false
 
-  registry.npmjs.org/rjweb-server/2.1.3:
-    resolution: {integrity: sha512-nk3Qq79sHMMasIRok6mLlz74yuEF2vccdc7C7Yr3EtPyJo7D+k4Z6Tm2/Xpif4Hfh80UTLg5PDBTI2hpmnNh6w==, registry: https://registry.npmjs.cf/, tarball: https://registry.npmjs.org/rjweb-server/-/rjweb-server-2.1.3.tgz}
+  registry.npmjs.org/rjweb-server/2.2.5:
+    resolution: {integrity: sha512-j4fwzb7Xj1Y0DOuf1Se4Ay3e8hfFkk7iYjqsXdKyewDDq69tLoC/NT08o/Rvjnma+ytE1ebs4AReuvr5P6UEGA==, registry: https://registry.npmjs.cf/, tarball: https://registry.npmjs.org/rjweb-server/-/rjweb-server-2.2.5.tgz}
     name: rjweb-server
-    version: 2.1.3
+    version: 2.2.5
     dev: false
 
   registry.npmjs.org/safe-buffer/5.2.1:
@@ -1003,10 +1003,10 @@ packages:
     engines: {node: '>= 14'}
     dev: false
 
-  registry.npmjs.org/undici/5.15.0:
-    resolution: {integrity: sha512-wCAZJDyjw9Myv+Ay62LAoB+hZLPW9SmKbQkbHIhMw/acKSlpn7WohdMUc/Vd4j1iSMBO0hWwU8mjB7a5p5bl8g==, registry: https://registry.npmjs.cf/, tarball: https://registry.npmjs.org/undici/-/undici-5.15.0.tgz}
+  registry.npmjs.org/undici/5.15.1:
+    resolution: {integrity: sha512-XLk8g0WAngdvFqTI+VKfBtM4YWXgdxkf1WezC771Es0Dd+Pm1KmNx8t93WTC+Hh9tnghmVxkclU1HN+j+CvIUA==, registry: https://registry.npmjs.cf/, tarball: https://registry.npmjs.org/undici/-/undici-5.15.1.tgz}
     name: undici
-    version: 5.15.0
+    version: 5.15.1
     engines: {node: '>=12.18'}
     dependencies:
       busboy: registry.npmjs.org/busboy/1.6.0
