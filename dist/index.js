@@ -36,6 +36,7 @@ const cron = __importStar(require("node-cron"));
 const bot_js_1 = require("./bot.js");
 const pg_1 = __importDefault(require("pg"));
 const getAllFiles_js_1 = require("@utils/getAllFiles.js");
+const axios_1 = __importDefault(require("axios"));
 const _config_1 = __importDefault(require("@config"));
 const webserver = __importStar(require("rjweb-server"));
 const discord_js_1 = require("discord.js");
@@ -210,9 +211,8 @@ console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: fal
 }
 if (_config_1.default.web.stats) {
 cron.schedule('0 */1 * * *', async () => {
-const axios = (await import('axios')).default;
 {
-const req = await axios({
+const req = await (0, axios_1.default)({
 method: 'POST',
 url: `https://top.gg/api/bots/${_config_1.default.client.id}/stats`,
 validateStatus: () => true,
@@ -228,7 +228,7 @@ else
 console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] [${req.status}] POSTED TOPGG STATS`);
 }
 {
-const req = await axios({
+const req = await (0, axios_1.default)({
 method: 'POST',
 url: `https://discordbotlist.com/api/v1/bots/${_config_1.default.client.id}/stats`,
 validateStatus: () => true,

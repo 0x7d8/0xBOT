@@ -1,12 +1,15 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
+const axios_1 = __importDefault(require("axios"));
 exports.default = {
 data: {
 name: 'showerthought'
 },
 async execute(ctx, type) {
-const axios = (await import('axios')).default;
 if (!await ctx.bot.settings.get(ctx.interaction.guild.id, 'showerthought')) {
 let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
@@ -22,7 +25,7 @@ ctx.log(false, `[BTN] SHOWERTHOUGHT : DISABLED`);
 return ctx.interaction.reply({ embeds: [message], ephemeral: true });
 }
 await ctx.interaction.deferUpdate();
-const req = await axios.get(`https://www.reddit.com/r/Showerthoughts/random/.json`);
+const req = await axios_1.default.get(`https://www.reddit.com/r/Showerthoughts/random/.json`);
 const res = req.data;
 let upvotes = res[0].data.children[0].data.ups;
 if (upvotes === 187)
@@ -35,7 +38,7 @@ let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 \`\`\`${res[0].data.children[0].data.title}\`\`\`
 `).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 if (ctx.metadata.language === 'de') {
-const germanThought = (await axios({
+const germanThought = (await (0, axios_1.default)({
 method: 'POST',
 url: 'https://api-free.deepl.com/v2/translate',
 headers: {

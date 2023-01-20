@@ -1,5 +1,7 @@
 import { EmbedBuilder } from "discord.js"
 
+import { default as axios } from "axios"
+
 import ButtonInteraction from "@interfaces/ButtonInteraction.js"
 export default {
 	data: {
@@ -7,8 +9,6 @@ export default {
 	},
 
 	async execute(ctx: ButtonInteraction, type: string) {
-		const axios = (await import('axios')).default
-
 		// Check if Showerthought is Enabled in Server
 		if (!await ctx.bot.settings.get(ctx.interaction.guild.id, 'showerthought')) {
 			// Create Embed
@@ -23,7 +23,7 @@ export default {
 					.setDescription(`» Der **\`/showerthought\`** Befehl ist auf diesem Server deaktiviert!`)
 					.setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
 			}
-			
+
 			// Send Message
 			ctx.log(false, `[BTN] SHOWERTHOUGHT : DISABLED`)
 			return ctx.interaction.reply({ embeds: [message], ephemeral: true })

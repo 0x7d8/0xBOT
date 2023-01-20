@@ -10,6 +10,7 @@ import * as cron from "node-cron"
 import { start } from "./bot.js"
 import { default as pg } from "pg"
 import { getAllFilesFilter } from "@utils/getAllFiles.js"
+import { default as axios } from "axios"
 import config from "@config"
 
 import WebserverInterface from "@interfaces/Webserver.js"
@@ -204,8 +205,6 @@ stdin.addListener("data", async(input) => {
 	// Bot Stats
 	if (config.web.stats) {
 		cron.schedule('0 */1 * * *', async() => {
-			const axios = (await import('axios')).default
-
 			{ // TOP.GG
 				const req = await axios({
 					method: 'POST',

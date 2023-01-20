@@ -1,5 +1,6 @@
 import { Events, ActivityType } from "discord.js"
 import { setTimeout as wait } from "timers/promises"
+import { default as axios } from "axios"
 
 // Connect to Database
 import config from "@config"
@@ -23,8 +24,6 @@ export default {
 	once: true,
 
 	async execute(client: Client, timed: number) {
-		const axios = (await import("axios")).default
-
 		// Log
 		console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] STARTED AND LOGGED IN AS ${client.user?.tag} (${timed}ms)`)
 		console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [END] $$$$$ LOADED 0xBOT ${config.version}`)
@@ -34,22 +33,21 @@ export default {
 
 		// Set Status
 		while (!+[]) {
-			client.user?.setActivity(client.guilds.cache.size + ' Servers', { type: ActivityType.Watching })
+			client.user?.setActivity(`${client.guilds.cache.size} Servers`, { type: ActivityType.Watching })
 			await wait(20000)
 
-			const commits = await commitCount()
-			client.user?.setActivity(commits + ' Commits', { type: ActivityType.Watching })
+			client.user?.setActivity(`${await commitCount()} Commits`, { type: ActivityType.Watching })
 			await wait(20000)
 
-			client.user?.setActivity(await bot.stat.get('t-all', 'cmd') + ' Commands Used', { type: ActivityType.Watching })
+			client.user?.setActivity(`${await bot.stat.get('t-all', 'cmd')} Commands Used`, { type: ActivityType.Watching })
 			await wait(10000)
 
-			client.user?.setActivity(await bot.stat.get('t-all', 'btn') + ' Buttons Clicked', { type: ActivityType.Watching })
+			client.user?.setActivity(`${await bot.stat.get('t-all', 'btn')} Buttons Clicked`, { type: ActivityType.Watching })
 			await wait(20000)
 
 			const rawvalues = await db.query(`select * from usermoney;`); let total = 0
 			rawvalues.rows.forEach((user: { money: string }) => total += Number(user.money) )
-			client.user?.setActivity('$' + total + ' in Circulation', { type: ActivityType.Watching })
+			client.user?.setActivity(`\$${total} in Circulation`, { type: ActivityType.Watching })
 			await wait(20000)
 
 			const req = await axios({
@@ -59,7 +57,7 @@ export default {
 				headers: {}
 			} as any); const res = req.data
 
-			client.user.setActivity(Math.round((res.uptimeList['1_24']*100) * 100) / 100 + '% Bot Uptime', { type: ActivityType.Watching })
+			client.user.setActivity(`${Math.round((res.uptimeList['1_24'] * 100) * 100) / 100}% Bot Uptime`, { type: ActivityType.Watching })
 			await wait(20000)
 		}
 	}

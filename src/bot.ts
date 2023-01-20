@@ -185,10 +185,10 @@ export const start = (db: PoolClient) => {
 				"db": db,
 				"bot": bot,
 				"client": client,
-				"getOption": (option: string) => {
+				"getOption": (option) => {
 					if (!interaction.options.get(option)) return null
 					else return (interaction.options.get(option).value as string | number)
-				}, "log": (type: boolean, text: string) => {
+				}, "log": (type, text) => {
 					if (!type) console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [${interaction.user.id} @ ${interaction.guild.id}] ${text}`)
 					else console.log(`[0xBOT] [!] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [${interaction.user.id} @ ${interaction.guild.id}] ${text}`)
 				},

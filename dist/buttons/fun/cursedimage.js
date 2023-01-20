@@ -1,12 +1,15 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
+const axios_1 = __importDefault(require("axios"));
 exports.default = {
 data: {
 name: 'cursedimage'
 },
 async execute(ctx, type) {
-const axios = (await import('axios')).default;
 if (!await ctx.bot.settings.get(ctx.interaction.guild.id, 'cursedimage')) {
 let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
@@ -22,7 +25,7 @@ ctx.log(false, `[BTN] CURSEDIMAGE : DISABLED`);
 return ctx.interaction.reply({ embeds: [message], ephemeral: true });
 }
 await ctx.interaction.deferUpdate();
-const req = await axios.get(`https://www.reddit.com/r/cursedimages/random/.json`);
+const req = await axios_1.default.get(`https://www.reddit.com/r/cursedimages/random/.json`);
 const res = req.data;
 let upvotes = res[0].data.children[0].data.ups;
 if (upvotes === 187)

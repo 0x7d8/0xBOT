@@ -1,6 +1,8 @@
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js"
 import { SlashCommandBuilder, EmbedBuilder } from "discord.js"
 
+import { default as axios } from "axios"
+
 import CommandInteraction from "@interfaces/CommandInteraction.js"
 export default {
 	data: new SlashCommandBuilder()
@@ -12,8 +14,6 @@ export default {
 		}),
 
 	async execute(ctx: CommandInteraction) {
-		const axios = (await import('axios')).default
-
 		// Check if Showerthought is Enabled in Server
 		if (!await ctx.bot.settings.get(ctx.interaction.guild.id, 'showerthought')) {
 			// Create Embed
