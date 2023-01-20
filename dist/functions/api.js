@@ -4,6 +4,7 @@ return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.checkAuth = exports.users = exports.checkSession = void 0;
+const axios_1 = __importDefault(require("axios"));
 const _config_1 = __importDefault(require("@config"));
 const pg_1 = __importDefault(require("pg"));
 const db = new pg_1.default.Pool({
@@ -21,7 +22,6 @@ discord_js_2.GatewayIntentBits.Guilds
 ] });
 client.login(_config_1.default.client.token);
 const checkSession = async (accessToken, tokenType, userid, guildid) => {
-const axios = (await import('axios')).default;
 const dbuser = await db.query(`select * from usersessions where userid = $1 and token = $2 and tokentype = $3;`, [
 userid,
 accessToken,
@@ -35,7 +35,7 @@ accessToken
 ]);
 }
 try {
-const req = await axios.get('https://discord.com/api/users/@me', {
+const req = await axios_1.default.get('https://discord.com/api/users/@me', {
 headers: {
 authorization: `${tokenType} ${accessToken}`
 }

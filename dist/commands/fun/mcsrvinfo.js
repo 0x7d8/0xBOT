@@ -1,6 +1,10 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
+const axios_1 = __importDefault(require("axios"));
 exports.default = {
 data: new discord_js_1.SlashCommandBuilder()
 .setName('mcsrvinfo')
@@ -19,10 +23,9 @@ de: 'DIE ADRESSE'
 })
 .setRequired(true)),
 async execute(ctx) {
-const axios = (await import('axios')).default;
 await ctx.interaction.deferReply();
 const address = ctx.getOption('address');
-const req = await axios({
+const req = await (0, axios_1.default)({
 method: 'GET',
 url: `https://api.mcsrvstat.us/2/${encodeURIComponent(address)}`,
 validateStatus: false,

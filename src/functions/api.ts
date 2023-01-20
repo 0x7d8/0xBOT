@@ -1,3 +1,5 @@
+import { default as axios } from "axios"
+
 // Connect to Database
 import config from "@config"
 import { default as pg } from "pg"
@@ -18,7 +20,6 @@ const client = new Client({ intents: [
 ] }); client.login(config.client.token)
 
 export const checkSession = async(accessToken: string, tokenType: string, userid: string, guildid: string) => {
-	const axios = (await import('axios')).default
 	const dbuser = await db.query(`select * from usersessions where userid = $1 and token = $2 and tokentype = $3;`, [
 		userid,
 		accessToken,

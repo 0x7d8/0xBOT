@@ -1,5 +1,7 @@
 import { SlashCommandBuilder, EmbedBuilder } from "discord.js"
 
+import { default as axios } from "axios"
+
 import CommandInteraction from "@interfaces/CommandInteraction.js"
 export default {
 	data: new SlashCommandBuilder()
@@ -18,8 +20,6 @@ export default {
 				.setRequired(true)),
 
 	async execute(ctx: CommandInteraction) {
-		const axios = (await import('axios')).default
-
 		// Defer Reply
 		await ctx.interaction.deferReply()
 
