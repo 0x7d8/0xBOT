@@ -1,7 +1,7 @@
 import * as webserver from "rjweb-server"
 import { ctrFile } from "@interfaces/Webserver.js"
 
-interface Body {}
+interface Body { }
 
 import { QueryResult } from "pg"
 
@@ -15,7 +15,7 @@ export = {
 			!ctr.headers.get('senderid') ||
 			!ctr.headers.get('recieverid') ||
 			!ctr.headers.get('maxresults')
-		) return ctr.print({ "success": false, "message": 'NO HEADERsS' })
+		) return ctr.print({ "success": false, "message": 'NO HEADERS' })
 
 		// Fetch Transactions
 		let rawvalues: QueryResult

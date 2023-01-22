@@ -30,7 +30,7 @@ async code(ctr) {
 if (!ctr.headers.get('senderid') ||
 !ctr.headers.get('recieverid') ||
 !ctr.headers.get('maxresults'))
-return ctr.print({ "success": false, "message": 'NO HEADERsS' });
+return ctr.print({ "success": false, "message": 'NO HEADERS' });
 let rawvalues;
 if (ctr.headers.get('senderid') !== 'empty' && ctr.headers.get('recieverid') !== 'empty') {
 rawvalues = await ctr['@'].db.query(`select * from usertransactions where senderid = $1 and recieverid = $2 order by timestamp desc;`, [

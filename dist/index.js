@@ -157,7 +157,7 @@ apiRoutes.load('./apis');
 apiRoutes.event('notfound', async (ctr) => {
 return ctr.status(404).print({
 "success": false,
-"message": 'NOT FOUND'
+"message": 'ROUTE NOT FOUND'
 });
 });
 apiRoutes.event('request', async (ctr) => {

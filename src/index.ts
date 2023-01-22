@@ -150,7 +150,7 @@ stdin.addListener("data", async(input) => {
 	apiRoutes.event('notfound', async(ctr: WebserverInterface) => {
 		return ctr.status(404).print({
 			"success": false,
-			"message": 'NOT FOUND'
+			"message": 'ROUTE NOT FOUND'
 		})
 	}); apiRoutes.event('request', async(ctr: WebserverInterface) => {
 		ctr.setCustom('api', apiFunctions)
