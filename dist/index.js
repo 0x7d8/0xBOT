@@ -204,6 +204,9 @@ times: 5,
 timeout: 10000
 }
 ]
+}, dashboard: {
+enabled: true,
+path: '/upturned-precision-garnet'
 }
 }).then((res) => {
 console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [STA] $$$$$ STARTED API ON PORT ${res.port}`);
