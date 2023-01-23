@@ -65,6 +65,7 @@ let total = 0;
 rawvalues.rows.forEach((user) => total += Number(user.money));
 client.user?.setActivity(`\$${total} in Circulation`, { type: discord_js_1.ActivityType.Watching });
 await (0, promises_1.setTimeout)(20000);
+try {
 const req = await (0, axios_1.default)({
 method: 'GET',
 url: 'https://status.0xbot.de/api/status-page/heartbeat/all',
@@ -74,6 +75,8 @@ headers: {}
 const res = req.data;
 client.user.setActivity(`${Math.round((res.uptimeList['1_24'] * 100) * 100) / 100}% Bot Uptime`, { type: discord_js_1.ActivityType.Watching });
 await (0, promises_1.setTimeout)(20000);
+}
+catch (err) { }
 }
 }
 };

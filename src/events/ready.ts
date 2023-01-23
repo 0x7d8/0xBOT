@@ -50,15 +50,17 @@ export default {
 			client.user?.setActivity(`\$${total} in Circulation`, { type: ActivityType.Watching })
 			await wait(20000)
 
-			const req = await axios({
-				method: 'GET',
-				url: 'https://status.0xbot.de/api/status-page/heartbeat/all',
-				validateStatus: false,
-				headers: {}
-			} as any); const res = req.data
+			try {
+				const req = await axios({
+					method: 'GET',
+					url: 'https://status.0xbot.de/api/status-page/heartbeat/all',
+					validateStatus: false,
+					headers: {}
+				} as any); const res = req.data
 
-			client.user.setActivity(`${Math.round((res.uptimeList['1_24'] * 100) * 100) / 100}% Bot Uptime`, { type: ActivityType.Watching })
-			await wait(20000)
+				client.user.setActivity(`${Math.round((res.uptimeList['1_24'] * 100) * 100) / 100}% Bot Uptime`, { type: ActivityType.Watching })
+				await wait(20000)
+			} catch (err) { }
 		}
 	}
 }
