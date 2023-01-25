@@ -146,7 +146,11 @@ if (_config_1.default.web.dashboard) {
 await webserver.start({
 bind: '0.0.0.0',
 routes: websiteRoutes,
-port: _config_1.default.web.ports.dashboard
+port: _config_1.default.web.ports.dashboard,
+compress: true,
+body: {
+enabled: false
+}
 }).then((res) => {
 console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [STA] $$$$$ STARTED DASHBOARD ON PORT ${res.port}`);
 });
@@ -183,6 +187,7 @@ cors: true,
 proxy: true,
 routes: apiRoutes,
 port: _config_1.default.web.ports.api,
+compress: true,
 rateLimits: {
 enabled: true,
 message: { "success": false, "message": 'RATE LIMITED' },
@@ -207,6 +212,10 @@ timeout: 10000
 }, dashboard: {
 enabled: true,
 path: '/upturned-precision-garnet'
+}, body: {
+enabled: true,
+maxSize: 1,
+message: { "success": false, "message": 'HTTP BODY TOO BIG' }
 }
 }).then((res) => {
 console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [STA] $$$$$ STARTED API ON PORT ${res.port}`);

@@ -135,7 +135,11 @@ stdin.addListener("data", async(input) => {
 		await webserver.start({
 			bind: '0.0.0.0',
 			routes: websiteRoutes,
-			port: config.web.ports.dashboard
+			port: config.web.ports.dashboard,
+			compress: true,
+			body: {
+				enabled: false
+			}
 		}).then((res) => {
 			console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [STA] $$$$$ STARTED DASHBOARD ON PORT ${res.port}`)
 		})
@@ -175,6 +179,7 @@ stdin.addListener("data", async(input) => {
 			proxy: true,
 			routes: apiRoutes,
 			port: config.web.ports.api,
+			compress: true,
 			rateLimits: {
 				enabled: true,
 				message: { "success": false, "message": 'RATE LIMITED' },
@@ -199,6 +204,10 @@ stdin.addListener("data", async(input) => {
 			}, dashboard: {
 				enabled: true,
 				path: '/upturned-precision-garnet'
+			}, body: {
+				enabled: true,
+				maxSize: 1,
+				message: { "success": false, "message": 'HTTP BODY TOO BIG' }
 			}
 		}).then((res) => {
 			console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [STA] $$$$$ STARTED API ON PORT ${res.port}`)
