@@ -28,6 +28,15 @@ export default {
 		console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] STARTED AND LOGGED IN AS ${client.user?.tag} (${timed}ms)`)
 		console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [END] $$$$$ LOADED 0xBOT ${config.version}`)
 		console.log(' ')
+		const dblReq = await axios({
+			method: 'POST',
+			url: `https://discordbotlist.com/api/v1/bots/${config.client.id}/commands`,
+			validateStatus: () => true,
+			headers: {
+				Authorization: config.web.keys.dbl.apikey
+			}, data: client.commands.map((command) => ({ ...command.data, type: 1 }))
+		}); console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] [${dblReq.status}] POSTED COMMANDS TO DBL`)
+		console.log(' ')
 		console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [STA] $$$$$ STARTED LOGGING OF COMMANDS AND ERRORS`)
 		console.log(' ')
 

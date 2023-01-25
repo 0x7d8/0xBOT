@@ -49,6 +49,16 @@ async execute(client, timed) {
 console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] STARTED AND LOGGED IN AS ${client.user?.tag} (${timed}ms)`);
 console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [END] $$$$$ LOADED 0xBOT ${_config_1.default.version}`);
 console.log(' ');
+const dblReq = await (0, axios_1.default)({
+method: 'POST',
+url: `https://discordbotlist.com/api/v1/bots/${_config_1.default.client.id}/commands`,
+validateStatus: () => true,
+headers: {
+Authorization: _config_1.default.web.keys.dbl.apikey
+}, data: client.commands.map((command) => ({ ...command.data, type: 1 }))
+});
+console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [INF] [${dblReq.status}] POSTED COMMANDS TO DBL`);
+console.log(' ');
 console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [STA] $$$$$ STARTED LOGGING OF COMMANDS AND ERRORS`);
 console.log(' ');
 while (!+[]) {
