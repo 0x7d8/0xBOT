@@ -32,7 +32,11 @@ function ProfileBox() {
 
   useEffect(() => {
     axios
-      .get(`https://api.0xbot.de/stats/user?id=${cookies.userId}`)
+      .get(`https://api.0xbot.de/stats/user`, {
+        headers: {
+          authToken: cookies.authToken
+        }
+      })
       .then((res) => {
         setStats(res.data)
       })
