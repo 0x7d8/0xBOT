@@ -1,11 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
+const discord_js_2 = require("discord.js");
 exports.default = {
 data: {
 name: 'item-bomb'
 },
 async execute(ctx, solution, choice, solbutton, button, itemid, reciever) {
+if (ctx.interaction.channel.type === discord_js_2.ChannelType.GuildStageVoice)
+return;
 if (ctx.interaction.user.id !== reciever) {
 let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')

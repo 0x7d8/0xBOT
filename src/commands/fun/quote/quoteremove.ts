@@ -9,7 +9,7 @@ export default {
 		.setDescriptionLocalizations({
 			de: 'ENTFERNE ZITATE'
 		})
-		.addIntegerOption((option: any) =>
+		.addIntegerOption((option) =>
 			option.setName('amount')
 				.setNameLocalizations({
 					de: 'anzahl'

@@ -9,7 +9,7 @@ export default {
 			de: 'GEBE JEMANDEN GELD'
 		})
 		.setDMPermission(false)
-		.addUserOption((option: any) =>
+		.addUserOption((option) =>
 			option.setName('user')
 				.setNameLocalizations({
 					de: 'nutzer'
@@ -19,7 +19,7 @@ export default {
 					de: 'DER NUTZER'
 				})
 				.setRequired(true))
-		.addIntegerOption((option: any) =>
+		.addIntegerOption((option) =>
 			option.setName('amount')
 				.setNameLocalizations({
 					de: 'amount'

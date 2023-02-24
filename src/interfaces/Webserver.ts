@@ -1,4 +1,4 @@
-import { ctr as WebserverInterface, ctrFile as WebserverFile } from "rjweb-server/interfaces"
+import { Ctr as WebserverInterface, CtrFile as WebserverFile } from "rjweb-server/interfaces"
 import * as bot from "@functions/bot.js"
 import * as api from "@functions/api.js"
 import config from "@config"

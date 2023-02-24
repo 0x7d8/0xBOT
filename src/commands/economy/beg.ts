@@ -10,7 +10,7 @@ export default {
 			de: 'BETTEL FÜR GELD'
 		})
 		.setDMPermission(false)
-		.addIntegerOption((option: any) =>
+		.addIntegerOption((option) =>
 			option.setName('amount')
 				.setNameLocalizations({
 					de: 'anzahl'
@@ -20,7 +20,7 @@ export default {
 					de: 'DIE ANZAHL AN GELD'
 				})
 				.setRequired(true))
-		.addStringOption((option: any) =>
+		.addStringOption((option) =>
 			option.setName('reason')
 				.setNameLocalizations({
 					de: 'grund'

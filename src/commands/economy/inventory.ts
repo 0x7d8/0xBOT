@@ -9,7 +9,7 @@ export default {
 		.setDescriptionLocalizations({
 			de: 'SEHE DEIN INVENTAR'
 		})
-		.addUserOption((option: any) =>
+		.addUserOption((option) =>
 			option.setName('user')
 				.setNameLocalizations({
 					de: 'nutzer'

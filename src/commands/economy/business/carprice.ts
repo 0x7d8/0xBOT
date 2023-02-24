@@ -9,7 +9,7 @@ export default {
 		.setDescriptionLocalizations({
 			de: 'SETZE AUTO PREISE'
 		})
-		.addStringOption((option: any) =>
+		.addStringOption((option) =>
 			option.setName('car')
 				.setNameLocalizations({
 					de: 'auto'
@@ -27,7 +27,7 @@ export default {
 					{ name: '🟠 [220000€-260000€] TESLA MODEL Y', value: 'tesla' },
 					{ name: '🔴 [400000€-500000€] 2019 PORSCHE 911 GT2RS', value: 'porsche' },
 				))
-		.addIntegerOption(option =>
+		.addIntegerOption((option) =>
 			option.setName('price')
 				.setNameLocalizations({
 					de: 'preis'

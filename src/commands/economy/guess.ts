@@ -9,7 +9,7 @@ export default {
 		.setDescriptionLocalizations({
 			de: 'RATE ZAHLEN'
 		})
-		.addStringOption((option: any) =>
+		.addStringOption((option) =>
 			option.setName('range')
 				.setNameLocalizations({
 					de: 'bereich'
@@ -25,7 +25,7 @@ export default {
 					{ name: '🟡 [x4] 1-100', value: '100' },
 					{ name: '🔴 [x6] 1-1000', value: '1000' },
 				))
-		.addIntegerOption((option: any) =>
+		.addIntegerOption((option) =>
 			option.setName('bet')
 				.setNameLocalizations({
 					de: 'wette'
@@ -35,7 +35,7 @@ export default {
 					de: 'DIE WETTE'
 				})
 				.setRequired(true))
-		.addIntegerOption((option: any) =>
+		.addIntegerOption((option) =>
 			option.setName('number')
 				.setNameLocalizations({
 					de: 'nummer'

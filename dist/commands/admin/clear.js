@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 const v10_1 = require("discord-api-types/v10");
+const discord_js_2 = require("discord.js");
 exports.default = {
 data: new discord_js_1.SlashCommandBuilder()
 .setName('clear')
@@ -10,7 +11,7 @@ data: new discord_js_1.SlashCommandBuilder()
 de: 'ENTFERNE NACHRICHTEN'
 })
 .setDMPermission(false)
-.addIntegerOption(option => option.setName('amount')
+.addIntegerOption((option) => option.setName('amount')
 .setNameLocalizations({
 de: 'anzahl'
 })
@@ -19,7 +20,7 @@ de: 'anzahl'
 de: 'DIE ANZAHL AN NACHRICHTEN'
 })
 .setRequired(true))
-.addUserOption(option => option.setName('user')
+.addUserOption((option) => option.setName('user')
 .setNameLocalizations({
 de: 'nutzer'
 })
@@ -30,6 +31,20 @@ de: 'DAS ZIEL'
 .setRequired(false))
 .setDefaultMemberPermissions(v10_1.PermissionFlagsBits.ManageMessages),
 async execute(ctx) {
+if (ctx.interaction.channel.type === discord_js_2.ChannelType.GuildStageVoice) {
+let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
+.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
+.setDescription(`» I dont think I can do that here!`)
+.setFooter({ text: '» ' + ctx.client.config.version });
+if (ctx.metadata.language === 'de') {
+message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
+.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
+.setDescription(`» Ich denke nicht, dass ich das hier machen kann!`)
+.setFooter({ text: '» ' + ctx.client.config.version });
+}
+ctx.log(false, `[CMD] CLEAR : WRONGCHANNEL`);
+return ctx.interaction.reply({ embeds: [message], ephemeral: true });
+}
 if (!ctx.interaction.appPermissions?.has('ManageMessages')) {
 let message = new discord_js_1.EmbedBuilder().setColor(0x37009B)
 .setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')

@@ -9,7 +9,7 @@ export default {
 			de: 'FRAGE EINEN MAGISCHEN BALL'
 		})
 		.setDMPermission(false)
-		.addStringOption((option: any) =>
+		.addStringOption((option) =>
 			option.setName('question')
 				.setNameLocalizations({
 					de: 'frage'

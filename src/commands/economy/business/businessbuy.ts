@@ -10,7 +10,7 @@ export default {
 		.setDescriptionLocalizations({
 			de: 'KAUFE GESCHÄFTE'
 		})
-		.addStringOption((option: any) =>
+		.addStringOption((option) =>
 			option.setName('business')
 				.setNameLocalizations({
 					de: 'geschäft'

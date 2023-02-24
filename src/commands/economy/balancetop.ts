@@ -9,7 +9,7 @@ export default {
 		.setDescriptionLocalizations({
 			de: 'SEHE DEN KONTOSTAND'
 		})
-		.addStringOption((option: any) =>
+		.addStringOption((option) =>
 			option.setName('list')
 				.setNameLocalizations({
 					de: 'liste'

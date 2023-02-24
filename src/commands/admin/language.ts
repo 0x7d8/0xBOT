@@ -10,7 +10,7 @@ export default {
 			de: 'ÄNDERE DIE SPRACHE'
 		})
 		.setDMPermission(false)
-		.addStringOption(option =>
+		.addStringOption((option) =>
 			option.setName('language')
 				.setNameLocalizations({
 					de: 'sprache'

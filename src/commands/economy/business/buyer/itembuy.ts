@@ -10,7 +10,7 @@ export default {
 		.setDescriptionLocalizations({
 			de: 'KAUFE GEGENSTÄNDE'
 		})
-		.addStringOption((option: any) =>
+		.addStringOption((option) =>
 			option.setName('item')
 				.setNameLocalizations({
 					de: 'gegenstand'
@@ -27,7 +27,7 @@ export default {
 					{ name: '💣 HYPER BOMBE', value: 'hbomb' },
 					{ name: '💣 CRAZY BOMBE', value: 'cbomb' },
 				))
-		.addIntegerOption((option: any) =>
+		.addIntegerOption((option) =>
 			option.setName('amount')
 				.setNameLocalizations({
 					de: 'anzahl'

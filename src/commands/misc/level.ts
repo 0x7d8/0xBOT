@@ -12,7 +12,7 @@ export default {
 		.setDescriptionLocalizations({
 			de: 'SEHE DIE LEVEL'
 		})
-		.addUserOption((option: any) =>
+		.addUserOption((option) =>
 			option.setName('user')
 				.setNameLocalizations({
 					de: 'nutzer'

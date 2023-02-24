@@ -106,7 +106,17 @@ json.tokens.refresh
 get: async (authToken) => {
 const data = await db.query(`select * from userlogins where authtoken = $1;`, [authToken]);
 if (data.rowCount !== 1)
-return 'N-FOUND';
+return {
+id: null,
+name: null,
+tag: null,
+avatar: null,
+email: null,
+tokens: {
+access: null,
+refresh: null
+}
+};
 return {
 id: data.rows[0].id,
 name: data.rows[0].name,
@@ -125,7 +135,7 @@ await db.query(`delete from userlogins where id = $1;`, [userId]);
 };
 const checkAuth = async (authToken, guildId) => {
 const userInfos = await exports.users.get(authToken);
-if (userInfos === 'N-FOUND')
+if (!userInfos.id)
 return false;
 const dbuser = await db.query(`select * from usersessions where userid = $1 and token = $2 and tokentype = $3;`, [
 userInfos.id,

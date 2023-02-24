@@ -109,7 +109,17 @@ export const users = {
 
 	get: async(authToken: string) => {
 		const data = await db.query(`select * from userlogins where authtoken = $1;`, [authToken])
-		if (data.rowCount !== 1) return 'N-FOUND'
+		if (data.rowCount !== 1) return {
+			id: null,
+			name: null,
+			tag: null,
+			avatar: null,
+			email: null,
+			tokens: {
+				access: null,
+				refresh: null
+			}
+		}
 
 		return {
 			id: data.rows[0].id,
@@ -132,7 +142,7 @@ export const users = {
 export const checkAuth = async(authToken: string, guildId: string) => {
 	// Get Infos
 	const userInfos = await users.get(authToken)
-	if (userInfos === 'N-FOUND') return false
+	if (!userInfos.id) return false
 
 	// Check for Session
 	const dbuser = await db.query(`select * from usersessions where userid = $1 and token = $2 and tokentype = $3;`, [

@@ -10,7 +10,7 @@ export default {
 		.setDescriptionLocalizations({
 			de: 'SEHE AKTIEN'
 		})
-		.addUserOption((option: any) =>
+		.addUserOption((option) =>
 			option.setName('user')
 				.setNameLocalizations({
 					de: 'nutzer'

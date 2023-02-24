@@ -9,7 +9,7 @@ export default {
 		.setDescriptionLocalizations({
 			de: 'SEHE DEN KONTOSTAND'
 		})
-		.addUserOption((option: any) =>
+		.addUserOption((option) =>
 			option.setName('user')
 				.setNameLocalizations({
 					de: 'nutzer'

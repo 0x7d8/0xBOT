@@ -10,7 +10,7 @@ export default {
 		.setDescriptionLocalizations({
 			de: 'ZEIGE EINEN KNOPF ZU EINER SUCHE'
 		})
-		.addStringOption((option: any) =>
+		.addStringOption((option) =>
 			option.setName('query')
 				.setNameLocalizations({
 					de: 'suche'
@@ -20,7 +20,7 @@ export default {
 					de: 'DIE SUCHE'
 				})
 				.setRequired(true))
-		.addStringOption((option: any) =>
+		.addStringOption((option) =>
 			option.setName('engine')
 				.setDescription('THE SEARCH ENGINE')
 				.setDescriptionLocalizations({

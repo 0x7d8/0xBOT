@@ -117,30 +117,33 @@ stdin.addListener("data", async(input) => {
 
 	/// Dashboard
 	// Website
-	const websiteRoutes = new webserver.routeList()
+	const webRoutes = new webserver.routeList()
 
-	websiteRoutes.static('/', './dashboard/dist', {
-		preload: true,
-		remHTML: true,
-		addTypes: true
-	})
+	webRoutes.routeBlock('/')
+		.static('./dashboard/dist', {
+			preLoad: true,
+			hideHTML: true,
+			addTypes: true
+		})
 
-	websiteRoutes.event('notfound', async(ctr: WebserverInterface) => {
+	webRoutes.event('notfound', async(ctr: WebserverInterface) => {
 		return ctr.printFile('./dashboard/dist/index.html')
-	}); websiteRoutes.event('request', async(ctr: WebserverInterface) => {
+	}); webRoutes.event('request', async(ctr: WebserverInterface) => {
 		if (!ctr.headers.get('user-agent').startsWith('Uptime-Kuma')) console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [WEB] [${ctr.url.method.toUpperCase()}] ${ctr.url.pathname}`)
 	})
 
 	if (config.web.dashboard) {
-		await webserver.start({
+		const controller = webserver.initialize({
 			bind: '0.0.0.0',
-			routes: websiteRoutes,
 			port: config.web.ports.dashboard,
-			compress: true,
+			compression: 'gzip',
 			body: {
 				enabled: false
 			}
-		}).then((res) => {
+		})
+
+		controller.setRoutes(webRoutes)
+		controller.start().then((res) => {
 			console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [STA] $$$$$ STARTED DASHBOARD ON PORT ${res.port}`)
 		})
 	}
@@ -149,7 +152,22 @@ stdin.addListener("data", async(input) => {
 	const rateLimits = new Map()
 	const apiRoutes = new webserver.routeList()
 
-	apiRoutes.load('./apis')
+	apiRoutes.routeBlock('/')
+		.auth(async(ctr: WebserverInterface) => {
+			// Check Permissions
+			if (!ctr.headers.has('authtoken')) return ctr.status(422).print({ "success": false, "message": 'NO AUTH TOKEN' })
+			if (!await ctr['@'].api.checkAuth(ctr.headers.get('authtoken'), ctr.queries.get('id'))) return ctr.status(401).print({ "success": false, "message": 'PERMISSION DENIED' })
+		}).loadCJS('apis/authorized/guild')
+	apiRoutes.routeBlock('/')
+		.auth(async(ctr: WebserverInterface) => {
+			// Check Token
+			if (!ctr.headers.has('authtoken')) return ctr.status(422).print({ "success": false, "message": 'NO AUTH TOKEN' })
+			const userInfos = await ctr['@'].api.users.get(ctr.headers.get('authtoken'))
+			if (!userInfos.id) return ctr.status(401).print({ "success": false, "message": 'TOKEN NOT FOUND' })
+		}).loadCJS('apis/authorized/user')
+
+	apiRoutes.routeBlock('/')
+		.loadCJS('apis/normal')
 
 	apiRoutes.event('notfound', async(ctr: WebserverInterface) => {
 		return ctr.status(404).print({
@@ -173,13 +191,12 @@ stdin.addListener("data", async(input) => {
 	})
 
 	if (config.web.api) {
-		await webserver.start({
+		const controller = webserver.initialize({
 			bind: '0.0.0.0',
 			cors: true,
 			proxy: true,
-			routes: apiRoutes,
 			port: config.web.ports.api,
-			compress: true,
+			compression: 'gzip',
 			rateLimits: {
 				enabled: true,
 				message: { "success": false, "message": 'RATE LIMITED' },
@@ -209,7 +226,10 @@ stdin.addListener("data", async(input) => {
 				maxSize: 1,
 				message: { "success": false, "message": 'HTTP BODY TOO BIG' }
 			}
-		}).then((res) => {
+		})
+
+		controller.setRoutes(apiRoutes)
+		await controller.start().then((res) => {
 			console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [STA] $$$$$ STARTED API ON PORT ${res.port}`)
 		})
 	}

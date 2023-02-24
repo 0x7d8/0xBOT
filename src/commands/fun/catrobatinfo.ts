@@ -11,7 +11,7 @@ export default {
 		.setDescriptionLocalizations({
 			de: 'BEKOMME INFO ÜBER EIN CATROBAT PROJEKT'
 		})
-		.addStringOption((option: any) =>
+		.addStringOption((option) =>
 			option.setName('id')
 				.setDescription('THE ID')
 				.setDescriptionLocalizations({

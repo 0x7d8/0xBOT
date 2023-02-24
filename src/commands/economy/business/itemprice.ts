@@ -9,7 +9,7 @@ export default {
 		.setDescriptionLocalizations({
 			de: 'SETZE SHOP PREISE'
 		})
-		.addStringOption((option: any) =>
+		.addStringOption((option) =>
 			option.setName('item')
 				.setNameLocalizations({
 					de: 'gegenstand'
@@ -26,7 +26,7 @@ export default {
 					{ name: '💣 [2500€-15000€] HYPER BOMBE', value: 'hbomb' },
 					{ name: '💣 [7500€-20000€] CRAZY BOMBE', value: 'cbomb' },
 				))
-		.addIntegerOption((option: any) =>
+		.addIntegerOption((option) =>
 			option.setName('price')
 				.setNameLocalizations({
 					de: 'preis'

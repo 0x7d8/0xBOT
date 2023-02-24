@@ -9,7 +9,7 @@ export default {
 		.setDescriptionLocalizations({
 			de: 'ZEIGE INFOS ÜBER ITEMS'
 		})
-		.addStringOption((option: any) =>
+		.addStringOption((option) =>
 			option.setName('item')
 				.setNameLocalizations({
 					de: 'gegenstand'

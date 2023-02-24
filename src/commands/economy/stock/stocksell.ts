@@ -10,7 +10,7 @@ export default {
 		.setDescriptionLocalizations({
 			de: 'VERKAUFE AKTIEN'
 		})
-		.addStringOption((option: any) =>
+		.addStringOption((option) =>
 			option.setName('stock')
 				.setNameLocalizations({
 					de: 'aktie'
@@ -31,7 +31,7 @@ export default {
 					{ name: '🟤 BRAUNE AKTIE', value: 'brown' },
 					{ name: '🟣 LILA AKTIE', value: 'purple' }
 				))
-		.addIntegerOption((option: any) =>
+		.addIntegerOption((option) =>
 			option.setName('amount')
 				.setNameLocalizations({
 					de: 'anzahl'

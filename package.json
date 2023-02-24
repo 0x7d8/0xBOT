@@ -5,31 +5,31 @@
   "author": "0x4096",
   "license": "MIT",
   "scripts": {
-    "test": "tsc && cp -r ./src/dashboard ./dist && cp -r ./src/assets ./dist && cd dist && find . -path ./dashboard -prune -o -type f -exec sed -i 's/[\t]\\{1,\\}//g; s/    //g' {} + > /dev/null 2>&1 && node --enable-source-maps index && cd ..",
-    "build": "rm -r dist && tsc --pretty false --removeComments true && cp -r ./src/dashboard ./dist && cp -r ./src/assets ./dist && cd dist && find . -path ./dashboard -prune -o -type f -exec sed -i 's/[\t]\\{1,\\}//g; s/    //g' {} + > /dev/null 2>&1 && cd ..",
+    "test": "rm -rf dist && tsc && cp -r ./src/dashboard ./dist && cp -r ./src/assets ./dist && cd dist && find . -path ./dashboard -prune -o -type f -exec sed -i 's/[\t]\\{1,\\}//g; s/    //g' {} + > /dev/null 2>&1 && node --enable-source-maps index && cd ..",
+    "build": "rm -rf dist && tsc --pretty false --removeComments true && cp -r ./src/dashboard ./dist && cp -r ./src/assets ./dist && cd dist && find . -path ./dashboard -prune -o -type f -exec sed -i 's/[\t]\\{1,\\}//g; s/    //g' {} + > /dev/null 2>&1 && cd ..",
     "build:full": "rm -r dist && cd ./src/dashboard && pnpm build && cd ../.. && tsc --pretty false --removeComments true && cp -r ./src/dashboard ./dist && cp -r ./src/assets ./dist && cd dist && find . -path ./dashboard -prune -o -type f -exec sed -i 's/[\t]\\{1,\\}//g; s/    //g' {} + > /dev/null 2>&1 && cd ..",
     "build:dashboard": "cd ./src/dashboard && pnpm build && cd ../.."
   },
   "homepage": "https://0xbot.de",
   "dependencies": {
-    "axios": "^1.2.4",
+    "axios": "^1.3.4",
     "canvacord": "^5.4.8",
-    "discord-api-types": "^0.37.29",
+    "discord-api-types": "^0.37.35",
     "discord-oauth2": "^2.11.0",
     "discord.js": "^14.7.1",
     "git-commit-count": "^1.1.3",
-    "mathjs": "^11.5.0",
+    "mathjs": "^11.6.0",
     "module-alias": "^2.2.2",
     "node-cron": "^3.0.2",
-    "pg": "^8.8.0",
+    "pg": "^8.9.0",
     "pretty-ms": "^8.0.0",
     "rjutils-collection": "^1.2.0",
-    "rjweb-server": "^2.7.6",
-    "simple-git": "^3.16.0"
+    "rjweb-server": "^3.1.3",
+    "simple-git": "^3.16.1"
   },
   "devDependencies": {
     "@types/module-alias": "^2.0.1",
-    "@types/node": "^18.11.18",
+    "@types/node": "^18.14.1",
     "@types/node-cron": "^3.0.7",
     "@types/pg": "^8.6.6"
   }

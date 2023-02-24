@@ -9,7 +9,7 @@ export default {
 		.setDescriptionLocalizations({
 			de: 'FÜHRE AKTIONEN AN NUTZERN AUS'
 		})
-		.addUserOption((option: any) =>
+		.addUserOption((option) =>
 			option.setName('user')
 				.setNameLocalizations({
 					de: 'nutzer'
@@ -19,7 +19,7 @@ export default {
 					de: 'DIE PERSON'
 				})
 				.setRequired(true))
-		.addStringOption((option: any) =>
+		.addStringOption((option) =>
 			option.setName('action')
 				.setNameLocalizations({
 					de: 'aktion'

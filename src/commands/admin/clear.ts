@@ -1,7 +1,7 @@
 import { SlashCommandBuilder, EmbedBuilder } from "discord.js"
 import { PermissionFlagsBits } from "discord-api-types/v10"
 
-import { Message } from "discord.js"
+import { Message, ChannelType } from "discord.js"
 import CommandInteraction from "@interfaces/CommandInteraction.js"
 export default {
 	data: new SlashCommandBuilder()
@@ -11,7 +11,7 @@ export default {
 			de: 'ENTFERNE NACHRICHTEN'
 		})
 		.setDMPermission(false)
-		.addIntegerOption(option =>
+		.addIntegerOption((option) =>
 			option.setName('amount')
 				.setNameLocalizations({
 					de: 'anzahl'
@@ -21,7 +21,7 @@ export default {
 					de: 'DIE ANZAHL AN NACHRICHTEN'
 				})
 				.setRequired(true))
-		.addUserOption(option =>
+		.addUserOption((option) =>
 			option.setName('user')
 				.setNameLocalizations({
 					de: 'nutzer'
@@ -34,6 +34,25 @@ export default {
 		.setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages),
 
 	async execute(ctx: CommandInteraction) {
+		// Check if Channel is wrong type
+		if (ctx.interaction.channel.type === ChannelType.GuildStageVoice) {
+			// Create Embed
+			let message = new EmbedBuilder().setColor(0x37009B)
+				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
+				.setDescription(`» I dont think I can do that here!`)
+				.setFooter({ text: '» ' + ctx.client.config.version })
+			if (ctx.metadata.language === 'de') {
+				message = new EmbedBuilder().setColor(0x37009B)
+					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
+					.setDescription(`» Ich denke nicht, dass ich das hier machen kann!`)
+					.setFooter({ text: '» ' + ctx.client.config.version })
+			}
+			
+			// Send Message
+			ctx.log(false, `[CMD] CLEAR : WRONGCHANNEL`)
+			return ctx.interaction.reply({ embeds: [message], ephemeral: true })
+		}
+
 		// Check if Bot has Permission
 		if (!ctx.interaction.appPermissions?.has('ManageMessages')) {
 			// Create Embed

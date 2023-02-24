@@ -10,7 +10,7 @@ export default {
 			de: 'DRÜCKE EINEN KNOPF'
 		})
 		.setDMPermission(false)
-		.addStringOption((option: any) =>
+		.addStringOption((option) =>
 			option.setName('mode')
 				.setNameLocalizations({
 					de: 'modus'

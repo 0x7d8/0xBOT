@@ -9,7 +9,7 @@ export default {
 			de: 'ZITIERE ETWAS'
 		})
 		.setDMPermission(false)
-		.addStringOption((option: any) =>
+		.addStringOption((option) =>
 			option.setName('quote')
 				.setNameLocalizations({
 					de: 'zitat'
@@ -19,7 +19,7 @@ export default {
 					de: 'DAS ZITAT'
 				})
 				.setRequired(true))
-		.addUserOption((option: any) =>
+		.addUserOption((option) =>
 			option.setName('author')
 				.setNameLocalizations({
 					de: 'autor'

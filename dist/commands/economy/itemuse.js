@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 const discord_js_2 = require("discord.js");
+const discord_js_3 = require("discord.js");
 exports.default = {
 data: new discord_js_2.SlashCommandBuilder()
 .setName('itemuse')
@@ -43,6 +44,20 @@ message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
 .setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version });
 }
 ctx.log(false, `[CMD] ITEM : DISABLED`);
+return ctx.interaction.reply({ embeds: [message], ephemeral: true });
+}
+if (ctx.interaction.channel.type === discord_js_3.ChannelType.GuildStageVoice) {
+let message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
+.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
+.setDescription(`» I dont think I can do that here!`)
+.setFooter({ text: '» ' + ctx.client.config.version });
+if (ctx.metadata.language === 'de') {
+message = new discord_js_2.EmbedBuilder().setColor(0x37009B)
+.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
+.setDescription(`» Ich denke nicht, dass ich das hier machen kann!`)
+.setFooter({ text: '» ' + ctx.client.config.version });
+}
+ctx.log(false, `[CMD] ITEMUSE : WRONGCHANNEL`);
 return ctx.interaction.reply({ embeds: [message], ephemeral: true });
 }
 const user = ctx.interaction.options.getUser("user");

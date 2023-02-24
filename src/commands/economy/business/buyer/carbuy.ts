@@ -10,7 +10,7 @@ export default {
 		.setDescriptionLocalizations({
 			de: 'KAUFE AUTOS'
 		})
-		.addStringOption((option: any) =>
+		.addStringOption((option) =>
 			option.setName('car')
 				.setNameLocalizations({
 					de: 'auto'

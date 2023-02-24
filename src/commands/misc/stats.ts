@@ -10,7 +10,7 @@ export default {
 			de: 'SEHE STATISTIKEN'
 		})
 		.setDMPermission(false)
-		.addUserOption((option: any) =>
+		.addUserOption((option) =>
 			option.setName('user')
 				.setDescription('THE USER')
 				.setDescriptionLocalizations({

@@ -19,7 +19,7 @@ de: 'DAS AUTO'
 })
 .setRequired(true)
 .addChoices({ name: '🟢 [5000€-15000€] 2016 JEEP PATRIOT SPORT', value: 'jeep' }, { name: '🔵 [50000€-90000€] 2022 KIA SORENTO', value: 'kia' }, { name: '🟡 [140000€-200000€] AUDI R8 COUPE V10', value: 'audi' }, { name: '🟠 [220000€-260000€] TESLA MODEL Y', value: 'tesla' }, { name: '🔴 [400000€-500000€] 2019 PORSCHE 911 GT2RS', value: 'porsche' }))
-.addIntegerOption(option => option.setName('price')
+.addIntegerOption((option) => option.setName('price')
 .setNameLocalizations({
 de: 'preis'
 })

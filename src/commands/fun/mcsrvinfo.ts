@@ -11,7 +11,7 @@ export default {
 		.setDescriptionLocalizations({
 			de: 'BEKOMME INFO ÜBER EINEN MINECRAFT SERVER'
 		})
-		.addStringOption((option: any) =>
+		.addStringOption((option) =>
 			option.setName('address')
 				.setNameLocalizations({
 					de: 'adresse'

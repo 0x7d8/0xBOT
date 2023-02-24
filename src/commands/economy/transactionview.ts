@@ -9,7 +9,7 @@ export default {
 			de: 'SCHAU EINE TRANSAKTION AN'
 		})
 		.setDMPermission(false)
-		.addStringOption((option: any) =>
+		.addStringOption((option) =>
 			option.setName('id')
 				.setDescription('THE TRANSACTION ID')
 				.setDescriptionLocalizations({

@@ -10,7 +10,7 @@ export default {
 		.setDescriptionLocalizations({
 			de: 'GENERIERE EIN PASSWORT'
 		})
-		.addIntegerOption((option: any) =>
+		.addIntegerOption((option) =>
 			option.setName('length')
 				.setNameLocalizations({
 					de: 'länge'

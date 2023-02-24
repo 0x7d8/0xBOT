@@ -10,7 +10,7 @@ export default {
 		.setDescriptionLocalizations({
 			de: 'ENTFERNE JEMANDEN VON TOP KONTOSTÄNDEN'
 		})
-		.addUserOption((option: any) =>
+		.addUserOption((option) =>
 			option.setName('user')
 				.setNameLocalizations({
 					de: 'nutzer'

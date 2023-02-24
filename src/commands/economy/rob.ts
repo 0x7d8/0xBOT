@@ -9,7 +9,7 @@ export default {
 			de: 'RAUBE JEMANDEN AUS'
 		})
 		.setDMPermission(false)
-		.addUserOption((option: any) =>
+		.addUserOption((option) =>
 			option.setName('user')
 				.setNameLocalizations({
 					de: 'nutzer'
@@ -19,7 +19,7 @@ export default {
 					de: 'DER NUTZER'
 				})
 				.setRequired(true))
-		.addStringOption((option: any) =>
+		.addStringOption((option) =>
 			option.setName('money')
 				.setNameLocalizations({
 					de: 'geld'

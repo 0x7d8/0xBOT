@@ -9,14 +9,14 @@ export default {
 		.setDescriptionLocalizations({
 			de: 'GENERIERE EINE NUMMER'
 		})
-		.addIntegerOption((option: any) =>
+		.addIntegerOption((option) =>
 			option.setName('min')
 				.setDescription('THE MIN AMOUNT')
 				.setDescriptionLocalizations({
 					de: 'DAS MINIMUM'
 				})
 				.setRequired(true))
-		.addIntegerOption((option: any) =>
+		.addIntegerOption((option) =>
 			option.setName('max')
 				.setDescription('THE MAX AMOUNT')
 				.setDescriptionLocalizations({

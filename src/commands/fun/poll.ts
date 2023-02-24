@@ -10,7 +10,7 @@ export default {
 		.setDescriptionLocalizations({
 			de: 'MACHE EINE UMFRAGE'
 		})
-		.addStringOption((option: any) =>
+		.addStringOption((option) =>
 			option.setName('text')
 				.setDescription('THE TEXT')
 				.setDescriptionLocalizations({

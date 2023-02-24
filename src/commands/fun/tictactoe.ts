@@ -10,7 +10,7 @@ export default {
 			de: 'SPIELE TICTACTOE'
 		})
 		.setDMPermission(false)
-		.addUserOption((option: any) =>
+		.addUserOption((option) =>
 			option.setName('user')
 				.setNameLocalizations({
 					de: 'nutzer'
@@ -20,7 +20,7 @@ export default {
 					de: 'DER NUTZER'
 				})
 				.setRequired(true))
-		.addIntegerOption((option: any) =>
+		.addIntegerOption((option) =>
 			option.setName('bet')
 				.setNameLocalizations({
 					de: 'wette'

@@ -10,7 +10,7 @@ data: new discord_js_1.SlashCommandBuilder()
 de: 'ÄNDERE DIE SPRACHE'
 })
 .setDMPermission(false)
-.addStringOption(option => option.setName('language')
+.addStringOption((option) => option.setName('language')
 .setNameLocalizations({
 de: 'sprache'
 })

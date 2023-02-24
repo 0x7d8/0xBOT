@@ -9,14 +9,14 @@ export default {
 			de: 'SUCHE EINE TRANSAKTION'
 		})
 		.setDMPermission(false)
-		.addUserOption((option: any) =>
+		.addUserOption((option) =>
 			option.setName('sender')
 				.setDescription('THE SENDER')
 				.setDescriptionLocalizations({
 					de: 'DER SENDER'
 				})
 				.setRequired(false))
-		.addUserOption((option: any) =>
+		.addUserOption((option) =>
 			option.setName('reciever')
 				.setNameLocalizations({
 					de: 'empfänger'

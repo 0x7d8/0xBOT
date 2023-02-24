@@ -1,5 +1,6 @@
 import { EmbedBuilder, ButtonStyle } from "discord.js"
 
+import { ChannelType } from "discord.js"
 import ButtonInteraction from "@interfaces/ButtonInteraction.js"
 export default {
 	data: {
@@ -7,6 +8,9 @@ export default {
 	},
 
 	async execute(ctx: ButtonInteraction, solution: string, choice: string, solbutton: string, button: string, itemid: string, reciever: string) {
+		// Check if Channel is wrong type
+		if (ctx.interaction.channel.type === ChannelType.GuildStageVoice) return
+
 		// Check if User is Authorized
 		if (ctx.interaction.user.id !== reciever) {
 			// Create Embed

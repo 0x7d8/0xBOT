@@ -1,6 +1,7 @@
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js"
 import { SlashCommandBuilder, EmbedBuilder } from "discord.js"
 
+import { ChannelType } from "discord.js"
 import CommandInteraction from "@interfaces/CommandInteraction.js"
 export default {
 	data: new SlashCommandBuilder()
@@ -10,7 +11,7 @@ export default {
 			de: 'NUTZE EINEN GEGENSTAND'
 		})
 		.setDMPermission(false)
-		.addUserOption((option: any) =>
+		.addUserOption((option) =>
 			option.setName('user')
 				.setNameLocalizations({
 					de: 'nutzer'
@@ -20,7 +21,7 @@ export default {
 					de: 'DER NUTZER'
 				})
 				.setRequired(true))
-		.addStringOption((option: any) =>
+		.addStringOption((option) =>
 			option.setName('item')
 				.setNameLocalizations({
 					de: 'gegenstand'
@@ -58,6 +59,25 @@ export default {
 			
 			// Send Message
 			ctx.log(false, `[CMD] ITEM : DISABLED`)
+			return ctx.interaction.reply({ embeds: [message], ephemeral: true })
+		}
+
+		// Check if Channel is wrong type
+		if (ctx.interaction.channel.type === ChannelType.GuildStageVoice) {
+			// Create Embed
+			let message = new EmbedBuilder().setColor(0x37009B)
+				.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
+				.setDescription(`» I dont think I can do that here!`)
+				.setFooter({ text: '» ' + ctx.client.config.version })
+			if (ctx.metadata.language === 'de') {
+				message = new EmbedBuilder().setColor(0x37009B)
+					.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
+					.setDescription(`» Ich denke nicht, dass ich das hier machen kann!`)
+					.setFooter({ text: '» ' + ctx.client.config.version })
+			}
+			
+			// Send Message
+			ctx.log(false, `[CMD] ITEMUSE : WRONGCHANNEL`)
 			return ctx.interaction.reply({ embeds: [message], ephemeral: true })
 		}
 		

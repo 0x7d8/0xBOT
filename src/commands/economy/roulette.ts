@@ -9,7 +9,7 @@ export default {
 		.setDescriptionLocalizations({
 			de: 'SPIELE ROULETTE'
 		})
-		.addStringOption((option: any) =>
+		.addStringOption((option) =>
 			option.setName('color')
 				.setNameLocalizations({
 					de: 'farbe'
@@ -25,7 +25,7 @@ export default {
 					{ name: '⚫ [x2] SCHWARZ', value: 'schwarz' },
 					{ name: '🔴 [x2] ROT', value: 'rot' },
 				))
-		.addIntegerOption((option: any) =>
+		.addIntegerOption((option) =>
 			option.setName('bet')
 				.setNameLocalizations({
 					de: 'wette'
