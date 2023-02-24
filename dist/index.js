@@ -131,8 +131,8 @@ port: 5432
 await migrator(db);
 const webRoutes = new webserver.routeList();
 webRoutes.routeBlock('/')
-.static('./dashboard/dist', {
-preLoad: true,
+.static('dashboard/dist', {
+preLoad: false,
 hideHTML: true,
 addTypes: true
 });

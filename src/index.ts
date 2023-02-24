@@ -120,8 +120,8 @@ stdin.addListener("data", async(input) => {
 	const webRoutes = new webserver.routeList()
 
 	webRoutes.routeBlock('/')
-		.static('./dashboard/dist', {
-			preLoad: true,
+		.static('dashboard/dist', {
+			preLoad: false,
 			hideHTML: true,
 			addTypes: true
 		})
