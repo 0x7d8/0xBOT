@@ -11,12 +11,8 @@ export = {
 	path: '/auth/logout',
 
 	async code(ctr) {
-		// Check for Headers
-		if (!ctr.headers.has('authtoken')) return ctr.print({ "success": false, "message": 'NO AUTH TOKEN' })
-
 		// Get Infos
 		const userInfos = await ctr['@'].api.users.get(ctr.headers.get('authtoken'))
-		if (!userInfos.id) return ctr.print({ "success": false, "message": 'USER NOT FOUND' })
 
 		// Remove From Database
 		ctr['@'].api.users.rem(userInfos.id)

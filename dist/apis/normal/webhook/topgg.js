@@ -29,7 +29,7 @@ method: webserver.types.post,
 path: '/webhook/topgg',
 async code(ctr) {
 if (ctr.headers.get('authorization') !== ctr['@'].config.web.keys.topgg.webkey)
-return ctr.print({ "success": false, "message": 'WRONG AUTHORIZATION' });
+return ctr.status(401).print({ "success": false, "message": 'WRONG AUTHORIZATION' });
 if (!ctr.body.user)
 return;
 const random = ctr['@'].bot.random(7500, 15000);

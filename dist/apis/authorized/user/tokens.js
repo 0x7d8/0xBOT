@@ -22,26 +22,19 @@ if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasO
 __setModuleDefault(result, mod);
 return result;
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 const webserver = __importStar(require("rjweb-server"));
-const discord_oauth2_1 = __importDefault(require("discord-oauth2"));
-const oAuth = new discord_oauth2_1.default();
 module.exports = {
-method: webserver.types.post,
-path: '/auth/logout',
+method: webserver.types.get,
+path: '/auth/tokens',
 async code(ctr) {
-if (!ctr.headers.has('authtoken'))
-return ctr.print({ "success": false, "message": 'NO AUTH TOKEN' });
 const userInfos = await ctr['@'].api.users.get(ctr.headers.get('authtoken'));
-if (!userInfos.id)
-return ctr.print({ "success": false, "message": 'USER NOT FOUND' });
-ctr['@'].api.users.rem(userInfos.id);
-await oAuth.revokeToken(userInfos.tokens.access, Buffer.from(`${ctr['@'].config.client.id}:${ctr['@'].config.client.secret}`).toString("base64"));
 return ctr.print({
-"success": true
+"success": true,
+"tokens": {
+"access": userInfos.tokens.access,
+"refresh": userInfos.tokens.refresh
+}
 });
 }
 };
-//# sourceMappingURL=logout.js.map
+//# sourceMappingURL=tokens.js.map

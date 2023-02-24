@@ -13,7 +13,7 @@ export = {
 
 	async code(ctr) {
 		// Check for Headers
-		if (!ctr.headers.has('code')) return ctr.print({ "success": false, "message": 'NO CODE' })
+		if (!ctr.headers.has('code')) return ctr.status(422).print({ "success": false, "message": 'NO CODE' })
 
 		// Get Token
 		const token = await oAuth.tokenRequest({

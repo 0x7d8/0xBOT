@@ -32,11 +32,7 @@ module.exports = {
 method: webserver.types.get,
 path: '/auth/refresh',
 async code(ctr) {
-if (!ctr.headers.has('authtoken'))
-return ctr.print({ "success": false, "message": 'NO AUTH TOKEN' });
 const userInfos = await ctr['@'].api.users.get(ctr.headers.get('authtoken'));
-if (!userInfos.id)
-return ctr.print({ "success": false, "message": 'USER NOT FOUND' });
 const token = await oAuth.tokenRequest({
 clientId: ctr['@'].config.client.id,
 clientSecret: ctr['@'].config.client.secret,

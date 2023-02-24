@@ -15,7 +15,7 @@ export = {
 			!ctr.headers.get('senderid') ||
 			!ctr.headers.get('recieverid') ||
 			!ctr.headers.get('maxresults')
-		) return ctr.print({ "success": false, "message": 'NO HEADERS' })
+		) return ctr.status(422).print({ "success": false, "message": 'NO HEADERS' })
 
 		// Fetch Transactions
 		let rawvalues: QueryResult

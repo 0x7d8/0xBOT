@@ -34,7 +34,7 @@ method: webserver.types.post,
 path: '/auth/login',
 async code(ctr) {
 if (!ctr.headers.has('code'))
-return ctr.print({ "success": false, "message": 'NO CODE' });
+return ctr.status(422).print({ "success": false, "message": 'NO CODE' });
 const token = await oAuth.tokenRequest({
 clientId: ctr['@'].config.client.id,
 clientSecret: ctr['@'].config.client.secret,
