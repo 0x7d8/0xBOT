@@ -27,10 +27,9 @@ module.exports = {
 method: webserver.types.get,
 path: '/options/email',
 async code(ctr) {
-const userInfos = await ctr['@'].api.users.get(ctr.headers.get('authtoken'));
 const email = await ctr['@'].db.query(`select * from useremails where userid = $1 and email = $2;`, [
-userInfos.id,
-userInfos.email
+ctr["@"].user.id,
+ctr["@"].user.email
 ]);
 if (email.rowCount === 1)
 return ctr.print({ "success": true, "email": true });

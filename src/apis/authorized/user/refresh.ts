@@ -11,9 +11,6 @@ export = {
 	path: '/auth/refresh',
 
 	async code(ctr) {
-		// Get Infos
-		const userInfos = await ctr['@'].api.users.get(ctr.headers.get('authtoken'))
-
 		// Refresh Token
 		const token = await oAuth.tokenRequest({
 			clientId: ctr['@'].config.client.id,
@@ -21,18 +18,18 @@ export = {
 			grantType: 'refresh_token',
 			scope: ['identify', 'guilds', 'email'],
 			redirectUri: 'https://0xbot.de/auth/discord',
-			refreshToken: userInfos.tokens.refresh
+			refreshToken: ctr["@"].user.tokens.refresh
 		})
 
 		// Update The Database
 		ctr['@'].api.users.set({
 			auth: ctr.headers.get('authtoken'),
 			user: {
-				id: userInfos.id,
-				name: userInfos.name,
-				tag: userInfos.tag,
-				email: userInfos.email,
-				avatar: userInfos.avatar
+				id: ctr["@"].user.id,
+				name: ctr["@"].user.name,
+				tag: ctr["@"].user.tag,
+				email: ctr["@"].user.email,
+				avatar: ctr["@"].user.avatar
 			}, tokens: {
 				access: token.access_token,
 				refresh: token.refresh_token

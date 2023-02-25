@@ -61,7 +61,7 @@ export const checkSession = async(accessToken: string, tokenType: string, userid
 	}
 }
 
-interface Set {
+export interface SetRequest {
 	user: {
 		id: string
 		name: string
@@ -78,8 +78,20 @@ interface Set {
 	auth: string
 }
 
+export interface GetResponse {
+	id: string
+	name: string
+	avatar: string
+	tag: string
+	email: string
+	tokens: {
+		access: string
+		refresh: string
+	}
+}
+
 export const users = {
-	set: async(json: Set) => {
+	set: async(json: SetRequest) => {
 		const data = await db.query(`select * from userlogins where id = $1;`, [json.user.id])
 
 		if (data.rowCount !== 1) {
@@ -107,7 +119,7 @@ export const users = {
 		}
 	},
 
-	get: async(authToken: string) => {
+	get: async(authToken: string): Promise<GetResponse> => {
 		const data = await db.query(`select * from userlogins where authtoken = $1;`, [authToken])
 		if (data.rowCount !== 1) return {
 			id: null,

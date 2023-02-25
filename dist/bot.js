@@ -28,6 +28,7 @@ return (mod && mod.__esModule) ? mod : { "default": mod };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.start = void 0;
 const module_alias_1 = __importDefault(require("module-alias"));
+module_alias_1.default.addAlias('@', __dirname + '/');
 module_alias_1.default.addAlias('@interfaces', __dirname + '/interfaces');
 module_alias_1.default.addAlias('@functions', __dirname + '/functions');
 module_alias_1.default.addAlias('@assets', __dirname + '/assets');
@@ -84,6 +85,7 @@ return ready.execute(client, timer.getTime());
 }
 });
 };
+const User_1 = __importDefault(require("@/models/User"));
 const bot = __importStar(require("@functions/bot.js"));
 client.config = _config_1.default;
 const start = (db) => {
@@ -177,6 +179,7 @@ const ctx = {
 "db": db,
 "bot": bot,
 "client": client,
+"user": await new User_1.default().useControl({ id: interaction.user.id }),
 "getOption": (option) => {
 if (!interaction.options.get(option))
 return null;

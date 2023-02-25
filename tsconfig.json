@@ -10,6 +10,7 @@
     "baseUrl": "src",
     "sourceRoot": "src",
     "paths": {
+      "@/*": ["*"],
       "@interfaces/*": ["interfaces/*"],
       "@functions/*": ["functions/*"],
       "@assets/*": ["assets/*"],

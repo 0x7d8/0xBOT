@@ -32,9 +32,8 @@ module.exports = {
 method: webserver.types.post,
 path: '/auth/logout',
 async code(ctr) {
-const userInfos = await ctr['@'].api.users.get(ctr.headers.get('authtoken'));
-ctr['@'].api.users.rem(userInfos.id);
-await oAuth.revokeToken(userInfos.tokens.access, Buffer.from(`${ctr['@'].config.client.id}:${ctr['@'].config.client.secret}`).toString("base64"));
+ctr['@'].api.users.rem(ctr["@"].user.id);
+await oAuth.revokeToken(ctr["@"].user.tokens.access, Buffer.from(`${ctr['@'].config.client.id}:${ctr['@'].config.client.secret}`).toString("base64"));
 return ctr.print({
 "success": true
 });

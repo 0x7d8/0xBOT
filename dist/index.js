@@ -27,6 +27,7 @@ return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const module_alias_1 = __importDefault(require("module-alias"));
+module_alias_1.default.addAlias('@', __dirname + '/');
 module_alias_1.default.addAlias('@interfaces', __dirname + '/interfaces');
 module_alias_1.default.addAlias('@functions', __dirname + '/functions');
 module_alias_1.default.addAlias('@assets', __dirname + '/assets');
@@ -140,7 +141,7 @@ webRoutes.event('notfound', async (ctr) => {
 return ctr.printFile('./dashboard/dist/index.html');
 });
 webRoutes.event('request', async (ctr) => {
-if (!ctr.headers.get('user-agent').startsWith('Uptime-Kuma'))
+if (!ctr.headers.get('user-agent')?.startsWith('Uptime-Kuma'))
 console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [WEB] [${ctr.url.method.toUpperCase()}] ${ctr.url.pathname}`);
 });
 if (_config_1.default.web.dashboard) {
@@ -170,8 +171,8 @@ apiRoutes.routeBlock('/')
 .auth(async (ctr) => {
 if (!ctr.headers.has('authtoken'))
 return ctr.status(422).print({ "success": false, "message": 'NO AUTH TOKEN' });
-const userInfos = await ctr['@'].api.users.get(ctr.headers.get('authtoken'));
-if (!userInfos.id)
+ctr.setCustom('user', await ctr['@'].api.users.get(ctr.headers.get('authtoken')));
+if (!ctr["@"].user.id)
 return ctr.status(401).print({ "success": false, "message": 'TOKEN NOT FOUND' });
 }).loadCJS('apis/authorized/user');
 apiRoutes.routeBlock('/')

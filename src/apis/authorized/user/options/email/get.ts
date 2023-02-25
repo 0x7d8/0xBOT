@@ -8,13 +8,10 @@ export = {
 	path: '/options/email',
 
 	async code(ctr) {
-		// Get Infos
-		const userInfos = await ctr['@'].api.users.get(ctr.headers.get('authtoken'))
-
 		// Get Email
 		const email = await ctr['@'].db.query(`select * from useremails where userid = $1 and email = $2;`, [
-			userInfos.id,
-			userInfos.email
+			ctr["@"].user.id,
+			ctr["@"].user.email
 		])
 		
 		if (email.rowCount === 1) return ctr.print({ "success": true, "email": true })

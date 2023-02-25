@@ -8,15 +8,12 @@ export = {
 	path: '/auth/tokens',
 
 	async code(ctr) {
-		// Get Infos
-		const userInfos = await ctr['@'].api.users.get(ctr.headers.get('authtoken'))
-
 		// Return Result
 		return ctr.print({
 			"success": true,
 			"tokens": {
-				"access": userInfos.tokens.access,
-				"refresh": userInfos.tokens.refresh
+				"access": ctr["@"].user.tokens.access,
+				"refresh": ctr["@"].user.tokens.refresh
 			}
 		})
 	}

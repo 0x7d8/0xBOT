@@ -27,12 +27,11 @@ module.exports = {
 method: webserver.types.get,
 path: '/stats/user',
 async code(ctr) {
-const userInfos = await ctr['@'].api.users.get(ctr.headers.get('authtoken'));
 return ctr.print({
 "success": true,
-"commands": await ctr['@'].bot.stat.get(`u-${userInfos.id}`, 'cmd'),
-"buttons": await ctr['@'].bot.stat.get(`u-${userInfos.id}`, 'btn'),
-"modals": await ctr['@'].bot.stat.get(`u-${userInfos.id}`, 'mod')
+"commands": await ctr['@'].bot.stat.get(`u-${ctr["@"].user.id}`, 'cmd'),
+"buttons": await ctr['@'].bot.stat.get(`u-${ctr["@"].user.id}`, 'btn'),
+"modals": await ctr['@'].bot.stat.get(`u-${ctr["@"].user.id}`, 'mod')
 });
 }
 };

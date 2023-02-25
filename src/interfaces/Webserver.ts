@@ -11,6 +11,8 @@ interface Custom {
 	api: typeof api
 	bot: typeof bot
 	db: PoolClient
+
+	/** Request User */ user: api.GetResponse
 }
 
 export default interface Webserver<Body = any, HasError = false> extends WebserverInterface<Custom, HasError, Body> {}

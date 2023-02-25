@@ -1,5 +1,6 @@
 // Module Register
 import moduleAlias from "module-alias"
+moduleAlias.addAlias('@', __dirname+'/')
 moduleAlias.addAlias('@interfaces', __dirname+'/interfaces')
 moduleAlias.addAlias('@functions', __dirname+'/functions')
 moduleAlias.addAlias('@assets', __dirname+'/assets')
@@ -81,6 +82,8 @@ const login = (client: Client, commandFiles: string[]) => {
 import CommandInteraction from "@interfaces/CommandInteraction.js"
 import ButtonInteraction from "@interfaces/ButtonInteraction.js"
 import ModalInteraction from "@interfaces/ModalInteraction.js"
+
+import UserModel from "@/models/User"
 
 // Bot Functions
 import * as bot from "@functions/bot.js"
@@ -185,6 +188,7 @@ export const start = (db: PoolClient) => {
 				"db": db,
 				"bot": bot,
 				"client": client,
+				"user": await new UserModel().useControl({ id: interaction.user.id }),
 				"getOption": (option) => {
 					if (!interaction.options.get(option)) return null
 					else return (interaction.options.get(option).value as string | number)

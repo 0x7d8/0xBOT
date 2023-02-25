@@ -11,15 +11,12 @@ export = {
 	path: '/auth/logout',
 
 	async code(ctr) {
-		// Get Infos
-		const userInfos = await ctr['@'].api.users.get(ctr.headers.get('authtoken'))
-
 		// Remove From Database
-		ctr['@'].api.users.rem(userInfos.id)
+		ctr['@'].api.users.rem(ctr["@"].user.id)
 
 		// Remove from Discord
 		await oAuth.revokeToken(
-			userInfos.tokens.access,
+			ctr["@"].user.tokens.access,
 			Buffer.from(`${ctr['@'].config.client.id}:${ctr['@'].config.client.secret}`).toString("base64")
 		)
 

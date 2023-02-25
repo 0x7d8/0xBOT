@@ -27,12 +27,11 @@ module.exports = {
 method: webserver.types.get,
 path: '/auth/tokens',
 async code(ctr) {
-const userInfos = await ctr['@'].api.users.get(ctr.headers.get('authtoken'));
 return ctr.print({
 "success": true,
 "tokens": {
-"access": userInfos.tokens.access,
-"refresh": userInfos.tokens.refresh
+"access": ctr["@"].user.tokens.access,
+"refresh": ctr["@"].user.tokens.refresh
 }
 });
 }

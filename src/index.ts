@@ -1,5 +1,6 @@
 // Module Register
 import moduleAlias from "module-alias"
+moduleAlias.addAlias('@', __dirname+'/')
 moduleAlias.addAlias('@interfaces', __dirname+'/interfaces')
 moduleAlias.addAlias('@functions', __dirname+'/functions')
 moduleAlias.addAlias('@assets', __dirname+'/assets')
@@ -129,7 +130,7 @@ stdin.addListener("data", async(input) => {
 	webRoutes.event('notfound', async(ctr: WebserverInterface) => {
 		return ctr.printFile('./dashboard/dist/index.html')
 	}); webRoutes.event('request', async(ctr: WebserverInterface) => {
-		if (!ctr.headers.get('user-agent').startsWith('Uptime-Kuma')) console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [WEB] [${ctr.url.method.toUpperCase()}] ${ctr.url.pathname}`)
+		if (!ctr.headers.get('user-agent')?.startsWith('Uptime-Kuma')) console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [WEB] [${ctr.url.method.toUpperCase()}] ${ctr.url.pathname}`)
 	})
 
 	if (config.web.dashboard) {
@@ -162,8 +163,8 @@ stdin.addListener("data", async(input) => {
 		.auth(async(ctr: WebserverInterface) => {
 			// Check Token
 			if (!ctr.headers.has('authtoken')) return ctr.status(422).print({ "success": false, "message": 'NO AUTH TOKEN' })
-			const userInfos = await ctr['@'].api.users.get(ctr.headers.get('authtoken'))
-			if (!userInfos.id) return ctr.status(401).print({ "success": false, "message": 'TOKEN NOT FOUND' })
+			ctr.setCustom('user', await ctr['@'].api.users.get(ctr.headers.get('authtoken')))
+			if (!ctr["@"].user.id) return ctr.status(401).print({ "success": false, "message": 'TOKEN NOT FOUND' })
 		}).loadCJS('apis/authorized/user')
 
 	apiRoutes.routeBlock('/')
