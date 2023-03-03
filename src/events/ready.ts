@@ -1,6 +1,9 @@
 import { Events, ActivityType } from "discord.js"
 import { setTimeout as wait } from "timers/promises"
-import { default as axios } from "axios"
+import axios from "axios"
+import simpleGit from "simple-git"
+
+const git = simpleGit()
 
 // Connect to Database
 import config from "@config"
@@ -13,8 +16,6 @@ const db = new pg.Pool({
 	port: 5432,
 	ssl: true
 })
-
-import { default as commitCount } from "git-commit-count"
 
 import * as bot from "@functions/bot.js"
 import Client from "@interfaces/Client.js"
@@ -45,7 +46,7 @@ export default {
 			client.user?.setActivity(`${client.guilds.cache.size} Servers`, { type: ActivityType.Watching })
 			await wait(20000)
 
-			client.user?.setActivity(`${await commitCount()} Commits`, { type: ActivityType.Watching })
+			client.user?.setActivity(`${(await git.log()).total} Commits`, { type: ActivityType.Watching })
 			await wait(20000)
 
 			client.user?.setActivity(`${await bot.stat.get('t-all', 'cmd')} Commands Used`, { type: ActivityType.Watching })

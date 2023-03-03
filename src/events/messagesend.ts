@@ -32,10 +32,10 @@ export default {
 			}
 
 			// Level Stats
-			await bot.stat.add('u-' + message.author.id + '-TOTAL-A', 'msg', 1)
-			await bot.stat.add('u-' + message.author.id + '-' + message.guildId + '-A', 'msg', 1)
-			await bot.stat.add('u-' + message.author.id + '-TOTAL-C', 'msg', ((message.content.length > 1000) ? 100 : message.content.length))
-			await bot.stat.add('u-' + message.author.id + '-' + message.guildId + '-C', 'msg', ((message.content.length > 1000) ? 100 : message.content.length))
+			await bot.stat.add(`u-${message.author.id}-TOTAL-A`, 'msg', 1)
+			await bot.stat.add(`u-${message.author.id}-${message.guildId}-A`, 'msg', 1)
+			await bot.stat.add(`u-${message.author.id}-TOTAL-C`, 'msg', ((message.content.length > 1000) ? 100 : message.content.length))
+			await bot.stat.add(`u-${message.author.id}-${message.guildId}-C`, 'msg', ((message.content.length > 1000) ? 100 : message.content.length))
 
 			// Calculate New Level
 			const newCache = await bot.stat.get('u-' + message.author.id + '-' + message.guildId + '-C', 'msg')

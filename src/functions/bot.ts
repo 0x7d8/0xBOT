@@ -46,11 +46,8 @@ export const perCalc = (newVal: number, oldVal: number) => {
 export const random = utils.randomNum
 
 export const log = (type: boolean, uid: string, gid: string, msg: string) => {
-	if (!type) {
-		console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [${uid} @ ${gid}] ${msg}`)
-	} else {
-		console.log(`[0xBOT] [!] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [${uid} @ ${gid}] ${msg}`)
-	}
+	if (!type) console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [${uid} @ ${gid}] ${msg}`)
+	else console.log(`[0xBOT] [!] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [${uid} @ ${gid}] ${msg}`)
 }
 
 export const getOption = (interaction: CommandInteraction, option: string) => {
@@ -93,8 +90,8 @@ export const error = async(interaction: CommandInteraction, client: Client, erro
 	const day = ('0' + new Date().getDate()).slice(-2)
 	const month = ('0' + (new Date().getMonth() + 1)).slice(-2)
 	const year = new Date().getFullYear()
-	fs.appendFileSync('logs/error' + day + '-' + month + '-' + year + '.log', '[0xBOT] [!] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] [' + type.toUpperCase() + '] ERROR : ' + errorid + ' :\n')
-	fs.appendFileSync('logs/error' + day + '-' + month + '-' + year + '.log', error.stack + '\n\n')
+	fs.appendFileSync(`logs/error${day}-${month}-${year}.log`, '[0xBOT] [!] [' + new Date().toLocaleTimeString('en-US', { hour12: false }) + '] [' + interaction.user.id + ' @ ' + interaction.guild.id + '] [' + type.toUpperCase() + '] ERROR : ' + errorid + ' :\n')
+	fs.appendFileSync(`logs/error${day}-${month}-${year}.log`, error.stack + '\n\n')
 
 	// Generate Correct Word
 	let word = ''
@@ -123,13 +120,17 @@ export const error = async(interaction: CommandInteraction, client: Client, erro
 	// Create Error Embed
 	let message = new EmbedBuilder().setColor(0x37009B)
 		.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')
-		.setDescription('» <:ERROR:1020414987291861022> An Error has occured while executing ' + word + '.\nThe Error has been logged and will be fixed soon!')
-		.setFooter({ text: '» ' + vote + ' » ' + client.config.version + ' » ERROR: ' + errorid })
+		.setDescription(`
+			» <:ERROR:1020414987291861022> An Error has occured while executing ${word}.
+			The Error has been logged and will be fixed soon!
+		`).setFooter({ text: '» ' + vote + ' » ' + client.config.version + ' » ERROR: ' + errorid })
 	if (language === 'de') {
 		message = new EmbedBuilder().setColor(0x37009B)
 			.setTitle('<:EXCLAMATION:1024407166460891166> » FEHLER')
-			.setDescription('» <:ERROR:1020414987291861022> Ein Fehler ist beim ausführen ' + word + ' aufgetreten.\nDer Fehler wurde geloggt und wird bald behoben!')
-			.setFooter({ text: '» ' + vote + ' » ' + client.config.version + ' » FEHLER: ' + errorid })
+			.setDescription(`
+				» <:ERROR:1020414987291861022> Ein Fehler ist beim ausführen ${word} aufgetreten.
+				Der Fehler wurde geloggt und wird bald behoben!
+			`).setFooter({ text: '» ' + vote + ' » ' + client.config.version + ' » FEHLER: ' + errorid })
 	}
 
 	// Send Message
