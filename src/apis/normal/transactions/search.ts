@@ -1,4 +1,3 @@
-import * as webserver from "rjweb-server"
 import { ctrFile } from "@interfaces/Webserver.js"
 
 interface Body { }
@@ -6,7 +5,7 @@ interface Body { }
 import { QueryResult } from "pg"
 
 export = {
-	method: webserver.types.get,
+	method: 'GET',
 	path: '/transactions/search',
 
 	async code(ctr) {

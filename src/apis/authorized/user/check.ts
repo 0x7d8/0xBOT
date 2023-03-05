@@ -1,10 +1,9 @@
-import * as webserver from "rjweb-server"
 import { ctrFile } from "@interfaces/Webserver.js"
 
 interface Body {}
 
 export = {
-	method: webserver.types.get,
+	method: 'GET',
 	path: '/auth/check',
 
 	async code(ctr) {

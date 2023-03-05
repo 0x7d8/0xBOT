@@ -2,7 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   '@types/module-alias': ^2.0.1
-  '@types/node': ^18.14.5
+  '@types/node': ^18.14.6
   '@types/node-cron': ^3.0.7
   '@types/pg': ^8.6.6
   axios: ^1.3.4
@@ -16,8 +16,8 @@ specifiers:
   pg: ^8.9.0
   pretty-ms: ^8.0.0
   rjutils-collection: ^1.2.0
-  rjweb-server: ^3.2.0
-  simple-git: ^3.16.1
+  rjweb-server: ^4.0.3
+  simple-git: ^3.17.0
   typescript: ^4.9.5
 
 dependencies:
@@ -32,12 +32,12 @@ dependencies:
   pg: registry.npmjs.org/pg/8.9.0
   pretty-ms: registry.npmjs.org/pretty-ms/8.0.0
   rjutils-collection: registry.npmjs.org/rjutils-collection/1.2.0
-  rjweb-server: registry.npmjs.org/rjweb-server/3.2.0
-  simple-git: registry.npmjs.org/simple-git/3.16.1
+  rjweb-server: registry.npmjs.org/rjweb-server/4.0.3
+  simple-git: registry.npmjs.org/simple-git/3.17.0
 
 devDependencies:
   '@types/module-alias': registry.npmjs.org/@types/module-alias/2.0.1
-  '@types/node': registry.npmjs.org/@types/node/18.14.5
+  '@types/node': registry.npmjs.org/@types/node/18.14.6
   '@types/node-cron': registry.npmjs.org/@types/node-cron/3.0.7
   '@types/pg': registry.npmjs.org/@types/pg/8.6.6
   typescript: registry.npmjs.org/typescript/4.9.5
@@ -280,17 +280,17 @@ packages:
     version: 3.0.7
     dev: true
 
-  registry.npmjs.org/@types/node/18.14.5:
-    resolution: {integrity: sha512-CRT4tMK/DHYhw1fcCEBwME9CSaZNclxfzVMe7GsO6ULSwsttbj70wSiX6rZdIjGblu93sTJxLdhNIT85KKI7Qw==, registry: https://registry.npmjs.cf/, tarball: https://registry.npmjs.org/@types/node/-/node-18.14.5.tgz}
+  registry.npmjs.org/@types/node/18.14.6:
+    resolution: {integrity: sha512-93+VvleD3mXwlLI/xASjw0FzKcwzl3OdTCzm1LaRfqgS21gfFtK3zDXM5Op9TeeMsJVOaJ2VRDpT9q4Y3d0AvA==, registry: https://registry.npmjs.cf/, tarball: https://registry.npmjs.org/@types/node/-/node-18.14.6.tgz}
     name: '@types/node'
-    version: 18.14.5
+    version: 18.14.6
 
   registry.npmjs.org/@types/pg/8.6.6:
     resolution: {integrity: sha512-O2xNmXebtwVekJDD+02udOncjVcMZQuTEQEMpKJ0ZRf5E7/9JJX3izhKUcUifBkyKpljyUM6BTgy2trmviKlpw==, registry: https://registry.npmjs.cf/, tarball: https://registry.npmjs.org/@types/pg/-/pg-8.6.6.tgz}
     name: '@types/pg'
     version: 8.6.6
     dependencies:
-      '@types/node': registry.npmjs.org/@types/node/18.14.5
+      '@types/node': registry.npmjs.org/@types/node/18.14.6
       pg-protocol: registry.npmjs.org/pg-protocol/1.6.0
       pg-types: registry.npmjs.org/pg-types/2.2.0
     dev: true
@@ -300,7 +300,7 @@ packages:
     name: '@types/ws'
     version: 8.5.4
     dependencies:
-      '@types/node': registry.npmjs.org/@types/node/18.14.5
+      '@types/node': registry.npmjs.org/@types/node/18.14.6
     dev: false
 
   registry.npmjs.org/asynckit/0.4.0:
@@ -762,10 +762,10 @@ packages:
     version: 1.2.0
     dev: false
 
-  registry.npmjs.org/rjweb-server/3.2.0:
-    resolution: {integrity: sha512-G6sH4ar1tkBC2lOhK9xY71ivlbBaC+nQ7+FX9OpMMZATcbj0w+cPAptHjRB+UNNMLE/UpKVNCxqRqgOPTchjDg==, registry: https://registry.npmjs.cf/, tarball: https://registry.npmjs.org/rjweb-server/-/rjweb-server-3.2.0.tgz}
+  registry.npmjs.org/rjweb-server/4.0.3:
+    resolution: {integrity: sha512-glt6EGf3Go1/bwC2Bk5yxubbgTmmH1TnJKBlHvRh4WXI3BZEa51qvBBql2naJxFlubPBU8JTynvOg16YnLNMjQ==, registry: https://registry.npmjs.cf/, tarball: https://registry.npmjs.org/rjweb-server/-/rjweb-server-4.0.3.tgz}
     name: rjweb-server
-    version: 3.2.0
+    version: 4.0.3
     hasBin: true
     dev: false
 
@@ -781,10 +781,10 @@ packages:
     version: 3.0.5
     dev: false
 
-  registry.npmjs.org/simple-git/3.16.1:
-    resolution: {integrity: sha512-xzRxMKiy1zEYeHGXgAzvuXffDS0xgsq07Oi4LWEEcVH29vLpcZ2tyQRWyK0NLLlCVaKysZeem5tC1qHEOxsKwA==, registry: https://registry.npmjs.cf/, tarball: https://registry.npmjs.org/simple-git/-/simple-git-3.16.1.tgz}
+  registry.npmjs.org/simple-git/3.17.0:
+    resolution: {integrity: sha512-JozI/s8jr3nvLd9yn2jzPVHnhVzt7t7QWfcIoDcqRIGN+f1IINGv52xoZti2kkYfoRhhRvzMSNPfogHMp97rlw==, registry: https://registry.npmjs.cf/, tarball: https://registry.npmjs.org/simple-git/-/simple-git-3.17.0.tgz}
     name: simple-git
-    version: 3.16.1
+    version: 3.17.0
     dependencies:
       '@kwsites/file-exists': registry.npmjs.org/@kwsites/file-exists/1.1.1
       '@kwsites/promise-deferred': registry.npmjs.org/@kwsites/promise-deferred/1.1.1

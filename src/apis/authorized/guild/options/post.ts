@@ -1,4 +1,3 @@
-import * as webserver from "rjweb-server"
 import { ctrFile } from "@interfaces/Webserver.js"
 
 interface Body {
@@ -7,7 +6,7 @@ interface Body {
 }
 
 export = {
-	method: webserver.types.post,
+	method: 'POST',
 	path: '/options/guild',
 
 	async code(ctr) {

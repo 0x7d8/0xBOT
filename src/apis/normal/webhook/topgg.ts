@@ -1,4 +1,3 @@
-import * as webserver from "rjweb-server"
 import { ctrFile } from "@interfaces/Webserver.js"
 
 interface Body {
@@ -8,7 +7,7 @@ interface Body {
 import { EmbedBuilder } from "discord.js"
 
 export = {
-	method: webserver.types.post,
+	method: 'POST',
 	path: '/webhook/topgg',
 
 	async code(ctr) {

@@ -15,7 +15,7 @@ import { default as axios } from "axios"
 import config from "@config"
 
 import WebserverInterface from "@interfaces/Webserver.js"
-import * as webserver from "rjweb-server"
+import { Server, Version } from "rjweb-server"
 
 // Create Client
 import { Client, GatewayIntentBits } from "discord.js"
@@ -118,72 +118,101 @@ stdin.addListener("data", async(input) => {
 
 	/// Dashboard
 	// Website
-	const webRoutes = new webserver.routeList()
+	const webController = new Server({
+		bind: '0.0.0.0',
+		port: config.web.ports.dashboard,
+		compression: 'gzip',
+		body: {
+			enabled: false
+		}
+	})
 
-	webRoutes.routeBlock('/')
+	webController.prefix('/')
 		.static('dashboard/dist', {
-			preLoad: false,
 			hideHTML: true,
 			addTypes: true
 		})
 
-	webRoutes.event('notfound', async(ctr: WebserverInterface) => {
+	webController.event('notfound', async(ctr: WebserverInterface) => {
 		return ctr.printFile('./dashboard/dist/index.html')
-	}); webRoutes.event('request', async(ctr: WebserverInterface) => {
+	}); webController.event('request', async(ctr: WebserverInterface) => {
 		if (!ctr.headers.get('user-agent')?.startsWith('Uptime-Kuma')) console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [WEB] [${ctr.url.method.toUpperCase()}] ${ctr.url.pathname}`)
 	})
 
-	if (config.web.dashboard) {
-		const controller = webserver.initialize({
-			bind: '0.0.0.0',
-			port: config.web.ports.dashboard,
-			compression: 'gzip',
-			body: {
-				enabled: false
-			}
-		})
-
-		controller.setRoutes(webRoutes)
-		controller.start().then((res) => {
-			console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [STA] $$$$$ STARTED DASHBOARD ON PORT ${res.port}`)
-		})
-	}
+	if (config.web.dashboard) await webController.start().then((res) => {
+		console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [STA] $$$$$ STARTED DASHBOARD ON PORT ${res.port}, VERSION ${Version}`)
+	})
 
 	// API
 	const rateLimits = new Map()
-	const apiRoutes = new webserver.routeList()
+	const apiController = new Server({
+		bind: '0.0.0.0',
+		cors: true,
+		proxy: true,
+		port: config.web.ports.api,
+		compression: 'gzip',
+		rateLimits: {
+			enabled: true,
+			message: { "success": false, "message": 'RATE LIMITED' },
+			functions: rateLimits,
+			list: [
+				{
+					path: '/auth',
+					times: 10,
+					timeout: 10000
+				},
+				{
+					path: '/fetch',
+					times: 5,
+					timeout: 10000
+				},
+				{
+					path: '/check',
+					times: 5,
+					timeout: 10000
+				}
+			]
+		}, dashboard: {
+			enabled: true,
+			path: '/upturned-precision-garnet'
+		}, body: {
+			enabled: true,
+			maxSize: 1,
+			message: { "success": false, "message": 'HTTP BODY TOO BIG' }
+		}
+	})
 
-	apiRoutes.routeBlock('/')
-		.auth(async(ctr: WebserverInterface) => {
+	await apiController.prefix('/')
+		.validate(async(ctr: WebserverInterface) => {
 			// Check Permissions
 			if (!ctr.headers.has('authtoken')) return ctr.status(422).print({ "success": false, "message": 'NO AUTH TOKEN' })
 			if (!await ctr['@'].api.checkAuth(ctr.headers.get('authtoken'), ctr.queries.get('id'))) return ctr.status(401).print({ "success": false, "message": 'PERMISSION DENIED' })
 		}).loadCJS('apis/authorized/guild')
-	apiRoutes.routeBlock('/')
-		.auth(async(ctr: WebserverInterface) => {
+	await apiController.prefix('/')
+		.validate(async(ctr: WebserverInterface) => {
 			// Check Token
 			if (!ctr.headers.has('authtoken')) return ctr.status(422).print({ "success": false, "message": 'NO AUTH TOKEN' })
 			ctr.setCustom('user', await ctr['@'].api.users.get(ctr.headers.get('authtoken')))
 			if (!ctr["@"].user.id) return ctr.status(401).print({ "success": false, "message": 'TOKEN NOT FOUND' })
 		}).loadCJS('apis/authorized/user')
 
-	apiRoutes.routeBlock('/')
+	await apiController.prefix('/')
 		.loadCJS('apis/normal')
 
-	apiRoutes.event('notfound', async(ctr: WebserverInterface) => {
+	apiController.event('notfound', async(ctr: WebserverInterface) => {
 		return ctr.status(404).print({
 			"success": false,
 			"message": 'ROUTE NOT FOUND'
 		})
-	}); apiRoutes.event('request', async(ctr: WebserverInterface) => {
+	}); apiController.event('request', async(ctr: WebserverInterface) => {
 		ctr.setCustom('api', apiFunctions)
 		ctr.setCustom('bot', botFunctions)
 		ctr.setCustom('config', config)
 		ctr.setCustom('client', client)
 		ctr.setCustom('db', db as any)
 
-		if (!ctr.headers.get('user-agent').startsWith('Uptime-Kuma')) console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [API] [${ctr.url.method}] ${ctr.url.pathname}`)
-	}); apiRoutes.event('error', async(ctr: WebserverInterface<any, true>) => {
+		if (!ctr.headers.get('user-agent')?.startsWith('Uptime-Kuma')) console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [API] [${ctr.url.method}] ${ctr.url.pathname}`)
+	}); apiController.event('error', async(ctr: WebserverInterface<any, true>) => {
 		console.log(ctr.error.stack)
 		return ctr.status(500).print({
 			"success": false,
@@ -191,49 +220,9 @@ stdin.addListener("data", async(input) => {
 		})
 	})
 
-	if (config.web.api) {
-		const controller = webserver.initialize({
-			bind: '0.0.0.0',
-			cors: true,
-			proxy: true,
-			port: config.web.ports.api,
-			compression: 'gzip',
-			rateLimits: {
-				enabled: true,
-				message: { "success": false, "message": 'RATE LIMITED' },
-				functions: rateLimits,
-				list: [
-					{
-						path: '/auth',
-						times: 10,
-						timeout: 10000
-					},
-					{
-						path: '/fetch',
-						times: 5,
-						timeout: 10000
-					},
-					{
-						path: '/check',
-						times: 5,
-						timeout: 10000
-					}
-				]
-			}, dashboard: {
-				enabled: true,
-				path: '/upturned-precision-garnet'
-			}, body: {
-				enabled: true,
-				maxSize: 1,
-				message: { "success": false, "message": 'HTTP BODY TOO BIG' }
-			}
-		})
-
-		controller.setRoutes(apiRoutes)
-		await controller.start().then((res) => {
-			console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [STA] $$$$$ STARTED API ON PORT ${res.port}`)
-		})
-	}
+	if (config.web.api) await apiController.start().then((res) => {
+		console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [STA] $$$$$ STARTED API ON PORT ${res.port}, VERSION ${Version}`)
+	})
 
 	// Bot Stats
 	if (config.web.stats) {

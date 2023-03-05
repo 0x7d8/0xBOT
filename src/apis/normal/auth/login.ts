@@ -1,4 +1,3 @@
-import * as webserver from "rjweb-server"
 import { ctrFile } from "@interfaces/Webserver.js"
 
 interface Body {}
@@ -8,7 +7,7 @@ import { default as DiscordOauth2 } from "discord-oauth2"
 const oAuth = new DiscordOauth2()
 
 export = {
-	method: webserver.types.post,
+	method: 'POST',
 	path: '/auth/login',
 
 	async code(ctr) {
