@@ -83,8 +83,6 @@ import CommandInteraction from "@interfaces/CommandInteraction.js"
 import ButtonInteraction from "@interfaces/ButtonInteraction.js"
 import ModalInteraction from "@interfaces/ModalInteraction.js"
 
-import UserModel from "@/models/User"
-
 // Bot Functions
 import * as bot from "@functions/bot.js"
 client.config = config
@@ -188,7 +186,6 @@ export const start = (db: PoolClient) => {
 				"db": db,
 				"bot": bot,
 				"client": client,
-				"user": await new UserModel().useControl({ id: interaction.user.id }),
 				"getOption": (option) => {
 					if (!interaction.options.get(option)) return null
 					else return (interaction.options.get(option).value as string | number)
