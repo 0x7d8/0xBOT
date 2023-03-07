@@ -13,10 +13,10 @@ specifiers:
   mathjs: ^11.6.0
   module-alias: ^2.2.2
   node-cron: ^3.0.2
-  pg: ^8.9.0
+  pg: ^8.10.0
   pretty-ms: ^8.0.0
   rjutils-collection: ^1.2.0
-  rjweb-server: ^4.0.3
+  rjweb-server: ^4.1.1
   simple-git: ^3.17.0
   typescript: ^4.9.5
 
@@ -29,10 +29,10 @@ dependencies:
   mathjs: registry.npmjs.org/mathjs/11.6.0
   module-alias: registry.npmjs.org/module-alias/2.2.2
   node-cron: registry.npmjs.org/node-cron/3.0.2
-  pg: registry.npmjs.org/pg/8.9.0
+  pg: registry.npmjs.org/pg/8.10.0
   pretty-ms: registry.npmjs.org/pretty-ms/8.0.0
   rjutils-collection: registry.npmjs.org/rjutils-collection/1.2.0
-  rjweb-server: registry.npmjs.org/rjweb-server/4.0.3
+  rjweb-server: registry.npmjs.org/rjweb-server/4.1.1
   simple-git: registry.npmjs.org/simple-git/3.17.0
 
 devDependencies:
@@ -321,6 +321,14 @@ packages:
       - debug
     dev: false
 
+  registry.npmjs.org/bindings/1.5.0:
+    resolution: {integrity: sha512-p2q/t/mhvuOj/UeLlV6566GD/guowlr0hHxClI0W9m7MWYkL1F0hLo+0Aexs9HSPCtR1SXQ0TD3MMKrXZajbiQ==, registry: https://registry.npmjs.cf/, tarball: https://registry.npmjs.org/bindings/-/bindings-1.5.0.tgz}
+    name: bindings
+    version: 1.5.0
+    dependencies:
+      file-uri-to-path: registry.npmjs.org/file-uri-to-path/1.0.0
+    dev: false
+
   registry.npmjs.org/buffer-writer/2.0.0:
     resolution: {integrity: sha512-a7ZpuTZU1TRtnwyCNW3I5dc0wWNC3VR9S++Ewyk2HHZdrO3CQJqSpd+95Us590V6AL7JqUAH2IwZ/398PmNFgw==, registry: https://registry.npmjs.cf/, tarball: https://registry.npmjs.org/buffer-writer/-/buffer-writer-2.0.0.tgz}
     name: buffer-writer
@@ -374,6 +382,17 @@ packages:
     resolution: {integrity: sha512-8njCHOTtFFLtegk6zQo0kkVX1rngygb/KQI6z1qZxlFI3scluC+LVTCFbrkWjBv4vvLlbQ9t88IPMC6k95VTTg==, registry: https://registry.npmjs.cf/, tarball: https://registry.npmjs.org/complex.js/-/complex.js-2.1.1.tgz}
     name: complex.js
     version: 2.1.1
+    dev: false
+
+  registry.npmjs.org/deasync/0.1.28:
+    resolution: {integrity: sha512-QqLF6inIDwiATrfROIyQtwOQxjZuek13WRYZ7donU5wJPLoP67MnYxA6QtqdvdBy2mMqv5m3UefBVdJjvevOYg==, registry: https://registry.npmjs.cf/, tarball: https://registry.npmjs.org/deasync/-/deasync-0.1.28.tgz}
+    name: deasync
+    version: 0.1.28
+    engines: {node: '>=0.11.0'}
+    requiresBuild: true
+    dependencies:
+      bindings: registry.npmjs.org/bindings/1.5.0
+      node-addon-api: registry.npmjs.org/node-addon-api/1.7.2
     dev: false
 
   registry.npmjs.org/debug/4.3.4:
@@ -459,6 +478,12 @@ packages:
       readable-web-to-node-stream: registry.npmjs.org/readable-web-to-node-stream/3.0.2
       strtok3: registry.npmjs.org/strtok3/7.0.0
       token-types: registry.npmjs.org/token-types/5.0.1
+    dev: false
+
+  registry.npmjs.org/file-uri-to-path/1.0.0:
+    resolution: {integrity: sha512-0Zt+s3L7Vf1biwWZ29aARiVYLx7iMGnEUl9x33fbB/j3jR81u/O2LbqK+Bm1CDSNDKVtJ/YjwY7TUd5SkeLQLw==, registry: https://registry.npmjs.cf/, tarball: https://registry.npmjs.org/file-uri-to-path/-/file-uri-to-path-1.0.0.tgz}
+    name: file-uri-to-path
+    version: 1.0.0
     dev: false
 
   registry.npmjs.org/follow-redirects/1.15.2:
@@ -578,6 +603,12 @@ packages:
     version: 2.1.2
     dev: false
 
+  registry.npmjs.org/node-addon-api/1.7.2:
+    resolution: {integrity: sha512-ibPK3iA+vaY1eEjESkQkM0BbCqFOaZMiXRTtdB0u7b4djtY6JnsjvPdUHVMg6xQt3B8fpTTWHI9A+ADjM9frzg==, registry: https://registry.npmjs.cf/, tarball: https://registry.npmjs.org/node-addon-api/-/node-addon-api-1.7.2.tgz}
+    name: node-addon-api
+    version: 1.7.2
+    dev: false
+
   registry.npmjs.org/node-cron/3.0.2:
     resolution: {integrity: sha512-iP8l0yGlNpE0e6q1o185yOApANRe47UPbLf4YxfbiNHt/RU5eBcGB/e0oudruheSf+LQeDMezqC5BVAb5wwRcQ==, registry: https://registry.npmjs.cf/, tarball: https://registry.npmjs.org/node-cron/-/node-cron-3.0.2.tgz}
     name: node-cron
@@ -633,15 +664,15 @@ packages:
     version: 1.0.1
     engines: {node: '>=4.0.0'}
 
-  registry.npmjs.org/pg-pool/3.5.2_pg@8.9.0:
-    resolution: {integrity: sha512-His3Fh17Z4eg7oANLob6ZvH8xIVen3phEZh2QuyrIl4dQSDVEabNducv6ysROKpDNPSD+12tONZVWfSgMvDD9w==, registry: https://registry.npmjs.cf/, tarball: https://registry.npmjs.org/pg-pool/-/pg-pool-3.5.2.tgz}
-    id: registry.npmjs.org/pg-pool/3.5.2
+  registry.npmjs.org/pg-pool/3.6.0_pg@8.10.0:
+    resolution: {integrity: sha512-clFRf2ksqd+F497kWFyM21tMjeikn60oGDmqMT8UBrynEwVEX/5R5xd2sdvdo1cZCFlguORNpVuqxIj+aK4cfQ==, registry: https://registry.npmjs.cf/, tarball: https://registry.npmjs.org/pg-pool/-/pg-pool-3.6.0.tgz}
+    id: registry.npmjs.org/pg-pool/3.6.0
     name: pg-pool
-    version: 3.5.2
+    version: 3.6.0
     peerDependencies:
       pg: '>=8.0'
     dependencies:
-      pg: registry.npmjs.org/pg/8.9.0
+      pg: registry.npmjs.org/pg/8.10.0
     dev: false
 
   registry.npmjs.org/pg-protocol/1.6.0:
@@ -661,10 +692,10 @@ packages:
       postgres-date: registry.npmjs.org/postgres-date/1.0.7
       postgres-interval: registry.npmjs.org/postgres-interval/1.2.0
 
-  registry.npmjs.org/pg/8.9.0:
-    resolution: {integrity: sha512-ZJM+qkEbtOHRuXjmvBtOgNOXOtLSbxiMiUVMgE4rV6Zwocy03RicCVvDXgx8l4Biwo8/qORUnEqn2fdQzV7KCg==, registry: https://registry.npmjs.cf/, tarball: https://registry.npmjs.org/pg/-/pg-8.9.0.tgz}
+  registry.npmjs.org/pg/8.10.0:
+    resolution: {integrity: sha512-ke7o7qSTMb47iwzOSaZMfeR7xToFdkE71ifIipOAAaLIM0DYzfOAXlgFFmYUIE2BcJtvnVlGCID84ZzCegE8CQ==, registry: https://registry.npmjs.cf/, tarball: https://registry.npmjs.org/pg/-/pg-8.10.0.tgz}
     name: pg
-    version: 8.9.0
+    version: 8.10.0
     engines: {node: '>= 8.0.0'}
     peerDependencies:
       pg-native: '>=3.0.1'
@@ -675,7 +706,7 @@ packages:
       buffer-writer: registry.npmjs.org/buffer-writer/2.0.0
       packet-reader: registry.npmjs.org/packet-reader/1.0.0
       pg-connection-string: registry.npmjs.org/pg-connection-string/2.5.0
-      pg-pool: registry.npmjs.org/pg-pool/3.5.2_pg@8.9.0
+      pg-pool: registry.npmjs.org/pg-pool/3.6.0_pg@8.10.0
       pg-protocol: registry.npmjs.org/pg-protocol/1.6.0
       pg-types: registry.npmjs.org/pg-types/2.2.0
       pgpass: registry.npmjs.org/pgpass/1.0.5
@@ -756,17 +787,27 @@ packages:
     version: 0.13.11
     dev: false
 
+  registry.npmjs.org/require-esm-in-cjs/0.1.0:
+    resolution: {integrity: sha512-cvUbHfMLrZ0ELkNFJ8jxfCMOPBOSKgt2Vr5j5XU1WrFCXVTDWJNIIkERU1YcVk/KlENrjq5F1jvj1KNnkFKB1Q==, registry: https://registry.npmjs.cf/, tarball: https://registry.npmjs.org/require-esm-in-cjs/-/require-esm-in-cjs-0.1.0.tgz}
+    name: require-esm-in-cjs
+    version: 0.1.0
+    dependencies:
+      deasync: registry.npmjs.org/deasync/0.1.28
+    dev: false
+
   registry.npmjs.org/rjutils-collection/1.2.0:
     resolution: {integrity: sha512-aCr0EjevPYASNt3vBSMVFk/0BYUxTZixe5ZXju9+koN547Y0aHDGDyIwFXIdXwjtYMoHhpGkJejFWYLROgqY+w==, registry: https://registry.npmjs.cf/, tarball: https://registry.npmjs.org/rjutils-collection/-/rjutils-collection-1.2.0.tgz}
     name: rjutils-collection
     version: 1.2.0
     dev: false
 
-  registry.npmjs.org/rjweb-server/4.0.3:
-    resolution: {integrity: sha512-glt6EGf3Go1/bwC2Bk5yxubbgTmmH1TnJKBlHvRh4WXI3BZEa51qvBBql2naJxFlubPBU8JTynvOg16YnLNMjQ==, registry: https://registry.npmjs.cf/, tarball: https://registry.npmjs.org/rjweb-server/-/rjweb-server-4.0.3.tgz}
+  registry.npmjs.org/rjweb-server/4.1.1:
+    resolution: {integrity: sha512-jT92URs9gcI0dmdIOMNfHM0eK0YOP4R+Xium/Guw06oO/rBFjPImG55N7zf3ibjMyE2ZPrCMRFAaTz1J07Fgkg==, registry: https://registry.npmjs.cf/, tarball: https://registry.npmjs.org/rjweb-server/-/rjweb-server-4.1.1.tgz}
     name: rjweb-server
-    version: 4.0.3
+    version: 4.1.1
     hasBin: true
+    dependencies:
+      require-esm-in-cjs: registry.npmjs.org/require-esm-in-cjs/0.1.0
     dev: false
 
   registry.npmjs.org/safe-buffer/5.2.1:

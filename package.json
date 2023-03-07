@@ -20,10 +20,10 @@
     "mathjs": "^11.6.0",
     "module-alias": "^2.2.2",
     "node-cron": "^3.0.2",
-    "pg": "^8.9.0",
+    "pg": "^8.10.0",
     "pretty-ms": "^8.0.0",
     "rjutils-collection": "^1.2.0",
-    "rjweb-server": "^4.0.3",
+    "rjweb-server": "^4.1.1",
     "simple-git": "^3.17.0"
   },
   "devDependencies": {
