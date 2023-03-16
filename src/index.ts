@@ -219,7 +219,6 @@ stdin.addListener("data", async(input) => {
 
 	if (config.web.api) await apiController.start().then(async(res) => {
 		console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [STA] $$$$$ STARTED API ON PORT ${res.port}, VERSION ${Version}`)
-		console.log(await (apiController as any).loadExternalPaths())
 	})
 
 	// Bot Stats
