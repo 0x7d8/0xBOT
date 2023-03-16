@@ -3,7 +3,7 @@ import simpleGit from "simple-git"
 
 const git = simpleGit()
 
-import ButtonInteraction from "@interfaces/ButtonInteraction.js"
+import ButtonInteraction from "@/interfaces/ButtonInteraction"
 export default {
 	data: {
 		name: 'commits-refresh'

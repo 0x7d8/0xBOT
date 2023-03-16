@@ -5,9 +5,9 @@
   "author": "0x4096",
   "license": "MIT",
   "scripts": {
-    "test": "rm -rf lib && tsc && cp -r ./src/dashboard ./lib && cp -r ./src/assets ./lib && cd lib && find . -path ./dashboard -prune -o -type f -exec sed -i 's/[\t]\\{1,\\}//g; s/    //g' {} + > /dev/null 2>&1 && node --enable-source-maps index && cd ..",
-    "build": "rm -rf lib && tsc --pretty false --removeComments true && cp -r ./src/dashboard ./lib && cp -r ./src/assets ./lib && cd lib && find . -path ./dashboard -prune -o -type f -exec sed -i 's/[\t]\\{1,\\}//g; s/    //g' {} + > /dev/null 2>&1 && cd ..",
-    "build:full": "rm -r lib && cd ./src/dashboard && pnpm build && cd ../.. && tsc --pretty false --removeComments true && cp -r ./src/dashboard ./lib && cp -r ./src/assets ./lib && cd lib && find . -path ./dashboard -prune -o -type f -exec sed -i 's/[\t]\\{1,\\}//g; s/    //g' {} + > /dev/null 2>&1 && cd ..",
+    "test": "yarn build && cd lib && node --enable-source-maps index && cd ..",
+    "build": "rm -rf lib && tsc --pretty false --removeComments true && cp -r src/dashboard lib/ && cd lib && find . -path ./dashboard -prune -o -type f -exec sed -i 's/[\t]\\{1,\\}//g; s/    //g' {} + > /dev/null 2>&1 && cd ..",
+    "build:full": "rm -r lib && cd ./src/dashboard && yarn build && cd ../.. && yarn build",
     "build:dashboard": "cd ./src/dashboard && pnpm build && cd ../.."
   },
   "homepage": "https://0xbot.de",

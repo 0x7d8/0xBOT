@@ -11,7 +11,7 @@ const db = new pg.Pool({
 })
 
 // Login
-import * as bot from "@functions/bot.js"
+import * as bot from "@/functions/bot"
 import { Client, GatewayIntentBits } from "discord.js"
 const client = new Client({
 	intents: [

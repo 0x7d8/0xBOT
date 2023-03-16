@@ -1,7 +1,7 @@
 import { EmbedBuilder, ButtonStyle } from "discord.js"
 
 import { ChannelType } from "discord.js"
-import ButtonInteraction from "@interfaces/ButtonInteraction.js"
+import ButtonInteraction from "@/interfaces/ButtonInteraction"
 export default {
 	data: {
 		name: 'item-bomb'

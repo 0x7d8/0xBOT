@@ -1,20 +1,16 @@
 // Module Register
 import moduleAlias from "module-alias"
 moduleAlias.addAlias('@', __dirname+'/')
-moduleAlias.addAlias('@interfaces', __dirname+'/interfaces')
-moduleAlias.addAlias('@functions', __dirname+'/functions')
-moduleAlias.addAlias('@assets', __dirname+'/assets')
-moduleAlias.addAlias('@utils', __dirname+'/utils')
 moduleAlias.addAlias('@config', __dirname+'/config.json')
 
 import * as cron from "node-cron"
-import { start } from "./bot.js"
+import { start } from "./bot"
 import { default as pg } from "pg"
-import { getAllFilesFilter } from "@utils/getAllFiles.js"
+import { getAllFilesFilter } from "@/utils/getAllFiles"
 import { default as axios } from "axios"
 import config from "@config"
 
-import WebserverInterface from "@interfaces/Webserver.js"
+import { HTTPContext } from "@/interfaces/Webserver"
 import { Server, Version } from "rjweb-server"
 
 // Create Client
@@ -23,9 +19,9 @@ const client = new Client({ intents: [
 	GatewayIntentBits.Guilds
 ] }); client.login(config.client.token)
 
-import * as apiFunctions from "@functions/api.js"
-import * as botFunctions from "@functions/bot.js"
-import * as bot from "@functions/bot.js"
+import * as apiFunctions from "@/functions/api"
+import * as botFunctions from "@/functions/bot"
+import * as bot from "@/functions/bot"
 
 // CLI Commands
 const stdin = process.openStdin()
@@ -133,9 +129,9 @@ stdin.addListener("data", async(input) => {
 			addTypes: true
 		})
 
-	webController.event('notfound', async(ctr: WebserverInterface) => {
+	webController.event('notfound', async(ctr: HTTPContext) => {
 		return ctr.printFile('./dashboard/dist/index.html')
-	}); webController.event('request', async(ctr: WebserverInterface) => {
+	}); webController.event('request', async(ctr: HTTPContext) => {
 		if (!ctr.headers.get('user-agent')?.startsWith('Uptime-Kuma')) console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [WEB] [${ctr.url.method.toUpperCase()}] ${ctr.url.pathname}`)
 	})
 
@@ -153,7 +149,7 @@ stdin.addListener("data", async(input) => {
 		compression: 'gzip',
 		rateLimits: {
 			enabled: true,
-			message: { "success": false, "message": 'RATE LIMITED' },
+			message: { success: false, message: 'RATE LIMITED' },
 			functions: rateLimits,
 			list: [
 				{
@@ -178,33 +174,34 @@ stdin.addListener("data", async(input) => {
 		}, body: {
 			enabled: true,
 			maxSize: 1,
-			message: { "success": false, "message": 'HTTP BODY TOO BIG' }
+			message: { success: false, message: 'HTTP BODY TOO BIG' }
 		}
 	})
 
-	await apiController.prefix('/')
-		.validate(async(ctr: WebserverInterface) => {
+	apiController.prefix('/')
+		.validate(async(ctr: HTTPContext) => {
 			// Check Permissions
-			if (!ctr.headers.has('authtoken')) return ctr.status(422).print({ "success": false, "message": 'NO AUTH TOKEN' })
-			if (!await ctr['@'].api.checkAuth(ctr.headers.get('authtoken'), ctr.queries.get('id'))) return ctr.status(401).print({ "success": false, "message": 'PERMISSION DENIED' })
-		}).loadCJS('apis/authorized/guild')
-	await apiController.prefix('/')
-		.validate(async(ctr: WebserverInterface) => {
+			if (!ctr.headers.has('authtoken')) return ctr.status(422).print({ success: false, message: 'NO AUTH TOKEN' })
+			if (!await ctr['@'].api.checkAuth(ctr.headers.get('authtoken'), ctr.queries.get('id'))) return ctr.status(401).print({ success: false, message: 'PERMISSION DENIED' })
+		}).loadCJS('routes/authorized/guild')
+
+	apiController.prefix('/')
+		.validate(async(ctr: HTTPContext) => {
 			// Check Token
-			if (!ctr.headers.has('authtoken')) return ctr.status(422).print({ "success": false, "message": 'NO AUTH TOKEN' })
+			if (!ctr.headers.has('authtoken')) return ctr.status(422).print({ success: false, message: 'NO AUTH TOKEN' })
 			ctr.setCustom('user', await ctr['@'].api.users.get(ctr.headers.get('authtoken')))
-			if (!ctr["@"].user.id) return ctr.status(401).print({ "success": false, "message": 'TOKEN NOT FOUND' })
-		}).loadCJS('apis/authorized/user')
+			if (!ctr["@"].user.id) return ctr.status(401).print({ success: false, message: 'TOKEN NOT FOUND' })
+		}).loadCJS('routes/authorized/user')
 
-	await apiController.prefix('/')
-		.loadCJS('apis/normal')
+	apiController.prefix('/')
+		.loadCJS('routes/normal')
 
-	apiController.event('notfound', async(ctr: WebserverInterface) => {
+	apiController.event('notfound', async(ctr: HTTPContext) => {
 		return ctr.status(404).print({
-			"success": false,
-			"message": 'ROUTE NOT FOUND'
+			success: false,
+			message: 'ROUTE NOT FOUND'
 		})
-	}); apiController.event('request', async(ctr: WebserverInterface) => {
+	}); apiController.event('request', async(ctr: HTTPContext) => {
 		ctr.setCustom('api', apiFunctions)
 		ctr.setCustom('bot', botFunctions)
 		ctr.setCustom('config', config)
@@ -212,11 +209,11 @@ stdin.addListener("data", async(input) => {
 		ctr.setCustom('db', db as any)
 
 		if (!ctr.headers.get('user-agent')?.startsWith('Uptime-Kuma')) console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [API] [${ctr.url.method}] ${ctr.url.pathname}`)
-	}); apiController.event('error', async(ctr: WebserverInterface<any, true>) => {
-		console.log(ctr.error.stack)
+	}); apiController.event('error', async(ctr: HTTPContext) => {
+		console.error(ctr.error.stack)
 		return ctr.status(500).print({
-			"success": false,
-			"message": 'SERVER ERROR'
+			success: false,
+			message: 'SERVER ERROR'
 		})
 	})
 

@@ -1,0 +1,1 @@
+{"version":3,"file":"check.js","sourceRoot":"src/","sources":["routes/authorized/user/check.ts"],"names":[],"mappings":";AAIA,iBAAS;IACR,MAAM,EAAE,KAAK;IACb,IAAI,EAAE,aAAa;IAEnB,KAAK,CAAC,IAAI,CAAC,GAAG;QAEb,OAAO,GAAG,CAAC,KAAK,CAAC;YAChB,OAAO,EAAE,IAAI;SACb,CAAC,CAAA;IACH,CAAC;CACsB,CAAA"}

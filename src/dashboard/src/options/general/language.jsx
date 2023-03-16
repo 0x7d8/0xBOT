@@ -34,7 +34,7 @@ function Option({ settings, cookies }) {
           toast({
             title: <Center>SUCCESS</Center>,
             description: <Center>You changed the Language to {opt}!</Center>,
-            status: "success",
+            status: success,
             duration: 1500,
             isClosable: true,
             variant: "subtle",

@@ -3,7 +3,7 @@ import { AttachmentBuilder } from "discord.js"
 
 import * as canvas from "canvacord"
 
-import CommandInteraction from "@interfaces/CommandInteraction.js"
+import CommandInteraction from "@/interfaces/CommandInteraction"
 export default {
 	data: new SlashCommandBuilder()
 		.setName('level')

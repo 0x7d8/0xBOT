@@ -1,7 +1,7 @@
 import { SlashCommandBuilder, EmbedBuilder } from "discord.js"
 import * as utils from "rjutils-collection"
 
-import CommandInteraction from "@interfaces/CommandInteraction.js"
+import CommandInteraction from "@/interfaces/CommandInteraction"
 export default {
 	data: new SlashCommandBuilder()
 		.setName('password')

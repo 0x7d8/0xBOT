@@ -1,30 +1,30 @@
 import { CommandInteraction, EmbedBuilder } from "discord.js"
-import Client from "@interfaces/Client.js"
+import Client from "@/interfaces/Client"
 
-import * as stat from "./stats.js"
+import * as stat from "./stats"
 import * as utils from "rjutils-collection"
 import * as fs from "fs"
 
 /// Functions
 // Noname
-export * as stat from "./stats.js"
+export * as stat from "./stats"
 
 // Misc
-export * as apis from "./misc/apis.js"
-export * as votes from "./misc/votes.js"
-export * as quotes from "./misc/quotes.js"
-export * as polls from "./misc/polls.js"
-export * as userdb from "./misc/userdb.js"
-export * as settings from "./misc/settings.js"
-export * as language from "./misc/language.js"
-export * as cooldown from "./misc/cooldown.js"
+export * as apis from "./misc/apis"
+export * as votes from "./misc/votes"
+export * as quotes from "./misc/quotes"
+export * as polls from "./misc/polls"
+export * as userdb from "./misc/userdb"
+export * as settings from "./misc/settings"
+export * as language from "./misc/language"
+export * as cooldown from "./misc/cooldown"
 
 // Economy
-export * as items from "./economy/items.js"
-export * as money from "./economy/money.js"
-export * as stocks from "./economy/stocks.js"
-export * as businesses from "./economy/businesses.js"
-export * as transactions from "./economy/transactions.js"
+export * as items from "./economy/items"
+export * as money from "./economy/money"
+export * as stocks from "./economy/stocks"
+export * as businesses from "./economy/businesses"
+export * as transactions from "./economy/transactions"
 
 // Math
 export const inRange = (x: number, min: number, max: number) => {

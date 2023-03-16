@@ -17,8 +17,8 @@ const db = new pg.Pool({
 	ssl: true
 })
 
-import * as bot from "@functions/bot.js"
-import Client from "@interfaces/Client.js"
+import * as bot from "@/functions/bot"
+import Client from "@/interfaces/Client"
 export default {
 	name: 'START BOT',
 	event: Events.ClientReady,

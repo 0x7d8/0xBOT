@@ -2,7 +2,7 @@ import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js"
 import { EmbedBuilder } from "discord.js"
 import { setTimeout as wait } from "timers/promises"
 
-import ButtonInteraction from "@interfaces/ButtonInteraction.js"
+import ButtonInteraction from "@/interfaces/ButtonInteraction"
 export default {
 	data: {
 		name: 'memory-yes'

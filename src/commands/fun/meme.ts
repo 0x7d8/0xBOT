@@ -3,7 +3,7 @@ import { SlashCommandBuilder, EmbedBuilder } from "discord.js"
 
 import { default as axios } from "axios"
 
-import CommandInteraction from "@interfaces/CommandInteraction.js"
+import CommandInteraction from "@/interfaces/CommandInteraction"
 export default {
 	data: new SlashCommandBuilder()
 		.setName('meme')

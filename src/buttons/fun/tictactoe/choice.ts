@@ -16,7 +16,7 @@ const rowGet = (button: number) => {
 	return output
 }
 
-import ButtonInteraction from "@interfaces/ButtonInteraction.js"
+import ButtonInteraction from "@/interfaces/ButtonInteraction"
 export default {
 	data: {
 		name: 'ttt-choice'

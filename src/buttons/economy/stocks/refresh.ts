@@ -1,6 +1,6 @@
 import { EmbedBuilder } from "discord.js"
 
-import ButtonInteraction from "@interfaces/ButtonInteraction.js"
+import ButtonInteraction from "@/interfaces/ButtonInteraction"
 export default {
 	data: {
 		name: 'stock-refresh'

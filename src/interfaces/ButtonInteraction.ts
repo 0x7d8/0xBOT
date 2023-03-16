@@ -1,6 +1,6 @@
 import { ButtonInteraction, ButtonBuilder, ActionRowData } from "discord.js"
-import Client from "@interfaces/Client.js"
-import * as bot from "@functions/bot.js"
+import Client from "@/interfaces/Client"
+import * as bot from "@/functions/bot"
 import { PoolClient } from "pg"
 
 export default interface Interface {

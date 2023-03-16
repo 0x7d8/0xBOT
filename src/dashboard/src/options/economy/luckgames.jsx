@@ -36,7 +36,7 @@ function Option({ settings, cookies }) {
           toast({
             title: <Center>SUCCESS</Center>,
             description: <Center>You {calcopt} Luck Games!</Center>,
-            status: "success",
+            status: success,
             duration: 1500,
             isClosable: true,
             variant: "subtle",

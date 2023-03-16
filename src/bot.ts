@@ -1,24 +1,20 @@
 // Module Register
 import moduleAlias from "module-alias"
 moduleAlias.addAlias('@', __dirname+'/')
-moduleAlias.addAlias('@interfaces', __dirname+'/interfaces')
-moduleAlias.addAlias('@functions', __dirname+'/functions')
-moduleAlias.addAlias('@assets', __dirname+'/assets')
-moduleAlias.addAlias('@utils', __dirname+'/utils')
 moduleAlias.addAlias('@config', __dirname+'/config.json')
 
 const sleep = (milliseconds: number) => Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, milliseconds)
 
 import * as cron from "node-cron"
 import { Events, Client, Collection, GatewayIntentBits, ButtonBuilder, ActionRowBuilder } from "discord.js"
-import { getAllFilesFilter } from "@utils/getAllFiles.js"
-import { Timer } from "@utils/timer.js"
+import { getAllFilesFilter } from "@/utils/getAllFiles"
+import { Timer } from "@/utils/timer"
 import { PoolClient } from "pg"
 
 import config from "@config"
 
 // Create Client
-import iClient from "@interfaces/Client.js"
+import iClient from "@/interfaces/Client"
 const client: iClient = new Client({
 	intents: [
 		GatewayIntentBits.Guilds,
@@ -34,7 +30,7 @@ const timer = new Timer()
 let didload = false
 
 import { ApplicationCommandDataResolvable } from "discord.js"
-import Command from "@interfaces/Command.js"
+import Command from "@/interfaces/Command"
 const login = (client: Client, commandFiles: string[]) => {
 	timer.start()
 	client.login(config.client.token).then(async() => {
@@ -79,12 +75,12 @@ const login = (client: Client, commandFiles: string[]) => {
 	})
 }
 
-import CommandInteraction from "@interfaces/CommandInteraction.js"
-import ButtonInteraction from "@interfaces/ButtonInteraction.js"
-import ModalInteraction from "@interfaces/ModalInteraction.js"
+import CommandInteraction from "@/interfaces/CommandInteraction"
+import ButtonInteraction from "@/interfaces/ButtonInteraction"
+import ModalInteraction from "@/interfaces/ModalInteraction"
 
 // Bot Functions
-import * as bot from "@functions/bot.js"
+import * as bot from "@/functions/bot"
 client.config = config
 export const start = (db: PoolClient) => {
 	/// Register External Files

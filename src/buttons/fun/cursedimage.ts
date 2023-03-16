@@ -2,7 +2,7 @@ import { EmbedBuilder } from "discord.js"
 
 import { default as axios } from "axios"
 
-import ButtonInteraction from "@interfaces/ButtonInteraction.js"
+import ButtonInteraction from "@/interfaces/ButtonInteraction"
 export default {
 	data: {
 		name: 'cursedimage'

@@ -1,7 +1,7 @@
 import { SlashCommandBuilder, EmbedBuilder } from "discord.js"
 import { PermissionFlagsBits } from "discord-api-types/v10"
 
-import CommandInteraction from "@interfaces/CommandInteraction.js"
+import CommandInteraction from "@/interfaces/CommandInteraction"
 export default {
 	data: new SlashCommandBuilder()
 		.setName('language')

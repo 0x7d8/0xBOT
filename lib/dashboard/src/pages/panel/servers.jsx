@@ -52,6 +52,35 @@ function ServerBox(props) {
   let useWidth = 100
   if (width < 1150 && width > 750) { useWidth = 75 }
 
+  const invalidToast = () => {
+    toast({
+      title: <Center>ERROR</Center>,
+      description: (
+        <Center>
+          <VStack>
+            <Text>Please Invite the Bot to that Server first.</Text>
+            <Button
+              mt="1rem"
+              colorScheme="gray"
+              variant="outline"
+              onClick={() => window.location.replace('https://top.gg/bot/1001944224545128588/invite') }
+            >
+              INVITE
+            </Button>
+          </VStack>
+        </Center>
+      ),
+      status: "error",
+      duration: 6000,
+      isClosable: true,
+      variant: "subtle",
+      position: "top-right",
+      containerStyle: {
+        transform: "translateY(4.5rem)"
+      }
+    })
+  }
+
   const goServer = (id) => {
     axios
       .get(`https://api.0xbot.de/check/guild?id=${id}`, {
@@ -61,33 +90,9 @@ function ServerBox(props) {
       })
       .then((res) => {
         if (res.data.success) return navigate(`/panel/manage?server=${id}`)
-        toast({
-          title: <Center>ERROR</Center>,
-          description: (
-            <Center>
-              <VStack>
-                <Text>Please Invite the Bot to that Server first.</Text>
-                <Button
-                  mt="1rem"
-                  colorScheme="gray"
-                  variant="outline"
-                  onClick={() => window.location.replace('https://top.gg/bot/1001944224545128588/invite') }
-                >
-                  INVITE
-                </Button>
-              </VStack>
-            </Center>
-          ),
-          status: "error",
-          duration: 6000,
-          isClosable: true,
-          variant: "subtle",
-          position: "top-right",
-          containerStyle: {
-            transform: "translateY(4.5rem)"
-          }
-        })
+        invalidToast()
       })
+      .catch(invalidToast)
   }
 
   return (

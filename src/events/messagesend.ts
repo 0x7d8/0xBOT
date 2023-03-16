@@ -1,8 +1,8 @@
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js"
 import { Events, Message } from "discord.js"
 
-import * as bot from "@functions/bot.js"
-import Client from "@interfaces/Client.js"
+import * as bot from "@/functions/bot"
+import Client from "@/interfaces/Client"
 export default {
 	name: 'MESSAGE SEND',
 	event: Events.MessageCreate,

@@ -1,6 +1,6 @@
 const { EmbedBuilder } = require('discord.js')
 
-import ModalInteraction from "@interfaces/ModalInteraction.js"
+import ModalInteraction from "@/interfaces/ModalInteraction"
 export default {
 	data: {
 		name: 'say'

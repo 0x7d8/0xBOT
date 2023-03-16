@@ -4,7 +4,7 @@ import simpleGit from "simple-git"
 
 const git = simpleGit()
 
-import CommandInteraction from "@interfaces/CommandInteraction.js"
+import CommandInteraction from "@/interfaces/CommandInteraction"
 export default {
 	data: new SlashCommandBuilder()
 		.setName('commits')
