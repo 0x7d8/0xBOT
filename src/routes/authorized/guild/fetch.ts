@@ -13,12 +13,15 @@ export = {
 		let cont = true
 
 		// Fetch Guild
-		let guild = await ctr['@'].client.guilds.fetch(ctr.queries.get('id')).catch(() => {
+		const guild = await ctr['@'].client.guilds.fetch(ctr.queries.get('id')).catch(() => {
 			cont = false
 			return ctr.print({ success: false, message: 'INVALID GUILD' })
-		}); (guild as any).success = true
+		})
 
 		// Return Result
-		if (cont) return ctr.print(guild)
+		if (cont) return ctr.print({
+			success: true,
+			...guild
+		})
 	}
 } as HTTPRouteFile<Body>

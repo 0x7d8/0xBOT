@@ -206,7 +206,7 @@ stdin.addListener("data", async(input) => {
 		ctr.setCustom('bot', botFunctions)
 		ctr.setCustom('config', config)
 		ctr.setCustom('client', client)
-		ctr.setCustom('db', db as any)
+		ctr.setCustom('db', db)
 
 		if (!ctr.headers.get('user-agent')?.startsWith('Uptime-Kuma')) console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [API] [${ctr.url.method}] ${ctr.url.pathname}`)
 	}); apiController.event('error', async(ctr: HTTPContext) => {
@@ -217,8 +217,9 @@ stdin.addListener("data", async(input) => {
 		})
 	})
 
-	if (config.web.api) await apiController.start().then((res) => {
+	if (config.web.api) await apiController.start().then(async(res) => {
 		console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [STA] $$$$$ STARTED API ON PORT ${res.port}, VERSION ${Version}`)
+		console.log(await (apiController as any).loadExternalPaths())
 	})
 
 	// Bot Stats

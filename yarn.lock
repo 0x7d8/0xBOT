@@ -538,9 +538,9 @@ rjutils-collection@^1.2.0:
   integrity sha512-aCr0EjevPYASNt3vBSMVFk/0BYUxTZixe5ZXju9+koN547Y0aHDGDyIwFXIdXwjtYMoHhpGkJejFWYLROgqY+w==
 
 rjweb-server@^4.1.1:
-  version "4.2.6"
-  resolved "https://registry.yarnpkg.com/rjweb-server/-/rjweb-server-4.2.6.tgz#593583c3f6c9914832aa3d451e456f661c92943d"
-  integrity sha512-P4aeFLz4rFzW5WaWONVf50JapJHm9tA9auiBQUnG29IBl5YYHcnPh59yy+yk3+cukHAZHX5RkJjuWaHhZ5/3gw==
+  version "4.2.8"
+  resolved "https://registry.yarnpkg.com/rjweb-server/-/rjweb-server-4.2.8.tgz#7ba96c52aa6113d5cfac91a941a677f003c9b337"
+  integrity sha512-3PXNeAv1Q5yEqBk7dQSKA9T82hN/lMMMhUoN8eaeFS1SPWAMGZZBrqoucB6c6cFu+UqEHxyNg75oTRQJRcTXtw==
 
 safe-buffer@~5.2.0:
   version "5.2.1"
