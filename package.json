@@ -23,7 +23,8 @@
     "pg": "^8.10.0",
     "pretty-ms": "^8.0.0",
     "rjutils-collection": "^1.2.0",
-    "rjweb-server": "^4.1.1",
+    "rjweb-server": "^5.0.0",
+    "rjweb-server-ratelimit": "^1.0.0",
     "simple-git": "^3.17.0"
   },
   "devDependencies": {

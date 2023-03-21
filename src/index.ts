@@ -12,6 +12,7 @@ import config from "@config"
 
 import { HTTPContext } from "@/interfaces/Webserver"
 import { Server, Version } from "rjweb-server"
+import { Init as RateLimiter } from "rjweb-server-ratelimit"
 
 // Create Client
 import { Client, GatewayIntentBits } from "discord.js"
@@ -123,15 +124,16 @@ stdin.addListener("data", async(input) => {
 		}
 	})
 
-	webController.prefix('/')
+	webController.path('/', (path) => path
 		.static('dashboard/dist', {
 			hideHTML: true,
 			addTypes: true
 		})
+	)
 
-	webController.event('notfound', async(ctr: HTTPContext) => {
+	webController.event('http404', async(ctr: HTTPContext) => {
 		return ctr.printFile('./dashboard/dist/index.html')
-	}); webController.event('request', async(ctr: HTTPContext) => {
+	}).event('httpRequest', async(ctr: HTTPContext) => {
 		if (!ctr.headers.get('user-agent')?.startsWith('Uptime-Kuma')) console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [WEB] [${ctr.url.method.toUpperCase()}] ${ctr.url.pathname}`)
 	})
 
@@ -140,35 +142,13 @@ stdin.addListener("data", async(input) => {
 	})
 
 	// API
-	const rateLimits = new Map()
 	const apiController = new Server({
 		bind: '0.0.0.0',
 		cors: true,
 		proxy: true,
 		port: config.web.ports.api,
 		compression: 'gzip',
-		rateLimits: {
-			enabled: true,
-			message: { success: false, message: 'RATE LIMITED' },
-			functions: rateLimits,
-			list: [
-				{
-					path: '/auth',
-					times: 10,
-					timeout: 10000
-				},
-				{
-					path: '/fetch',
-					times: 5,
-					timeout: 10000
-				},
-				{
-					path: '/check',
-					times: 5,
-					timeout: 10000
-				}
-			]
-		}, dashboard: {
+		dashboard: {
 			enabled: true,
 			path: '/upturned-precision-garnet'
 		}, body: {
@@ -178,30 +158,52 @@ stdin.addListener("data", async(input) => {
 		}
 	})
 
-	apiController.prefix('/')
+	apiController.middleware(RateLimiter({
+		rules: [
+			{
+				path: '/auth/refresh',
+				timeWindow: (1000 * 60 * 60 * 60 * 6),
+				maxHits: 5,
+				message: { success: false, message: 'RATE LIMIT HIT' }
+			},
+			{
+				path: '/guild/check',
+				timeWindow: (1000 * 60 * 60 * 60 * 6),
+				maxHits: 25,
+				message: { success: false, message: 'RATE LIMIT HIT' }
+			}
+		]
+	}))
+
+	apiController.path('/', (path) => path
 		.validate(async(ctr: HTTPContext) => {
 			// Check Permissions
 			if (!ctr.headers.has('authtoken')) return ctr.status(422).print({ success: false, message: 'NO AUTH TOKEN' })
 			if (!await ctr['@'].api.checkAuth(ctr.headers.get('authtoken'), ctr.queries.get('id'))) return ctr.status(401).print({ success: false, message: 'PERMISSION DENIED' })
-		}).loadCJS('routes/authorized/guild')
+		})
+		.loadCJS('routes/authorized/guild')
+	)
 
-	apiController.prefix('/')
+	apiController.path('/', (path) => path
 		.validate(async(ctr: HTTPContext) => {
 			// Check Token
 			if (!ctr.headers.has('authtoken')) return ctr.status(422).print({ success: false, message: 'NO AUTH TOKEN' })
 			ctr.setCustom('user', await ctr['@'].api.users.get(ctr.headers.get('authtoken')))
 			if (!ctr["@"].user.id) return ctr.status(401).print({ success: false, message: 'TOKEN NOT FOUND' })
-		}).loadCJS('routes/authorized/user')
+		})
+		.loadCJS('routes/authorized/user')
+	)
 
-	apiController.prefix('/')
+	apiController.path('/', (path) => path
 		.loadCJS('routes/normal')
+	)
 
-	apiController.event('notfound', async(ctr: HTTPContext) => {
+	apiController.event('http404', async(ctr: HTTPContext) => {
 		return ctr.status(404).print({
 			success: false,
 			message: 'ROUTE NOT FOUND'
 		})
-	}); apiController.event('request', async(ctr: HTTPContext) => {
+	}); apiController.event('httpRequest', async(ctr: HTTPContext) => {
 		ctr.setCustom('api', apiFunctions)
 		ctr.setCustom('bot', botFunctions)
 		ctr.setCustom('config', config)
@@ -209,8 +211,8 @@ stdin.addListener("data", async(input) => {
 		ctr.setCustom('db', db)
 
 		if (!ctr.headers.get('user-agent')?.startsWith('Uptime-Kuma')) console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [API] [${ctr.url.method}] ${ctr.url.pathname}`)
-	}); apiController.event('error', async(ctr: HTTPContext) => {
-		console.error(ctr.error.stack)
+	}); apiController.event('runtimeError', async(ctr: HTTPContext, error) => {
+		console.error(error.stack)
 		return ctr.status(500).print({
 			success: false,
 			message: 'SERVER ERROR'
