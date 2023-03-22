@@ -203,7 +203,7 @@ stdin.addListener("data", async(input) => {
 			success: false,
 			message: 'ROUTE NOT FOUND'
 		})
-	}); apiController.event('httpRequest', async(ctr: HTTPContext) => {
+	}).event('httpRequest', async(ctr: HTTPContext) => {
 		ctr.setCustom('api', apiFunctions)
 		ctr.setCustom('bot', botFunctions)
 		ctr.setCustom('config', config)
@@ -211,7 +211,7 @@ stdin.addListener("data", async(input) => {
 		ctr.setCustom('db', db)
 
 		if (!ctr.headers.get('user-agent')?.startsWith('Uptime-Kuma')) console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [API] [${ctr.url.method}] ${ctr.url.pathname}`)
-	}); apiController.event('runtimeError', async(ctr: HTTPContext, error) => {
+	}).event('runtimeError', async(ctr: HTTPContext, error) => {
 		console.error(error.stack)
 		return ctr.status(500).print({
 			success: false,
@@ -219,13 +219,13 @@ stdin.addListener("data", async(input) => {
 		})
 	})
 
-	if (config.web.api) await apiController.start().then(async(res) => {
+	if (config.web.api) await apiController.start().then((res) => {
 		console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [STA] $$$$$ STARTED API ON PORT ${res.port}, VERSION ${Version}`)
 	})
 
 	// Bot Stats
 	if (config.web.stats) {
-		cron.schedule('0 */1 * * *', async() => {
+		cron.schedule('0 * * * *', async() => {
 			{ // TOP.GG
 				const req = await axios({
 					method: 'POST',

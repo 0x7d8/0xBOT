@@ -545,9 +545,9 @@ rjweb-server-ratelimit@^1.0.0:
     rjweb-server "^5.0.0"
 
 rjweb-server@^5.0.0:
-  version "5.2.1"
-  resolved "https://registry.yarnpkg.com/rjweb-server/-/rjweb-server-5.2.1.tgz#a491342a99ebe952fa2122db80315f53e524f4bc"
-  integrity sha512-Qm7JL6LRBOrFfhdDopChEO/BRbCqILQLOeV1heN8SsPtG0/WpqI+knbeim5xhEOnRV/R/byVDdN0Gl7hFAEpUA==
+  version "5.2.2"
+  resolved "https://registry.yarnpkg.com/rjweb-server/-/rjweb-server-5.2.2.tgz#9ec0a2d4b862e7ca6000e46f1d2e64043e385a4b"
+  integrity sha512-QN+bPdNII4IxiFUrglmPZw0BMgMlsH/jNqgaDH2FqO1Zv9cn7xRE1DYkJpeidjQhYFT/B7W3b0FUWayDnsWUZw==
   dependencies:
     uWebSockets.js uNetworking/uWebSockets.js#v20.19.0
 
