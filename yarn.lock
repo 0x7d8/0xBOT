@@ -166,9 +166,9 @@
   integrity sha512-9PuLtBboc/+JJ7FshmJWv769gDonTpItN0Ol5TMwclpSQNjVyB2SRxSKBcTtbSysSL5R7Oea06kTTFNciCoYwA==
 
 "@types/node@*", "@types/node@^18.14.6":
-  version "18.15.3"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.15.3.tgz#f0b991c32cfc6a4e7f3399d6cb4b8cf9a0315014"
-  integrity sha512-p6ua9zBxz5otCmbpb5D3U4B5Nanw6Pk3PPyX05xnxbB/fRv71N7CPmORg7uAD5P70T0xmx1pzAx/FUfa5X+3cw==
+  version "18.15.5"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.15.5.tgz#3af577099a99c61479149b716183e70b5239324a"
+  integrity sha512-Ark2WDjjZO7GmvsyFFf81MXuGTA/d6oP38anyxWOL6EREyBKAxKoFHwBhaZxCfLRLpO8JgVXwqOwSwa7jRcjew==
 
 "@types/pg@^8.6.6":
   version "8.6.6"
@@ -538,16 +538,18 @@ rjutils-collection@^1.2.0:
   integrity sha512-aCr0EjevPYASNt3vBSMVFk/0BYUxTZixe5ZXju9+koN547Y0aHDGDyIwFXIdXwjtYMoHhpGkJejFWYLROgqY+w==
 
 rjweb-server-ratelimit@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/rjweb-server-ratelimit/-/rjweb-server-ratelimit-1.0.0.tgz#4bad295da74dd4e55afe23d835feaba9c9a23134"
-  integrity sha512-MihP+qNnvNl/TMmu3Tuzf3gnB7cAB3ejPinUL572AY4IIlEDnv6iXY1xKu314Yim0NXvErdMfV1b6/lzVcD9SA==
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/rjweb-server-ratelimit/-/rjweb-server-ratelimit-1.0.1.tgz#761cae8d7ef35682a2d2498284bb2ca9867f4e9c"
+  integrity sha512-ShRB4LqMOK5IKhLx1i44d0ZjUuZfAlmaGGOaTx/ej16knkRs1A/9kmQAb9rtEBzB3KA9i+/HlKJVh4v+cq7Z1w==
   dependencies:
     rjweb-server "^5.0.0"
 
 rjweb-server@^5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/rjweb-server/-/rjweb-server-5.0.0.tgz#428f0b7a3a0c7f9011ba33aa421ec82e3c397fbf"
-  integrity sha512-40uPUjhfb13B+vd4Gja9EpQaUc2I4NfckcTX9CuzHOOQ5G1pbgQsmgHeBOUIqLYANG0dvP/mMm6Y85KlYGARew==
+  version "5.2.1"
+  resolved "https://registry.yarnpkg.com/rjweb-server/-/rjweb-server-5.2.1.tgz#a491342a99ebe952fa2122db80315f53e524f4bc"
+  integrity sha512-Qm7JL6LRBOrFfhdDopChEO/BRbCqILQLOeV1heN8SsPtG0/WpqI+knbeim5xhEOnRV/R/byVDdN0Gl7hFAEpUA==
+  dependencies:
+    uWebSockets.js uNetworking/uWebSockets.js#v20.19.0
 
 safe-buffer@~5.2.0:
   version "5.2.1"
@@ -630,6 +632,10 @@ typescript@^4.9.5:
   version "4.9.5"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.9.5.tgz#095979f9bcc0d09da324d58d03ce8f8374cbe65a"
   integrity sha512-1FXk9E2Hm+QzZQ7z+McJiHL4NW1F2EzMu9Nq9i3zAaGqibafqYwCVU6WyWAuyQRRzOlxou8xZSyXLEN8oKj24g==
+
+uWebSockets.js@uNetworking/uWebSockets.js#v20.19.0:
+  version "20.19.0"
+  resolved "https://codeload.github.com/uNetworking/uWebSockets.js/tar.gz/42c9c0d5d31f46ca4115dc75672b0037ec970f28"
 
 undici@^5.20.0:
   version "5.21.0"
