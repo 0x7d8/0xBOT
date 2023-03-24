@@ -1,4 +1,5 @@
 import { HTTPRouteFile } from "@/interfaces/Webserver"
+import { Guild } from "discord.js"
 
 interface Body {}
 
@@ -10,18 +11,16 @@ export = {
 		// Check for Queries
 		if (!ctr.queries.has('id')) return ctr.status(422).print({ success: false, message: 'NO ID' })
 
-		let cont = true
-
 		// Fetch Guild
-		const guild = await ctr['@'].client.guilds.fetch(ctr.queries.get('id')).catch(() => {
-			cont = false
-			return ctr.print({ success: false, message: 'INVALID GUILD' })
-		})
+		let guild: Guild
+		try {
+			guild = await ctr['@'].client.guilds.fetch(ctr.queries.get('id'))
+		} catch { return ctr.print({ success: false, message: 'INVALID GUILD' }) }
 
 		// Return Result
-		if (cont) return ctr.print({
+		return ctr.print({
 			success: true,
-			...guild
+			...guild.toJSON() as any
 		})
 	}
 } as HTTPRouteFile<Body>
