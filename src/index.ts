@@ -131,9 +131,9 @@ stdin.addListener("data", async(input) => {
 		})
 	)
 
-	webController.event('http404', async(ctr: HTTPContext) => {
+	webController.event('http404', (ctr: HTTPContext) => {
 		return ctr.printFile('./dashboard/dist/index.html')
-	}).event('httpRequest', async(ctr: HTTPContext) => {
+	}).event('httpRequest', (ctr: HTTPContext) => {
 		if (!ctr.headers.get('user-agent')?.startsWith('Uptime-Kuma')) console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [WEB] [${ctr.url.method.toUpperCase()}] ${ctr.url.pathname}`)
 	})
 
@@ -157,6 +157,9 @@ stdin.addListener("data", async(input) => {
 			message: { success: false, message: 'HTTP BODY TOO BIG' }
 		}
 	})
+
+	apiController.defaultHeaders()
+		.add('copyright', `${new Date().getFullYear()} 0x4096`)
 
 	apiController.middleware(RateLimiter({
 		rules: [

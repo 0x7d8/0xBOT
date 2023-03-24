@@ -166,9 +166,9 @@
   integrity sha512-9PuLtBboc/+JJ7FshmJWv769gDonTpItN0Ol5TMwclpSQNjVyB2SRxSKBcTtbSysSL5R7Oea06kTTFNciCoYwA==
 
 "@types/node@*", "@types/node@^18.14.6":
-  version "18.15.5"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.15.5.tgz#3af577099a99c61479149b716183e70b5239324a"
-  integrity sha512-Ark2WDjjZO7GmvsyFFf81MXuGTA/d6oP38anyxWOL6EREyBKAxKoFHwBhaZxCfLRLpO8JgVXwqOwSwa7jRcjew==
+  version "18.15.7"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.15.7.tgz#33514fca9bdf136f77027358850c0fb9cd93c669"
+  integrity sha512-LFmUbFunqmBn26wJZgZPYZPrDR1RwGOu2v79Mgcka1ndO6V0/cwjivPTc4yoK6n9kmw4/ls1r8cLrvh2iMibFA==
 
 "@types/pg@^8.6.6":
   version "8.6.6"
@@ -259,9 +259,9 @@ delayed-stream@~1.0.0:
   integrity sha512-ZySD7Nf91aLB0RxL4KGrKHBXl7Eds1DAmEdcoVawXnLD7SDhpNgtuII2aAkg7a7QS41jxPSZ17p4VdGnMHk3MQ==
 
 discord-api-types@^0.37.35:
-  version "0.37.36"
-  resolved "https://registry.yarnpkg.com/discord-api-types/-/discord-api-types-0.37.36.tgz#650a8f66dce2c5e54a8c2275db74a0bb7936430d"
-  integrity sha512-Nlxmp10UpVr/utgZ9uODQvG2Or+5w7LFrvFMswyeKC9l/+UaqGT6H0OVgEFhu9GEO4U6K7NNO5W8Carv7irnCA==
+  version "0.37.37"
+  resolved "https://registry.yarnpkg.com/discord-api-types/-/discord-api-types-0.37.37.tgz#49bc42a36124c85f06297f1548f130329ed5aeb0"
+  integrity sha512-LDMBKzl/zbvHO/yCzno5hevuA6lFIXJwdKSJZQrB+1ToDpFfN9thK+xxgZNR4aVkI7GHRDja0p4Sl2oYVPnHYg==
 
 discord-oauth2@^2.11.0:
   version "2.11.0"
@@ -545,9 +545,9 @@ rjweb-server-ratelimit@^1.0.0:
     rjweb-server "^5.0.0"
 
 rjweb-server@^5.0.0:
-  version "5.2.2"
-  resolved "https://registry.yarnpkg.com/rjweb-server/-/rjweb-server-5.2.2.tgz#9ec0a2d4b862e7ca6000e46f1d2e64043e385a4b"
-  integrity sha512-QN+bPdNII4IxiFUrglmPZw0BMgMlsH/jNqgaDH2FqO1Zv9cn7xRE1DYkJpeidjQhYFT/B7W3b0FUWayDnsWUZw==
+  version "5.3.1"
+  resolved "https://registry.yarnpkg.com/rjweb-server/-/rjweb-server-5.3.1.tgz#9c2ae8dcb77c86c8d07c0cf9831a0170cf54d54c"
+  integrity sha512-QW2fbjQtlslsl0am0ytNNS1x4vFb/wVyDvm+vkGaqjjkHed5QEdGQDIJkTv4eXz4zhj2bx7reZK1YaE09Gk0Yw==
   dependencies:
     uWebSockets.js uNetworking/uWebSockets.js#v20.19.0
 
