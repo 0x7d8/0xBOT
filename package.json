@@ -23,6 +23,7 @@
     "pretty-ms": "^8.0.0",
     "rjutils-collection": "^1.2.0",
     "rjweb-server": "^5.0.0",
+    "module-alias": "^2.2.2",
     "rjweb-server-ratelimit": "^2.0.0",
     "simple-git": "^3.17.0"
   },
@@ -31,7 +32,6 @@
     "@types/node": "^18.14.6",
     "@types/node-cron": "^3.0.7",
     "@types/pg": "^8.6.6",
-    "module-alias": "^2.2.2",
     "esbuild": "^0.17.14",
     "typescript": "^4.9.5"
   }
