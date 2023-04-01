@@ -178,7 +178,7 @@ export default {
 		}
 
 		// Create Embed
-		let message: any
+		let message: EmbedBuilder
 		if (amount === null || amount === 1) {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:BOXCHECK:1024401101589590156> » BUY ITEM')

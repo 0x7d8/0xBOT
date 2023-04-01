@@ -88,7 +88,7 @@ export default {
 
 			if (!oldleft) {
 				// Create Embed
-				let message: any
+				let message: EmbedBuilder
 				if (ctx.interaction.user.id !== businessowner) {
 					message = new EmbedBuilder().setColor(0x37009B)
 						.setTitle('<:EXCLAMATION:1024407166460891166> » ERROR')

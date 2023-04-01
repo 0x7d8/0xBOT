@@ -1,1 +1,7 @@
-{"version":3,"file":"tokens.js","sourceRoot":"src/","sources":["routes/authorized/user/tokens.ts"],"names":[],"mappings":";AAIA,iBAAS;IACR,MAAM,EAAE,KAAK;IACb,IAAI,EAAE,cAAc;IAEpB,KAAK,CAAC,IAAI,CAAC,GAAG;QAEb,OAAO,GAAG,CAAC,KAAK,CAAC;YAChB,OAAO,EAAE,IAAI;YACb,MAAM,EAAE;gBACP,MAAM,EAAE,GAAG,CAAC,GAAG,CAAC,CAAC,IAAI,CAAC,MAAM,CAAC,MAAM;gBACnC,OAAO,EAAE,GAAG,CAAC,GAAG,CAAC,CAAC,IAAI,CAAC,MAAM,CAAC,OAAO;aACrC;SACD,CAAC,CAAA;IACH,CAAC;CACsB,CAAA"}
+{
+  "version": 3,
+  "sources": ["../../../../src/routes/authorized/user/tokens.ts"],
+  "sourcesContent": ["import { HTTPRouteFile } from \"@/interfaces/Webserver\"\n\ninterface Body {}\n\nexport = {\n\tmethod: 'GET',\n\tpath: '/auth/tokens',\n\n\tasync code(ctr) {\n\t\t// Return Result\n\t\treturn ctr.print({\n\t\t\tsuccess: true,\n\t\t\ttokens: {\n\t\t\t\taccess: ctr[\"@\"].user.tokens.access,\n\t\t\t\trefresh: ctr[\"@\"].user.tokens.refresh\n\t\t\t}\n\t\t})\n\t}\n} as HTTPRouteFile<Body>"],
+  "mappings": "AAIA,iBAAS;AAAA,EACR,QAAQ;AAAA,EACR,MAAM;AAAA,EAEN,MAAM,KAAK,KAAK;AAEf,WAAO,IAAI,MAAM;AAAA,MAChB,SAAS;AAAA,MACT,QAAQ;AAAA,QACP,QAAQ,IAAI,GAAG,EAAE,KAAK,OAAO;AAAA,QAC7B,SAAS,IAAI,GAAG,EAAE,KAAK,OAAO;AAAA,MAC/B;AAAA,IACD,CAAC;AAAA,EACF;AACD;",
+  "names": []
+}

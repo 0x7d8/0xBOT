@@ -55,7 +55,7 @@ export default {
 		}
 		
 		// Create Embeds
-		let message: any
+		let message: EmbedBuilder
 		if (!user) {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:CLOCK:1054137880345329714> » YOUR ACTIVE COOLDOWNS')

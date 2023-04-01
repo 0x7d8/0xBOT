@@ -73,7 +73,7 @@ export default {
 		ctx.bot.money.add(ctx.interaction.guild.id, reciever, amount)
 
 		// Create Embeds
-		let message: any
+		let message: EmbedBuilder
 		if (reasontype !== 'SET') {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:DONATE:1024397357988720711> » BEGGING')

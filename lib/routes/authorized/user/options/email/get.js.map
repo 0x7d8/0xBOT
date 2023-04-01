@@ -1,1 +1,7 @@
-{"version":3,"file":"get.js","sourceRoot":"src/","sources":["routes/authorized/user/options/email/get.ts"],"names":[],"mappings":";AAIA,iBAAS;IACR,MAAM,EAAE,KAAK;IACb,IAAI,EAAE,gBAAgB;IAEtB,KAAK,CAAC,IAAI,CAAC,GAAG;QAEb,MAAM,KAAK,GAAG,MAAM,GAAG,CAAC,GAAG,CAAC,CAAC,EAAE,CAAC,KAAK,CAAC,4DAA4D,EAAE;YACnG,GAAG,CAAC,GAAG,CAAC,CAAC,IAAI,CAAC,EAAE;YAChB,GAAG,CAAC,GAAG,CAAC,CAAC,IAAI,CAAC,KAAK;SACnB,CAAC,CAAA;QAEF,IAAI,KAAK,CAAC,QAAQ,KAAK,CAAC;YAAE,OAAO,GAAG,CAAC,KAAK,CAAC,EAAE,OAAO,EAAE,IAAI,EAAE,KAAK,EAAE,IAAI,EAAE,CAAC,CAAA;;YACrE,OAAO,GAAG,CAAC,KAAK,CAAC,EAAE,OAAO,EAAE,IAAI,EAAE,KAAK,EAAE,KAAK,EAAE,CAAC,CAAA;IACvD,CAAC;CACsB,CAAA"}
+{
+  "version": 3,
+  "sources": ["../../../../../../src/routes/authorized/user/options/email/get.ts"],
+  "sourcesContent": ["import { HTTPRouteFile } from \"@/interfaces/Webserver\"\n\ninterface Body {}\n\nexport = {\n\tmethod: 'GET',\n\tpath: '/options/email',\n\n\tasync code(ctr) {\n\t\t// Get Email\n\t\tconst email = await ctr['@'].db.query(`select * from useremails where userid = $1 and email = $2;`, [\n\t\t\tctr[\"@\"].user.id,\n\t\t\tctr[\"@\"].user.email\n\t\t])\n\t\t\n\t\tif (email.rowCount === 1) return ctr.print({ success: true, email: true })\n\t\telse return ctr.print({ success: true, email: false })\n\t}\n} as HTTPRouteFile<Body>"],
+  "mappings": "AAIA,iBAAS;AAAA,EACR,QAAQ;AAAA,EACR,MAAM;AAAA,EAEN,MAAM,KAAK,KAAK;AAEf,UAAM,QAAQ,MAAM,IAAI,GAAG,EAAE,GAAG,MAAM,8DAA8D;AAAA,MACnG,IAAI,GAAG,EAAE,KAAK;AAAA,MACd,IAAI,GAAG,EAAE,KAAK;AAAA,IACf,CAAC;AAED,QAAI,MAAM,aAAa;AAAG,aAAO,IAAI,MAAM,EAAE,SAAS,MAAM,OAAO,KAAK,CAAC;AAAA;AACpE,aAAO,IAAI,MAAM,EAAE,SAAS,MAAM,OAAO,MAAM,CAAC;AAAA,EACtD;AACD;",
+  "names": []
+}

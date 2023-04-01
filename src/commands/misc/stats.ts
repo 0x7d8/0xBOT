@@ -78,7 +78,7 @@ export default {
 		}
 
 		// Create Embed
-		let message: any
+		let message: EmbedBuilder
 		if (!user) {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:GEAR:1024404241701417011> » YOUR INTERACTION STATISTICS')

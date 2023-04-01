@@ -1,1 +1,7 @@
-{"version":3,"file":"Command.js","sourceRoot":"src/","sources":["interfaces/Command.ts"],"names":[],"mappings":""}
+{
+  "version": 3,
+  "sources": ["../../src/interfaces/Command.ts"],
+  "sourcesContent": ["import { CommandInteraction, Client } from \"discord.js\"\n\nexport default interface Interface {\n\tdata: {\n\t\tname: string\n\t\tdescription: string\n\t\toptions: any\n\t\ttoJSON: () => object\n\t}\n\n\texecute: (client: Client, interaction: CommandInteraction) => void\n}"],
+  "mappings": ";;;;;;;;;;;;;AAAA;AAAA;",
+  "names": []
+}

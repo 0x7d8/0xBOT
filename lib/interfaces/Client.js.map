@@ -1,1 +1,7 @@
-{"version":3,"file":"Client.js","sourceRoot":"src/","sources":["interfaces/Client.ts"],"names":[],"mappings":""}
+{
+  "version": 3,
+  "sources": ["../../src/interfaces/Client.ts"],
+  "sourcesContent": ["import { Client, LimitedCollection } from \"discord.js\"\nimport config from \"@config\"\n\nexport default interface Interface extends Client {\n\tcommands: LimitedCollection<any, any>\n\tbuttons: LimitedCollection<any, any>\n\tmodals: LimitedCollection<any, any>\n\n\tconfig: typeof config\n\tstocks?: {\n\t\trefresh?: number\n\n\t\tgreen: number\n\t\toldgreen?: number\n\n\t\tblue: number\n\t\toldblue?: number\n\n\t\tyellow: number\n\t\toldyellow?: number\n\n\t\tred: number\n\t\toldred?: number\n\n\t\twhite: number\n\t\toldwhite?: number\n\n\t\tblack: number\n\t\toldblack?: number\n\n\t\tbrown: number\n\t\toldbrown?: number\n\n\t\tpurple: number\n\t\toldpurple?: number\n\t}\n}"],
+  "mappings": ";;;;;;;;;;;;;AAAA;AAAA;",
+  "names": []
+}

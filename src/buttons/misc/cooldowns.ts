@@ -21,7 +21,7 @@ export default {
 		}; if (embedDesc === '') { embedDesc = 'Nothing Found.'; if (ctx.metadata.language === 'de') { embedDesc = 'Nichts Gefunden.' } }
 
 		// Create Embeds
-		let message: any
+		let message: EmbedBuilder
 		if (!selfCmd) {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:CLOCK:1054137880345329714> » YOUR ACTIVE COOLDOWNS')

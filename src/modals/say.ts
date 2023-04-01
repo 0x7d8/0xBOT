@@ -11,7 +11,7 @@ export default {
 		const content = ctx.interaction.fields.getTextInputValue('say-content')
 
 		// Create Embed
-		let message: any
+		let message: EmbedBuilder
 		if (ctx.interaction.user.id !== '745619551865012274') {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle(title)

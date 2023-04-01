@@ -127,7 +127,7 @@ export default {
 
 			await ctx.interaction.channel?.bulkDelete(filtered, true).then((messages) => {
 				// Create Embed
-				let message: any
+				let message: EmbedBuilder
 				if (messages.size == 1) {
 					message = new EmbedBuilder().setColor(0x37009B)
 						.setTitle('» DELETE MESSAGES')
@@ -161,7 +161,7 @@ export default {
 		} else {
 			await ctx.interaction.channel?.bulkDelete(amount, true).then((messages) => {
 				// Create Embed
-				let message: any
+				let message: EmbedBuilder
 				if (messages.size == 1) {
 					message = new EmbedBuilder().setColor(0x37009B)
 						.setTitle('» DELETE MESSAGES')

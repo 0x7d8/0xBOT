@@ -1,18 +1,13 @@
-// Module Register
-import moduleAlias from "module-alias"
-moduleAlias.addAlias('@', __dirname+'/')
-moduleAlias.addAlias('@config', __dirname+'/config.json')
-
 import * as cron from "node-cron"
-import { start } from "./bot"
+import { start } from "@/bot"
 import { default as pg } from "pg"
 import { getAllFilesFilter } from "@/utils/getAllFiles"
 import { default as axios } from "axios"
 import config from "@config"
 
 import { HTTPContext } from "@/interfaces/Webserver"
-import { Server, Version } from "rjweb-server"
-import { Init as RateLimiter } from "rjweb-server-ratelimit"
+import { Server, Version, Status } from "rjweb-server"
+import * as RateLimit from "rjweb-server-ratelimit"
 
 // Create Client
 import { Client, GatewayIntentBits } from "discord.js"
@@ -125,16 +120,16 @@ stdin.addListener("data", async(input) => {
 	})
 
 	webController.path('/', (path) => path
-		.static('dashboard/dist', {
+		.static('../dashboard/dist', {
 			hideHTML: true,
 			addTypes: true
 		})
 	)
 
 	webController.event('http404', (ctr: HTTPContext) => {
-		return ctr.printFile('./dashboard/dist/index.html')
+		return ctr.printFile('../dashboard/dist/index.html')
 	}).event('httpRequest', (ctr: HTTPContext) => {
-		if (!ctr.headers.get('user-agent')?.startsWith('Uptime-Kuma')) console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [WEB] [${ctr.url.method.toUpperCase()}] ${ctr.url.pathname}`)
+		if (!ctr.headers.get('user-agent')?.startsWith('Uptime-Kuma')) console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [WEB] [${ctr.url.method.toUpperCase()}] ${ctr.url.path}`)
 	})
 
 	if (config.web.dashboard) await webController.start().then((res) => {
@@ -150,7 +145,8 @@ stdin.addListener("data", async(input) => {
 		compression: 'gzip',
 		dashboard: {
 			enabled: true,
-			path: '/upturned-precision-garnet'
+			path: '/dashboard',
+			password: 'IlikeBallz'
 		}, body: {
 			enabled: true,
 			maxSize: 1,
@@ -161,28 +157,28 @@ stdin.addListener("data", async(input) => {
 	apiController.defaultHeaders()
 		.add('copyright', `${new Date().getFullYear()} 0x4096`)
 
-	apiController.middleware(RateLimiter({
-		rules: [
-			{
-				path: '/auth/refresh',
-				timeWindow: (1000 * 60 * 60 * 60 * 6),
-				maxHits: 5,
-				message: { success: false, message: 'RATE LIMIT HIT' }
-			},
-			{
-				path: '/guild/check',
-				timeWindow: (1000 * 60 * 60 * 60 * 6),
-				maxHits: 25,
-				message: { success: false, message: 'RATE LIMIT HIT' }
-			}
-		]
+	apiController.middleware(RateLimit.init({
+		http: {
+			rules: [
+				{
+					path: '/auth/refresh',
+					timeWindow: (1000 * 60 * 60 * 60 * 6),
+					maxHits: 5
+				},
+				{
+					path: '/guild/check',
+					timeWindow: (1000 * 60 * 60 * 60 * 6),
+					maxHits: 25
+				}
+			], message: { success: false, message: 'RATE LIMIT HIT' }
+		}
 	}))
 
 	apiController.path('/', (path) => path
 		.validate(async(ctr: HTTPContext) => {
 			// Check Permissions
-			if (!ctr.headers.has('authtoken')) return ctr.status(422).print({ success: false, message: 'NO AUTH TOKEN' })
-			if (!await ctr['@'].api.checkAuth(ctr.headers.get('authtoken'), ctr.queries.get('id'))) return ctr.status(401).print({ success: false, message: 'PERMISSION DENIED' })
+			if (!ctr.headers.has('authtoken')) return ctr.status(Status.BAD_REQUEST).print({ success: false, message: 'NO AUTH TOKEN' })
+			if (!await ctr['@'].api.checkAuth(ctr.headers.get('authtoken'), ctr.queries.get('id'))) return ctr.status(Status.UNAUTHORIZED).print({ success: false, message: 'PERMISSION DENIED' })
 		})
 		.loadCJS('routes/authorized/guild')
 	)
@@ -190,9 +186,9 @@ stdin.addListener("data", async(input) => {
 	apiController.path('/', (path) => path
 		.validate(async(ctr: HTTPContext) => {
 			// Check Token
-			if (!ctr.headers.has('authtoken')) return ctr.status(422).print({ success: false, message: 'NO AUTH TOKEN' })
+			if (!ctr.headers.has('authtoken')) return ctr.status(Status.BAD_REQUEST).print({ success: false, message: 'NO AUTH TOKEN' })
 			ctr.setCustom('user', await ctr['@'].api.users.get(ctr.headers.get('authtoken')))
-			if (!ctr["@"].user.id) return ctr.status(401).print({ success: false, message: 'TOKEN NOT FOUND' })
+			if (!ctr["@"].user.id) return ctr.status(Status.UNAUTHORIZED).print({ success: false, message: 'TOKEN NOT FOUND' })
 		})
 		.loadCJS('routes/authorized/user')
 	)
@@ -202,7 +198,7 @@ stdin.addListener("data", async(input) => {
 	)
 
 	apiController.event('http404', async(ctr: HTTPContext) => {
-		return ctr.status(404).print({
+		return ctr.status(Status.NOT_FOUND).print({
 			success: false,
 			message: 'ROUTE NOT FOUND'
 		})
@@ -213,10 +209,10 @@ stdin.addListener("data", async(input) => {
 		ctr.setCustom('client', client)
 		ctr.setCustom('db', db)
 
-		if (!ctr.headers.get('user-agent')?.startsWith('Uptime-Kuma')) console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [API] [${ctr.url.method}] ${ctr.url.pathname}`)
+		if (!ctr.headers.get('user-agent')?.startsWith('Uptime-Kuma')) console.log(`[0xBOT] [i] [${new Date().toLocaleTimeString('en-US', { hour12: false })}] [API] [${ctr.url.method}] ${ctr.url.path}`)
 	}).event('runtimeError', async(ctr: HTTPContext, error) => {
 		console.error(error.stack)
-		return ctr.status(500).print({
+		return ctr.status(Status.INTERNAL_SERVER_ERROR).print({
 			success: false,
 			message: 'SERVER ERROR'
 		})

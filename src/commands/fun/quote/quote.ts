@@ -81,7 +81,7 @@ export default {
 		}
 		
 		// Check if there is a author specified
-		let message: any
+		let message: EmbedBuilder
 		if (!author || ctx.interaction.user.id === author.id) {
 			const amount = await ctx.bot.quotes.get(ctx.interaction.user.id) + 1
 			message = new EmbedBuilder().setColor(0x37009B)

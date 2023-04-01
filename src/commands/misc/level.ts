@@ -99,7 +99,7 @@ export default {
 		}; await buildCard()
 		
 		// Create Embed
-		let message: any
+		let message: EmbedBuilder
 		if (!user) {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:GLOBE:1024403680503529583> » YOUR LEVEL')

@@ -1,1 +1,7 @@
-{"version":3,"file":"stats.js","sourceRoot":"src/","sources":["routes/authorized/user/stats.ts"],"names":[],"mappings":";AAIA,iBAAS;IACR,MAAM,EAAE,KAAK;IACb,IAAI,EAAE,aAAa;IAEnB,KAAK,CAAC,IAAI,CAAC,GAAG;QAEb,OAAO,GAAG,CAAC,KAAK,CAAC;YAChB,OAAO,EAAE,IAAI;YACb,QAAQ,EAAE,MAAM,GAAG,CAAC,GAAG,CAAC,CAAC,GAAG,CAAC,IAAI,CAAC,GAAG,CAAC,KAAK,GAAG,CAAC,GAAG,CAAC,CAAC,IAAI,CAAC,EAAE,EAAE,EAAE,KAAK,CAAC;YACrE,OAAO,EAAE,MAAM,GAAG,CAAC,GAAG,CAAC,CAAC,GAAG,CAAC,IAAI,CAAC,GAAG,CAAC,KAAK,GAAG,CAAC,GAAG,CAAC,CAAC,IAAI,CAAC,EAAE,EAAE,EAAE,KAAK,CAAC;YACpE,MAAM,EAAE,MAAM,GAAG,CAAC,GAAG,CAAC,CAAC,GAAG,CAAC,IAAI,CAAC,GAAG,CAAC,KAAK,GAAG,CAAC,GAAG,CAAC,CAAC,IAAI,CAAC,EAAE,EAAE,EAAE,KAAK,CAAC;SACnE,CAAC,CAAA;IACH,CAAC;CACsB,CAAA"}
+{
+  "version": 3,
+  "sources": ["../../../../src/routes/authorized/user/stats.ts"],
+  "sourcesContent": ["import { HTTPRouteFile } from \"@/interfaces/Webserver\"\n\ninterface Body {}\n\nexport = {\n\tmethod: 'GET',\n\tpath: '/stats/user',\n\n\tasync code(ctr) {\n\t\t// Return Result\n\t\treturn ctr.print({\n\t\t\tsuccess: true,\n\t\t\tcommands: await ctr['@'].bot.stat.get(`u-${ctr[\"@\"].user.id}`, 'cmd'),\n\t\t\tbuttons: await ctr['@'].bot.stat.get(`u-${ctr[\"@\"].user.id}`, 'btn'),\n\t\t\tmodals: await ctr['@'].bot.stat.get(`u-${ctr[\"@\"].user.id}`, 'mod')\n\t\t})\n\t}\n} as HTTPRouteFile<Body>"],
+  "mappings": "AAIA,iBAAS;AAAA,EACR,QAAQ;AAAA,EACR,MAAM;AAAA,EAEN,MAAM,KAAK,KAAK;AAEf,WAAO,IAAI,MAAM;AAAA,MAChB,SAAS;AAAA,MACT,UAAU,MAAM,IAAI,GAAG,EAAE,IAAI,KAAK,IAAI,KAAK,IAAI,GAAG,EAAE,KAAK,MAAM,KAAK;AAAA,MACpE,SAAS,MAAM,IAAI,GAAG,EAAE,IAAI,KAAK,IAAI,KAAK,IAAI,GAAG,EAAE,KAAK,MAAM,KAAK;AAAA,MACnE,QAAQ,MAAM,IAAI,GAAG,EAAE,IAAI,KAAK,IAAI,KAAK,IAAI,GAAG,EAAE,KAAK,MAAM,KAAK;AAAA,IACnE,CAAC;AAAA,EACF;AACD;",
+  "names": []
+}

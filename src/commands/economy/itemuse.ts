@@ -204,7 +204,6 @@ export default {
 		let b3 = (mathres + ctx.bot.random(50, 100) + 50)
 		let b4 = (mathres - ctx.bot.random(100, 150) + ctx.bot.random(5, 25))
 		const sb = ctx.bot.random(1, 4)
-		await eval('b' + sb + ' = ' + mathres)
 
 		// Create Buttons
 		const row = new ActionRowBuilder()
@@ -231,7 +230,7 @@ export default {
 			)
 		
 		// Create Embed
-		let message: any
+		let message: EmbedBuilder
 		if (itemcat === 'bomb') {
 	  		message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:BOXOPEN:1024395281460101213> » USE ITEM')

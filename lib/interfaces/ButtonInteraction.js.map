@@ -1,1 +1,7 @@
-{"version":3,"file":"ButtonInteraction.js","sourceRoot":"src/","sources":["interfaces/ButtonInteraction.ts"],"names":[],"mappings":""}
+{
+  "version": 3,
+  "sources": ["../../src/interfaces/ButtonInteraction.ts"],
+  "sourcesContent": ["import { ButtonInteraction, ButtonBuilder, ActionRowData } from \"discord.js\"\nimport Client from \"@/interfaces/Client\"\nimport * as bot from \"@/functions/bot\"\nimport { PoolClient } from \"pg\"\n\nexport default interface Interface {\n\tinteraction: ButtonInteraction\n\tclient: Client\n\n\tdb: PoolClient\n\tbot: typeof bot\n\tlog: (type: boolean, text: string) => void\n\n\tmetadata: {\n\t\tvote: {\n\t\t\ttext: string\n\t\t\ttime: number\n\t\t\tvalid: boolean\n\t\t}\n\n\t\tlanguage: 'de' | 'en'\n\t}\n\n\tcomponents: {\n\t\trows: {\n\t\t\tcomponents: ButtonBuilder[]\n\t\t}[]\n\t\tgetAPI: () => ActionRowData<any>[]\n\t}\n}"],
+  "mappings": ";;;;;;;;;;;;;AAAA;AAAA;",
+  "names": []
+}

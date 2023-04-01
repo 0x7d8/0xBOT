@@ -1,1 +1,7 @@
-{"version":3,"file":"Webserver.js","sourceRoot":"src/","sources":["interfaces/Webserver.ts"],"names":[],"mappings":""}
+{
+  "version": 3,
+  "sources": ["../../src/interfaces/Webserver.ts"],
+  "sourcesContent": ["import { HTTPRequestContext, RouteFile as HTTPFile } from \"rjweb-server\"\nimport * as bot from \"@/functions/bot\"\nimport * as api from \"@/functions/api\"\nimport config from \"@config\"\nimport { Client } from \"discord.js\"\nimport { Pool } from \"pg\"\n\ninterface Custom {\n\tconfig: typeof config\n\tclient: Client\n\tapi: typeof api\n\tbot: typeof bot\n\tdb: Pool\n\n\tuser: api.GetResponse\n}\n\nexport type HTTPContext<Body = any> = HTTPRequestContext<Custom, Body>\nexport type HTTPRouteFile<Body = any> = HTTPFile<Custom, Body>"],
+  "mappings": ";;;;;;;;;;;;;AAAA;AAAA;",
+  "names": []
+}

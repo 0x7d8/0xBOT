@@ -1,8 +1,3 @@
-// Module Register
-import moduleAlias from "module-alias"
-moduleAlias.addAlias('@', __dirname+'/')
-moduleAlias.addAlias('@config', __dirname+'/config.json')
-
 const sleep = (milliseconds: number) => Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, milliseconds)
 
 import * as cron from "node-cron"

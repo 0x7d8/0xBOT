@@ -2,101 +2,58 @@ import React, { useState, useEffect } from 'react'
 import {
   Box,
   Grid,
+  Text,
   Flex,
   Heading,
-  Center,
   useColorModeValue,
-  useToast,
-  Text,
-  Avatar,
+  Image,
+  Button,
   Stat,
   StatLabel,
-  StatNumber,
-  Button,
-  Switch
+  StatNumber
 } from '@chakra-ui/react'
 
-import { useCookies } from 'react-cookie'
 import { useNavigate } from 'react-router-dom'
-import { TbServer, TbHandClick } from 'react-icons/all'
-import axios from 'axios'
+import { TbListSearch, TbRocket, TbHandClick } from 'react-icons/all'
+import LogoLight from '/src/static/LogoLight.svg'
+import LogoDark from '/src/static/LogoDark.svg'
 
 import Animated from '/src/Animated'
+import axios from 'axios'
 
-import * as cookie from '/src/scripts/cookies'
-function ProfileBox() {
-  const toast = useToast()
-  const [ cookies, setCookie, removeCookie ] = useCookies()
-  const [ onlineValue, setOnlineValue ] = useState(false)
-  const [ stats, setStats ] = useState(0)
+/* ---------------- *
+ * Version          *
+ * ---------------- */
+const version = '3.11.5'
+
+function getWindowDimensions() {
+  const { innerWidth: width, innerHeight: height } = window;
+  return {
+    width,
+    height
+  };
+}; function useWindowDimensions() {
+  const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
 
   useEffect(() => {
-    axios
-      .get(`https://api.0xbot.de/stats/user`, {
-        headers: {
-          authToken: cookies.authToken
-        }
-      })
-      .then((res) => {
-        setStats(res.data)
-      })
+    function handleResize() {
+      setWindowDimensions(getWindowDimensions());
+    }
 
-    axios
-      .get(`https://api.0xbot.de/options/email`, {
-        headers: {
-          authToken: cookies.authToken
-        }
-      })
-      .then((res) => {
-        setOnlineValue(res.data.email)
-      })
-  }, [])
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
+  return windowDimensions;
+}
+
+function Bot() {
+  const width = useWindowDimensions().width
+  const SwitchImage = useColorModeValue(LogoLight, LogoDark)
   const navigate = useNavigate()
-  const SwitchIconColor = useColorModeValue('#21005D', '#37009B')
 
-  const emailSwitch = (data) => {
-    const value = (data.target._valueTracker.getValue() === 'true')
-    axios
-      .get(`https://api.0xbot.de/options/email`, {
-        headers: {
-          authToken: cookies.authToken
-        }
-      })
-      .then((res) => {
-        setOnlineValue((res.data === 'true'))
-      })
-
-    axios
-      .post(`https://api.0xbot.de/options/email`, {
-        option: value
-      }, {
-        headers: {
-          authToken: cookies.authToken
-        }
-      })
-      .then((res) => {
-        if (res.data.success) {
-          setOnlineValue(value)
-          return toast({
-            title: <Center>SUCCESS</Center>,
-            description: <Center>Successfully turned Emails {value ? 'On' : 'Off'}!</Center>,
-            status: "success",
-            duration: 2500,
-            isClosable: true,
-            variant: "subtle",
-            position: "top-right",
-            containerStyle: {
-              transform: "translateY(4.5rem)"
-            }
-          })
-        } else {
-          data.target._valueTracker.setValue(onlineValue)
-        }
-      }).catch((e) => {
-        data.target._valueTracker.setValue(onlineValue)
-      })
-  }
+  let size = '30rem'
+  if (width < 1000) { size = '50%' }
 
   return (
     <Flex alignItems="center" marginTop="2rem" justifyContent="center">
@@ -104,35 +61,71 @@ function ProfileBox() {
         w="100%"
         maxW="50rem"
         flexDirection="column"
-        bg={useColorModeValue('gray.100', 'gray.900')}
+        backgroundColor={useColorModeValue('gray.100', 'gray.900')}
         p={12}
         borderColor={useColorModeValue('blackAlpha.300', 'whiteAlpha.300')}
         borderWidth="1px"
         borderRadius="1rem"
-        boxShadow="lg"
+        className="shadow-md"
+      >
+        <Image src={SwitchImage} alt="Upgrade your Server" w={size} alignSelf="center" />
+        <Heading
+          mt="1rem"
+          mb="1rem"
+        >
+          <Flex flexDirection="column">
+            0xBOT
+            <Text fontSize="lg">{version}</Text>
+          </Flex>
+        </Heading>
+        <Button
+          alignSelf="center"
+          width="15rem"
+          variant="outline"
+          colorScheme="gray"
+          leftIcon={<TbRocket size={24} />}
+          onClick={() => {
+            if (window.authenticated) navigate('/panel')
+            else window.location.replace('https://discord.com/api/oauth2/authorize?client_id=1001944224545128588&redirect_uri=https%3A%2F%2F0xbot.de%2Fauth%2Fdiscord&response_type=code&scope=identify%20guilds%20email')
+          }}
+        >
+          GET STARTED
+        </Button>
+      </Flex>
+    </Flex>
+  )
+}; function GetStarted() {
+  const navigate = useNavigate()
+  const [stats, setStats] = useState(0)
+
+  useEffect(() => {
+    axios
+      .get(`https://api.0xbot.de/stats/global`)
+      .then((res) => {
+        setStats(res.data)
+      })
+  }, [])
+
+  return (
+    <Flex alignItems="center" justifyContent="center" marginTop="5rem">
+      <Flex
+        w="100%"
+        maxW="50rem"
+        backgroundColor={useColorModeValue('gray.100', 'gray.900')}
+        flexDirection="column"
+        p={12}
+        borderColor={useColorModeValue('blackAlpha.300', 'whiteAlpha.300')}
+        borderWidth="1px"
+        borderRadius="1rem"
+        className="shadow-md"
       >
         <Heading
-          mt='-2rem'
-          mb={6}
+          mt="-2rem"
+          mb="1rem"
         >
-          Welcome, {cookies.userName}
+          STATISTICS
         </Heading>
-
-        <Avatar
-          alignSelf='center'
-          size="2xl"
-          src={`https://cdn.discordapp.com/avatars/${cookies.userId}/${cookies.userAvatar}.png`}
-          alt='Profile Picture'
-        />
-
-        <Heading
-          mt="2rem"
-          mb="0.5rem"
-          fontFamily="sans-serif"
-        >
-          Stats
-        </Heading>
-
+        
         <Flex>
           <Stat
             w="45%"
@@ -218,46 +211,33 @@ function ProfileBox() {
             </Flex>
           </Stat>
         </Flex>
-        
+
         <Button
-          w="15rem"
           mt="2rem"
-          colorScheme="gray"
-          variant="outline"
           alignSelf="center"
-          leftIcon={<TbServer size={24} />}
-          onClick={() => {navigate('/panel/servers')}}
+          width="20rem"
+          variant="outline"
+          colorScheme="gray"
+          leftIcon={<TbListSearch size={24} />}
+          onClick={() => navigate('/transactions') }
         >
-          MANAGE SERVERS
+          TRANSACTION BROWSER
         </Button>
-        <Text
-          mt="2rem"
-          hidden={!cookies.userEmail}
-          color={SwitchIconColor}
-        >
-          Emails
-        </Text>
-        <Switch
-          mt="0.5rem"
-          size="lg"
-          isChecked={onlineValue}
-          hidden={!cookies.userEmail}
-          onChange={emailSwitch}
-        />
       </Flex>
     </Flex>
   )
 }
-function Panel() {    
+function Home() {
   return (
     <Animated>
       <Box textAlign="center" fontSize="xl" mt="6.2rem">
         <Grid minH="0%" p={3}>
-          <ProfileBox />
+          <Bot />
+          <GetStarted />
         </Grid>
       </Box>
     </Animated>
   )
 }
   
-export default Panel
+export default Home

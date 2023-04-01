@@ -32,7 +32,7 @@ export default {
 		const item = ctx.getOption('item') as string
 
 		// Send Message
-		let message: any
+		let message: EmbedBuilder
 		ctx.log(false, `[CMD] ITEMINFO : ${item.toUpperCase()}`)
 		if (item === 'nbomb') {
 			// Create Embed

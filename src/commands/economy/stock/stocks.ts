@@ -113,7 +113,7 @@ export default {
 		}
 
 		// Create Embed
-		let message: any
+		let message: EmbedBuilder
 		if (ctx.interaction.user.id === '69') {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:CHART:1024398298204876941> » YOUR BOUGHT STOCKS')

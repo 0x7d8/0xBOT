@@ -1,4 +1,4 @@
-import { SlashCommandBuilder, EmbedBuilder } from "discord.js"
+import { SlashCommandBuilder, EmbedBuilder, version } from "discord.js"
 
 import CommandInteraction from "@/interfaces/CommandInteraction"
 export default {
@@ -17,8 +17,8 @@ export default {
 			.setDescription(`
 				» Bot Version
 				\`\`\`${ctx.client.config.version} (V3)\`\`\`
-				» Framework
-				\`\`\`discord.js v14 (14.7.1)\`\`\`
+				» Library
+				\`\`\`discord.js ${version}\`\`\`
 				» Author
 				\`\`\`0x4096#7678\`\`\`
 			`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })
@@ -29,8 +29,8 @@ export default {
 				.setDescription(`
 					» Bot Version
 					\`\`\`${ctx.client.config.version} (V3)\`\`\`
-					» Framework
-					\`\`\`discord.js v14 (14.7.1)\`\`\`
+					» Bibliothek
+					\`\`\`discord.js ${version}\`\`\`
 					» Autor
 					\`\`\`0x4096#7678\`\`\`
 				`).setFooter({ text: '» ' + ctx.metadata.vote.text + ' » ' + ctx.client.config.version })

@@ -78,7 +78,7 @@ export default {
 		}
 		
 		// Create Embed
-		let message: any
+		let message: EmbedBuilder
 		if (amount === 1) {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:COINS:1024392690776944803> » COINFLIP')

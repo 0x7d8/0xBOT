@@ -1,1 +1,7 @@
-{"version":3,"file":"check.js","sourceRoot":"src/","sources":["routes/authorized/user/check.ts"],"names":[],"mappings":";AAIA,iBAAS;IACR,MAAM,EAAE,KAAK;IACb,IAAI,EAAE,aAAa;IAEnB,KAAK,CAAC,IAAI,CAAC,GAAG;QAEb,OAAO,GAAG,CAAC,KAAK,CAAC;YAChB,OAAO,EAAE,IAAI;SACb,CAAC,CAAA;IACH,CAAC;CACsB,CAAA"}
+{
+  "version": 3,
+  "sources": ["../../../../src/routes/authorized/user/check.ts"],
+  "sourcesContent": ["import { HTTPRouteFile } from \"@/interfaces/Webserver\"\n\ninterface Body {}\n\nexport = {\n\tmethod: 'GET',\n\tpath: '/auth/check',\n\n\tasync code(ctr) {\n\t\t// Return Result\n\t\treturn ctr.print({\n\t\t\tsuccess: true\n\t\t})\n\t}\n} as HTTPRouteFile<Body>"],
+  "mappings": "AAIA,iBAAS;AAAA,EACR,QAAQ;AAAA,EACR,MAAM;AAAA,EAEN,MAAM,KAAK,KAAK;AAEf,WAAO,IAAI,MAAM;AAAA,MAChB,SAAS;AAAA,IACV,CAAC;AAAA,EACF;AACD;",
+  "names": []
+}

@@ -3,16 +3,17 @@
     "module": "NodeNext",
     "skipLibCheck": true,
     "moduleResolution": "NodeNext",
+    "esModuleInterop": true,
     "declaration": false,
     "resolveJsonModule": true,
     "target": "ES2020",
     "sourceMap": true,
     "outDir": "lib",
-    "baseUrl": "src",
+    "baseUrl": ".",
     "sourceRoot": "src",
     "paths": {
-      "@/*": ["*"],
-      "@config": ["config.json"]
+      "@/*": ["src/*"],
+      "@config": ["src/config.json"]
     },
-  }, "include": ["src/**/*"]
+  }, "include": ["src/**/*", "dashboard"]
 }

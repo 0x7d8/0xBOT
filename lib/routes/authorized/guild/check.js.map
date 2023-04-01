@@ -1,1 +1,7 @@
-{"version":3,"file":"check.js","sourceRoot":"src/","sources":["routes/authorized/guild/check.ts"],"names":[],"mappings":";AAIA,iBAAS;IACR,MAAM,EAAE,KAAK;IACb,IAAI,EAAE,cAAc;IAEpB,KAAK,CAAC,IAAI,CAAC,GAAG;QAEb,IAAI,CAAC,GAAG,CAAC,OAAO,CAAC,GAAG,CAAC,IAAI,CAAC;YAAE,OAAO,GAAG,CAAC,MAAM,CAAC,GAAG,CAAC,CAAC,KAAK,CAAC,EAAE,OAAO,EAAE,KAAK,EAAE,OAAO,EAAE,OAAO,EAAE,CAAC,CAAA;QAG9F,IAAI,MAAM,GAAG,IAAI,CAAA;QACjB,MAAM,GAAG,CAAC,GAAG,CAAC,CAAC,MAAM,CAAC,MAAM,CAAC,KAAK,CAAC,GAAG,CAAC,OAAO,CAAC,GAAG,CAAC,IAAI,CAAC,CAAC,CAAC,KAAK,CAAC,GAAG,EAAE,GAAG,MAAM,GAAG,KAAK,CAAA,CAAC,CAAC,CAAC,CAAA;QAGzF,OAAO,GAAG,CAAC,KAAK,CAAC;YAChB,OAAO,EAAE,MAAM;SACf,CAAC,CAAA;IACH,CAAC;CACsB,CAAA"}
+{
+  "version": 3,
+  "sources": ["../../../../src/routes/authorized/guild/check.ts"],
+  "sourcesContent": ["import { HTTPRouteFile } from \"@/interfaces/Webserver\"\n\ninterface Body {}\n\nexport = {\n\tmethod: 'GET',\n\tpath: '/check/guild',\n\n\tasync code(ctr) {\n\t\t// Check for Queries\n\t\tif (!ctr.queries.has('id')) return ctr.status(422).print({ success: false, message: 'NO ID' })\n\n\t\t// Get Stats\n\t\tlet status = true\n\t\tawait ctr['@'].client.guilds.fetch(ctr.queries.get('id')).catch(() => { status = false })\n\n\t\t// Return Result\n\t\treturn ctr.print({\n\t\t\tsuccess: status\n\t\t})\n\t}\n} as HTTPRouteFile<Body>"],
+  "mappings": "AAIA,iBAAS;AAAA,EACR,QAAQ;AAAA,EACR,MAAM;AAAA,EAEN,MAAM,KAAK,KAAK;AAEf,QAAI,CAAC,IAAI,QAAQ,IAAI,IAAI;AAAG,aAAO,IAAI,OAAO,GAAG,EAAE,MAAM,EAAE,SAAS,OAAO,SAAS,QAAQ,CAAC;AAG7F,QAAI,SAAS;AACb,UAAM,IAAI,GAAG,EAAE,OAAO,OAAO,MAAM,IAAI,QAAQ,IAAI,IAAI,CAAC,EAAE,MAAM,MAAM;AAAE,eAAS;AAAA,IAAM,CAAC;AAGxF,WAAO,IAAI,MAAM;AAAA,MAChB,SAAS;AAAA,IACV,CAAC;AAAA,EACF;AACD;",
+  "names": []
+}

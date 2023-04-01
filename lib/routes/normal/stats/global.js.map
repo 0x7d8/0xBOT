@@ -1,1 +1,7 @@
-{"version":3,"file":"global.js","sourceRoot":"src/","sources":["routes/normal/stats/global.ts"],"names":[],"mappings":";AAIA,iBAAS;IACR,MAAM,EAAE,KAAK;IACb,IAAI,EAAE,eAAe;IAErB,KAAK,CAAC,IAAI,CAAC,GAAG;QAEb,OAAO,GAAG,CAAC,KAAK,CAAC;YAChB,OAAO,EAAE,IAAI;YACb,QAAQ,EAAE,MAAM,CAAC,MAAM,GAAG,CAAC,GAAG,CAAC,CAAC,GAAG,CAAC,IAAI,CAAC,GAAG,CAAC,OAAO,EAAE,KAAK,CAAC,CAAC;YAC7D,OAAO,EAAE,MAAM,CAAC,MAAM,GAAG,CAAC,GAAG,CAAC,CAAC,GAAG,CAAC,IAAI,CAAC,GAAG,CAAC,OAAO,EAAE,KAAK,CAAC,CAAC;YAC5D,MAAM,EAAE,MAAM,CAAC,MAAM,GAAG,CAAC,GAAG,CAAC,CAAC,GAAG,CAAC,IAAI,CAAC,GAAG,CAAC,OAAO,EAAE,KAAK,CAAC,CAAC;SAC3D,CAAC,CAAA;IACH,CAAC;CACsB,CAAA"}
+{
+  "version": 3,
+  "sources": ["../../../../src/routes/normal/stats/global.ts"],
+  "sourcesContent": ["import { HTTPRouteFile } from \"@/interfaces/Webserver\"\n\ninterface Body {}\n\nexport = {\n\tmethod: 'GET',\n\tpath: '/stats/global',\n\n\tasync code(ctr) {\n\t\t// Return Result\n\t\treturn ctr.print({\n\t\t\tsuccess: true,\n\t\t\tcommands: Number(await ctr['@'].bot.stat.get(`t-all`, 'cmd')),\n\t\t\tbuttons: Number(await ctr['@'].bot.stat.get(`t-all`, 'btn')),\n\t\t\tmodals: Number(await ctr['@'].bot.stat.get(`t-all`, 'mod'))\n\t\t})\n\t}\n} as HTTPRouteFile<Body>"],
+  "mappings": "AAIA,iBAAS;AAAA,EACR,QAAQ;AAAA,EACR,MAAM;AAAA,EAEN,MAAM,KAAK,KAAK;AAEf,WAAO,IAAI,MAAM;AAAA,MAChB,SAAS;AAAA,MACT,UAAU,OAAO,MAAM,IAAI,GAAG,EAAE,IAAI,KAAK,IAAI,SAAS,KAAK,CAAC;AAAA,MAC5D,SAAS,OAAO,MAAM,IAAI,GAAG,EAAE,IAAI,KAAK,IAAI,SAAS,KAAK,CAAC;AAAA,MAC3D,QAAQ,OAAO,MAAM,IAAI,GAAG,EAAE,IAAI,KAAK,IAAI,SAAS,KAAK,CAAC;AAAA,IAC3D,CAAC;AAAA,EACF;AACD;",
+  "names": []
+}

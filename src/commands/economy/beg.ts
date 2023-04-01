@@ -105,7 +105,7 @@ export default {
 		}
 
 		// Create Embed
-		let message: any
+		let message: EmbedBuilder
 		if (!reason) {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:DONATE:1024397357988720711> » BEGGING')

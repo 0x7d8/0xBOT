@@ -65,7 +65,7 @@ export default {
 		}
 		
 		// Create Embed
-		let message: any
+		let message: EmbedBuilder
 		if (!user) {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:QUOTES:1024406448127623228> » YOUR QUOTES')

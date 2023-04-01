@@ -43,7 +43,7 @@ export default {
 		ctx.components.rows[0].components[Number(solbutton)-1].setStyle(3)
 
 		// Create Embed
-		let message: any
+		let message: EmbedBuilder
 		if (solution === choice) {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:BOXOPEN:1024395281460101213> » USE ITEM')

@@ -35,7 +35,7 @@ export default {
 		}
 		
 		// Create Embed
-		let message: any
+		let message: EmbedBuilder
 		if (!user) {
 			message = new EmbedBuilder().setColor(0x37009B)
 				.setTitle('<:WALLET:1024387370793050273> » YOUR BALANCE')
